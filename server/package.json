@@ -1,0 +1,12 @@
+{
+  "name": "network-viewer-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-powershell": "^4.0.0",
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries"
+  }
+}
