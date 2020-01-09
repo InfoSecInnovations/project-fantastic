@@ -295,18 +295,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfuncti
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  if (action.type == 'node_state') state.search.node_state = action.value\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
-
-/***/ }),
-
-/***/ "./util/states.js":
-/*!************************!*\
-  !*** ./util/states.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("const states = {\r\n  2: 'Listen',\r\n  3: 'SynSent',\r\n  5: 'Established',\r\n  8: 'CloseWait',\r\n  11: 'TimeWait',\r\n  100: 'Bound'\r\n}\r\n\r\nmodule.exports = states\n\n//# sourceURL=webpack:///./util/states.js?");
+eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
 
 /***/ }),
 
@@ -317,7 +306,7 @@ eval("const states = {\r\n  2: 'Listen',\r\n  3: 'SynSent',\r\n  5: 'Established
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Nodes = __webpack_require__(/*! ./nodes */ \"./view/nodes.js\")\r\nconst States = __webpack_require__(/*! ../util/states */ \"./util/states.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('h1', \"Mick and Seb's Fantastic Network Viewer\"),\r\n    H('div.search', {\r\n      on: {change: e => send({type: 'node_state', value: e.target.value})}\r\n    }, [\r\n      H('label', {\r\n        attrs: {for: 'connection-state'}\r\n      }, \r\n      'Connection State'),\r\n      H('select#connection-state', \r\n        {attrs: {name: 'connection-state'}},\r\n        Object.values(States).map(v => H('option', {attrs: {value: v, selected: v == 'Established'}}, v))\r\n      )\r\n    ]),\r\n    Nodes(state, send)\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Nodes = __webpack_require__(/*! ./nodes */ \"./view/nodes.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('h1', \"Mick and Seb's Fantastic Network Viewer\"),\r\n    Nodes(state, send)\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
 
 /***/ }),
 
@@ -328,7 +317,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst States = __webpack_require__(/*! ../util/states */ \"./util/states.js\")\r\n\r\nconst circle_point = (r, i, total) => {  \r\n  const theta = (Math.PI*2) / total\r\n  const angle = theta * i\r\n  const x = r * Math.cos(angle)\r\n  const y = r * Math.sin(angle)\r\n  return {x, y}\r\n}\r\n\r\nconst address = ip => ip.includes(':') ? `[${ip}]` : ip\r\n\r\nconst search = v => States[v.State] == (state.search.node_state || 'Established')\r\n\r\nconst nodes = (state, send) => {\r\n  if (!state.nodes) return\r\n  const width = document.documentElement.clientWidth\r\n  const height = document.documentElement.clientHeight\r\n  const selection = state.nodes.filter(search)\r\n  const element_height = 32\r\n  const element_width = 150\r\n  return (H('div#nodes', [\r\n    H('div.node', {\r\n      style: {left: `${width / 2 - element_width}px`, top: `${height / 2 - element_height}px`}\r\n    }, [\r\n      H('p', 'YOU ARE HERE')\r\n    ]),\r\n    ...selection.map(\r\n      (v, i, arr) => {\r\n        const pos = circle_point(Math.min(width, height) / 2 - element_height, i, arr.length)\r\n        return H('div.node', {\r\n          style: {left: `${pos.x + width / 2 - element_width}px`, top: `${pos.y + height / 2 - element_height}px`}\r\n          }, [\r\n            H('p', `Local: ${address(v.LocalAddress)}:${v.LocalPort}`),\r\n            H('p', `Remote: ${address(v.RemoteAddress)}:${v.RemotePort}`),\r\n            H('p', `State: ${States[v.State].replace(/([a-z0-9])([A-Z])/g, '$1 $2').toUpperCase()}`)\r\n        ])\r\n      }\r\n    )\r\n  ]))\r\n}\r\n\r\nmodule.exports = nodes\n\n//# sourceURL=webpack:///./view/nodes.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst circle_point = (r, i, total) => {  \r\n  const theta = (Math.PI*2) / total\r\n  const angle = theta * i\r\n  const x = r * Math.cos(angle)\r\n  const y = r * Math.sin(angle)\r\n  return {x, y}\r\n}\r\n\r\nconst address = ip => ip.includes(':') ? `[${ip}]` : ip\r\n\r\nconst search = v => true // TODO: search\r\n\r\nconst nodes = (state, send) => {\r\n  if (!state.nodes) return\r\n  const width = document.documentElement.clientWidth\r\n  const height = document.documentElement.clientHeight\r\n  const selection = state.nodes.filter(search)\r\n  const element_height = 10\r\n  const element_width = 150\r\n  return (H('div#nodes', selection.map(\r\n      (v, i, arr) => {\r\n        const pos = circle_point(Math.min(width, height) / 2 - element_height, i, arr.length)\r\n        return H('div.node', {\r\n          style: {left: `${pos.x + width / 2 - element_width}px`, top: `${pos.y + height / 2 - element_height}px`}\r\n          }, [\r\n            H('p', address(v.ip))\r\n        ])\r\n      }\r\n    )\r\n  ))\r\n}\r\n\r\nmodule.exports = nodes\n\n//# sourceURL=webpack:///./view/nodes.js?");
 
 /***/ })
 

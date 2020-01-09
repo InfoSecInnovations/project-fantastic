@@ -1,0 +1,13 @@
+{
+  ip,
+  id,
+  connections: [
+    {
+      local_port,
+      remote_address,
+      remote_port,
+      process: {id, name},
+      state
+    }...
+  ]
+}

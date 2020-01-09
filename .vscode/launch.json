@@ -11,7 +11,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}\\server\\netstat.js",
+      "program": "${workspaceFolder}\\server\\index.js",
       "cwd": "${workspaceFolder}\\server"
     }
   ]

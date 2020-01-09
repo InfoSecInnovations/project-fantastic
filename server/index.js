@@ -1,15 +1,14 @@
 const UWS = require('uWebSockets.js')
 const FS = require('fs').promises
-const Shell = require('node-powershell')
+const GetNetTcpConnection = require('./getnettcpconnection')
 
-const ps = new Shell({
-  executionPolicy: 'Bypass',
-  noProfile: true
+let nodes = []
+
+console.log('getting results from get-nettcpconnection, please wait...')
+GetNetTcpConnection().then(res => {
+  nodes = nodes.concat(res)
+  console.log('get-nettcpconnection results ready')
 })
-
-let nodes
-ps.addCommand('get-nettcpconnection | ConvertTo-Json')
-ps.invoke().then(res => nodes = res)
 
 const app = UWS.App()
 app.get('/', (res, req) => {
@@ -21,6 +20,6 @@ app.get('/*', (res, req) => {
   FS.readFile(req.getUrl().replace('/', '')).then(file => res.end(file), rej => res.end(''))
 })
 app.get('/nodes', (res, req) => {
-  res.end(nodes)
+  res.end(JSON.stringify(nodes))
 })
 app.listen(5000, () => {})
