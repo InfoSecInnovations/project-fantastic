@@ -10,7 +10,7 @@ const patch = Snabbdom.init([
   require('snabbdom/modules/style').default,
   require('snabbdom/modules/eventlisteners').default, ])
 
-let state = {}
+let state = {search: {}}
 let vdom = ToVNode(document.body)
 
 const send = action=> {

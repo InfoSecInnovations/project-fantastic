@@ -1,8 +1,18 @@
+#nodes {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .node {
   position: absolute;
-  margin: 0.5rem;
+  white-space: nowrap;
 }
 
 p {
   margin: 0;
+}
+
+label {
+  margin-right: 1rem;
 }
