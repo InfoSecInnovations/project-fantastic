@@ -31,7 +31,7 @@ const getNetTcpConnection = () => {
     local_port: v.LocalPort,
     remote_address: v.RemoteAddress,
     remote_port: v.RemotePort,
-    process: {id: v.OwningProcess, process: await get_process(v.OwningProcess).catch(rej => '')},
+    process: {id: v.OwningProcess, name: await get_process(v.OwningProcess).catch(rej => '')}, //sometimes the process doesn't exist anymore by the time this executes so we have to catch it
     state: states[v.State]
   }))))
   .then(res => res.reduce((result, v) => {

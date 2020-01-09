@@ -7,6 +7,7 @@
   "license": "ISC",
   "dependencies": {
     "snabbdom": "^0.7.4",
+    "vis-network": "^6.5.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10"
   },
