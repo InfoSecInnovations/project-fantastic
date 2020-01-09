@@ -86,6 +86,17 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./effect/index.js":
+/*!*************************!*\
+  !*** ./effect/index.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const effect = (state, action, send) => {\r\n  if (action.type == 'init') {\r\n    fetch('/nodes').then(res => res.json()).then(res => send({type: 'nodes', nodes: res}))\r\n  }\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
+
+/***/ }),
+
 /***/ "./main.js":
 /*!*****************!*\
   !*** ./main.js ***!
@@ -93,7 +104,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const ToVNode = __webpack_require__(/*! snabbdom/tovnode */ \"./node_modules/snabbdom/tovnode.js\").default\r\nconst Snabbdom = __webpack_require__(/*! snabbdom */ \"./node_modules/snabbdom/es/snabbdom.js\")\r\nconst H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst States = {\r\n  2: 'Listen',\r\n  3: 'SynSent',\r\n  5: 'Established',\r\n  8: 'CloseWait',\r\n  11: 'TimeWait',\r\n  100: 'Bound'\r\n}\r\n\r\nconst patch = Snabbdom.init([\r\n  __webpack_require__(/*! snabbdom/modules/class */ \"./node_modules/snabbdom/modules/class.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/attributes */ \"./node_modules/snabbdom/modules/attributes.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/style */ \"./node_modules/snabbdom/modules/style.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/eventlisteners */ \"./node_modules/snabbdom/modules/eventlisteners.js\").default, ])\r\n\r\nlet state = {}\r\nlet vdom = ToVNode(document.body)\r\n\r\nconst update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  \r\n  return state\r\n}\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('h1', 'Network Viewer'),\r\n    ...(state.nodes ? state.nodes.map((v, i) => States[v.State] == 'Established' ? H('div.node', [\r\n      H('p', `Local Address: ${v.LocalAddress}`),\r\n      H('p', `Local Port: ${v.LocalPort}`),\r\n      H('p', `Remote Address: ${v.RemoteAddress}`),\r\n      H('p', `Remote Port: ${v.RemotePort}`),\r\n      H('p', `State: ${States[v.State]}`)\r\n    ]) : undefined) : [])\r\n  ])\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') {\r\n    fetch('/nodes').then(res => res.json()).then(res => send({type: 'nodes', nodes: res}))\r\n  }\r\n}\r\n\r\nconst send = action=>setTimeout(()=>{\r\n  state = update(state,action)\r\n  vdom = patch(vdom,view(state,send))\r\n  effect(state,action,send) })\r\n  \r\nsend({type:'init'})\r\n\r\nwindow.state = state\n\n//# sourceURL=webpack:///./main.js?");
+eval("const ToVNode = __webpack_require__(/*! snabbdom/tovnode */ \"./node_modules/snabbdom/tovnode.js\").default\r\nconst Snabbdom = __webpack_require__(/*! snabbdom */ \"./node_modules/snabbdom/es/snabbdom.js\")\r\nconst Update = __webpack_require__(/*! ./update */ \"./update/index.js\")\r\nconst View = __webpack_require__(/*! ./view */ \"./view/index.js\")\r\nconst Effect = __webpack_require__(/*! ./effect */ \"./effect/index.js\")\r\n\r\nconst patch = Snabbdom.init([\r\n  __webpack_require__(/*! snabbdom/modules/class */ \"./node_modules/snabbdom/modules/class.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/attributes */ \"./node_modules/snabbdom/modules/attributes.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/style */ \"./node_modules/snabbdom/modules/style.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/eventlisteners */ \"./node_modules/snabbdom/modules/eventlisteners.js\").default, ])\r\n\r\nlet state = {}\r\nlet vdom = ToVNode(document.body)\r\n\r\nconst send = action=> {\r\n  state = Update(state, action)\r\n  vdom = patch(vdom, View(state, send))\r\n  Effect(state,action,send) \r\n}\r\n  \r\nsend({type:'init'})\r\n\r\nwindow.state = state\n\n//# sourceURL=webpack:///./main.js?");
 
 /***/ }),
 
@@ -274,6 +285,39 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar vn
 
 "use strict";
 eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction vnode(sel, data, children, text, elm) {\n    var key = data === undefined ? undefined : data.key;\n    return { sel: sel, data: data, children: children, text: text, elm: elm, key: key };\n}\nexports.vnode = vnode;\nexports.default = vnode;\n//# sourceMappingURL=vnode.js.map\n\n//# sourceURL=webpack:///./node_modules/snabbdom/vnode.js?");
+
+/***/ }),
+
+/***/ "./update/index.js":
+/*!*************************!*\
+  !*** ./update/index.js ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  \r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
+
+/***/ }),
+
+/***/ "./util/states.js":
+/*!************************!*\
+  !*** ./util/states.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const states = {\r\n  2: 'Listen',\r\n  3: 'SynSent',\r\n  5: 'Established',\r\n  8: 'CloseWait',\r\n  11: 'TimeWait',\r\n  100: 'Bound'\r\n}\r\n\r\nmodule.exports = states\n\n//# sourceURL=webpack:///./util/states.js?");
+
+/***/ }),
+
+/***/ "./view/index.js":
+/*!***********************!*\
+  !*** ./view/index.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst States = __webpack_require__(/*! ../util/states */ \"./util/states.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('h1', 'Network Viewer'),\r\n    ...(state.nodes ? state.nodes.map((v, i) => States[v.State] == 'Established' ? H('div.node', [\r\n      H('p', `Local Address: ${v.LocalAddress}`),\r\n      H('p', `Local Port: ${v.LocalPort}`),\r\n      H('p', `Remote Address: ${v.RemoteAddress}`),\r\n      H('p', `Remote Port: ${v.RemotePort}`),\r\n      H('p', `State: ${States[v.State]}`)\r\n    ]) : undefined) : [])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
 
 /***/ })
 
