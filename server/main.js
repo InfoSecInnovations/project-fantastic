@@ -317,7 +317,18 @@ eval("const states = {\r\n  2: 'Listen',\r\n  3: 'SynSent',\r\n  5: 'Established
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst States = __webpack_require__(/*! ../util/states */ \"./util/states.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('h1', 'Network Viewer'),\r\n    ...(state.nodes ? state.nodes.map((v, i) => States[v.State] == 'Established' ? H('div.node', [\r\n      H('p', `Local Address: ${v.LocalAddress}`),\r\n      H('p', `Local Port: ${v.LocalPort}`),\r\n      H('p', `Remote Address: ${v.RemoteAddress}`),\r\n      H('p', `Remote Port: ${v.RemotePort}`),\r\n      H('p', `State: ${States[v.State]}`)\r\n    ]) : undefined) : [])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Nodes = __webpack_require__(/*! ./nodes */ \"./view/nodes.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('h1', 'Network Viewer'),\r\n    Nodes(state, send)\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
+
+/***/ }),
+
+/***/ "./view/nodes.js":
+/*!***********************!*\
+  !*** ./view/nodes.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst States = __webpack_require__(/*! ../util/states */ \"./util/states.js\")\r\n\r\nconst circle_point = (r, i, total) => {  \r\n  const theta = (Math.PI*2) / total\r\n  const angle = theta * i\r\n  const x = r * Math.cos(angle)\r\n  const y = r * Math.sin(angle)\r\n  return {x, y}\r\n}\r\n\r\nconst nodes = (state, send) => {\r\n  if (!state.nodes) return\r\n  const width = document.documentElement.clientWidth\r\n  const height = document.documentElement.clientHeight\r\n  const selection = state.nodes.filter(v => States[v.State] == 'Established') // TODO: use user's search criteria\r\n  return (H('div.nodes', [\r\n    H('div.node', {\r\n      style: {left: `${width / 2}px`, top: `${height / 2}px`}\r\n    }, [\r\n      H('p', 'YOU ARE HERE')\r\n    ]),\r\n    ...selection.map(\r\n      (v, i, arr) => {\r\n        if (States[v.State] != 'Established') return\r\n        const pos = circle_point(Math.min(width, height) * 0.45, i, arr.length)\r\n        return H('div.node', {\r\n          style: {left: `${pos.x + width / 2}px`, top: `${pos.y + height / 2}px`}\r\n          }, [\r\n            H('p', `Local: ${v.LocalAddress}:${v.LocalPort}`),\r\n            H('p', `Remote: ${v.RemoteAddress}:${v.RemotePort}`),\r\n            H('p', `State: ${States[v.State].toUpperCase()}`)\r\n        ])\r\n      }\r\n    )\r\n  ]))\r\n}\r\n\r\nmodule.exports = nodes\n\n//# sourceURL=webpack:///./view/nodes.js?");
 
 /***/ })
 
