@@ -7,6 +7,7 @@
   "license": "ISC",
   "dependencies": {
     "node-powershell": "^4.0.0",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries",
+    "xml2js": "^0.4.23"
   }
 }

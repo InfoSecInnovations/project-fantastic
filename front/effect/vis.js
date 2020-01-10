@@ -1,7 +1,7 @@
 const Vis = require('vis-network')
 
 const graph = (state, send) => {
-  const nodes = new Vis.DataSet(state.nodes.map((v, i) => ({id: i, label: v.ip})))
+  const nodes = new Vis.DataSet(state.nodes.map((v, i) => ({id: i, label: `${v.hostname} (${v.ipv4 || v.ipv6})`})))
   const edges = []
   state.nodes.forEach((v, i, arr) => {
     v.connections.forEach(c => {
@@ -22,8 +22,9 @@ const graph = (state, send) => {
     physics: {
       enabled: true,
       barnesHut: {
-        centralGravity: 1,
-        gravitationalConstant: -8000
+        centralGravity: 0.6,
+        gravitationalConstant: -5000,
+        springLength: 200
       }
     },
     layout: {

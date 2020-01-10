@@ -1,6 +1,8 @@
 {
-  ip,
-  id,
+  ipv4,
+  ipv6,
+  mac,
+  hostname
   connections: [
     {
       local_port,

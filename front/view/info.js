@@ -8,7 +8,10 @@ const info = (state, send) => {
   return H('div#info', [
     H('div.section', [
       H('div.title', 'Info'),
-      H('div.address', `Local address: ${node.ip}`)
+      H('div.item', `hostname: ${node.hostname}`),
+      H('div.item', `IPV4: ${node.ipv4}`),
+      H('div.item', `IPV6: ${node.ipv6}`),
+      H('div.item', `Mac: ${node.mac}`)
     ]),
     H('div.section', [
       H('div.subtitle', `Connections (${node.connections.length}):`),
