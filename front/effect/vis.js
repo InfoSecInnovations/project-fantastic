@@ -20,7 +20,11 @@ const graph = (state, send) => {
       arrows: 'to'
     },
     physics: {
-      enabled: true
+      enabled: true,
+      barnesHut: {
+        centralGravity: 1,
+        gravitationalConstant: -8000
+      }
     },
     layout: {
     }
