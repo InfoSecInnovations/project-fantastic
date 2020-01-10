@@ -1,9 +1,18 @@
 const Shell = require('node-powershell')
 
-const shell = () => new Shell({
-  executionPolicy: 'Bypass',
-  noProfile: true
-})
+const run = async command => {
+  const ps = new Shell({
+    executionPolicy: 'Bypass',
+    noProfile: true
+  })
+  ps.addCommand(command)
+  const result = await ps.invoke().catch(rej => {
+    console.log(`PowerShell command failed: ${rej}`)
+    return ''
+  })
+  ps.dispose()
+  return result
+}
 
 const states = {
   2: 'listen',
@@ -16,16 +25,12 @@ const states = {
 
 const new_node = ip => ({ip, connections: []})
 
-const get_process = id => {
-  const ps = shell()
-  ps.addCommand(`(get-process -id ${id}).name`)
-  return ps.invoke()
-}
+let processes = {}
+const get_process = id => processes[id] || (processes[id] = run(`(get-process -id ${id}).name`))
 
 const getNetTcpConnection = () => {
-  const ps = shell()
-  ps.addCommand('get-nettcpconnection | ConvertTo-Json')
-  return ps.invoke()
+  processes = {}
+  return run('get-nettcpconnection | ConvertTo-Json')
   .then(res => Promise.all(JSON.parse(res).map(async v => ({
     ip: v.LocalAddress,
     local_port: v.LocalPort,
