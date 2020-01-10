@@ -26,10 +26,53 @@ label {
   margin-right: 1rem;
 }
 
-div.line{
+div.line {
   transform-origin: 0 100%;
   height: 2px; /* Line width*/
   background: #000;
   position: absolute;
   z-index: -1;
+}
+
+#ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  display: flex;
+}
+
+#info {
+  margin-left: auto;
+  width: min(40%, 500px);
+  pointer-events: auto;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#info .title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+#info .subtitle {
+  font-weight: bold;
+}
+
+#info .section {
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+#info .connections {
+  overflow-y: auto;
+}
+
+#info .connection {
+  margin: 0.5rem;
 }

@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') window.onresize = e => send({type: 'render'})\r\n  if (action.type == 'graph_container') fetch('/nodes').then(res => res.json()).then(res => send({type: 'nodes', nodes: res}))\r\n  if (action.type == 'nodes') Vis(state)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
+eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') window.onresize = e => send({type: 'render'})\r\n  if (action.type == 'graph_container') fetch('/nodes').then(res => res.json()).then(res => send({type: 'nodes', nodes: res}))\r\n  if (action.type == 'nodes') Vis(state, send)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
 
 /***/ }),
 
@@ -104,7 +104,7 @@ eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\n\r\nc
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Vis = __webpack_require__(/*! vis-network */ \"./node_modules/vis-network/dist/vis-network.esm.min.js\")\r\n\r\nconst graph = state => {\r\n  const nodes = new Vis.DataSet(state.nodes.map((v, i) => ({id: i, label: v.ip})))\r\n  const edges = new Vis.DataSet(state.nodes.reduce((result, v, i, arr) => [...result, ...v.connections.map(c => {\r\n    const target_index = arr.findIndex(n => n.ip == c.remote_address)\r\n    if (target_index == -1 || target_index == i) return\r\n    return {from: i, to: target_index, label: c.process.name}\r\n  }).filter(v => v)], []))\r\n  const options = {\r\n    edges: {\r\n      arrows: 'to'\r\n    },\r\n    physics: {\r\n      enabled: true\r\n    },\r\n    layout: {\r\n    }\r\n  }\r\n  const network = new Vis.Network(state.graph_container, {nodes, edges}, options)\r\n}\r\n\r\nmodule.exports = graph\n\n//# sourceURL=webpack:///./effect/vis.js?");
+eval("const Vis = __webpack_require__(/*! vis-network */ \"./node_modules/vis-network/dist/vis-network.esm.min.js\")\r\n\r\nconst graph = (state, send) => {\r\n  const nodes = new Vis.DataSet(state.nodes.map((v, i) => ({id: i, label: v.ip})))\r\n  const edges = []\r\n  state.nodes.forEach((v, i, arr) => {\r\n    v.connections.forEach(c => {\r\n      const target_index = arr.findIndex(n => n.ip == c.remote_address)\r\n      if (target_index == -1 || target_index == i) return\r\n      let edge = edges.find(e => e.from == i && e.to == target_index)\r\n      if (!edge) {\r\n        edge = {from: i, to: target_index, connections: 1}\r\n        edges.push(edge)\r\n      }\r\n      else edge.connections++\r\n    })\r\n  })\r\n  const options = {\r\n    edges: {\r\n      arrows: 'to'\r\n    },\r\n    physics: {\r\n      enabled: true\r\n    },\r\n    layout: {\r\n    }\r\n  }\r\n  const network = new Vis.Network(state.graph_container, {nodes, edges: new Vis.DataSet(edges.map(v => ({from: v.from, to: v.to, label: `${v.connections} connection${v.connections == 1 ? '' : 's'}`})))}, options)\r\n  network.on('click', e => {\r\n    const node = e.nodes.length && e.nodes[0]\r\n    if (node !== undefined) send({type: 'select', node})\r\n  })\r\n}\r\n\r\nmodule.exports = graph\n\n//# sourceURL=webpack:///./effect/vis.js?");
 
 /***/ }),
 
@@ -115,7 +115,7 @@ eval("const Vis = __webpack_require__(/*! vis-network */ \"./node_modules/vis-ne
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const ToVNode = __webpack_require__(/*! snabbdom/tovnode */ \"./node_modules/snabbdom/tovnode.js\").default\r\nconst Snabbdom = __webpack_require__(/*! snabbdom */ \"./node_modules/snabbdom/es/snabbdom.js\")\r\nconst Update = __webpack_require__(/*! ./update */ \"./update/index.js\")\r\nconst View = __webpack_require__(/*! ./view */ \"./view/index.js\")\r\nconst Effect = __webpack_require__(/*! ./effect */ \"./effect/index.js\")\r\n\r\nconst patch = Snabbdom.init([\r\n  __webpack_require__(/*! snabbdom/modules/class */ \"./node_modules/snabbdom/modules/class.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/attributes */ \"./node_modules/snabbdom/modules/attributes.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/style */ \"./node_modules/snabbdom/modules/style.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/eventlisteners */ \"./node_modules/snabbdom/modules/eventlisteners.js\").default, ])\r\n\r\nlet state = {search: {}}\r\nlet vdom = ToVNode(document.body)\r\n\r\nconst send = action=> {\r\n  state = Update(state, action)\r\n  vdom = patch(vdom, View(state, send))\r\n  Effect(state,action,send) \r\n}\r\n  \r\nsend({type:'init'})\r\n\r\nwindow.state = state\n\n//# sourceURL=webpack:///./main.js?");
+eval("const ToVNode = __webpack_require__(/*! snabbdom/tovnode */ \"./node_modules/snabbdom/tovnode.js\").default\r\nconst Snabbdom = __webpack_require__(/*! snabbdom */ \"./node_modules/snabbdom/es/snabbdom.js\")\r\nconst Update = __webpack_require__(/*! ./update */ \"./update/index.js\")\r\nconst View = __webpack_require__(/*! ./view */ \"./view/index.js\")\r\nconst Effect = __webpack_require__(/*! ./effect */ \"./effect/index.js\")\r\n\r\nconst patch = Snabbdom.init([\r\n  __webpack_require__(/*! snabbdom/modules/class */ \"./node_modules/snabbdom/modules/class.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/attributes */ \"./node_modules/snabbdom/modules/attributes.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/style */ \"./node_modules/snabbdom/modules/style.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/eventlisteners */ \"./node_modules/snabbdom/modules/eventlisteners.js\").default, ])\r\n\r\nlet state = {search: {}, selected: {}}\r\nlet vdom = ToVNode(document.body)\r\n\r\nconst send = action=> {\r\n  state = Update(state, action)\r\n  vdom = patch(vdom, View(state, send))\r\n  Effect(state,action,send) \r\n}\r\n  \r\nsend({type:'init'})\r\n\r\nwindow.state = state\n\n//# sourceURL=webpack:///./main.js?");
 
 /***/ }),
 
@@ -329,7 +329,7 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  if (action.type == 'graph_container') state.graph_container = action.container\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
+eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  if (action.type == 'graph_container') state.graph_container = action.container\r\n  if (action.type == 'select') state.selected.node = action.node\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
 
 /***/ }),
 
@@ -340,7 +340,18 @@ eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Nodes = __webpack_require__(/*! ./nodes */ \"./view/nodes.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('h1', \"Mick and Seb's Fantastic Network Viewer\"),\r\n    H('div#graph_container', {\r\n      hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))}\r\n    })\r\n    //Nodes(state, send)\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Nodes = __webpack_require__(/*! ./nodes */ \"./view/nodes.js\")\r\nconst Info = __webpack_require__(/*! ./info */ \"./view/info.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('div#graph_container', {\r\n      hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))}\r\n    }),\r\n    //Nodes(state, send),\r\n    H('div#ui', [\r\n      H('h1', \"Mick and Seb's Fantastic Network Viewer\"),\r\n      Info(state, send)\r\n    ])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
+
+/***/ }),
+
+/***/ "./view/info.js":
+/*!**********************!*\
+  !*** ./view/info.js ***!
+  \**********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst address = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`\r\n\r\nconst info = (state, send) => {\r\n  if (state.selected.node === undefined) return\r\n  const node = state.nodes[state.selected.node]\r\n  return H('div#info', [\r\n    H('div.section', [\r\n      H('div.title', 'Info'),\r\n      H('div.address', `Local address: ${node.ip}`)\r\n    ]),\r\n    H('div.section', [\r\n      H('div.subtitle', `Connections (${node.connections.length}):`),\r\n      H('div.connections', node.connections.map(v => H('div.connection', [\r\n        H('div.item', `Local port: ${v.local_port}`),\r\n        H('div.item', `Remote address: ${address(v.remote_address, v.remote_port)}`),\r\n        H('div.item', `Process: ${v.process.name}`),\r\n        H('div.item', `State: ${v.state.replace('_', ' ')}`)\r\n      ])))\r\n    ])\r\n  ])\r\n}\r\n\r\nmodule.exports = info\n\n//# sourceURL=webpack:///./view/info.js?");
 
 /***/ }),
 
