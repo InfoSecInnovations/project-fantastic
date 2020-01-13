@@ -2,21 +2,25 @@ const UWS = require('uWebSockets.js')
 const FS = require('fs').promises
 const GetNetTcpConnection = require('./getnettcpconnection')
 const Nmap = require('./nmap')
+const DB = require('./db')
 
-let nodes = []
+DB.init()
 
-// TODO: function to combine the results
-/*
-console.log('getting results from get-nettcpconnection, please wait...')
+const nmap = () => {
+  console.log('getting results from nmap...')
+  Nmap()
+  .then(res => {
+    DB.addNodes(res)
+    console.log('nmap results ready')
+  })
+  .then(res => nmap()) // we want to continuously run nmap because it doesn't always find all the connections
+}
+nmap()
+
+console.log('getting results from get-nettcpconnection...')
 GetNetTcpConnection().then(res => {
-  nodes = nodes.concat(res)
+  DB.addConnections(res)
   console.log('get-nettcpconnection results ready')
-})*/
-
-console.log('getting results from nmap, please wait...')
-Nmap().then(res => {
-  nodes = nodes.concat(res)
-  console.log('nmap results ready')
 })
 
 const app = UWS.App()
@@ -29,6 +33,7 @@ app.get('/*', (res, req) => {
   FS.readFile(req.getUrl().replace('/', '')).then(file => res.end(file), rej => res.end(''))
 })
 app.get('/nodes', (res, req) => {
-  res.end(JSON.stringify(nodes))
+  res.onAborted()
+  DB.getNodes().then(nodes => res.end(JSON.stringify(nodes)))
 })
 app.listen(5000, () => {})

@@ -27,6 +27,7 @@ const nmap = async () => {
   .then(res => FS.readFile(filename))
   .then(res => ParseXML(res))
   .then(res => res.nmaprun.host.map(v => node(v)))
+  .catch(rej => console.log(`Getting nmap results failed: ${rej}`))
   ps.dispose()
   return result
 }
