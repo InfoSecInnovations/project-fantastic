@@ -18,6 +18,15 @@ const get = query => new Promise((resolve, reject) => {
   db.close(err => err && console.error(err.message))
 })
 
+const all = query => new Promise((resolve, reject) => {
+  const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
+  db.all(query, (err, row) => {
+    if (err) reject(err)
+    else resolve(row)
+  })
+  db.close(err => err && console.error(err.message))
+})
+
 const init = () => {
   run([
     `CREATE TABLE IF NOT EXISTS nodes(
@@ -84,8 +93,10 @@ const addConnections = connections => {
   }
 }
 
-const getNodes = () => new Promise((resolve, reject) => {
-
-})
+const getNodes = () => 
+  all(`SELECT * FROM nodes`)
+  .then(res => {
+    return res.map(v => ({...v, connections: []})) // TODO: get connections from relevant DB
+  })
 
 module.exports = {init, addNodes, addConnections, getNodes}
