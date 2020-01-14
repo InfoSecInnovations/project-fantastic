@@ -1,13 +1,13 @@
 const SQLite3 = require('sqlite3').verbose()
 const RunPowerShell = require('./runpowershell')
 
-const run = queries => {
+const run = queries => new Promise((resolve, reject) => {
   const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
   db.serialize(() => {
     queries.forEach(v => db.run(v, err => err && console.log(err.message)))
   })
-  db.close(err => err && console.error(err.message))
-}
+  db.close(err => err && reject(err) || resolve())
+})
 
 const get = query => new Promise((resolve, reject) => {
   const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
@@ -38,6 +38,7 @@ const init = () => {
     )`,
     `CREATE TABLE IF NOT EXISTS processes(
       process_id INTEGER PRIMARY KEY,
+      pid INTEGER,
       name TEXT
     )`,
     `CREATE TABLE IF NOT EXISTS connections(
@@ -49,6 +50,7 @@ const init = () => {
       local_port INTEGER,
       remote_address TEXT,
       remote_port INTEGER,
+      state TEXT,
       FOREIGN KEY (from_id)
         REFERENCES nodes (node_id)
         ON DELETE CASCADE,
@@ -60,6 +62,7 @@ const init = () => {
         ON DELETE CASCADE
     )`
   ])
+  .catch(rej => console.log(rej.message))
 }
 
 const addNodes = async nodes => { // this seems a bit messy but it does the job (hopefully)
@@ -67,29 +70,84 @@ const addNodes = async nodes => { // this seems a bit messy but it does the job 
     await get(
       `SELECT node_id 
       FROM nodes
-      WHERE ipv4 = '${n.ipv4}' OR ipv6 = '${n.ipv6}' OR mac = '${n.mac}'`)
-    .then(res => {
+      WHERE ipv4 = '${n.ipv4}' OR ipv6 = '${n.ipv6}' OR mac = '${n.mac}'`
+    )
+    .then(res => { // TODO: merge nodes if we have separate ones for ipv4 and ipv6 that we realise are the same
       const columns = ['ipv4', 'ipv6', 'mac', 'hostname']
-      if (res) run([
-        `UPDATE nodes
-        SET ${columns.map(c => n[c] && `${c} = '${n[c]}'`).filter(c => c).join()}
-        WHERE node_id=${res.node_id}`
-      ])
-      else run([
-        `INSERT INTO nodes (ipv4, ipv6, mac, hostname)
-        VALUES(${columns.map(c => n[c] ? `'${n[c]}'` : 'NULL').join()})`
-      ])
+      if (res) 
+        run([
+          `UPDATE nodes
+          SET ${columns.map(c => n[c] && `${c} = '${n[c]}'`).filter(c => c).join()}
+          WHERE node_id=${res.node_id}`
+        ])
+        .catch(rej => console.log(rej.message))
+      else 
+        run([
+          `INSERT INTO nodes (ipv4, ipv6, mac, hostname)
+          VALUES(${columns.map(c => n[c] ? `'${n[c]}'` : 'NULL').join()})`
+        ])
+        .catch(rej => console.log(rej.message))
     })
   }
 }
 
 const get_process = id => RunPowerShell(`(get-process -id ${id}).name`)
 
-const addConnections = connections => {
+const addConnections = async connections => {
+  const get_protocol = ip => ip.includes(':') ? 'ipv6' : 'ipv4'
+  const get_row = async ip => {
+    const protocol = get_protocol(ip)
+    let row = await get(
+      `SELECT node_id
+      FROM nodes
+      WHERE ${protocol} = '${ip}'`
+    )
+    if (!row) {
+      await run([
+        `INSERT INTO nodes (${protocol})
+        VALUES('${ip}')`
+      ])
+      row = await get(
+        `SELECT node_id
+        FROM nodes
+        WHERE ${protocol} = '${ip}'`
+      )
+    }
+    return row
+  }
   for (const c of connections) {
-    // TODO: create row for remote address if we don't have one
-    // TODO: add new connections to DB
-    // TODO: check if we already have a process for the process ID and if not add it
+    let process = await get(
+      `SELECT process_id
+      FROM processes
+      WHERE pid = ${c.process}`
+    )
+    if (!process) {
+      await run([ // TODO: process name and host
+        `INSERT INTO processes (pid)
+        VALUES(${c.process})`
+      ])
+      process = await get(
+        `SELECT process_id
+        FROM processes
+        WHERE pid = ${c.process}`
+      )
+    }
+    const local = await get_row(c.ip)
+    const remote = await get_row(c.remote_address)
+    await get(
+      `SELECT connection_id
+      FROM connections
+      WHERE from_id = '${local.node_id}' AND to_id = '${remote.node_id}' AND local_address = '${c.ip}' AND local_port = ${c.local_port} AND remote_address = '${c.remote_address}' AND remote_port = ${c.remote_port}`
+    )
+    .then(res => res ?
+      run([
+        `UPDATE connections
+        SET process_id = ${process.process_id}, state = '${c.state}'`
+      ]) :
+      run([
+        `INSERT INTO connections (from_id, to_id, process_id, local_address, local_port, remote_address, remote_port, state)
+        VALUES(${local.node_id}, ${remote.node_id}, ${process.process_id}, '${c.ip}', ${c.local_port}, '${c.remote_address}', ${c.remote_port}, '${c.state}')`
+      ]))
   }
 }
 

@@ -9,19 +9,16 @@ DB.init()
 const nmap = () => {
   console.log('getting results from nmap...')
   Nmap()
-  .then(res => {
-    DB.addNodes(res)
-    console.log('nmap results ready')
-  })
+  .then(res => DB.addNodes(res))
+  .then(() => console.log('nmap results ready'))
   .then(res => nmap()) // we want to continuously run nmap because it doesn't always find all the connections
 }
 nmap()
 
 console.log('getting results from get-nettcpconnection...')
-GetNetTcpConnection().then(res => {
-  DB.addConnections(res)
-  console.log('get-nettcpconnection results ready')
-})
+GetNetTcpConnection()
+.then(res => DB.addConnections(res))
+.then(() => console.log('get-nettcpconnection results ready')) 
 
 const app = UWS.App()
 app.get('/', (res, req) => {
