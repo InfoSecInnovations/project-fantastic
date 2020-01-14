@@ -16,6 +16,7 @@ const info = (state, send) => {
     H('div.section', [
       H('div.subtitle', `Connections (${node.connections.length}):`),
       H('div.connections', node.connections.map(v => H('div.connection', [
+        H('div.item', `Local address: ${v.local_address}`),
         H('div.item', `Local port: ${v.local_port}`),
         H('div.item', `Remote address: ${address(v.remote_address, v.remote_port)}`),
         H('div.item', `Process: ${v.process.name}`),

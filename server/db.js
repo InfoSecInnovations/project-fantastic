@@ -91,7 +91,7 @@ const addNodes = async nodes => { // this seems a bit messy but it does the job 
   }
 }
 
-const get_process = id => RunPowerShell(`(get-process -id ${id}).name`)
+const get_process = id => RunPowerShell(`(get-process -id ${id}).name`).catch('unknown')
 
 const addConnections = async connections => {
   const get_protocol = ip => ip.includes(':') ? 'ipv6' : 'ipv4'
@@ -160,10 +160,27 @@ const addConnections = async connections => {
   }
 }
 
-const getNodes = () => 
-  all(`SELECT * FROM nodes`)
-  .then(res => {
-    return res.map(v => ({...v, connections: []})) // TODO: get connections from relevant DB
-  })
+const getNodes = async () => {
+  const rows = await all(`SELECT * FROM nodes`)
+  const nodes = []
+  for (r of rows) {
+    const connections = await all(
+      `SELECT * FROM connections
+      WHERE from_id = ${r.node_id}`
+    ).then(async res => {
+      for (c of res) {
+        const process = await get(
+          `SELECT name 
+          FROM processes
+          WHERE process_id = ${c.process_id}`
+        )
+        c.process = {id: process.pid, name: process.name}
+      }
+      return res
+    }) || []
+    nodes.push({...r, connections})
+  }
+  return nodes
+}
 
 module.exports = {init, addNodes, addConnections, getNodes}

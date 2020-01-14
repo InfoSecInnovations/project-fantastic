@@ -11,14 +11,18 @@ const nmap = () => {
   Nmap()
   .then(res => DB.addNodes(res))
   .then(() => console.log('nmap results ready'))
-  .then(res => nmap()) // we want to continuously run nmap because it doesn't always find all the connections
+  .then(() => nmap()) // we want to continuously run nmap because it doesn't always find all the connections
 }
 nmap()
 
+const get_nettcpconnection = () => {
 console.log('getting results from get-nettcpconnection...')
 GetNetTcpConnection()
 .then(res => DB.addConnections(res))
-.then(() => console.log('get-nettcpconnection results ready')) 
+.then(() => console.log('get-nettcpconnection results ready'))
+.then(() => get_nettcpconnection()) // we want to continuously run get-nettcpconnection to find new connections
+}
+get_nettcpconnection()
 
 const app = UWS.App()
 app.get('/', (res, req) => {
