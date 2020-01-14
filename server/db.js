@@ -116,15 +116,24 @@ const addConnections = async connections => {
     return row
   }
   for (const c of connections) {
+    const name = await get_process(c.process)
+    // TODO: machine which owns the process
     let process = await get(
       `SELECT process_id
       FROM processes
       WHERE pid = ${c.process}`
     )
-    if (!process) {
-      await run([ // TODO: process name and host
-        `INSERT INTO processes (pid)
-        VALUES(${c.process})`
+    if (process) {
+      run([
+        `UPDATE processes
+        SET name = '${name}'
+        WHERE process_id = ${process.process_id}`
+      ])
+    }
+    else {
+      await run([
+        `INSERT INTO processes (pid, name)
+        VALUES(${c.process}, '${name}')`
       ])
       process = await get(
         `SELECT process_id
