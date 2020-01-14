@@ -68,6 +68,10 @@ div.line {
   flex-direction: column;
 }
 
+#connections_container {
+  min-height: 0;
+}
+
 #info .connections {
   overflow-y: auto;
 }

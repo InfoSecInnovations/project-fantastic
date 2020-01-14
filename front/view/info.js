@@ -13,7 +13,7 @@ const info = (state, send) => {
       H('div.item', `IPV6: ${node.ipv6}`),
       H('div.item', `Mac: ${node.mac}`)
     ]),
-    H('div.section', [
+    H('div#connections_container.section', [
       H('div.subtitle', `Connections (${node.connections.length}):`),
       H('div.connections', node.connections.map(v => H('div.connection', [
         H('div.item', `Local address: ${v.local_address}`),
