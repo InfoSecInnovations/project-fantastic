@@ -32,8 +32,7 @@ const graph = (state, send) => {
   }
   const network = new Vis.Network(state.graph_container, {nodes, edges: new Vis.DataSet(edges.map(v => ({from: v.from, to: v.to, label: `${v.connections} connection${v.connections == 1 ? '' : 's'}`})))}, options)
   network.on('click', e => {
-    const node = e.nodes.length && e.nodes[0]
-    if (node !== undefined) send({type: 'select', node})
+    send({type: 'select', node: e.nodes.length ? e.nodes[0] : undefined})
   })
 }
 

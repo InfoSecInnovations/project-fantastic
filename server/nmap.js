@@ -22,7 +22,7 @@ const nmap = async () => {
     executionPolicy: 'Bypass',
     noProfile: true
   })
-  ps.addCommand(`nmap -oX ${filename} 192.168.1.0/24`)
+  ps.addCommand(`nmap -oX ${filename} -T4 -F 192.168.1.0/24`)
   const result = await ps.invoke()
   .then(res => FS.readFile(filename))
   .then(res => ParseXML(res))

@@ -4,8 +4,6 @@ const GetNetTcpConnection = require('./getnettcpconnection')
 const Nmap = require('./nmap')
 const DB = require('./db')
 
-DB.init()
-
 const nmap = () => {
   console.log('getting results from nmap...')
   Nmap()
