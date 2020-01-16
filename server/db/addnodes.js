@@ -1,14 +1,28 @@
-const {update, insert, get} = require('./operations')
+const {update, insert, remove, all} = require('./operations')
 
-const addNodes = async nodes => { // this seems a bit messy but it does the job (hopefully)
+const addNodes = async nodes => {
   const date = Date.now()
   for (const n of nodes) {
-    await get({table: 'nodes', columns: ['node_id'], conditions: {columns: {ipv4: n.ipv4, ipv6: n.ipv6, mac: n.mac}, combine: 'OR'}}) // find a node with the same address as this one
-    .then(res => { // TODO: merge nodes if we have separate ones for ipv4 and ipv6 that we realise are the same
-      const columns = ['ipv4', 'ipv6', 'mac', 'hostname']
-      return res ?
-        update({table: 'nodes', row: columns.reduce((result, v) => ({...result, [v]: n[v]}), {date}), conditions:{columns: {node_id: res.node_id}}}) : // if this node exists, update it with any new information
-        insert('nodes', columns.reduce((result, v) => ({...result, [v]: n[v]}), {date})) // if not we can just insert a new row
+    // TODO: deal with nodes from multiple hosts some of which may have the same IPs!
+    await (n.ips && n.ips.length ? all({table: 'ips', columns: ['ip_id'], conditions: {groups: n.ips.map(v => ({columns: {ip: v}})), combine: 'OR'}}) : Promise.resolve([])) // TODO: something here isn't working!
+    .then(res => all({table: 'nodes', columns: ['node_id'], conditions: {groups: [{columns: {mac: n.mac}}, ...res.map(v => ({columns: {node_id: v.node_id}}))], combine: 'OR'}})) // find nodes with the same address as this one
+    .then(res => {
+      const columns = ['mac', 'hostname']
+      if (!res.length) {
+        return insert('nodes', columns.reduce((result, v) => ({...result, [v]: n[v]}), {date})) // if we didn't find any nodes we just insert a new one
+        .then(res => Promise.all(n.ips.map(v => insert('ips', {ip: v, node_id: res, date})))) // and add all the IPs
+      }
+      if (res.length == 1) return update({table: 'nodes', row: columns.reduce((result, v) => ({...result, [v]: n[v]}), {date}), conditions:{ columns: {node_id: res.node_id}}}) // if there's just one node we update it
+      .then(() => all({table: 'ips', columns: ['ip'], conditions: {groups: n.ips.map(v => ({columns: {ip: v}})), combine: 'OR'}})) // select IPs we already have
+      .then(res => Promise.all(n.ips.filter(v => !res.find(r => r.ip === v)).map(v => insert('ips', {ip: v, node_id: res, date})))) // insert ones we don't already have
+      // if we found multiple nodes that match, we have to merge all the information
+      return update({table: 'ips', row: {node_id: res[0].node_id}, conditions: {conditions: {groups: res.slice(1).map(v => ({columns: {node_id: v.node_id}})), combine: 'OR'}}}) // update IP table to point at first node
+      .then(() => remove({table: 'nodes', conditions: {groups: res.slice(1).map(v => ({columns: {node_id: v.node_id}})), combine: 'OR'}})) // remove the other nodes
+      .then(() => update({table: 'nodes', row: columns.reduce((result, v) => { // merge information from the removed ones
+        const f = res.find(f => f[v])
+        if (f) result[v] = f[v]
+        return result
+      }), conditions:{ columns: {node_id: res[0].node_id}}}))
     })
     .catch(rej => console.log(rej.message))
   }

@@ -7,12 +7,15 @@ const node = host => {
     const address = host.address.find(v => v.$.addrtype == type)
     return address && address.$.addr
   }
+  const ips = []
+  const ipv4 = get_address('ipv4')
+  if (ipv4) ips.push(ipv4)
+  const ipv6 = get_address('ipv6')
+  if (ipv6) ips.push(ipv6)
   return {
-    ipv4: get_address('ipv4'),
-    ipv6: get_address('ipv6'),
+    ips,
     mac: get_address('mac'),
-    hostname: host.hostnames.length ? host.hostnames[0].hostname[0].$.name : '',
-    connections: [],
+    hostname: host.hostnames.length ? host.hostnames[0].hostname[0].$.name : ''
   }
 }
 
@@ -24,7 +27,7 @@ const nmap = async () => {
   })
   ps.addCommand(`nmap -oX ${filename} -T4 -F 192.168.1.0/24`)
   const result = await ps.invoke()
-  .then(res => FS.readFile(filename))
+  .then(() => FS.readFile(filename))
   .then(res => ParseXML(res))
   .then(res => res.nmaprun.host.map(v => node(v)))
   .catch(rej => console.log(`Getting nmap results failed: ${rej}`))

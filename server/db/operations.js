@@ -14,10 +14,18 @@ const condition_group = group => Object.entries(group.columns).map(v => `${v[0]}
 
 const where = conditions => conditions ? `WHERE ${conditions.groups ? conditions.groups.map(v => condition_group(v)).join(` ${conditions.combine || 'AND'} `) : condition_group(conditions)}` : ''
 
-const insert = (table, row) => run([
-  `INSERT INTO ${table} (${Object.keys(row).join()})
-  VALUES(${Object.values(row).map(format_value).join()})`
-])
+const insert = (table, row) => new Promise((resolve, reject) => {
+  const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
+  db.run(
+    `INSERT INTO ${table} ${row && Object.keys(row).length ? `(${Object.keys(row).join()})
+    VALUES(${Object.values(row).map(format_value).join()})` : 'DEFAULT VALUES'}`,
+    function (err) {
+      if (err) return reject(err)
+      resolve(this.lastID)
+    }
+  )
+  db.close(err => err && console.log(err.message))
+})
 
 const update = query => run([
   `UPDATE ${query.table}
@@ -47,4 +55,9 @@ const all = query => new Promise((resolve, reject) => {
   db.close(err => err && console.error(err.message))
 })
 
-module.exports = {insert, update, get, all, run}
+const remove = query => run([
+  `DELETE FROM ${query.table}
+  ${where(query.conditions)}`
+])
+
+module.exports = {insert, update, get, all, run, remove}

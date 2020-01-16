@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') window.onresize = e => send({type: 'render'})\r\n  if (action.type == 'graph_container') fetch('/nodes').then(res => res.json()).then(res => send({type: 'nodes', nodes: res}))\r\n  if (action.type == 'nodes') Vis(state, send)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
+eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') window.onresize = e => send({type: 'render'})\r\n  if (action.type == 'graph_container') send({type: 'date', date: Date.now() - 1000 * 60 * 30}) // by default get results from last 30 minutes\r\n  if (action.type == 'date') fetch(`/nodes?date=${action.date}`).then(res => res.json()).then(res => send({type: 'nodes', nodes: res}))\r\n  if (action.type == 'nodes') Vis(state, send)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
 
 /***/ }),
 
@@ -340,7 +340,7 @@ eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Nodes = __webpack_require__(/*! ./nodes */ \"./view/nodes.js\")\r\nconst Info = __webpack_require__(/*! ./info */ \"./view/info.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('div#graph_container', {\r\n      hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))}\r\n    }),\r\n    //Nodes(state, send),\r\n    H('div#ui', [\r\n      H('h1', \"Mick and Seb's Fantastic Network Viewer\"),\r\n      Info(state, send)\r\n    ])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Info = __webpack_require__(/*! ./info */ \"./view/info.js\")\r\nconst Search = __webpack_require__(/*! ./search */ \"./view/search.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('div#graph_container', {\r\n      hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))}\r\n    }),\r\n    H('div#ui', [\r\n      H('h1', \"Mick and Seb's Fantastic Network Viewer\"),\r\n      Search(state, send),\r\n      Info(state, send)\r\n    ])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
 
 /***/ }),
 
@@ -355,14 +355,14 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 
 /***/ }),
 
-/***/ "./view/nodes.js":
-/*!***********************!*\
-  !*** ./view/nodes.js ***!
-  \***********************/
+/***/ "./view/search.js":
+/*!************************!*\
+  !*** ./view/search.js ***!
+  \************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst circle_point = (r, i, total) => {  \r\n  const theta = (Math.PI*2) / total\r\n  const angle = theta * i\r\n  const x = r * Math.cos(angle)\r\n  const y = r * Math.sin(angle)\r\n  return {x, y}\r\n}\r\n\r\nconst address = ip => ip.includes(':') ? `[${ip}]` : ip\r\n\r\nconst search = v => true // TODO: search\r\n\r\nconst nodes = (state, send) => {\r\n  if (!state.nodes) return\r\n  const width = document.documentElement.clientWidth\r\n  const height = document.documentElement.clientHeight\r\n  const selection = state.nodes.filter(search)\r\n  const element_height = 10\r\n  const element_width = 150\r\n  const radius = Math.min(width, height) / 2 - element_height\r\n  return (H('div#nodes', selection.map(\r\n    (v, i, arr) => {\r\n      const pos = circle_point(radius, i, arr.length)\r\n      return H('div.node', {\r\n        style: {left: `${pos.x + width / 2 - element_width}px`, top: `${pos.y + height / 2 - element_height}px`}\r\n        }, [\r\n          H('p', address(v.ip)),\r\n          ...v.connections.map(c => {\r\n            const target_index = arr.findIndex(n => n.ip == c.remote_address)\r\n            if (target_index == -1 || target_index == i) return\r\n            const target_position = circle_point(radius, target_index, arr.length)\r\n            const length = Math.sqrt((pos.x - target_position.x) * (pos.x - target_position.x) + (pos.y - target_position.y) * (pos.y - target_position.y));\r\n            const angle  = Math.atan2(target_position.y - pos.y, target_position.x - pos.x) * 180 / Math.PI;\r\n            return H('div.line', {\r\n              style: {\r\n                width: length,\r\n                transform: `rotate(${angle}deg)`\r\n              }\r\n            })\r\n          })\r\n        ])\r\n      }\r\n    )\r\n  ))\r\n}\r\n\r\nmodule.exports = nodes\n\n//# sourceURL=webpack:///./view/nodes.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst search = (state, send) => {\r\n  if (!state.nodes) return\r\n  return H('div#search', [\r\n\r\n  ])\r\n}\r\n\r\nmodule.exports = search\n\n//# sourceURL=webpack:///./view/search.js?");
 
 /***/ })
 

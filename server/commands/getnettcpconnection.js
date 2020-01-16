@@ -9,17 +9,14 @@ const states = {
   100: 'bound'
 }
 
-const getNetTcpConnection = () => {
-  processes = {}
-  return RunPowerShell('get-nettcpconnection | ConvertTo-Json')
-  .then(res => Promise.all(JSON.parse(res).map(async v => ({
-    ip: v.LocalAddress,
+const getNetTcpConnection = () => RunPowerShell('get-nettcpconnection | ConvertTo-Json')
+  .then(res => JSON.parse(res).map(v => ({
+    local_address: v.LocalAddress,
     local_port: v.LocalPort,
     remote_address: v.RemoteAddress,
     remote_port: v.RemotePort,
     process: v.OwningProcess,
     state: states[v.State]
-  }))))
-}
+  })))
 
 module.exports = getNetTcpConnection

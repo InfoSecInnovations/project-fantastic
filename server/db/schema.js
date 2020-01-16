@@ -1,8 +1,6 @@
 const schema = [
   `CREATE TABLE IF NOT EXISTS nodes(
     node_id INTEGER PRIMARY KEY,
-    ipv4 TEXT UNIQUE,
-    ipv6 TEXT UNIQUE,
     mac TEXT UNIQUE,
     hostname TEXT,
     date INTEGER
@@ -31,6 +29,15 @@ const schema = [
       ON DELETE CASCADE,
     FOREIGN KEY (process_id)
       REFERENCES processes (process_id)
+      ON DELETE CASCADE
+  )`,
+  `CREATE TABLE IF NOT EXISTS ips(
+    ip_id INTEGER PRIMARY KEY,
+    ip TEXT,
+    node_id INTEGER,
+    date INTEGER,
+    FOREIGN KEY (node_id)
+      REFERENCES nodes (node_id)
       ON DELETE CASCADE
   )`
 ]
