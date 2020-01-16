@@ -33,6 +33,6 @@ app.get('/*', (res, req) => {
 })
 app.get('/nodes', (res, req) => {
   res.onAborted()
-  DB.getNodes().then(nodes => res.end(JSON.stringify(nodes)))
+  DB.getNodes(Date.now() - 30 * 1000 * 60).then(nodes => res.end(JSON.stringify(nodes))) // TODO: use http request parameters for date instead of hardcoding to last 30 minutes
 })
 app.listen(5000, () => {})

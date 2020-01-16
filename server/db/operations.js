@@ -10,35 +10,37 @@ const run = queries => new Promise((resolve, reject) => {
 
 const format_value = v => typeof v === 'number' ? v : (v ? `'${v}'` : 'NULL')
 
-const where = (match, match_operator = 'AND') => match ? `WHERE ${Object.entries(match).map(v => `${v[0]} = ${format_value(v[1])}`).join(` ${match_operator} `)}` : ''
+const condition_group = group => Object.entries(group.columns).map(v => `${v[0]} ${group.compare || '='} ${format_value(v[1])}`).join(` ${group.combine || 'AND'} `)
+
+const where = conditions => conditions ? `WHERE ${conditions.groups ? conditions.groups.map(v => condition_group(v)).join(` ${conditions.combine || 'AND'} `) : condition_group(conditions)}` : ''
 
 const insert = (table, row) => run([
   `INSERT INTO ${table} (${Object.keys(row).join()})
   VALUES(${Object.values(row).map(format_value).join()})`
 ])
 
-const update = (table, row, match, match_operator = 'AND') => run([
-  `UPDATE ${table}
-  SET ${Object.entries(row).filter(v => typeof v[1] === 'number' || v[1]).map(v => `${v[0]} = ${format_value(v[1])}`)}
-  ${where(match, match_operator)}` // checking the number type is important because 0 is falsy but we want to update it
+const update = query => run([
+  `UPDATE ${query.table}
+  SET ${Object.entries(query.row).filter(v => typeof v[1] === 'number' || v[1]).map(v => `${v[0]} = ${format_value(v[1])}`)}
+  ${where(query.conditions)}` // checking the number type is important because 0 is falsy but we want to update it
 ])
 
-const select = (table, columns, match, match_operator = 'AND') => `SELECT ${(columns && columns.length && columns.join()) || '*'} 
-  FROM ${table}
-  ${where(match, match_operator)}`
+const select = query => `SELECT ${(query.columns && query.columns.length && query.columns.join()) || '*'} 
+  FROM ${query.table}
+  ${where(query.conditions)}`
 
-const get = (table, columns, match, match_operator = 'AND') => new Promise((resolve, reject) => {
+const get = query => new Promise((resolve, reject) => {
   const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
-  db.get(select(table, columns, match, match_operator), (err, row) => {
+  db.get(select(query), (err, row) => {
     if (err) reject(err)
     else resolve(row)
   })
   db.close(err => err && console.error(err.message))
 })
 
-const all = (table, columns, match, match_operator = 'AND') => new Promise((resolve, reject) => {
+const all = query => new Promise((resolve, reject) => {
   const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
-  db.all(select(table, columns, match, match_operator), (err, row) => {
+  db.all(select(query), (err, row) => {
     if (err) reject(err)
     else resolve(row)
   })

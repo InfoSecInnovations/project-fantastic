@@ -1,0 +1,19 @@
+{
+  table,
+  row: {name: value, ...}, // for update operations
+  columns [name, ...], // for select operations
+  conditions: {
+    groups: [
+      {
+        columns: {name: value, ...},
+        combine: 'AND', 'OR',
+        compare: '>', '<' etc.
+      }
+    ],
+    combine: 'AND', 'OR'
+  } or {
+    columns: {name: value, ...},
+    combine: 'AND', 'OR',
+    compare: '>', '<' etc.
+  }
+}
