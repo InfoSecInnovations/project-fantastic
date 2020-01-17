@@ -16,8 +16,31 @@ const graph = (state, send) => {
     })
   })
   const options = {
+    nodes: {
+      shape: 'dot',
+      size: 15,
+      font: {
+        color: 'white', 
+        size: 16,
+        background: 'black'
+      },
+      borderWidth: 2,
+      borderWidthSelected: 1,
+      color: {
+        border: 'coral',
+        background: 'orangered',
+        highlight: {
+          border: 'lightsteelblue',
+          background: 'steelblue'
+        }
+      }
+    },
     edges: {
-      arrows: 'to'
+      arrows: 'to',
+      font: {
+        color: 'white',
+        strokeWidth: 0
+      }
     },
     physics: {
       enabled: true,

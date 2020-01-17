@@ -8,8 +8,10 @@ const view = (state, send) =>
       hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))}
     }),
     H('div#ui', [
-      H('h1', "Mick and Seb's Fantastic Network Viewer"),
-      Search(state, send),
+      H('div#top', [
+        H('h1', "Mick and Seb's Fantastic Network Viewer"),
+        Search(state, send)
+      ]),
       Info(state, send)
     ])
   ])
