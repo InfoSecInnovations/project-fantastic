@@ -4,7 +4,7 @@ const addNodes = async nodes => {
   const date = Date.now()
   for (const n of nodes) {
     // TODO: deal with nodes from multiple hosts some of which may have the same IPs!
-    await (n.ips && n.ips.length ? all({table: 'ips', columns: ['node_id'], conditions: {groups: n.ips.map(v => ({columns: {ip: v}})), combine: 'OR'}}) : Promise.resolve([])) // TODO: something here isn't working!
+    await (n.ips && n.ips.length ? all({table: 'ips', columns: ['node_id'], conditions: {groups: n.ips.map(v => ({columns: {ip: v}})), combine: 'OR'}}) : Promise.resolve([]))
     .then(res => all({table: 'nodes', conditions: {groups: [{columns: {mac: n.mac}}, ...res.map(v => ({columns: {node_id: v.node_id}}))], combine: 'OR'}})) // find nodes with the same address as this one
     .then(res => {
       const columns = ['mac', 'hostname']

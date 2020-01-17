@@ -1,11 +1,11 @@
 const Vis = require('vis-network')
 
 const graph = (state, send) => {
-  const nodes = new Vis.DataSet(state.nodes.map((v, i) => ({id: i, label: v.hostname ? `${v.hostname} (${v.ipv4 || v.ipv6})` : v.ipv4 || v.ipv6})))
+  const nodes = new Vis.DataSet(state.nodes.map((v, i) => ({id: i, label: v.hostname || (v.ips && v.ips.length && v.ips[0])})))
   const edges = []
   state.nodes.forEach((v, i, arr) => {
     v.connections.forEach(c => {
-      const target_index = arr.findIndex(n => (n.ipv4 || n.ipv6) == c.remote_address)
+      const target_index = arr.findIndex(n => n.ips.find(v => v === c.remote_address))
       if (target_index == -1 || target_index == i) return
       let edge = edges.find(e => e.from == i && e.to == target_index)
       if (!edge) {

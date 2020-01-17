@@ -9,7 +9,7 @@ const addConnections = async connections => {
     let row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip}}}) // first we have to find if a row already exists with the IP
     if (row) update({table: 'ips', row: {date}, conditions: {columns: {ip_id: row.ip_id}}}) // if it exists we should update the date
     else {
-      row = await insert('nodes', {}) // if not we have to insert a new node and then an IP belonging to this node
+      row = await insert('nodes', {date}) // if not we have to insert a new node and then an IP belonging to this node
       .then(res => insert('ips', {ip, date, node_id: res}))
       .then(res => get({table: 'ips', columns: ['ip_id'], conditions:{columns: {ip_id: res}}}))
     }

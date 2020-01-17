@@ -79,3 +79,7 @@ div.line {
 #info .connection {
   margin: 0.5rem;
 }
+
+#info .divider {
+  height: 0.5rem;
+}
