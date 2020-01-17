@@ -2,6 +2,7 @@ const schema = [
   `CREATE TABLE IF NOT EXISTS nodes(
     node_id INTEGER PRIMARY KEY,
     mac TEXT UNIQUE,
+    vendor TEXT,
     hostname TEXT,
     date INTEGER
   )`,

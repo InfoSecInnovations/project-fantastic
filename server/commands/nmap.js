@@ -7,6 +7,10 @@ const node = host => {
     const address = host.address.find(v => v.$.addrtype == type)
     return address && address.$.addr
   }
+  const get_vendor = () => {
+    const address = host.address.find(v => v.$.addrtype == 'mac')
+    return address && address.$.vendor
+  }
   const ips = []
   const ipv4 = get_address('ipv4')
   if (ipv4) ips.push(ipv4)
@@ -15,6 +19,7 @@ const node = host => {
   return {
     ips,
     mac: get_address('mac'),
+    vendor: get_vendor(),
     hostname: host.hostnames.length ? host.hostnames[0].hostname[0].$.name : ''
   }
 }

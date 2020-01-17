@@ -3,12 +3,14 @@ const RunPowerShell = require('./runpowershell')
 const states = {
   2: 'listen',
   3: 'syn_sent',
+  4: 'syn_received',
   5: 'established',
   7: 'fin_wait_2',
   8: 'close_wait',
+  10: 'last_ack',
   11: 'time_wait',
   100: 'bound'
-} // TODO: figure out state 4, 10
+}
 
 const getNetTcpConnection = () => RunPowerShell('get-nettcpconnection | ConvertTo-Json')
   .then(res => JSON.parse(res).map(v => {
