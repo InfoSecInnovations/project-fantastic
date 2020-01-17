@@ -362,7 +362,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst search = (state, send) => {\r\n  if (!state.nodes) return\r\n  return H('div#search', [\r\n\r\n  ])\r\n}\r\n\r\nmodule.exports = search\n\n//# sourceURL=webpack:///./view/search.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst to_ms = minutes => minutes * 60 * 1000\r\n\r\nconst options = [5, 30, 60, 90, 1440, 0]\r\nconst default_index = 1\r\nconst unit_string = (amount, unit) => amount > 1 ? `${amount} ${unit}s` : unit\r\n\r\nconst option_label = minutes => {\r\n  if (!minutes) return 'forever'\r\n  if (minutes < 60) return `last ${unit_string(minutes, 'minute')}`\r\n  const hours = Math.floor(minutes / 60)\r\n  const remainder = minutes % 60\r\n  if (remainder) return `last ${unit_string(hours, 'hour')} and ${unit_string(remainder, 'minute')}`\r\n  return `last ${unit_string(hours, 'hour')}`\r\n}\r\n\r\nconst search = (state, send) => {\r\n  if (!state.nodes) return\r\n  return H('div#search', [\r\n    H('div.date', [\r\n      H('label', {attrs: {for: 'date_select'}}, 'Data from'),\r\n      H('select#date_select', {attrs: {name: 'date'}, on: {change: e => send({type: 'date', date: e.target.value == 0 ? 0 : Date.now() - e.target.value})}}, options.map((v, i) => \r\n        H('option', {attrs: {value: to_ms(v), selected: i === default_index}}, option_label(v)\r\n      )))\r\n    ])\r\n  ])\r\n}\r\n\r\nmodule.exports = search\n\n//# sourceURL=webpack:///./view/search.js?");
 
 /***/ })
 

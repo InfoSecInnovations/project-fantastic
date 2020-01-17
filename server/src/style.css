@@ -44,6 +44,10 @@ div.line {
   display: flex;
 }
 
+#search {
+  pointer-events: auto;
+}
+
 #info {
   margin-left: auto;
   width: min(40%, 500px);

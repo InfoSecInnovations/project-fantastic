@@ -16,11 +16,19 @@ app.get('/*', (res, req) => {
 })
 app.get('/nodes', (res, req) => {
   res.onAborted()
+  console.log('-----------')
+  console.log('http request for nodes incoming...')
+  const start = Date.now()
   const query = req.getQuery().split('&').reduce((result, v) => {
     const split = v.split('=')
     result[split[0]] = split[1]
     return result
   }, {})
-  DB.getNodes(query.date).then(nodes => res.end(JSON.stringify(nodes)))
+  console.log(`from ${Math.floor((Date.now() - query.date) / 1000 / 60)} minutes ago`)
+  DB.getNodes(query.date).then(nodes => {
+    console.log(`got nodes from database in ${Date.now() - start}ms, returning results!`)
+    console.log('-----------')
+    res.end(JSON.stringify(nodes))
+  })
 })
 app.listen(5000, () => {})

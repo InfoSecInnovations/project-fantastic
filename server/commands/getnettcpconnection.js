@@ -5,8 +5,10 @@ const states = {
   3: 'syn_sent',
   4: 'syn_received',
   5: 'established',
+  6: 'fin_wait_1',
   7: 'fin_wait_2',
   8: 'close_wait',
+  9: 'closing',
   10: 'last_ack',
   11: 'time_wait',
   100: 'bound'
