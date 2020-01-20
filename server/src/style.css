@@ -92,3 +92,7 @@ p {
 #info .divider {
   height: 0.5rem;
 }
+
+#tooltip {
+  position: absolute;
+}

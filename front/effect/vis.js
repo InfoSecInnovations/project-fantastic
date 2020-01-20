@@ -67,15 +67,18 @@ const graph = (state, send) => {
       }
     },
     layout: {
+    },
+    interaction: {
+      hover: true
     }
   }
   const network = new Vis.Network(state.graph_container, {
     nodes: new Vis.DataSet(nodes), 
     edges: new Vis.DataSet(edges.map(v => ({from: v.from, to: v.to, label: `${v.connections} connection${v.connections == 1 ? '' : 's'}`})))
   }, options)
-  network.on('click', e => {
-    send({type: 'select', node: e.nodes.length ? e.nodes[0] : undefined})
-  })
+  network.on('click', e => send({type: 'select', node: e.nodes.length ? e.nodes[0] : undefined}))
+  network.on('hoverNode', e => send({type: 'hover_node', node: e.node}))
+  network.on('blurNode', e => send({type: 'unhover_node', node: e.node}))
 }
 
 module.exports = graph

@@ -1,6 +1,7 @@
 const H = require('snabbdom/h').default
 const Info = require('./info')
 const Search = require('./search')
+const Tooltip = require('./tooltip')
 
 const view = (state, send) => 
   H('body', [
@@ -13,7 +14,8 @@ const view = (state, send) =>
         H('div#graph_container', {
           hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))}
         }),
-        Info(state, send)
+        Info(state, send),
+        Tooltip(state)
       ])
     ])
   ])
