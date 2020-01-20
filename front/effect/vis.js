@@ -1,9 +1,10 @@
 const Vis = require('vis-network')
 
 const graph = (state, send) => {
-  const nodes = new Vis.DataSet(state.nodes.map((v, i) => ({id: i, label: v.hostname || (v.ips && v.ips.length && v.ips[0])})))
+  const nodes = []
   const edges = []
   state.nodes.forEach((v, i, arr) => {
+    let connection_count = 0
     v.connections.forEach(c => {
       const target_index = arr.findIndex(n => n.ips.find(v => v === c.remote_address))
       if (target_index == -1 || target_index == i) return
@@ -13,6 +14,12 @@ const graph = (state, send) => {
         edges.push(edge)
       }
       else edge.connections++
+      connection_count++
+    })
+    nodes.push({
+      id: i, 
+      label: v.hostname || (v.ips && v.ips.length && v.ips[0]),
+      mass: connection_count || 1
     })
   })
   const options = {
@@ -44,16 +51,28 @@ const graph = (state, send) => {
     },
     physics: {
       enabled: true,
+      solver: 'repulsion', // setting this determines which options are used below
       barnesHut: {
-        centralGravity: 0.6,
-        gravitationalConstant: -5000,
-        springLength: 200
+        centralGravity: 0.7,
+        gravitationalConstant: -1200,
+        springLength: 300,
+        springConstant: 0.5,
+        avoidOverlap: 0
+      },
+      repulsion: {
+        centralGravity: 1,
+        nodeDistance: 200,
+        springLength: 300,
+        springConstant: 0.5
       }
     },
     layout: {
     }
   }
-  const network = new Vis.Network(state.graph_container, {nodes, edges: new Vis.DataSet(edges.map(v => ({from: v.from, to: v.to, label: `${v.connections} connection${v.connections == 1 ? '' : 's'}`})))}, options)
+  const network = new Vis.Network(state.graph_container, {
+    nodes: new Vis.DataSet(nodes), 
+    edges: new Vis.DataSet(edges.map(v => ({from: v.from, to: v.to, label: `${v.connections} connection${v.connections == 1 ? '' : 's'}`})))
+  }, options)
   network.on('click', e => {
     send({type: 'select', node: e.nodes.length ? e.nodes[0] : undefined})
   })
