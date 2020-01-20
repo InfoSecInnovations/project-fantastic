@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') window.onresize = e => send({type: 'render'})\r\n  if (action.type == 'graph_container') send({type: 'date', date: Date.now() - 1000 * 60 * 30}) // by default get results from last 30 minutes\r\n  if (action.type == 'date') {\r\n    send({type: 'select', node: undefined})\r\n    fetch(`/nodes?date=${action.date}`).then(res => res.json()).then(res => send({type: 'nodes', nodes: res}))\r\n  }\r\n  if (action.type == 'nodes') Vis(state, send)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
+eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') window.onresize = e => send({type: 'render'})\r\n  if (action.type == 'date' || action.type == 'connection_type' || action.type == 'graph_container') {\r\n    send({type: 'select', node: undefined})\r\n    fetch(`/nodes?date=${Date.now() - state.search.date * 60 * 1000}&connection_type=${state.search.connection_type}`).then(res => res.json()).then(res => send({type: 'nodes', nodes: res}))\r\n  }\r\n  if (action.type == 'nodes') Vis(state, send)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
 
 /***/ }),
 
@@ -115,7 +115,7 @@ eval("const Vis = __webpack_require__(/*! vis-network */ \"./node_modules/vis-ne
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const ToVNode = __webpack_require__(/*! snabbdom/tovnode */ \"./node_modules/snabbdom/tovnode.js\").default\r\nconst Snabbdom = __webpack_require__(/*! snabbdom */ \"./node_modules/snabbdom/es/snabbdom.js\")\r\nconst Update = __webpack_require__(/*! ./update */ \"./update/index.js\")\r\nconst View = __webpack_require__(/*! ./view */ \"./view/index.js\")\r\nconst Effect = __webpack_require__(/*! ./effect */ \"./effect/index.js\")\r\n\r\nconst patch = Snabbdom.init([\r\n  __webpack_require__(/*! snabbdom/modules/class */ \"./node_modules/snabbdom/modules/class.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/attributes */ \"./node_modules/snabbdom/modules/attributes.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/style */ \"./node_modules/snabbdom/modules/style.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/eventlisteners */ \"./node_modules/snabbdom/modules/eventlisteners.js\").default, ])\r\n\r\nlet state = {search: {}, selected: {}}\r\nlet vdom = ToVNode(document.body)\r\n\r\nconst send = action=> {\r\n  state = Update(state, action)\r\n  vdom = patch(vdom, View(state, send))\r\n  Effect(state,action,send) \r\n}\r\n  \r\nsend({type:'init'})\r\n\r\nwindow.state = state\n\n//# sourceURL=webpack:///./main.js?");
+eval("const ToVNode = __webpack_require__(/*! snabbdom/tovnode */ \"./node_modules/snabbdom/tovnode.js\").default\r\nconst Snabbdom = __webpack_require__(/*! snabbdom */ \"./node_modules/snabbdom/es/snabbdom.js\")\r\nconst Update = __webpack_require__(/*! ./update */ \"./update/index.js\")\r\nconst View = __webpack_require__(/*! ./view */ \"./view/index.js\")\r\nconst Effect = __webpack_require__(/*! ./effect */ \"./effect/index.js\")\r\n\r\nconst patch = Snabbdom.init([\r\n  __webpack_require__(/*! snabbdom/modules/class */ \"./node_modules/snabbdom/modules/class.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/attributes */ \"./node_modules/snabbdom/modules/attributes.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/style */ \"./node_modules/snabbdom/modules/style.js\").default,\r\n  __webpack_require__(/*! snabbdom/modules/eventlisteners */ \"./node_modules/snabbdom/modules/eventlisteners.js\").default, ])\r\n\r\nlet state = {search: {date: 30, connection_type: 'all'}, selected: {}}\r\nlet vdom = ToVNode(document.body)\r\n\r\nconst send = action=> {\r\n  state = Update(state, action)\r\n  vdom = patch(vdom, View(state, send))\r\n  Effect(state,action,send) \r\n}\r\n  \r\nsend({type:'init'})\r\n\r\nwindow.state = state\n\n//# sourceURL=webpack:///./main.js?");
 
 /***/ }),
 
@@ -329,7 +329,7 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  if (action.type == 'graph_container') state.graph_container = action.container\r\n  if (action.type == 'select') state.selected.node = action.node\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
+eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  if (action.type == 'graph_container') state.graph_container = action.container\r\n  if (action.type == 'select') state.selected.node = action.node\r\n  if (action.type == 'date') state.search.date = action.date\r\n  if (action.type == 'connection_type') state.search.connection_type = action.connection_type\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
 
 /***/ }),
 
@@ -340,7 +340,7 @@ eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Info = __webpack_require__(/*! ./info */ \"./view/info.js\")\r\nconst Search = __webpack_require__(/*! ./search */ \"./view/search.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('div#graph_container', {\r\n      hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))}\r\n    }),\r\n    H('div#ui', [\r\n      H('div#top', [\r\n        H('h1', \"Mick and Seb's Fantastic Network Viewer\"),\r\n        Search(state, send)\r\n      ]),\r\n      Info(state, send)\r\n    ])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Info = __webpack_require__(/*! ./info */ \"./view/info.js\")\r\nconst Search = __webpack_require__(/*! ./search */ \"./view/search/index.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('div#graph_container', {\r\n      hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))}\r\n    }),\r\n    H('div#ui', [\r\n      H('div#top', [\r\n        H('h1', \"Mick and Seb's Fantastic Network Viewer\"),\r\n        Search(state, send)\r\n      ]),\r\n      Info(state, send)\r\n    ])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
 
 /***/ }),
 
@@ -355,14 +355,36 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 
 /***/ }),
 
-/***/ "./view/search.js":
-/*!************************!*\
-  !*** ./view/search.js ***!
-  \************************/
+/***/ "./view/search/connectiontype.js":
+/*!***************************************!*\
+  !*** ./view/search/connectiontype.js ***!
+  \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst to_ms = minutes => minutes * 60 * 1000\r\n\r\nconst options = [5, 30, 60, 90, 1440, 0]\r\nconst default_index = 1\r\nconst unit_string = (amount, unit) => amount > 1 ? `${amount} ${unit}s` : unit\r\n\r\nconst option_label = minutes => {\r\n  if (!minutes) return 'forever'\r\n  if (minutes < 60) return `last ${unit_string(minutes, 'minute')}`\r\n  const hours = Math.floor(minutes / 60)\r\n  const remainder = minutes % 60\r\n  if (remainder) return `last ${unit_string(hours, 'hour')} and ${unit_string(remainder, 'minute')}`\r\n  return `last ${unit_string(hours, 'hour')}`\r\n}\r\n\r\nconst search = (state, send) => {\r\n  if (!state.nodes) return\r\n  return H('div#search', [\r\n    H('div.date', [\r\n      H('label', {attrs: {for: 'date_select'}}, 'Data from'),\r\n      H('select#date_select', {attrs: {name: 'date'}, on: {change: e => send({type: 'date', date: e.target.value == 0 ? 0 : Date.now() - e.target.value})}}, options.map((v, i) => \r\n        H('option', {attrs: {value: to_ms(v), selected: i === default_index}}, option_label(v)\r\n      )))\r\n    ])\r\n  ])\r\n}\r\n\r\nmodule.exports = search\n\n//# sourceURL=webpack:///./view/search.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst options = ['all', 'different_ip', 'different_host']\r\n\r\nconst connectionType = (state, send) =>     H('div.connection_endpoints', [\r\n  H('label', {attrs: {for: 'connection_type_select'}}, 'Connections to'),\r\n  H('select#connection_type_select', {\r\n    attrs: {name: 'connection_type'},\r\n    on: {change: e => send({type: 'connection_type', connection_type: e.target.value})}}, \r\n    options.map((v, i) => \r\n      H('option', {attrs: {value: v, selected: v === state.search.connection_type}}, v)\r\n    )\r\n  )\r\n])\r\n\r\nmodule.exports = connectionType\n\n//# sourceURL=webpack:///./view/search/connectiontype.js?");
+
+/***/ }),
+
+/***/ "./view/search/dateselect.js":
+/*!***********************************!*\
+  !*** ./view/search/dateselect.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst options = [5, 30, 60, 90, 1440, 0]\r\nconst unit_string = (amount, unit) => amount > 1 ? `${amount} ${unit}s` : unit\r\n\r\nconst option_label = minutes => {\r\n  if (!minutes) return 'forever'\r\n  if (minutes < 60) return `last ${unit_string(minutes, 'minute')}`\r\n  const hours = Math.floor(minutes / 60)\r\n  const remainder = minutes % 60\r\n  if (remainder) return `last ${unit_string(hours, 'hour')} and ${unit_string(remainder, 'minute')}`\r\n  return `last ${unit_string(hours, 'hour')}`\r\n}\r\n\r\nconst dateSelect = (state, send) => H('div.date', [\r\n  H('label', {attrs: {for: 'date_select'}}, 'Data from'),\r\n  H('select#date_select', {\r\n    attrs: {name: 'date'}, \r\n    on: {change: e => send({type: 'date', date: e.target.value})}}, \r\n    options.map((v, i) => \r\n      H('option', {attrs: {value: v, selected: v === state.search.date}}, option_label(v))\r\n    )\r\n  )\r\n])\r\n\r\nmodule.exports = dateSelect\n\n//# sourceURL=webpack:///./view/search/dateselect.js?");
+
+/***/ }),
+
+/***/ "./view/search/index.js":
+/*!******************************!*\
+  !*** ./view/search/index.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DateSelect = __webpack_require__(/*! ./dateselect */ \"./view/search/dateselect.js\")\r\nconst ConnectionType = __webpack_require__(/*! ./connectiontype */ \"./view/search/connectiontype.js\")\r\n\r\nconst search = (state, send) => {\r\n  if (!state.nodes) return\r\n  return H('div#search', [\r\n    DateSelect(state, send),\r\n    ConnectionType(state, send)\r\n  ])\r\n}\r\n\r\nmodule.exports = search\n\n//# sourceURL=webpack:///./view/search/index.js?");
 
 /***/ })
 

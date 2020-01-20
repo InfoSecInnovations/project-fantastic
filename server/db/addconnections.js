@@ -7,7 +7,11 @@ const addConnections = async connections => {
 
   const get_row = async ip => { // this function finds or creates and returns a row with a given IP
     let row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip}}}) // first we have to find if a row already exists with the IP
-    if (row) update({table: 'ips', row: {date}, conditions: {columns: {ip_id: row.ip_id}}}) // if it exists we should update the date
+    if (row) { // if it exists we should update the date of the IP and the corresponding node
+      await update({table: 'ips', row: {date}, conditions: {columns: {ip_id: row.ip_id}}})
+      .then(() => get({table: 'ips', columns: ['node_id'], conditions: {columns: {ip_id: row.ip_id}}}))
+      .then(res => update({table: 'nodes', row: {date}, conditions: {columns: {node_id: res.node_id}}}))
+    } 
     else {
       row = await insert('nodes', {date}) // if not we have to insert a new node and then an IP belonging to this node
       .then(res => insert('ips', {ip, date, node_id: res}))
@@ -23,7 +27,7 @@ const addConnections = async connections => {
     let process_id
     const process = await get({table: 'processes', columns: ['process_id'], conditions: {columns: {pid: c.process}}}) // find the process in the relevant table
     if (process) {
-      if (name) update({table: 'processes', row: {name}, conditions: {columns: {process_id: process.process_id}}}) // if we found it, we should update the name in case the ID now corresponds to a different process
+      if (name) await update({table: 'processes', row: {name}, conditions: {columns: {process_id: process.process_id}}}) // if we found it, we should update the name in case the ID now corresponds to a different process
       process_id = process.process_id
     } 
     else {

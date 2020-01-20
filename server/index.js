@@ -25,7 +25,8 @@ app.get('/nodes', (res, req) => {
     return result
   }, {})
   console.log(`from ${Math.floor((Date.now() - query.date) / 1000 / 60)} minutes ago`)
-  DB.getNodes(query.date).then(nodes => {
+  console.log(`connection type: ${query.connection_type}`)
+  DB.getNodes(query.date, query.connection_type).then(nodes => {
     console.log(`got nodes from database in ${Date.now() - start}ms, returning results!`)
     console.log('-----------')
     res.end(JSON.stringify(nodes))

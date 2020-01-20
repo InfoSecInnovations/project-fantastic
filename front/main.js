@@ -10,7 +10,7 @@ const patch = Snabbdom.init([
   require('snabbdom/modules/style').default,
   require('snabbdom/modules/eventlisteners').default, ])
 
-let state = {search: {}, selected: {}}
+let state = {search: {date: 30, connection_type: 'all'}, selected: {}}
 let vdom = ToVNode(document.body)
 
 const send = action=> {

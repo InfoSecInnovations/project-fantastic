@@ -5,14 +5,14 @@
   conditions: {
     groups: [
       {
-        columns: {name: value, ...},
+        columns: {name: value, ...} or [[column_a, column_b], ...],
         combine: 'AND', 'OR',
         compare: '>', '<' etc.
       }
     ],
     combine: 'AND', 'OR'
   } or {
-    columns: {name: value, ...},
+    columns: {name: value, ...} or [[column_a, column_b], ...],
     combine: 'AND', 'OR',
     compare: '>', '<' etc.
   }
