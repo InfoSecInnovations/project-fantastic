@@ -16,7 +16,7 @@ const dateSelect = (state, send) => H('div.date', [
   H('label', {attrs: {for: 'date_select'}}, 'Data from'),
   H('select#date_select', {
     attrs: {name: 'date'}, 
-    on: {change: e => send({type: 'date', date: e.target.value})}}, 
+    on: {change: e => send({type: 'date', date: parseInt(e.target.value)})}}, 
     options.map((v, i) => 
       H('option', {attrs: {value: v, selected: v === state.search.date}}, option_label(v))
     )
