@@ -19,7 +19,7 @@ const addNodes = async nodes => {
         .then(() => Promise.all(n.ips.filter(v => !res.find(r => r.ip === v)).map(v => insert('ips', {ip: v, node_id: res, date})))) // insert the new ones
       ) 
       // if we found multiple nodes that match, we have to merge all the information
-      return update({table: 'ips', row: {node_id: res[0].node_id}, conditions: {columns: {node_id: res.slice(1).map(v => v.node_id)}, compare: 'IN'}}) // update IP table to point at first node
+      return update({table: 'ips', row: {node_id: res[0].node_id, date}, conditions: {columns: {node_id: res.slice(1).map(v => v.node_id)}, compare: 'IN'}}) // update IP table to point at first node
       .then(() => remove({table: 'nodes', conditions: {columns: {node_id: res.slice(1).map(v => v.node_id)}, compare: 'IN'}})) // remove the other nodes
       .then(() => update({table: 'nodes', row: columns.reduce((result, v) => { // merge information from the removed ones
         if (n[v]) result[v] = n[v]
@@ -28,7 +28,7 @@ const addNodes = async nodes => {
           if (f) result[v] = f[v]
         }
         return result
-      }), conditions:{ columns: {node_id: res[0].node_id}}}))
+      }, {date}), conditions:{ columns: {node_id: res[0].node_id}}}))
     })
     .catch(rej => console.log(rej.message))
   }
