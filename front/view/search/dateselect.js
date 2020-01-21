@@ -12,10 +12,10 @@ const option_label = minutes => {
   return `last ${unit_string(hours, 'hour')}`
 }
 
-const dateSelect = (state, send) => H('div.date', [
+const dateSelect = (state, send) => H('div.selector', [
   H('label', {attrs: {for: 'date_select'}}, 'Data from'),
   H('select#date_select', {
-    attrs: {name: 'date'}, 
+    attrs: {name: 'date', disabled: state.loading}, 
     on: {change: e => send({type: 'date', date: parseInt(e.target.value)})}}, 
     options.map((v, i) => 
       H('option', {attrs: {value: v, selected: v === state.search.date}}, option_label(v))

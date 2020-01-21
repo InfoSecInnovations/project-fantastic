@@ -18,9 +18,9 @@ const format_value = v => {
 
 const condition_group = group => Array.isArray(group.columns) ? 
   group.columns.map(v => `${v[0]} ${group.compare || '='} ${v[1]}`).join(` ${group.combine || 'AND'} `) :
-  Object.entries(group.columns).map(v => `${v[0]} ${group.compare || '='} ${format_value(v[1])}`).join(` ${group.combine || 'AND'} `)
+  Object.entries(group.columns).map(v => `${v[0]} ${group.compare || '='} ${format_value(v[1])}`).join(` ${group.combine || 'AND'} `) 
 
-const where = conditions => conditions ? `WHERE ${conditions.groups ? conditions.groups.map(v => condition_group(v)).join(` ${conditions.combine || 'AND'} `) : condition_group(conditions)}` : ''
+const where = conditions => conditions ? `WHERE ${conditions.groups ? conditions.groups.map(v => condition_group(v)).join(` ${conditions.combine || 'AND'} `) : condition_group(conditions)}` : '' // TODO: filter out invalid values here, especially empty arrays
 
 const insert = (table, row) => new Promise((resolve, reject) => {
   const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))

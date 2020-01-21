@@ -12,6 +12,8 @@ const update = (state, action) => {
     state.selected.node = undefined
     state.hovered.nodes.length = 0
   }
+  if (action.type == 'loading') state.loading = action.value
+  if (action.type == 'vis') state.vis = action.vis
   return state
 }
 

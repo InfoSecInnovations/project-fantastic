@@ -79,6 +79,8 @@ const graph = (state, send) => {
   network.on('click', e => send({type: 'select', node: e.nodes.length ? e.nodes[0] : undefined}))
   network.on('hoverNode', e => send({type: 'hover_node', node: e.node}))
   network.on('blurNode', e => send({type: 'unhover_node', node: e.node}))
+
+  send({type: 'vis', vis: network})
 }
 
 module.exports = graph

@@ -2,10 +2,10 @@ const H = require('snabbdom/h').default
 
 const options = ['all', 'different_ip', 'different_host']
 
-const connectionType = (state, send) =>     H('div.connection_endpoints', [
-  H('label', {attrs: {for: 'connection_type_select'}}, 'Connections to'),
+const connectionType = (state, send) =>     H('div.selector', [
+  H('label', {attrs: {for: 'connection_type_select'}}, 'Connections between'),
   H('select#connection_type_select', {
-    attrs: {name: 'connection_type'},
+    attrs: {name: 'connection_type', disabled: state.loading},
     on: {change: e => send({type: 'connection_type', connection_type: e.target.value})}}, 
     options.map((v, i) => 
       H('option', {attrs: {value: v, selected: v === state.search.connection_type}}, v)
