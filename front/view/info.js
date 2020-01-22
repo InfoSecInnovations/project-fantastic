@@ -11,6 +11,7 @@ const info = (state, send) => {
       H('div.item', `hostname: ${node.hostname}`),
       node.mac ? H('div.item', `Mac: ${node.mac}`) : undefined,
       node.vendor ? H('div.item', `Vendor: ${node.vendor}`) : undefined,
+      node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,
       H('div.subtitle', 'IP Addresses:'),
       ...node.ips.map(v => H('div.item', v)),
       H('div.divider')

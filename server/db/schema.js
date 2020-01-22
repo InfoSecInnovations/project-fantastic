@@ -4,7 +4,8 @@ const schema = [
     mac TEXT UNIQUE,
     vendor TEXT,
     hostname TEXT,
-    date INTEGER
+    date INTEGER,
+    os TEXT
   )`,
   `CREATE TABLE IF NOT EXISTS processes(
     process_id INTEGER PRIMARY KEY,

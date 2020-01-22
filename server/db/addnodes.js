@@ -7,7 +7,7 @@ const addNodes = async nodes => {
     await (n.ips && n.ips.length ? all({table: 'ips', columns: ['node_id'], conditions: {columns: {ip: n.ips}, compare: 'IN'}}) : Promise.resolve([]))
     .then(res => all({table: 'nodes', conditions: {groups: [{columns: {mac: n.mac}}, {columns: {node_id: res.map(v => v.node_id)}, compare: 'IN'}], combine: 'OR'}})) // find nodes with the same address as this one
     .then(res => {
-      const columns = ['mac', 'hostname', 'vendor']
+      const columns = ['mac', 'hostname', 'vendor', 'os']
       if (!res.length) {
         return insert('nodes', columns.reduce((result, v) => ({...result, [v]: n[v]}), {date})) // if we didn't find any nodes we just insert a new one
         .then(res => Promise.all(n.ips.map(v => insert('ips', {ip: v, node_id: res, date})))) // and add all the IPs

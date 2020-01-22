@@ -2,11 +2,17 @@ const UWS = require('uWebSockets.js')
 const FS = require('fs').promises
 const DB = require('./db')
 const {fork} = require('child_process')
-//const RunCommands = require('./commands/runcommands')
+const RunCommands = require('./commands/runcommands')
 
-//RunCommands()
-const get_data = fork('./getdata.js')
-get_data.on('error', err => console.log(err.message))
+const child_process = false // if we want good debugger support in VSCode we have to run everything in the main process
+
+if (child_process) {
+  const get_data = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
+  get_data.on('error', err => console.log(err.message))
+}
+else {
+  RunCommands()
+}
 
 const app = UWS.App()
 app.get('/', (res, req) => {
@@ -15,7 +21,9 @@ app.get('/', (res, req) => {
 })
 app.get('/*', (res, req) => {
   res.onAborted()
-  FS.readFile(`src${req.getUrl()}`).then(file => res.end(file), rej => res.end(''))
+  const path = req.getUrl()
+  if (path.endsWith('.svg')) res.writeHeader('Content-Type', 'image/svg+xml')
+  FS.readFile(`src${path}`).then(file => res.end(file), rej => res.end(''))
 })
 app.get('/nodes', (res, req) => {
   res.onAborted()

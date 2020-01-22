@@ -3,6 +3,14 @@ const Vis = require('vis-network')
 const graph = (state, send) => {
   const nodes = []
   const edges = []
+  const get_image = os => {
+    if (os) {
+      if (os.toLowerCase().includes('linux')) return '/images/linux.svg'
+      if (os.toLowerCase().includes('windows')) return '/images/win_new.svg' // TODO: add old windows logo for pre Win 8 versions?
+      // TODO: router icons?
+    }
+    return '/images/unknown.svg'
+  }
   state.nodes.forEach((v, i, arr) => {
     let connection_count = 0
     v.connections.forEach(c => {
@@ -16,10 +24,14 @@ const graph = (state, send) => {
       else edge.connections++
       connection_count++
     })
+    const image = get_image(v.os)
     nodes.push({
-      id: i, 
-      label: v.hostname || (v.ips && v.ips.length && v.ips[0]),
-      mass: connection_count || 1
+      ...{
+        id: i, 
+        label: v.hostname || (v.ips && v.ips.length && v.ips[0]),
+        mass: connection_count || 1
+      }, 
+      ...(image && {image, shape: 'image', shapeProperties: {useBorderWithImage: true}})
     })
   })
   const options = {
@@ -28,8 +40,7 @@ const graph = (state, send) => {
       size: 15,
       font: {
         color: 'white', 
-        size: 16,
-        background: 'black'
+        size: 16
       },
       borderWidth: 2,
       borderWidthSelected: 1,
