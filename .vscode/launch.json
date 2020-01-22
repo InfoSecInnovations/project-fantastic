@@ -12,7 +12,8 @@
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}\\server\\index.js",
-      "cwd": "${workspaceFolder}\\server"
+      "cwd": "${workspaceFolder}\\server",
+      "autoAttachChildProcesses": true
     }
   ]
 }

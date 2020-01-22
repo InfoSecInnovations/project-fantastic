@@ -1,9 +1,12 @@
 const UWS = require('uWebSockets.js')
 const FS = require('fs').promises
 const DB = require('./db')
-const RunCommands = require('./commands/runcommands')
+const {fork} = require('child_process')
+//const RunCommands = require('./commands/runcommands')
 
-RunCommands()
+//RunCommands()
+const get_data = fork('./getdata.js')
+get_data.on('error', err => console.log(err.message))
 
 const app = UWS.App()
 app.get('/', (res, req) => {
