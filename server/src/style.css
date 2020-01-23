@@ -128,3 +128,28 @@ label {
   border: 2px solid coral;
   z-index: 100;
 }
+
+.button {
+  font-size: 1rem;
+  background-color: white;
+  cursor: pointer;
+  border: 2px solid orangered;
+  padding: 0.5rem;
+  margin-left: 1rem;
+}
+
+.checkboxes {
+  position: relative;
+}
+
+.checkboxes option {
+  display: none;
+}
+
+.states {
+  position: absolute;
+  background-color: white;
+  z-index: 2;
+  top: 100%;
+  width: 100%;
+}

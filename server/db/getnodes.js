@@ -1,27 +1,22 @@
 const {all, get} = require('./operations')
 
-const getNodes = async (date, connection_type) => {
+const getNodes = async (date, connection_type, connection_state) => {
   const date_condition = {columns: {date: date || 0}, compare: '>='} // if we didn't supply a date we want to get all of the results
   const rows = await all({table: 'nodes', conditions: date_condition})
   const nodes = []
-
-  const get_connections = ips => {
-    if (!connection_type || connection_type == 'all') return all({table: 'connections', conditions: {groups: [{columns: {from_id: ips.map(v => v.ip_id)}, compare: 'IN'}, date_condition]}})
-    if (connection_type == 'different_ip') return all({table: 'connections', conditions: { groups: [
-      {columns: {from_id: ips.map(v => v.ip_id)}, compare: 'IN'}, 
-      date_condition, 
-      {columns: [['from_id', 'to_id']], compare: '!='}
-    ]}})
-    return all({table: 'connections', conditions: { groups: [
-      {columns: {from_id: ips.map(v => v.ip_id)}, compare: 'IN'}, 
-      date_condition, 
-      {columns: {to_id: ips.map(v => v.ip_id)}, compare: 'NOT IN'}
-    ]}})
-  }
-
+ 
   for (r of rows) {
     const ips = await all({table: 'ips', conditions: {groups: [{columns: {node_id: r.node_id}}, date_condition]}})
-    const connections = await get_connections(ips)
+
+    const connection_conditions = dir => {
+      const conditions = [date_condition, {columns: {[`${dir}_id`]: ips.map(v => v.ip_id)}, compare: 'IN'}]
+      if (connection_type === 'different_ip') conditions.push({columns: [['from_id', 'to_id']], compare: '!='})
+      if (connection_type === 'different_host') conditions.push({columns: {[`${dir == 'from' ? 'to' : 'from'}_id`]: ips.map(v => v.ip_id)}, compare: 'NOT IN'})
+      if (connection_state && connection_state !== 'all') conditions.push({columns: {state: connection_state}, compare: Array.isArray(connection_state) ? 'IN' : undefined})
+      return conditions
+    }
+
+    const connections = await all({table: 'connections', conditions: {groups: connection_conditions('from')}})
     .then(async res => {
       for (c of res) {
         c.process = await get({table: 'processes', columns: ['name', 'pid'], conditions: {columns: {process_id: c.process_id}}}) // get process name and PID for each connection
@@ -36,6 +31,8 @@ const getNodes = async (date, connection_type) => {
       }
       return res
     }) || []
+
+    if (!r.important && !connections.length && !await get({table: 'connections', conditions: {groups: connection_conditions('to')}})) continue // if this node isn't marked as important, and nothing connects with it, we don't show it
     nodes.push({...r, connections, ips: ips.map(v => v.ip)})
   }
   return nodes

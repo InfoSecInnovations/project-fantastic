@@ -32,12 +32,14 @@ app.get('/nodes', (res, req) => {
   const start = Date.now()
   const query = req.getQuery().split('&').reduce((result, v) => {
     const split = v.split('=')
-    result[split[0]] = split[1]
+    const value = split[1].split(',')
+    result[split[0]] = value.length === 1 ? value[0] : value
     return result
   }, {})
   console.log(`from ${Math.floor((Date.now() - query.date) / 1000 / 60)} minutes ago`)
   console.log(`connection type: ${query.connection_type}`)
-  DB.getNodes(query.date, query.connection_type).then(nodes => {
+  console.log(`connection state: ${query.connection_state}`)
+  DB.getNodes(query.date, query.connection_type, query.connection_state).then(nodes => {
     console.log(`got nodes from database in ${Date.now() - start}ms, returning results!`)
     console.log('-----------')
     res.end(JSON.stringify(nodes))

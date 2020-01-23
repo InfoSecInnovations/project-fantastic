@@ -29,7 +29,8 @@ const node = async (host, index) => {
     mac: get_address('mac'),
     vendor: get_vendor(),
     hostname: host.hostnames.length ? host.hostnames[0].hostname[0].$.name : '',
-    os: ips.length ? await get_os(ips[0], index) : null
+    os: ips.length ? await get_os(ips[0], index) : null,
+    important: true
   }
 }
 
