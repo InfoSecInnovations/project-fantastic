@@ -8,7 +8,7 @@ const info = (state, send) => {
   return H('div#info', [
     H('div.section', [
       H('div.title', 'Info'),
-      H('div.item', `hostname: ${node.hostname}`),
+      H('div.item', `Hostname: ${node.hostname}`),
       node.mac ? H('div.item', `Mac: ${node.mac}`) : undefined,
       node.vendor ? H('div.item', `Vendor: ${node.vendor}`) : undefined,
       node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,
