@@ -1,13 +1,14 @@
 const {get, update, insert} = require('./operations')
 const GetProcess = require('../commands/getprocess')
 
-const addConnections = async connections => {
+const addConnections = async connections => { // TODO: we should specify which node the connections are from, because all the nodes have IPs such as 127.0.0.1
   const date = Date.now()
   const processes = {} // track process names we already found to avoid calling the PowerShell script unnecessarily
 
   console.log(`adding ${connections.length} connections to database...`)
 
-  const get_row = async ip => { // this function finds or creates and returns a row with a given IP
+  // this function finds or creates and returns a row with a given IP
+  const get_row = async ip => { // TODO: find ips belonging to same node
     let row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip}}}) // first we have to find if a row already exists with the IP
     if (row) { // if it exists we should update the date of the IP and the corresponding node
       await update({table: 'ips', row: {date}, conditions: {columns: {ip_id: row.ip_id}}})
@@ -25,7 +26,7 @@ const addConnections = async connections => {
   for (const c of connections) {
     const name = processes[c.process] || await GetProcess(c.process)
     processes[c.process] = name
-    // TODO: host which owns the process
+    // TODO: node which owns the process
     let process_id
     const process = await get({table: 'processes', columns: ['process_id'], conditions: {columns: {pid: c.process}}}) // find the process in the relevant table
     if (process) {
@@ -57,7 +58,7 @@ const addConnections = async connections => {
     )
   }
 
-  console.log(`added ${connections.length} connections to database.`)
+  console.log(`added ${connections.length} connections to database in ${Date.now() - date}ms.`)
 }
 
 module.exports = addConnections
