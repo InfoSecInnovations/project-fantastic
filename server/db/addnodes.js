@@ -14,9 +14,9 @@ const addNodes = async nodes => {
       }
       if (res.length == 1) return update({table: 'nodes', row: columns.reduce((result, v) => ({...result, [v]: n[v]}), {date}), conditions:{ columns: {node_id: res[0].node_id}}}) // if there's just one node we update it
       .then(() => all({table: 'ips', columns: ['ip', 'ip_id'], conditions: {columns: {ip: n.ips}, compare: 'IN'}})) // select IPs we already have
-      .then(res => 
-        update({table: 'ips', row: {date}, conditions: {columns: {ip_id: res.map(v => v.ip_id)}, compare: 'IN'}}) // update the existing ones
-        .then(() => Promise.all(n.ips.filter(v => !res.find(r => r.ip === v)).map(v => insert('ips', {ip: v, node_id: res[0].node_id, date})))) // insert the new ones
+      .then(ips => 
+        update({table: 'ips', row: {date}, conditions: {columns: {ip_id: ips.map(v => v.ip_id)}, compare: 'IN'}}) // update the existing ones
+        .then(() => Promise.all(n.ips.filter(v => !ips.find(r => r.ip === v)).map(v => insert('ips', {ip: v, node_id: res[0].node_id, date})))) // insert the new ones
       ) 
       // if we found multiple nodes that match, we have to merge all the information
       return update({table: 'ips', row: {node_id: res[0].node_id, date}, conditions: {columns: {node_id: res.slice(1).map(v => v.node_id)}, compare: 'IN'}}) // update IP table to point at first node

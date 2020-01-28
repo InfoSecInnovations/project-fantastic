@@ -4,7 +4,7 @@ const DB = require('./db')
 const {fork} = require('child_process')
 const RunCommands = require('./commands/runcommands')
 
-const child_process = true // if we want good debugger support in VSCode we have to run everything in the main process
+const child_process = false // if we want good debugger support in VSCode we have to run everything in the main process
 const processes = []
 
 if (child_process) {
