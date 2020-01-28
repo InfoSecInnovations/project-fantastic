@@ -1,6 +1,9 @@
 const {update, insert, remove, all} = require('./operations')
 
 const addNodes = async nodes => {
+
+  console.log(`adding ${nodes.length} nodes to the database...`)
+
   const date = Date.now()
   for (const n of nodes) {
     // TODO: deal with nodes from multiple hosts some of which may have the same IPs!
@@ -32,6 +35,8 @@ const addNodes = async nodes => {
     })
     .catch(rej => console.log(`addNodes failed: ${rej.message}`))
   }
+
+  console.log(`added ${nodes.length} nodes to the database.`)
 }
 
 module.exports = addNodes

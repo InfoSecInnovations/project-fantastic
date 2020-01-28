@@ -5,6 +5,8 @@ const addConnections = async connections => {
   const date = Date.now()
   const processes = {} // track process names we already found to avoid calling the PowerShell script unnecessarily
 
+  console.log(`adding ${connections.length} connections to database...`)
+
   const get_row = async ip => { // this function finds or creates and returns a row with a given IP
     let row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip}}}) // first we have to find if a row already exists with the IP
     if (row) { // if it exists we should update the date of the IP and the corresponding node
@@ -54,6 +56,8 @@ const addConnections = async connections => {
       }) 
     )
   }
+
+  console.log(`added ${connections.length} connections to database.`)
 }
 
 module.exports = addConnections

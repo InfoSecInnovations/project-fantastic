@@ -7,6 +7,7 @@ const graph = (state, send) => {
     if (os) {
       if (os.toLowerCase().includes('linux')) return '/images/linux.svg'
       if (os.toLowerCase().includes('windows')) return '/images/win_new.svg' // TODO: add old windows logo for pre Win 8 versions?
+      if (os.toLowerCase().includes('ios')) return '/images/apple.svg' // TODO: ios vs mac logos?
       // TODO: router icons?
     }
     return '/images/unknown.svg'
