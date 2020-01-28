@@ -24,6 +24,7 @@ const addConnections = async connections => { // TODO: we should specify which n
   }
 
   for (const c of connections) {
+    console.log(`adding connection from ${c.local_address} to ${c.remote_address}`)
     const name = processes[c.process] || await GetProcess(c.process)
     processes[c.process] = name
     // TODO: node which owns the process
