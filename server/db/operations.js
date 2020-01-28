@@ -11,6 +11,7 @@ const run = queries => new Promise((resolve, reject) => {
 const format_value = v => {
   if (typeof v === 'number') return v
   if (typeof v === 'boolean') return v ? 1 : 0
+  if (typeof v === 'string') return `'${v}'`
   if (!v) return 'NULL' // types above this line can be falsy but valid
   if (Array.isArray(v)) return `(${v.map(format_value).join()})`
   return `'${v}'`
@@ -39,7 +40,7 @@ const update = query => new Promise((resolve, reject) => {
   const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
   db.run(
     `UPDATE ${query.table}
-    SET ${Object.entries(query.row).filter(v => typeof v[1] === 'number' || v[1]).map(v => `${v[0]} = ${format_value(v[1])}`)}
+    SET ${Object.entries(query.row).filter(v => typeof v[1] === 'number' || typeof v[1] === 'boolean' || typeof v[1] === 'string' || v[1]).map(v => `${v[0]} = ${format_value(v[1])}`)}
     ${where(query.conditions)}`,
     function (err) {
       if (err) return reject(err)

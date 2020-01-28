@@ -30,7 +30,7 @@ const addNodes = async nodes => {
         return result
       }, {date}), conditions:{ columns: {node_id: res[0].node_id}}}))
     })
-    .catch(rej => console.log(rej.message))
+    .catch(rej => console.log(`addNodes failed: ${rej.message}`))
   }
 }
 
