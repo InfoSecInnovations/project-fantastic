@@ -1,6 +1,6 @@
 const {run} = require('./operations')
 const Schema = require('./schema')
 
-run(Schema).catch(err => console.log(err.message))
+const init = () => run(Schema).catch(err => console.log(err.message))
 
-module.exports = {addConnections: require('./addconnections'), addNodes: require('./addnodes'), getNodes: require('./getnodes')}
+module.exports = {init, addConnections: require('./addconnections'), addNodes: require('./addnodes'), getNodes: require('./getnodes'), updateNode: require('./updatenode')}

@@ -7,14 +7,17 @@ const RunCommands = require('./commands/runcommands')
 const child_process = false // if we want good debugger support in VSCode we have to run everything in the main process
 const processes = []
 
-if (child_process) {
-  const get_data = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
-  processes.push(get_data)
-  get_data.on('error', err => console.log(err.message))
-}
-else {
-  RunCommands()
-}
+DB.init()
+.then(() => {
+  if (child_process) {
+    const get_data = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
+    processes.push(get_data)
+    get_data.on('error', err => console.log(err.message))
+  }
+  else {
+    RunCommands()
+  }
+})
 
 process.on('exit', () => processes.forEach(v => v.kill()))
 

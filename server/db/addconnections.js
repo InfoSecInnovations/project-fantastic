@@ -1,15 +1,16 @@
 const {get, update, insert} = require('./operations')
 const GetProcess = require('../commands/getprocess')
 
-const addConnections = async connections => { // TODO: we should specify which node the connections are from, because all the nodes have IPs such as 127.0.0.1
+const addConnections = async (node_id, connections) => {
   const date = Date.now()
   const processes = {} // track process names we already found to avoid calling the PowerShell script unnecessarily
 
-  console.log(`adding ${connections.length} connections to database...`)
+  console.log(`adding ${connections.length} connections from node ${node_id} to database...`)
 
   // this function finds or creates and returns a row with a given IP
-  const get_row = async ip => { // TODO: find ips belonging to same node
-    let row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip}}}) // first we have to find if a row already exists with the IP
+  const get_row = async ip => {
+    let row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip, node_id}}}) // first we have to find if a row already exists with the IP on the same node
+    if (!row) row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip}}}) // if not check if the IP corresponds to another node
     if (row) { // if it exists we should update the date of the IP and the corresponding node
       await update({table: 'ips', row: {date}, conditions: {columns: {ip_id: row.ip_id}}})
       .then(() => get({table: 'ips', columns: ['node_id'], conditions: {columns: {ip_id: row.ip_id}}}))
@@ -59,7 +60,7 @@ const addConnections = async connections => { // TODO: we should specify which n
     )
   }
 
-  console.log(`added ${connections.length} connections to database in ${Date.now() - date}ms.`)
+  console.log(`added ${connections.length} connections to database from node ${node_id} in ${Date.now() - date}ms.`)
 }
 
 module.exports = addConnections
