@@ -31,7 +31,8 @@ const node = async (host, index) => {
     vendor: get_vendor(),
     hostname,
     os: ips.length ? await get_os(ips[0], index) : null,
-    important: true
+    important: true,
+    local: host.status[0].$.reason === 'localhost-response'
   }
 }
 
@@ -51,5 +52,10 @@ const nmap_to_obj = async (command, filename) => {
 
 const nmap = () => nmap_to_obj('-T4 -F 192.168.1.0/24', 'nmap.xml')
   .then(res => Promise.all(res.nmaprun.host.map(node)))
+  .then(res => {
+    const localIndex = res.findIndex(v => v.local)
+    const local = res.splice(localIndex, 1)[0]
+    return {local, nodes: res}
+  }) 
 
 module.exports = nmap

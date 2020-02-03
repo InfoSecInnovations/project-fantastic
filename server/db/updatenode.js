@@ -13,7 +13,7 @@ const updateNode = async (node_id, data) => {
       update({table: 'ips', row: {date}, conditions: {columns: {ip_id: res.map(v => v.ip_id)}, compare: 'IN'}}) // update the existing ones
       .then(() => Promise.all(data.ips.filter(v => !res.find(r => r.ip === v)).map(v => insert('ips', {ip: v, node_id, date})))) // insert the new ones
     ) 
-    .catch(rej => console.log(`updateNodes failed: ${rej.message}`))
+    .catch(rej => console.log(`updateNode failed: ${rej.message}`))
 
   console.log(`updated node ${node_id}.`)
 }
