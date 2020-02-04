@@ -23,6 +23,16 @@ const condition_group = group => Array.isArray(group.columns) ?
 
 const where = conditions => conditions ? `WHERE ${conditions.groups ? conditions.groups.map(v => condition_group(v)).join(` ${conditions.combine || 'AND'} `) : condition_group(conditions)}` : '' // TODO: filter out invalid values here, especially empty arrays
 
+const order = order_by => {
+  if (!order_by) return ''
+  const text = () => {
+    if (Array.isArray(order_by)) return order_by.join()
+    if (typeof order_by === 'object') return Object.entries(order_by).map(v => `${v[0]} ${v[1]}`).join()
+    return order_by
+  }
+  return `ORDER BY ${text()}`
+}
+
 const insert = (table, row) => new Promise((resolve, reject) => {
   const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
   db.run(
@@ -52,7 +62,8 @@ const update = query => new Promise((resolve, reject) => {
 
 const select = query => `SELECT ${(query.columns && query.columns.length && query.columns.join()) || '*'} 
   FROM ${query.table}
-  ${where(query.conditions)}`
+  ${where(query.conditions)}
+  ${order(query.order_by)}`
 
 const get = query => new Promise((resolve, reject) => {
   const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))

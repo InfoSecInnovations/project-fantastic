@@ -15,7 +15,7 @@ const updateNode = async (node_id, data) => {
     ) 
     .catch(rej => console.log(`updateNode failed: ${rej.message}`))
 
-  console.log(`updated node ${node_id}.`)
+  console.log(`updated node ${node_id} in ${Date.now() - date}ms.`)
 }
 
 module.exports = updateNode

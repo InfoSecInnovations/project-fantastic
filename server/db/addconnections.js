@@ -4,20 +4,21 @@ const GetProcess = require('../commands/getprocess')
 const addConnections = async (node_id, connections) => {
   const date = Date.now()
   const processes = {} // track process names we already found to avoid calling the PowerShell script unnecessarily
+  let new_nodes = 0
 
   console.log(`adding ${connections.length} connections from node ${node_id} to database...`)
 
   // this function finds or creates and returns a row with a given IP
-  const get_row = async ip => {
+  const get_row = async (ip, local) => {
     let row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip, node_id}}}) // first we have to find if a row already exists with the IP on the same node
-    if (!row) row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip}}}) // if not check if the IP corresponds to another node
-    // TODO: we should sort IPs by date because it's likely that the most recent one is the correct one in the case of multiple entries with the same address
+    if (!row) row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip}}, order_by: {date: 'DESC'}}) // if not check if the IP corresponds to another node, it's likely that in the case of more than one result the most recent is the correct one
     if (row) { // if it exists we should update the date of the IP and the corresponding node
-      await update({table: 'ips', row: {date}, conditions: {columns: {ip_id: row.ip_id}}}) // TODO: if the connection is from this IP, we should update the node_id because we know for sure the IP belongs to this node
+      await update({table: 'ips', row: local ? {date} : {date, node_id}, conditions: {columns: {ip_id: row.ip_id}}}) // if the connection is from this IP, we should update the node_id because we know for sure the IP belongs to this node
       .then(() => get({table: 'ips', columns: ['node_id'], conditions: {columns: {ip_id: row.ip_id}}}))
       .then(res => update({table: 'nodes', row: {date}, conditions: {columns: {node_id: res.node_id}}}))
     } 
     else {
+      new_nodes++
       row = await insert('nodes', {date}) // if not we have to insert a new node and then an IP belonging to this node
       .then(res => insert('ips', {ip, date, node_id: res}))
       .then(res => get({table: 'ips', columns: ['ip_id'], conditions:{columns: {ip_id: res}}}))
@@ -26,7 +27,6 @@ const addConnections = async (node_id, connections) => {
   }
 
   for (const c of connections) {
-    console.log(`adding connection from ${c.local_address} to ${c.remote_address}`)
     const name = processes[c.process] || await GetProcess(c.process)
     processes[c.process] = name
     // TODO: node which owns the process
@@ -39,7 +39,7 @@ const addConnections = async (node_id, connections) => {
     else {
       process_id = await insert('processes', {pid: c.process, name}) // if we didn't find a process, insert it
     }
-    const local = await get_row(c.local_address) // get the ip row for the local address
+    const local = await get_row(c.local_address, true) // get the ip row for the local address
     const remote = await get_row(c.remote_address) // get the ip row for the remote address
     await get({table: 'connections', columns: ['connection_id'], conditions: {columns: { // check if we already have a connection identical to this one
       from_id: local.ip_id, 
@@ -61,7 +61,7 @@ const addConnections = async (node_id, connections) => {
     )
   }
 
-  console.log(`added ${connections.length} connections to database from node ${node_id} in ${Date.now() - date}ms.`)
+  console.log(`added ${connections.length} connections to database from node ${node_id} in ${Date.now() - date}ms. ${new_nodes} new nodes were found.`)
 }
 
 module.exports = addConnections
