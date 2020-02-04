@@ -1,6 +1,7 @@
 {
   ips,
   mac,
+  vendor,
   hostname
   connections: [
     {

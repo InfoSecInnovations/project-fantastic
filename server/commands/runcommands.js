@@ -2,6 +2,7 @@ const Nmap = require('./nmap')
 const GetNetTcpConnection = require('./getnettcpconnection')
 const GetNetIPAddress = require('./getnetipaddress')
 const GetDnsClientCache = require('./getdnsclientcache')
+const GetMacAddress = require('./getmacaddress')
 const DB = require('../db')
 
 const run_command = async (command, label, callback) => {
@@ -19,6 +20,9 @@ const initial_node = async () => {
   console.log(`getting initial results from Get-NetIPAddress...`)
   return await GetNetIPAddress()
   .then(async res => {
+    const mac = await GetMacAddress()
+    res.mac = mac.MACAddress
+    res.vendor = mac.name // TODO: the name isn't really the same as the vendor
     const ids = await DB.addNodes([res])
     console.log(`initial Get-NetIPAddress results ready.`)
     return ids[0]

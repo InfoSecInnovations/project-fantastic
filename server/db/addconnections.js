@@ -11,8 +11,9 @@ const addConnections = async (node_id, connections) => {
   const get_row = async ip => {
     let row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip, node_id}}}) // first we have to find if a row already exists with the IP on the same node
     if (!row) row = await get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip}}}) // if not check if the IP corresponds to another node
+    // TODO: we should sort IPs by date because it's likely that the most recent one is the correct one in the case of multiple entries with the same address
     if (row) { // if it exists we should update the date of the IP and the corresponding node
-      await update({table: 'ips', row: {date}, conditions: {columns: {ip_id: row.ip_id}}})
+      await update({table: 'ips', row: {date}, conditions: {columns: {ip_id: row.ip_id}}}) // TODO: if the connection is from this IP, we should update the node_id because we know for sure the IP belongs to this node
       .then(() => get({table: 'ips', columns: ['node_id'], conditions: {columns: {ip_id: row.ip_id}}}))
       .then(res => update({table: 'nodes', row: {date}, conditions: {columns: {node_id: res.node_id}}}))
     } 
