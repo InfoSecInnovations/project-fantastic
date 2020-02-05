@@ -27,7 +27,9 @@ const getNodes = async (date, connection_type, connection_state) => {
     .then(async res => {
       for (c of res) { // for each connection, get the local and remote addresses using the IDs
         c.local_address = await get({table: 'ips', columns: ['ip'], conditions: {columns: {ip_id: c.from_id}}}).then(res => res.ip)
-        c.remote_address = await get({table: 'ips', columns: ['ip'], conditions: {columns: {ip_id: c.to_id}}}).then(res => res.ip)
+        const remote = await get({table: 'ips', columns: ['ip', 'node_id'], conditions: {columns: {ip_id: c.to_id}}})
+        c.to_node = remote.node_id
+        c.remote_address = remote.ip
       }
       return res
     }) || []

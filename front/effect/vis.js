@@ -1,4 +1,5 @@
 const Vis = require('vis-network')
+const DefaultIPs = require('../../util/defaultips')
 
 const graph = (state, send) => {
   const nodes = []
@@ -15,7 +16,7 @@ const graph = (state, send) => {
   state.nodes.forEach((v, i, arr) => {
     let connection_count = 0
     v.connections.forEach(c => {
-      const target_index = arr.findIndex(n => n.ips.find(v => v === c.remote_address))
+      const target_index = arr.findIndex(n => n.node_id === c.to_node)
       if (target_index == -1 || target_index == i) return
       let edge = edges.find(e => e.from == i && e.to == target_index)
       if (!edge) {
@@ -29,7 +30,7 @@ const graph = (state, send) => {
     nodes.push({
       ...{
         id: i, 
-        label: v.hostname || (v.ips && v.ips.length && v.ips[0]),
+        label: v.hostname || (v.ips && v.ips.find(v => !DefaultIPs.includes(v))),
         mass: connection_count || 1
       }, 
       ...(image && {image, shape: 'image', shapeProperties: {useBorderWithImage: true}})
