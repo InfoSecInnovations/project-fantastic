@@ -1,4 +1,5 @@
 const H = require('snabbdom/h').default
+const DefaultIPs = require('../../util/defaultips')
 
 const tooltip = state => {
   if (!state.hovered.nodes.length || !state.vis) return
@@ -6,7 +7,7 @@ const tooltip = state => {
   const node = state.nodes[node_id]
   const box = state.vis.getBoundingBox(node_id)
   const pos = state.vis.canvasToDOM({x: box.left, y: box.top})
-  const ip = node.ips.length && node.ips[0]
+  const ip = node.ips.find(v => !DefaultIPs.includes(v))
   return H('div#tooltip', {style: {left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`}}, [
     H('div', ip ? `IP: ${ip}` : 'no IP address data!'),
     node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,

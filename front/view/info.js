@@ -1,4 +1,5 @@
 const H = require('snabbdom/h').default
+const DefaultIPs = require('../../util/defaultips')
 
 const address = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`
 
@@ -13,7 +14,7 @@ const info = (state, send) => {
       node.macs && node.macs.length ? H('div.subtitle', 'MAC Addresses:') : undefined,
       ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`)),
       H('div.subtitle', 'IP Addresses:'),
-      ...node.ips.map(v => H('div.item', v)),
+      ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : H('div.item', v)),
       H('div.divider')
     ]),
     H('div#connections_container.section', [

@@ -86,6 +86,17 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "../util/defaultips.js":
+/*!*****************************!*\
+  !*** ../util/defaultips.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack:///../util/defaultips.js?");
+
+/***/ }),
+
 /***/ "./effect/index.js":
 /*!*************************!*\
   !*** ./effect/index.js ***!
@@ -351,7 +362,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst address = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`\r\n\r\nconst info = (state, send) => {\r\n  if (typeof state.selected.node !== 'number') return\r\n  const node = state.nodes[state.selected.node]\r\n  return H('div#info', [\r\n    H('div.section', [\r\n      H('div.title', 'Info'),\r\n      node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,\r\n      node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,\r\n      node.macs && node.macs.length ? H('div.subtitle', 'MAC Addresses:') : undefined,\r\n      ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`)),\r\n      H('div.subtitle', 'IP Addresses:'),\r\n      ...node.ips.map(v => H('div.item', v)),\r\n      H('div.divider')\r\n    ]),\r\n    H('div#connections_container.section', [\r\n      H('div.subtitle', `Connections (${node.connections.length}):`),\r\n      H('div.connections', node.connections.map(v => H('div.connection', [\r\n        H('div.item', `Local address: ${address(v.local_address, v.local_port)}`),\r\n        H('div.item', `Remote address: ${address(v.remote_address, v.remote_port)}`),\r\n        H('div.item', `Process: ${v.process.name}`),\r\n        H('div.item', `State: ${v.state.replace('_', ' ')}`)\r\n      ])))\r\n    ])\r\n  ])\r\n}\r\n\r\nmodule.exports = info\n\n//# sourceURL=webpack:///./view/info.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! ../../util/defaultips */ \"../util/defaultips.js\")\r\n\r\nconst address = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`\r\n\r\nconst info = (state, send) => {\r\n  if (typeof state.selected.node !== 'number') return\r\n  const node = state.nodes[state.selected.node]\r\n  return H('div#info', [\r\n    H('div.section', [\r\n      H('div.title', 'Info'),\r\n      node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,\r\n      node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,\r\n      node.macs && node.macs.length ? H('div.subtitle', 'MAC Addresses:') : undefined,\r\n      ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`)),\r\n      H('div.subtitle', 'IP Addresses:'),\r\n      ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : H('div.item', v)),\r\n      H('div.divider')\r\n    ]),\r\n    H('div#connections_container.section', [\r\n      H('div.subtitle', `Connections (${node.connections.length}):`),\r\n      H('div.connections', node.connections.map(v => H('div.connection', [\r\n        H('div.item', `Local address: ${address(v.local_address, v.local_port)}`),\r\n        H('div.item', `Remote address: ${address(v.remote_address, v.remote_port)}`),\r\n        H('div.item', `Process: ${v.process.name}`),\r\n        H('div.item', `State: ${v.state.replace('_', ' ')}`)\r\n      ])))\r\n    ])\r\n  ])\r\n}\r\n\r\nmodule.exports = info\n\n//# sourceURL=webpack:///./view/info.js?");
 
 /***/ }),
 
@@ -406,7 +417,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst tooltip = state => {\r\n  if (!state.hovered.nodes.length || !state.vis) return\r\n  const node_id = state.hovered.nodes[state.hovered.nodes.length - 1]\r\n  const node = state.nodes[node_id]\r\n  const box = state.vis.getBoundingBox(node_id)\r\n  const pos = state.vis.canvasToDOM({x: box.left, y: box.top})\r\n  const ip = node.ips.length && node.ips[0]\r\n  return H('div#tooltip', {style: {left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`}}, [\r\n    H('div', ip ? `IP: ${ip}` : 'no IP address data!'),\r\n    node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,\r\n    node.os ? H('div', node.os) : undefined,\r\n    H('div', `${(node.connections && node.connections.length) || 0} connection${node.connections && node.connections.length === 1 ? '' : 's'}`)\r\n  ])\r\n}\r\n\r\nmodule.exports = tooltip\n\n//# sourceURL=webpack:///./view/tooltip.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! ../../util/defaultips */ \"../util/defaultips.js\")\r\n\r\nconst tooltip = state => {\r\n  if (!state.hovered.nodes.length || !state.vis) return\r\n  const node_id = state.hovered.nodes[state.hovered.nodes.length - 1]\r\n  const node = state.nodes[node_id]\r\n  const box = state.vis.getBoundingBox(node_id)\r\n  const pos = state.vis.canvasToDOM({x: box.left, y: box.top})\r\n  const ip = node.ips.find(v => !DefaultIPs.includes(v))\r\n  return H('div#tooltip', {style: {left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`}}, [\r\n    H('div', ip ? `IP: ${ip}` : 'no IP address data!'),\r\n    node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,\r\n    node.os ? H('div', node.os) : undefined,\r\n    H('div', `${(node.connections && node.connections.length) || 0} connection${node.connections && node.connections.length === 1 ? '' : 's'}`)\r\n  ])\r\n}\r\n\r\nmodule.exports = tooltip\n\n//# sourceURL=webpack:///./view/tooltip.js?");
 
 /***/ })
 
