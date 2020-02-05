@@ -1,8 +1,6 @@
 const schema = [
   `CREATE TABLE IF NOT EXISTS nodes(
     node_id INTEGER PRIMARY KEY,
-    mac TEXT UNIQUE,
-    vendor TEXT,
     hostname TEXT,
     date INTEGER,
     os TEXT,
@@ -37,6 +35,15 @@ const schema = [
     ip TEXT,
     node_id INTEGER,
     date INTEGER,
+    FOREIGN KEY (node_id)
+      REFERENCES nodes (node_id)
+      ON DELETE CASCADE
+  )`,
+  `CREATE TABLE IF NOT EXISTS macs(
+    mac_id INTEGER PRIMARY KEY,
+    mac TEXT,
+    vendor TEXT,
+    node_id INTEGER,
     FOREIGN KEY (node_id)
       REFERENCES nodes (node_id)
       ON DELETE CASCADE

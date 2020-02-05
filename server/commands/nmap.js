@@ -25,10 +25,10 @@ const node = async (host, index) => {
   const ipv6 = get_address('ipv6')
   if (ipv6) ips.push(ipv6)
   const hostname = host.hostnames && host.hostnames[0].hostname ? host.hostnames[0].hostname[0].$.name : ''
+  const mac = get_address('mac')
   return {
     ips,
-    mac: get_address('mac'),
-    vendor: get_vendor(),
+    macs: mac ? [{mac, vendor: get_vendor()}] : null,
     hostname,
     os: ips.length ? await get_os(ips[0], index) : null,
     important: true,

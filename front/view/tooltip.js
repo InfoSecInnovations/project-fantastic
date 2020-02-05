@@ -9,7 +9,7 @@ const tooltip = state => {
   const ip = node.ips.length && node.ips[0]
   return H('div#tooltip', {style: {left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`}}, [
     H('div', ip ? `IP: ${ip}` : 'no IP address data!'),
-    node.mac ? H('div', `Mac: ${node.mac}`) : undefined,
+    node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,
     node.os ? H('div', node.os) : undefined,
     H('div', `${(node.connections && node.connections.length) || 0} connection${node.connections && node.connections.length === 1 ? '' : 's'}`)
   ])

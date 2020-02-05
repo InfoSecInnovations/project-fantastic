@@ -20,9 +20,8 @@ const initial_node = async () => {
   console.log(`getting initial results from Get-NetIPAddress...`)
   return await GetNetIPAddress()
   .then(async res => {
-    const mac = await GetMacAddress()
-    res.mac = mac.MACAddress
-    res.vendor = mac.name // TODO: the name isn't really the same as the vendor
+    const macs = await GetMacAddress()
+    res.macs = Array.isArray(macs) ? macs.map(v => ({mac: v.MACAddress, vendor: v.name})) : [{mac: macs.MACAddress, vendor: macs.name}]
     const ids = await DB.addNodes([res])
     console.log(`initial Get-NetIPAddress results ready.`)
     return ids[0]

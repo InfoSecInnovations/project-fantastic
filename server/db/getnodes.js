@@ -33,8 +33,10 @@ const getNodes = async (date, connection_type, connection_state) => {
     }) || []
 
     if (!r.important && !connections.length && !await get({table: 'connections', conditions: {groups: connection_conditions('to')}})) continue // if this node isn't marked as important, and nothing connects with it, we don't show it
-    nodes.push({...r, connections, ips: ips.map(v => v.ip)})
+    const macs = await all({table: 'macs', conditions: {groups: [{columns: {node_id: r.node_id}}]}}) // if we got this far we want to add the MAC Addresses for this node
+    nodes.push({...r, connections, ips: ips.map(v => v.ip), macs})
   }
+  
   return nodes
 }
 

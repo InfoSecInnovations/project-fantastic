@@ -8,10 +8,10 @@ const info = (state, send) => {
   return H('div#info', [
     H('div.section', [
       H('div.title', 'Info'),
-      H('div.item', `Hostname: ${node.hostname}`),
-      node.mac ? H('div.item', `Mac: ${node.mac}`) : undefined,
-      node.vendor ? H('div.item', `Vendor: ${node.vendor}`) : undefined,
+      node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,
       node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,
+      node.macs && node.macs.length ? H('div.subtitle', 'MAC Addresses:') : undefined,
+      ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`)),
       H('div.subtitle', 'IP Addresses:'),
       ...node.ips.map(v => H('div.item', v)),
       H('div.divider')
