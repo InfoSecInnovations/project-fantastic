@@ -14,12 +14,30 @@ const options = [
   'bound'
 ]
 
+const selection_label = connection_state => {
+  if (connection_state.length === 0 || connection_state.length === options.length) return 'all'
+  if (connection_state.length === 1) return connection_state[0]
+  return `${connection_state[0]} + ${connection_state.length - 1} more`
+}
+
 const connectionState = (state, send) => 
-  H('div.selector.checkboxes', [
+  H('div#connection_state.selector.checkboxes', {
+    on: { focusout: e => {
+        if (e.relatedTarget) { // this is a not very elegant way to check if we clicked outside of this element
+          let target = e.relatedTarget
+          while (target) {
+            if (target.id === 'connection_state') return
+            target = target.parentNode
+          }
+        }
+        send({type: 'connection_foldout', value: false})
+      }
+    }
+  }, [
     H('label', 'Connection state'),
-    H('select', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}}, [
-      H('option', {attrs: {selected: true}}, state.search.connection_state.length ? state.search.connection_state[0] : 'all') // this is a dummy option to show the selection
-    ]),
+    H('select', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},
+      H('option', {attrs: {selected: true}}, selection_label(state.search.connection_state)) // this is a dummy option to show the selection
+    ),
     state.search.connection_foldout ? H('div.states', 
       options.map(v => H('div.state', [
         H(`input#select${v}`, {
