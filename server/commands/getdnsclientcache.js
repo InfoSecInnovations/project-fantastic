@@ -1,7 +1,8 @@
 const RunPowerShell = require('./runpowershell')
 
-const getDnsClientCache = hostname => RunPowerShell(`Get-DnsClientCache ${hostname ? `-CimSession ${hostname}` : ''} -RecordType A |  ConvertTo-Json`)
+const getDnsClientCache = hostname => RunPowerShell(`Get-DnsClientCache ${hostname ? `-CimSession ${hostname}` : ''} -RecordType A |  ConvertTo-Json`, false)
   .then(res => {
+    if (!res) return
     const obj = JSON.parse(res)
     if (!obj) return
     if (Array.isArray(obj)) return obj.reduce((result, v) => {

@@ -2,6 +2,8 @@ const {update, insert, all} = require('./operations')
 
 const updateNode = async (node_id, data) => {
 
+  if (!data) return
+
   console.log(`updating node ${node_id} with fresh data...`)
 
   const date = Date.now()

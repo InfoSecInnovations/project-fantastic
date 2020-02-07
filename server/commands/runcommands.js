@@ -51,7 +51,7 @@ const run = async () => {
       run_command(GetNetIPAddress, 'Get-NetIPAddress', res => DB.updateNode(local, res)),
       run_command(GetDnsClientCache, 'Get-DnsClientCache', res => DB.updateNode(local, res)),
       ...remote.map(v => [
-        run_command(GetNetTcpConnection, 'Get-NetTcpConnection', res => DB.addConnections(v.id, res), v.hostname),
+        run_command(GetNetTcpConnection, 'Get-NetTcpConnection', res => DB.addConnections(v.id, res, true), v.hostname),
         run_command(GetNetIPAddress, 'Get-NetIPAddress', res => DB.updateNode(v.id, res), v.hostname),
         run_command(GetDnsClientCache, 'Get-DnsClientCache', res => DB.updateNode(v.id, res), v.hostname)
       ]).flat()

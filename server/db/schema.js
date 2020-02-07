@@ -8,8 +8,12 @@ const schema = [
   )`,
   `CREATE TABLE IF NOT EXISTS processes(
     process_id INTEGER PRIMARY KEY,
+    node_id INTEGER,
     pid INTEGER,
-    name TEXT
+    name TEXT,
+    FOREIGN KEY (node_id)
+      REFERENCES nodes (node_id)
+      ON DELETE CASCADE
   )`,
   `CREATE TABLE IF NOT EXISTS connections(
     connection_id INTEGER PRIMARY KEY,
