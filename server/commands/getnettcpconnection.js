@@ -14,7 +14,7 @@ const states = {
   100: 'bound'
 }
 
-const getNetTcpConnection = () => RunPowerShell('get-nettcpconnection | ConvertTo-Json')
+const getNetTcpConnection = hostname => RunPowerShell(`get-nettcpconnection ${hostname ? `-CimSession ${hostname}` : ''} | ConvertTo-Json`)
   .then(res => JSON.parse(res).map(v => {
     const state = states[v.State] || 'unknown'
     if (state === 'unknown') console.warn(`No mapping for Get-NetTcpConnection State ${v.State}`) 
