@@ -45,7 +45,7 @@ label {
   margin-left: 1rem;
   display: flex;
   flex-direction: column;
-  width: 10rem;
+  min-width: 10rem;
 }
 
 #main {

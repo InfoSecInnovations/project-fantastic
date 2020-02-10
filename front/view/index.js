@@ -7,7 +7,7 @@ const view = (state, send) =>
   H('body', [
     H('div#container', [
       H('div#top', [
-        H('h1', "Mick and Seb's Fantastic Network Viewer"),
+        H('h1', "Fantastic"),
         Search(state, send)
       ]),
       H('div#main', [
