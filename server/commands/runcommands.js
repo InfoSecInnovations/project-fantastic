@@ -1,8 +1,9 @@
 const Nmap = require('./nmap')
 const GetNetTcpConnection = require('./getnettcpconnection')
 const GetNetIPAddress = require('./getnetipaddress')
-const GetDnsClientCache = require('./getdnsclientcache')
+const GetDNSClientCache = require('./getdnsclientcache')
 const GetMacAddress = require('./getmacaddress')
+const GetOS = require('./getos')
 const DB = require('../db')
 const {all} = require('../db/operations')
 const RunPowerShell = require('./runpowershell')
@@ -25,7 +26,8 @@ const initial_node = async () => {
   .then(async res => {
     const macs = await GetMacAddress()
     res.macs = Array.isArray(macs) ? macs.map(v => ({mac: v.MACAddress, vendor: v.name})) : [{mac: macs.MACAddress, vendor: macs.name}]
-    const ids = await DB.addNodes([res])
+    res.os = await GetOS()
+    const ids = await DB.addNodes([res], true)
     console.log(`initial Get-NetIPAddress results ready.`)
     return ids[0]
   })
@@ -49,11 +51,12 @@ const run = async () => {
     .then(() => Promise.all([
       run_command(GetNetTcpConnection, 'Get-NetTcpConnection', res => DB.addConnections(local, res)),
       run_command(GetNetIPAddress, 'Get-NetIPAddress', res => DB.updateNode(local, res)),
-      run_command(GetDnsClientCache, 'Get-DnsClientCache', res => DB.updateNode(local, res)),
+      run_command(GetDNSClientCache, 'Get-DnsClientCache', res => DB.updateNode(local, res)),
       ...remote.map(v => [
+        run_command(GetOS, 'Get OS', res => DB.updateNode(v.id, {os: res}, true), v.hostname),
         run_command(GetNetTcpConnection, 'Get-NetTcpConnection', res => DB.addConnections(v.id, res, true), v.hostname),
         run_command(GetNetIPAddress, 'Get-NetIPAddress', res => DB.updateNode(v.id, res), v.hostname),
-        run_command(GetDnsClientCache, 'Get-DnsClientCache', res => DB.updateNode(v.id, res), v.hostname)
+        run_command(GetDNSClientCache, 'Get-DnsClientCache', res => DB.updateNode(v.id, res), v.hostname)
       ]).flat()
     ]))
     .then(() => loop ())

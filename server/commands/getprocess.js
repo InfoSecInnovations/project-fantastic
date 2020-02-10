@@ -1,5 +1,5 @@
-const RunPowerShell = require('./runpowershell')
+const InvokeCommand = require('./invokecommand')
 
-const get_process = (id, hostname) => RunPowerShell(`${hostname ? `Invoke-Command -ComputerName ${hostname} -ScriptBlock { ` : ''}(get-process -id ${id}).name ${hostname ? '}' : ''}`, false)
+const get_process = (id, hostname) => InvokeCommand(`(get-process -id ${id}).name`, hostname)
 
 module.exports = get_process
