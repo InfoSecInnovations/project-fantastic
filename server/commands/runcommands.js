@@ -4,6 +4,7 @@ const GetNetIPAddress = require('./getnetipaddress')
 const GetDNSClientCache = require('./getdnsclientcache')
 const GetMacAddress = require('./getmacaddress')
 const GetOS = require('./getos')
+const GetHostname = require('./gethostname')
 const DB = require('../db')
 const {all} = require('../db/operations')
 const RunPowerShell = require('./runpowershell')
@@ -27,6 +28,7 @@ const initial_node = async () => {
     const macs = await GetMacAddress()
     res.macs = Array.isArray(macs) ? macs.map(v => ({mac: v.MACAddress, vendor: v.name})) : [{mac: macs.MACAddress, vendor: macs.name}]
     res.os = await GetOS()
+    res.hostname = await GetHostname()
     const ids = await DB.addNodes([res], true)
     console.log(`initial Get-NetIPAddress results ready.`)
     return ids[0]

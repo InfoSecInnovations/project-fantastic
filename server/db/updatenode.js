@@ -2,13 +2,11 @@ const {update, insert, all, get} = require('./operations')
 const FilterColumns = require('./filtercolumns')
 
 const updateNode = async (node_id, data, overwrite) => {
-
   if (!data) return
 
   console.log(`updating node ${node_id} with fresh data...`)
 
   const date = Date.now()
-
   await (overwrite ? Promise.resolve() : get({table: 'nodes', conditions: {columns: {node_id}}}))
     .then(res => update({
       table: 'nodes', 
