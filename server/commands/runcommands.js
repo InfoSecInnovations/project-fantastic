@@ -25,8 +25,7 @@ const initial_node = async () => {
   console.log(`getting initial results from Get-NetIPAddress...`)
   return await GetNetIPAddress()
   .then(async res => {
-    const macs = await GetMacAddress()
-    res.macs = Array.isArray(macs) ? macs.map(v => ({mac: v.MACAddress, vendor: v.name})) : [{mac: macs.MACAddress, vendor: macs.name}]
+    res.macs = await GetMacAddress()
     res.os = await GetOS()
     res.hostname = await GetHostname()
     const ids = await DB.addNodes([res], true)
@@ -56,6 +55,7 @@ const run = async () => {
       run_command(GetDNSClientCache, 'Get-DnsClientCache', res => DB.updateNode(local, res)),
       ...remote.map(v => [
         run_command(GetOS, 'Get OS', res => DB.updateNode(v.id, {os: res}, true), v.hostname),
+        run_command(GetMacAddress, 'Get MAC Address', res => DB.addMacs(v.id, res, true), v.hostname),
         run_command(GetNetTcpConnection, 'Get-NetTcpConnection', res => DB.addConnections(v.id, res, true), v.hostname),
         run_command(GetNetIPAddress, 'Get-NetIPAddress', res => DB.updateNode(v.id, res), v.hostname),
         run_command(GetDNSClientCache, 'Get-DnsClientCache', res => DB.updateNode(v.id, res), v.hostname)

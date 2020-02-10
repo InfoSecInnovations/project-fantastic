@@ -1,6 +1,7 @@
 const {update, insert, remove, all, get} = require('./operations')
 const NodeColumns = require('./nodecolumns')
 const FilterColumns = require('./filtercolumns')
+const AddMACs = require('./addmacs')
 
 const addNodes = async (nodes, overwrite) => {
   console.log(`adding ${nodes.length} nodes to the database...`)
@@ -33,27 +34,15 @@ const addNodes = async (nodes, overwrite) => {
         .then(res => update({table: 'ips', row: {date}, conditions: {columns: {ip_id: res.map(v => v.ip_id)}, compare: 'IN'}}) // update the existing ones
           .then(() => Promise.all(n.ips.filter(v => !res.find(r => r.ip === v)).map(v => insert('ips', {ip: v, node_id: matches[0].node_id, date})))) // insert the new ones
         )
-        .then(() => all({table: 'macs', columns: ['mac', 'mac_id'], conditions: {columns: {mac: n.macs.map(v => v.mac)}, compare: 'IN'}})) // select MACs we already have
-        .then(res => {
-          ids.push(matches[0].node_id)
-          return Promise.all([
-            ...res.map(v => update({table: 'macs', row: {vendor: n.macs.find(m => m.mac === v.mac).vendor}, conditions: {columns: {mac_id: v.mac_id}}})), // update the existing ones
-            ...n.macs.filter(v => !res.find(r => r.mac === v.mac)).map(v => insert('macs', {mac: v.mac, vendor: v.vendor, node_id: matches[0].node_id})) // insert the new ones
-          ])
-        })
+        .then(() => AddMACs(matches[0].node_id, n.macs, overwrite))
+        .then(() => ids.push(matches[0].node_id))
       else { // if we found multiple nodes that match, we have to merge all the information   
         ids.push(matches[0].node_id)
         await update({table: 'ips', row: {node_id: matches[0].node_id, date}, conditions: {columns: {node_id: matches.map(v => v.node_id)}, compare: 'IN'}}) // update IP table to point at first node
         .then(() => all({table: 'ips', columns: ['ip', 'ip_id'], conditions: {groups: [{columns: {node_id: matches[0].node_id}}, {columns: {ip: n.ips}, compare: 'IN'}]}})) // select IPs we already have
         .then(res => Promise.all(n.ips.filter(v => !res.find(r => r.ip === v)).map(v => insert('ips', {ip: v, node_id: matches[0].node_id, date})))) // insert the new IPs
         .then(() => update({table: 'macs', row: {node_id: matches[0].node_id}, conditions: {columns: {node_id: matches.slice(1).map(v => v.node_id)}, compare: 'IN'}})) // update MAC table to point at first node
-        .then(() => all({table: 'macs', columns: ['mac', 'mac_id'], conditions: {columns: {mac: n.macs.map(v => v.mac)}, compare: 'IN'}})) // select MACs we already have
-        .then(res => 
-          Promise.all([
-            ...res.map(v => update({table: 'macs', row: {vendor: n.macs.find(m => m.mac === v.mac).vendor}, conditions: {columns: {mac_id: v.mac_id}}})), // update the existing MACs
-            ...n.macs.filter(v => !res.find(r => r.mac === v.mac)).map(v => insert('macs', {mac: v.mac, vendor: v.vendor, node_id: matches[0].node_id})) // insert the new ones
-          ])
-        )
+        .then(() => AddMACs(matches[0].node_id, n.macs, overwrite))
         .then(() => remove({table: 'nodes', conditions: {columns: {node_id: matches.slice(1).map(v => v.node_id)}, compare: 'IN'}})) // remove the other nodes
         .then(() => update({
           table: 'nodes', 
