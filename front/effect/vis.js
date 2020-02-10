@@ -1,5 +1,5 @@
 const Vis = require('vis-network')
-const DefaultIPs = require('../../util/defaultips')
+const NodeName = require('../util/nodename')
 
 const graph = (state, send) => {
   const nodes = []
@@ -30,7 +30,7 @@ const graph = (state, send) => {
     nodes.push({
       ...{
         id: i, 
-        label: v.hostname || (v.ips && v.ips.find(v => !DefaultIPs.includes(v))),
+        label: NodeName(v),
         mass: connection_count || 1
       }, 
       ...(image && {image, shape: 'image', shapeProperties: {useBorderWithImage: true}})
@@ -89,7 +89,9 @@ const graph = (state, send) => {
     nodes: new Vis.DataSet(nodes), 
     edges: new Vis.DataSet(edges.map(v => ({from: v.from, to: v.to, label: `${v.connections} connection${v.connections == 1 ? '' : 's'}`})))
   }, options)
-  network.on('click', e => send({type: 'select', node: e.nodes.length ? e.nodes[0] : undefined}))
+  network.on('click', e => {
+    send({type: 'select', edge: e.edges.length ? e.edges[0] : undefined, node: e.nodes.length ? e.nodes[0] : undefined})
+  })
   network.on('hoverNode', e => send({type: 'hover_node', node: e.node}))
   network.on('blurNode', e => send({type: 'unhover_node', node: e.node}))
 
