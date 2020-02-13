@@ -18,6 +18,8 @@ const run_one_of_type = async (commands, result_type, host, hostname) => {
   }
 }
 
+const remove_line_breaks = s => s && s.replace(/\r?\n|\r/g, '') // for some reason we end up with line breaks in some of the results, which can mess with commands
+
 const get_node = async (commands, computer_name) => {
   const host = computer_name ? 'remote' : 'local' // if we didn't supply a computer name we're running this on the local machine
   const label = `${host} host ${computer_name || ''}`
@@ -28,7 +30,7 @@ const get_node = async (commands, computer_name) => {
   console.log(`Got MAC Addresses from ${label}`)
   const os = await run_one_of_type(commands, 'os', host, computer_name)
   console.log(`Got OS from ${label}`)
-  const hostname = await run_one_of_type(commands, 'hostname', host, computer_name)
+  const hostname = await run_one_of_type(commands, 'hostname', host, computer_name).then(remove_line_breaks)
   console.log(`Got hostname from ${label}`)
   return {ips, macs, os, hostname, important: true}
 }
@@ -59,7 +61,7 @@ const run = async () => {
             const hostname = v.hostname
             if (!hostname) return
             return RunPowerShell(`Test-WsMan ${hostname}`, false)
-            .then(res => {if (res) remote.push({id: v.node_id, hostname: v.hostname})})    
+            .then(res => {if (res) remote.push({id: v.node_id, hostname})})    
           })))
           .then(() => console.log(`found ${remote.length} hosts with remote access enabled`))
       })
