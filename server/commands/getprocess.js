@@ -1,4 +1,4 @@
-const InvokeCommand = require('./invokecommand')
+const InvokeCommand = require('fantastic-cli/invokecommand')
 
 const get_process = (id, hostname) => InvokeCommand(`(get-process -id ${id}).name`, hostname)
 

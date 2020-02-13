@@ -38,7 +38,6 @@ const node = async (host, index) => {
 
 const directory = 'nmap_xml'
 const nmap_to_obj = async (command, filename) => {
-
   const ps = new Shell({
     executionPolicy: 'Bypass',
     noProfile: true
@@ -53,12 +52,16 @@ const nmap_to_obj = async (command, filename) => {
   return result
 }
 
-const nmap = () => nmap_to_obj('-T4 -F 192.168.1.0/24', 'nmap.xml')
-  .then(res => Promise.all(res.nmaprun.host.map(node)))
-  .then(res => {
-    const localIndex = res.findIndex(v => v.local)
-    const local = res.splice(localIndex, 1)[0]
-    return {local, nodes: res}
-  }) 
+const nmap = {
+  hosts: ['local'],
+  result_type: 'hosts',
+  run: () => nmap_to_obj('-T4 -F 192.168.1.0/24', 'nmap.xml')
+    .then(res => Promise.all(res.nmaprun.host.map(node)))
+    .then(res => {
+      const localIndex = res.findIndex(v => v.local)
+      const local = res.splice(localIndex, 1)[0]
+      return {local, remote: res}
+    }) 
+}
 
 module.exports = nmap

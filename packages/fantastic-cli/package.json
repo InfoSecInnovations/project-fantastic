@@ -1,0 +1,13 @@
+{
+  "name": "fantastic-cli",
+  "version": "1.0.0",
+  "description": "Run PowerShell commands either locally or on a remote host",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-powershell": "^4.0.0"
+  }
+}

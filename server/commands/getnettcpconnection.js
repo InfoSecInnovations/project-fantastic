@@ -1,4 +1,4 @@
-const RunPowerShell = require('./runpowershell')
+const CimSessionJSON = require('fantastic-cli/cimsessionjson')
 
 const states = {
   2: 'listen',
@@ -14,8 +14,8 @@ const states = {
   100: 'bound'
 }
 
-const getNetTcpConnection = hostname => RunPowerShell(`get-nettcpconnection ${hostname ? `-CimSession ${hostname}` : ''} | ConvertTo-Json`)
-  .then(res => JSON.parse(res).map(v => {
+const getNetTcpConnection = hostname => CimSessionJSON('get-nettcpconnection', hostname)
+  .then(res => res.map(v => {
     const state = states[v.State] || 'unknown'
     if (state === 'unknown') console.warn(`No mapping for Get-NetTcpConnection State ${v.State}`) 
     return {

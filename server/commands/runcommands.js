@@ -7,7 +7,7 @@ const GetOS = require('./getos')
 const GetHostname = require('./gethostname')
 const DB = require('../db')
 const {all} = require('../db/operations')
-const RunPowerShell = require('./runpowershell')
+const RunPowerShell = require('fantastic-cli/runpowershell')
 
 const run_command = async (command, label, callback, hostname) => {
   if (hostname) label = `${label} on host ${hostname}`
@@ -23,7 +23,7 @@ const run_command = async (command, label, callback, hostname) => {
 // this function gets the IP Addresses of our local node which we use as our entry point into the network
 const initial_node = async () => {
   console.log(`getting initial results from Get-NetIPAddress...`)
-  return await GetNetIPAddress()
+  return await GetNetIPAddress() // TODO: get all commands we can run locally and combine the results here
   .then(async res => {
     res.macs = await GetMacAddress()
     res.os = await GetOS()
@@ -49,7 +49,7 @@ const run = async () => {
         .then(res => {if (res) remote.push({id: v.node_id, hostname: v.hostname})})    
       }))
     })
-    .then(() => Promise.all([
+    .then(() => Promise.all([ //TODO: import these commands from config folder, run all commands grouped by type, and combine the results, then perform relevant DB operation
       run_command(GetNetTcpConnection, 'Get-NetTcpConnection', res => DB.addConnections(local, res)),
       run_command(GetNetIPAddress, 'Get-NetIPAddress', res => DB.updateNode(local, res)),
       run_command(GetDNSClientCache, 'Get-DnsClientCache', res => DB.updateNode(local, res)),
