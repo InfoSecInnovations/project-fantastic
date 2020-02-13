@@ -23,15 +23,15 @@ const remove_line_breaks = s => s && s.replace(/\r?\n|\r/g, '') // for some reas
 const get_node = async (commands, computer_name) => {
   const host = computer_name ? 'remote' : 'local' // if we didn't supply a computer name we're running this on the local machine
   const label = `${host} host ${computer_name || ''}`
-  console.log(`Getting host data from ${label}`)
+  console.log(`getting host data from ${label}...`)
   const ips = FlatUnique([...await run_type(commands, 'ip_addresses', host, computer_name), ...DefaultIPs])
-  console.log(`Got IP Addresses from ${label}`)
+  console.log(`got IP Addresses from ${label}.`)
   const macs = await run_type(commands, 'mac_addresses', host, computer_name)
-  console.log(`Got MAC Addresses from ${label}`)
+  console.log(`got MAC Addresses from ${label}.`)
   const os = await run_one_of_type(commands, 'os', host, computer_name)
-  console.log(`Got OS from ${label}`)
+  console.log(`got OS from ${label}.`)
   const hostname = await run_one_of_type(commands, 'hostname', host, computer_name).then(remove_line_breaks)
-  console.log(`Got hostname from ${label}`)
+  console.log(`got hostname from ${label}.`)
   return {ips, macs, os, hostname, important: true}
 }
 
@@ -45,7 +45,7 @@ const run = async () => {
   const local = ids[0]
   const loop = async () => {
     const remote = []
-    console.log('finding hosts on network')
+    console.log('finding hosts on network...')
     await run_type(commands, 'hosts', 'local')
       .then(async res => {
         for (r of res) {
@@ -54,7 +54,7 @@ const run = async () => {
         }
       })
       .then (() => {
-        console.log('finished searching for hosts, finding hosts with remote access enabled')
+        console.log('finished searching for hosts, finding hosts with remote access enabled...')
         return all({table: 'nodes', conditions: {columns: {important: true}}}) // "important" nodes are ones belonging to our network
           .then(res => Promise.all(res.map(v => { // find nodes we don't already know if we can execute remote powershell commands on
             if (v.node_id === local) return // we only want remote nodes here
@@ -63,7 +63,7 @@ const run = async () => {
             return RunPowerShell(`Test-WsMan ${hostname}`, false)
             .then(res => {if (res) remote.push({id: v.node_id, hostname})})    
           })))
-          .then(() => console.log(`found ${remote.length} hosts with remote access enabled`))
+          .then(() => console.log(`found ${remote.length} hosts with remote access enabled.`))
       })
       .then(() => Promise.all([ //TODO: import these commands from config folder, run all commands grouped by type, and combine the results, then perform relevant DB operation
         run_type(commands, 'connections', 'local').then(res => DB.addConnections(local, res)),
