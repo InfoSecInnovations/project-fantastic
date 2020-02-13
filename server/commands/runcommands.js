@@ -1,67 +1,77 @@
-const Nmap = require('./nmap')
-const GetNetTcpConnection = require('./getnettcpconnection')
-const GetNetIPAddress = require('./getnetipaddress')
-const GetDNSClientCache = require('./getdnsclientcache')
-const GetMacAddress = require('./getmacaddress')
-const GetOS = require('./getos')
-const GetHostname = require('./gethostname')
 const DB = require('../db')
 const {all} = require('../db/operations')
 const RunPowerShell = require('fantastic-cli/runpowershell')
+const FS = require('fs').promises
+const FlatUnique = require('fantastic-utils/flatunique')
+const DefaultIPs = require('fantastic-utils/defaultips')
 
-const run_command = async (command, label, callback, hostname) => {
-  if (hostname) label = `${label} on host ${hostname}`
-  console.log(`getting results from ${label}...`)
-  return await command(hostname)
-  .then(async res => {
-    await callback(res)
-    console.log(`${label} results ready.`)
-    return res
-  })
+const run_type = (commands, result_type, host, hostname) => commands[result_type] ?
+  Promise.all(commands[result_type].filter(v => v.hosts.includes(host)).map(v => v.run(hostname))).then(FlatUnique) :
+  []
+
+const run_one_of_type = async (commands, result_type, host, hostname) => {
+  if (!commands[result_type]) return []
+  const funcs = commands[result_type].filter(v => v.hosts.includes(host))
+  for (f of funcs) { // TODO: instead of just running in order we should establish a priority so we run the best commands first
+    const result = await f.run(hostname)
+    if (result) return result
+  }
 }
 
-// this function gets the IP Addresses of our local node which we use as our entry point into the network
-const initial_node = async () => {
-  console.log(`getting initial results from Get-NetIPAddress...`)
-  return await GetNetIPAddress() // TODO: get all commands we can run locally and combine the results here
-  .then(async res => {
-    res.macs = await GetMacAddress()
-    res.os = await GetOS()
-    res.hostname = await GetHostname()
-    const ids = await DB.addNodes([res], true)
-    console.log(`initial Get-NetIPAddress results ready.`)
-    return ids[0]
-  })
+const get_node = async (commands, computer_name) => {
+  const host = computer_name ? 'remote' : 'local' // if we didn't supply a computer name we're running this on the local machine
+  const label = `${host} host ${computer_name || ''}`
+  console.log(`Getting host data from ${label}`)
+  const ips = FlatUnique([...await run_type(commands, 'ip_addresses', host, computer_name), ...DefaultIPs])
+  console.log(`Got IP Addresses from ${label}`)
+  const macs = await run_type(commands, 'mac_addresses', host, computer_name)
+  console.log(`Got MAC Addresses from ${label}`)
+  const os = await run_one_of_type(commands, 'os', host, computer_name)
+  console.log(`Got OS from ${label}`)
+  const hostname = await run_one_of_type(commands, 'hostname', host, computer_name)
+  console.log(`Got hostname from ${label}`)
+  return {ips, macs, os, hostname, important: true}
 }
 
 const run = async () => {
-  const local = await initial_node()
-  const loop = () => {
+  const commands = await FS.readdir('config/data_sources')
+    .then(res => res.map(v => require(`../config/data_sources/${v}`)).reduce((result, v) => { // TODO: filter out invalid scripts and warn the user
+      (result[v.result_type] = result[v.result_type] || []).push(v)
+      return result
+    }, {}))
+  const ids = await get_node(commands).then(res => DB.addNodes([res], true))
+  const local = ids[0]
+  const loop = async () => {
     const remote = []
-    return run_command(Nmap, 'nmap', res => DB.updateNode(local, res.local).then(() => DB.addNodes(res.nodes)))  
-    .then (async () => {
-      const nodes = await all({table: 'nodes', conditions: {columns: {important: true}}}) // "important" nodes are ones belonging to our network
-      return Promise.all(nodes.map(v => { // find nodes we don't already know if we can execute remote powershell commands on
-        if (v.node_id === local) return // we only want remote nodes here
-        const hostname = v.hostname
-        if (!hostname) return
-        return RunPowerShell(`Test-WsMan ${hostname}`, false)
-        .then(res => {if (res) remote.push({id: v.node_id, hostname: v.hostname})})    
-      }))
-    })
-    .then(() => Promise.all([ //TODO: import these commands from config folder, run all commands grouped by type, and combine the results, then perform relevant DB operation
-      run_command(GetNetTcpConnection, 'Get-NetTcpConnection', res => DB.addConnections(local, res)),
-      run_command(GetNetIPAddress, 'Get-NetIPAddress', res => DB.updateNode(local, res)),
-      run_command(GetDNSClientCache, 'Get-DnsClientCache', res => DB.updateNode(local, res)),
-      ...remote.map(v => [
-        run_command(GetOS, 'Get OS', res => DB.updateNode(v.id, {os: res}, true), v.hostname),
-        run_command(GetMacAddress, 'Get MAC Address', res => DB.addMacs(v.id, res, true), v.hostname),
-        run_command(GetNetTcpConnection, 'Get-NetTcpConnection', res => DB.addConnections(v.id, res, true), v.hostname),
-        run_command(GetNetIPAddress, 'Get-NetIPAddress', res => DB.updateNode(v.id, res), v.hostname),
-        run_command(GetDNSClientCache, 'Get-DnsClientCache', res => DB.updateNode(v.id, res), v.hostname)
-      ]).flat()
-    ]))
-    .then(() => loop ())
+    console.log('finding hosts on network')
+    await run_type(commands, 'hosts', 'local')
+      .then(async res => {
+        for (r of res) {
+          await DB.updateNode(local, r.local)
+          await DB.addNodes(r.remote)
+        }
+      })
+      .then (() => {
+        console.log('finished searching for hosts, finding hosts with remote access enabled')
+        return all({table: 'nodes', conditions: {columns: {important: true}}}) // "important" nodes are ones belonging to our network
+          .then(res => Promise.all(res.map(v => { // find nodes we don't already know if we can execute remote powershell commands on
+            if (v.node_id === local) return // we only want remote nodes here
+            const hostname = v.hostname
+            if (!hostname) return
+            return RunPowerShell(`Test-WsMan ${hostname}`, false)
+            .then(res => {if (res) remote.push({id: v.node_id, hostname: v.hostname})})    
+          })))
+          .then(() => console.log(`found ${remote.length} hosts with remote access enabled`))
+      })
+      .then(() => Promise.all([ //TODO: import these commands from config folder, run all commands grouped by type, and combine the results, then perform relevant DB operation
+        run_type(commands, 'connections', 'local').then(res => DB.addConnections(local, res)),
+        get_node(commands).then(res => DB.updateNode(local, res, true)),
+        ...remote.map(v => [
+          run_type(commands, 'connections', 'remote', v.hostname).then(res => DB.addConnections(v.id, res, true)),
+          get_node(commands, v.hostname).then(res => DB.updateNode(v.id, res, true))
+        ]).flat()
+      ]))
+      .then(() => loop ())
   }
 
   loop()
