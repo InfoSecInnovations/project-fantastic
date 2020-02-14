@@ -62,17 +62,19 @@ An object containing information about the local host and an array of remote hos
 An array of data about connections from a host.
 
 Possible connection states are:
-- listen
-- syn_sent
-- syn_received
-- established
-- fin_wait_1
-- fin_wait_2
-- close_wait
-- closing
-- last_ack
-- time_wait
-- bound
+  - listen
+  - syn_sent
+  - syn_received
+  - established
+  - fin_wait_1
+  - fin_wait_2
+  - close_wait
+  - closing
+  - last_ack
+  - time_wait
+  - bound
+
+</a>
 
     [
       {
