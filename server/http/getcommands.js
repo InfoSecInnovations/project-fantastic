@@ -9,7 +9,7 @@ const getCommands = (res, req, commands) => {
     })
     .reduce((result, v) => ({ 
       ...result, 
-      [v.filename]: {name: v.name || v.filename.slice(0, v.filename.lastIndexOf('.js')), description: v.description, enabled: v.enabled}
+      [v.filename]: {name: v.name || v.filename.slice(0, v.filename.lastIndexOf('.js')), description: v.description, hosts: v.hosts, enabled: v.enabled}
     }), {})
   console.log(`sent metadata for ${Object.keys(command_data).length} commands.`)
   console.log('-----------')

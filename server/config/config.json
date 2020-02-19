@@ -1,6 +1,7 @@
 {
   "use_child_process" : false,
-  "default_commands" : [
+  "port" : 5000,
+  "data_sources" : [
     "getdnsclientcache.js",
     "gethostname.js",
     "getmacaddress.js",

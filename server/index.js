@@ -36,7 +36,7 @@ const main = async () => {
   app.get('/nodes', Nodes)
   app.get('/commands', (res, req) => GetCommands(res, req, commands))
   app.post('/commands', (res, req) => commands = PostCommands(res, req, commands))
-  app.listen(5000, () => {})
+  app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 
   // TODO: we should scan the config directory for new/updated commands so you don't have to restart the server to update them
 }

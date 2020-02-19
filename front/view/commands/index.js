@@ -1,5 +1,10 @@
 const H = require('snabbdom/h').default
 
+const host_string = host => {
+  if (host == 'local') return 'local host'
+  if (host == 'remote') return 'host with PowerShell remote access'
+}
+
 const commands = (state, send) => {
   if (!state.commands) return
   return H('div#commands', 
@@ -15,7 +20,8 @@ const commands = (state, send) => {
             }, 
             v[1].enabled ? 'Disable' : 'Enable')
         ]),
-        v[1].description ? H('div.item', v[1].description) : undefined
+        v[1].description ? H('div.item', v[1].description) : undefined,
+        H('div.item', `Can run on ${v[1].hosts.map(host_string).join(', ')}.`)
       ])))
     ])
   )

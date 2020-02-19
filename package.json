@@ -1,0 +1,22 @@
+{
+  "name": "fantastic-dev",
+  "version": "1.0.0",
+  "description": "The full source code of Fantastic, a tool for viewing and acting upon computer networks.",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "(cd front && npm install); (cd server && npm install);"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/besimorhino/visual-rnd.git"
+  },
+  "author": "InfoSec Innovations",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/besimorhino/visual-rnd/issues"
+  },
+  "homepage": "https://github.com/besimorhino/visual-rnd#readme"
+}

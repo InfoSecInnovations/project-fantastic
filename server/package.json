@@ -1,10 +1,13 @@
 {
-  "name": "network-viewer-test",
+  "name": "fantastic-server",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
     "fantastic-cli": "file:../packages/fantastic-cli",
     "fantastic-utils": "file:../packages/fantastic-utils",
