@@ -8,9 +8,9 @@ const host_string = host => {
 const commands = (state, send) => {
   if (!state.commands) return
   return H('div#commands', 
-    H('div.section', [
+    H('div.scroll_container.section', [
       H('div.title', 'Host Data Commands'),
-      H('div.commands', Object.entries(state.commands).map(v => H('div.command', [
+      H('div.scroll', Object.entries(state.commands).map(v => H('div.scroll_item', [
         H('div.command_top', [
           H('div.subtitle', v[1].name),
           H('div.button', 

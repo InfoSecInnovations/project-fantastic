@@ -135,16 +135,16 @@ label {
   z-index: 1;
 }
 
-#connections_container {
+.scroll_container {
   min-height: 0;
 }
 
-#info .connections {
+.scroll {
   overflow-y: auto;
   background-color: coral;
 }
 
-#info .connection {
+.scroll_item {
   margin: 0.5rem;
 }
 
@@ -168,7 +168,7 @@ label {
   width: 6rem;
   flex: none;
   font-size: 0.8rem;
-  margin: 0.2rem 0 0.2rem 0.2rem;
+  margin: 0.2rem;
 }
 
 #tooltip {
