@@ -12,4 +12,4 @@ The port used to connect to the server.
 
 ## data_sources
 
-The server will run these files from the `config/data_sources` directory to acquire data about the network and store it in the database. See [Data sources documentation](data_source.md) for more information.
+The server will run these files from the `config/data_sources` directory to acquire data about the network and store it in the database. See [Data Sources](data_source.md) for more information.

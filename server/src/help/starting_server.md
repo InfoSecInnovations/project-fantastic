@@ -16,4 +16,4 @@ For more information about configuring the application see:
 
 To access the client use the port defined in the config file. The default is 5000. If you are running the server locally using this default port, go to `localhost:5000`.
 
-For more information about using the client see the [Client Help](../src/help/index.md)
+For more information about using the client see the [Client Help](index.md)
