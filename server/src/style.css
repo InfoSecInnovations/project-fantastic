@@ -75,59 +75,24 @@ label {
   outline:none;
 }
 
-#info {
-  margin-left: auto;
-  width: min(40%, 500px);
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(255, 171, 140);
-  z-index: 1;
-}
-
-#info .title {
+.title {
   font-weight: bold;
   font-size: 1.2rem;
 }
 
-#info .subtitle {
+.subtitle {
   font-weight: bold;
   margin: 0.6rem 0;
 }
 
-#info .section {
+.section {
   margin: 1rem;
   display: flex;
   flex-direction: column;
 }
 
-#connections_container {
-  min-height: 0;
-}
-
-#info .connections {
-  overflow-y: auto;
-  background-color: coral;
-}
-
-#info .connection {
-  margin: 0.5rem;
-}
-
-#info .divider {
+.divider {
   height: 0.5rem;
-}
-
-#tooltip {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  background-color: rgb(255, 171, 140);
-  font-size: 1rem;
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 2px solid coral;
-  z-index: 100;
 }
 
 .button {
@@ -137,6 +102,11 @@ label {
   border: 2px solid orangered;
   padding: 0.5rem;
   margin-left: 1rem;
+  text-align: center;
+}
+
+.button.disabled {
+  background-color: gray;
 }
 
 .checkboxes {
@@ -153,4 +123,62 @@ label {
   z-index: 2;
   top: 100%;
   width: 100%;
+}
+
+#info {
+  margin-left: auto;
+  width: min(40%, 500px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 171, 140);
+  z-index: 1;
+}
+
+#connections_container {
+  min-height: 0;
+}
+
+#info .connections {
+  overflow-y: auto;
+  background-color: coral;
+}
+
+#info .connection {
+  margin: 0.5rem;
+}
+
+#commands {
+  margin-right: auto;
+  width: min(40%, 400px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 171, 140);
+  z-index: 1;
+}
+
+#commands .command_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.command_top .button {
+  width: 6rem;
+  flex: none;
+  font-size: 0.8rem;
+  margin: 0.2rem 0 0.2rem 0.2rem;
+}
+
+#tooltip {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: rgb(255, 171, 140);
+  font-size: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid coral;
+  z-index: 100;
 }

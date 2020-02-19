@@ -86,14 +86,14 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../util/defaultips.js":
-/*!*****************************!*\
-  !*** ../util/defaultips.js ***!
-  \*****************************/
+/***/ "../packages/fantastic-utils/defaultips.js":
+/*!*************************************************!*\
+  !*** ../packages/fantastic-utils/defaultips.js ***!
+  \*************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack:///../util/defaultips.js?");
+eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack:///../packages/fantastic-utils/defaultips.js?");
 
 /***/ }),
 
@@ -104,7 +104,7 @@ eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  ':
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') window.onresize = e => send({type: 'render'})\r\n  if (action.type == 'nodes') {\r\n    send({type: 'clear_selection'})\r\n    send({type: 'loading', value: false})\r\n    Vis(state, send)\r\n  }\r\n  if (action.type == 'search' || action.type == 'graph_container') {\r\n    send({type: 'loading', value: true})\r\n    send({type: 'clear_selection'})\r\n    fetch(`/nodes?date=${!state.search.date ? 0 : Date.now() - state.search.date * 60 * 1000}&connection_type=${state.search.connection_type}&connection_state=${state.search.connection_state}&show_external=${state.search.show_external}`)\r\n    .then(res => res.json())\r\n    .then(res => send({type: 'nodes', nodes: res}))\r\n  }\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
+eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') {\r\n    window.onresize = e => send({type: 'render'})\r\n    fetch('/commands')\r\n      .then(res => res.json())\r\n      .then(res => send({type: 'commands', commands: res}))\r\n  }\r\n  if (action.type == 'nodes') {\r\n    send({type: 'clear_selection'})\r\n    send({type: 'loading', value: false})\r\n    Vis(state, send)\r\n  }\r\n  if (action.type == 'search' || action.type == 'graph_container') {\r\n    send({type: 'loading', value: true})\r\n    send({type: 'clear_selection'})\r\n    fetch(`/nodes?date=${!state.search.date ? 0 : Date.now() - state.search.date * 60 * 1000}&connection_type=${state.search.connection_type}&connection_state=${state.search.connection_state}&show_external=${state.search.show_external}`)\r\n      .then(res => res.json())\r\n      .then(res => send({type: 'nodes', nodes: res}))\r\n  }\r\n  if (action.type == 'enable_command') fetch(`/commands?${action.command}=${action.enabled}`, {method: 'POST'})\r\n    .then(() => fetch('/commands'))    \r\n    .then(res => res.json())\r\n    .then(res => send({type: 'commands', commands: res}))\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
 
 /***/ }),
 
@@ -340,7 +340,7 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  if (action.type == 'graph_container') state.graph_container = action.container\r\n  if (action.type == 'select') {\r\n    state.selected.node = action.node\r\n    state.selected.edge = action.edge\r\n  }\r\n  if (action.type == 'date') state.search.date = action.date\r\n  if (action.type == 'connection_type') state.search.connection_type = action.connection_type\r\n  if (action.type == 'connection_state') {\r\n    if (action.value && !state.search.connection_state.includes(action.state)) state.search.connection_state.push(action.state)\r\n    if (!action.value) {\r\n      const index = state.search.connection_state.findIndex(v => v === action.state)\r\n      if (index > -1) state.search.connection_state.splice(index, 1)\r\n    }\r\n  }\r\n  if (action.type == 'connection_foldout') state.search.connection_foldout = action.value\r\n  if (action.type == 'show_external') state.search.show_external = action.value\r\n  if (action.type == 'hover_node') {\r\n    if (!state.hovered.nodes.find(v => v === action.node)) state.hovered.nodes.push(action.node)\r\n  }\r\n  if (action.type == 'unhover_node') state.hovered.nodes.splice(state.hovered.nodes.findIndex(v => v ===action.node), 1)\r\n  if (action.type == 'clear_selection') {\r\n    state.selected.node = undefined\r\n    state.selected.edge = undefined\r\n    state.hovered.nodes.length = 0\r\n    state.search.connection_foldout = false\r\n  }\r\n  if (action.type == 'loading') state.loading = action.value\r\n  if (action.type == 'vis') state.vis = action.vis\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
+eval("const update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  if (action.type == 'graph_container') state.graph_container = action.container\r\n  if (action.type == 'select') {\r\n    state.selected.node = action.node\r\n    state.selected.edge = action.edge\r\n  }\r\n  if (action.type == 'date') state.search.date = action.date\r\n  if (action.type == 'connection_type') state.search.connection_type = action.connection_type\r\n  if (action.type == 'connection_state') {\r\n    if (action.value && !state.search.connection_state.includes(action.state)) state.search.connection_state.push(action.state)\r\n    if (!action.value) {\r\n      const index = state.search.connection_state.findIndex(v => v === action.state)\r\n      if (index > -1) state.search.connection_state.splice(index, 1)\r\n    }\r\n  }\r\n  if (action.type == 'connection_foldout') state.search.connection_foldout = action.value\r\n  if (action.type == 'show_external') state.search.show_external = action.value\r\n  if (action.type == 'hover_node') {\r\n    if (!state.hovered.nodes.find(v => v === action.node)) state.hovered.nodes.push(action.node)\r\n  }\r\n  if (action.type == 'unhover_node') state.hovered.nodes.splice(state.hovered.nodes.findIndex(v => v ===action.node), 1)\r\n  if (action.type == 'clear_selection') {\r\n    state.selected.node = undefined\r\n    state.selected.edge = undefined\r\n    state.hovered.nodes.length = 0\r\n    state.search.connection_foldout = false\r\n  }\r\n  if (action.type == 'loading') state.loading = action.value\r\n  if (action.type == 'vis') state.vis = action.vis\r\n  if (action.type == 'commands') state.commands = action.commands\r\n  if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
 
 /***/ }),
 
@@ -362,7 +362,18 @@ eval("const ipAddress = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const DefaultIPs = __webpack_require__(/*! ../../util/defaultips */ \"../util/defaultips.js\")\r\n\r\nconst nodeName = node => node.hostname || (node.ips && node.ips.find(v => !DefaultIPs.includes(v)))\r\n\r\nmodule.exports = nodeName\n\n//# sourceURL=webpack:///./util/nodename.js?");
+eval("const DefaultIPs = __webpack_require__(/*! ../../packages/fantastic-utils/defaultips */ \"../packages/fantastic-utils/defaultips.js\")\r\n\r\nconst nodeName = node => node.hostname || (node.ips && node.ips.find(v => !DefaultIPs.includes(v)))\r\n\r\nmodule.exports = nodeName\n\n//# sourceURL=webpack:///./util/nodename.js?");
+
+/***/ }),
+
+/***/ "./view/commands/index.js":
+/*!********************************!*\
+  !*** ./view/commands/index.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst commands = (state, send) => {\r\n  if (!state.commands) return\r\n  return H('div#commands', \r\n    H('div.section', [\r\n      H('div.title', 'Host Data Commands'),\r\n      H('div.commands', Object.entries(state.commands).map(v => H('div.command', [\r\n        H('div.command_top', [\r\n          H('div.subtitle', v[1].name),\r\n          H('div.button', \r\n            {\r\n              on: {click: [send, {type: 'enable_command', command: v[0], enabled: !v[1].enabled}]},\r\n              class: {disabled: !v[1].enabled}\r\n            }, \r\n            v[1].enabled ? 'Disable' : 'Enable')\r\n        ]),\r\n        v[1].description ? H('div.item', v[1].description) : undefined\r\n      ])))\r\n    ])\r\n  )\r\n}\r\n\r\nmodule.exports = commands\n\n//# sourceURL=webpack:///./view/commands/index.js?");
 
 /***/ }),
 
@@ -373,7 +384,7 @@ eval("const DefaultIPs = __webpack_require__(/*! ../../util/defaultips */ \"../u
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Info = __webpack_require__(/*! ./info */ \"./view/info/index.js\")\r\nconst Search = __webpack_require__(/*! ./search */ \"./view/search/index.js\")\r\nconst Tooltip = __webpack_require__(/*! ./tooltip */ \"./view/tooltip.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('div#container', [\r\n      H('div#top', [\r\n        H('h1', \"Fantastic\"),\r\n        Search(state, send)\r\n      ]),\r\n      H('div#main', [\r\n        H('div#graph_container', {\r\n          hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))},\r\n          style: {display: state.loading ? 'none' : 'block'}\r\n        }),\r\n        state.loading ? H('div#loading', 'Loading...') : undefined,\r\n        Info(state, send),\r\n        Tooltip(state)\r\n      ])\r\n    ])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Commands = __webpack_require__(/*! ./commands */ \"./view/commands/index.js\")\r\nconst Info = __webpack_require__(/*! ./info */ \"./view/info/index.js\")\r\nconst Search = __webpack_require__(/*! ./search */ \"./view/search/index.js\")\r\nconst Tooltip = __webpack_require__(/*! ./tooltip */ \"./view/tooltip.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('div#container', [\r\n      H('div#top', [\r\n        H('h1', \"Fantastic\"),\r\n        Search(state, send)\r\n      ]),\r\n      H('div#main', [\r\n        H('div#graph_container', {\r\n          hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))},\r\n          style: {display: state.loading ? 'none' : 'block'}\r\n        }),\r\n        state.loading ? H('div#loading', 'Loading...') : undefined,\r\n        Commands(state, send),\r\n        Info(state, send),\r\n        Tooltip(state)\r\n      ])\r\n    ])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
 
 /***/ }),
 
@@ -406,7 +417,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! ../../../util/defaultips */ \"../util/defaultips.js\")\r\n\r\nconst nodeTop = node => \r\n  H('div.section', [\r\n    H('div.title', 'Info'),\r\n    node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,\r\n    node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,\r\n    node.macs && node.macs.length ? H('div.subtitle', 'MAC Addresses:') : undefined,\r\n    ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`)),\r\n    H('div.subtitle', 'IP Addresses:'),\r\n    ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : H('div.item', v))\r\n  ])\r\n\r\nmodule.exports = nodeTop\n\n//# sourceURL=webpack:///./view/info/nodetop.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! fantastic-utils/defaultips */ \"../packages/fantastic-utils/defaultips.js\")\r\n\r\nconst nodeTop = node => \r\n  H('div.section', [\r\n    H('div.title', 'Info'),\r\n    node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,\r\n    node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,\r\n    node.macs && node.macs.length ? H('div.subtitle', 'MAC Addresses:') : undefined,\r\n    ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`)),\r\n    H('div.subtitle', 'IP Addresses:'),\r\n    ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : H('div.item', v))\r\n  ])\r\n\r\nmodule.exports = nodeTop\n\n//# sourceURL=webpack:///./view/info/nodetop.js?");
 
 /***/ }),
 
@@ -472,7 +483,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! ../../util/defaultips */ \"../util/defaultips.js\")\r\n\r\nconst tooltip = state => {\r\n  if (!state.hovered.nodes.length || !state.vis) return\r\n  const node_id = state.hovered.nodes[state.hovered.nodes.length - 1]\r\n  const node = state.nodes[node_id]\r\n  const box = state.vis.getBoundingBox(node_id)\r\n  const pos = state.vis.canvasToDOM({x: box.left, y: box.top})\r\n  const ip = node.ips.find(v => !DefaultIPs.includes(v))\r\n  return H('div#tooltip', {style: {left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`}}, [\r\n    H('div', ip ? `IP: ${ip}` : 'no IP address data!'),\r\n    node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,\r\n    node.os ? H('div', node.os) : undefined,\r\n    H('div', `${(node.connections && node.connections.length) || 0} connection${node.connections && node.connections.length === 1 ? '' : 's'}`)\r\n  ])\r\n}\r\n\r\nmodule.exports = tooltip\n\n//# sourceURL=webpack:///./view/tooltip.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! fantastic-utils/defaultips */ \"../packages/fantastic-utils/defaultips.js\")\r\n\r\nconst tooltip = state => {\r\n  if (!state.hovered.nodes.length || !state.vis) return\r\n  const node_id = state.hovered.nodes[state.hovered.nodes.length - 1]\r\n  const node = state.nodes[node_id]\r\n  const box = state.vis.getBoundingBox(node_id)\r\n  const pos = state.vis.canvasToDOM({x: box.left, y: box.top})\r\n  const ip = node.ips.find(v => !DefaultIPs.includes(v))\r\n  return H('div#tooltip', {style: {left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`}}, [\r\n    H('div', ip ? `IP: ${ip}` : 'no IP address data!'),\r\n    node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,\r\n    node.os ? H('div', node.os) : undefined,\r\n    H('div', `${(node.connections && node.connections.length) || 0} connection${node.connections && node.connections.length === 1 ? '' : 's'}`)\r\n  ])\r\n}\r\n\r\nmodule.exports = tooltip\n\n//# sourceURL=webpack:///./view/tooltip.js?");
 
 /***/ })
 

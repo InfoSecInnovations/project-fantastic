@@ -2,55 +2,43 @@ const UWS = require('uWebSockets.js')
 const FS = require('fs').promises
 const DB = require('./db')
 const {fork} = require('child_process')
+const GetCommandData = require('./commands/getcommanddata')
 const RunCommands = require('./commands/runcommands')
+const Files = require('./http/files')
+const Nodes = require('./http/nodes')
+const GetCommands = require('./http/getcommands')
+const PostCommands = require('./http/postcommands')
 
-const config = FS.readFile('config/config.json').then(res => JSON.parse(res))
-const processes = []
+const main = async () => {
 
-DB.init()
-.then(() => {
-  if (config.child_process) {
-    const get_data = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
-    processes.push(get_data)
-    get_data.on('error', err => console.log(err.message))
-  }
-  else {
-    RunCommands()
-  }
-})
+  const config = await FS.readFile('config/config.json').then(res => JSON.parse(res))
+  const processes = []
 
-process.on('exit', () => processes.forEach(v => v.kill()))
+  let commands = await GetCommandData(config)
 
-const app = UWS.App()
-app.get('/', (res, req) => {
-  res.onAborted()
-  FS.readFile('src/index.html').then(file => res.end(file))
-})
-app.get('/*', (res, req) => {
-  res.onAborted()
-  const path = req.getUrl()
-  if (path.endsWith('.svg')) res.writeHeader('Content-Type', 'image/svg+xml')
-  FS.readFile(`src${path}`).then(file => res.end(file), rej => res.end(''))
-})
-app.get('/nodes', (res, req) => {
-  res.onAborted()
-  console.log('-----------')
-  console.log('http request for nodes incoming...')
-  const start = Date.now()
-  const query = req.getQuery().split('&').reduce((result, v) => {
-    const split = v.split('=')
-    const value = split[1].split(',')
-    result[split[0]] = value.length === 1 ? value[0] : value
-    return result
-  }, {})
-  console.log(`from ${Math.floor((Date.now() - query.date) / 1000 / 60)} minutes ago`)
-  console.log(`connection type: ${query.connection_type}`)
-  console.log(`connection state: ${query.connection_state}`)
-  console.log(`show external hosts: ${query.show_external}`)
-  DB.getNodes(query).then(nodes => {
-    console.log(`got nodes from database in ${Date.now() - start}ms, returning results!`)
-    console.log('-----------')
-    res.end(JSON.stringify(nodes))
+  DB.init()
+  .then(() => {
+    // TODO: get child process working with the command list
+    /*if (config.child_process) {
+      const get_data = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
+      processes.push(get_data)
+      get_data.on('error', err => console.log(err.message))
+    }
+    else {*/
+      RunCommands(() => commands)
+    //}
   })
-})
-app.listen(5000, () => {})
+
+  process.on('exit', () => processes.forEach(v => v.kill()))
+
+  const app = UWS.App()
+  app.get('/*', Files)
+  app.get('/nodes', Nodes)
+  app.get('/commands', (res, req) => GetCommands(res, req, commands))
+  app.post('/commands', (res, req) => commands = PostCommands(res, req, commands))
+  app.listen(5000, () => {})
+
+  // TODO: we should scan the config directory for new/updated commands so you don't have to restart the server to update them
+}
+
+main()

@@ -7,10 +7,10 @@ const DefaultIPs = require('fantastic-utils/defaultips')
 
 const run_type = (commands, result_type, host, hostname) => commands[result_type] ?
   Promise.all(commands[result_type].filter(v => v.hosts.includes(host)).map(v => v.run(hostname))).then(FlatUnique) :
-  []
+  Promise.resolve([])
 
 const run_one_of_type = async (commands, result_type, host, hostname) => {
-  if (!commands[result_type]) return []
+  if (!commands[result_type]) return ''
   const funcs = commands[result_type].filter(v => v.hosts.includes(host))
   for (f of funcs) { // TODO: instead of just running in order we should establish a priority so we run the best commands first
     const result = await f.run(hostname)
@@ -35,15 +35,26 @@ const get_node = async (commands, computer_name) => {
   return {ips, macs, os, hostname, important: true}
 }
 
-const run = async () => {
-  const commands = await FS.readdir('config/data_sources')
-    .then(res => res.map(v => require(`../config/data_sources/${v}`)).reduce((result, v) => { // TODO: filter out invalid scripts and warn the user
-      (result[v.result_type] = result[v.result_type] || []).push(v)
-      return result
-    }, {}))
+const create_commands = commands => 
+  Object.entries(commands)
+  .filter(v => v[1])
+  .map(v => {
+    const source = require(`../config/data_sources/${v[0]}`)
+    if (!source.name) source.name = v[0].slice(0, v[0].lastIndexOf('.js'))
+    // TODO: filter out invalid scripts and warn the user
+    return source
+  })
+  .reduce((result, v) => {
+    (result[v.result_type] = result[v.result_type] || []).push(v)
+    return result
+  }, {})
+
+const run = async get_commands => {
+  const commands = create_commands(get_commands())
   const ids = await get_node(commands).then(res => DB.addNodes([res], true))
   const local = ids[0]
   const loop = async () => {
+    const commands = create_commands(get_commands())
     const remote = []
     console.log('finding hosts on network...')
     await run_type(commands, 'hosts', 'local')

@@ -1,3 +1,11 @@
 {
-  "use_child_process" : false
+  "use_child_process" : false,
+  "default_commands" : [
+    "getdnsclientcache.js",
+    "gethostname.js",
+    "getmacaddress.js",
+    "getnetipaddress.js",
+    "getnettcpconnection.js",
+    "getos.js"
+  ]
 }

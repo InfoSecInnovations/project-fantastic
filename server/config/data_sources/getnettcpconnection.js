@@ -15,6 +15,8 @@ const states = {
 }
 
 const getNetTcpConnection = {
+  name: 'Get-NetTcpConnection',
+  description: 'Runs Get-NetTcpConnection cmdlet to find connections from the host.',
   hosts: ['local', 'remote'],
   result_type: 'connections',
   run: hostname => CimSessionJSON('get-nettcpconnection', hostname)

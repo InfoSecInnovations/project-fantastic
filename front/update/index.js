@@ -28,6 +28,8 @@ const update = (state, action) => {
   }
   if (action.type == 'loading') state.loading = action.value
   if (action.type == 'vis') state.vis = action.vis
+  if (action.type == 'commands') state.commands = action.commands
+  if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled
   return state
 }
 

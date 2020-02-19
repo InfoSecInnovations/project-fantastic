@@ -1,5 +1,5 @@
 const H = require('snabbdom/h').default
-const DefaultIPs = require('../../util/defaultips')
+const DefaultIPs = require('fantastic-utils/defaultips')
 
 const tooltip = state => {
   if (!state.hovered.nodes.length || !state.vis) return
