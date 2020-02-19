@@ -1,6 +1,6 @@
 const H = require('snabbdom/h').default
 
-const options = [5, 30, 60, 90, 1440, 0]
+const options = [5, 15, 30, 60, 480, 1440, 0]
 const unit_string = (amount, unit) => amount > 1 ? `${amount} ${unit}s` : unit
 
 const option_label = minutes => {

@@ -7,7 +7,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "(cd front && npm install); (cd server && npm install);"
+    "postinstall": "npm-recursive-install --skip-root"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/besimorhino/visual-rnd/issues"
   },
-  "homepage": "https://github.com/besimorhino/visual-rnd#readme"
+  "homepage": "https://github.com/besimorhino/visual-rnd#readme",
+  "dependencies": {
+    "recursive-install": "^1.4.0"
+  }
 }
