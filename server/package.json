@@ -6,14 +6,15 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "postinstall": "node defaultconfig.js"
   },
   "dependencies": {
     "fantastic-cli": "file:../packages/fantastic-cli",
     "fantastic-utils": "file:../packages/fantastic-utils",
+    "fs-extra": "^8.1.0",
     "node-powershell": "^4.0.0",
     "sqlite3": "^4.1.1",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries",
-    "xml2js": "^0.4.23"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries"
   }
 }
