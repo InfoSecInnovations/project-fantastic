@@ -1,4 +1,4 @@
 const FS = require('fs-extra')
 
-FS.rmdir('config')
+FS.remove('config')
   .then(() => FS.copy('default_config', 'config'))
