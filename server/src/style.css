@@ -77,12 +77,14 @@ label {
 
 .title {
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  margin-bottom: 0.3rem;
 }
 
 .subtitle {
   font-weight: bold;
   margin: 0.6rem 0;
+  font-size: 1rem;
 }
 
 .section {
@@ -169,6 +171,11 @@ label {
   flex: none;
   font-size: 0.8rem;
   margin: 0.2rem;
+}
+
+#commands .targets {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
 }
 
 #tooltip {

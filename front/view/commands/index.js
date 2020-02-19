@@ -21,7 +21,7 @@ const commands = (state, send) => {
             v[1].enabled ? 'Disable' : 'Enable')
         ]),
         v[1].description ? H('div.item', v[1].description) : undefined,
-        H('div.item', `Can run on ${v[1].hosts.map(host_string).join(', ')}.`)
+        H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(host_string).join(', ')}.`])
       ])))
     ])
   )
