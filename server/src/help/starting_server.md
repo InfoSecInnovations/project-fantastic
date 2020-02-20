@@ -2,7 +2,7 @@
 
 ## Installation
 
-Clone the repository and run `npm i` inside it.
+Clone the repository and run `npm i` inside it as administrator.
 
 ## Running the server
 
