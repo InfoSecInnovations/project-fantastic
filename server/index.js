@@ -1,5 +1,6 @@
 const UWS = require('uWebSockets.js')
-const FS = require('fs').promises
+const FSPromises = require('fs').promises
+const FS = require('fs')
 const DB = require('./db')
 const {fork} = require('child_process')
 const GetCommandData = require('./commands/getcommanddata')
@@ -11,8 +12,9 @@ const PostCommands = require('./http/postcommands')
 
 const main = async () => {
 
-  const config = await FS.readFile('config/config.json').then(res => JSON.parse(res))
+  let config = await FSPromises.readFile('config/config.json').then(res => JSON.parse(res))
   const processes = []
+  let writing_file
 
   let commands = await GetCommandData(config)
 
@@ -35,10 +37,43 @@ const main = async () => {
   app.get('/*', Files)
   app.get('/nodes', Nodes)
   app.get('/commands', (res, req) => GetCommands(res, req, commands))
-  app.post('/commands', (res, req) => commands = PostCommands(res, req, commands))
+  app.post('/commands', (res, req) => {
+    commands = PostCommands(res, req, commands)
+    config.data_sources = Object.entries(commands).filter(v => v[1]).map(v => v[0])
+    const write = () => { // FS.writeFile shouldn't be allowed to write more than once at a time, so we have to wait if we're already doing so
+      if (!writing_file) {
+        writing_file = true
+        FSPromises.writeFile('config/config.json', JSON.stringify(config, null, 2))
+          .then(writing_file = false)
+      } else {
+        setTimeout(write, 100)
+      }
+    }
+    write()
+  })
   app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 
-  // TODO: we should scan the config directory for new/updated commands so you don't have to restart the server to update them
+  // reload config if it changed
+  let fsWait
+  FS.watch('config/config.json', (e, filename) => {
+    if (filename) {
+      if (fsWait) return
+      fsWait = setTimeout(() => { // debounce because FS.watch can trigger more than once
+        fsWait = false
+      }, 100)
+      FSPromises.readFile('config/config.json')
+        .then(res => JSON.parse(res))
+        .then(res => {
+          config = res
+          return GetCommandData(res)
+        })
+        .then(res => {
+          commands = res
+          console.log('config.json changed, got new data')
+        })
+    }
+  })
+
 }
 
 main()
