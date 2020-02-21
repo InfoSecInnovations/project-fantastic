@@ -127,7 +127,25 @@ label {
   width: 100%;
 }
 
-#info {
+.tabs {
+  display: flex;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  background-color: coral;
+}
+
+.tab {
+  margin-right: 1.5rem;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.tab.selected {
+  background-color: rgb(255, 171, 140);
+  font-weight: bold;
+}
+
+#selection {
   margin-left: auto;
   width: min(40%, 500px);
   min-height: 0;
@@ -135,6 +153,12 @@ label {
   flex-direction: column;
   background-color: rgb(255, 171, 140);
   z-index: 1;
+}
+
+.selection_panel {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .scroll_container {

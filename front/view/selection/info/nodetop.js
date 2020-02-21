@@ -3,7 +3,6 @@ const DefaultIPs = require('fantastic-utils/defaultips')
 
 const nodeTop = node => 
   H('div.section', [
-    H('div.title', 'Info'),
     node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,
     node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,
     node.macs && node.macs.length ? H('div.subtitle', 'MAC Addresses:') : undefined,

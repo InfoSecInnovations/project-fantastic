@@ -1,6 +1,6 @@
 const H = require('snabbdom/h').default
 const Commands = require('./commands')
-const Info = require('./info')
+const Selection = require('./selection')
 const Search = require('./search')
 const Tooltip = require('./tooltip')
 
@@ -18,7 +18,7 @@ const view = (state, send) =>
         }),
         state.loading ? H('div#loading', 'Loading...') : undefined,
         Commands(state, send),
-        Info(state, send),
+        Selection(state, send),
         Tooltip(state)
       ])
     ])

@@ -30,6 +30,8 @@ const update = (state, action) => {
   if (action.type == 'vis') state.vis = action.vis
   if (action.type == 'commands') state.commands = action.commands
   if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled
+  if (action.type == 'actions') state.actions = action.actions
+  if (action.type == 'tab') state.tab = action.tab
   return state
 }
 

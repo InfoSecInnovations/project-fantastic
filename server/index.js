@@ -1,22 +1,25 @@
 const UWS = require('uWebSockets.js')
-const FSPromises = require('fs').promises
-const FS = require('fs')
+const FS = require('fs').promises
 const DB = require('./db')
 const {fork} = require('child_process')
 const GetCommandData = require('./commands/getcommanddata')
 const RunCommands = require('./commands/runcommands')
+const GetActionData = require('./actions/getactiondata')
 const Files = require('./http/files')
 const Nodes = require('./http/nodes')
 const GetCommands = require('./http/getcommands')
 const PostCommands = require('./http/postcommands')
+const GetActions = require('./http/getactions')
+const WatchConfig = require('./watchconfig')
+const WriteConfig = require('./writeconfig')
 
 const main = async () => {
 
-  let config = await FSPromises.readFile('config/config.json').then(res => JSON.parse(res))
+  let config = await FS.readFile('config/config.json').then(res => JSON.parse(res))
   const processes = []
-  let writing_file
 
-  let commands = await GetCommandData(config)
+  let command_data = await GetCommandData(config)
+  let actions = await GetActionData()
 
   DB.init()
   .then(() => {
@@ -27,7 +30,7 @@ const main = async () => {
       get_data.on('error', err => console.log(err.message))
     }
     else {*/
-      RunCommands(() => commands)
+      RunCommands(() => command_data)
     //}
   })
 
@@ -36,42 +39,20 @@ const main = async () => {
   const app = UWS.App()
   app.get('/*', Files)
   app.get('/nodes', Nodes)
-  app.get('/commands', (res, req) => GetCommands(res, req, commands))
+  app.get('/commands', (res, req) => GetCommands(res, req, command_data))
   app.post('/commands', (res, req) => {
-    commands = PostCommands(res, req, commands)
-    config.data_sources = Object.entries(commands).filter(v => v[1]).map(v => v[0])
-    const write = () => { // FS.writeFile shouldn't be allowed to write more than once at a time, so we have to wait if we're already doing so
-      if (!writing_file) {
-        writing_file = true
-        FSPromises.writeFile('config/config.json', JSON.stringify(config, null, 2))
-          .then(writing_file = false)
-      } else {
-        setTimeout(write, 100)
-      }
-    }
-    write()
+    command_data = PostCommands(res, req, command_data)
+    config.data_sources = Object.entries(command_data).filter(v => v[1]).map(v => v[0])
+    WriteConfig(config)
   })
+  app.get('/actions', (res, req) => GetActions(res, req, actions))
   app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 
-  // reload config if it changed
-  let fsWait
-  FS.watch('config/config.json', (e, filename) => {
-    if (filename) {
-      if (fsWait) return
-      fsWait = setTimeout(() => { // debounce because FS.watch can trigger more than once
-        fsWait = false
-      }, 100)
-      FSPromises.readFile('config/config.json')
-        .then(res => JSON.parse(res))
-        .then(res => {
-          config = res
-          return GetCommandData(res)
-        })
-        .then(res => {
-          commands = res
-          console.log('config.json changed, got new data')
-        })
-    }
+  // reload config and command data if it changed
+  WatchConfig(data => {
+    config = data.config
+    command_data = data.command_data
+    console.log('config.json changed, got new data')
   })
 
 }

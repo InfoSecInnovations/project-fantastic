@@ -6,6 +6,9 @@ const effect = (state, action, send) => {
     fetch('/commands')
       .then(res => res.json())
       .then(res => send({type: 'commands', commands: res}))
+    fetch('/actions')
+      .then(res => res.json())
+      .then(res => send({type: 'actions', actions: res}))
   }
   if (action.type == 'nodes') {
     send({type: 'clear_selection'})
