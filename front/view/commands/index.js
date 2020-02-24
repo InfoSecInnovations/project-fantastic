@@ -7,7 +7,7 @@ const commands = (state, send) => {
     H('div.scroll_container.section', [
       H('div.title', 'Host Data Commands'),
       H('div.scroll', Object.entries(state.commands).map(v => H('div.scroll_item', [
-        H('div.command_top', [
+        H('div.item', [
           H('div.subtitle', v[1].name),
           H('div.button', 
             {

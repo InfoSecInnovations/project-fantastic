@@ -93,6 +93,18 @@ label {
   justify-content: space-between;
 }
 
+.item .button {
+  width: 6rem;
+  flex: none;
+  font-size: 0.8rem;
+  margin: 0.2rem;
+}
+
+.targets {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+}
+
 .section {
   margin: 1rem;
   display: flex;
@@ -188,24 +200,6 @@ label {
   flex-direction: column;
   background-color: rgb(255, 171, 140);
   z-index: 1;
-}
-
-#commands .command_top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.command_top .button, .results .button {
-  width: 6rem;
-  flex: none;
-  font-size: 0.8rem;
-  margin: 0.2rem;
-}
-
-#commands .targets {
-  margin-top: 0.4rem;
-  font-size: 0.8rem;
 }
 
 #tooltip {
