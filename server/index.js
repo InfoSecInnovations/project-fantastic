@@ -10,6 +10,7 @@ const Nodes = require('./http/nodes')
 const GetCommands = require('./http/getcommands')
 const PostCommands = require('./http/postcommands')
 const GetActions = require('./http/getactions')
+const PostActions = require('./http/postactions')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
 
@@ -46,6 +47,7 @@ const main = async () => {
     WriteConfig(config)
   })
   app.get('/actions', (res, req) => GetActions(res, req, actions))
+  app.post('/actions', PostActions)
   app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 
   // reload config and command data if it changed

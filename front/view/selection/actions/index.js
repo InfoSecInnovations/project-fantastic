@@ -9,7 +9,7 @@ const actions = (state, send, node) => {
         H('div.command_top', [
           H('div.subtitle', v[1].name),
           H('div.button', 
-            { on: {click: [send, {type: 'run_action', action: v[0]}]}}, 
+            { on: {click: [send, {type: 'perform_action', action: v[0]}]}}, 
             'Run')
         ]),
         v[1].description ? H('div.item', v[1].description) : undefined,

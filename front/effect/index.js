@@ -26,6 +26,9 @@ const effect = (state, action, send) => {
     .then(() => fetch('/commands'))    
     .then(res => res.json())
     .then(res => send({type: 'commands', commands: res}))
+  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}`, {method: 'POST'})
+    .then(res => res.json())
+    .then(res => send({type: 'action_result', result: res, action: action.action}))
 }
 
 module.exports = effect

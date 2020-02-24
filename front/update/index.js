@@ -32,6 +32,7 @@ const update = (state, action) => {
   if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled
   if (action.type == 'actions') state.actions = action.actions
   if (action.type == 'tab') state.tab = action.tab
+  if (action.type == 'action_result') state.action_results.push({action: action.action, result: action.result})
   return state
 }
 
