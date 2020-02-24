@@ -4,11 +4,12 @@ const postActions = (res, req) => {
   res.onAborted()
   const query = GetQuery(req)
   console.log('-----------')
-  console.log(`received http request to execute ${query.action} action...`)
+  console.log(`received http request to execute ${query.action}...`)
   const action = require(`../config/actions/${query.action}`)
   action.run() // TODO: hostname
     .then(result => {
       res.end(JSON.stringify(result))
+      console.log(`${query.action} executed`)
       console.log('-----------')
     })
 }

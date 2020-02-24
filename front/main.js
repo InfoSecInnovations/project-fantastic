@@ -15,7 +15,7 @@ let state = {
   tab: 'info', 
   selected: {}, 
   hovered: {nodes: []}, 
-  action_results: []}
+  action_results: {}}
 let vdom = ToVNode(document.body)
 
 const send = action=> {

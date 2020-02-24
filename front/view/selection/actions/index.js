@@ -13,7 +13,22 @@ const actions = (state, send, node) => {
             'Run')
         ]),
         v[1].description ? H('div.item', v[1].description) : undefined,
-        H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])
+        H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),
+        state.action_results[v[0]] ? H('div.results', [
+          H('div.subtitle', 'Results'),
+          ...state.action_results[v[0]].map(r => H('div.item', Object.entries(r).map(e => {
+            if (e[0] === 'button') return H('div.button', {
+                on: {click: [send, {
+                  type: 'action_followup', 
+                  action: [v[0]],
+                  function: e[1].click.function,
+                  data: e[1].click.data
+                }]}
+              },
+              e[1].text)
+            return e[1]
+          })))
+        ]) : undefined
       ])))
     ])
   )

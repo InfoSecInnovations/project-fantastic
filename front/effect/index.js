@@ -26,9 +26,12 @@ const effect = (state, action, send) => {
     .then(() => fetch('/commands'))    
     .then(res => res.json())
     .then(res => send({type: 'commands', commands: res}))
-  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}`, {method: 'POST'})
+  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}`, {method: 'POST'}) // TODO: indicate that we're waiting for the result
     .then(res => res.json())
     .then(res => send({type: 'action_result', result: res, action: action.action}))
+  if (action.type == 'action_followup') 
+    fetch(`/action_followup?action=${action.action}&function=${action.function}`, {method: 'POST', body: JSON.stringify(action.data)}) // TODO: indicate that we're waiting for the result
+      .then(() => send({type: 'perform_action', action: action.action})) // TODO: do we always want to execute the action after the followup?
 }
 
 module.exports = effect

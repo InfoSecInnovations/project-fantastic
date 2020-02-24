@@ -87,6 +87,12 @@ label {
   font-size: 1rem;
 }
 
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .section {
   margin: 1rem;
   display: flex;
@@ -190,7 +196,7 @@ label {
   align-items: center;
 }
 
-.command_top .button {
+.command_top .button, .results .button {
   width: 6rem;
   flex: none;
   font-size: 0.8rem;
