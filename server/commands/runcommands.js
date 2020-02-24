@@ -51,7 +51,7 @@ const create_commands = commands =>
 
 const run = async get_commands => {
   const commands = create_commands(get_commands())
-  const ids = await get_node(commands).then(res => DB.addNodes([res], true))
+  const ids = await get_node(commands).then(res => DB.addNodes([{...res, access: 'local'}], true)) // create the initial node belonging to the local host
   const local = ids[0]
   const loop = async () => {
     const commands = create_commands(get_commands())
@@ -67,16 +67,21 @@ const run = async get_commands => {
       .then (() => {
         console.log('finished searching for hosts, finding hosts with remote access enabled...')
         return all({table: 'nodes', conditions: {columns: {important: true}}}) // "important" nodes are ones belonging to our network
-          .then(res => Promise.all(res.map(v => { // find nodes we don't already know if we can execute remote powershell commands on
+          .then(res => Promise.all(res.map(v => {
             if (v.node_id === local) return // we only want remote nodes here
             const hostname = v.hostname
             if (!hostname) return
-            return RunPowerShell(`Test-WsMan ${hostname}`, false)
-            .then(res => {if (res) remote.push({id: v.node_id, hostname})})    
+            return RunPowerShell(`Test-WsMan ${hostname}`, false) // if Test-WsMan doesn't error it means we can run remote commands on this host
+              .then(res => {
+                if (res) {
+                  remote.push({id: v.node_id, hostname})
+                  DB.updateNode(v.node_id, {access: 'remote'}, true)
+                }
+              })    
           })))
           .then(() => console.log(`found ${remote.length} hosts with remote access enabled.`))
       })
-      .then(() => Promise.all([ //TODO: import these commands from config folder, run all commands grouped by type, and combine the results, then perform relevant DB operation
+      .then(() => Promise.all([
         run_type(commands, 'connections', 'local').then(res => DB.addConnections(local, res)),
         get_node(commands).then(res => DB.updateNode(local, res, true)),
         ...remote.map(v => [

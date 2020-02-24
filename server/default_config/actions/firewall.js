@@ -10,9 +10,18 @@ const firewall = {
       name: v.name,
       enabled: v.Enabled ? true : false
     })))
-    .then(res => res.map(v => ({
-      name: v.name,
-      button: {
+    .then(res => res.map(v => [
+      v.name,
+      {
+        type: 'button',
+        text: 'Get Profile Rules',
+        click: {
+          function: 'get_rules',
+          data: {profile: v.name}
+        }
+      },
+      {
+        type: 'button',
         text: v.enabled ? 'Enabled' : 'Disabled',
         click: {
           function: 'enable_profile',
@@ -20,7 +29,7 @@ const firewall = {
         },
         class: {disabled: !v.enabled}
       }
-    }))),
+    ])),
   enable_profile: (hostname, data) => CimSession(`Set-NetFirewallProfile -Profile ${data.profile} -Enabled ${data.state}`, hostname).then(() => [])
 }
 

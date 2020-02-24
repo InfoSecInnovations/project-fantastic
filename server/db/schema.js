@@ -4,7 +4,8 @@ const schema = [
     hostname TEXT,
     date INTEGER,
     os TEXT,
-    important INTEGER
+    important INTEGER,
+    access TEXT
   )`,
   `CREATE TABLE IF NOT EXISTS processes(
     process_id INTEGER PRIMARY KEY,

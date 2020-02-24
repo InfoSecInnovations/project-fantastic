@@ -11,6 +11,7 @@ This is the structure of the objects received by the client by performing a GET 
       os,
       important, // 'important' means this host is on our network
       date, // date this data was gathered in Date.now() format
+      access: 'local', 'remote', 'none' // the type of access we have to this host. 'remote' means we can execute PowerShell commands remotely
       connections: [
         {
           local_address,

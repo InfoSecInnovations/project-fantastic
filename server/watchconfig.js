@@ -14,7 +14,7 @@ const watchConfig = onchange => {
         .then(res => JSON.parse(res))
         .then(async res => onchange({
           config: res,
-          command_data: await GetCommandData(new_config)
+          command_data: await GetCommandData(res)
         }))
     }
   })
