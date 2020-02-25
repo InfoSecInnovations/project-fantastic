@@ -17,7 +17,7 @@ const result = (action, action_result, hostname, send) => H('div.item', action_r
       v.text
     )
   }
-  return v
+  return H('div', v)
 }))
 
 module.exports = result

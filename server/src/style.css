@@ -93,6 +93,10 @@ label {
   justify-content: space-between;
 }
 
+.item > *:first-child {
+  flex-grow: 1;
+}
+
 .item .button {
   min-width: 6rem;
   flex: none;
