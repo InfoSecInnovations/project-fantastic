@@ -1,15 +1,16 @@
+const GetAction = require('../actions/getaction')
+
 const getActions = (res, req, actions) => {
   console.log('-----------')
   console.log('received http request to get available actions...')
   const action_data = actions
     .map(v => {
-      const source = require(`../config/actions/${v}`)
       // TODO: filter out invalid scripts and warn the user
-      return {...source, filename: v}
+      return {...GetAction(v), key: v}
     })
     .reduce((result, v) => ({ 
       ...result, 
-      [v.filename]: {name: v.name || v.filename.slice(0, v.filename.lastIndexOf('.js')), description: v.description, hosts: v.hosts}
+      [v.key]: {name: v.name || v.key.split('/')[1], description: v.description, hosts: v.hosts}
     }), {})
   console.log(`sent metadata for ${Object.keys(action_data).length} actions.`)
   console.log('-----------')

@@ -1,5 +1,5 @@
 {
-  "name": "default_config",
+  "name": "fantastic-default_actions",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,8 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fantastic-default_actions": "file:../../packages/fantastic-default_actions",
-    "node-powershell": "^4.0.0",
-    "xml2js": "^0.4.23"
+    "fantastic-cli": "file:../fantastic-cli"
   }
 }

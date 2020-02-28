@@ -21,7 +21,7 @@ const main = async () => {
   const processes = []
 
   let command_data = await GetCommandData(config)
-  let actions = await GetActionData()
+  let actions = await GetActionData(config)
 
   DB.init()
   .then(() => {
