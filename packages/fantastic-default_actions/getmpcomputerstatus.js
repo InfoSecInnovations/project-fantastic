@@ -8,18 +8,34 @@ const getMpComputerStatus = {
       {
         id: 'antivirus',
         value: [
-          'Antivirus',
-          res[0].AntivirusEnabled ? 'Enabled' : 'Disabled'
+          {type: 'header', text: 'Antivirus'},
+          {
+            type: 'button',
+            text: res[0].AntivirusEnabled ? 'Enabled' : 'Disabled',
+            click: {
+              function: 'enable_antivirus',
+              data: {state: !res[0].AntivirusEnabled}
+            }
+          }      
         ]
       },
       {
         id: 'antispyware',
         value: [
-          'Antispyware',
-          res[0].AntispywareEnabled ? 'Enabled' : 'Disabled'
+          {type: 'header', text: 'Antispyware'},
+          {
+            type: 'button',
+            text: res[0].AntispywareEnabled ? 'Enabled' : 'Disabled',
+            click: {
+              function: 'enable_antispyware',
+              data: {state: !res[0].AntispywareEnabled}
+            }
+          }
         ]
       }
-    ]))
+    ])),
+  enable_antivirus: (hostname, data) => Promise.resolve([{id: 'antivirus', value: ['TODO: set Antivirus state']}]),
+  enable_antispyware: (hostname, data) => Promise.resolve([{id: 'antispyware', value: ['TODO: set Antispyware state']}])
 }
 
 module.exports = getMpComputerStatus

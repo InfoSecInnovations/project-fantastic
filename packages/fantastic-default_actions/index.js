@@ -1,4 +1,5 @@
 module.exports = {
   firewall: require('./firewall'),
-  getMpComputerStatus: require('./getmpcomputerstatus')
+  getMpComputerStatus: require('./getmpcomputerstatus'),
+  getInstalledSoftware: require('./getinstalledsoftware')
 }
