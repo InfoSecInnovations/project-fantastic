@@ -93,8 +93,9 @@ label {
   justify-content: space-between;
 }
 
-.item > *:first-child {
+.item > * {
   flex-grow: 1;
+  flex-basis: 0;
 }
 
 .item .button {
@@ -106,7 +107,8 @@ label {
 
 .followup {
   display: flex;
-  margin: 0.2rem 0.2rem 0.2rem 0;
+  margin: 0.2rem 0;
+  flex: 0;
 }
 
 .followup .foldout {
@@ -115,7 +117,7 @@ label {
 }
 
 .followup .button {
-  margin: 0;
+  margin: 0 0 0 0.4rem;
 }
 
 .followup .foldout::after {
