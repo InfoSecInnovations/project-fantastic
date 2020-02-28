@@ -44,7 +44,12 @@ const main = async () => {
   app.get('/commands', (res, req) => GetCommands(res, req, command_data))
   app.post('/commands', (res, req) => {
     command_data = PostCommands(res, req, command_data)
-    config.data_sources = Object.entries(command_data).filter(v => v[1]).map(v => v[0])
+    config.data_sources = Object.entries(command_data).filter(v => v[1]).reduce((result, v) => {
+      const split = v[0].split('/')
+      if (!result[split[0]]) result[split[0]] = []
+      result[split[0]].push(split[1])
+      return result
+    }, {})
     WriteConfig(config)
   })
   app.get('/actions', (res, req) => GetActions(res, req, actions))

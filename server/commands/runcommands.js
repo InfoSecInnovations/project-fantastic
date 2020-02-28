@@ -1,9 +1,9 @@
 const DB = require('../db')
 const {all} = require('../db/operations')
 const RunPowerShell = require('fantastic-cli/runpowershell')
-const FS = require('fs').promises
 const FlatUnique = require('fantastic-utils/flatunique')
 const DefaultIPs = require('fantastic-utils/defaultips')
+const GetCommand = require('../util/getpackagedasset')
 
 const run_type = (commands, result_type, host, hostname) => commands[result_type] ?
   Promise.all(commands[result_type].filter(v => v.hosts.includes(host)).map(v => v.run(hostname))).then(FlatUnique) :
@@ -39,8 +39,7 @@ const create_commands = commands =>
   Object.entries(commands)
   .filter(v => v[1])
   .map(v => {
-    const source = require(`../config/data_sources/${v[0]}`)
-    if (!source.name) source.name = v[0].slice(0, v[0].lastIndexOf('.js'))
+    const source = GetCommand(v[0])
     // TODO: filter out invalid scripts and warn the user
     return source
   })

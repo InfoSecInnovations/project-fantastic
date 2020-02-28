@@ -1,5 +1,5 @@
 const GetQuery = require('./getquery')
-const GetAction = require('../actions/getaction')
+const GetAction = require('../util/getpackagedasset')
 
 const postActionFollowup = (res, req) => {
   res.onAborted()

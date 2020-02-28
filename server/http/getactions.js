@@ -1,4 +1,4 @@
-const GetAction = require('../actions/getaction')
+const GetAction = require('../util/getpackagedasset')
 
 const getActions = (res, req, actions) => {
   console.log('-----------')
@@ -10,7 +10,7 @@ const getActions = (res, req, actions) => {
     })
     .reduce((result, v) => ({ 
       ...result, 
-      [v.key]: {name: v.name || v.key.split('/')[1], description: v.description, hosts: v.hosts}
+      [v.key]: {name: v.name, description: v.description, hosts: v.hosts}
     }), {})
   console.log(`sent metadata for ${Object.keys(action_data).length} actions.`)
   console.log('-----------')
