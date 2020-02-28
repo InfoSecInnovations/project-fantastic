@@ -69,6 +69,7 @@ const update = (state, action) => {
     action_result = action_result[action.id]
     action_result.foldout[action.function] = action.value
   }
+  if (action.type == 'command_foldout') state.command_foldout = action.value
   return state
 }
 

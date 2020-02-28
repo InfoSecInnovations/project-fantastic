@@ -36,7 +36,7 @@ label {
 }
 
 #search {
-  margin: 0 1rem;
+  margin: 0 auto;
   display: flex;
   align-items: center;
 }
@@ -78,7 +78,7 @@ label {
 .title {
   font-weight: bold;
   font-size: 1.3rem;
-  margin-bottom: 0.3rem;
+  margin: 0.3rem 0;
 }
 
 .subtitle {
@@ -237,6 +237,18 @@ label {
   margin: 0.5rem;
 }
 
+.collapse {
+  height: 1.5rem;
+  padding: 0.3rem;
+  flex: 0;
+  cursor: pointer;
+  transform: rotate(180deg);
+}
+
+.collapse.folded {
+  transform: none;
+}
+
 #commands {
   margin-right: auto;
   width: min(40%, 400px);
@@ -245,6 +257,10 @@ label {
   flex-direction: column;
   background-color: rgb(255, 171, 140);
   z-index: 1;
+}
+
+#commands.folded {
+  align-self: flex-start;
 }
 
 #tooltip {
