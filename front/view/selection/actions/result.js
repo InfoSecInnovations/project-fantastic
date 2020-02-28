@@ -31,6 +31,9 @@ const display = (action, line, foldout, hostname, host, send, id, keys) => {
         class: { disabled: !foldout[line.click.function]}
       }) : undefined
     ])
+    if (line.type == 'header') {
+      return H('div.result_header', line.text)
+    }
   }
   return H('div.text', line)
 }

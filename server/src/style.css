@@ -245,6 +245,10 @@ label {
   transform: rotate(180deg);
 }
 
+.result_header {
+  font-weight: bold;
+}
+
 .collapse.folded {
   transform: none;
 }
