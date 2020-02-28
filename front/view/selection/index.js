@@ -2,6 +2,7 @@ const H = require('snabbdom/h').default
 const Info = require('./info')
 const Actions = require('./actions')
 const Connections = require('./connections')
+const NodeName = require('../../util/nodename')
 
 const get_tab = (state, send, node) => {
   if (state.tab == 'info') return Info(state, send, node)

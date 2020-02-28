@@ -34,7 +34,24 @@ const update = (state, action) => {
   if (action.type == 'tab') state.tab = action.tab
   if (action.type == 'action_result') {
     if (!state.action_results[action.hostname]) state.action_results[action.hostname] = {}
-    state.action_results[action.hostname][action.action] = action.result
+    if (!state.action_results[action.hostname][action.action]) state.action_results[action.hostname][action.action] = {}
+    action.result.forEach(v => {
+      if (!state.action_results[action.hostname][action.action][v.id]) state.action_results[action.hostname][action.action][v.id] = {value: v.value}
+      else state.action_results[action.hostname][action.action][v.id].value = v.value
+    })
+  }
+  if (action.type == 'action_followup_result') {
+    let action_result = state.action_results[action.hostname][action.action]
+    for (const keys of action.keys) {
+      action_result = action_result[keys.id][keys.function]
+    }
+    action_result = action_result[action.id]
+    if (!action_result[action.function]) action_result[action.function] = {}
+    action_result = action_result[action.function]
+    action.result.forEach(v => {
+      if (!action_result[v.id]) action_result[v.id] = {value: v.value}
+      else action_result[v.id].value = v.value
+    })
   }
   return state
 }

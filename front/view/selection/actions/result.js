@@ -1,23 +1,33 @@
 const H = require('snabbdom/h').default
 
-const result = (action, action_result, hostname, send) => H('div.item', action_result.map(v => {
-  if (typeof(v) === 'object') {
-    if (v.type == 'button') return H(
+const display = (action, line, hostname, host, send, id, keys) => {
+  if (typeof(line) === 'object') {
+    if (line.type == 'button') return H(
       'div.button', 
       {
         on: {click: [send, {
           type: 'action_followup', 
           action,
-          function: v.click.function,
-          data: v.click.data,
-          hostname
+          function: line.click.function,
+          data: line.click.data,
+          hostname,
+          host,
+          id,
+          keys
         }]},
-        class: v.class
+        class: line.class
       },
-      v.text
+      line.text
     )
   }
-  return H('div', v)
-}))
+  return H('div', line)
+}
+
+const result = (action, action_result, hostname, host, send, keys = []) => H('div.item', Object.entries(action_result.value).map(v => {
+    if (v[0] === 'value') return v[1].map(v => display(action, v, hostname, host, send, action_result.key, keys))
+    return Object.entries(v[1])
+      .map(r => result(action, {key: r[0], value: r[1]}, hostname, host, send, [...keys, {function: v[0], id: action_result.key}]))
+}).flat())
+
 
 module.exports = result

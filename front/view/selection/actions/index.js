@@ -7,7 +7,7 @@ const actions = (state, send, node) => {
   const hostname = node.access === 'local' ? null : node.hostname
   return H('div.selection_panel', 
     H('div.scroll_container.section', [
-      H('div.scroll', Object.entries(state.actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)).map(v => H('div.scroll_item', [ // TODO: filter by possibility to execute on this node
+      H('div.scroll', Object.entries(state.actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)).map(v => H('div.scroll_item', [
         H('div.item', [
           H('div.subtitle', v[1].name),
           H('div.button', 
@@ -18,7 +18,7 @@ const actions = (state, send, node) => {
         H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),
         state.action_results[node.hostname] && state.action_results[node.hostname][v[0]] ? H('div.results', [
           H('div.subtitle', 'Results'),
-          ...state.action_results[node.hostname][v[0]].map(r => Result(v[0], r, hostname, send))
+          ...Object.entries(state.action_results[node.hostname][v[0]]).map(r => Result(v[0], {key: r[0], value: r[1]}, hostname, node.hostname, send))
         ]) : undefined
       ])))
     ])

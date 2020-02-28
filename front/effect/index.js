@@ -31,7 +31,11 @@ const effect = (state, action, send) => {
     .then(res => send({type: 'action_result', result: res, action: action.action, hostname: action.host}))
   if (action.type == 'action_followup') 
     fetch(`/action_followup?action=${action.action}&function=${action.function}${action.hostname ? `&hostname=${action.hostname}` : ''}`, {method: 'POST', body: JSON.stringify(action.data)}) // TODO: indicate that we're waiting for the result
-      .then(() => send({type: 'perform_action', action: action.action, hostname: action.hostname})) // TODO: do we always want to execute the action after the followup?
+      .then(res => res.json())
+      .then(res => {
+        if (res.length) send({...action, type: 'action_followup_result', result: res, hostname: action.host})
+      })  
+      .then(() => send({type: 'perform_action', action: action.action, hostname: action.hostname, host: action.host})) // TODO: do we always want to execute the action after the followup? we probably want to refresh the data of the result which called the followup
 }
 
 module.exports = effect
