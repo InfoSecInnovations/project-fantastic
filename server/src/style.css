@@ -83,7 +83,7 @@ label {
 
 .subtitle {
   font-weight: bold;
-  margin: 0.6rem 0;
+  margin: 0.6rem 0.6rem 0.6rem 0;
   font-size: 1rem;
 }
 
@@ -104,6 +104,40 @@ label {
   margin: 0.2rem;
 }
 
+.followup {
+  display: flex;
+  margin: 0.2rem 0.2rem 0.2rem 0;
+}
+
+.followup .foldout {
+  width: 1rem;
+  flex: none;
+}
+
+.followup .button {
+  margin: 0;
+}
+
+.followup .foldout::after {
+  content: '-';
+}
+
+.followup .foldout.disabled::after {
+  content: '+';
+}
+
+.result {
+  margin: 0.3rem 0 0.3rem 0.5rem;
+}
+
+.item .text {
+  margin-right: 0.4rem;
+}
+
+.item .text:last-child {
+  margin: 0;
+}
+
 .targets {
   margin-top: 0.4rem;
   font-size: 0.8rem;
@@ -119,17 +153,23 @@ label {
   height: 0.5rem;
 }
 
-.button {
+.button, .foldout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1rem;
   background-color: white;
   cursor: pointer;
   border: 2px solid orangered;
-  padding: 0.5rem;
-  margin-left: 1rem;
   text-align: center;
 }
 
-.button.disabled {
+.button {
+  padding: 0.5rem;
+  margin: 0.2rem 0 0.2rem 1rem;
+}
+
+.button.disabled, .foldout.disabled {
   background-color: gray;
 }
 

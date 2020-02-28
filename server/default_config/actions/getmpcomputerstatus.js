@@ -6,14 +6,20 @@ const getMpComputerStatus = {
   hosts: ['local', 'remote'],
   run: hostname => CimSessionJSON('Get-MpComputerStatus', hostname)
     .then(res => ([ // there should only be one JSON object from this command
-      [
-        'Antivirus',
-        res[0].AntivirusEnabled ? 'Enabled' : 'Disabled'
-      ],
-      [
-        'Antispyware',
-        res[0].AntispywareEnabled ? 'Enabled' : 'Disabled'
-      ]
+      {
+        id: 'antivirus',
+        value: [
+          'Antivirus',
+          res[0].AntivirusEnabled ? 'Enabled' : 'Disabled'
+        ]
+      },
+      {
+        id: 'antispyware',
+        value: [
+          'Antispyware',
+          res[0].AntispywareEnabled ? 'Enabled' : 'Disabled'
+        ]
+      }
     ]))
 }
 

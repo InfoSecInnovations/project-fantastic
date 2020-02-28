@@ -2,6 +2,16 @@ const InvokeCommandJSON = require('fantastic-cli/invokecommandjson')
 const CimSession = require('fantastic-cli/cimsession')
 const CimSessionJSON = require('fantastic-cli/cimsessionjson')
 
+const action = {
+  2 : 'Allow',
+  4 : 'Block'
+}
+
+const direction = {
+  1 : 'Inbound',
+  2 : 'Outbound'
+}
+
 const firewall = {
   name: 'Check Windows Defender Firewall Status',
   description: "This command should show the three default profiles (there might be more though). You will get the profile name and 'enabled' or 'disabled' as results.",
@@ -39,9 +49,21 @@ const firewall = {
     .then(res => res.map(v => ({
       id: v.ID,
       value: [
-        v.DisplayName
+        v.DisplayName,
+        `Direction: ${direction[v.Direction]}`,
+        `Action: ${action[v.Action]}`,
+        {
+          type: 'button',
+          text: v.Enabled ? 'Enabled' : 'Disabled',
+          click: {
+            function: 'enable_rule',
+            data: {profile: data.profile, state: !v.Enabled, rule: v.ID}
+          },
+          class: {disabled: !v.Enabled}
+        }
       ]
-    })))
+    }))),
+  enable_rule: (hostname, data) => Promise.resolve([{id: 'test', value:['test', 'test']}])
 }
 
 module.exports = firewall

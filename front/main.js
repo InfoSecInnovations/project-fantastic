@@ -15,7 +15,8 @@ let state = {
   tab: 'info', 
   selected: {}, 
   hovered: {nodes: []}, 
-  action_results: {}}
+  action_results: {data: {}, foldouts: {}},
+}
 let vdom = ToVNode(document.body)
 
 const send = action=> {
