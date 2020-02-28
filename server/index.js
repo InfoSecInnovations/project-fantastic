@@ -25,7 +25,7 @@ const main = async () => {
 
   DB.init()
   .then(() => {
-    // TODO: get child process working with the command list
+    // TODO: get child process working with commands and actions
     /*if (config.child_process) {
       const get_data = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
       processes.push(get_data)
