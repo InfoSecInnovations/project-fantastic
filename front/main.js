@@ -14,7 +14,7 @@ let state = {
   search: {date: 15, show_external: true, connection_type: 'all', connection_state: []}, 
   tab: 'info', 
   selected: {}, 
-  hovered: {nodes: []}, 
+  hovered: {nodes: [], edges: []}, 
   action_results: {data: {}, foldouts: {}, status: {}},
 }
 let vdom = ToVNode(document.body)

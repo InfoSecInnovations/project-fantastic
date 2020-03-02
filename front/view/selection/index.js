@@ -3,6 +3,7 @@ const Info = require('./info')
 const Actions = require('./actions')
 const Connections = require('./connections')
 const NodeName = require('../../util/nodename')
+const NodesFromEdge = require('../../util/nodesfromedge')
 
 const get_tab = (state, send, node) => {
   if (state.tab == 'info') return Info(state, send, node)
@@ -27,11 +28,9 @@ const selection = (state, send) => {
     ])
   }
   if (typeof state.selected.edge === 'string') {
-    const nodes = state.vis.getConnectedNodes(state.selected.edge)
-    const from_node = state.nodes[nodes[0]]
-    const to_node = state.nodes[nodes[1]]
+    const {from, to} = NodesFromEdge(state, state.selected.edge)
     return H('div#selection', [
-      Connections(from_node.connections.filter(v => v.to_node === to_node.node_id), `Connections from ${NodeName(from_node)} to ${NodeName(to_node)}`)
+      Connections(from.connections.filter(v => v.to_node === to.node_id), `Connections from ${NodeName(from)} to ${NodeName(to)}`)
     ])
   }
 }

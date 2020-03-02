@@ -94,6 +94,8 @@ const graph = (state, send) => {
   })
   network.on('hoverNode', e => send({type: 'hover_node', node: e.node}))
   network.on('blurNode', e => send({type: 'unhover_node', node: e.node}))
+  network.on('hoverEdge', e => send({type: 'hover_edge', edge: e.edge}))
+  network.on('blurEdge', e => send({type: 'unhover_edge', edge: e.edge}))
 
   send({type: 'vis', vis: network})
 }
