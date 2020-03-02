@@ -1,6 +1,6 @@
-const RunPowerShell = require('./runpowershell')
 const ProcessJSON = require('./processjson')
+const CimSession = require('./cimsession')
 
-const cimSessionJson = (command, hostname) => RunPowerShell(`${command} ${hostname ? `-CimSession ${hostname}` : ''} | ConvertTo-Json`).then(ProcessJSON)
+const cimSessionJson = (command, hostname) => CimSession(`${command} | ConvertTo-Json`, hostname).then(ProcessJSON)
 
 module.exports = cimSessionJson

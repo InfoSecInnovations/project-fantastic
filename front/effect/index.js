@@ -26,11 +26,11 @@ const effect = (state, action, send) => {
     .then(() => fetch('/commands'))    
     .then(res => res.json())
     .then(res => send({type: 'commands', commands: res}))
-  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}${action.hostname ? `&hostname=${action.hostname}` : ''}`, {method: 'POST'}) // TODO: indicate that we're waiting for the result
+  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}${action.hostname ? `&hostname=${action.hostname}` : ''}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => send({type: 'action_result', result: res, action: action.action, hostname: action.host}))
   if (action.type == 'action_followup') 
-    fetch(`/action_followup?action=${action.action}&function=${action.function}${action.hostname ? `&hostname=${action.hostname}` : ''}`, {method: 'POST', body: JSON.stringify(action.data)}) // TODO: indicate that we're waiting for the result
+    fetch(`/action_followup?action=${action.action}&function=${action.function}${action.hostname ? `&hostname=${action.hostname}` : ''}`, {method: 'POST', body: JSON.stringify(action.data)})
       .then(res => res.json())
       .then(res => {
         if (res.length) send({...action, type: 'action_followup_result', result: res, hostname: action.host})
