@@ -32,7 +32,7 @@ const update = (state, action) => {
     state.hovered.nodes.length = 0
     state.search.connection_foldout = false
   }
-  if (action.type == 'unhover_all') state.hovered.nodes.length = 0
+  if (action.type == 'hover_ui') state.hovered.ui = action.value
   if (action.type == 'loading') state.loading = action.value
   if (action.type == 'vis') state.vis = action.vis
   if (action.type == 'commands') state.commands = action.commands

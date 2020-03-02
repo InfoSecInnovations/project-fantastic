@@ -2,7 +2,7 @@ const H = require('snabbdom/h').default
 const DefaultIPs = require('fantastic-utils/defaultips')
 
 const tooltip = state => {
-  if (!state.hovered.nodes.length || !state.vis) return
+  if (state.hovered.ui || !state.hovered.nodes.length || !state.vis) return
   const node_id = state.hovered.nodes[state.hovered.nodes.length - 1]
   const node = state.nodes[node_id]
   const box = state.vis.getBoundingBox(node_id)
