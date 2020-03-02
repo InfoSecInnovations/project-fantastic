@@ -4,6 +4,7 @@ const FilterColumns = require('./filtercolumns')
 const AddMACs = require('./addmacs')
 const AddIPs = require('./addips')
 const UpdateNode = require('./updatenode')
+const DefaultIPs = require('fantastic-utils/defaultips')
 
 const addNodes = async (nodes, overwrite) => {
   console.log(`adding ${nodes.length} nodes to the database...`)
@@ -17,7 +18,7 @@ const addNodes = async (nodes, overwrite) => {
         .then(res => res ? get({table: 'nodes', conditions: {columns: {node_id: res.node_id}}}) : null))
       if (mac_match) matches = [mac_match]
       else matches = await (n.ips && n.ips.length ? 
-        all({table: 'ips', columns: ['node_id'], conditions: {columns: {ip: n.ips}, compare: 'IN'}, order_by: {date: 'DESC'}})
+        all({table: 'ips', columns: ['node_id'], conditions: {columns: {ip: n.ips.filter(v => !DefaultIPs.includes(v))}, compare: 'IN'}, order_by: {date: 'DESC'}})
         .then(res => all({table: 'nodes', conditions: {columns: {node_id: res.map(v => v.node_id)}, compare: 'IN'}})) : Promise.resolve([])) // if we can't find the MAC Address, find nodes with the same IP address as this one 
       if (!matches.length) await insert('nodes', NodeColumns.reduce((result, v) => ({...result, [v]: n[v]}), {date})) // if we didn't find any nodes we just insert a new one
         .then(res => {

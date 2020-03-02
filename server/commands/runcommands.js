@@ -70,7 +70,7 @@ const run = async get_commands => {
             if (v.node_id === local) return // we only want remote nodes here
             const hostname = v.hostname
             if (!hostname) return
-            return RunPowerShell(`Test-WsMan ${hostname}`, false) // if Test-WsMan doesn't error it means we can run remote commands on this host
+            return RunPowerShell(`Test-WsMan ${hostname}`) // if Test-WsMan doesn't error it means we can run remote commands on this host
               .then(res => {
                 if (res) {
                   remote.push({id: v.node_id, hostname})

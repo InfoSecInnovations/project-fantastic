@@ -1,6 +1,6 @@
 const Shell = require('node-powershell')
 
-const run = async (command, log = true) => {
+const run = async (command, log = false) => {
   const ps = new Shell({
     executionPolicy: 'Bypass',
     noProfile: true
