@@ -29,7 +29,7 @@ const actions = (state, send, node) => {
                 class: {disabled: !state.action_results.foldouts[node.hostname][v[0]]}
               })
             ]),
-            ...(state.action_results.foldouts[node.hostname][v[0]] ? Object.entries(state.action_results.data[node.hostname][v[0]]).map(r => Result(v[0], {key: r[0], value: r[1]}, hostname, node.hostname, send)) : [])
+            ...(state.action_results.foldouts[node.hostname][v[0]] ? Object.entries(state.action_results.data[node.hostname][v[0]]).map(r => Result(v[0], {key: r[0], value: r[1]}, hostname, node.hostname, loading, send)) : [])
           ]) : undefined
         ])
       }))

@@ -4,7 +4,7 @@ const display = (action, line, foldout, status, hostname, host, send, id, keys) 
 
   if (typeof(line) === 'object') {
     if (line.type == 'button') {
-      const loading = status[line.click.function] === 'loading'
+      const loading = status === true || status[line.click.function] === 'loading'
       return H('div.followup', [
         H('div.button', 
         {
@@ -42,12 +42,12 @@ const display = (action, line, foldout, status, hostname, host, send, id, keys) 
   return H('div.text', line)
 }
 
-const result = (action, action_result, hostname, host, send, keys = []) => H('div.result', Object.entries(action_result.value).map((v, i, arr) => {
+const result = (action, action_result, hostname, host, loading, send, keys = []) => H('div.result', Object.entries(action_result.value).map((v, i, arr) => {
     if (v[0] === 'foldout') return  
-    if (v[0] === 'value') return H('div.item', v[1].map(v => display(action, v, action_result.value.foldout, action_result.value.status, hostname, host, send, action_result.key, keys)))
+    if (v[0] === 'value') return H('div.item', v[1].map(v => display(action, v, action_result.value.foldout, loading || action_result.value.status, hostname, host, send, action_result.key, keys)))
     return action_result.value.foldout[v[0]] ? 
       Object.entries(v[1])
-        .map(r => result(action, {key: r[0], value: r[1]}, hostname, host, send, [...keys, {function: v[0], id: action_result.key}])) :
+        .map(r => result(action, {key: r[0], value: r[1]}, hostname, host, loading || action_result.value.status[v[0]] === 'loading', send, [...keys, {function: v[0], id: action_result.key}])) :
       undefined
 }).flat())
 
