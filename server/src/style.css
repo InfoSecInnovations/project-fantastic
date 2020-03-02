@@ -172,7 +172,12 @@ label {
 }
 
 .button.disabled, .foldout.disabled {
+  background-color: lightgray;
+}
+
+.loading {
   background-color: gray;
+  cursor: auto;
 }
 
 .checkboxes {

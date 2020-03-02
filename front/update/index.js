@@ -43,9 +43,9 @@ const update = (state, action) => {
   if (action.type == 'action_result') {
     if (!state.action_results.data[action.hostname][action.action]) {
       state.action_results.data[action.hostname][action.action] = {}
-      state.action_results.foldouts[action.hostname][action.action] = true
-      state.action_results.status[action.hostname][action.action] = 'loaded'
+      state.action_results.foldouts[action.hostname][action.action] = action.result.length ? true : undefined
     }
+    state.action_results.status[action.hostname][action.action] = 'loaded'
     action.result.forEach(v => {
       if (!state.action_results.data[action.hostname][action.action][v.id]) state.action_results.data[action.hostname][action.action][v.id] = {value: v.value, foldout: {}, status: {}}
       else state.action_results.data[action.hostname][action.action][v.id].value = v.value
@@ -66,7 +66,7 @@ const update = (state, action) => {
       action_result = action_result[keys.id][keys.function]
     }
     action_result = action_result[action.id]
-    action_result.foldout[action.function] = true
+    action_result.foldout[action.function] = action.result.length ? true : undefined
     action_result.status[action.function] = 'loaded'
     if (!action_result[action.function]) action_result[action.function] = {}
     action_result = action_result[action.function]
