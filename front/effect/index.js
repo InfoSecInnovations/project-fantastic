@@ -15,6 +15,7 @@ const effect = (state, action, send) => {
     send({type: 'loading', value: false})
     Vis(state, send)
   }
+  if (action.type == 'graph_container') action.container.onmouseleave = e => send({type: 'unhover_all'})
   if (action.type == 'search' || action.type == 'graph_container') {
     send({type: 'loading', value: true})
     send({type: 'clear_selection'})
