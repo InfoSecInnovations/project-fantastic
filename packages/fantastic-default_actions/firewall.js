@@ -68,7 +68,7 @@ const firewall = {
         ]
       }
     ])).flat()),
-  enable_rule: (hostname, data) => Promise.resolve([{id: 'test', value:['This command will enable or disable firewall rules but for now it just demonstrates nesting']}])
+  enable_rule: (hostname, data) => Promise.resolve([{id: 'test', value:['This command will enable or disable firewall rules but for now it just demonstrates nesting...']}])
 }
 
 module.exports = firewall
