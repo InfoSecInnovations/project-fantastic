@@ -2,6 +2,7 @@ const H = require('snabbdom/h').default
 const Info = require('./info')
 const Actions = require('./actions')
 const Edge = require('./edge')
+const NodeName = require('../../util/nodename')
 
 const get_tab = (state, send, node) => {
   if (state.tab == 'info') return Info(state, send, node)
@@ -20,7 +21,8 @@ const selection = (state, send) => {
         H('div.tab', {
           on: {click: [send, {type: 'tab', tab: 'actions'}]},
           class: {selected: state.tab === 'actions'}
-        }, 'Actions')
+        }, 'Actions'),
+        H('div.tabs_title', H('div.content', NodeName(node)))
       ]),
       get_tab(state, send, node)
     ])

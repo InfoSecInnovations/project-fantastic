@@ -211,6 +211,24 @@ label {
 .tab {
   padding: 1rem;
   cursor: pointer;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.tab:first-child {
+  border-radius: 0 1rem 0 0;
+}
+
+.tabs_title {
+  margin-left: auto;
+  min-width: 0;
+}
+
+.tabs_title .content {
+  padding: 1rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  margin-left: 1rem;
+  background-color: rgb(255, 171, 140);
 }
 
 .tab.selected {
