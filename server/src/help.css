@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  background-color: rgb(39, 40, 41);
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  background-color: rgb(255, 171, 140);
+  width: min(1500px, 100vw);
+  padding: 2rem;
+}
+
+#md_container {
+  background-color: coral;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+}
+
+pre {
+  background-color: white;
+  padding: 1rem;
+}
+
+code {
+  background-color: white;
+  padding: 0.2rem;
+}
+
+pre code {
+  margin: 0;
+  padding: 0;
+}

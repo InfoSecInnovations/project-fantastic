@@ -13,6 +13,7 @@
     "fantastic-cli": "file:../packages/fantastic-cli",
     "fantastic-utils": "file:../packages/fantastic-utils",
     "fs-extra": "^8.1.0",
+    "markdown-it": "^10.0.0",
     "node-powershell": "^4.0.0",
     "sqlite3": "^4.1.1",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries"
