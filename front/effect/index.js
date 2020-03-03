@@ -38,6 +38,7 @@ const effect = (state, action, send) => {
       .then(res => res.json())
       .then(res => send({...action, type: 'action_followup_result', result: res, hostname: action.host}))  
       .then(() => send({type: 'perform_action', action: action.action, hostname: action.hostname, host: action.host})) // TODO: do we always want to execute the action after the followup? we probably want to refresh the data of the result which called the followup
+  if (action.type == 'vis_select') state.vis.selectNodes([action.node])
 }
 
 module.exports = effect

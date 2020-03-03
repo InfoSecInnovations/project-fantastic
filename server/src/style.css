@@ -10,6 +10,11 @@ p {
   margin: 0;
 }
 
+a {
+  cursor: pointer;
+  color: rgb(19, 57, 128);
+}
+
 h1 {
   margin: 0.5rem;
 }

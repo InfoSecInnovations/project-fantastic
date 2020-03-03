@@ -1,9 +1,7 @@
 const H = require('snabbdom/h').default
 const Info = require('./info')
 const Actions = require('./actions')
-const Connections = require('./connections')
-const NodeName = require('../../util/nodename')
-const NodesFromEdge = require('../../util/nodesfromedge')
+const Edge = require('./edge')
 
 const get_tab = (state, send, node) => {
   if (state.tab == 'info') return Info(state, send, node)
@@ -27,12 +25,7 @@ const selection = (state, send) => {
       get_tab(state, send, node)
     ])
   }
-  if (typeof state.selected.edge === 'string') {
-    const {from, to} = NodesFromEdge(state, state.selected.edge)
-    return H('div#selection', [
-      Connections(from.connections.filter(v => v.to_node === to.node_id), `Connections from ${NodeName(from)} to ${NodeName(to)}`)
-    ])
-  }
+  if (typeof state.selected.edge === 'string') return Edge(state, send)
 }
 
 module.exports = selection

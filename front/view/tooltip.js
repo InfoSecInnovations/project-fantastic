@@ -24,7 +24,7 @@ const tooltip = state => {
   if (state.hovered.edges.length) {
     const {from, to, from_id, to_id} = NodesFromEdge(state, state.hovered.edges[state.hovered.edges.length - 1])
     const positions = state.vis.getPositions([from_id, to_id])
-    const pos = state.vis.canvasToDOM({x: (positions[from_id].x + positions[to_id].x) / 2, y: (positions[from_id].y + positions[to_id].y) / 2})
+    const pos = state.vis.canvasToDOM({x: (positions[from_id].x + positions[to_id].x) / 2, y: Math.min(positions[from_id].y, positions[to_id].y)})
     const connections = from.connections.filter(v => v.to_node === to.node_id)
     return H('div#tooltip', {style: style(pos)}, [
       H('div', `${connections.length} connection${connections.length == 1 ? '' : 's'} from ${NodeName(from)} to ${NodeName(to)}`)
