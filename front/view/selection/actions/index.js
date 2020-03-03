@@ -5,9 +5,10 @@ const Result = require('./result')
 const actions = (state, send, node) => {
   if (!state.actions) return
   const hostname = node.access === 'local' ? null : node.hostname
+  const actions = Object.entries(state.actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)) 
   return H('div.selection_panel', 
     H('div.scroll_container.section', [
-      H('div.scroll', Object.entries(state.actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)).map(v => {
+      H('div.scroll', !actions.length ? H('div.scroll_item', 'No actions compatible with this host') : actions.map(v => {
         const loading = state.action_results.status[node.hostname] && state.action_results.status[node.hostname][v[0]] === 'loading'
         return H('div.scroll_item', [
           H('div.item', [
