@@ -30,15 +30,17 @@ const graph = (state, send) => {
     nodes.push({
       ...{
         id: i, 
-        label: NodeName(v),
+        label: `${NodeName(v)}${v.access === 'local' ? ' (local host)' : ''}`,
         mass: connection_count || 1
       }, 
-      ...(image && {image, shape: 'image', shapeProperties: {useBorderWithImage: true}})
+      ...(image && {image, shape: v.important ? 'image' : 'circularImage'}),
+      ...(v.access === 'local' ? {size: 25} : undefined)
     })
   })
   const options = {
     nodes: {
       shape: 'dot',
+      shapeProperties: {useBorderWithImage: true},
       size: 15,
       font: {
         color: 'white', 
@@ -53,7 +55,8 @@ const graph = (state, send) => {
           border: 'lightsteelblue',
           background: 'steelblue'
         }
-      }
+      },
+      imagePadding: 3
     },
     edges: {
       arrows: 'to',

@@ -44,6 +44,7 @@ label {
   margin: 0 auto;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 #search .selector {
@@ -151,7 +152,7 @@ label {
 }
 
 .section {
-  margin: 1rem;
+  margin: 0 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -221,6 +222,7 @@ label {
 .tabs_title {
   margin-left: auto;
   min-width: 0;
+  display: flex;
 }
 
 .tabs_title .content {
@@ -229,6 +231,8 @@ label {
   text-overflow: ellipsis;
   margin-left: 1rem;
   background-color: rgb(255, 171, 140);
+  font-weight: bold;
+  font-size: 1rem;
 }
 
 .tab.selected {
@@ -259,6 +263,7 @@ label {
 .scroll {
   overflow-y: auto;
   background-color: coral;
+  min-height: 10rem;
 }
 
 .scroll_item {
