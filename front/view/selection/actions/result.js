@@ -16,7 +16,8 @@ const display = (action, line, foldout, status, hostname, host, send, id, keys) 
             hostname,
             host,
             id,
-            keys
+            keys,
+            refresh: true
           }]},
           class: {...line.class, loading}
         },

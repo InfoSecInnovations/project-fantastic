@@ -1,4 +1,5 @@
 const Vis = require('./vis')
+const ActionFollowup = require('./actionfollowup')
 
 const effect = (state, action, send) => {
   if (action.type == 'init') {
@@ -33,11 +34,7 @@ const effect = (state, action, send) => {
   if (action.type == 'perform_action') fetch(`/actions?action=${action.action}${action.hostname ? `&hostname=${action.hostname}` : ''}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => send({type: 'action_result', result: res, action: action.action, hostname: action.host}))
-  if (action.type == 'action_followup') 
-    fetch(`/action_followup?action=${action.action}&function=${action.function}${action.hostname ? `&hostname=${action.hostname}` : ''}`, {method: 'POST', body: JSON.stringify(action.data)})
-      .then(res => res.json())
-      .then(res => send({...action, type: 'action_followup_result', result: res, hostname: action.host}))  
-      .then(() => send({type: 'perform_action', action: action.action, hostname: action.hostname, host: action.host})) // TODO: do we always want to execute the action after the followup? we probably want to refresh the data of the result which called the followup
+  if (action.type == 'action_followup') ActionFollowup(state, action, send)
   if (action.type == 'vis_select') state.vis.selectNodes([action.node])
 }
 
