@@ -1,8 +1,9 @@
 const DB = require('../db')
 const GetQuery = require('./getquery')
+const Abort = require('./abort')
 
 const nodes = (res, req) => {
-  res.onAborted()
+  res.onAborted(() => Abort(res))
   console.log('-----------')
   console.log('http request for nodes incoming...')
   const start = Date.now()
@@ -12,6 +13,7 @@ const nodes = (res, req) => {
   console.log(`connection state: ${query.connection_state}`)
   console.log(`show external hosts: ${query.show_external}`)
   DB.getNodes(query).then(nodes => {
+    if (res.aborted) return
     console.log(`got nodes from database in ${Date.now() - start}ms, returning results!`)
     console.log('-----------')
     res.end(JSON.stringify(nodes))

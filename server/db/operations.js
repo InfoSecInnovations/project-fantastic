@@ -1,12 +1,14 @@
 const SQLite3 = require('sqlite3').verbose()
 
-const run = queries => new Promise((resolve, reject) => {
+const execute = func => new Promise(async (resolve, reject) => {
   const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
-  db.serialize(() => {
-    queries.forEach(v => db.run(v, err => err && console.log(err.message)))
-  })
-  db.close(err => err && reject(err) || resolve())
+  const result = await func(db)
+  db.close(err => err && reject(err) || resolve(result))
 })
+
+const run = queries => execute(db => db.serialize(() => {
+  queries.forEach(v => db.run(v, err => err && console.log(err.message)))
+}))
 
 const format_value = v => {
   if (typeof v === 'number') return v
@@ -33,55 +35,61 @@ const order = order_by => {
   return `ORDER BY ${text()}`
 }
 
-const insert = (table, row) => new Promise((resolve, reject) => {
-  const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
-  db.run(
-    `INSERT INTO ${table} ${row && Object.keys(row).length ? `(${Object.keys(row).join()})
-    VALUES(${Object.values(row).map(format_value).join()})` : 'DEFAULT VALUES'}`,
-    function (err) {
-      if (err) return reject(err)
-      resolve(this.lastID)
-    }
+const insert = (table, row) => execute(
+  db => new Promise(
+    (resolve, reject) => db.run(
+      `INSERT INTO ${table} ${row && Object.keys(row).length ? `(${Object.keys(row).join()})
+      VALUES(${Object.values(row).map(format_value).join()})` : 'DEFAULT VALUES'}`,
+      function (err) {
+        if (err) return reject(err)
+        resolve(this.lastID)
+      }
+    )
   )
-  db.close(err => err && console.log(err.message))
-})
+)
 
-const update = query => new Promise((resolve, reject) => {
-  const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
-  db.run(
-    `UPDATE ${query.table}
-    SET ${Object.entries(query.row).filter(v => typeof v[1] === 'number' || typeof v[1] === 'boolean' || typeof v[1] === 'string' || v[1]).map(v => `${v[0]} = ${format_value(v[1])}`)}
-    ${where(query.conditions)}`,
-    function (err) {
-      if (err) return reject(err)
-      resolve()
-    }
+const update = query => execute(
+  db => new Promise(
+    (resolve, reject) => db.run(
+      `UPDATE ${query.table}
+      SET ${Object.entries(query.row).filter(v => typeof v[1] === 'number' || typeof v[1] === 'boolean' || typeof v[1] === 'string' || v[1]).map(v => `${v[0]} = ${format_value(v[1])}`)}
+      ${where(query.conditions)}`,
+      function (err) {
+        if (err) return reject(err)
+        resolve()
+      }
+    )
   )
-  db.close(err => err && console.log(err.message))
-})
+)
 
 const select = query => `SELECT ${(query.columns && query.columns.length && query.columns.join()) || '*'} 
   FROM ${query.table}
   ${where(query.conditions)}
   ${order(query.order_by)}`
 
-const get = query => new Promise((resolve, reject) => {
-  const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
-  db.get(select(query), (err, row) => {
-    if (err) reject(err)
-    else resolve(row)
-  })
-  db.close(err => err && console.error(err.message))
-})
+const get = query => execute(
+  db => new Promise(
+    (resolve, reject) => db.get(
+      select(query), 
+      (err, row) => {
+        if (err) reject(err)
+        else resolve(row)
+      }
+    )
+  )
+)
 
-const all = query => new Promise((resolve, reject) => {
-  const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
-  db.all(select(query), (err, row) => {
-    if (err) reject(err)
-    else resolve(row)
-  })
-  db.close(err => err && console.error(err.message))
-})
+const all = query => execute(
+  db => new Promise(
+    (resolve, reject) => db.all(
+      select(query), 
+      (err, row) => {
+        if (err) reject(err)
+        else resolve(row)
+      }
+    )
+  )
+)
 
 const remove = query => run([
   `DELETE FROM ${query.table}

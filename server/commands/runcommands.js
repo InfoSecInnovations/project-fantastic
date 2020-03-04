@@ -22,7 +22,7 @@ const remove_line_breaks = s => s && s.replace(/\r?\n|\r/g, '') // for some reas
 
 const get_node = async (commands, computer_name) => {
   const host = computer_name ? 'remote' : 'local' // if we didn't supply a computer name we're running this on the local machine
-  const label = `${host} host ${computer_name || ''}`
+  const label = `${host} host${computer_name ? ` ${computer_name}` : ''}`
   console.log(`getting host data from ${label}...`)
   const ips = FlatUnique([...await run_type(commands, 'ip_addresses', host, computer_name), ...DefaultIPs])
   console.log(`got IP Addresses from ${label}.`)
@@ -32,6 +32,7 @@ const get_node = async (commands, computer_name) => {
   console.log(`got OS from ${label}.`)
   const hostname = await run_one_of_type(commands, 'hostname', host, computer_name).then(remove_line_breaks)
   console.log(`got hostname from ${label}.`)
+  console.log(`Got data from ${label}.`)
   return {ips, macs, os, hostname, important: true}
 }
 
@@ -53,6 +54,7 @@ const run = async get_commands => {
   const ids = await get_node(commands).then(res => DB.addNodes([{...res, access: 'local'}], true)) // create the initial node belonging to the local host
   const local = ids[0]
   const loop = async () => {
+    console.log('starting host data loop...')
     const commands = create_commands(get_commands())
     const remote = []
     console.log('finding hosts on network...')

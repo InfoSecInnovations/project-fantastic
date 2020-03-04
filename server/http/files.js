@@ -27,13 +27,13 @@ const markdown = file => FS.readFile('src/markdown_template.html')
   })
 
 const files = (res, req) => {
-  res.onAborted()
+  res.onAborted(() => res.aborted = true)
   let path = req.getUrl()
   if (!path || path === '/') path = '/index.html'
   if (path.endsWith('.svg')) res.writeHeader('Content-Type', 'image/svg+xml')
   FS.readFile(`src${path}`).then(file => {
-    if (path.endsWith('.md')) return markdown(file.toString()).then(file => res.end(file))
-    return res.end(file)
+    if (path.endsWith('.md')) return markdown(file.toString()).then(file => !res.aborted && res.end(file))
+    return !res.aborted && res.end(file)
   }, rej => res.end(''))
 }
 

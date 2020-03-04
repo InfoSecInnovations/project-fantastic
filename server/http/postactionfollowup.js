@@ -1,8 +1,9 @@
 const GetQuery = require('./getquery')
 const GetAction = require('../util/getpackagedasset')
+const Abort = require('./abort')
 
 const postActionFollowup = (res, req) => {
-  res.onAborted()
+  res.onAborted(() => Abort(res))
   const query = GetQuery(req)
   console.log('-----------')
   console.log(`received http request to execute ${query.function} function from ${query.action}${query.hostname ? ` on ${query.hostname}` : ''}...`)
@@ -14,9 +15,12 @@ const postActionFollowup = (res, req) => {
     if (isLast) {
       const json = JSON.parse(buffer)
       action[query.function](query.hostname, json)
-        .then(result => res.end(JSON.stringify(result)))
-      console.log(`${query.function} function from ${query.action} executed${query.hostname ? ` on ${query.hostname}` : ''}.`)
-      console.log('-----------')
+        .then(result => {
+          if (res.aborted) return
+          console.log(`${query.function} function from ${query.action} executed${query.hostname ? ` on ${query.hostname}` : ''}.`)
+          console.log('-----------')
+          res.end(JSON.stringify(result))
+        })
     }
   })
 }
