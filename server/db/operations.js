@@ -83,9 +83,9 @@ const all = query => execute(
   db => new Promise(
     (resolve, reject) => db.all(
       select(query), 
-      (err, row) => {
+      (err, rows) => {
         if (err) reject(err)
-        else resolve(row)
+        else resolve(rows)
       }
     )
   )

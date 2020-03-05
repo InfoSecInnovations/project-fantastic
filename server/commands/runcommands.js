@@ -12,7 +12,7 @@ const run_type = (commands, result_type, host, hostname) => commands[result_type
 const run_one_of_type = async (commands, result_type, host, hostname) => {
   if (!commands[result_type]) return ''
   const funcs = commands[result_type].filter(v => v.hosts.includes(host))
-  for (f of funcs) { // TODO: instead of just running in order we should establish a priority so we run the best commands first
+  for (const f of funcs) { // TODO: instead of just running in order we should establish a priority so we run the best commands first
     const result = await f.run(hostname)
     if (result) return result
   }
@@ -60,7 +60,7 @@ const run = async get_commands => {
     console.log('finding hosts on network...')
     await run_type(commands, 'hosts', 'local')
       .then(async res => {
-        for (r of res) {
+        for (const r of res) {
           await DB.updateNode(local, r.local)
           await DB.addNodes(r.remote)
         }
