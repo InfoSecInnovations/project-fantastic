@@ -52,6 +52,17 @@ const schema = [
     FOREIGN KEY (node_id)
       REFERENCES nodes (node_id)
       ON DELETE CASCADE
+  )`,
+  `CREATE TABLE IF NOT EXISTS results(
+    result_id INTEGER PRIMARY KEY,
+    action TEXT,
+    function TEXT,
+    data TEXT,
+    date INTEGER,
+    node_id INTEGER,
+    FOREIGN KEY (node_id)
+      REFERENCES nodes (node_id)
+      ON DELETE CASCADE
   )`
 ]
 

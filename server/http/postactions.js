@@ -1,18 +1,17 @@
 const GetQuery = require('./getquery')
-const GetAction = require('../util/getpackagedasset')
 const Abort = require('./abort')
+const RunAction = require('../actions/runaction')
 
 const postActions = (res, req) => {
   res.onAborted(() => Abort(res))
   const query = GetQuery(req)
   console.log('-----------')
-  console.log(`received http request to execute ${query.action}${query.hostname ? ` on ${query.hostname}` : ''}...`)
-  const action = GetAction(query.action)
-  action.run(query.hostname) // TODO: hostname
+  console.log(`received http request to execute ${query.action} on node ${query.node_id}...`)
+  RunAction(query.action, query.node_id)
     .then(result => {
       if (res.aborted) return
       res.end(JSON.stringify(result))
-      console.log(`${query.action} executed${query.hostname ? ` on ${query.hostname}` : ''}.`)
+      console.log(`${query.action} executed on node ${query.node_id}`)
       console.log('-----------')
     })
 }

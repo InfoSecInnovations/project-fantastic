@@ -1,4 +1,4 @@
-const fetch_followup = action => fetch(`/action_followup?action=${action.action}&function=${action.function}${action.hostname ? `&hostname=${action.hostname}` : ''}`, {method: 'POST', body: JSON.stringify(action.data)})
+const fetch_followup = action => fetch(`/action_followup?action=${action.action}&function=${action.function}&node_id=${action.node_id}`, {method: 'POST', body: JSON.stringify(action.data)})
 
 const actionFollowup = (state, action, send) => {
   fetch_followup(action)
@@ -25,7 +25,7 @@ const actionFollowup = (state, action, send) => {
         }
         send({type: 'action_followup', ...prev_action, refresh: false})
       }
-      else send({type: 'perform_action', action: action.action, hostname: action.hostname, host: action.host})
+      else send({...action, type: 'perform_action'})
     })
 }
 

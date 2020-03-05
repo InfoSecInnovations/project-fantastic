@@ -15,7 +15,7 @@ const actions = (state, send, node) => {
             H('div.subtitle', v[1].name),
             H('div.button', 
               { 
-                on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], hostname, host: node.hostname}]},
+                on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname}]},
                 class: {loading}
               }, 
               loading ? 'Running...' : 'Run')
@@ -30,7 +30,7 @@ const actions = (state, send, node) => {
                 class: {disabled: !state.action_results.foldouts[node.hostname][v[0]]}
               })
             ]),
-            ...(state.action_results.foldouts[node.hostname][v[0]] ? Object.entries(state.action_results.data[node.hostname][v[0]]).map(r => Result(v[0], {key: r[0], value: r[1]}, hostname, node.hostname, loading, send)) : [])
+            ...(state.action_results.foldouts[node.hostname][v[0]] ? Object.entries(state.action_results.data[node.hostname][v[0]]).map(r => Result(v[0], {key: r[0], value: r[1]}, node.node_id, node.hostname, loading, send)) : [])
           ]) : undefined
         ])
       }))

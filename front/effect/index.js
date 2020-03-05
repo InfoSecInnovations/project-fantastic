@@ -31,7 +31,7 @@ const effect = (state, action, send) => {
     .then(() => fetch('/commands'))    
     .then(res => res.json())
     .then(res => send({type: 'commands', commands: res}))
-  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}${action.hostname ? `&hostname=${action.hostname}` : ''}`, {method: 'POST'})
+  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}&node_id=${action.node_id}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => send({type: 'action_result', result: res, action: action.action, hostname: action.host}))
   if (action.type == 'action_followup') ActionFollowup(state, action, send)
