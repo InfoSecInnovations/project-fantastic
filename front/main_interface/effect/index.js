@@ -32,7 +32,7 @@ const effect = (state, action, send) => {
 
   if (action.type == 'vis_select') state.vis.selectNodes([action.node])
   if (action.type == 'open_viewer') {
-    const viewer_tab = window.open('/node_viewer.html', '#blank')
+    const viewer_tab = window.open('/node_viewer.html', '_blank')
     viewer_tab.onload = () => viewer_tab.send({type: 'node_data', data: state.nodes[action.node]})
   }
 }
