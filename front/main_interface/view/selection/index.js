@@ -3,6 +3,7 @@ const Info = require('../../../common/view/info')
 const Actions = require('../../../common/view/actions')
 const Edge = require('./edge')
 const NodeName = require('../../../common/util/nodename')
+const Multi = require('./multi')
 
 const get_tab = (state, send, node) => {
   if (state.tab == 'info') return Info(state, send, node)
@@ -28,6 +29,7 @@ const selection = (state, send) => {
     ])
   }
   if (typeof state.selected.edge === 'string') return Edge(state, send)
+  if (state.selected.nodes && state.selected.nodes.length) return Multi(state, send)
 }
 
 module.exports = selection

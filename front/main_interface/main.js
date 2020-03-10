@@ -16,6 +16,7 @@ let state = {
   selected: {}, 
   hovered: {nodes: [], edges: []}, 
   action_results: {data: {}, foldouts: {}, status: {}},
+  keys: {}
 }
 let vdom = ToVNode(document.body)
 

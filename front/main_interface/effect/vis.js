@@ -93,7 +93,7 @@ const graph = (state, send) => {
     edges: new Vis.DataSet(edges.map(v => ({from: v.from, to: v.to, label: `${v.connections} connection${v.connections == 1 ? '' : 's'}`})))
   }, options)
   network.on('click', e => {
-    send({type: 'select', edge: e.edges.length ? e.edges[0] : undefined, node: e.nodes.length ? e.nodes[0] : undefined})
+    send({type: 'click', edge: e.edges.length ? e.edges[0] : undefined, node: e.nodes.length ? e.nodes[0] : undefined})
   })
   network.on('hoverNode', e => send({type: 'hover_node', node: e.node}))
   network.on('blurNode', e => send({type: 'unhover_node', node: e.node}))

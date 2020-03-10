@@ -4,6 +4,7 @@ const update = (state, action) => {
   if (action.type == 'nodes') state.nodes = action.nodes
   if (action.type == 'graph_container') state.graph_container = action.container
   if (action.type == 'select') {
+    state.selected.nodes = action.nodes
     state.selected.node = action.node
     state.selected.edge = action.edge
   }
@@ -40,6 +41,7 @@ const update = (state, action) => {
   if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled
   if (action.type == 'tab') state.tab = action.tab
   if (action.type == 'command_foldout') state.command_foldout = action.value
+  if (action.type == 'key') state.keys[action.key] = action.value
   state = Common(state, action)
   return state
 }

@@ -1,5 +1,6 @@
 const Vis = require('./vis')
 const Common = require('../../common/effect')
+const FlatUnique = require('fantastic-utils/flatunique')
 
 const effect = (state, action, send) => {
   Common(state, action, send)
@@ -8,6 +9,12 @@ const effect = (state, action, send) => {
     fetch('/commands')
       .then(res => res.json())
       .then(res => send({type: 'commands', commands: res}))
+    window.onkeydown = e => {
+      if (e.key === 'Shift') send({type: 'key', key: 'shift', value: true})
+    }
+    window.onkeyup = e => {
+      if (e.key === 'Shift') send({type: 'key', key: 'shift', value: false})
+    }
   }
   if (action.type == 'nodes') {
     send({type: 'clear_selection'})
@@ -34,6 +41,11 @@ const effect = (state, action, send) => {
   if (action.type == 'open_viewer') {
     const viewer_tab = window.open('/node_viewer.html', '_blank')
     viewer_tab.onload = () => viewer_tab.send({type: 'node_data', data: state.nodes[action.node]})
+  }
+  if (action.type == 'click') {
+    if (state.keys.shift && action.node) send({type: 'select', nodes: FlatUnique([state.selected.nodes, state.selected.node, action.node])})
+    else if (action.node) send({type: 'select', node: action.node})
+    else send({...action, type: 'select'})
   }
 }
 
