@@ -1,15 +1,13 @@
 const Vis = require('./vis')
-const ActionFollowup = require('./actionfollowup')
+const Common = require('../../common/effect')
 
 const effect = (state, action, send) => {
+  Common(state, action, send)
   if (action.type == 'init') {
     window.onresize = e => send({type: 'render'})
     fetch('/commands')
       .then(res => res.json())
       .then(res => send({type: 'commands', commands: res}))
-    fetch('/actions')
-      .then(res => res.json())
-      .then(res => send({type: 'actions', actions: res}))
   }
   if (action.type == 'nodes') {
     send({type: 'clear_selection'})
@@ -31,11 +29,12 @@ const effect = (state, action, send) => {
     .then(() => fetch('/commands'))    
     .then(res => res.json())
     .then(res => send({type: 'commands', commands: res}))
-  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}&node_id=${action.node_id}`, {method: 'POST'})
-    .then(res => res.json())
-    .then(res => send({type: 'action_result', result: res, action: action.action, hostname: action.host}))
-  if (action.type == 'action_followup') ActionFollowup(state, action, send)
+
   if (action.type == 'vis_select') state.vis.selectNodes([action.node])
+  if (action.type == 'open_viewer') {
+    const viewer_tab = window.open('/node_viewer.html', '#blank')
+    viewer_tab.onload = () => viewer_tab.send({type: 'node_data', data: state.nodes[action.node]})
+  }
 }
 
 module.exports = effect

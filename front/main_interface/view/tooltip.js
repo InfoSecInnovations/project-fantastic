@@ -1,7 +1,7 @@
 const H = require('snabbdom/h').default
 const DefaultIPs = require('fantastic-utils/defaultips')
 const NodesFromEdge = require('../util/nodesfromedge')
-const NodeName = require('../util/nodename')
+const NodeName = require('../../common/util/nodename')
 
 const style = pos => ({left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`})
 

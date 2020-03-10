@@ -86,25 +86,226 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../packages/fantastic-utils/defaultips.js":
-/*!*************************************************!*\
-  !*** ../packages/fantastic-utils/defaultips.js ***!
-  \*************************************************/
+/***/ "../../packages/fantastic-utils/defaultips.js":
+/*!*********************************************************************!*\
+  !*** F:/network viewer test/packages/fantastic-utils/defaultips.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack:///../packages/fantastic-utils/defaultips.js?");
+eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack:///F:/network_viewer_test/packages/fantastic-utils/defaultips.js?");
 
 /***/ }),
 
-/***/ "./effect/actionfollowup.js":
-/*!**********************************!*\
-  !*** ./effect/actionfollowup.js ***!
-  \**********************************/
+/***/ "../common/effect/actionfollowup.js":
+/*!******************************************!*\
+  !*** ../common/effect/actionfollowup.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const fetch_followup = action => fetch(`/action_followup?action=${action.action}&function=${action.function}&node_id=${action.node_id}&key=${action.id}`, {method: 'POST', body: JSON.stringify(action.data)})\r\n\r\nconst actionFollowup = (state, action, send) => {\r\n  fetch_followup(action)\r\n    .then(res => res.json())\r\n    .then(res => send({...action, type: 'action_followup_result', result: res, hostname: action.host}))  \r\n    .then(() => {\r\n      if (!action.refresh) return\r\n      if (action.keys.length) {\r\n        let action_result = state.action_results.data[action.host][action.action]\r\n        for (let i = 0; i < action.keys.length - 1; i++) {\r\n          const keys = action.keys[i]\r\n          action_result = action_result[keys.id][keys.function]\r\n        }\r\n        const id = action.keys[action.keys.length - 1].id\r\n        const func = action.keys[action.keys.length - 1].function\r\n        action_result = action_result[id]\r\n        const result_value = action_result.value.find(v => v.click && v.click.function === func)\r\n        const prev_action = {\r\n          ...action,\r\n          keys: action.keys.slice(0, action.keys.length - 1),\r\n          function: func,\r\n          id,\r\n          data: result_value.click.data\r\n        }\r\n        send({type: 'action_followup', ...prev_action, refresh: false})\r\n      }\r\n      else send({...action, type: 'perform_action'})\r\n    })\r\n}\r\n\r\nmodule.exports = actionFollowup\n\n//# sourceURL=webpack:///./effect/actionfollowup.js?");
+eval("const fetch_followup = action => fetch(`/action_followup?action=${action.action}&function=${action.function}&node_id=${action.node_id}&key=${action.id}`, {method: 'POST', body: JSON.stringify(action.data)})\r\n\r\nconst actionFollowup = (state, action, send) => {\r\n  fetch_followup(action)\r\n    .then(res => res.json())\r\n    .then(res => send({...action, type: 'action_followup_result', result: res, hostname: action.host}))  \r\n    .then(() => {\r\n      if (!action.refresh) return\r\n      if (action.keys.length) {\r\n        let action_result = state.action_results.data[action.host][action.action]\r\n        for (let i = 0; i < action.keys.length - 1; i++) {\r\n          const keys = action.keys[i]\r\n          action_result = action_result[keys.id][keys.function]\r\n        }\r\n        const id = action.keys[action.keys.length - 1].id\r\n        const func = action.keys[action.keys.length - 1].function\r\n        action_result = action_result[id]\r\n        const result_value = action_result.value.find(v => v.click && v.click.function === func)\r\n        const prev_action = {\r\n          ...action,\r\n          keys: action.keys.slice(0, action.keys.length - 1),\r\n          function: func,\r\n          id,\r\n          data: result_value.click.data\r\n        }\r\n        send({type: 'action_followup', ...prev_action, refresh: false})\r\n      }\r\n      else send({...action, type: 'perform_action'})\r\n    })\r\n}\r\n\r\nmodule.exports = actionFollowup\n\n//# sourceURL=webpack:///../common/effect/actionfollowup.js?");
+
+/***/ }),
+
+/***/ "../common/effect/index.js":
+/*!*********************************!*\
+  !*** ../common/effect/index.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const ActionFollowup = __webpack_require__(/*! ./actionfollowup */ \"../common/effect/actionfollowup.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') {\r\n    fetch('/actions')\r\n      .then(res => res.json())\r\n      .then(res => send({type: 'actions', actions: res}))\r\n  }\r\n  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}&node_id=${action.node_id}`, {method: 'POST'})\r\n    .then(res => res.json())\r\n    .then(res => send({type: 'action_result', result: res, action: action.action, hostname: action.host}))\r\n  if (action.type == 'action_followup') ActionFollowup(state, action, send)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///../common/effect/index.js?");
+
+/***/ }),
+
+/***/ "../common/node_modules/snabbdom/h.js":
+/*!********************************************!*\
+  !*** ../common/node_modules/snabbdom/h.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar vnode_1 = __webpack_require__(/*! ./vnode */ \"../common/node_modules/snabbdom/vnode.js\");\nvar is = __webpack_require__(/*! ./is */ \"../common/node_modules/snabbdom/is.js\");\nfunction addNS(data, children, sel) {\n    data.ns = 'http://www.w3.org/2000/svg';\n    if (sel !== 'foreignObject' && children !== undefined) {\n        for (var i = 0; i < children.length; ++i) {\n            var childData = children[i].data;\n            if (childData !== undefined) {\n                addNS(childData, children[i].children, children[i].sel);\n            }\n        }\n    }\n}\nfunction h(sel, b, c) {\n    var data = {}, children, text, i;\n    if (c !== undefined) {\n        data = b;\n        if (is.array(c)) {\n            children = c;\n        }\n        else if (is.primitive(c)) {\n            text = c;\n        }\n        else if (c && c.sel) {\n            children = [c];\n        }\n    }\n    else if (b !== undefined) {\n        if (is.array(b)) {\n            children = b;\n        }\n        else if (is.primitive(b)) {\n            text = b;\n        }\n        else if (b && b.sel) {\n            children = [b];\n        }\n        else {\n            data = b;\n        }\n    }\n    if (children !== undefined) {\n        for (i = 0; i < children.length; ++i) {\n            if (is.primitive(children[i]))\n                children[i] = vnode_1.vnode(undefined, undefined, undefined, children[i], undefined);\n        }\n    }\n    if (sel[0] === 's' && sel[1] === 'v' && sel[2] === 'g' &&\n        (sel.length === 3 || sel[3] === '.' || sel[3] === '#')) {\n        addNS(data, children, sel);\n    }\n    return vnode_1.vnode(sel, data, children, text, undefined);\n}\nexports.h = h;\n;\nexports.default = h;\n//# sourceMappingURL=h.js.map\n\n//# sourceURL=webpack:///../common/node_modules/snabbdom/h.js?");
+
+/***/ }),
+
+/***/ "../common/node_modules/snabbdom/is.js":
+/*!*********************************************!*\
+  !*** ../common/node_modules/snabbdom/is.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nexports.array = Array.isArray;\nfunction primitive(s) {\n    return typeof s === 'string' || typeof s === 'number';\n}\nexports.primitive = primitive;\n//# sourceMappingURL=is.js.map\n\n//# sourceURL=webpack:///../common/node_modules/snabbdom/is.js?");
+
+/***/ }),
+
+/***/ "../common/node_modules/snabbdom/vnode.js":
+/*!************************************************!*\
+  !*** ../common/node_modules/snabbdom/vnode.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfunction vnode(sel, data, children, text, elm) {\n    var key = data === undefined ? undefined : data.key;\n    return { sel: sel, data: data, children: children, text: text, elm: elm, key: key };\n}\nexports.vnode = vnode;\nexports.default = vnode;\n//# sourceMappingURL=vnode.js.map\n\n//# sourceURL=webpack:///../common/node_modules/snabbdom/vnode.js?");
+
+/***/ }),
+
+/***/ "../common/update/actionfollowup.js":
+/*!******************************************!*\
+  !*** ../common/update/actionfollowup.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const actionFollowup = (state, action) => {\r\n  let action_result = state.action_results.data[action.host][action.action]\r\n  for (const keys of action.keys) {\r\n    action_result = action_result[keys.id][keys.function]\r\n  }\r\n  action_result = action_result[action.id]\r\n  action_result.status[action.function] = 'loading'\r\n}\r\n\r\nmodule.exports = actionFollowup\n\n//# sourceURL=webpack:///../common/update/actionfollowup.js?");
+
+/***/ }),
+
+/***/ "../common/update/actionresult.js":
+/*!****************************************!*\
+  !*** ../common/update/actionresult.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const actionResult = (state, action) => {\r\n  if (!state.action_results.data[action.hostname][action.action]) {\r\n    state.action_results.data[action.hostname][action.action] = {}\r\n    state.action_results.foldouts[action.hostname][action.action] = action.result.length ? true : undefined\r\n  }\r\n  state.action_results.status[action.hostname][action.action] = 'loaded'\r\n  action.result.forEach(v => {\r\n    if (!state.action_results.data[action.hostname][action.action][v.id]) state.action_results.data[action.hostname][action.action][v.id] = {value: v.value, foldout: {}, status: {}}\r\n    else state.action_results.data[action.hostname][action.action][v.id].value = v.value\r\n  })\r\n}\r\n\r\nmodule.exports = actionResult\n\n//# sourceURL=webpack:///../common/update/actionresult.js?");
+
+/***/ }),
+
+/***/ "../common/update/followupfoldout.js":
+/*!*******************************************!*\
+  !*** ../common/update/followupfoldout.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const followupFoldout = (state, action) => {\r\n  let action_result = state.action_results.data[action.hostname][action.action]\r\n  for (const keys of action.keys) {\r\n    action_result = action_result[keys.id][keys.function]\r\n  }\r\n  action_result = action_result[action.id]\r\n  action_result.foldout[action.function] = action.value\r\n}\r\n\r\nmodule.exports = followupFoldout\n\n//# sourceURL=webpack:///../common/update/followupfoldout.js?");
+
+/***/ }),
+
+/***/ "../common/update/followupresult.js":
+/*!******************************************!*\
+  !*** ../common/update/followupresult.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const followupResult = (state, action) => {\r\n  let action_result = state.action_results.data[action.hostname][action.action]\r\n  for (const keys of action.keys) {\r\n    action_result = action_result[keys.id][keys.function]\r\n  }\r\n  action_result = action_result[action.id]\r\n  action_result.foldout[action.function] = action.result.length ? true : undefined\r\n  action_result.status[action.function] = 'loaded'\r\n  if (!action_result[action.function]) action_result[action.function] = {}\r\n  action_result = action_result[action.function]\r\n  action.result.forEach(v => {\r\n    if (!action_result[v.id]) action_result[v.id] = {value: v.value, foldout: {}, status: {}}\r\n    else action_result[v.id].value = v.value\r\n  })\r\n}\r\n\r\nmodule.exports = followupResult\n\n//# sourceURL=webpack:///../common/update/followupresult.js?");
+
+/***/ }),
+
+/***/ "../common/update/index.js":
+/*!*********************************!*\
+  !*** ../common/update/index.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const PerformAction = __webpack_require__(/*! ./performaction */ \"../common/update/performaction.js\")\r\nconst ActionResult = __webpack_require__(/*! ./actionresult */ \"../common/update/actionresult.js\")\r\nconst ActionFollowup = __webpack_require__(/*! ./actionfollowup */ \"../common/update/actionfollowup.js\")\r\nconst FollowupFoldout = __webpack_require__(/*! ./followupfoldout */ \"../common/update/followupfoldout.js\")\r\nconst FollowupResult = __webpack_require__(/*! ./followupresult */ \"../common/update/followupresult.js\")\r\n\r\nconst update = (state, action) => {\r\n  if (action.type == 'actions') state.actions = action.actions\r\n  if (action.type == 'perform_action') PerformAction(state, action)\r\n  if (action.type == 'action_result') ActionResult(state, action)\r\n  if (action.type == 'result_foldout') state.action_results.foldouts[action.hostname][action.action] = action.value\r\n  if (action.type == 'action_followup') ActionFollowup(state, action)\r\n  if (action.type == 'action_followup_result') FollowupResult(state, action)\r\n  if (action.type == 'followup_foldout') FollowupFoldout(state, action)\r\n\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///../common/update/index.js?");
+
+/***/ }),
+
+/***/ "../common/update/performaction.js":
+/*!*****************************************!*\
+  !*** ../common/update/performaction.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const performAction = (state, action) => {\r\n  if (!state.action_results.data[action.host]) {\r\n    state.action_results.data[action.host] = {}\r\n    state.action_results.foldouts[action.host] = {}\r\n    state.action_results.status[action.host] = {}\r\n  }\r\n  state.action_results.status[action.host][action.action] = 'loading'\r\n}\r\n\r\nmodule.exports = performAction\n\n//# sourceURL=webpack:///../common/update/performaction.js?");
+
+/***/ }),
+
+/***/ "../common/util/hoststring.js":
+/*!************************************!*\
+  !*** ../common/util/hoststring.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const hostString = host => {\r\n  if (host == 'local') return 'local host'\r\n  if (host == 'remote') return 'host with PowerShell remote access'\r\n}\r\n\r\nmodule.exports = hostString\n\n//# sourceURL=webpack:///../common/util/hoststring.js?");
+
+/***/ }),
+
+/***/ "../common/util/ipaddress.js":
+/*!***********************************!*\
+  !*** ../common/util/ipaddress.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const ipAddress = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`\r\n\r\nmodule.exports = ipAddress\n\n//# sourceURL=webpack:///../common/util/ipaddress.js?");
+
+/***/ }),
+
+/***/ "../common/util/nodename.js":
+/*!**********************************!*\
+  !*** ../common/util/nodename.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const DefaultIPs = __webpack_require__(/*! fantastic-utils/defaultips */ \"../../packages/fantastic-utils/defaultips.js\")\r\n\r\nconst nodeName = node => node.hostname || (node.ips && node.ips.find(v => !DefaultIPs.includes(v)))\r\n\r\nmodule.exports = nodeName\n\n//# sourceURL=webpack:///../common/util/nodename.js?");
+
+/***/ }),
+
+/***/ "../common/view/actions/index.js":
+/*!***************************************!*\
+  !*** ../common/view/actions/index.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"../common/node_modules/snabbdom/h.js\").default\r\nconst HostString = __webpack_require__(/*! ../../util/hoststring */ \"../common/util/hoststring.js\")\r\nconst Result = __webpack_require__(/*! ./result */ \"../common/view/actions/result.js\")\r\n\r\nconst actions = (state, send, node) => {\r\n  if (!state.actions) return\r\n  const actions = Object.entries(state.actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)) \r\n  return H('div.selection_panel', \r\n    H('div.scroll_container.section', [\r\n      H('div.scroll', !actions.length ? H('div.scroll_item', 'No actions compatible with this host') : actions.map(v => {\r\n        const loading = state.action_results.status[node.hostname] && state.action_results.status[node.hostname][v[0]] === 'loading'\r\n        return H('div.scroll_item', [\r\n          H('div.item', [\r\n            H('div.subtitle', v[1].name),\r\n            H('div.button', \r\n              { \r\n                on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname}]},\r\n                class: {loading}\r\n              }, \r\n              loading ? 'Running...' : 'Run')\r\n          ]),\r\n          v[1].description ? H('div.item', v[1].description) : undefined,\r\n          H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),\r\n          state.action_results.data[node.hostname] && state.action_results.data[node.hostname][v[0]] ? H('div.results', [\r\n            H('div.followup', [\r\n              H('div.subtitle', 'Results'), \r\n              H('div.foldout', {\r\n                on: {click: [send, {type: 'result_foldout', action: v[0], hostname: node.hostname, value: !state.action_results.foldouts[node.hostname][v[0]]}]},\r\n                class: {disabled: !state.action_results.foldouts[node.hostname][v[0]]}\r\n              })\r\n            ]),\r\n            ...(state.action_results.foldouts[node.hostname][v[0]] ? Object.entries(state.action_results.data[node.hostname][v[0]]).map(r => Result(v[0], {key: r[0], value: r[1]}, node.node_id, node.hostname, loading, send)) : [])\r\n          ]) : undefined\r\n        ])\r\n      }))\r\n    ])\r\n  )\r\n}\r\n\r\nmodule.exports = actions\n\n//# sourceURL=webpack:///../common/view/actions/index.js?");
+
+/***/ }),
+
+/***/ "../common/view/actions/result.js":
+/*!****************************************!*\
+  !*** ../common/view/actions/result.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"../common/node_modules/snabbdom/h.js\").default\r\n\r\nconst display = (action, line, foldout, status, node_id, host, send, id, keys) => {\r\n\r\n  if (typeof(line) === 'object') {\r\n    if (line.type == 'button') {\r\n      const loading = status === true || status[line.click.function] === 'loading'\r\n      return H('div.followup', [\r\n        H('div.button', \r\n        {\r\n          on: loading ? undefined : { click: [send, {\r\n            type: 'action_followup', \r\n            action,\r\n            function: line.click.function,\r\n            data: line.click.data,\r\n            node_id,\r\n            host,\r\n            id,\r\n            keys,\r\n            refresh: true\r\n          }]},\r\n          class: {...line.class, loading}\r\n        },\r\n        loading ? 'Running...' : line.text),\r\n        typeof foldout[line.click.function] === 'boolean' ? H('div.foldout', {\r\n          on: {click: [send, {\r\n            type: 'followup_foldout',\r\n            action,\r\n            function: line.click.function,\r\n            hostname: host,\r\n            id,\r\n            keys,\r\n            value: !foldout[line.click.function]\r\n          }]},\r\n          class: { disabled: !foldout[line.click.function]}\r\n        }) : undefined\r\n      ])\r\n    }\r\n    if (line.type == 'header') {\r\n      return H('div.result_header', line.text)\r\n    }\r\n  }\r\n  return H('div.text', line)\r\n}\r\n\r\nconst result = (action, action_result, node_id, host, loading, send, keys = []) => H('div.result', Object.entries(action_result.value).map((v, i, arr) => {\r\n    if (v[0] === 'foldout') return  \r\n    if (v[0] === 'value') return H('div.item', v[1].map(v => display(action, v, action_result.value.foldout, loading || action_result.value.status, node_id, host, send, action_result.key, keys)))\r\n    return action_result.value.foldout[v[0]] ? \r\n      Object.entries(v[1])\r\n        .map(r => result(action, {key: r[0], value: r[1]}, node_id, host, loading || action_result.value.status[v[0]] === 'loading', send, [...keys, {function: v[0], id: action_result.key}])) :\r\n      undefined\r\n}).flat())\r\n\r\n\r\nmodule.exports = result\n\n//# sourceURL=webpack:///../common/view/actions/result.js?");
+
+/***/ }),
+
+/***/ "../common/view/connections.js":
+/*!*************************************!*\
+  !*** ../common/view/connections.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"../common/node_modules/snabbdom/h.js\").default\r\nconst IPAddress = __webpack_require__(/*! ../util/ipaddress */ \"../common/util/ipaddress.js\")\r\n\r\nconst connections = (connections, label) => \r\n  H('div.scroll_container.section', [\r\n    H('div.subtitle', [label || 'Connections', ` (${connections.length}):`].flat()),\r\n    connections.length ? H('div.scroll', connections.map(v => H('div.scroll_item', [\r\n      H('div.item', `Local address: ${IPAddress(v.local_address, v.local_port)}`),\r\n      H('div.item', `Remote address: ${IPAddress(v.remote_address, v.remote_port)}`),\r\n      H('div.item', `Process: ${v.process.name}`),\r\n      H('div.item', `State: ${v.state.replace('_', ' ')}`)\r\n    ]))) : undefined\r\n  ])\r\n\r\n\r\nmodule.exports = connections\n\n//# sourceURL=webpack:///../common/view/connections.js?");
+
+/***/ }),
+
+/***/ "../common/view/info/index.js":
+/*!************************************!*\
+  !*** ../common/view/info/index.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"../common/node_modules/snabbdom/h.js\").default\r\nconst NodeTop = __webpack_require__(/*! ./nodetop */ \"../common/view/info/nodetop.js\")\r\nconst Connections = __webpack_require__(/*! ../connections */ \"../common/view/connections.js\")\r\n\r\nconst info = (state, send, node) => H('div.selection_panel', [\r\n    NodeTop(node),\r\n    Connections(node.connections)\r\n  ])\r\n\r\nmodule.exports = info\n\n//# sourceURL=webpack:///../common/view/info/index.js?");
+
+/***/ }),
+
+/***/ "../common/view/info/nodetop.js":
+/*!**************************************!*\
+  !*** ../common/view/info/nodetop.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"../common/node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! fantastic-utils/defaultips */ \"../../packages/fantastic-utils/defaultips.js\")\r\n\r\nconst node_type = node => {\r\n  if (!node.important) return 'Host outside my network'\r\n  if (node.access === 'local') return 'Local host'\r\n  if (node.access === 'remote') return 'Remote host with PowerShell access configured'\r\n  return 'Host on my network without remote access'\r\n}\r\n\r\nconst nodeTop = node => \r\n  H('div.section', [\r\n    H('div.subtitle', node_type(node)),\r\n    node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,\r\n    node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,\r\n    node.macs && node.macs.length ? H('div.subtitle', 'MAC Addresses:') : undefined,\r\n    ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`)),\r\n    H('div.subtitle', 'IP Addresses:'),\r\n    ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : H('div.item', v))\r\n  ])\r\n\r\nmodule.exports = nodeTop\n\n//# sourceURL=webpack:///../common/view/info/nodetop.js?");
 
 /***/ }),
 
@@ -115,7 +316,7 @@ eval("const fetch_followup = action => fetch(`/action_followup?action=${action.a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\nconst ActionFollowup = __webpack_require__(/*! ./actionfollowup */ \"./effect/actionfollowup.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') {\r\n    window.onresize = e => send({type: 'render'})\r\n    fetch('/commands')\r\n      .then(res => res.json())\r\n      .then(res => send({type: 'commands', commands: res}))\r\n    fetch('/actions')\r\n      .then(res => res.json())\r\n      .then(res => send({type: 'actions', actions: res}))\r\n  }\r\n  if (action.type == 'nodes') {\r\n    send({type: 'clear_selection'})\r\n    send({type: 'loading', value: false})\r\n    Vis(state, send)\r\n  }\r\n  if (action.type == 'graph_container') {\r\n    action.container.onmouseleave = e => send({type: 'hover_ui', value: true})\r\n    action.container.onmouseenter = e => send({type: 'hover_ui', value: false})\r\n  }\r\n  if (action.type == 'search' || action.type == 'graph_container') {\r\n    send({type: 'loading', value: true})\r\n    send({type: 'clear_selection'})\r\n    fetch(`/nodes?date=${!state.search.date ? 0 : Date.now() - state.search.date * 60 * 1000}&connection_type=${state.search.connection_type}&connection_state=${state.search.connection_state}&show_external=${state.search.show_external}`)\r\n      .then(res => res.json())\r\n      .then(res => send({type: 'nodes', nodes: res}))\r\n  }\r\n  if (action.type == 'enable_command') fetch(`/commands?${action.command}=${action.enabled}`, {method: 'POST'})\r\n    .then(() => fetch('/commands'))    \r\n    .then(res => res.json())\r\n    .then(res => send({type: 'commands', commands: res}))\r\n  if (action.type == 'perform_action') fetch(`/actions?action=${action.action}&node_id=${action.node_id}`, {method: 'POST'})\r\n    .then(res => res.json())\r\n    .then(res => send({type: 'action_result', result: res, action: action.action, hostname: action.host}))\r\n  if (action.type == 'action_followup') ActionFollowup(state, action, send)\r\n  if (action.type == 'vis_select') state.vis.selectNodes([action.node])\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
+eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\nconst Common = __webpack_require__(/*! ../../common/effect */ \"../common/effect/index.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  Common(state, action, send)\r\n  if (action.type == 'init') {\r\n    window.onresize = e => send({type: 'render'})\r\n    fetch('/commands')\r\n      .then(res => res.json())\r\n      .then(res => send({type: 'commands', commands: res}))\r\n  }\r\n  if (action.type == 'nodes') {\r\n    send({type: 'clear_selection'})\r\n    send({type: 'loading', value: false})\r\n    Vis(state, send)\r\n  }\r\n  if (action.type == 'graph_container') {\r\n    action.container.onmouseleave = e => send({type: 'hover_ui', value: true})\r\n    action.container.onmouseenter = e => send({type: 'hover_ui', value: false})\r\n  }\r\n  if (action.type == 'search' || action.type == 'graph_container') {\r\n    send({type: 'loading', value: true})\r\n    send({type: 'clear_selection'})\r\n    fetch(`/nodes?date=${!state.search.date ? 0 : Date.now() - state.search.date * 60 * 1000}&connection_type=${state.search.connection_type}&connection_state=${state.search.connection_state}&show_external=${state.search.show_external}`)\r\n      .then(res => res.json())\r\n      .then(res => send({type: 'nodes', nodes: res}))\r\n  }\r\n  if (action.type == 'enable_command') fetch(`/commands?${action.command}=${action.enabled}`, {method: 'POST'})\r\n    .then(() => fetch('/commands'))    \r\n    .then(res => res.json())\r\n    .then(res => send({type: 'commands', commands: res}))\r\n\r\n  if (action.type == 'vis_select') state.vis.selectNodes([action.node])\r\n  if (action.type == 'open_viewer') {\r\n    const viewer_tab = window.open('/node_viewer.html', '#blank')\r\n    viewer_tab.onload = () => viewer_tab.send({type: 'node_data', data: state.nodes[action.node]})\r\n  }\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
 
 /***/ }),
 
@@ -126,7 +327,7 @@ eval("const Vis = __webpack_require__(/*! ./vis */ \"./effect/vis.js\")\r\nconst
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Vis = __webpack_require__(/*! vis-network */ \"./node_modules/vis-network/dist/vis-network.esm.min.js\")\r\nconst NodeName = __webpack_require__(/*! ../util/nodename */ \"./util/nodename.js\")\r\n\r\nconst graph = (state, send) => {\r\n  const nodes = []\r\n  const edges = []\r\n  const get_image = os => {\r\n    if (os) {\r\n      if (os.toLowerCase().includes('linux')) return '/images/linux.svg'\r\n      if (os.toLowerCase().includes('windows')) return '/images/win_new.svg' // TODO: add old windows logo for pre Win 8 versions?\r\n      if (os.toLowerCase().includes('ios')) return '/images/apple.svg' // TODO: ios vs mac logos?\r\n      // TODO: router icons?\r\n    }\r\n    return '/images/unknown.svg'\r\n  }\r\n  state.nodes.forEach((v, i, arr) => {\r\n    let connection_count = 0\r\n    v.connections.forEach(c => {\r\n      const target_index = arr.findIndex(n => n.node_id === c.to_node)\r\n      if (target_index == -1 || target_index == i) return\r\n      let edge = edges.find(e => e.from == i && e.to == target_index)\r\n      if (!edge) {\r\n        edge = {from: i, to: target_index, connections: 1}\r\n        edges.push(edge)\r\n      }\r\n      else edge.connections++\r\n      connection_count++\r\n    })\r\n    const image = get_image(v.os)\r\n    nodes.push({\r\n      ...{\r\n        id: i, \r\n        label: `${NodeName(v)}${v.access === 'local' ? ' (local host)' : ''}`,\r\n        mass: connection_count || 1\r\n      }, \r\n      ...(image && {image, shape: v.important ? 'image' : 'circularImage'}),\r\n      ...(v.access === 'local' ? {size: 25} : undefined)\r\n    })\r\n  })\r\n  const options = {\r\n    nodes: {\r\n      shape: 'dot',\r\n      shapeProperties: {useBorderWithImage: true},\r\n      size: 15,\r\n      font: {\r\n        color: 'white', \r\n        size: 16\r\n      },\r\n      borderWidth: 2,\r\n      borderWidthSelected: 1,\r\n      color: {\r\n        border: 'coral',\r\n        background: 'orangered',\r\n        highlight: {\r\n          border: 'lightsteelblue',\r\n          background: 'steelblue'\r\n        }\r\n      },\r\n      imagePadding: 3\r\n    },\r\n    edges: {\r\n      arrows: 'to',\r\n      font: {\r\n        color: 'white',\r\n        strokeWidth: 0\r\n      }\r\n    },\r\n    physics: {\r\n      enabled: true,\r\n      solver: 'repulsion', // setting this determines which options are used below\r\n      barnesHut: {\r\n        centralGravity: 0.7,\r\n        gravitationalConstant: -1200,\r\n        springLength: 300,\r\n        springConstant: 0.5,\r\n        avoidOverlap: 0\r\n      },\r\n      repulsion: {\r\n        centralGravity: 1,\r\n        nodeDistance: 200,\r\n        springLength: 300,\r\n        springConstant: 0.5\r\n      }\r\n    },\r\n    layout: {\r\n    },\r\n    interaction: {\r\n      hover: true\r\n    }\r\n  }\r\n  const network = new Vis.Network(state.graph_container, {\r\n    nodes: new Vis.DataSet(nodes), \r\n    edges: new Vis.DataSet(edges.map(v => ({from: v.from, to: v.to, label: `${v.connections} connection${v.connections == 1 ? '' : 's'}`})))\r\n  }, options)\r\n  network.on('click', e => {\r\n    send({type: 'select', edge: e.edges.length ? e.edges[0] : undefined, node: e.nodes.length ? e.nodes[0] : undefined})\r\n  })\r\n  network.on('hoverNode', e => send({type: 'hover_node', node: e.node}))\r\n  network.on('blurNode', e => send({type: 'unhover_node', node: e.node}))\r\n  network.on('hoverEdge', e => send({type: 'hover_edge', edge: e.edge}))\r\n  network.on('blurEdge', e => send({type: 'unhover_edge', edge: e.edge}))\r\n\r\n  send({type: 'vis', vis: network})\r\n}\r\n\r\nmodule.exports = graph\n\n//# sourceURL=webpack:///./effect/vis.js?");
+eval("const Vis = __webpack_require__(/*! vis-network */ \"./node_modules/vis-network/dist/vis-network.esm.min.js\")\r\nconst NodeName = __webpack_require__(/*! ../../common/util/nodename */ \"../common/util/nodename.js\")\r\n\r\nconst graph = (state, send) => {\r\n  const nodes = []\r\n  const edges = []\r\n  const get_image = os => {\r\n    if (os) {\r\n      if (os.toLowerCase().includes('linux')) return '/images/linux.svg'\r\n      if (os.toLowerCase().includes('windows')) return '/images/win_new.svg' // TODO: add old windows logo for pre Win 8 versions?\r\n      if (os.toLowerCase().includes('ios')) return '/images/apple.svg' // TODO: ios vs mac logos?\r\n      // TODO: router icons?\r\n    }\r\n    return '/images/unknown.svg'\r\n  }\r\n  state.nodes.forEach((v, i, arr) => {\r\n    let connection_count = 0\r\n    v.connections.forEach(c => {\r\n      const target_index = arr.findIndex(n => n.node_id === c.to_node)\r\n      if (target_index == -1 || target_index == i) return\r\n      let edge = edges.find(e => e.from == i && e.to == target_index)\r\n      if (!edge) {\r\n        edge = {from: i, to: target_index, connections: 1}\r\n        edges.push(edge)\r\n      }\r\n      else edge.connections++\r\n      connection_count++\r\n    })\r\n    const image = get_image(v.os)\r\n    nodes.push({\r\n      ...{\r\n        id: i, \r\n        label: `${NodeName(v)}${v.access === 'local' ? ' (local host)' : ''}`,\r\n        mass: connection_count || 1\r\n      }, \r\n      ...(image && {image, shape: v.important ? 'image' : 'circularImage'}),\r\n      ...(v.access === 'local' ? {size: 25} : undefined)\r\n    })\r\n  })\r\n  const options = {\r\n    nodes: {\r\n      shape: 'dot',\r\n      shapeProperties: {useBorderWithImage: true},\r\n      size: 15,\r\n      font: {\r\n        color: 'white', \r\n        size: 16\r\n      },\r\n      borderWidth: 2,\r\n      borderWidthSelected: 1,\r\n      color: {\r\n        border: 'coral',\r\n        background: 'orangered',\r\n        highlight: {\r\n          border: 'lightsteelblue',\r\n          background: 'steelblue'\r\n        }\r\n      },\r\n      imagePadding: 3\r\n    },\r\n    edges: {\r\n      arrows: 'to',\r\n      font: {\r\n        color: 'white',\r\n        strokeWidth: 0\r\n      }\r\n    },\r\n    physics: {\r\n      enabled: true,\r\n      solver: 'repulsion', // setting this determines which options are used below\r\n      barnesHut: {\r\n        centralGravity: 0.7,\r\n        gravitationalConstant: -1200,\r\n        springLength: 300,\r\n        springConstant: 0.5,\r\n        avoidOverlap: 0\r\n      },\r\n      repulsion: {\r\n        centralGravity: 1,\r\n        nodeDistance: 200,\r\n        springLength: 300,\r\n        springConstant: 0.5\r\n      }\r\n    },\r\n    layout: {\r\n    },\r\n    interaction: {\r\n      hover: true\r\n    }\r\n  }\r\n  const network = new Vis.Network(state.graph_container, {\r\n    nodes: new Vis.DataSet(nodes), \r\n    edges: new Vis.DataSet(edges.map(v => ({from: v.from, to: v.to, label: `${v.connections} connection${v.connections == 1 ? '' : 's'}`})))\r\n  }, options)\r\n  network.on('click', e => {\r\n    send({type: 'select', edge: e.edges.length ? e.edges[0] : undefined, node: e.nodes.length ? e.nodes[0] : undefined})\r\n  })\r\n  network.on('hoverNode', e => send({type: 'hover_node', node: e.node}))\r\n  network.on('blurNode', e => send({type: 'unhover_node', node: e.node}))\r\n  network.on('hoverEdge', e => send({type: 'hover_edge', edge: e.edge}))\r\n  network.on('blurEdge', e => send({type: 'unhover_edge', edge: e.edge}))\r\n\r\n  send({type: 'vis', vis: network})\r\n}\r\n\r\nmodule.exports = graph\n\n//# sourceURL=webpack:///./effect/vis.js?");
 
 /***/ }),
 
@@ -344,50 +545,6 @@ eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn th
 
 /***/ }),
 
-/***/ "./update/actionfollowup.js":
-/*!**********************************!*\
-  !*** ./update/actionfollowup.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("const actionFollowup = (state, action) => {\r\n  let action_result = state.action_results.data[action.host][action.action]\r\n  for (const keys of action.keys) {\r\n    action_result = action_result[keys.id][keys.function]\r\n  }\r\n  action_result = action_result[action.id]\r\n  action_result.status[action.function] = 'loading'\r\n}\r\n\r\nmodule.exports = actionFollowup\n\n//# sourceURL=webpack:///./update/actionfollowup.js?");
-
-/***/ }),
-
-/***/ "./update/actionresult.js":
-/*!********************************!*\
-  !*** ./update/actionresult.js ***!
-  \********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("const actionResult = (state, action) => {\r\n  if (!state.action_results.data[action.hostname][action.action]) {\r\n    state.action_results.data[action.hostname][action.action] = {}\r\n    state.action_results.foldouts[action.hostname][action.action] = action.result.length ? true : undefined\r\n  }\r\n  state.action_results.status[action.hostname][action.action] = 'loaded'\r\n  action.result.forEach(v => {\r\n    if (!state.action_results.data[action.hostname][action.action][v.id]) state.action_results.data[action.hostname][action.action][v.id] = {value: v.value, foldout: {}, status: {}}\r\n    else state.action_results.data[action.hostname][action.action][v.id].value = v.value\r\n  })\r\n}\r\n\r\nmodule.exports = actionResult\n\n//# sourceURL=webpack:///./update/actionresult.js?");
-
-/***/ }),
-
-/***/ "./update/followupfoldout.js":
-/*!***********************************!*\
-  !*** ./update/followupfoldout.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("const followupFoldout = (state, action) => {\r\n  let action_result = state.action_results.data[action.hostname][action.action]\r\n  for (const keys of action.keys) {\r\n    action_result = action_result[keys.id][keys.function]\r\n  }\r\n  action_result = action_result[action.id]\r\n  action_result.foldout[action.function] = action.value\r\n}\r\n\r\nmodule.exports = followupFoldout\n\n//# sourceURL=webpack:///./update/followupfoldout.js?");
-
-/***/ }),
-
-/***/ "./update/followupresult.js":
-/*!**********************************!*\
-  !*** ./update/followupresult.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("const followupResult = (state, action) => {\r\n  let action_result = state.action_results.data[action.hostname][action.action]\r\n  for (const keys of action.keys) {\r\n    action_result = action_result[keys.id][keys.function]\r\n  }\r\n  action_result = action_result[action.id]\r\n  action_result.foldout[action.function] = action.result.length ? true : undefined\r\n  action_result.status[action.function] = 'loaded'\r\n  if (!action_result[action.function]) action_result[action.function] = {}\r\n  action_result = action_result[action.function]\r\n  action.result.forEach(v => {\r\n    if (!action_result[v.id]) action_result[v.id] = {value: v.value, foldout: {}, status: {}}\r\n    else action_result[v.id].value = v.value\r\n  })\r\n}\r\n\r\nmodule.exports = followupResult\n\n//# sourceURL=webpack:///./update/followupresult.js?");
-
-/***/ }),
-
 /***/ "./update/index.js":
 /*!*************************!*\
   !*** ./update/index.js ***!
@@ -395,51 +552,7 @@ eval("const followupResult = (state, action) => {\r\n  let action_result = state
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const PerformAction = __webpack_require__(/*! ./performaction */ \"./update/performaction.js\")\r\nconst ActionResult = __webpack_require__(/*! ./actionresult */ \"./update/actionresult.js\")\r\nconst ActionFollowup = __webpack_require__(/*! ./actionfollowup */ \"./update/actionfollowup.js\")\r\nconst FollowupFoldout = __webpack_require__(/*! ./followupfoldout */ \"./update/followupfoldout.js\")\r\nconst FollowupResult = __webpack_require__(/*! ./followupresult */ \"./update/followupresult.js\")\r\n\r\nconst update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  if (action.type == 'graph_container') state.graph_container = action.container\r\n  if (action.type == 'select') {\r\n    state.selected.node = action.node\r\n    state.selected.edge = action.edge\r\n  }\r\n  if (action.type == 'date') state.search.date = action.date\r\n  if (action.type == 'connection_type') state.search.connection_type = action.connection_type\r\n  if (action.type == 'connection_state') {\r\n    if (action.value && !state.search.connection_state.includes(action.state)) state.search.connection_state.push(action.state)\r\n    if (!action.value) {\r\n      const index = state.search.connection_state.findIndex(v => v === action.state)\r\n      if (index > -1) state.search.connection_state.splice(index, 1)\r\n    }\r\n  }\r\n  if (action.type == 'connection_foldout') state.search.connection_foldout = action.value\r\n  if (action.type == 'show_external') state.search.show_external = action.value\r\n  if (action.type == 'hover_node') {\r\n    if (!state.hovered.nodes.find(v => v === action.node)) state.hovered.nodes.push(action.node)\r\n  }\r\n  if (action.type == 'unhover_node') state.hovered.nodes.splice(state.hovered.nodes.findIndex(v => v ===action.node), 1)\r\n  if (action.type == 'hover_edge') {\r\n    if (!state.hovered.edges.find(v => v === action.edge)) state.hovered.edges.push(action.edge)\r\n  }\r\n  if (action.type == 'unhover_edge') state.hovered.edges.splice(state.hovered.edges.findIndex(v => v ===action.edge), 1)\r\n  if (action.type == 'clear_selection') {\r\n    state.selected.node = undefined\r\n    state.selected.edge = undefined\r\n    state.hovered.nodes.length = 0\r\n    state.hovered.edges.length = 0\r\n    state.search.connection_foldout = false\r\n  }\r\n  if (action.type == 'hover_ui') state.hovered.ui = action.value\r\n  if (action.type == 'loading') state.loading = action.value\r\n  if (action.type == 'vis') state.vis = action.vis\r\n  if (action.type == 'commands') state.commands = action.commands\r\n  if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled\r\n  if (action.type == 'actions') state.actions = action.actions\r\n  if (action.type == 'tab') state.tab = action.tab\r\n  if (action.type == 'perform_action') PerformAction(state, action)\r\n  if (action.type == 'action_result') ActionResult(state, action)\r\n  if (action.type == 'result_foldout') state.action_results.foldouts[action.hostname][action.action] = action.value\r\n  if (action.type == 'action_followup') ActionFollowup(state, action)\r\n  if (action.type == 'action_followup_result') FollowupResult(state, action)\r\n  if (action.type == 'followup_foldout') FollowupFoldout(state, action)\r\n  if (action.type == 'command_foldout') state.command_foldout = action.value\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
-
-/***/ }),
-
-/***/ "./update/performaction.js":
-/*!*********************************!*\
-  !*** ./update/performaction.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("const performAction = (state, action) => {\r\n  if (!state.action_results.data[action.host]) {\r\n    state.action_results.data[action.host] = {}\r\n    state.action_results.foldouts[action.host] = {}\r\n    state.action_results.status[action.host] = {}\r\n  }\r\n  state.action_results.status[action.host][action.action] = 'loading'\r\n}\r\n\r\nmodule.exports = performAction\n\n//# sourceURL=webpack:///./update/performaction.js?");
-
-/***/ }),
-
-/***/ "./util/hoststring.js":
-/*!****************************!*\
-  !*** ./util/hoststring.js ***!
-  \****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("const hostString = host => {\r\n  if (host == 'local') return 'local host'\r\n  if (host == 'remote') return 'host with PowerShell remote access'\r\n}\r\n\r\nmodule.exports = hostString\n\n//# sourceURL=webpack:///./util/hoststring.js?");
-
-/***/ }),
-
-/***/ "./util/ipaddress.js":
-/*!***************************!*\
-  !*** ./util/ipaddress.js ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("const ipAddress = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`\r\n\r\nmodule.exports = ipAddress\n\n//# sourceURL=webpack:///./util/ipaddress.js?");
-
-/***/ }),
-
-/***/ "./util/nodename.js":
-/*!**************************!*\
-  !*** ./util/nodename.js ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const DefaultIPs = __webpack_require__(/*! ../../packages/fantastic-utils/defaultips */ \"../packages/fantastic-utils/defaultips.js\")\r\n\r\nconst nodeName = node => node.hostname || (node.ips && node.ips.find(v => !DefaultIPs.includes(v)))\r\n\r\nmodule.exports = nodeName\n\n//# sourceURL=webpack:///./util/nodename.js?");
+eval("const Common = __webpack_require__(/*! ../../common/update */ \"../common/update/index.js\")\r\n\r\nconst update = (state, action) => {\r\n  if (action.type == 'nodes') state.nodes = action.nodes\r\n  if (action.type == 'graph_container') state.graph_container = action.container\r\n  if (action.type == 'select') {\r\n    state.selected.node = action.node\r\n    state.selected.edge = action.edge\r\n  }\r\n  if (action.type == 'date') state.search.date = action.date\r\n  if (action.type == 'connection_type') state.search.connection_type = action.connection_type\r\n  if (action.type == 'connection_state') {\r\n    if (action.value && !state.search.connection_state.includes(action.state)) state.search.connection_state.push(action.state)\r\n    if (!action.value) {\r\n      const index = state.search.connection_state.findIndex(v => v === action.state)\r\n      if (index > -1) state.search.connection_state.splice(index, 1)\r\n    }\r\n  }\r\n  if (action.type == 'connection_foldout') state.search.connection_foldout = action.value\r\n  if (action.type == 'show_external') state.search.show_external = action.value\r\n  if (action.type == 'hover_node') {\r\n    if (!state.hovered.nodes.find(v => v === action.node)) state.hovered.nodes.push(action.node)\r\n  }\r\n  if (action.type == 'unhover_node') state.hovered.nodes.splice(state.hovered.nodes.findIndex(v => v ===action.node), 1)\r\n  if (action.type == 'hover_edge') {\r\n    if (!state.hovered.edges.find(v => v === action.edge)) state.hovered.edges.push(action.edge)\r\n  }\r\n  if (action.type == 'unhover_edge') state.hovered.edges.splice(state.hovered.edges.findIndex(v => v ===action.edge), 1)\r\n  if (action.type == 'clear_selection') {\r\n    state.selected.node = undefined\r\n    state.selected.edge = undefined\r\n    state.hovered.nodes.length = 0\r\n    state.hovered.edges.length = 0\r\n    state.search.connection_foldout = false\r\n  }\r\n  if (action.type == 'hover_ui') state.hovered.ui = action.value\r\n  if (action.type == 'loading') state.loading = action.value\r\n  if (action.type == 'vis') state.vis = action.vis\r\n  if (action.type == 'commands') state.commands = action.commands\r\n  if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled\r\n  if (action.type == 'tab') state.tab = action.tab\r\n  if (action.type == 'command_foldout') state.command_foldout = action.value\r\n  state = Common(state, action)\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack:///./update/index.js?");
 
 /***/ }),
 
@@ -461,7 +574,7 @@ eval("const nodesFromEdge = (state, edge_id) => {\r\n  const nodes = state.vis.g
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst HostString = __webpack_require__(/*! ../../util/hoststring */ \"./util/hoststring.js\")\r\n\r\nconst commands = (state, send) => {\r\n  if (!state.commands) return\r\n  return H('div#commands', {class: {folded: !state.command_foldout}}, \r\n    H('div.scroll_container.section', [\r\n      H('div.item', [\r\n        H('div.title', 'Host Data Commands'),\r\n        H('img.collapse', {\r\n          attrs: {src: 'images/triangle.svg'}, \r\n          on: {click: [send, {type: 'command_foldout', value: !state.command_foldout}]},\r\n          class: {folded: !state.command_foldout}\r\n        })\r\n      ]),\r\n      state.command_foldout ? H('div.scroll', Object.entries(state.commands).map(v => H('div.scroll_item', [\r\n        H('div.item', [\r\n          H('div.subtitle', v[1].name),\r\n          H('div.button', \r\n            {\r\n              on: {click: [send, {type: 'enable_command', command: v[0], enabled: !v[1].enabled}]},\r\n              class: {disabled: !v[1].enabled}\r\n            }, \r\n            v[1].enabled ? 'Enabled' : 'Disabled')\r\n        ]),\r\n        v[1].description ? H('div.item', v[1].description) : undefined,\r\n        H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])\r\n      ]))) : undefined\r\n    ])\r\n  )\r\n}\r\n\r\nmodule.exports = commands\n\n//# sourceURL=webpack:///./view/commands/index.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst HostString = __webpack_require__(/*! ../../../common/util/hoststring */ \"../common/util/hoststring.js\")\r\n\r\nconst commands = (state, send) => {\r\n  if (!state.commands) return\r\n  return H('div#commands', {class: {folded: !state.command_foldout}}, \r\n    H('div.scroll_container.section', [\r\n      H('div.item', [\r\n        H('div.title', 'Host Data Commands'),\r\n        H('img.collapse.icon_button', {\r\n          attrs: {src: 'images/triangle.svg'}, \r\n          on: {click: [send, {type: 'command_foldout', value: !state.command_foldout}]},\r\n          class: {folded: !state.command_foldout}\r\n        })\r\n      ]),\r\n      state.command_foldout ? H('div.scroll', Object.entries(state.commands).map(v => H('div.scroll_item', [\r\n        H('div.item', [\r\n          H('div.subtitle', v[1].name),\r\n          H('div.button', \r\n            {\r\n              on: {click: [send, {type: 'enable_command', command: v[0], enabled: !v[1].enabled}]},\r\n              class: {disabled: !v[1].enabled}\r\n            }, \r\n            v[1].enabled ? 'Enabled' : 'Disabled')\r\n        ]),\r\n        v[1].description ? H('div.item', v[1].description) : undefined,\r\n        H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])\r\n      ]))) : undefined\r\n    ])\r\n  )\r\n}\r\n\r\nmodule.exports = commands\n\n//# sourceURL=webpack:///./view/commands/index.js?");
 
 /***/ }),
 
@@ -531,39 +644,6 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 
 /***/ }),
 
-/***/ "./view/selection/actions/index.js":
-/*!*****************************************!*\
-  !*** ./view/selection/actions/index.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst HostString = __webpack_require__(/*! ../../../util/hoststring */ \"./util/hoststring.js\")\r\nconst Result = __webpack_require__(/*! ./result */ \"./view/selection/actions/result.js\")\r\n\r\nconst actions = (state, send, node) => {\r\n  if (!state.actions) return\r\n  const hostname = node.access === 'local' ? null : node.hostname\r\n  const actions = Object.entries(state.actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)) \r\n  return H('div.selection_panel', \r\n    H('div.scroll_container.section', [\r\n      H('div.scroll', !actions.length ? H('div.scroll_item', 'No actions compatible with this host') : actions.map(v => {\r\n        const loading = state.action_results.status[node.hostname] && state.action_results.status[node.hostname][v[0]] === 'loading'\r\n        return H('div.scroll_item', [\r\n          H('div.item', [\r\n            H('div.subtitle', v[1].name),\r\n            H('div.button', \r\n              { \r\n                on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname}]},\r\n                class: {loading}\r\n              }, \r\n              loading ? 'Running...' : 'Run')\r\n          ]),\r\n          v[1].description ? H('div.item', v[1].description) : undefined,\r\n          H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),\r\n          state.action_results.data[node.hostname] && state.action_results.data[node.hostname][v[0]] ? H('div.results', [\r\n            H('div.followup', [\r\n              H('div.subtitle', 'Results'), \r\n              H('div.foldout', {\r\n                on: {click: [send, {type: 'result_foldout', action: v[0], hostname: node.hostname, value: !state.action_results.foldouts[node.hostname][v[0]]}]},\r\n                class: {disabled: !state.action_results.foldouts[node.hostname][v[0]]}\r\n              })\r\n            ]),\r\n            ...(state.action_results.foldouts[node.hostname][v[0]] ? Object.entries(state.action_results.data[node.hostname][v[0]]).map(r => Result(v[0], {key: r[0], value: r[1]}, node.node_id, node.hostname, loading, send)) : [])\r\n          ]) : undefined\r\n        ])\r\n      }))\r\n    ])\r\n  )\r\n}\r\n\r\nmodule.exports = actions\n\n//# sourceURL=webpack:///./view/selection/actions/index.js?");
-
-/***/ }),
-
-/***/ "./view/selection/actions/result.js":
-/*!******************************************!*\
-  !*** ./view/selection/actions/result.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst display = (action, line, foldout, status, node_id, host, send, id, keys) => {\r\n\r\n  if (typeof(line) === 'object') {\r\n    if (line.type == 'button') {\r\n      const loading = status === true || status[line.click.function] === 'loading'\r\n      return H('div.followup', [\r\n        H('div.button', \r\n        {\r\n          on: loading ? undefined : { click: [send, {\r\n            type: 'action_followup', \r\n            action,\r\n            function: line.click.function,\r\n            data: line.click.data,\r\n            node_id,\r\n            host,\r\n            id,\r\n            keys,\r\n            refresh: true\r\n          }]},\r\n          class: {...line.class, loading}\r\n        },\r\n        loading ? 'Running...' : line.text),\r\n        typeof foldout[line.click.function] === 'boolean' ? H('div.foldout', {\r\n          on: {click: [send, {\r\n            type: 'followup_foldout',\r\n            action,\r\n            function: line.click.function,\r\n            hostname: host,\r\n            id,\r\n            keys,\r\n            value: !foldout[line.click.function]\r\n          }]},\r\n          class: { disabled: !foldout[line.click.function]}\r\n        }) : undefined\r\n      ])\r\n    }\r\n    if (line.type == 'header') {\r\n      return H('div.result_header', line.text)\r\n    }\r\n  }\r\n  return H('div.text', line)\r\n}\r\n\r\nconst result = (action, action_result, node_id, host, loading, send, keys = []) => H('div.result', Object.entries(action_result.value).map((v, i, arr) => {\r\n    if (v[0] === 'foldout') return  \r\n    if (v[0] === 'value') return H('div.item', v[1].map(v => display(action, v, action_result.value.foldout, loading || action_result.value.status, node_id, host, send, action_result.key, keys)))\r\n    return action_result.value.foldout[v[0]] ? \r\n      Object.entries(v[1])\r\n        .map(r => result(action, {key: r[0], value: r[1]}, node_id, host, loading || action_result.value.status[v[0]] === 'loading', send, [...keys, {function: v[0], id: action_result.key}])) :\r\n      undefined\r\n}).flat())\r\n\r\n\r\nmodule.exports = result\n\n//# sourceURL=webpack:///./view/selection/actions/result.js?");
-
-/***/ }),
-
-/***/ "./view/selection/connections.js":
-/*!***************************************!*\
-  !*** ./view/selection/connections.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst IPAddress = __webpack_require__(/*! ../../util/ipaddress */ \"./util/ipaddress.js\")\r\n\r\nconst connections = (connections, label) => \r\n  H('div.scroll_container.section', [\r\n    H('div.subtitle', [label || 'Connections', ` (${connections.length}):`].flat()),\r\n    connections.length ? H('div.scroll', connections.map(v => H('div.scroll_item', [\r\n      H('div.item', `Local address: ${IPAddress(v.local_address, v.local_port)}`),\r\n      H('div.item', `Remote address: ${IPAddress(v.remote_address, v.remote_port)}`),\r\n      H('div.item', `Process: ${v.process.name}`),\r\n      H('div.item', `State: ${v.state.replace('_', ' ')}`)\r\n    ]))) : undefined\r\n  ])\r\n\r\n\r\nmodule.exports = connections\n\n//# sourceURL=webpack:///./view/selection/connections.js?");
-
-/***/ }),
-
 /***/ "./view/selection/edge.js":
 /*!********************************!*\
   !*** ./view/selection/edge.js ***!
@@ -571,7 +651,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Connections = __webpack_require__(/*! ./connections */ \"./view/selection/connections.js\")\r\nconst NodeName = __webpack_require__(/*! ../../util/nodename */ \"./util/nodename.js\")\r\nconst NodesFromEdge = __webpack_require__(/*! ../../util/nodesfromedge */ \"./util/nodesfromedge.js\")\r\n\r\nconst edge = (state, send) => {\r\n  const {from, to, from_id, to_id} = NodesFromEdge(state, state.selected.edge)\r\n  return H('div#selection', [\r\n    Connections(from.connections.filter(v => v.to_node === to.node_id), [\r\n      'Connections from ', \r\n      H('a', {\r\n        on: {click: [\r\n          [send, {type: 'vis_select', node: from_id}],\r\n          [send, {type: 'select', node: from_id}]\r\n        ]}\r\n      }, NodeName(from)), \r\n      ' to ', \r\n      H('a', {\r\n        on: {click: [\r\n          [send, {type: 'vis_select', node: to_id}],\r\n          [send, {type: 'select', node: to_id}]\r\n        ]}\r\n      }, NodeName(to))\r\n    ])\r\n  ])\r\n}\r\n\r\nmodule.exports = edge\n\n//# sourceURL=webpack:///./view/selection/edge.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Connections = __webpack_require__(/*! ../../../common/view/connections */ \"../common/view/connections.js\")\r\nconst NodeName = __webpack_require__(/*! ../../../common/util/nodename */ \"../common/util/nodename.js\")\r\nconst NodesFromEdge = __webpack_require__(/*! ../../util/nodesfromedge */ \"./util/nodesfromedge.js\")\r\n\r\nconst edge = (state, send) => {\r\n  const {from, to, from_id, to_id} = NodesFromEdge(state, state.selected.edge)\r\n  return H('div#selection', [\r\n    Connections(from.connections.filter(v => v.to_node === to.node_id), [\r\n      'Connections from ', \r\n      H('a', {\r\n        on: {click: [\r\n          [send, {type: 'vis_select', node: from_id}],\r\n          [send, {type: 'select', node: from_id}]\r\n        ]}\r\n      }, NodeName(from)), \r\n      ' to ', \r\n      H('a', {\r\n        on: {click: [\r\n          [send, {type: 'vis_select', node: to_id}],\r\n          [send, {type: 'select', node: to_id}]\r\n        ]}\r\n      }, NodeName(to))\r\n    ])\r\n  ])\r\n}\r\n\r\nmodule.exports = edge\n\n//# sourceURL=webpack:///./view/selection/edge.js?");
 
 /***/ }),
 
@@ -582,29 +662,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Info = __webpack_require__(/*! ./info */ \"./view/selection/info/index.js\")\r\nconst Actions = __webpack_require__(/*! ./actions */ \"./view/selection/actions/index.js\")\r\nconst Edge = __webpack_require__(/*! ./edge */ \"./view/selection/edge.js\")\r\nconst NodeName = __webpack_require__(/*! ../../util/nodename */ \"./util/nodename.js\")\r\n\r\nconst get_tab = (state, send, node) => {\r\n  if (state.tab == 'info') return Info(state, send, node)\r\n  if (state.tab == 'actions') return Actions(state, send, node)\r\n}\r\n\r\nconst selection = (state, send) => {\r\n  if (typeof state.selected.node === 'number') {\r\n    const node = state.nodes[state.selected.node]\r\n    return H('div#selection', [\r\n      H('div.tabs', [\r\n        H('div.tab', {\r\n          on: {click: [send, {type: 'tab', tab: 'info'}]},\r\n          class: {selected: state.tab === 'info'}\r\n        }, 'Info'),\r\n        H('div.tab', {\r\n          on: {click: [send, {type: 'tab', tab: 'actions'}]},\r\n          class: {selected: state.tab === 'actions'}\r\n        }, 'Actions'),\r\n        H('div.tabs_title', H('div.content', NodeName(node)))\r\n      ]),\r\n      get_tab(state, send, node)\r\n    ])\r\n  }\r\n  if (typeof state.selected.edge === 'string') return Edge(state, send)\r\n}\r\n\r\nmodule.exports = selection\n\n//# sourceURL=webpack:///./view/selection/index.js?");
-
-/***/ }),
-
-/***/ "./view/selection/info/index.js":
-/*!**************************************!*\
-  !*** ./view/selection/info/index.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst NodeTop = __webpack_require__(/*! ./nodetop */ \"./view/selection/info/nodetop.js\")\r\nconst Connections = __webpack_require__(/*! ../connections */ \"./view/selection/connections.js\")\r\n\r\nconst info = (state, send, node) => H('div.selection_panel', [\r\n    NodeTop(node),\r\n    Connections(node.connections)\r\n  ])\r\n\r\nmodule.exports = info\n\n//# sourceURL=webpack:///./view/selection/info/index.js?");
-
-/***/ }),
-
-/***/ "./view/selection/info/nodetop.js":
-/*!****************************************!*\
-  !*** ./view/selection/info/nodetop.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! fantastic-utils/defaultips */ \"../packages/fantastic-utils/defaultips.js\")\r\n\r\nconst node_type = node => {\r\n  if (!node.important) return 'Host outside my network'\r\n  if (node.access === 'local') return 'Local host'\r\n  if (node.access === 'remote') return 'Remote host with PowerShell access configured'\r\n  return 'Host on my network without remote access'\r\n}\r\n\r\nconst nodeTop = node => \r\n  H('div.section', [\r\n    H('div.subtitle', node_type(node)),\r\n    node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,\r\n    node.os ? H('div.item', `Operating System: ${node.os}`) : undefined,\r\n    node.macs && node.macs.length ? H('div.subtitle', 'MAC Addresses:') : undefined,\r\n    ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`)),\r\n    H('div.subtitle', 'IP Addresses:'),\r\n    ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : H('div.item', v))\r\n  ])\r\n\r\nmodule.exports = nodeTop\n\n//# sourceURL=webpack:///./view/selection/info/nodetop.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Info = __webpack_require__(/*! ../../../common/view/info */ \"../common/view/info/index.js\")\r\nconst Actions = __webpack_require__(/*! ../../../common/view/actions */ \"../common/view/actions/index.js\")\r\nconst Edge = __webpack_require__(/*! ./edge */ \"./view/selection/edge.js\")\r\nconst NodeName = __webpack_require__(/*! ../../../common/util/nodename */ \"../common/util/nodename.js\")\r\n\r\nconst get_tab = (state, send, node) => {\r\n  if (state.tab == 'info') return Info(state, send, node)\r\n  if (state.tab == 'actions') return Actions(state, send, node)\r\n}\r\n\r\nconst selection = (state, send) => {\r\n  if (typeof state.selected.node === 'number') {\r\n    const node = state.nodes[state.selected.node]\r\n    return H('div#selection', [\r\n      H('div.tabs', [\r\n        H('div.tab', {\r\n          on: {click: [send, {type: 'tab', tab: 'info'}]},\r\n          class: {selected: state.tab === 'info'}\r\n        }, 'Info'),\r\n        H('div.tab', {\r\n          on: {click: [send, {type: 'tab', tab: 'actions'}]},\r\n          class: {selected: state.tab === 'actions'}\r\n        }, 'Actions'),\r\n        H('div.tabs_title', H('div.content', [H('img.icon_button', {attrs: {src: 'images/popout.svg'}, on: {click: [send, {type: 'open_viewer', node: state.selected.node}]}}), H('div.text', NodeName(node))]))\r\n      ]),\r\n      get_tab(state, send, node)\r\n    ])\r\n  }\r\n  if (typeof state.selected.edge === 'string') return Edge(state, send)\r\n}\r\n\r\nmodule.exports = selection\n\n//# sourceURL=webpack:///./view/selection/index.js?");
 
 /***/ }),
 
@@ -615,7 +673,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! fantastic-utils/defaultips */ \"../packages/fantastic-utils/defaultips.js\")\r\nconst NodesFromEdge = __webpack_require__(/*! ../util/nodesfromedge */ \"./util/nodesfromedge.js\")\r\nconst NodeName = __webpack_require__(/*! ../util/nodename */ \"./util/nodename.js\")\r\n\r\nconst style = pos => ({left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`})\r\n\r\nconst tooltip = state => {\r\n  if (state.hovered.ui || !state.vis) return\r\n  if (state.hovered.nodes.length) {\r\n    const node_id = state.hovered.nodes[state.hovered.nodes.length - 1]\r\n    const node = state.nodes[node_id]\r\n    const box = state.vis.getBoundingBox(node_id)\r\n    const positions = state.vis.getPositions(node_id)\r\n    const pos = state.vis.canvasToDOM({x: positions[node_id].x, y: box.top})\r\n    const ip = node.ips.find(v => !DefaultIPs.includes(v))\r\n    return H('div#tooltip', {style: style(pos)}, [\r\n      H('div', ip ? `IP: ${ip}` : 'no IP address data!'),\r\n      node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,\r\n      node.os ? H('div', node.os) : undefined,\r\n      H('div', `${(node.connections && node.connections.length) || 0} connection${node.connections && node.connections.length === 1 ? '' : 's'}`)\r\n    ])\r\n  }\r\n  if (state.hovered.edges.length) {\r\n    const {from, to, from_id, to_id} = NodesFromEdge(state, state.hovered.edges[state.hovered.edges.length - 1])\r\n    const positions = state.vis.getPositions([from_id, to_id])\r\n    const pos = state.vis.canvasToDOM({x: (positions[from_id].x + positions[to_id].x) / 2, y: Math.min(positions[from_id].y, positions[to_id].y)})\r\n    const connections = from.connections.filter(v => v.to_node === to.node_id)\r\n    return H('div#tooltip', {style: style(pos)}, [\r\n      H('div', `${connections.length} connection${connections.length == 1 ? '' : 's'} from ${NodeName(from)} to ${NodeName(to)}`)\r\n    ])\r\n  }\r\n}\r\n\r\nmodule.exports = tooltip\n\n//# sourceURL=webpack:///./view/tooltip.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! fantastic-utils/defaultips */ \"../../packages/fantastic-utils/defaultips.js\")\r\nconst NodesFromEdge = __webpack_require__(/*! ../util/nodesfromedge */ \"./util/nodesfromedge.js\")\r\nconst NodeName = __webpack_require__(/*! ../../common/util/nodename */ \"../common/util/nodename.js\")\r\n\r\nconst style = pos => ({left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`})\r\n\r\nconst tooltip = state => {\r\n  if (state.hovered.ui || !state.vis) return\r\n  if (state.hovered.nodes.length) {\r\n    const node_id = state.hovered.nodes[state.hovered.nodes.length - 1]\r\n    const node = state.nodes[node_id]\r\n    const box = state.vis.getBoundingBox(node_id)\r\n    const positions = state.vis.getPositions(node_id)\r\n    const pos = state.vis.canvasToDOM({x: positions[node_id].x, y: box.top})\r\n    const ip = node.ips.find(v => !DefaultIPs.includes(v))\r\n    return H('div#tooltip', {style: style(pos)}, [\r\n      H('div', ip ? `IP: ${ip}` : 'no IP address data!'),\r\n      node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,\r\n      node.os ? H('div', node.os) : undefined,\r\n      H('div', `${(node.connections && node.connections.length) || 0} connection${node.connections && node.connections.length === 1 ? '' : 's'}`)\r\n    ])\r\n  }\r\n  if (state.hovered.edges.length) {\r\n    const {from, to, from_id, to_id} = NodesFromEdge(state, state.hovered.edges[state.hovered.edges.length - 1])\r\n    const positions = state.vis.getPositions([from_id, to_id])\r\n    const pos = state.vis.canvasToDOM({x: (positions[from_id].x + positions[to_id].x) / 2, y: Math.min(positions[from_id].y, positions[to_id].y)})\r\n    const connections = from.connections.filter(v => v.to_node === to.node_id)\r\n    return H('div#tooltip', {style: style(pos)}, [\r\n      H('div', `${connections.length} connection${connections.length == 1 ? '' : 's'} from ${NodeName(from)} to ${NodeName(to)}`)\r\n    ])\r\n  }\r\n}\r\n\r\nmodule.exports = tooltip\n\n//# sourceURL=webpack:///./view/tooltip.js?");
 
 /***/ })
 

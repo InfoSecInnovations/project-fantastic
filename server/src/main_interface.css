@@ -1,18 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
-body {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.9rem;
-  background-color: rgb(39, 40, 41);
-}
-
 p {
   margin: 0;
-}
-
-a {
-  cursor: pointer;
-  color: rgb(19, 57, 128);
 }
 
 h1 {
@@ -81,111 +68,6 @@ label {
   outline:none;
 }
 
-.title {
-  font-weight: bold;
-  font-size: 1.3rem;
-  margin: 0.3rem 0;
-}
-
-.subtitle {
-  font-weight: bold;
-  margin: 0.6rem 0.6rem 0.6rem 0;
-  font-size: 1rem;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.item > * {
-  flex-grow: 1;
-  flex-basis: 0;
-}
-
-.item .button {
-  min-width: 6rem;
-  flex: none;
-  font-size: 0.8rem;
-  margin: 0.2rem;
-}
-
-.followup {
-  display: flex;
-  margin: 0.2rem 0;
-  flex: 0;
-}
-
-.followup .foldout {
-  width: 1rem;
-  flex: none;
-}
-
-.followup .button {
-  margin: 0 0 0 0.4rem;
-}
-
-.followup .foldout::after {
-  content: '-';
-}
-
-.followup .foldout.disabled::after {
-  content: '+';
-}
-
-.result {
-  margin: 0.3rem 0 0.3rem 0.5rem;
-}
-
-.item .text {
-  margin-right: 0.4rem;
-}
-
-.item .text:last-child {
-  margin: 0;
-}
-
-.targets {
-  margin-top: 0.4rem;
-  font-size: 0.8rem;
-}
-
-.section {
-  margin: 0 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.divider {
-  height: 0.5rem;
-}
-
-.button, .foldout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  background-color: white;
-  cursor: pointer;
-  border: 2px solid orangered;
-  text-align: center;
-}
-
-.button {
-  padding: 0.5rem;
-  margin: 0.2rem 0 0.2rem 1rem;
-}
-
-.button.disabled, .foldout.disabled {
-  background-color: lightgray;
-}
-
-.loading {
-  background-color: gray;
-  cursor: auto;
-}
-
 .checkboxes {
   position: relative;
 }
@@ -226,13 +108,19 @@ label {
 }
 
 .tabs_title .content {
-  padding: 1rem;
   overflow-x: hidden;
   text-overflow: ellipsis;
   margin-left: 1rem;
   background-color: rgb(255, 171, 140);
   font-weight: bold;
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.tabs_title .content .text {
+  margin: 1rem;
 }
 
 .tab.selected {
@@ -250,40 +138,19 @@ label {
   z-index: 1;
 }
 
-.selection_panel {
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.scroll_container {
-  min-height: 0;
-}
-
-.scroll {
-  overflow-y: auto;
-  background-color: coral;
-  min-height: 10rem;
-}
-
-.scroll_item {
-  margin: 0.5rem;
-}
-
 .collapse {
-  height: 1.5rem;
-  padding: 0.3rem;
-  flex: 0;
-  cursor: pointer;
   transform: rotate(180deg);
-}
-
-.result_header {
-  font-weight: bold;
 }
 
 .collapse.folded {
   transform: none;
+}
+
+.icon_button {
+  height: 1.5rem;
+  padding: 0.3rem;
+  flex: 0;
+  cursor: pointer;
 }
 
 #commands {

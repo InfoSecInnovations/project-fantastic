@@ -1,0 +1,20 @@
+#container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+.column {
+  background-color: rgb(255, 171, 140);
+  width: 50%;
+  max-width: 600px;
+  margin: 1rem 1rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin: 1rem;
+  font-size: 1.5rem;
+}

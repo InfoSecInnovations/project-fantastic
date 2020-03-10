@@ -1,6 +1,6 @@
 const H = require('snabbdom/h').default
-const Connections = require('./connections')
-const NodeName = require('../../util/nodename')
+const Connections = require('../../../common/view/connections')
+const NodeName = require('../../../common/util/nodename')
 const NodesFromEdge = require('../../util/nodesfromedge')
 
 const edge = (state, send) => {

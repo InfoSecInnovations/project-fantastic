@@ -1,5 +1,5 @@
 const H = require('snabbdom/h').default
-const HostString = require('../../util/hoststring')
+const HostString = require('../../../common/util/hoststring')
 
 const commands = (state, send) => {
   if (!state.commands) return
@@ -7,7 +7,7 @@ const commands = (state, send) => {
     H('div.scroll_container.section', [
       H('div.item', [
         H('div.title', 'Host Data Commands'),
-        H('img.collapse', {
+        H('img.collapse.icon_button', {
           attrs: {src: 'images/triangle.svg'}, 
           on: {click: [send, {type: 'command_foldout', value: !state.command_foldout}]},
           class: {folded: !state.command_foldout}

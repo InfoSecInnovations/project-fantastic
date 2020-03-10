@@ -1,5 +1,5 @@
 const H = require('snabbdom/h').default
-const IPAddress = require('../../util/ipaddress')
+const IPAddress = require('../util/ipaddress')
 
 const connections = (connections, label) => 
   H('div.scroll_container.section', [

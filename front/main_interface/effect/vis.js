@@ -1,5 +1,5 @@
 const Vis = require('vis-network')
-const NodeName = require('../util/nodename')
+const NodeName = require('../../common/util/nodename')
 
 const graph = (state, send) => {
   const nodes = []

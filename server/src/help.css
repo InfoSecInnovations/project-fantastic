@@ -1,13 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
 body {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.9rem;
-  background-color: rgb(39, 40, 41);
   display: flex;
   justify-content: center;
-  margin: 0;
-  padding: 0;
 }
 
 #container {

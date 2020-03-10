@@ -1,10 +1,9 @@
 const H = require('snabbdom/h').default
-const HostString = require('../../../util/hoststring')
+const HostString = require('../../util/hoststring')
 const Result = require('./result')
 
 const actions = (state, send, node) => {
   if (!state.actions) return
-  const hostname = node.access === 'local' ? null : node.hostname
   const actions = Object.entries(state.actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)) 
   return H('div.selection_panel', 
     H('div.scroll_container.section', [
