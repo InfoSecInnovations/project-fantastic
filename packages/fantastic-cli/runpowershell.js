@@ -35,8 +35,7 @@ const child = (command, log = false) => new Promise((resolve, reject) => {
   const child_process = spawn('powershell.exe', [command])
   let buffer
   child_process.stdout.on('data', d => {
-    let chunk = Buffer.from(d)
-    buffer = buffer ? Buffer.concat([buffer, chunk]) : Buffer.concat([chunk])
+    buffer = buffer ? Buffer.concat([buffer, d]) : Buffer.concat([d])
   })
   child_process.stderr.on('data', d => {
     if (log) console.log(`PowerShell command failed: ${d}`)

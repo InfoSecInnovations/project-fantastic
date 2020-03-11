@@ -108,8 +108,6 @@ label {
 }
 
 .tabs_title .content {
-  overflow-x: hidden;
-  text-overflow: ellipsis;
   margin-left: 1rem;
   background-color: rgb(255, 171, 140);
   font-weight: bold;
@@ -117,9 +115,13 @@ label {
   display: flex;
   align-items: center;
   padding-left: 1rem;
+  min-width: 0;
 }
 
 .tabs_title .content .text {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   margin: 1rem;
 }
 

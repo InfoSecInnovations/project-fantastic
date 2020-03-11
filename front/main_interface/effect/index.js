@@ -37,14 +37,21 @@ const effect = (state, action, send) => {
     .then(res => res.json())
     .then(res => send({type: 'commands', commands: res}))
 
-  if (action.type == 'vis_select') state.vis.selectNodes([action.node])
+  if (action.type == 'vis_select') state.vis.selectNodes(action.node ? [action.node] : action.nodes)
   if (action.type == 'open_viewer') {
     const viewer_tab = window.open('/node_viewer.html', '_blank')
     viewer_tab.onload = () => viewer_tab.send({type: 'node_data', data: state.nodes[action.node]})
   }
   if (action.type == 'click') {
-    if (state.keys.shift && action.node) send({type: 'select', nodes: FlatUnique([state.selected.nodes, state.selected.node, action.node])})
-    else if (action.node) send({type: 'select', node: action.node})
+    const valid = typeof action.node != 'undefined'
+    if (valid) {
+      if (state.keys.shift) {
+        const nodes = FlatUnique([state.selected.nodes, state.selected.node, action.node])
+        send({type: 'select', nodes})
+        send({type: 'vis_select', nodes})
+      }
+      else send({type: 'select', node: action.node})
+    }
     else send({...action, type: 'select'})
   }
 }

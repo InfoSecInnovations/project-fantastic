@@ -13,9 +13,8 @@ const tooltip = state => {
     const box = state.vis.getBoundingBox(node_id)
     const positions = state.vis.getPositions(node_id)
     const pos = state.vis.canvasToDOM({x: positions[node_id].x, y: box.top})
-    const ip = node.ips.find(v => !DefaultIPs.includes(v))
     return H('div#tooltip', {style: style(pos)}, [
-      H('div', ip ? `IP: ${ip}` : 'no IP address data!'),
+      H('div', NodeName(node)),
       node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,
       node.os ? H('div', node.os) : undefined,
       H('div', `${(node.connections && node.connections.length) || 0} connection${node.connections && node.connections.length === 1 ? '' : 's'}`)

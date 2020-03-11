@@ -5,7 +5,7 @@ const NodesFromEdge = require('../../util/nodesfromedge')
 
 const edge = (state, send) => {
   const {from, to, from_id, to_id} = NodesFromEdge(state, state.selected.edge)
-  return H('div#selection', [
+  return H('div', [
     Connections(from.connections.filter(v => v.to_node === to.node_id), [
       'Connections from ', 
       H('a', {
