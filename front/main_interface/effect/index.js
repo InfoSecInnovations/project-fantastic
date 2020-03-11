@@ -1,6 +1,7 @@
 const Vis = require('./vis')
 const Common = require('../../common/effect')
 const FlatUnique = require('fantastic-utils/flatunique')
+const OpenTabs = require('./opentabs')
 
 const effect = (state, action, send) => {
   Common(state, action, send)
@@ -38,10 +39,7 @@ const effect = (state, action, send) => {
     .then(res => send({type: 'commands', commands: res}))
 
   if (action.type == 'vis_select') state.vis.selectNodes(action.node ? [action.node] : action.nodes)
-  if (action.type == 'open_viewer') {
-    const viewer_tab = window.open('/node_viewer.html', '_blank')
-    viewer_tab.onload = () => viewer_tab.send({type: 'node_data', data: state.nodes[action.node]})
-  }
+  if (action.type == 'open_viewer') OpenTabs(state, action, send)
   if (action.type == 'click') {
     const valid = typeof action.node != 'undefined'
     if (valid) {

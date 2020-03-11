@@ -30,7 +30,10 @@ const get_tab = (state, send, nodes) => {
       if (nodes.length > 1) return Multi(state, send)
       return Info(state, send, state.nodes[nodes[0]])
     }
-    if (state.tab == 'actions') return Actions(state, send, state.nodes[nodes[0]]) // TODO: multi select actions
+    if (state.tab == 'actions') {
+      if (nodes.length > 1) return H('div', 'Actions with multiple targets are not yet supported!') // TODO: multi select actions
+      return Actions(state, send, state.nodes[nodes[0]])
+    }
   }
   return Edge(state, send)
 }

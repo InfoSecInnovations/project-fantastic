@@ -42,7 +42,7 @@ const child = (command, log = false) => new Promise((resolve, reject) => {
     resolve('')
   })
   child_process.on('exit', () => {
-    const s = buffer.toString()
+    const s = buffer ? buffer.toString() : ''
     resolve(s)
   })
 })
