@@ -3,6 +3,8 @@ const Snabbdom = require('snabbdom')
 const Update = require('./update')
 const View = require('./view')
 const Effect = require('./effect')
+const ActionResults = require('../common/defaults/actionresults')
+const Hovered = require('./defaults/hovered')
 
 const patch = Snabbdom.init([
   require('snabbdom/modules/class').default,
@@ -14,8 +16,8 @@ let state = {
   search: {date: 15, show_external: true, connection_type: 'all', connection_state: []}, 
   tab: 'info', 
   selected: {}, 
-  hovered: {nodes: [], edges: []}, 
-  action_results: {data: {}, foldouts: {}, status: {}},
+  hovered: Hovered(), 
+  action_results: ActionResults(),
   keys: {}
 }
 let vdom = ToVNode(document.body)

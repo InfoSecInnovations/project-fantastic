@@ -4,6 +4,7 @@ const Actions = require('../../../common/view/actions')
 const Edge = require('./edge')
 const NodeName = require('../../../common/util/nodename')
 const Multi = require('./multi')
+const MultiActions = require('./multiactions')
 
 const tabs = (state, send, nodes) => {
   if (nodes && nodes.length) return H('div.tabs', [
@@ -31,7 +32,7 @@ const get_tab = (state, send, nodes) => {
       return Info(state, send, state.nodes[nodes[0]])
     }
     if (state.tab == 'actions') {
-      if (nodes.length > 1) return H('div', 'Actions with multiple targets are not yet supported!') // TODO: multi select actions
+      if (nodes.length > 1) return MultiActions(state, send)
       return Actions(state, send, state.nodes[nodes[0]])
     }
   }

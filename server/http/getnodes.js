@@ -2,7 +2,7 @@ const DB = require('../db')
 const GetQuery = require('./getquery')
 const Abort = require('./abort')
 
-const nodes = (res, req) => {
+const getNodes = (res, req) => {
   res.onAborted(() => Abort(res))
   console.log('-----------')
   console.log('http request for nodes incoming...')
@@ -20,4 +20,4 @@ const nodes = (res, req) => {
   })
 }
 
-module.exports = nodes
+module.exports = getNodes

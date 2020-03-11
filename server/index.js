@@ -6,7 +6,7 @@ const GetCommandData = require('./commands/getcommanddata')
 const RunCommands = require('./commands/runcommands')
 const GetActionData = require('./actions/getactiondata')
 const Files = require('./http/files')
-const Nodes = require('./http/nodes')
+const GetNodes = require('./http/getnodes')
 const GetCommands = require('./http/getcommands')
 const PostCommands = require('./http/postcommands')
 const GetActions = require('./http/getactions')
@@ -14,6 +14,7 @@ const PostActions = require('./http/postactions')
 const PostActionFollowup = require('./http/postactionfollowup')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
+const GetResults = require('./http/getresults')
 
 const main = async () => {
 
@@ -40,7 +41,7 @@ const main = async () => {
 
   const app = UWS.App()
   app.get('/*', Files)
-  app.get('/nodes', Nodes)
+  app.get('/nodes', GetNodes)
   app.get('/commands', (res, req) => GetCommands(res, req, command_data))
   app.post('/commands', (res, req) => {
     command_data = PostCommands(res, req, command_data)
@@ -55,6 +56,7 @@ const main = async () => {
   app.get('/actions', (res, req) => GetActions(res, req, actions))
   app.post('/actions', PostActions)
   app.post('/action_followup', PostActionFollowup)
+  app.get('/results', GetResults)
   app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 
   // reload config and command data if it changed

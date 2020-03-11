@@ -1,4 +1,5 @@
 const Common = require('../../common/update')
+const Hovered = require('../defaults/hovered')
 
 const update = (state, action) => {
   if (action.type == 'nodes') state.nodes = action.nodes
@@ -28,10 +29,8 @@ const update = (state, action) => {
   }
   if (action.type == 'unhover_edge') state.hovered.edges.splice(state.hovered.edges.findIndex(v => v ===action.edge), 1)
   if (action.type == 'clear_selection') {
-    state.selected.node = undefined
-    state.selected.edge = undefined
-    state.hovered.nodes.length = 0
-    state.hovered.edges.length = 0
+    state.selected = {}
+    state.hovered = Hovered()
     state.search.connection_foldout = false
   }
   if (action.type == 'hover_ui') state.hovered.ui = action.value

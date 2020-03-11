@@ -20,6 +20,11 @@ const effect = (state, action, send) => {
   if (action.type == 'nodes') {
     send({type: 'clear_selection'})
     send({type: 'loading', value: false})
+    action.nodes.forEach(v => fetch(`/results?node_id=${v.node_id}`)
+      .then(res => res.json())
+      .then(res => {
+        
+      }))
     Vis(state, send)
   }
   if (action.type == 'graph_container') {
