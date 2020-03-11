@@ -1,4 +1,9 @@
 const actionResult = (state, action) => {
+  if (!state.action_results.data[action.hostname]) {
+    state.action_results.data[action.hostname] = {}
+    state.action_results.foldouts[action.hostname] = {}
+    state.action_results.status[action.hostname] = {}
+  }
   if (!state.action_results.data[action.hostname][action.action]) {
     state.action_results.data[action.hostname][action.action] = {}
     state.action_results.foldouts[action.hostname][action.action] = action.result.length ? true : undefined

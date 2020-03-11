@@ -18,7 +18,8 @@ let state = {
   selected: {}, 
   hovered: Hovered(), 
   action_results: ActionResults(),
-  keys: {}
+  keys: {},
+  child_tabs: []
 }
 let vdom = ToVNode(document.body)
 

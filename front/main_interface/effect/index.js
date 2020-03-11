@@ -2,6 +2,7 @@ const Vis = require('./vis')
 const Common = require('../../common/effect')
 const FlatUnique = require('fantastic-utils/flatunique')
 const OpenTabs = require('./opentabs')
+const LoadNodeResults = require('../../common/effect/loadnoderesults')
 
 const effect = (state, action, send) => {
   Common(state, action, send)
@@ -20,11 +21,7 @@ const effect = (state, action, send) => {
   if (action.type == 'nodes') {
     send({type: 'clear_selection'})
     send({type: 'loading', value: false})
-    action.nodes.forEach(v => fetch(`/results?node_id=${v.node_id}`)
-      .then(res => res.json())
-      .then(res => {
-        
-      }))
+    action.nodes.forEach(n => LoadNodeResults(n, send))
     Vis(state, send)
   }
   if (action.type == 'graph_container') {
@@ -57,6 +54,7 @@ const effect = (state, action, send) => {
     }
     else send({...action, type: 'select'})
   }
+  if (action.type == 'action_result' || action.type == 'action_followup_result') state.child_tabs.forEach(v => v.send(action))
 }
 
 module.exports = effect

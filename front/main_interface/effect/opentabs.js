@@ -12,6 +12,10 @@ const openTabs = (state, action, send) => {
     last_window = viewer_tab
     viewer_tab.onload = () => {
       viewer_tab.send({type: 'node_data', data: state.nodes[v]})
+      send({type: 'add_child_tab', tab: viewer_tab})
+    }
+    viewer_tab.onclose = () => {
+      send({type: 'remove_child_tab', tab: viewer_tab})
     }
   })
 } 

@@ -19,9 +19,16 @@ const format_value = v => {
   return `'${v}'`
 }
 
+const condition_entry = (v, compare) => {
+  if (!compare) compare = '='
+  const value = format_value(v[1])
+  if (value === 'NULL' && compare === '=') return `${v[0]} IS NULL`
+  return `${v[0]} ${compare} ${format_value(v[1])}`
+}
+
 const condition_group = group => Array.isArray(group.columns) ? 
-  group.columns.map(v => `${v[0]} ${group.compare || '='} ${v[1]}`).join(` ${group.combine || 'AND'} `) :
-  Object.entries(group.columns).map(v => `${v[0]} ${group.compare || '='} ${format_value(v[1])}`).join(` ${group.combine || 'AND'} `) 
+  group.columns.map(v => condition_entry(v, group.compare)).join(` ${group.combine || 'AND'} `) :
+  Object.entries(group.columns).map(v => condition_entry(v, group.compare)).join(` ${group.combine || 'AND'} `) 
 
 const where = conditions => conditions ? `WHERE ${conditions.groups ? conditions.groups.map(v => condition_group(v)).join(` ${conditions.combine || 'AND'} `) : condition_group(conditions)}` : '' // TODO: filter out invalid values here, especially empty arrays
 

@@ -130,6 +130,17 @@ eval("const ActionFollowup = __webpack_require__(/*! ./actionfollowup */ \"../co
 
 /***/ }),
 
+/***/ "../common/effect/loadnoderesults.js":
+/*!*******************************************!*\
+  !*** ../common/effect/loadnoderesults.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("const loadNodeResults = (node, send) => {\r\n  fetch(`/results?node_id=${node.node_id}`)\r\n    .then(res => res.json())\r\n    .then(res => {\r\n      const results = res.reduce((result, v) => {\r\n        if (!result[v.action]) result[v.action] = {}\r\n        if (!result[v.action][v.function]) result[v.action][v.function] = {}\r\n        result[v.action][v.function][v.key] = {...v, data: JSON.parse(v.data)}\r\n        return result\r\n      }, {})\r\n      Object.entries(results).map(r => {\r\n        const data = r[1].run.null.data\r\n        send({type: 'action_result', result: data, action: r[0], hostname: node.hostname})\r\n        const followup = (data, keys = []) => {\r\n          data.forEach(d => {\r\n            d.value.forEach(v => {\r\n              if (v.click && r[1][v.click.function] && r[1][v.click.function][d.id]) {\r\n                const result = r[1][v.click.function][d.id].data\r\n                send({\r\n                  type: 'action_followup_result', \r\n                  refresh: false, \r\n                  action: r[0],\r\n                  function: v.click.function,\r\n                  node_id: node.node_id,\r\n                  hostname: node.hostname,\r\n                  id: d.id,\r\n                  keys,\r\n                  result \r\n                })\r\n                followup(result, [...keys, {function: v.click.function, id: d.id}])\r\n              }\r\n            })\r\n          })\r\n        }\r\n        followup(data)\r\n      })\r\n    })\r\n}\r\n\r\nmodule.exports = loadNodeResults\n\n//# sourceURL=webpack:///../common/effect/loadnoderesults.js?");
+
+/***/ }),
+
 /***/ "../common/node_modules/snabbdom/h.js":
 /*!********************************************!*\
   !*** ../common/node_modules/snabbdom/h.js ***!
@@ -184,7 +195,7 @@ eval("const actionFollowup = (state, action) => {\r\n  let action_result = state
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const actionResult = (state, action) => {\r\n  if (!state.action_results.data[action.hostname][action.action]) {\r\n    state.action_results.data[action.hostname][action.action] = {}\r\n    state.action_results.foldouts[action.hostname][action.action] = action.result.length ? true : undefined\r\n  }\r\n  state.action_results.status[action.hostname][action.action] = 'loaded'\r\n  action.result.forEach(v => {\r\n    if (!state.action_results.data[action.hostname][action.action][v.id]) state.action_results.data[action.hostname][action.action][v.id] = {value: v.value, foldout: {}, status: {}}\r\n    else state.action_results.data[action.hostname][action.action][v.id].value = v.value\r\n  })\r\n}\r\n\r\nmodule.exports = actionResult\n\n//# sourceURL=webpack:///../common/update/actionresult.js?");
+eval("const actionResult = (state, action) => {\r\n  if (!state.action_results.data[action.hostname]) {\r\n    state.action_results.data[action.hostname] = {}\r\n    state.action_results.foldouts[action.hostname] = {}\r\n    state.action_results.status[action.hostname] = {}\r\n  }\r\n  if (!state.action_results.data[action.hostname][action.action]) {\r\n    state.action_results.data[action.hostname][action.action] = {}\r\n    state.action_results.foldouts[action.hostname][action.action] = action.result.length ? true : undefined\r\n  }\r\n  state.action_results.status[action.hostname][action.action] = 'loaded'\r\n  action.result.forEach(v => {\r\n    if (!state.action_results.data[action.hostname][action.action][v.id]) state.action_results.data[action.hostname][action.action][v.id] = {value: v.value, foldout: {}, status: {}}\r\n    else state.action_results.data[action.hostname][action.action][v.id].value = v.value\r\n  })\r\n}\r\n\r\nmodule.exports = actionResult\n\n//# sourceURL=webpack:///../common/update/actionresult.js?");
 
 /***/ }),
 
@@ -228,7 +239,7 @@ eval("const PerformAction = __webpack_require__(/*! ./performaction */ \"../comm
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const performAction = (state, action) => {\r\n  if (!state.action_results.data[action.host]) {\r\n    state.action_results.data[action.host] = {}\r\n    state.action_results.foldouts[action.host] = {}\r\n    state.action_results.status[action.host] = {}\r\n  }\r\n  state.action_results.status[action.host][action.action] = 'loading'\r\n}\r\n\r\nmodule.exports = performAction\n\n//# sourceURL=webpack:///../common/update/performaction.js?");
+eval("const performAction = (state, action) => {\r\n  state.action_results.status[action.host][action.action] = 'loading'\r\n}\r\n\r\nmodule.exports = performAction\n\n//# sourceURL=webpack:///../common/update/performaction.js?");
 
 /***/ }),
 
@@ -316,7 +327,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"../common/node_modules/s
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Common = __webpack_require__(/*! ../../common/effect */ \"../common/effect/index.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  Common(state, action, send)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
+eval("const Common = __webpack_require__(/*! ../../common/effect */ \"../common/effect/index.js\")\r\nconst LoadNodeResults = __webpack_require__(/*! ../../common/effect/loadnoderesults */ \"../common/effect/loadnoderesults.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  Common(state, action, send)\r\n  if (action.type == 'node_data') LoadNodeResults(action.data, send)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack:///./effect/index.js?");
 
 /***/ }),
 

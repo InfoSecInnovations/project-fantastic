@@ -41,6 +41,8 @@ const update = (state, action) => {
   if (action.type == 'tab') state.tab = action.tab
   if (action.type == 'command_foldout') state.command_foldout = action.value
   if (action.type == 'key') state.keys[action.key] = action.value
+  if (action.type == 'add_child_tab') state.child_tabs.push(action.tab)
+  if (action.type == 'remove_child_tab') state.child_tabs.splice(state.child_tabs.findIndex(v => v === action.tab), 1)
   state = Common(state, action)
   return state
 }
