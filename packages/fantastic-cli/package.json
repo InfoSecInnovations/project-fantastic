@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-powershell": "^4.0.0"
+    "edge-js": "^13.0.1",
+    "edge-ps": "0.1.0-pre"
   }
 }
