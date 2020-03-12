@@ -132,7 +132,8 @@ label {
 
 #selection {
   margin-left: auto;
-  width: min(40%, 500px);
+  width: 500px;
+  max-width: 40%;
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -157,7 +158,8 @@ label {
 
 #commands {
   margin-right: auto;
-  width: min(40%, 400px);
+  width: 400px;
+  max-width: 40%;
   min-height: 0;
   display: flex;
   flex-direction: column;
