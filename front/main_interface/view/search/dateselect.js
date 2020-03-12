@@ -1,15 +1,11 @@
 const H = require('snabbdom/h').default
+const DateString = require('../../../common/util/datestring')
 
 const options = [5, 15, 30, 60, 480, 1440, 0]
-const unit_string = (amount, unit) => amount > 1 ? `${amount} ${unit}s` : unit
 
 const option_label = minutes => {
   if (!minutes) return 'forever'
-  if (minutes < 60) return `last ${unit_string(minutes, 'minute')}`
-  const hours = Math.floor(minutes / 60)
-  const remainder = minutes % 60
-  if (remainder) return `last ${unit_string(hours, 'hour')} and ${unit_string(remainder, 'minute')}`
-  return `last ${unit_string(hours, 'hour')}`
+  return `last ${DateString(minutes)}`
 }
 
 const dateSelect = (state, send) => H('div.selector', [

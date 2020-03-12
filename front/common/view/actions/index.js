@@ -1,6 +1,7 @@
 const H = require('snabbdom/h').default
 const HostString = require('../../util/hoststring')
 const Result = require('./result')
+const DateString = require('../../util/datestring')
 
 const actions = (state, send, node) => {
   if (!state.actions) return
@@ -14,7 +15,7 @@ const actions = (state, send, node) => {
             H('div.subtitle', v[1].name),
             H('div.button', 
               { 
-                on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname}]},
+                on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname, data: Date.now()}]},
                 class: {loading}
               }, 
               loading ? 'Running...' : 'Run')
@@ -23,13 +24,15 @@ const actions = (state, send, node) => {
           H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),
           state.action_results.data[node.hostname] && state.action_results.data[node.hostname][v[0]] ? H('div.results', [
             H('div.followup', [
-              H('div.subtitle', 'Results'), 
+              H('div.subtitle', `Results from ${DateString((Date.now() - state.action_results.data[node.hostname][v[0]].date) / 1000 / 60)} ago`), 
               H('div.foldout', {
                 on: {click: [send, {type: 'result_foldout', action: v[0], hostname: node.hostname, value: !state.action_results.foldouts[node.hostname][v[0]]}]},
                 class: {disabled: !state.action_results.foldouts[node.hostname][v[0]]}
               })
             ]),
-            ...(state.action_results.foldouts[node.hostname][v[0]] ? Object.entries(state.action_results.data[node.hostname][v[0]]).map(r => Result(v[0], {key: r[0], value: r[1]}, node.node_id, node.hostname, loading, send)) : [])
+            ...(state.action_results.foldouts[node.hostname][v[0]] ? Object.entries(state.action_results.data[node.hostname][v[0]])
+              .filter(r => r[0] !== 'date')
+              .map(r => Result(v[0], {key: r[0], value: r[1]}, node.node_id, node.hostname, loading, send)) : [])
           ]) : undefined
         ])
       }))

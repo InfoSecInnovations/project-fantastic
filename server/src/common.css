@@ -66,8 +66,17 @@ a {
   content: '+';
 }
 
-.result {
+.result, .result_time {
   margin: 0.3rem 0 0.3rem 0.5rem;
+}
+
+.result_time {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.result_time .time {
+  white-space: pre;
 }
 
 .item .text {

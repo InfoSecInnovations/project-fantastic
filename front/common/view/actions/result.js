@@ -1,4 +1,5 @@
 const H = require('snabbdom/h').default
+const DateString = require('../../util/datestring')
 
 const display = (action, line, foldout, status, node_id, host, send, id, keys) => {
 
@@ -17,7 +18,8 @@ const display = (action, line, foldout, status, node_id, host, send, id, keys) =
             host,
             id,
             keys,
-            refresh: true
+            refresh: true,
+            date: Date.now()
           }]},
           class: {...line.class, loading}
         },
@@ -47,10 +49,18 @@ const result = (action, action_result, node_id, host, loading, send, keys = []) 
     if (v[0] === 'foldout') return  
     if (v[0] === 'value') return H('div.item', v[1].map(v => display(action, v, action_result.value.foldout, loading || action_result.value.status, node_id, host, send, action_result.key, keys)))
     return action_result.value.foldout[v[0]] ? 
-      Object.entries(v[1])
-        .map(r => result(action, {key: r[0], value: r[1]}, node_id, host, loading || action_result.value.status[v[0]] === 'loading', send, [...keys, {function: v[0], id: action_result.key}])) :
+      H('div', [
+        H('div.result_time', [
+          H('div.result_header', action_result.value.value.find(r => r.click && r.click.function === v[0]).text),
+          H('div.time', ` Results from ${DateString((Date.now() - v[1].date) / 1000 / 60)} ago`)
+        ]),
+        ...Object.entries(v[1])
+        .filter(r => r[0] !== 'date')
+        .map(r => result(action, {key: r[0], value: r[1]}, node_id, host, loading || action_result.value.status[v[0]] === 'loading', send, [...keys, {function: v[0], id: action_result.key}]))
+      ]) :
       undefined
-}).flat())
+  }).flat()
+)
 
 
 module.exports = result
