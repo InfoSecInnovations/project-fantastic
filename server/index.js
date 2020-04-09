@@ -39,7 +39,10 @@ const main = async () => {
 
   process.on('exit', () => processes.forEach(v => v.kill()))
 
-  const app = UWS.App()
+  const app = UWS.SSLApp({
+    key_file_name: 'cert/key',
+    cert_file_name: 'cert/cert'
+  })
   app.get('/*', Files)
   app.get('/nodes', GetNodes)
   app.get('/commands', (res, req) => GetCommands(res, req, command_data))
