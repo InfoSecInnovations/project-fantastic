@@ -3,7 +3,7 @@ const fetch_followup = action => fetch(`/action_followup?action=${action.action}
 const actionFollowup = (state, action, send) => {
   fetch_followup(action)
     .then(res => res.json())
-    .then(res => send({...action, type: 'action_followup_result', result: res, hostname: action.host}))  
+    .then(res => send({...action, type: 'action_followup_result', result: res.result, hostname: action.host, date: res.date}))  
     .then(() => {
       if (!action.refresh) return
       if (action.keys.length) {

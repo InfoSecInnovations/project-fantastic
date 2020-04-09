@@ -15,7 +15,7 @@ const actions = (state, send, node) => {
             H('div.subtitle', v[1].name),
             H('div.button', 
               { 
-                on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname, data: Date.now()}]},
+                on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname}]},
                 class: {loading}
               }, 
               loading ? 'Running...' : 'Run')
