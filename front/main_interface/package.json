@@ -9,7 +9,7 @@
     "vis-network": "^6.5.0",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
-    "fantastic-utils": "file:../packages/fantastic-utils"
+    "fantastic-utils": "file:../../packages/fantastic-utils"
   },
   "scripts": {
     "js": "webpack -w"

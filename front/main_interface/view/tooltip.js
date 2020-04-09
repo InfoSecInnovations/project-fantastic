@@ -1,5 +1,4 @@
 const H = require('snabbdom/h').default
-const DefaultIPs = require('fantastic-utils/defaultips')
 const NodesFromEdge = require('../util/nodesfromedge')
 const NodeName = require('../../common/util/nodename')
 
