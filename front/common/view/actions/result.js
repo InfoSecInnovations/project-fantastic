@@ -1,5 +1,5 @@
 const H = require('snabbdom/h').default
-const DateString = require('../../util/datestring')
+const TimeAgo = require('../../util/timeago')
 
 const display = (action, line, foldout, status, node_id, host, send, id, keys) => {
 
@@ -41,6 +41,9 @@ const display = (action, line, foldout, status, node_id, host, send, id, keys) =
     if (line.type == 'header') {
       return H('div.result_header', line.text)
     }
+    if (line.type == 'date') {
+      return H('div.text', `${TimeAgo(line.date)}`)
+    }
   }
   return H('div.text', line)
 }
@@ -52,10 +55,9 @@ const result = (action, action_result, node_id, host, loading, send, keys = []) 
       H('div', [
         H('div.result_time', [
           H('div.result_header', action_result.value.value.find(r => r.click && r.click.function === v[0]).text),
-          H('div.time', ` Results from ${DateString((Date.now() - v[1].date) / 1000 / 60)} ago`)
+          H('div.time', ` Results from ${TimeAgo(action_result.value.date[v[0]])}`)
         ]),
         ...Object.entries(v[1])
-        .filter(r => r[0] !== 'date')
         .map(r => result(action, {key: r[0], value: r[1]}, node_id, host, loading || action_result.value.status[v[0]] === 'loading', send, [...keys, {function: v[0], id: action_result.key}]))
       ]) :
       undefined

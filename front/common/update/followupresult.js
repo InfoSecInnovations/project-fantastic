@@ -6,11 +6,11 @@ const followupResult = (state, action) => {
   action_result = action_result[action.id]
   action_result.foldout[action.function] = action.result.length ? true : undefined
   action_result.status[action.function] = 'loaded'
+  action_result.date[action.function] = action.date
   if (!action_result[action.function]) action_result[action.function] = {}
   action_result = action_result[action.function]
-  action_result.date = action.date
   action.result.forEach(v => {
-    if (!action_result[v.id]) action_result[v.id] = {value: v.value, foldout: {}, status: {}}
+    if (!action_result[v.id]) action_result[v.id] = {value: v.value, foldout: {}, status: {}, date: {}}
     else action_result[v.id].value = v.value
   })
 }

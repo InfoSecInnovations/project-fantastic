@@ -13,7 +13,7 @@ const lastBoot = {
       return [
         {
           id: 'date',
-          value: [date]
+          value: [{type: 'date', date: parseInt(date)}]
         }
       ]
     })

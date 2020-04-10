@@ -3,15 +3,16 @@ const actionResult = (state, action) => {
     state.action_results.data[action.hostname] = {}
     state.action_results.foldouts[action.hostname] = {}
     state.action_results.status[action.hostname] = {}
+    state.action_results.date[action.hostname] = {}
   }
   if (!state.action_results.data[action.hostname][action.action]) {
     state.action_results.data[action.hostname][action.action] = {}
     state.action_results.foldouts[action.hostname][action.action] = action.result.length ? true : undefined
   }
   state.action_results.status[action.hostname][action.action] = 'loaded'
-  state.action_results.data[action.hostname][action.action].date = action.date
+  state.action_results.date[action.hostname][action.action] = action.date
   action.result.forEach(v => {
-    if (!state.action_results.data[action.hostname][action.action][v.id]) state.action_results.data[action.hostname][action.action][v.id] = {value: v.value, foldout: {}, status: {}}
+    if (!state.action_results.data[action.hostname][action.action][v.id]) state.action_results.data[action.hostname][action.action][v.id] = {value: v.value, foldout: {}, status: {}, date: {}}
     else state.action_results.data[action.hostname][action.action][v.id] = {...state.action_results.data[action.hostname][action.action][v.id], value: v.value}
   })
 }

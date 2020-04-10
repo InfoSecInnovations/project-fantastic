@@ -1,7 +1,8 @@
 const actionResults = () => ({
   data: {}, 
   foldouts: {}, 
-  status: {}
+  status: {},
+  date: {}
 })
 
 module.exports = actionResults
