@@ -15,6 +15,7 @@ const PostActionFollowup = require('./http/postactionfollowup')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
 const GetResults = require('./http/getresults')
+const Net = require('net')
 
 const main = async () => {
 
@@ -39,6 +40,20 @@ const main = async () => {
 
   process.on('exit', () => processes.forEach(v => v.kill()))
 
+  const http_port = config.port + 1
+  const https_port = config.port + 2
+
+  Net.createServer((conn) => {
+    conn.once('data', function (buf) {
+      // A TLS handshake record starts with byte 22.
+      const address = (buf[0] === 22) ? https_port : http_port
+      const proxy = Net.createConnection(address, function () {
+          proxy.write(buf);
+          conn.pipe(proxy).pipe(conn)
+      })
+    })
+  }).listen(config.port).on('listening', () => console.log(`Proxy server listening on port ${config.port}`))
+
   const app = UWS.SSLApp({
     key_file_name: 'cert/key',
     cert_file_name: 'cert/cert'
@@ -60,7 +75,15 @@ const main = async () => {
   app.post('/actions', PostActions)
   app.post('/action_followup', PostActionFollowup)
   app.get('/results', GetResults)
-  app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
+  app.listen(https_port, () => console.log(`Fantastic Server running on port ${https_port}!`))
+
+  const http_app = UWS.App()
+  http_app.get('/*', (res, req) => {
+    res.writeStatus('301')
+    res.writeHeader('Location', `https://${req.getHeader('host')}${req.getUrl()}`)
+    res.end()
+  })
+  http_app.listen(http_port, () => console.log(`HTTP redirect server running on port ${http_port}`))
 
   // reload config and command data if it changed
   WatchConfig(data => {
