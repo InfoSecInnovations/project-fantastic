@@ -1,5 +1,5 @@
 const H = require('snabbdom/h').default
-const Commands = require('./commands')
+const LeftPanel = require('./leftpanel')
 const Selection = require('./selection')
 const Search = require('./search')
 const Tooltip = require('./tooltip')
@@ -17,7 +17,7 @@ const view = (state, send) =>
           style: {display: state.loading ? 'none' : 'block'}
         }),
         state.loading ? H('div#loading', 'Loading...') : undefined,
-        Commands(state, send),
+        LeftPanel(state, send),
         Selection(state, send),
         Tooltip(state)
       ])

@@ -163,12 +163,30 @@ label {
   min-height: 0;
   display: flex;
   flex-direction: column;
-  background-color: rgb(255, 171, 140);
   z-index: 1;
+  background-color: rgb(255, 171, 140);
 }
 
 #commands.folded {
-  align-self: flex-start;
+  background-color: transparent;
+}
+
+.panel {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#left_panel_controls {
+  margin-top: auto;
+  display: flex;
+  background-color: coral;
+}
+
+#left_panel_controls > * {
+  margin: 1rem;
+  background-color: rgb(255, 171, 140);
 }
 
 #tooltip {
