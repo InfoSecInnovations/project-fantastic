@@ -6,7 +6,7 @@ const getNodes = async query => {
   const nodes = []
  
   for (const r of rows) {
-    const ips = await all({table: 'ips', conditions: {groups: [{columns: {node_id: r.node_id}}]}})
+    const ips = await all({table: 'ips', conditions: {groups: [{columns: {node_id: r.node_id}}, date_condition]}})
 
     const connection_conditions = dir => {
       const conditions = [date_condition, {columns: {[`${dir}_id`]: ips.map(v => v.ip_id)}, compare: 'IN'}]
