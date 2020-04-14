@@ -58,6 +58,9 @@ const effect = (state, action, send) => {
     else send({...action, type: 'select'})
   }
   if (action.type == 'action_result' || action.type == 'action_followup_result') state.child_tabs.forEach(v => v.send(action))
+  if (action.type == 'run_quest') fetch(`/quests?date=${!state.search.date ? 0 : Date.now() - state.search.date * 60 * 1000}&quest=${action.quest}`, {method: 'POST'}) // TODO: pass all search parameters
+    .then(res => res.json())
+    .then(res => send({type: 'quest_results', results: res}))
 }
 
 module.exports = effect

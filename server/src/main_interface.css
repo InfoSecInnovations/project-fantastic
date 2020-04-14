@@ -141,14 +141,6 @@ label {
   z-index: 1;
 }
 
-.collapse {
-  transform: rotate(180deg);
-}
-
-.collapse.folded {
-  transform: none;
-}
-
 .icon_button {
   height: 1.5rem;
   width: 1.5rem;
@@ -235,4 +227,18 @@ label {
   bottom: calc(100% + 1.5rem);
   left: -1rem;
   white-space: nowrap;
+}
+
+.play {
+  cursor: pointer;
+  display: flex;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.play .play_button {
+  margin-left: 1rem;
+  transform: rotate(270deg);
+  width: 1.5rem;
+  height: 1.5rem;
 }

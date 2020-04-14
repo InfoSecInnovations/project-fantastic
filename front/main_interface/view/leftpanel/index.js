@@ -7,12 +7,16 @@ const leftPanel = (state, send) => {
     state.commands && state.left_panel_state == 'host_data' ? Commands(state, send) : undefined,
     state.quests && state.left_panel_state == 'quests' ? Quests(state, send) : undefined,
     H('div#left_panel_controls', [
-      H('div.icon_button.tooltippable',[
-        H('img', {attrs: {src: 'images/host_data.svg'}, on: {click: [send, {type: 'left_panel_state', state: state.left_panel_state == 'host_data' ? 'none' : 'host_data'}]}}),
+      H('div.icon_button.tooltippable', {
+        on: {click: [send, {type: 'left_panel_state', state: state.left_panel_state == 'host_data' ? 'none' : 'host_data'}]}
+      }, [
+        H('img', {attrs: {src: 'images/host_data.svg'}}),
         H('div.tooltip', H('div.item', 'Host Data Commands'))
       ]),
-      H('div.icon_button.tooltippable', [
-        H('img', {attrs: {src: 'images/quest.svg'}, on: {click: [send, {type: 'left_panel_state', state: state.left_panel_state == 'quests' ? 'none' : 'quests'}]}}),
+      H('div.icon_button.tooltippable', {
+        on: {click: [send, {type: 'left_panel_state', state: state.left_panel_state == 'quests' ? 'none' : 'quests'}]}
+      }, [
+        H('img', {attrs: {src: 'images/quest.svg'}}),
         H('div.tooltip', H('div.item', 'Quests'))
       ])
     ])

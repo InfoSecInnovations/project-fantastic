@@ -14,6 +14,7 @@ const GetActions = require('./http/getactions')
 const PostActions = require('./http/postactions')
 const PostActionFollowup = require('./http/postactionfollowup')
 const GetQuests = require('./http/getquests')
+const PostQuests = require('./http/postquests')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
 const GetResults = require('./http/getresults')
@@ -64,6 +65,7 @@ const main = async () => {
   app.post('/action_followup', PostActionFollowup)
   app.get('/results', GetResults)
   app.get('/quests', (res, req) => GetQuests(res, req, quests))
+  app.post('/quests', PostQuests)
   app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 
   // reload config and command data if it changed

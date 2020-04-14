@@ -10,6 +10,10 @@ const quests = (state, send) => H('div.scroll_container.panel', [
       H('div.subtitle', v[1].name),
     ]),
     v[1].description ? H('div.item', v[1].description) : undefined,
+    H('div.play', {on: {click: [send, {type: 'run_quest', quest: v[0]}]}}, [
+      H('div.item', 'Start'),
+      H('img.play_button', {attrs: {src: 'images/triangle.svg'}})
+    ]),
     H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])
   ])))
 ])
