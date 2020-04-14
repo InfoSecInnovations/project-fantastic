@@ -11,6 +11,7 @@
   "dependencies": {
     "fantastic-default_actions": "file:../../packages/fantastic-default_actions",
     "fantastic-default_data_sources": "file:../../packages/fantastic-default_data_sources",
+    "fantastic-default_quests": "file:../../packages/fantastic-default_quests",
     "node-powershell": "^4.0.0",
     "xml2js": "^0.4.23"
   }

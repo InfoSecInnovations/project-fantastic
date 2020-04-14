@@ -38,6 +38,7 @@ const update = (state, action) => {
   if (action.type == 'vis') state.vis = action.vis
   if (action.type == 'commands') state.commands = action.commands
   if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled
+  if (action.type == 'quests') state.quests = action.quests
   if (action.type == 'tab') state.tab = action.tab
   if (action.type == 'left_panel_state') state.left_panel_state = action.state
   if (action.type == 'key') state.keys[action.key] = action.value

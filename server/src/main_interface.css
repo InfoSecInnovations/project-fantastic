@@ -151,9 +151,15 @@ label {
 
 .icon_button {
   height: 1.5rem;
+  width: 1.5rem;
   padding: 0.3rem;
   flex: 0;
   cursor: pointer;
+}
+
+.icon_button img {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 #commands {
@@ -169,6 +175,7 @@ label {
 
 #commands.folded {
   background-color: transparent;
+  width: auto;
 }
 
 .panel {
@@ -182,6 +189,10 @@ label {
   margin-top: auto;
   display: flex;
   background-color: coral;
+}
+
+#commands.folded #left_panel_controls {
+  border-top-right-radius: 1rem;
 }
 
 #left_panel_controls > * {
@@ -200,4 +211,28 @@ label {
   border: 2px solid coral;
   z-index: 100;
   transform: translate(-50%, 0);
+}
+
+.tooltippable:hover {
+  position: relative;
+}
+
+.tooltippable:hover .tooltip {
+  display: flex;
+}
+
+.tooltip {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  background-color: rgb(255, 171, 140);
+  font-size: 1rem;
+  font-weight: normal;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid coral;
+  z-index: 100;
+  bottom: calc(100% + 1.5rem);
+  left: -1rem;
+  white-space: nowrap;
 }

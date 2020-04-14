@@ -13,5 +13,8 @@
       "getNetTcpConnection",
       "getOs"
     ]
-  }
+  },
+  "quests": [
+    "fantastic-default_quests"
+  ]
 }

@@ -18,7 +18,10 @@ const tabs = (state, send, nodes) => {
     }, 'Actions'),
     H('div.tabs_title', 
       H('div.content', [
-        H('img.icon_button', {attrs: {src: 'images/popout.svg'}, on: {click: [send, {type: 'open_viewer', nodes}]}}), 
+        H('div.icon_button.tooltippable', [
+          H('img', {attrs: {src: 'images/popout.svg'}, on: {click: [send, {type: 'open_viewer', nodes}]}}),
+          H('div.tooltip', H('div.item', 'Show in new tab'))
+        ]), 
         H('div.text', nodes.map(v => NodeName(state.nodes[v])).join(', '))
       ])
     )

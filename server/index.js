@@ -5,6 +5,7 @@ const {fork} = require('child_process')
 const GetCommandData = require('./commands/getcommanddata')
 const RunCommands = require('./commands/runcommands')
 const GetActionData = require('./actions/getactiondata')
+const GetQuestData = require('./quests/getquestdata')
 const Files = require('./http/files')
 const GetNodes = require('./http/getnodes')
 const GetCommands = require('./http/getcommands')
@@ -12,6 +13,7 @@ const PostCommands = require('./http/postcommands')
 const GetActions = require('./http/getactions')
 const PostActions = require('./http/postactions')
 const PostActionFollowup = require('./http/postactionfollowup')
+const GetQuests = require('./http/getquests')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
 const GetResults = require('./http/getresults')
@@ -23,6 +25,7 @@ const main = async () => {
 
   let command_data = await GetCommandData(config)
   let actions = await GetActionData(config)
+  let quests = await GetQuestData(config)
 
   DB.init()
   .then(() => {
@@ -60,6 +63,7 @@ const main = async () => {
   app.post('/actions', PostActions)
   app.post('/action_followup', PostActionFollowup)
   app.get('/results', GetResults)
+  app.get('/quests', (res, req) => GetQuests(res, req, quests))
   app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 
   // reload config and command data if it changed
