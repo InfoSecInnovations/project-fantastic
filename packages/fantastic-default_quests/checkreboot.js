@@ -5,9 +5,14 @@ const checkReboot = {
   actions: [
     {
       path: 'fantastic-default_actions/lastBoot',
-      search: {date: {date: '< Date.now() - 30 * 1000 * 60'}} // TODO: *60 *24 to make it days instead of minutes
+      search: {date: {date: '< Date.now() - 30 * 1000 * 60 * 60 * 24'}}
     }
-  ]
+  ],
+  pass: {
+    condition: false,
+    success: 'All tested systems have been rebooted within the last 30 days.',
+    failure: 'need to be rebooted.'
+  }
 }
 
 module.exports = checkReboot

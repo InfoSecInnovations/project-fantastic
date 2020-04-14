@@ -10,7 +10,7 @@ const getQuests = (res, req, quests) => { // TODO: this should get daily quests,
     })
     .reduce((result, v) => ({ 
       ...result, 
-      [v.key]: {name: v.name, description: v.description, hosts: v.hosts}
+      [v.key]: {name: v.name, description: v.description, hosts: v.hosts, pass: v.pass}
     }), {})
   console.log(`sent metadata for ${Object.keys(quest_data).length} quests.`)
   console.log('-----------')

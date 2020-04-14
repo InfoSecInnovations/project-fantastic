@@ -60,7 +60,12 @@ const effect = (state, action, send) => {
   if (action.type == 'action_result' || action.type == 'action_followup_result') state.child_tabs.forEach(v => v.send(action))
   if (action.type == 'run_quest') fetch(`/quests?date=${!state.search.date ? 0 : Date.now() - state.search.date * 60 * 1000}&quest=${action.quest}`, {method: 'POST'}) // TODO: pass all search parameters
     .then(res => res.json())
-    .then(res => send({type: 'quest_results', results: res}))
+    .then(res => send({...action, type: 'quest_results', results: res.result, date: res.date}))
+  if (action.type == 'quest_results') {
+    const nodes = action.results.filter(v => v.result).map(v => state.nodes.findIndex(n => n.node_id == v.node_id))
+    send({type: 'select', nodes})
+    send({type: 'vis_select', nodes})
+  }
 }
 
 module.exports = effect

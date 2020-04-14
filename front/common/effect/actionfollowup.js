@@ -6,7 +6,7 @@ const actionFollowup = (state, action, send) => {
     .then(res => send({...action, type: 'action_followup_result', result: res.result, hostname: action.host, date: res.date}))  
     .then(() => {
       if (!action.refresh) return
-      if (action.keys.length) {
+      if (action.keys.length) { // refresh the results one tier above this one because executing a sub action may have modified them
         let action_result = state.action_results.data[action.host][action.action]
         for (let i = 0; i < action.keys.length - 1; i++) {
           const keys = action.keys[i]

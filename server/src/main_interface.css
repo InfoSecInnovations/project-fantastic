@@ -236,6 +236,10 @@ label {
   font-weight: bold;
 }
 
+.play.loading {
+  cursor: auto;
+}
+
 .play .play_button {
   margin-left: 1rem;
   transform: rotate(270deg);
