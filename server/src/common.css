@@ -150,3 +150,10 @@ a {
 .result_header {
   font-weight: bold;
 }
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+  flex-grow: 0;
+  flex-basis: 2rem;
+}

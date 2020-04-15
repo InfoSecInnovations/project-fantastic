@@ -24,33 +24,43 @@ const failed = (state, send, quest) => {
   )
 }
 
+const quest = (state, send, quest) => {
+  const data = state.quests[quest]
+  const results = state.quest_results.data[quest]
+  const pass = results && results.every(r => r.result == data.pass.condition)
+  let image = 'new'
+  if (results) image = pass ? 'success' : 'failure'
+  return H('div.scroll_item', [
+    H('div.item', [
+      H('div.subtitle', data.name),
+      H('img.icon', {attrs: {src: `images/${image}.svg`}})
+    ]),
+    data.description ? H('div.item', data.description) : undefined,
+    H('div.targets', [H('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
+    state.quest_results.status[quest] === 'loading' ?
+    H('div.play.loading', [
+      H('div.item', 'Gathering results...')
+    ]) :
+    H('div.play', {on: {click: [send, {type: 'run_quest', quest}]}}, [
+      H('div.item', 'Start'),
+      H('img.play_button', {attrs: {src: 'images/triangle.svg'}})
+    ]),
+    ...(results ?
+    [
+      H('div.subtitle', `Results from ${TimeAgo(state.quest_results.date[quest])}`),
+      H('div.item', `${results.length} systems scanned`),
+      pass ?
+      H('div.item', `${success_texts[Math.floor(success_texts.length * new Alea(state.quest_results.date[quest])())]}! ${data.pass.success}`) :
+      failed(state, send, quest)
+    ] : [])
+  ])
+}
+
 const quests = (state, send) => H('div.scroll_container.panel', [
   H('div.item', [
     H('div.title', 'Quests')
   ]),
-  H('div.scroll', Object.entries(state.quests).map(v => H('div.scroll_item', [
-    H('div.item', [
-      H('div.subtitle', v[1].name),
-    ]),
-    v[1].description ? H('div.item', v[1].description) : undefined,
-    H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),
-    state.quest_results.status[v[0]] === 'loading' ?
-    H('div.play.loading', [
-      H('div.item', 'Gathering results...')
-    ]) :
-    H('div.play', {on: {click: [send, {type: 'run_quest', quest: v[0]}]}}, [
-      H('div.item', 'Start'),
-      H('img.play_button', {attrs: {src: 'images/triangle.svg'}})
-    ]),
-    ...(state.quest_results.data[v[0]] ?
-    [
-      H('div.subtitle', `Results from ${TimeAgo(state.quest_results.date[v[0]])}`),
-      H('div.item', `${state.quest_results.data[v[0]].length} systems scanned`),
-      state.quest_results.data[v[0]].find(r => r.result != v[1].pass.condition) ?
-      failed(state, send, v[0]) :
-      H('div.item', `${success_texts[Math.floor(success_texts.length * new Alea(state.quest_results.date[v[0]])())]}! ${v[1].pass.success}`)
-    ] : [])
-  ])))
+  H('div.scroll', Object.keys(state.quests).map(v => quest(state, send, v)))
 ])
 
 module.exports = quests

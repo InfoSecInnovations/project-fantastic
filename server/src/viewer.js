@@ -250,7 +250,7 @@ eval("const performAction = (state, action) => {\r\n  state.action_results.statu
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const unit_string = (amount, unit) => `${amount} ${unit}${amount === 1 ? '' : 's'}`\r\n\r\nconst dateString = minutes => {\r\n  minutes = Math.round(minutes)\r\n  if (minutes < 60) return unit_string(minutes, 'minute')\r\n  const hours = Math.floor(minutes / 60)\r\n  const remainder = minutes % 60\r\n  if (remainder) return `${unit_string(hours, 'hour')} and ${unit_string(remainder, 'minute')}`\r\n  return `${unit_string(hours, 'hour')}`\r\n}\r\n\r\nmodule.exports = dateString\n\n//# sourceURL=webpack:///../common/util/datestring.js?");
+eval("const unit_string = (amount, unit) => `${amount} ${unit}${amount === 1 ? '' : 's'}`\r\n\r\nconst dateString = minutes => {\r\n  minutes = Math.round(minutes)\r\n  if (minutes < 60) return unit_string(minutes, 'minute')\r\n  const hours = Math.floor(minutes / 60)\r\n  const minutes_remainder = minutes % 60\r\n  if (hours < 24) {\r\n    if (minutes_remainder) return `${unit_string(hours, 'hour')} and ${unit_string(minutes_remainder, 'minute')}`\r\n    return `${unit_string(hours, 'hour')}`\r\n  }\r\n  const days = Math.floor(hours / 24)\r\n  const hours_remainder = hours % 24\r\n  return `${unit_string(days, 'day')}${hours_remainder ? `, ${unit_string(hours_remainder, 'hour')}` : ''}${minutes_remainder ? `, ${unit_string(minutes_remainder, 'minute')}` : ''}`\r\n}\r\n\r\nmodule.exports = dateString\n\n//# sourceURL=webpack:///../common/util/datestring.js?");
 
 /***/ }),
 
