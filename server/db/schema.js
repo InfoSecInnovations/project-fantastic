@@ -64,6 +64,12 @@ const schema = [
     FOREIGN KEY (node_id)
       REFERENCES nodes (node_id)
       ON DELETE CASCADE
+  )`,
+  `CREATE TABLE IF NOT EXISTS quest_history(
+    history_id INTEGER PRIMARY KEY,
+    quest TEXT,
+    results TEXT,
+    date INTEGER
   )`
 ]
 

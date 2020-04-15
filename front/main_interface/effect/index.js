@@ -14,6 +14,9 @@ const effect = (state, action, send) => {
     fetch('/quests')
     .then(res => res.json())
     .then(res => send({type: 'quests', quests: res}))
+    fetch('/quest_history')
+    .then(res => res.json())
+    .then(res => res.forEach(v => send({type: 'quest_results', quest: v.quest, date: v.date, results: JSON.parse(v.results), select: false})))
     window.onkeydown = e => {
       if (e.key === 'Shift') send({type: 'key', key: 'shift', value: true})
     }
@@ -60,11 +63,13 @@ const effect = (state, action, send) => {
   if (action.type == 'action_result' || action.type == 'action_followup_result') state.child_tabs.forEach(v => v.send(action))
   if (action.type == 'run_quest') fetch(`/quests?date=${!state.search.date ? 0 : Date.now() - state.search.date * 60 * 1000}&quest=${action.quest}`, {method: 'POST'}) // TODO: pass all search parameters
     .then(res => res.json())
-    .then(res => send({...action, type: 'quest_results', results: res.result, date: res.date}))
+    .then(res => send({...action, type: 'quest_results', results: res.result, date: res.date, select: true}))
   if (action.type == 'quest_results') {
     const nodes = action.results.filter(v => v.result).map(v => state.nodes.findIndex(n => n.node_id == v.node_id))
-    send({type: 'select', nodes})
-    send({type: 'vis_select', nodes})
+    if (action.select) {
+      send({type: 'select', nodes})
+      send({type: 'vis_select', nodes})
+    }
   }
 }
 
