@@ -23,26 +23,32 @@ const GetQuestHistory = require('./http/getquesthistory')
 const main = async () => {
 
   let config = await FS.readFile('config/config.json').then(res => JSON.parse(res))
-  const processes = []
-
+  let data_process
+  
   let command_data = await GetCommandData(config)
   let actions = await GetActionData(config)
   let quests = await GetQuestData(config)
 
+  const update_commands = commands => {
+    if (data_process) data_process.send({type: 'commands', commands})
+    return commands
+  }
+
   DB.init()
   .then(() => {
-    // TODO: get child process working with commands and actions
-    /*if (config.child_process) {
-      const get_data = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
-      processes.push(get_data)
-      get_data.on('error', err => console.log(err.message))
+    if (config.use_child_process) {
+      data_process = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
+      data_process.on('error', err => console.log(err.message))
+      update_commands(command_data)
     }
-    else {*/
+    else {
       RunCommands(() => command_data)
-    //}
+    }
   })
 
-  process.on('exit', () => processes.forEach(v => v.kill()))
+  process.on('exit', () => {
+    if (data_process) data_process.kill()
+  })
 
   const app = UWS.SSLApp({
     key_file_name: 'cert/key',
@@ -52,7 +58,7 @@ const main = async () => {
   app.get('/nodes', GetNodes)
   app.get('/commands', (res, req) => GetCommands(res, req, command_data))
   app.post('/commands', (res, req) => {
-    command_data = PostCommands(res, req, command_data)
+    command_data = update_commands(PostCommands(res, req, command_data))
     config.data_sources = Object.entries(command_data).filter(v => v[1]).reduce((result, v) => {
       const split = v[0].split('/')
       if (!result[split[0]]) result[split[0]] = []
@@ -73,7 +79,7 @@ const main = async () => {
   // reload config and command data if it changed
   WatchConfig(data => {
     config = data.config
-    command_data = data.command_data
+    command_data = update_commands(data.command_data)
     console.log('config.json changed, got new data')
   })
 

@@ -37,7 +37,7 @@ const get_node = async (commands, computer_name) => {
 }
 
 const create_commands = commands => 
-  Object.entries(commands)
+  commands && Object.entries(commands)
   .filter(v => v[1])
   .map(v => {
     const source = GetCommand(v[0])
@@ -51,6 +51,7 @@ const create_commands = commands =>
 
 const run = async get_commands => {
   const commands = create_commands(get_commands())
+  if (!commands) return setTimeout(() => run(get_commands), 1000)
   const ids = await get_node(commands).then(res => DB.addNodes([{...res, access: 'local'}], true)) // create the initial node belonging to the local host
   const local = ids[0]
   const loop = async () => {
