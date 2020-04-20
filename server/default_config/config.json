@@ -16,5 +16,8 @@
   },
   "quests": [
     "fantastic-default_quests"
+  ],
+  "tests": [
+    "fantastic-default_tests"
   ]
 }

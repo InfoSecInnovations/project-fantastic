@@ -66,8 +66,14 @@ const schema = [
       ON DELETE CASCADE
   )`,
   `CREATE TABLE IF NOT EXISTS quest_history(
-    history_id INTEGER PRIMARY KEY,
+    quest_id INTEGER PRIMARY KEY,
     quest TEXT,
+    results TEXT,
+    date INTEGER
+  )`,
+  `CREATE TABLE IF NOT EXISTS test_history(
+    test_id INTEGER PRIMARY KEY,
+    test TEXT,
     results TEXT,
     date INTEGER
   )`
