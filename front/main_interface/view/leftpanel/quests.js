@@ -26,7 +26,7 @@ const failed = (state, send, quest) => {
 
 const quest = (state, send, quest) => {
   const data = state.quests[quest]
-  const results = state.quest_results.data[quest]
+  const results = state.quest_results.date[quest] > Date.now() - 1000 * 60 * 60 * 24 && state.quest_results.data[quest] // TODO: maybe we want to be able to define a custom maximum result age
   const pass = results && results.every(r => r.result == data.pass.condition)
   let image = 'new'
   if (results) image = pass ? 'success' : 'failure'
