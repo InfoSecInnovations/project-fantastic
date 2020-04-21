@@ -9,7 +9,13 @@ const view = (state, send) =>
     H('div#container', [
       H('div#top', [
         H('h1', "Fantastic"),
-        Search(state, send)
+        Search(state, send),
+        H('div.icon_button.tooltippable', {
+          on: {click: e => window.open('help/index.md', '_blank')}
+        }, [
+          H('span.fas fa-question-circle'),
+          H('div.tooltip', H('div.item', 'Help'))
+        ])
       ]),
       H('div#main', [
         H('div#graph_container', {

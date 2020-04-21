@@ -14,9 +14,6 @@ const effect = (state, action, send) => {
     fetch('/quests')
     .then(res => res.json())
     .then(res => send({type: 'quests', quests: res}))
-    fetch('/quest_history')
-    .then(res => res.json())
-    .then(res => res.forEach(v => send({type: 'quest_results', quest: v.quest, date: v.date, results: JSON.parse(v.results), select: false})))
     window.onkeydown = e => {
       if (e.key === 'Shift') send({type: 'key', key: 'shift', value: true})
     }
@@ -28,6 +25,9 @@ const effect = (state, action, send) => {
     send({type: 'clear_selection'})
     send({type: 'loading', value: false})
     action.nodes.forEach(n => LoadNodeResults(n, send))
+    fetch('/quest_history')
+    .then(res => res.json())
+    .then(res => res.forEach(v => send({type: 'quest_results', quest: v.quest, date: v.date, results: JSON.parse(v.results), select: false})))
     Vis(state, send)
   }
   if (action.type == 'graph_container') {
@@ -70,8 +70,8 @@ const effect = (state, action, send) => {
     if (action.select) {
       send({type: 'select', nodes: highlight})
       send({type: 'vis_select', nodes: highlight})
+      node_indices.forEach(v => LoadNodeResults(state.nodes[v], send))
     }
-    node_indices.forEach(v => LoadNodeResults(state.nodes[v], send))
   }
 }
 

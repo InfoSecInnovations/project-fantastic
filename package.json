@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/besimorhino/visual-rnd#readme",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.0",
     "recursive-install": "^1.4.0"
   }
 }
