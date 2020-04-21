@@ -1,6 +1,7 @@
+const FormatString = require('fantastic-utils/formatstring')
+
 const compare = (value, condition, parameters) => { // TODO: we might have to make this into some kind of parser. but for now we just use eval
-  Object.entries(parameters).forEach(v => condition.replace(` $${v[0]} `, ` ${v[1]} `))
-  return eval(`${value} ${condition}`)  
+  return eval(`${value} ${FormatString(condition, parameters)}`)  
 }
 
 const checkResult = (result, condition, parameters) => {

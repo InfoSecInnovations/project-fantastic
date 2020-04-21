@@ -2,6 +2,7 @@ const H = require('snabbdom/h').default
 const HostString = require('../../../common/util/hoststring')
 const TimeAgo = require('../../../common/util/timeago')
 const Alea = require('alea')
+const FormatString = require('fantastic-utils/formatstring')
 
 const success_texts = [
   'Well done',
@@ -20,7 +21,7 @@ const failed = (state, send, quest) => {
         [send, {type: 'select', nodes: failed_nodes}]
       ]}
     }, 
-    `${failed_results.length} systems ${quest_data.pass.failure}`
+    `${failed_results.length} systems ${FormatString(quest_data.pass.failure, quest_data.parameters)}`
   )
 }
 
@@ -50,7 +51,7 @@ const quest = (state, send, quest) => {
       H('div.subtitle', `Results from ${TimeAgo(state.quest_results.date[quest])}`),
       H('div.item', `${results.length} systems scanned`),
       pass ?
-      H('div.item', `${success_texts[Math.floor(success_texts.length * new Alea(state.quest_results.date[quest])())]}! ${data.pass.success}`) :
+      H('div.item', `${success_texts[Math.floor(success_texts.length * new Alea(state.quest_results.date[quest])())]}! ${FormatString(data.pass.success, data.parameters)}`) :
       failed(state, send, quest)
     ] : [])
   ])

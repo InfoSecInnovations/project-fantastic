@@ -1,4 +1,5 @@
-const GetQuest = require('../util/getpackagedasset')
+const GetAsset = require('../util/getpackagedasset')
+const FormatString = require('fantastic-utils/formatstring')
 
 const getQuests = (res, req, quests) => { // TODO: this should get daily quests, instead of all of them.
   console.log('-----------')
@@ -6,12 +7,15 @@ const getQuests = (res, req, quests) => { // TODO: this should get daily quests,
   const quest_data = quests
     .map(v => {
       // TODO: filter out invalid scripts and warn the user
-      return {...GetQuest(v), key: v}
+      return {...GetAsset(v), key: v}
     })
-    .reduce((result, v) => ({ 
-      ...result, 
-      [v.key]: {name: v.name, description: v.description, hosts: v.hosts, pass: v.pass}
-    }), {})
+    .reduce((result, v) => {
+      const test = GetAsset(v.test)
+      return { 
+        ...result, 
+        [v.key]: {name: v.name, description: `${FormatString(test.description, v.parameters)} ${v.description}`, hosts: test.hosts, pass: test.pass, parameters: v.parameters}
+      }
+    }, {})
   console.log(`sent metadata for ${Object.keys(quest_data).length} quests.`)
   console.log('-----------')
   res.end(JSON.stringify(quest_data))
