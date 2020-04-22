@@ -1,8 +1,6 @@
 const H = require('snabbdom/h').default
-const HostString = require('../../../common/util/hoststring')
-const TimeAgo = require('../../../common/util/timeago')
 const Alea = require('alea')
-const FormatString = require('fantastic-utils/formatstring')
+const TestResult = require('./testresult')
 
 const success_texts = [
   'Well done',
@@ -10,58 +8,23 @@ const success_texts = [
   'Good job'
 ]
 
-const failed = (state, send, quest) => {
-  const quest_data = state.quests[quest]
-  const failed_results = state.quest_results.data[quest].filter(r => r.result != quest_data.pass.condition)
-  const failed_nodes = failed_results.map(v => state.nodes.findIndex(n => n.node_id === v.node_id))
-  return H('a.item', 
-    {
-      on: {click: [
-        [send, {type: 'vis_select', nodes: failed_nodes}],
-        [send, {type: 'select', nodes: failed_nodes}]
-      ]}
-    }, 
-    `${failed_results.length} systems ${FormatString(quest_data.pass.failure, quest_data.parameters)}`
-  )
-}
-
-const quest = (state, send, quest) => {
-  const data = state.quests[quest]
-  const results = state.quest_results.date[quest] > Date.now() - 1000 * 60 * 60 * 24 && state.quest_results.data[quest] // TODO: maybe we want to be able to define a custom maximum result age
-  const pass = results && results.every(r => r.result == data.pass.condition)
-  let icon = 'exclamation-circle'
-  if (results) icon = pass ? 'check-circle' : 'times-circle'
-  return H('div.scroll_item', [
-    H('div.item', [
-      H('div.subtitle', data.name),
-      H(`span.fas fa-${icon} fa-fw`, {class: {success: results && pass, failure: results && !pass, pending: !results}}),
-    ]),
-    data.description ? H('div.item', data.description) : undefined,
-    H('div.targets', [H('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
-    state.quest_results.status[quest] === 'loading' ?
-    H('div.play.loading', [
-      H('div.item', 'Gathering results...')
-    ]) :
-    H('div.play', {on: {click: [send, {type: 'run_quest', quest}]}}, [
-      H('div.item', 'Start'),
-      H('span.fas fa-play fa-fw play_button')
-    ]),
-    ...(results ?
-    [
-      H('div.subtitle', `Results from ${TimeAgo(state.quest_results.date[quest])}`),
-      H('div.item', `${results.length} systems scanned`),
-      pass ?
-      H('div.item', `${success_texts[Math.floor(success_texts.length * new Alea(state.quest_results.date[quest])())]}! ${FormatString(data.pass.success, data.parameters)}`) :
-      failed(state, send, quest)
-    ] : [])
-  ])
-}
-
 const quests = (state, send) => H('div.scroll_container.panel', [
   H('div.item', [
     H('div.title', 'Quests')
   ]),
-  H('div.scroll', Object.keys(state.quests).map(v => quest(state, send, v)))
+  H('div.scroll', Object.entries(state.quests).map(v => {
+    const quest = v[0]
+    return TestResult(
+      state, 
+      send, 
+      v[1], 
+      state.quest_results.data[quest],
+      state.quest_results.date[quest],
+      state.quest_results.status[quest] === 'loading',
+      {type: 'run_quest', quest},
+      `${success_texts[Math.floor(success_texts.length * new Alea(state.quest_results.date[quest])())]}!`
+    )
+  }))
 ])
 
 module.exports = quests
