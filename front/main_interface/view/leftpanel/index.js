@@ -10,13 +10,13 @@ const leftPanel = (state, send) => {
       H('div.icon_button.tooltippable', {
         on: {click: [send, {type: 'left_panel_state', state: state.left_panel_state == 'host_data' ? 'none' : 'host_data'}]}
       }, [
-        H('img', {attrs: {src: 'images/host_data.svg'}}),
+        H('span.fas fa-network-wired fa-fw'),
         H('div.tooltip', H('div.item', 'Host Data Commands'))
       ]),
       H('div.icon_button.tooltippable', {
         on: {click: [send, {type: 'left_panel_state', state: state.left_panel_state == 'quests' ? 'none' : 'quests'}]}
       }, [
-        H('img', {attrs: {src: 'images/quest.svg'}}),
+        H('span.fas fa-scroll fa-fw'),
         H('div.tooltip', H('div.item', 'Quests'))
       ])
     ])

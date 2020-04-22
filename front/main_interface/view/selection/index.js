@@ -19,7 +19,7 @@ const tabs = (state, send, nodes) => {
     H('div.tabs_title', 
       H('div.content', [
         H('div.icon_button.tooltippable', [
-          H('img', {attrs: {src: 'images/popout.svg'}, on: {click: [send, {type: 'open_viewer', nodes}]}}),
+          H('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}}),
           H('div.tooltip', H('div.item', 'Show in new tab'))
         ]), 
         H('div.text', nodes.map(v => NodeName(state.nodes[v])).join(', '))

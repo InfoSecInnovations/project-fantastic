@@ -1,5 +1,6 @@
 const FS = require('fs').promises
 const MarkdownIt = require('markdown-it')
+const SVGSon = require('svgson')
 
 const md = new MarkdownIt({
   html: true
@@ -26,13 +27,23 @@ const markdown = file => FS.readFile('src/markdown_template.html')
     return res
   })
 
+const svg = file => SVGSon.parse(file)
+  .then(res => {
+    if (!res.attributes.width) res.attributes.width = 256
+    if (!res.attributes.height) res.attributes.height = 256
+    return SVGSon.stringify(res)
+  })
+
 const files = (res, req) => {
   res.onAborted(() => res.aborted = true)
   let path = req.getUrl()
   if (!path || path === '/') path = '/index.html'
-  if (path.endsWith('.svg')) res.writeHeader('Content-Type', 'image/svg+xml')
   FS.readFile(`src${path}`).then(file => {
     if (path.endsWith('.md')) return markdown(file.toString()).then(file => !res.aborted && res.end(file))
+    if (path.endsWith('.svg')) {
+      res.writeHeader('Content-Type', 'image/svg+xml')
+      return svg(file.toString()).then(file => !res.aborted && res.end(file))
+    }
     return !res.aborted && res.end(file)
   }, rej => res.end(''))
 }

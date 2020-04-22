@@ -142,12 +142,27 @@ label {
 }
 
 .icon_button {
-  height: 1.5rem;
-  width: 1.5rem;
   padding: 0.3rem;
   flex: 0;
   cursor: pointer;
   font-size: 1.5rem;
+}
+
+.fas {
+  font-size: 1.5rem;
+  flex-grow: 0;
+}
+
+.success {
+  color: rgb(36, 135, 0);
+}
+
+.failure {
+  color: red;
+}
+
+.pending {
+  color: rgb(255, 193, 23);
 }
 
 .icon_button img {
@@ -243,7 +258,6 @@ label {
 
 .play .play_button {
   margin-left: 1rem;
-  transform: rotate(270deg);
   width: 1.5rem;
   height: 1.5rem;
 }

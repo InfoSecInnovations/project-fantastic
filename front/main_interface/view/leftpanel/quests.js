@@ -29,12 +29,12 @@ const quest = (state, send, quest) => {
   const data = state.quests[quest]
   const results = state.quest_results.date[quest] > Date.now() - 1000 * 60 * 60 * 24 && state.quest_results.data[quest] // TODO: maybe we want to be able to define a custom maximum result age
   const pass = results && results.every(r => r.result == data.pass.condition)
-  let image = 'new'
-  if (results) image = pass ? 'success' : 'failure'
+  let icon = 'exclamation-circle'
+  if (results) icon = pass ? 'check-circle' : 'times-circle'
   return H('div.scroll_item', [
     H('div.item', [
       H('div.subtitle', data.name),
-      H('img.icon', {attrs: {src: `images/${image}.svg`}})
+      H(`span.fas fa-${icon} fa-fw`, {class: {success: results && pass, failure: results && !pass, pending: !results}}),
     ]),
     data.description ? H('div.item', data.description) : undefined,
     H('div.targets', [H('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
@@ -44,7 +44,7 @@ const quest = (state, send, quest) => {
     ]) :
     H('div.play', {on: {click: [send, {type: 'run_quest', quest}]}}, [
       H('div.item', 'Start'),
-      H('img.play_button', {attrs: {src: 'images/triangle.svg'}})
+      H('span.fas fa-play fa-fw play_button')
     ]),
     ...(results ?
     [

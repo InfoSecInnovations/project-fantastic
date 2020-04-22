@@ -6,12 +6,12 @@ const graph = (state, send) => {
   const edges = []
   const get_image = os => {
     if (os) {
-      if (os.toLowerCase().includes('linux')) return '/images/linux.svg'
-      if (os.toLowerCase().includes('windows')) return '/images/win_new.svg' // TODO: add old windows logo for pre Win 8 versions?
-      if (os.toLowerCase().includes('ios')) return '/images/apple.svg' // TODO: ios vs mac logos?
+      if (os.toLowerCase().includes('linux')) return 'brands/linux.svg'
+      if (os.toLowerCase().includes('windows')) return 'brands/windows.svg' // TODO: add old windows logo for pre Win 8 versions?
+      if (os.toLowerCase().includes('ios')) return 'brands/apple.svg' // TODO: ios vs mac logos?
       // TODO: router icons?
     }
-    return '/images/unknown.svg'
+    return 'solid/question.svg'
   }
   state.nodes.forEach((v, i, arr) => {
     let connection_count = 0
@@ -33,7 +33,7 @@ const graph = (state, send) => {
         label: `${NodeName(v)}${v.access === 'local' ? ' (local host)' : ''}`,
         mass: connection_count || 1
       }, 
-      ...(image && {image, shape: v.important ? 'image' : 'circularImage'}),
+      ...(image && {image: `/fontawesome-free-5.13.0-web/svgs/${image}`, shape: v.important ? 'image' : 'circularImage'}),
       ...(v.access === 'local' ? {size: 25} : undefined)
     })
   })

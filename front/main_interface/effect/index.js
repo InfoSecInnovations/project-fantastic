@@ -65,8 +65,9 @@ const effect = (state, action, send) => {
     .then(res => res.json())
     .then(res => send({...action, type: 'quest_results', results: res.result, date: res.date, select: true}))
   if (action.type == 'quest_results') {
+    const quest_data = state.quests[action.quest]
     const node_indices = action.results.map(v => state.nodes.findIndex(n => n.node_id == v.node_id)).filter(v => v !== -1)
-    const highlight = node_indices.filter(v => action.results.find(r => r.node_id === state.nodes[v].node_id && r.result))
+    const highlight = node_indices.filter(v => action.results.find(r => r.node_id === state.nodes[v].node_id && r.result != quest_data.pass.condition))
     if (action.select) {
       send({type: 'select', nodes: highlight})
       send({type: 'vis_select', nodes: highlight})
