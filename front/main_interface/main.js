@@ -22,6 +22,7 @@ let state = {
   action_results: ActionResults(),
   quest_results: QuestResults(),
   test_results: TestResults(),
+  test_parameters: {},
   keys: {},
   child_tabs: []
 }

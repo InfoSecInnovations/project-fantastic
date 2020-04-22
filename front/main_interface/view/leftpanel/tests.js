@@ -7,7 +7,13 @@ const tests = (state, send) => H('div.scroll_container.panel', [
   ]),
   H('div.scroll', Object.entries(state.tests).map(v => {
     const test = v[0]
-    const parameters = v[1].parameters.reduce((result, p) => ({...result, [p.name]: p.default}), {})
+    const parameters = {
+      initial: v[1].parameters.reduce((result, p) => ({...result, [p.name]: p.default}), {}),
+      get: () => ({...parameters.initial, ...state.test_parameters[test]}),
+      edit: () => H('div.parameters', v[1].parameters.map(p => H('div.item', [
+        H('label', p.name), 
+        H('input')])))
+    }
     return TestResult(
       state, 
       send, 
@@ -15,8 +21,9 @@ const tests = (state, send) => H('div.scroll_container.panel', [
       parameters,
       state.test_results.data[test],
       state.test_results.date[test],
+      state.test_results.parameters[test],
       state.test_results.status[test] === 'loading',
-      {type: 'run_test', test, parameters}
+      {type: 'run_test', test, parameters: parameters.get()}
     )
   }))
 ])

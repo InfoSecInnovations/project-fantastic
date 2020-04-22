@@ -1,7 +1,8 @@
 const testResults = () => ({
   data: {}, 
   status: {},
-  date: {}
+  date: {},
+  parameters: {}
 })
 
 module.exports = testResults

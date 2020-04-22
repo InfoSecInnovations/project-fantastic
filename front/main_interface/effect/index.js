@@ -82,7 +82,7 @@ const effect = (state, action, send) => {
   }
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({...SearchQuery(state), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
-    .then(res => send({...action, type: 'test_results', results: res.result, date: res.date, select: true}))
+    .then(res => send({...action, type: 'test_results', results: res.result, date: res.date, select: true, parameters: action.parameters}))
 }
 
 module.exports = effect
