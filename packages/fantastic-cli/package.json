@@ -7,8 +7,5 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "edge-js": "^13.0.1",
-    "edge-ps": "0.1.0-pre"
-  }
+  "dependencies": {}
 }

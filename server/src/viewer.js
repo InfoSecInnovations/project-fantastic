@@ -239,7 +239,7 @@ eval("const PerformAction = __webpack_require__(/*! ./performaction */ \"../comm
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const performAction = (state, action) => {\r\n  state.action_results.status[action.host][action.action] = 'loading'\r\n}\r\n\r\nmodule.exports = performAction\n\n//# sourceURL=webpack:///../common/update/performaction.js?");
+eval("const performAction = (state, action) => {\r\n  if (!state.action_results.status[action.host]) state.action_results.status[action.host] = {}\r\n  state.action_results.status[action.host][action.action] = 'loading'\r\n}\r\n\r\nmodule.exports = performAction\n\n//# sourceURL=webpack:///../common/update/performaction.js?");
 
 /***/ }),
 

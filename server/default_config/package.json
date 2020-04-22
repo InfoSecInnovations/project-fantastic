@@ -13,7 +13,6 @@
     "fantastic-default_data_sources": "file:../../packages/fantastic-default_data_sources",
     "fantastic-default_quests": "file:../../packages/fantastic-default_quests",
     "fantastic-default_tests": "file:../../packages/fantastic-default_tests",
-    "node-powershell": "^4.0.0",
     "xml2js": "^0.4.23"
   }
 }
