@@ -6,6 +6,7 @@ const GetCommandData = require('./commands/getcommanddata')
 const RunCommands = require('./commands/runcommands')
 const GetActionData = require('./actions/getactiondata')
 const GetQuestData = require('./quests/getquestdata')
+const GetTestData = require('./tests/gettestdata')
 const Files = require('./http/files')
 const GetNodes = require('./http/getnodes')
 const GetCommands = require('./http/getcommands')
@@ -15,6 +16,7 @@ const PostActions = require('./http/postactions')
 const PostActionFollowup = require('./http/postactionfollowup')
 const GetQuests = require('./http/getquests')
 const PostQuests = require('./http/postquests')
+const GetTests = require('./http/gettests')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
 const GetResults = require('./http/getresults')
@@ -28,6 +30,7 @@ const main = async () => {
   let command_data = await GetCommandData(config)
   let actions = await GetActionData(config)
   let quests = await GetQuestData(config)
+  let tests = await GetTestData(config)
 
   const update_commands = commands => {
     if (data_process) data_process.send({type: 'commands', commands})
@@ -74,12 +77,14 @@ const main = async () => {
   app.get('/quests', (res, req) => GetQuests(res, req, quests))
   app.post('/quests', PostQuests)
   app.get('/quest_history', GetQuestHistory)
+  app.get('/tests', (res, req) => GetTests(res, req, tests))
   app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 
-  // reload config and command data if it changed
+  // reload config and update changed data
   WatchConfig(data => {
     config = data.config
     command_data = update_commands(data.command_data)
+    // TODO update quest, actions, tests
     console.log('config.json changed, got new data')
   })
 

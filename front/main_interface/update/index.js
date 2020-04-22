@@ -1,6 +1,7 @@
 const Common = require('../../common/update')
 const Hovered = require('../defaults/hovered')
 const QuestResults = require('./questresults')
+const TestResults = require('./testresults')
 
 const update = (state, action) => {
   if (action.type == 'nodes') state.nodes = action.nodes
@@ -47,6 +48,8 @@ const update = (state, action) => {
   if (action.type == 'remove_child_tab') state.child_tabs.splice(state.child_tabs.findIndex(v => v === action.tab), 1)
   if (action.type == 'quest_results') QuestResults(state, action)
   if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading'
+  if (action.type == 'tests') state.tests = action.tests
+  if (action.type == 'test_results') TestResults(state, action)
   state = Common(state, action)
   return state
 }

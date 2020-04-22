@@ -14,6 +14,9 @@ const effect = (state, action, send) => {
     fetch('/quests')
     .then(res => res.json())
     .then(res => send({type: 'quests', quests: res}))
+    fetch('/tests')
+    .then(res => res.json())
+    .then(res => send({type: 'tests', tests: res}))
     window.onkeydown = e => {
       if (e.key === 'Shift') send({type: 'key', key: 'shift', value: true})
     }

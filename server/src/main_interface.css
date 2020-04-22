@@ -148,11 +148,6 @@ label {
   font-size: 1.5rem;
 }
 
-.fas {
-  font-size: 1.5rem;
-  flex-grow: 0;
-}
-
 .success {
   color: rgb(36, 135, 0);
 }

@@ -5,6 +5,7 @@ const View = require('./view')
 const Effect = require('./effect')
 const ActionResults = require('../common/defaults/actionresults')
 const QuestResults = require('./defaults/questresults')
+const TestResults = require('./defaults/testresults')
 const Hovered = require('./defaults/hovered')
 
 const patch = Snabbdom.init([
@@ -20,6 +21,7 @@ let state = {
   hovered: Hovered(), 
   action_results: ActionResults(),
   quest_results: QuestResults(),
+  test_results: TestResults(),
   keys: {},
   child_tabs: []
 }
