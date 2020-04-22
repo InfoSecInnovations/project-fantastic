@@ -75,6 +75,7 @@ const schema = [
     test_id INTEGER PRIMARY KEY,
     test TEXT,
     results TEXT,
+    parameters TEXT,
     date INTEGER
   )`
 ]
