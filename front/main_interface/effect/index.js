@@ -3,6 +3,8 @@ const Common = require('../../common/effect')
 const FlatUnique = require('fantastic-utils/flatunique')
 const OpenTabs = require('./opentabs')
 const LoadNodeResults = require('../../common/effect/loadnoderesults')
+const GenerateQuery = require('../../common/effect/generatequery')
+const SearchQuery = require('./searchquery')
 
 const effect = (state, action, send) => {
   Common(state, action, send)
@@ -40,11 +42,11 @@ const effect = (state, action, send) => {
   if (action.type == 'search' || action.type == 'graph_container') {
     send({type: 'loading', value: true})
     send({type: 'clear_selection'})
-    fetch(`/nodes?date=${!state.search.date ? 0 : Date.now() - state.search.date * 60 * 1000}&connection_type=${state.search.connection_type}&connection_state=${state.search.connection_state}&show_external=${state.search.show_external}`)
+    fetch(`/nodes?${GenerateQuery(SearchQuery(state))}`)
     .then(res => res.json())
     .then(res => send({type: 'nodes', nodes: res}))
   }
-  if (action.type == 'enable_command') fetch(`/commands?${action.command}=${action.enabled}`, {method: 'POST'})
+  if (action.type == 'enable_command') fetch(`/commands?${GenerateQuery({[action.command]: action.enabled})}`, {method: 'POST'})
     .then(() => fetch('/commands'))    
     .then(res => res.json())
     .then(res => send({type: 'commands', commands: res}))
@@ -64,19 +66,23 @@ const effect = (state, action, send) => {
     else send({...action, type: 'select'})
   }
   if (action.type == 'action_result' || action.type == 'action_followup_result') state.child_tabs.forEach(v => v.send(action))
-  if (action.type == 'run_quest') fetch(`/quests?date=${!state.search.date ? 0 : Date.now() - state.search.date * 60 * 1000}&quest=${action.quest}`, {method: 'POST'}) // TODO: pass all search parameters
+  if (action.type == 'run_quest') fetch(`/quests?${GenerateQuery({...SearchQuery(state), quest: action.quest})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => send({...action, type: 'quest_results', results: res.result, date: res.date, select: true}))
-  if (action.type == 'quest_results') {
-    const quest_data = state.quests[action.quest]
+
+  if (action.type == 'quest_results' || action.type == 'test_results') {
+    const data = (action.quest && state.quests[action.quest]) || state.tests[action.test]
     const node_indices = action.results.map(v => state.nodes.findIndex(n => n.node_id == v.node_id)).filter(v => v !== -1)
-    const highlight = node_indices.filter(v => action.results.find(r => r.node_id === state.nodes[v].node_id && r.result != quest_data.pass.condition))
+    const highlight = node_indices.filter(v => action.results.find(r => r.node_id === state.nodes[v].node_id && r.result != data.pass.condition))
     if (action.select) {
       send({type: 'select', nodes: highlight})
       send({type: 'vis_select', nodes: highlight})
       node_indices.forEach(v => LoadNodeResults(state.nodes[v], send))
     }
   }
+  if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({...SearchQuery(state), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
+    .then(res => res.json())
+    .then(res => send({...action, type: 'test_results', results: res.result, date: res.date, select: true}))
 }
 
 module.exports = effect

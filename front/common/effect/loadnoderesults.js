@@ -1,5 +1,7 @@
+const GenerateQuery = require('./generatequery')
+
 const loadNodeResults = (node, send) => {
-  fetch(`/results?node_id=${node.node_id}`)
+  fetch(`/results?${GenerateQuery({node_id: node.node_id})}`)
     .then(res => res.json())
     .then(res => {
       const results = res.reduce((result, v) => {

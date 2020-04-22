@@ -1,5 +1,4 @@
 const GetAsset = require('../util/getpackagedasset')
-const FormatString = require('fantastic-utils/formatstring')
 
 const getQuests = (res, req, quests) => { // TODO: this should get daily quests, instead of all of them.
   console.log('-----------')
@@ -13,7 +12,7 @@ const getQuests = (res, req, quests) => { // TODO: this should get daily quests,
       const test = GetAsset(v.test)
       return { 
         ...result, 
-        [v.key]: {name: v.name, description: `${FormatString(test.description, v.parameters)} ${v.description}`, hosts: test.hosts, pass: test.pass, parameters: v.parameters}
+        [v.key]: {name: v.name, description: `${test.description} ${v.description}`, hosts: test.hosts, pass: test.pass, parameters: v.parameters}
       }
     }, {})
   console.log(`sent metadata for ${Object.keys(quest_data).length} quests.`)

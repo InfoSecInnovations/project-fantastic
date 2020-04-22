@@ -14,15 +14,18 @@ const quests = (state, send) => H('div.scroll_container.panel', [
   ]),
   H('div.scroll', Object.entries(state.quests).map(v => {
     const quest = v[0]
+    const date = state.quest_results.date[quest]
     return TestResult(
       state, 
       send, 
-      v[1], 
+      v[1],
+      v[1].parameters, 
       state.quest_results.data[quest],
-      state.quest_results.date[quest],
+      date,
       state.quest_results.status[quest] === 'loading',
       {type: 'run_quest', quest},
-      `${success_texts[Math.floor(success_texts.length * new Alea(state.quest_results.date[quest])())]}!`
+      date && `${success_texts[Math.floor(success_texts.length * new Alea(date)())]}!`,
+      false
     )
   }))
 ])
