@@ -24,7 +24,7 @@ const display = (action, line, foldout, status, node_id, host, send, id, keys) =
           class: {...line.class, loading}
         },
         loading ? 'Running...' : line.text),
-        typeof foldout[line.click.function] === 'boolean' ? H('div.foldout', {
+        typeof foldout[line.click.function] === 'boolean' ? H(`div.foldout fas fa-${foldout[line.click.function] ? 'chevron-down' : 'chevron-right'} fa-fw`, {
           on: {click: [send, {
             type: 'followup_foldout',
             action,
@@ -33,8 +33,7 @@ const display = (action, line, foldout, status, node_id, host, send, id, keys) =
             id,
             keys,
             value: !foldout[line.click.function]
-          }]},
-          class: { disabled: !foldout[line.click.function]}
+          }]}
         }) : undefined
       ])
     }

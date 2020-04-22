@@ -50,20 +50,12 @@ a {
 }
 
 .followup .foldout {
-  width: 1rem;
   flex: none;
+  align-self: center;
 }
 
 .followup .button {
   margin: 0 0 0 0.4rem;
-}
-
-.followup .foldout::after {
-  content: '-';
-}
-
-.followup .foldout.disabled::after {
-  content: '+';
 }
 
 .result, .result_time {
@@ -102,7 +94,7 @@ a {
   height: 0.5rem;
 }
 
-.button, .foldout {
+.button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,6 +103,10 @@ a {
   cursor: pointer;
   border: 2px solid orangered;
   text-align: center;
+}
+
+.foldout {
+  cursor: pointer;
 }
 
 .button {

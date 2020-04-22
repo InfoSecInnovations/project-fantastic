@@ -25,9 +25,8 @@ const actions = (state, send, node) => {
           state.action_results.data[node.hostname] && state.action_results.data[node.hostname][v[0]] ? H('div.results', [
             H('div.followup', [
               H('div.subtitle', `Results from ${TimeAgo(state.action_results.date[node.hostname][v[0]])}`), 
-              H('div.foldout', {
-                on: {click: [send, {type: 'result_foldout', action: v[0], hostname: node.hostname, value: !state.action_results.foldouts[node.hostname][v[0]]}]},
-                class: {disabled: !state.action_results.foldouts[node.hostname][v[0]]}
+              H(`div.foldout fas fa-${state.action_results.foldouts[node.hostname][v[0]] ? 'chevron-down' : 'chevron-right'} fa-fw`, {
+                on: {click: [send, {type: 'result_foldout', action: v[0], hostname: node.hostname, value: !state.action_results.foldouts[node.hostname][v[0]]}]}
               })
             ]),
             ...(state.action_results.foldouts[node.hostname][v[0]] ? Object.entries(state.action_results.data[node.hostname][v[0]])

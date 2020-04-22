@@ -27,20 +27,20 @@ const firewall = {
         {type: 'header', text: v.name},
         {
           type: 'button',
-          text: 'Get Profile Rules',
-          click: {
-            function: 'get_rules',
-            data: {profile: v.name}
-          }
-        },
-        {
-          type: 'button',
           text: v.enabled ? 'Enabled' : 'Disabled',
           click: {
             function: 'enable_profile',
             data: {profile: v.name, state: !v.enabled}
           },
           class: {disabled: !v.enabled}
+        },
+        {
+          type: 'button',
+          text: 'Get Profile Rules',
+          click: {
+            function: 'get_rules',
+            data: {profile: v.name}
+          }
         }
       ]
     }))),
