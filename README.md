@@ -24,3 +24,7 @@ Status of other browsers is unknown at this time.
 For more information on using the application itself:
 - [Getting Started With The Server](server/src/help/starting_server.md)
 - [Client Help](server/src/help/index.md)
+
+## Contributing
+
+If you wish to propose modifications to the project, please create a branch or fork to work on the proposed changes and submit a pull request when you're ready. We don't want unapproved changes to master, thanks!
