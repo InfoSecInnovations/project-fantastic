@@ -73,7 +73,7 @@ const main = async () => {
     WriteConfig(config)
   })
   app.get('/actions', (res, req) => GetActions(res, req, actions))
-  app.post('/actions', PostActions)
+  app.post('/actions', (res, req) => PostActions(res, req, config))
   app.post('/action_followup', PostActionFollowup)
   app.get('/results', GetResults)
   app.get('/quests', (res, req) => GetQuests(res, req, quests))

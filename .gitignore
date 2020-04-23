@@ -1,5 +1,5 @@
 node_modules
-data.db
-data.db-journal
 *.xml
+*.db
+*.db-journal
 config

@@ -19,5 +19,6 @@
   ],
   "tests": [
     "fantastic-default_tests"
-  ]
+  ],
+  "authentication": "fantastic-default_auth"
 }

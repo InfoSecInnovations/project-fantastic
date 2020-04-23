@@ -5,3 +5,5 @@ const schema = [
     password TEXT
   )`
 ]
+
+module.exports = schema

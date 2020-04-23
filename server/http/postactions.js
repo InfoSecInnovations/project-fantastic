@@ -1,9 +1,12 @@
 const GetQuery = require('./getquery')
 const Abort = require('./abort')
 const RunActionFunction = require('../actions/runactionfunction')
+const Auth = require('./auth')
 
-const postActions = (res, req) => {
+const postActions = (res, req, config) => {
   res.onAborted(() => Abort(res))
+  const role = Auth(res, req, config)
+  if (role !== 'user') return res.end('')
   const query = GetQuery(req)
   console.log('-----------')
   console.log(`received http request to execute ${query.action} on node ${query.node_id}...`)
