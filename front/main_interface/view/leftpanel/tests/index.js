@@ -1,5 +1,6 @@
 const H = require('snabbdom/h').default
-const TestResult = require('./testresult')
+const TestResult = require('../testresult')
+const Parameter = require('./parameter')
 
 const tests = (state, send) => H('div.scroll_container.panel', [
   H('div.item', [
@@ -10,9 +11,12 @@ const tests = (state, send) => H('div.scroll_container.panel', [
     const parameters = {
       initial: v[1].parameters.reduce((result, p) => ({...result, [p.name]: p.default}), {}),
       get: () => ({...parameters.initial, ...state.test_parameters[test]}),
-      edit: () => H('div.parameters', v[1].parameters.map(p => H('div.item', [
-        H('label', p.name), 
-        H('input')])))
+      edit: () => 
+        H('div.parameters', [
+          H('div.subsubtitle', 'Parameters'), 
+          ...v[1].parameters
+          .map(p => Parameter(state.test_parameters[test] && state.test_parameters[test][p.name], test, send, p))
+        ])
     }
     return TestResult(
       state, 

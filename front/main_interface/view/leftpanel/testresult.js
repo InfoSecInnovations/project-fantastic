@@ -30,7 +30,7 @@ const testResult = (state, send, data, parameters, result_data, result_date, res
     ]),
     ...(results ?
     [
-      H('div.subtitle', `Results from ${TimeAgo(result_date)}`),
+      H('div.subsubtitle', `Results from ${TimeAgo(result_date)}`),
       H('div.item', `${results.length} systems scanned`),
       pass ?
       H('div.item', `${prefix ? `${prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`) :

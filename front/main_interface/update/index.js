@@ -50,6 +50,10 @@ const update = (state, action) => {
   if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading'
   if (action.type == 'tests') state.tests = action.tests
   if (action.type == 'test_results') TestResults(state, action)
+  if (action.type == 'test_parameter') {
+    if (!state.test_parameters[action.test]) state.test_parameters[action.test] = {}
+    state.test_parameters[action.test][action.key] = action.value
+  }
   state = Common(state, action)
   return state
 }
