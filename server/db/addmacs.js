@@ -1,4 +1,4 @@
-const {all, update, insert} = require('./operations')
+const {all, update, insert} = require('fantastic-utils/db')(require('./path'))
 
 const addMacs = (node_id, macs, overwrite) => {
   if (!macs) return Promise.resolve()

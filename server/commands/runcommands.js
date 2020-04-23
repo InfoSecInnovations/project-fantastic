@@ -1,5 +1,5 @@
 const DB = require('../db')
-const {all} = require('../db/operations')
+const {all} = require('fantastic-utils/db')(require('../db/path'))
 const RunPowerShell = require('fantastic-cli/runpowershell')
 const FlatUnique = require('fantastic-utils/flatunique')
 const DefaultIPs = require('fantastic-utils/defaultips')

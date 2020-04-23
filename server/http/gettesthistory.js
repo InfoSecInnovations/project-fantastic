@@ -1,4 +1,4 @@
-const { all } = require('../db/operations')
+const { all } = require('fantastic-utils/db')(require('../db/path'))
 const Abort = require('./abort')
 
 const getQuestHistory = (res, req) => {

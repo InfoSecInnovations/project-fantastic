@@ -1,4 +1,4 @@
-const {run} = require('./operations')
+const {run} = require('fantastic-utils/db')(require('./path'))
 const Schema = require('./schema')
 
 const init = () => run(Schema).catch(err => console.log(err.message))

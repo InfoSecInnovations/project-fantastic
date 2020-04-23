@@ -1,4 +1,4 @@
-const {update, get} = require('./operations')
+const {update, get} = require('fantastic-utils/db')(require('./path'))
 const FilterColumns = require('./filtercolumns')
 const AddMACs = require('./addmacs')
 const AddIPs = require('./addips')

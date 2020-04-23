@@ -1,4 +1,4 @@
-const {all, update, insert} = require('./operations')
+const {all, update, insert} = require('fantastic-utils/db')(require('./path'))
 
 const addIps = (node_id, ips, date) => {
   if (!ips) return Promise.resolve() 

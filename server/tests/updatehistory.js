@@ -1,4 +1,4 @@
-const {get, insert, update} = require('../db/operations')
+const {get, insert, update} = require('fantastic-utils/db')(require('../db/path'))
 
 const updateHistory = async (test, date, results, parameters) => {
   const existing = await get({table: 'test_history', columns: ['test_id'], conditions: {columns: {test}}})

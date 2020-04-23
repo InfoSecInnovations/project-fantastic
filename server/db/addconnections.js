@@ -1,4 +1,4 @@
-const {get, update, insert} = require('./operations')
+const {get, update, insert} = require('fantastic-utils/db')(require('./path'))
 const GetProcess = require('../commands/getprocess')
 
 const addConnections = async (node_id, connections, is_remote) => {

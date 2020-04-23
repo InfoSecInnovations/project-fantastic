@@ -1,14 +1,6 @@
-const SQLite3 = require('sqlite3').verbose()
-
-const execute = func => new Promise(async (resolve, reject) => {
-  const db = new SQLite3.Database('./data.db', err => err && console.error(err.message))
-  const result = await func(db)
-  db.close(err => err && reject(err) || resolve(result))
-})
-
-const run = queries => execute(db => db.serialize(() => {
+const run = queries => db => db.serialize(() => {
   queries.forEach(v => db.run(v, err => err && console.log(err.message)))
-}))
+})
 
 const format_value = v => {
   if (typeof v === 'number') return v
@@ -42,7 +34,7 @@ const order = order_by => {
   return `ORDER BY ${text()}`
 }
 
-const insert = (table, row) => execute(
+const insert = (table, row) =>
   db => new Promise(
     (resolve, reject) => db.run(
       `INSERT INTO ${table} ${row && Object.keys(row).length ? `(${Object.keys(row).join()})
@@ -53,9 +45,8 @@ const insert = (table, row) => execute(
       }
     )
   )
-)
 
-const update = query => execute(
+const update = query =>
   db => new Promise(
     (resolve, reject) => db.run(
       `UPDATE ${query.table}
@@ -67,14 +58,13 @@ const update = query => execute(
       }
     )
   )
-)
 
 const select = query => `SELECT ${(query.columns && query.columns.length && query.columns.join()) || '*'} 
   FROM ${query.table}
   ${where(query.conditions)}
   ${order(query.order_by)}`
 
-const get = query => execute(
+const get = query =>
   db => new Promise(
     (resolve, reject) => db.get(
       select(query), 
@@ -84,9 +74,8 @@ const get = query => execute(
       }
     )
   )
-)
 
-const all = query => execute(
+const all = query =>
   db => new Promise(
     (resolve, reject) => db.all(
       select(query), 
@@ -96,7 +85,6 @@ const all = query => execute(
       }
     )
   )
-)
 
 const remove = query => run([
   `DELETE FROM ${query.table}

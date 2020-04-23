@@ -1,4 +1,4 @@
-const {all, get} = require('./operations')
+const {all, get} = require('fantastic-utils/db')(require('./path'))
 
 const getNodes = async query => {
   const date_condition = {columns: {date: query.date || 0}, compare: '>='} // if we didn't supply a date we want to get all of the results
