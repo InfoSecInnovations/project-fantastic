@@ -25,8 +25,7 @@ const quests = (state, send) => H('div.scroll_container.panel', [
       v[1].parameters,
       state.quest_results.status[quest] === 'loading',
       {type: 'run_quest', quest},
-      date && `${success_texts[Math.floor(success_texts.length * new Alea(date)())]}!`,
-      false
+      date && {success_prefix: `${success_texts[Math.floor(success_texts.length * new Alea(date)())]}!`}
     )
   }))
 ])

@@ -16,7 +16,11 @@ const tests = (state, send) => H('div.scroll_container.panel', [
           H('div.subsubtitle', 'Parameters'), 
           ...v[1].parameters
           .map(p => Parameter(state.test_parameters[test] && state.test_parameters[test][p.name], test, send, p))
-        ])
+        ]),
+      result: () => H('div.parameters', [
+        H('div.item', 'Parameters used:'),
+        H('ul', Object.entries(state.test_results.parameters[test]).map(v => H('li', `${v[0]}: ${v[1]}`)))
+      ])
     }
     return TestResult(
       state, 

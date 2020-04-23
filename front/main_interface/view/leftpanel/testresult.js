@@ -3,7 +3,7 @@ const HostString = require('../../../common/util/hoststring')
 const TimeAgo = require('../../../common/util/timeago')
 const FormatString = require('fantastic-utils/formatstring')
 
-const testResult = (state, send, data, parameters, result_data, result_date, result_parameters, loading, play_action, prefix) => {
+const testResult = (state, send, data, parameters, result_data, result_date, result_parameters, loading, play_action, options = {}) => {
   const results = result_date > Date.now() - 1000 * 60 * 60 * 24 && result_data // TODO: maybe we want to be able to define a custom maximum result age
   const pass = results && results.every(r => r.result == data.pass.condition)
   const failed_results = results ? result_data.filter(r => r.result != data.pass.condition) : []
@@ -22,7 +22,7 @@ const testResult = (state, send, data, parameters, result_data, result_date, res
       H('div.item', 'Gathering results...')
     ])] :
     [
-      parameters.edit ? parameters.edit() : undefined,
+      parameters.edit && parameters.edit(),
       H('div.play', {on: {click: [send, play_action]}}, [
         H('div.item', 'Start'),
         H('span.fas fa-play fa-fw play_button')
@@ -31,9 +31,10 @@ const testResult = (state, send, data, parameters, result_data, result_date, res
     ...(results ?
     [
       H('div.subsubtitle', `Results from ${TimeAgo(result_date)}`),
+      parameters.result && parameters.result(),
       H('div.item', `${results.length} systems scanned`),
       pass ?
-      H('div.item', `${prefix ? `${prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`) :
+      H('div.item', `${options.success_prefix ? `${options.success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`) :
       H('a.item', 
       {
         on: {click: [

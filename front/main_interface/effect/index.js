@@ -1,38 +1,21 @@
+const Init = require('./init')
 const Vis = require('./vis')
 const Common = require('../../common/effect')
 const FlatUnique = require('fantastic-utils/flatunique')
 const OpenTabs = require('./opentabs')
 const LoadNodeResults = require('../../common/effect/loadnoderesults')
+const LoadHistory = require('./loadhistory')
 const GenerateQuery = require('../../common/effect/generatequery')
 const SearchQuery = require('./searchquery')
 
 const effect = (state, action, send) => {
   Common(state, action, send)
-  if (action.type == 'init') {
-    window.onresize = e => send({type: 'render'})
-    fetch('/commands')
-    .then(res => res.json())
-    .then(res => send({type: 'commands', commands: res}))
-    fetch('/quests')
-    .then(res => res.json())
-    .then(res => send({type: 'quests', quests: res}))
-    fetch('/tests')
-    .then(res => res.json())
-    .then(res => send({type: 'tests', tests: res}))
-    window.onkeydown = e => {
-      if (e.key === 'Shift') send({type: 'key', key: 'shift', value: true})
-    }
-    window.onkeyup = e => {
-      if (e.key === 'Shift') send({type: 'key', key: 'shift', value: false})
-    }
-  }
+  if (action.type == 'init') Init(send)
   if (action.type == 'nodes') {
     send({type: 'clear_selection'})
     send({type: 'loading', value: false})
     action.nodes.forEach(n => LoadNodeResults(n, send))
-    fetch('/quest_history')
-    .then(res => res.json())
-    .then(res => res.forEach(v => send({type: 'quest_results', quest: v.quest, date: v.date, results: JSON.parse(v.results), select: false})))
+    LoadHistory(send)
     Vis(state, send)
   }
   if (action.type == 'graph_container') {
