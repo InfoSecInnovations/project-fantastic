@@ -82,6 +82,9 @@ const main = async () => {
   app.get('/tests', (res, req) => GetTests(res, req, tests))
   app.post('/tests', PostTests)
   app.get('/test_history', GetTestHistory)
+  const auth_module = require(`./config/node_modules/${config.authentication}`)
+  auth_module(app)
+
   app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 
   // reload config and update changed data
