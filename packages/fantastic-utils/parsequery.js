@@ -1,4 +1,4 @@
-const getQuery = req => req.getQuery().split('&').reduce((result, v) => {
+const parseQuery = query => query.split('&').reduce((result, v) => {
   if (!v) return
   const split = v.split('=')
   const value = split[1].split(',')
@@ -6,4 +6,4 @@ const getQuery = req => req.getQuery().split('&').reduce((result, v) => {
   return result
 }, {})
 
-module.exports = getQuery
+module.exports = parseQuery

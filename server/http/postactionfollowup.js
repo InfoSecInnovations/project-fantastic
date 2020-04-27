@@ -1,10 +1,10 @@
-const GetQuery = require('./getquery')
+const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
 const RunActionFunction = require('../actions/runactionfunction')
 
 const postActionFollowup = (res, req) => {
   res.onAborted(() => Abort(res))
-  const query = GetQuery(req)
+  const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log(`received http request to execute ${query.function} function from ${query.action} on node ${query.node_id}...`)
   const date = Date.now()

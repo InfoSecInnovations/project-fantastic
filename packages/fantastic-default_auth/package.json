@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "fantastic-utils": "file:../fantastic-utils"
   }
 }

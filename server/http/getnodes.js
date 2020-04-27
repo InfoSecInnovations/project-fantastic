@@ -1,5 +1,5 @@
 const DB = require('../db')
-const GetQuery = require('./getquery')
+const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
 
 const getNodes = (res, req) => {
@@ -7,7 +7,7 @@ const getNodes = (res, req) => {
   console.log('-----------')
   console.log('http request for nodes incoming...')
   const start = Date.now()
-  const query = GetQuery(req)
+  const query = ParseQuery(req.getQuery())
   console.log(`from ${Math.floor((Date.now() - query.date) / 1000 / 60)} minutes ago`)
   console.log(`connection type: ${query.connection_type}`)
   console.log(`connection state: ${query.connection_state}`)

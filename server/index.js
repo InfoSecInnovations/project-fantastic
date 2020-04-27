@@ -23,6 +23,7 @@ const WriteConfig = require('./writeconfig')
 const GetResults = require('./http/getresults')
 const GetQuestHistory = require('./http/getquesthistory')
 const GetTestHistory = require('./http/gettesthistory')
+const Auth = require('./http/auth')
 
 const main = async () => {
 
@@ -55,11 +56,17 @@ const main = async () => {
     if (data_process) data_process.kill()
   })
 
+  const auth_module = require(`./config/node_modules/${config.authentication}`)
+
   const app = UWS.SSLApp({
     key_file_name: 'cert/key',
     cert_file_name: 'cert/cert'
   })
-  app.get('/*', Files)
+  app.get('/*', (res, req) => {
+    const {role} = Auth(res, req, config)
+    if (!role || role === 'invalid') return auth_module.default_route(res, req)
+    Files(res, req)
+  })
   app.get('/nodes', GetNodes)
   app.get('/commands', (res, req) => GetCommands(res, req, command_data))
   app.post('/commands', (res, req) => {
@@ -82,8 +89,8 @@ const main = async () => {
   app.get('/tests', (res, req) => GetTests(res, req, tests))
   app.post('/tests', PostTests)
   app.get('/test_history', GetTestHistory)
-  const auth_module = require(`./config/node_modules/${config.authentication}`)
-  auth_module(app)
+
+  auth_module.configure(app)
 
   app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
 

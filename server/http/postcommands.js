@@ -1,7 +1,7 @@
-const GetQuery = require('./getquery')
+const ParseQuery = require('fantastic-utils/parsequery')
 
 const postCommands = (res, req, commands) => {
-  const query = GetQuery(req)
+  const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log('received http request to change command settings...')
   Object.entries(query).forEach(v => { // we should do this instead of just returning the query in case the user sends a bad post request to the server

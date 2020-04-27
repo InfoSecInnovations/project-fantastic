@@ -1,11 +1,11 @@
 const { all } = require('fantastic-utils/db')(require('../db/path'))
-const GetQuery = require('./getquery')
+const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
 
 const getResults = (res, req) => {
   res.onAborted(() => Abort(res))
   const start = Date.now()
-  const query = GetQuery(req)
+  const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log(`http request for results from node ${query.node_id} incoming...`)
   all({table: 'results', conditions: {columns: {node_id: query.node_id}}}).then(rows => {
