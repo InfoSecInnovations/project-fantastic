@@ -8,7 +8,7 @@ const format_value = v => {
   if (typeof v === 'string') return `'${v}'`
   if (!v) return 'NULL' // types above this line can be falsy but valid
   if (Array.isArray(v)) return `(${v.map(format_value).join()})`
-  return `'${v}'`
+  return `\`"${v}"\``
 }
 
 const condition_entry = (v, compare) => {
@@ -23,6 +23,32 @@ const condition_group = group => Array.isArray(group.columns) ?
   Object.entries(group.columns).map(v => condition_entry(v, group.compare)).join(` ${group.combine || 'AND'} `) 
 
 const where = conditions => conditions ? `WHERE ${conditions.groups ? conditions.groups.map(v => condition_group(v)).join(` ${conditions.combine || 'AND'} `) : condition_group(conditions)}` : '' // TODO: filter out invalid values here, especially empty arrays
+
+const condition_entry_new = (v, compare) => {
+  if (!compare) compare = '='
+  if ((typeof v[1] === 'undefined' || v[1] === null) && compare === '=') return {text: `$[v[0]] IS NULL`}
+  if (Array.isArray(v[1])) {
+    return {text: `${v[0]} ${compare} (${v[1].map(() => '?').join(', ')})`, values: v[1]}
+  }
+  return {text: `${v[0]} ${compare} ?`, values: v[1]}
+}
+
+const condition_group_new = group => {
+  const groups = Array.isArray(group.columns) ? group.columns.map(v => condition_entry_new(v, group.compare)) : Object.entries(group.columns).map(v => condition_entry_new(v, group.compare))
+  return {
+    text: groups.map(v => v.text).join(` ${group.combine || 'AND'} `),
+    values: groups.map(v => v.values).flat()
+  }
+}
+
+const where_new = conditions => {
+  if (!conditions) return {text: '', values: []} // TODO: filter out invalid values here, especially empty arrays
+  const groups = conditions.groups ? conditions.groups.map(v => condition_group_new(v)) : [condition_group_new(conditions)]
+  return {
+    text: groups.map(v => v.text).join(` ${conditions.combine || 'AND'} `),
+    values: groups.map(v => v.values).flat()
+  }
+}
 
 const order = order_by => {
   if (!order_by) return ''
@@ -59,6 +85,26 @@ const update = query =>
     )
   )
 
+const update_new = query =>
+  db => new Promise(
+    (resolve, reject) => {
+      const row = Object.entries(query.row).filter(v => typeof v[1] === 'number' || typeof v[1] === 'boolean' || typeof v[1] === 'string' || v[1])
+      const where_query = where_new(query.conditions)
+      db.run(
+        `UPDATE ${query.table}
+        SET ${row.map(v => `${v[0]} = ?`).join(', ')}
+        WHERE ${where_query.text};`,
+        [
+          ...row.map(v => v[1]),
+          ...where_query.values
+        ],
+        function (err) {
+          if (err) return reject(err)
+          resolve()
+        }
+      )
+    })
+
 const select = query => `SELECT ${(query.columns && query.columns.length && query.columns.join()) || '*'} 
   FROM ${query.table}
   ${where(query.conditions)}
@@ -91,4 +137,4 @@ const remove = query => run([
   ${where(query.conditions)}`
 ])
 
-module.exports = {insert, update, get, all, run, remove}
+module.exports = {insert, update: update_new, get, all, run, remove}
