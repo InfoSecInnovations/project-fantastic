@@ -26,6 +26,13 @@ const generate_id = () => new Promise((resolve, reject) => {
   })
 })
 
+const success = (res, req, id) => {
+  res.writeStatus('302 Found')
+  res.writeHeader('Set-Cookie', `session_id=${id}`)
+  res.writeHeader('Location', '../')
+  res.end()
+}
+
 const configure = app => {
   app.post('/auth', (res, req) => {
     res.onAborted(() => res.aborted = true)
@@ -45,10 +52,7 @@ const configure = app => {
                 return generate_id()
                 .then(id => 
                   update({table: 'users', row: {session_id: id}, conditions: {columns: {user_id: row.user_id}}})
-                  .then(() => {
-                    res.writeHeader('Set-Cookie', `session_id=${id}`)
-                    res.end('login successful! TODO: redirect to client with appropriate cookies')
-                  })
+                  .then(() => success(res, req, id))
                 )
               }
               return res.end('username or password was invalid! TODO: redirect to auth page with this message')
@@ -63,8 +67,12 @@ const configure = app => {
             }
             else {
               BCrypt.hash(json.password, salt_rounds)
-              .then(hash => insert('users', {username: json.username, password: hash}))
-              .then(() => res.end('new user created! TODO: redirect to client with appropriate cookies'))
+              .then(hash => generate_id()
+                .then(id => 
+                  insert('users', {username: json.username, password: hash, session_id: id})
+                  .then(() => success(res, req, id))
+                )
+              )
             }
           })
 
