@@ -1,9 +1,17 @@
 const GetAsset = require('../util/getpackagedasset')
+const Auth = require('./auth')
+const HasRole = require('./auth/hasrole')
+const Abort = require('./abort')
 
 const getQuests = (res, req, quests) => { // TODO: this should get daily quests, instead of all of them.
   console.log('-----------')
   console.log('received http request to get available quests...')
-  const quest_data = quests
+  res.onAborted(() => Abort(res))
+  Auth(res, req)
+  .then(user => {
+    if (!HasRole(user, 'user')) return !res.aborted && res.end()
+    // TODO: filter by role and current quest status
+    const quest_data = quests
     .map(v => {
       // TODO: filter out invalid scripts and warn the user
       return {...GetAsset(v), key: v}
@@ -15,9 +23,11 @@ const getQuests = (res, req, quests) => { // TODO: this should get daily quests,
         [v.key]: {name: v.name, description: `${test.description} ${v.description}`, hosts: test.hosts, pass: test.pass, parameters: v.parameters}
       }
     }, {})
-  console.log(`sent metadata for ${Object.keys(quest_data).length} quests.`)
-  console.log('-----------')
-  res.end(JSON.stringify(quest_data))
+    console.log(`sent metadata for ${Object.keys(quest_data).length} quests.`)
+    console.log('-----------')
+    res.end(JSON.stringify(quest_data))
+  })
+
 }
 
 module.exports = getQuests

@@ -7,7 +7,7 @@ const RunCommands = require('./commands/runcommands')
 const GetActionData = require('./actions/getactiondata')
 const GetQuestData = require('./quests/getquestdata')
 const GetTestData = require('./tests/gettestdata')
-const Files = require('./http/files')
+const Main = require('./http/main')
 const GetNodes = require('./http/getnodes')
 const GetCommands = require('./http/getcommands')
 const PostCommands = require('./http/postcommands')
@@ -23,7 +23,6 @@ const WriteConfig = require('./writeconfig')
 const GetResults = require('./http/getresults')
 const GetQuestHistory = require('./http/getquesthistory')
 const GetTestHistory = require('./http/gettesthistory')
-const Auth = require('./http/auth')
 
 const main = async () => {
 
@@ -62,15 +61,7 @@ const main = async () => {
     key_file_name: 'cert/key',
     cert_file_name: 'cert/cert'
   })
-  app.get('/*', (res, req) => {
-    const path = req.getUrl()
-    res.onAborted(() => res.aborted = true)
-    Auth(res, req, config)
-    .then(user => {
-      if (!user) return auth_module.default_route(res, req)
-      Files(res, path)
-    })
-  })
+  app.get('/*', Main)
   app.get('/nodes', GetNodes)
   app.get('/commands', (res, req) => GetCommands(res, req, command_data))
   app.post('/commands', (res, req) => {

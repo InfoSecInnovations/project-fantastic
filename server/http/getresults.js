@@ -8,6 +8,7 @@ const getResults = (res, req) => {
   const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log(`http request for results from node ${query.node_id} incoming...`)
+  // TODO: filter by user
   all({table: 'results', conditions: {columns: {node_id: query.node_id}}}).then(rows => {
     if (res.aborted) return
     console.log(`got results from node ${query.node_id} from database in ${Date.now() - start}ms, returning results!`)

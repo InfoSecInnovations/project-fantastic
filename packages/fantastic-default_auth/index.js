@@ -34,6 +34,7 @@ const success = (res, req, id) => {
 }
 
 const configure = app => {
+  app.get('/auth', (res, req) => serve('auth.html', res))
   app.post('/auth', (res, req) => {
     res.onAborted(() => res.aborted = true)
     let buffer
@@ -69,7 +70,7 @@ const configure = app => {
               BCrypt.hash(json.password, salt_rounds)
               .then(hash => generate_id()
                 .then(id => 
-                  insert('users', {username: json.username, password: hash, session_id: id})
+                  insert('users', {username: json.username, password: hash, session_id: id, role: 'user'})
                   .then(() => success(res, req, id))
                 )
               )
@@ -82,8 +83,6 @@ const configure = app => {
   })
 }
 
-const default_route = (res, req) => serve('auth.html', res)
-
 const verify = session_id => get({table: 'users', columns: ['user_id', 'role'], conditions: {columns: {session_id}}})
 
-module.exports = {default_route, configure, verify}
+module.exports = {configure, verify}
