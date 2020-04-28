@@ -3,7 +3,8 @@ const schema = [
     user_id INTEGER PRIMARY KEY,
     username TEXT,
     password TEXT,
-    session_id TEXT
+    session_id TEXT,
+    role TEXT
   )`
 ]
 

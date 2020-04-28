@@ -63,9 +63,13 @@ const main = async () => {
     cert_file_name: 'cert/cert'
   })
   app.get('/*', (res, req) => {
-    const {role} = Auth(res, req, config)
-    if (!role || role === 'invalid') return auth_module.default_route(res, req)
-    Files(res, req)
+    const path = req.getUrl()
+    res.onAborted(() => res.aborted = true)
+    Auth(res, req, config)
+    .then(user => {
+      if (!user) return auth_module.default_route(res, req)
+      Files(res, path)
+    })
   })
   app.get('/nodes', GetNodes)
   app.get('/commands', (res, req) => GetCommands(res, req, command_data))

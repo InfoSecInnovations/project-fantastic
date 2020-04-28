@@ -34,9 +34,7 @@ const svg = file => SVGSon.parse(file)
     return SVGSon.stringify(res)
   })
 
-const files = (res, req) => {
-  res.onAborted(() => res.aborted = true)
-  let path = req.getUrl()
+const files = (res, path) => {
   if (!path || path === '/') path = '/index.html'
   FS.readFile(`src${path}`).then(file => {
     if (path.endsWith('.md')) return markdown(file.toString()).then(file => !res.aborted && res.end(file))

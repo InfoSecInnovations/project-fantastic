@@ -84,9 +84,6 @@ const configure = app => {
 
 const default_route = (res, req) => serve('auth.html', res)
 
-const verify = id => {
-  // TODO: check database
-  return 'invalid'
-}
+const verify = session_id => get({table: 'users', columns: ['user_id', 'role'], conditions: {columns: {session_id}}})
 
 module.exports = {default_route, configure, verify}
