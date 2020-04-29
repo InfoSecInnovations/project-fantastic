@@ -1,3 +1,30 @@
-#user_account{
+body {
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#container {
+  background-color: rgb(255, 171, 140);
+  width: min(1500px, 100vw);
+  padding: 2rem;
+}
+
+#panel {
+  background-color: coral;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 0 0.5rem;
+  min-width: 10rem;
+}
+
+table, th, td {
+  border: 2px solid black;
 }

@@ -1,3 +1,9 @@
+const create = (tag, text) => {
+  const elm = document.createElement(tag)
+  elm.appendChild(document.createTextNode(text))
+  return elm
+}
+
 function GetUser(form) {
   const data = new URLSearchParams()
   for (const pair of new FormData(form)) {
@@ -12,15 +18,18 @@ function GetUser(form) {
     const account_elm = document.getElementById('user_account')
     account_elm.innerHTML = ''
     if (res.error) {
-      account_elm.appendChild(document.createTextNode(res.error))
+      account_elm.appendChild(create('div', res.error))
       return
     }
-    const username_div = document.createElement('div')
-    username_div.appendChild(document.createTextNode(res.username))
-    account_elm.appendChild(username_div)
-    const role_div = document.createElement('div')
-    role_div.appendChild(document.createTextNode(res.role))
-    account_elm.appendChild(role_div)
+    const table = account_elm.appendChild(document.createElement('table'))
+    const thead = table.appendChild(document.createElement('thead'))
+    const head_row = thead.appendChild(document.createElement('tr'))
+    head_row.appendChild(create('th', 'username'))
+    head_row.appendChild(create('th', 'role'))
+    const tbody = table.appendChild(document.createElement('tbody'))
+    const row = tbody.appendChild(document.createElement('tr'))
+    row.appendChild(create('td', res.username))
+    row.appendChild(create('td', res.role))
   })
 
   return false
