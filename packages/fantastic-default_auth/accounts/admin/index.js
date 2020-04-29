@@ -1,9 +1,13 @@
-const Login = require('./login')
-const Register = require('./register')
+const Login = require('../../auth/login')
+const Serve = require('../../serve')
 const ParseQuery = require('fantastic-utils/parsequery')
-const Success = require('./success')
 
-const auth = (res, req) => {
+const success = (res, id) => {
+  res.writeHeader('Set-Cookie', `session_id=${id}`)
+  Serve('admin.html', res)
+}
+
+const admin = (res, req) => {
   res.onAborted(() => res.aborted = true)
   let buffer
   res.onData((data, isLast) => {
@@ -11,10 +15,9 @@ const auth = (res, req) => {
     buffer = buffer ? Buffer.concat([buffer, chunk]) : Buffer.concat([chunk])
     if (isLast) {
       const json = ParseQuery(buffer.toString())
-      if (json.login) Login(res, json, Success)
-      if (json.register) Register(res, json)
+      Login(res, json, success)
     }
   })
 }
 
-module.exports = auth
+module.exports = admin

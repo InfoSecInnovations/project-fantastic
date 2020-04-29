@@ -4,6 +4,8 @@ const FS = require('fs').promises
 const Path = require('path')
 const Auth = require('./auth')
 const CreateAccount = require('./accounts/createaccount')
+const Admin = require('./accounts/admin')
+const Serve = require('./serve')
 
 run(Schema)
 .then(() => FS.readFile(Path.join(__dirname, 'config.json')))
@@ -16,15 +18,11 @@ run(Schema)
 })
 .catch(err => console.log(err.message))
 
-const serve = (path, res) => {
-  res.onAborted(() => res.aborted = true)
-  FS.readFile(Path.join(__dirname, 'files', path))
-  .then(file => res.end(file))
-}
-
 const configure = app => {
-  app.get('/auth', (res, req) => serve('auth.html', res))
+  app.get('/auth', (res, req) => Serve('auth.html', res))
   app.post('/auth', Auth)
+  app.get('/admin', (res, req) => Serve('adminlogin.html', res))
+  app.post('/admin', Admin)
 }
 
 const verify = session_id => get({table: 'users', columns: ['user_id', 'role'], conditions: {columns: {session_id}}})
