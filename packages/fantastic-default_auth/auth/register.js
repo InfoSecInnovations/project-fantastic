@@ -11,7 +11,7 @@ const register = (res, json) => {
     }
     else {
       CreateAccount(json.username, json.password, 'user')
-      .then(id => Success(res, id))
+      .then(() => Success(res))
     }
   })
 }

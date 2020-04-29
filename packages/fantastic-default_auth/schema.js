@@ -4,6 +4,7 @@ const schema = [
     username TEXT,
     password TEXT,
     session_id TEXT,
+    admin_session_id TEXT,
     role TEXT
   )`
 ]

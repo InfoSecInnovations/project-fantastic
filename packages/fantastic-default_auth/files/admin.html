@@ -1,13 +1,16 @@
 <html>
   <head></head>
   <body>
+    <script src="/auth/public/admin.js"></script>
+    <link rel = "stylesheet" type = "text/css" href = "/auth/public/style.css" />
     <h1>Account Administration</h1>
-    <form action="/auth" method="post">
+    <form onsubmit="return GetUser(this);">
       <div>      
         <label for="username">Username</label>
         <input type="text" id="username" name="username">
         <input type="submit" value="Find User">
       </div>
     </form>
+    <div id="user_account"></div>
   </body>
 </html>
