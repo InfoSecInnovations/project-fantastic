@@ -1,9 +1,5 @@
-const BCrypt = require('bcrypt')
-const GenerateID = require('./generateid')
 const Success = require('./success')
-const {get, insert} = require('fantastic-utils/db')(require('../path'))
-const FS = require('fs').promises
-const Path = require('path')
+const {get} = require('fantastic-utils/db')(require('../path'))
 const CreateAccount = require('../accounts/createaccount')
 
 const register = (res, json) => {
