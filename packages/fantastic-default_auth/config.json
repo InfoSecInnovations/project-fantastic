@@ -1,0 +1,7 @@
+{
+  "salt_rounds": 10,
+  "admin_account": {
+    "username": "admin",
+    "password": "changeme"
+  }
+}
