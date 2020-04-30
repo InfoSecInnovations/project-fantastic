@@ -2,6 +2,7 @@ const UWS = require('uWebSockets.js')
 const FS = require('fs').promises
 const DB = require('./db')
 const {fork} = require('child_process')
+// TODO: require all this crap directly in the routes
 const GetCommandData = require('./commands/getcommanddata')
 const RunCommands = require('./commands/runcommands')
 const GetActionData = require('./actions/getactiondata')
@@ -23,6 +24,7 @@ const WriteConfig = require('./writeconfig')
 const GetResults = require('./http/getresults')
 const GetQuestHistory = require('./http/getquesthistory')
 const GetTestHistory = require('./http/gettesthistory')
+const Files = require('./http/files')
 
 const main = async () => {
 
@@ -61,7 +63,8 @@ const main = async () => {
     key_file_name: 'cert/key',
     cert_file_name: 'cert/cert'
   })
-  app.get('/*', Main)
+  app.get('/', Main)
+  app.get('/*', Files)
   app.get('/nodes', GetNodes)
   app.get('/commands', (res, req) => GetCommands(res, req, command_data))
   app.post('/commands', (res, req) => {

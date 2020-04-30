@@ -1,24 +1,25 @@
 <html>
   <head>
+    <title>Fantastic - Log In or Register</title>
     <link rel = "stylesheet" type = "text/css" href = "/common.css" />
     <link rel = "stylesheet" type = "text/css" href = "/auth/public/style.css" />
   </head>
   <body>
     <div id="container">
       <div id="panel">
-        <h1>Log In</h1>
-        <form action="/auth" method="post">
-          <div>      
+        <h1>Fantastic</h1>
+        <form action="/auth/login" method="post">
+          <div class="item input_container">      
             <label for="username">Username</label>
             <input type="text" id="username" name="username">
           </div>
-          <div>
+          <div class="item input_container">
             <label for="password">Password</label>
             <input type="password" id="password" name="password">
           </div>
           <div>
-            <input type="submit" value="Log In" name="login">
-            <input type="submit" value="Register" name="register">
+            <input type="submit" value="Log In">
+            <input type="submit" value="Register" formaction="/auth/register" formmethod="post">
           </div>
         </form>
       </div>

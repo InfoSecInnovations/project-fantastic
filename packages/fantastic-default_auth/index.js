@@ -1,6 +1,7 @@
 const {run, get, update} = require('fantastic-utils/db')(require('./path'))
 const Schema = require('./schema')
 const Auth = require('./auth')
+const Register = require('./auth/register')
 const CreateAccount = require('./accounts/createaccount')
 const Admin = require('./accounts/admin')
 const Serve = require('./serve')
@@ -19,7 +20,8 @@ run(Schema)
 
 const configure = app => {
   app.get('/auth', (res, req) => Serve('auth.html', res))
-  app.post('/auth', Auth)
+  app.post('/auth/login', Auth)
+  app.post('/auth/register', Register)
   app.get('/admin', (res, req) => Serve('adminlogin.html', res))
   app.post('/admin', Admin)
   app.post('/admin/getuser', GetAccount)
