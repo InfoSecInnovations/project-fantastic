@@ -6,7 +6,7 @@ body {
 
 #container {
   background-color: rgb(255, 171, 140);
-  width: min(1500px, 100vw);
+  width: min(40rem, 100vw);
   padding: 2rem;
 }
 
@@ -33,15 +33,4 @@ table, th, td {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.change {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.dropdown {
-  position: absolute;
-  top: 100%;
 }

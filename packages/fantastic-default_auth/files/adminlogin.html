@@ -1,19 +1,26 @@
 <html>
-  <head></head>
+  <head>
+    <link rel = "stylesheet" type = "text/css" href = "/common.css" />
+    <link rel = "stylesheet" type = "text/css" href = "/auth/public/style.css" />
+  </head>
   <body>
-    <h1>Log In</h1>
-    <form action="/admin" method="post">
-      <div>      
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username">
+    <div id="container">
+      <div id="panel">
+        <h1>Log In</h1>
+        <form action="/admin" method="post">
+          <div class="item">      
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+          </div>
+          <div class="item">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+          </div>
+          <div>
+            <input type="submit" value="Log In">
+          </div>
+        </form>
       </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password">
-      </div>
-      <div>
-        <input type="submit" value="Log In">
-      </div>
-    </form>
+    </div>
   </body>
 </html>

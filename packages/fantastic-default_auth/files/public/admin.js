@@ -28,36 +28,23 @@ const render = state => {
   const tbody = table.appendChild(document.createElement('tbody'))
   const row = tbody.appendChild(document.createElement('tr'))
   row.appendChild(create('td', state.username))
-  const role_cell = row.appendChild(document.createElement('td')).appendChild(document.createElement('div'))
-  role_cell.className = 'table_cell'
-  role_cell.appendChild(create('div', state.role))
-  const change_div = role_cell.appendChild(document.createElement('div'))
-  change_div.className = 'change'
-  const change_button = change_div.appendChild(create('div', 'Change'))
-  change_button.className = 'button'
-  if (state.loading) change_button.classList.add('disabled')
-  change_button.onclick = () => {
-    state.change_role = !state.change_role
+  const dropdown = row.appendChild(document.createElement('td')).appendChild(document.createElement('select'))
+  if (state.loading) dropdown.setAttribute('disabled', "")
+  dropdown.className = 'dropdown'
+  ;['user', 'privileged', 'admin'].forEach(v => dropdown.appendChild(create_option(v, v, state.role === v)))
+  dropdown.onchange = e => {
+    state.loading = true
+    state.change_role = false
     render(state)
-  }
-  if (state.change_role) {
-    const dropdown = change_div.appendChild(document.createElement('select'))
-    dropdown.className = 'dropdown'
-    ;['user', 'privileged', 'admin'].forEach(v => dropdown.appendChild(create_option(v, v, state.role === v)))
-    dropdown.onchange = e => {
-      state.loading = true
-      state.change_role = false
+    fetch('/admin/changerole', {
+      method: 'post',
+      body: JSON.stringify({username: state.username, role: e.target.value}),
+    })
+    .then(res => res.json())
+    .then(res => {
+      state = {...state, ...res, loading: false}
       render(state)
-      fetch('/admin/changerole', {
-        method: 'post',
-        body: JSON.stringify({username: state.username, role: e.target.value}),
-      })
-      .then(res => res.json())
-      .then(res => {
-        state = {...state, ...res, loading: false}
-        render(state)
-      })
-    }
+    })
   }
 }
 
