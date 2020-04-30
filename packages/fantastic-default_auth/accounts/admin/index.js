@@ -25,7 +25,7 @@ const admin = (res, req) => {
       GenerateID().then(admin_id => {
         update({table: 'users', row: {admin_session_id: admin_id}, conditions: {columns: {user_id: row.user_id}}})
         .then(() => {
-          res.writeHeader('Set-Cookie', `admin_id=${admin_id};`)
+          res.writeHeader('Set-Cookie', `admin_id=${admin_id}; Secure; HttpOnly; Path=/auth;`)
           Serve('admin.html', res)
         })
       })
