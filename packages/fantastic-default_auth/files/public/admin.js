@@ -36,7 +36,7 @@ const render = state => {
     state.loading = true
     state.change_role = false
     render(state)
-    fetch('/admin/changerole', {
+    fetch('/auth/admin/changerole', {
       method: 'post',
       body: JSON.stringify({username: state.username, role: e.target.value}),
     })
@@ -53,7 +53,7 @@ function GetUser(form) {
   for (const pair of new FormData(form)) {
       data.append(pair[0], pair[1])
   }
-  fetch('/admin/getuser', {
+  fetch('/auth/admin/getuser', {
       method: 'post',
       body: data,
   })
