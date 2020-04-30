@@ -1,5 +1,5 @@
 const NodeColumns = require('./nodecolumns')
 
-const filterColumns = (row, overwrite) => NodeColumns.filter(v => overwrite || (typeof row[v] !== 'number' && typeof row[v] !== 'boolean' && !row[v]))
+const filterColumns = (row, overwrite) => NodeColumns.filter(v => overwrite || typeof v[row] !== 'undefined')
 
 module.exports = filterColumns

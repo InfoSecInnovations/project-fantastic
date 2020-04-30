@@ -75,7 +75,7 @@ const insert = (table, row) =>
 const update_new = query =>
   db => new Promise(
     (resolve, reject) => {
-      const row = Object.entries(query.row).filter(v => typeof v[1] !== undefined)
+      const row = Object.entries(query.row).filter(v => typeof v[1] !== 'undefined')
       const where_query = where_new(query.conditions)
       db.run(
         `UPDATE ${query.table}
