@@ -5,7 +5,8 @@ const CreateAccount = require('./accounts/createaccount')
 const Admin = require('./accounts/admin')
 const Serve = require('./serve')
 const GetConfig = require('./getconfig')
-const GetAccount = require('./accounts/getaccount')
+const GetAccount = require('./accounts/admin/getaccount')
+const ChangeRole = require('./accounts/admin/changerole')
 
 run(Schema)
 .then(() => GetConfig())
@@ -22,6 +23,7 @@ const configure = app => {
   app.get('/admin', (res, req) => Serve('adminlogin.html', res))
   app.post('/admin', Admin)
   app.post('/admin/getuser', GetAccount)
+  app.post('/admin/changerole', ChangeRole)
   app.get('/auth/public/*', (res, req) => {
     const url = req.getUrl()
     const split = url.split('/')

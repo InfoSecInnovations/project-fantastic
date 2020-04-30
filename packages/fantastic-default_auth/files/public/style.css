@@ -28,3 +28,20 @@ td, th {
 table, th, td {
   border: 2px solid black;
 }
+
+.table_cell {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.change {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+}

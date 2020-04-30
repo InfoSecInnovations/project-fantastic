@@ -72,23 +72,10 @@ const insert = (table, row) =>
     )
   )
 
-const update = query =>
-  db => new Promise(
-    (resolve, reject) => db.run(
-      `UPDATE ${query.table}
-      SET ${Object.entries(query.row).filter(v => typeof v[1] === 'number' || typeof v[1] === 'boolean' || typeof v[1] === 'string' || v[1]).map(v => `${v[0]} = ${format_value(v[1])}`)}
-      ${where(query.conditions)}`,
-      function (err) {
-        if (err) return reject(err)
-        resolve()
-      }
-    )
-  )
-
 const update_new = query =>
   db => new Promise(
     (resolve, reject) => {
-      const row = Object.entries(query.row).filter(v => typeof v[1] === 'number' || typeof v[1] === 'boolean' || typeof v[1] === 'string' || v[1])
+      const row = Object.entries(query.row).filter(v => typeof v[1] !== undefined)
       const where_query = where_new(query.conditions)
       db.run(
         `UPDATE ${query.table}
