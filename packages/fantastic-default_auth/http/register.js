@@ -1,5 +1,5 @@
 const Success = require('./success')
-const {get} = require('fantastic-utils/db')(require('../path'))
+const {get} = require('../db')
 const CreateAccount = require('../accounts/createaccount')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
 

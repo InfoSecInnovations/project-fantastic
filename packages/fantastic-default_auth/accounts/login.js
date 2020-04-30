@@ -1,8 +1,8 @@
 const BCrypt = require('bcrypt')
-const GenerateID = require('./generateid')
-const {get, update} = require('fantastic-utils/db')(require('../path'))
+const GenerateID = require('../utils/generateid')
+const {get, update} = require('../db')
 
-const login = (res, json) => new Promise((resolve, reject) => {
+const login = json => new Promise((resolve, reject) => {
   get({table: 'users', conditions: {columns: {username: json.username}}})
   .then(row => {
     if (!row) return reject() // TODO: protect against timing attacks from no result vs result+compare hash?

@@ -1,4 +1,4 @@
-const Login = require('./login')
+const Login = require('../accounts/login')
 const ParseQuery = require('fantastic-utils/parsequery')
 const Success = require('./success')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
@@ -10,7 +10,7 @@ const auth = (res, req) => {
   GetHTTPData(res)
   .then(data => {
     const json = ParseQuery(data)
-    Login(res, json)
+    Login(json)
     .then(id => Success(res, id))
     .catch(() => res.end(invalid_login))
   })

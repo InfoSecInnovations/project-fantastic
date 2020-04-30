@@ -1,15 +1,9 @@
-const {run, get, update} = require('fantastic-utils/db')(require('./path'))
-const Schema = require('./schema')
-const Auth = require('./auth')
-const Register = require('./auth/register')
+const {get, init} = require('./db')
 const CreateAccount = require('./accounts/createaccount')
-const Admin = require('./accounts/admin')
-const Serve = require('./serve')
-const GetConfig = require('./getconfig')
-const GetAccount = require('./accounts/admin/getaccount')
-const ChangeRole = require('./accounts/admin/changerole')
+const Serve = require('./http/serve')
+const GetConfig = require('./utils/getconfig')
 
-run(Schema)
+init()
 .then(() => GetConfig())
 .then(config => get({table: 'users', columns: ['user_id'], conditions: {columns: {username: config.admin_account.username}}})
   .then(row => {
@@ -19,13 +13,13 @@ run(Schema)
 .catch(err => console.log(err.message))
 
 const configure = app => {
-  app.get('/auth', (res, req) => Serve('auth.html', res))
-  app.post('/auth/login', Auth)
-  app.post('/auth/register', Register)
+  app.get('/auth', require('./http/auth'))
+  app.post('/auth/login', require('./http/login'))
+  app.post('/auth/register', require('./http/register'))
   app.get('/auth/admin', (res, req) => Serve('adminlogin.html', res))
-  app.post('/auth/admin', Admin)
-  app.post('/auth/admin/getuser', GetAccount)
-  app.post('/auth/admin/changerole', ChangeRole)
+  app.post('/auth/admin', require('./admin/login'))
+  app.post('/auth/admin/getuser', require('./admin/getaccount'))
+  app.post('/auth/admin/changerole', require('./admin/changerole'))
   app.get('/auth/public/*', (res, req) => {
     const url = req.getUrl()
     const split = url.split('/')
@@ -34,8 +28,4 @@ const configure = app => {
   })
 }
 
-const verify = session_id => get({table: 'users', columns: ['user_id', 'role'], conditions: {columns: {session_id}}})
-
-const invalidate = session_id => update({table: 'users', row: {session_id: null, admin_id: null}, conditions: {columns: {session_id}}})
-
-module.exports = {configure, verify, invalidate}
+module.exports = {configure, verify: require('./accounts/verify'), invalidate: require('./accounts/invalidate')}

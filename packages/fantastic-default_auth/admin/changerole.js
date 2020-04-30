@@ -1,5 +1,5 @@
-const CheckAdmin = require('../../auth/checkadmin')
-const {update, get} = require('fantastic-utils/db')(require('../../path'))
+const CheckAdmin = require('./checkadmin')
+const {update, get} = require('../db')
 
 const changeRole = (res, req) => {
   res.onAborted(() => res.aborted = true)

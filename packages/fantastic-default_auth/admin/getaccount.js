@@ -1,6 +1,6 @@
-const {get} = require('fantastic-utils/db')(require('../../path'))
+const {get} = require('../db')
 const ParseQuery = require('fantastic-utils/parsequery')
-const CheckAdmin = require('../../auth/checkadmin')
+const CheckAdmin = require('./checkadmin')
 
 const getAccount = (res, req) => {
   res.onAborted(() => res.aborted = true)

@@ -1,6 +1,6 @@
 const GetCookie = require('fantastic-utils/getcookie')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
-const {get} = require('fantastic-utils/db')(require('../path'))
+const {get} = require('../db')
 
 const failed_login = 'you must be logged in as an administrator!'
 

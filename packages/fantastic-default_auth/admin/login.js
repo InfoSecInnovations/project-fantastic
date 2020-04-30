@@ -1,8 +1,8 @@
-const Login = require('../../auth/login')
-const Serve = require('../../serve')
+const Login = require('../accounts/login')
+const Serve = require('../http/serve')
 const ParseQuery = require('fantastic-utils/parsequery')
-const GenerateID = require('../../auth/generateid')
-const {get, update} = require('fantastic-utils/db')(require('../../path'))
+const GenerateID = require('../utils/generateid')
+const {get, update} = require('../db')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
 
 const success = id => new Promise((resolve, reject) => {
@@ -14,12 +14,12 @@ const success = id => new Promise((resolve, reject) => {
   })
 })
 
-const admin = (res, req) => {
+const login = (res, req) => {
   res.onAborted(() => res.aborted = true)
   GetHTTPData(res)
   .then(data => {
     const json = ParseQuery(data)
-    Login(res, json)
+    Login(json)
     .then(id => success(id))
     .then(row => {
       GenerateID().then(admin_id => {
@@ -34,4 +34,4 @@ const admin = (res, req) => {
   })
 }
 
-module.exports = admin
+module.exports = login
