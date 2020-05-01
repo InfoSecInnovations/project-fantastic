@@ -5,13 +5,11 @@ const CheckAdmin = require('./checkadmin')
 const getAccount = (res, req) => {
   res.onAborted(() => res.aborted = true)
   CheckAdmin(res, req)
-  .then(data => {
+  .then(async data => {
     const json = ParseQuery(data)
-    get({table: 'users', conditions: {columns: {username: json.username}}})
-    .then(row => {
-      if (row) res.end(JSON.stringify(row))
-      else res.end(JSON.stringify({error: 'user does not exist'}))
-    }) 
+    const row = await get({table: 'users', conditions: {columns: {username: json.username}}})
+    if (row) res.end(JSON.stringify(row))
+    else res.end(JSON.stringify({error: 'user does not exist'}))
   })
   .catch(() => {})
 }

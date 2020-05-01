@@ -21,14 +21,11 @@ const login = (res, req) => {
     const json = ParseQuery(data)
     Login(json)
     .then(id => success(id))
-    .then(row => {
-      GenerateID().then(admin_id => {
-        update({table: 'users', row: {admin_session_id: admin_id}, conditions: {columns: {user_id: row.user_id}}})
-        .then(() => {
-          res.writeHeader('Set-Cookie', `admin_id=${admin_id}; Secure; HttpOnly; Path=/auth/admin;`)
-          Serve('admin.html', res)
-        })
-      })
+    .then(async row => {
+      const admin_id = await GenerateID()
+      await update({table: 'users', row: {admin_session_id: admin_id}, conditions: {columns: {user_id: row.user_id}}})
+      res.writeHeader('Set-Cookie', `admin_id=${admin_id}; Secure; HttpOnly; Path=/auth/admin;`)
+      Serve('admin.html', res)
     })
     .catch(() => res.end("invalid login or user doesn't have admin role"))
   })

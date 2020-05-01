@@ -16,6 +16,8 @@ const configure = app => {
   app.get('/auth', require('./http/auth'))
   app.post('/auth/login', require('./http/login'))
   app.post('/auth/register', require('./http/register'))
+  app.post('/auth/changepassword', require('./http/changepassword'))
+  app.get('/auth/myaccount', require('./http/myaccount'))
   app.get('/auth/admin', (res, req) => Serve('adminlogin.html', res))
   app.post('/auth/admin', require('./admin/login'))
   app.post('/auth/admin/getuser', require('./admin/getaccount'))
