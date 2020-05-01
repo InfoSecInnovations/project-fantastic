@@ -38,3 +38,7 @@ table, th, td {
 .input_container {
   margin: 0.5rem 0;
 }
+
+#error {
+  color: rgb(189, 0, 0);
+}

@@ -1,9 +1,8 @@
 const Login = require('../accounts/login')
 const ParseQuery = require('fantastic-utils/parsequery')
 const Success = require('./success')
+const Error = require('./error')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
-
-const invalid_login = 'username or password was invalid! TODO: redirect to auth page with this message'
 
 const auth = (res, req) => {
   res.onAborted(() => res.aborted = true)
@@ -12,7 +11,7 @@ const auth = (res, req) => {
     const json = ParseQuery(data)
     Login(json)
     .then(id => Success(res, id))
-    .catch(() => res.end(invalid_login))
+    .catch(() => Error(res, 'username or password was invalid!'))
   })
 }
 
