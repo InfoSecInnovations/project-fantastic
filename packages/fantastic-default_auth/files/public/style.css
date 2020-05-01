@@ -42,3 +42,11 @@ table, th, td {
 #error {
   color: rgb(189, 0, 0);
 }
+
+input[type=button], input[type=submit], input[type=reset], .button {
+  margin: 1rem 1rem 1rem 0;
+  color: black;
+  width: max-content;
+  font-size: 1rem;
+  flex-grow: 0;
+}

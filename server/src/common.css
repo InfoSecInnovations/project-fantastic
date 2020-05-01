@@ -11,6 +11,7 @@ body {
 a {
   cursor: pointer;
   color: rgb(19, 57, 128);
+  text-decoration: none;
 }
 
 .title {
@@ -100,7 +101,11 @@ a {
   height: 0.5rem;
 }
 
-.button {
+.buttons {
+  display: flex;
+}
+
+input[type=button], input[type=submit], input[type=reset], .button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -109,15 +114,12 @@ a {
   cursor: pointer;
   border: 2px solid orangered;
   text-align: center;
+  padding: 0.5rem;
+  margin: 0.2rem 0 0.2rem 1rem;
 }
 
 .foldout {
   cursor: pointer;
-}
-
-.button {
-  padding: 0.5rem;
-  margin: 0.2rem 0 0.2rem 1rem;
 }
 
 .button.disabled, .foldout.disabled {
@@ -151,13 +153,6 @@ a {
 
 .result_header {
   font-weight: bold;
-}
-
-.icon {
-  width: 2rem;
-  height: 2rem;
-  flex-grow: 0;
-  flex-basis: 2rem;
 }
 
 .fas {

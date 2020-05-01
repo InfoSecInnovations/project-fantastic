@@ -3,12 +3,12 @@ const Commands = require('./commands')
 const Quests = require('./quests')
 const Tests = require('./tests')
 
-const panel_button = (state, send, panel_state, icon, tooltip) => 
-  H('div.icon_button.tooltippable', {
+const panel_button = (state, send, panel_state, icon, label) => 
+  H('div.icon_button', {
     on: {click: [send, {type: 'left_panel_state', state: state.left_panel_state == panel_state ? 'none' : panel_state}]}
   }, [
     H(`span.fas fa-${icon} fa-fw`),
-    H('div.tooltip', H('div.item', tooltip))
+    H('div.label', label)
   ])
 
 const leftPanel = (state, send) => {

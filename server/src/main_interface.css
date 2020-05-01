@@ -23,6 +23,7 @@ label {
 #top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: coral;
   padding: 0.5rem 2rem;
 }
@@ -143,18 +144,24 @@ label {
 
 .icon_button {
   padding: 0.3rem;
-  flex: 0;
   cursor: pointer;
   font-size: 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: stretch;
+  width: 3rem;
+}
+
+.icon_button.small {
+  width: auto;
 }
 
 .icon_button .label {
   font-size: 0.6rem;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
 }
 
 .success {
@@ -167,11 +174,6 @@ label {
 
 .pending {
   color: rgb(255, 193, 23);
-}
-
-.icon_button img {
-  width: 1.5rem;
-  height: 1.5rem;
 }
 
 #commands {
@@ -223,30 +225,6 @@ label {
   border: 2px solid coral;
   z-index: 100;
   transform: translate(-50%, 0);
-}
-
-.tooltippable:hover {
-  position: relative;
-}
-
-.tooltippable:hover .tooltip {
-  display: flex;
-}
-
-.tooltip {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  background-color: rgb(255, 171, 140);
-  font-size: 1rem;
-  font-weight: normal;
-  padding: 1rem;
-  border-radius: 1rem;
-  border: 2px solid coral;
-  z-index: 100;
-  bottom: calc(100% + 1.5rem);
-  left: -1rem;
-  white-space: nowrap;
 }
 
 .play {
