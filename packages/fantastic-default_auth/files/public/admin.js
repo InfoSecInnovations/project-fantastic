@@ -25,6 +25,7 @@ const render = state => {
   const head_row = thead.appendChild(document.createElement('tr'))
   head_row.appendChild(create('th', 'username'))
   head_row.appendChild(create('th', 'role'))
+  head_row.appendChild(create('th', 'delete'))
   const tbody = table.appendChild(document.createElement('tbody'))
   const row = tbody.appendChild(document.createElement('tr'))
   row.appendChild(create('td', state.username))
@@ -46,6 +47,8 @@ const render = state => {
       render(state)
     })
   }
+  const delete_button = row.appendChild(document.createElement('td')).appendChild(create('div', 'Delete'))
+  delete_button.className = 'button'
 }
 
 function GetUser(form) {

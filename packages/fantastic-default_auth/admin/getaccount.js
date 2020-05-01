@@ -5,8 +5,8 @@ const CheckAdmin = require('./checkadmin')
 const getAccount = (res, req) => {
   res.onAborted(() => res.aborted = true)
   CheckAdmin(res, req)
-  .then(async data => {
-    const json = ParseQuery(data)
+  .then(async result => {
+    const json = ParseQuery(result.data)
     const row = await get({table: 'users', conditions: {columns: {username: json.username}}})
     if (row) res.end(JSON.stringify(row))
     else res.end(JSON.stringify({error: 'user does not exist'}))

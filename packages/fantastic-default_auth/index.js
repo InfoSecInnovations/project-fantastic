@@ -23,6 +23,7 @@ const configure = app => {
   app.post('/auth/admin', require('./admin/login'))
   app.post('/auth/admin/getuser', require('./admin/getaccount'))
   app.post('/auth/admin/changerole', require('./admin/changerole'))
+  app.post('/auth/admin/deleteaccount', require('./admin/deleteaccount'))
   app.get('/auth/public/*', (res, req) => {
     const url = req.getUrl()
     const split = url.split('/')

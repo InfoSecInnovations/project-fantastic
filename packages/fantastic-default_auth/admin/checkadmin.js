@@ -17,7 +17,7 @@ const checkAdmin = (res, req) => new Promise((resolve, reject) => {
       reject()
       return res.end(JSON.stringify({error: failed_login}))
     }
-    resolve(data)
+    resolve({data, admin: row})
   })
 })
 
