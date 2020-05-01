@@ -2,29 +2,14 @@ const UWS = require('uWebSockets.js')
 const FS = require('fs').promises
 const DB = require('./db')
 const {fork} = require('child_process')
-// TODO: require all this crap directly in the routes
+
 const GetCommandData = require('./commands/getcommanddata')
 const RunCommands = require('./commands/runcommands')
 const GetActionData = require('./actions/getactiondata')
 const GetQuestData = require('./quests/getquestdata')
 const GetTestData = require('./tests/gettestdata')
-const Main = require('./http/main')
-const GetNodes = require('./http/getnodes')
-const GetCommands = require('./http/getcommands')
-const PostCommands = require('./http/postcommands')
-const GetActions = require('./http/getactions')
-const PostActions = require('./http/postactions')
-const PostActionFollowup = require('./http/postactionfollowup')
-const GetQuests = require('./http/getquests')
-const PostQuests = require('./http/postquests')
-const GetTests = require('./http/gettests')
-const PostTests = require('./http/posttests')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
-const GetResults = require('./http/getresults')
-const GetQuestHistory = require('./http/getquesthistory')
-const GetTestHistory = require('./http/gettesthistory')
-const Files = require('./http/files')
 
 const main = async () => {
 
@@ -63,12 +48,12 @@ const main = async () => {
     key_file_name: 'cert/key',
     cert_file_name: 'cert/cert'
   })
-  app.get('/', Main)
-  app.get('/*', Files)
-  app.get('/nodes', GetNodes)
-  app.get('/commands', (res, req) => GetCommands(res, req, command_data))
+  app.get('/', require('./http/main'))
+  app.get('/*', require('./http/files'))
+  app.get('/nodes', require('./http/getnodes'))
+  app.get('/commands', (res, req) => require('./http/getcommands')(res, req, command_data))
   app.post('/commands', (res, req) => {
-    command_data = update_commands(PostCommands(res, req, command_data))
+    command_data = update_commands(require('./http/postcommands')(res, req, command_data))
     config.data_sources = Object.entries(command_data).filter(v => v[1]).reduce((result, v) => {
       const split = v[0].split('/')
       if (!result[split[0]]) result[split[0]] = []
@@ -77,16 +62,17 @@ const main = async () => {
     }, {})
     WriteConfig(config)
   })
-  app.get('/actions', (res, req) => GetActions(res, req, actions))
-  app.post('/actions', (res, req) => PostActions(res, req, config))
-  app.post('/action_followup', PostActionFollowup)
-  app.get('/results', GetResults)
-  app.get('/quests', (res, req) => GetQuests(res, req, quests))
-  app.post('/quests', PostQuests)
-  app.get('/quest_history', GetQuestHistory)
-  app.get('/tests', (res, req) => GetTests(res, req, tests))
-  app.post('/tests', PostTests)
-  app.get('/test_history', GetTestHistory)
+  app.get('/actions', (res, req) => require('./http/getactions')(res, req, actions))
+  app.post('/actions', (res, req) => require('./http/postactions')(res, req, config))
+  app.post('/action_followup', require('./http/postactionfollowup'))
+  app.get('/results', require('./http/getresults'))
+  app.get('/quests', (res, req) => require('./http/getquests')(res, req, quests))
+  app.post('/quests', require('./http/postquests'))
+  app.get('/quest_history', require('./http/getquesthistory'))
+  app.get('/tests', (res, req) => require('./http/gettests')(res, req, tests))
+  app.post('/tests', require('./http/posttests'))
+  app.get('/test_history', require('./http/gettesthistory'))
+  app.get('/logout', require('./http/auth/logout'))
 
   auth_module.configure(app)
 

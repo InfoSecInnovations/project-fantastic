@@ -761,7 +761,7 @@ eval("const nodesFromEdge = (state, edge_id) => {\r\n  const nodes = state.vis.g
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst LeftPanel = __webpack_require__(/*! ./leftpanel */ \"./view/leftpanel/index.js\")\r\nconst Selection = __webpack_require__(/*! ./selection */ \"./view/selection/index.js\")\r\nconst Search = __webpack_require__(/*! ./search */ \"./view/search/index.js\")\r\nconst Tooltip = __webpack_require__(/*! ./tooltip */ \"./view/tooltip.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('div#container', [\r\n      H('div#top', [\r\n        H('h1', \"Fantastic\"),\r\n        Search(state, send),\r\n        H('div.icon_button.tooltippable', {\r\n          on: {click: e => window.open('help/index.md', '_blank')}\r\n        }, [\r\n          H('span.fas fa-question-circle'),\r\n          H('div.tooltip', H('div.item', 'Help'))\r\n        ])\r\n      ]),\r\n      H('div#main', [\r\n        H('div#graph_container', {\r\n          hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))},\r\n          style: {display: state.loading ? 'none' : 'block'}\r\n        }),\r\n        state.loading ? H('div#loading', 'Loading...') : undefined,\r\n        LeftPanel(state, send),\r\n        Selection(state, send),\r\n        Tooltip(state)\r\n      ])\r\n    ])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst LeftPanel = __webpack_require__(/*! ./leftpanel */ \"./view/leftpanel/index.js\")\r\nconst Selection = __webpack_require__(/*! ./selection */ \"./view/selection/index.js\")\r\nconst Tooltip = __webpack_require__(/*! ./tooltip */ \"./view/tooltip.js\")\r\nconst Top = __webpack_require__(/*! ./top */ \"./view/top/index.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', [\r\n    H('div#container', [\r\n      Top(state, send),\r\n      H('div#main', [\r\n        H('div#graph_container', {\r\n          hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))},\r\n          style: {display: state.loading ? 'none' : 'block'}\r\n        }),\r\n        state.loading ? H('div#loading', 'Loading...') : undefined,\r\n        LeftPanel(state, send),\r\n        Selection(state, send),\r\n        Tooltip(state)\r\n      ])\r\n    ])\r\n  ])\r\n\r\n  module.exports = view\n\n//# sourceURL=webpack:///./view/index.js?");
 
 /***/ }),
 
@@ -831,61 +831,6 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 
 /***/ }),
 
-/***/ "./view/search/connectionstate.js":
-/*!****************************************!*\
-  !*** ./view/search/connectionstate.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst options = [\r\n  'listen',\r\n  'syn_sent',\r\n  'syn_received',\r\n  'established',\r\n  'fin_wait_1',\r\n  'fin_wait_2',\r\n  'close_wait',\r\n  'closing',\r\n  'last_ack',\r\n  'time_wait',\r\n  'bound'\r\n]\r\n\r\nconst selection_label = connection_state => {\r\n  if (connection_state.length === 0 || connection_state.length === options.length) return 'all'\r\n  if (connection_state.length === 1) return connection_state[0]\r\n  return `${connection_state[0]} + ${connection_state.length - 1} more`\r\n}\r\n\r\nconst connectionState = (state, send) => \r\n  H('div#connection_state.selector.checkboxes', {\r\n    on: { focusout: e => {\r\n        if (e.relatedTarget) { // this is a not very elegant way to check if we clicked outside of this element\r\n          let target = e.relatedTarget\r\n          while (target) {\r\n            if (target.id === 'connection_state') return\r\n            target = target.parentNode\r\n          }\r\n        }\r\n        send({type: 'connection_foldout', value: false})\r\n      }\r\n    }\r\n  }, [\r\n    H('label', 'Connection state'),\r\n    H('select', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},\r\n      H('option', {attrs: {selected: true}}, selection_label(state.search.connection_state)) // this is a dummy option to show the selection\r\n    ),\r\n    state.search.connection_foldout ? H('div.states', \r\n      options.map(v => H('div.state', [\r\n        H(`input#select${v}`, {\r\n          attrs: {type: 'checkbox', checked: state.search.connection_state.includes(v)},\r\n          on: {change: e => send({type: 'connection_state', state: v, value: e.target.checked})}\r\n        }),\r\n        H('label', {attrs: {for: `select${v}`}}, v)\r\n      ]))) : undefined\r\n  ])\r\n\r\nmodule.exports = connectionState\n\n//# sourceURL=webpack:///./view/search/connectionstate.js?");
-
-/***/ }),
-
-/***/ "./view/search/connectiontype.js":
-/*!***************************************!*\
-  !*** ./view/search/connectiontype.js ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst options = ['all', 'different_host']\r\n\r\nconst connectionType = (state, send) =>\r\n  H('div.selector', [\r\n    H('label', {attrs: {for: 'connection_type_select'}}, 'Connections between'),\r\n    H('select#connection_type_select', {\r\n      attrs: {name: 'connection_type', disabled: state.loading},\r\n      on: {change: e => send({type: 'connection_type', connection_type: e.target.value})}}, \r\n      options.map(v => H('option', {attrs: {value: v, selected: v === state.search.connection_type}}, v))\r\n    )\r\n  ])\r\n\r\nmodule.exports = connectionType\n\n//# sourceURL=webpack:///./view/search/connectiontype.js?");
-
-/***/ }),
-
-/***/ "./view/search/dateselect.js":
-/*!***********************************!*\
-  !*** ./view/search/dateselect.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DateString = __webpack_require__(/*! ../../../common/util/datestring */ \"../common/util/datestring.js\")\r\n\r\nconst options = [5, 15, 30, 60, 480, 1440, 0]\r\n\r\nconst option_label = minutes => {\r\n  if (!minutes) return 'forever'\r\n  return `last ${DateString(minutes)}`\r\n}\r\n\r\nconst dateSelect = (state, send) => H('div.selector', [\r\n  H('label', {attrs: {for: 'date_select'}}, 'Data from'),\r\n  H('select#date_select', {\r\n    attrs: {name: 'date', disabled: state.loading}, \r\n    on: {change: e => send({type: 'date', date: parseInt(e.target.value)})}}, \r\n    options.map((v, i) => \r\n      H('option', {attrs: {value: v, selected: v === state.search.date}}, option_label(v))\r\n    )\r\n  )\r\n])\r\n\r\nmodule.exports = dateSelect\n\n//# sourceURL=webpack:///./view/search/dateselect.js?");
-
-/***/ }),
-
-/***/ "./view/search/index.js":
-/*!******************************!*\
-  !*** ./view/search/index.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DateSelect = __webpack_require__(/*! ./dateselect */ \"./view/search/dateselect.js\")\r\nconst ShowNodes = __webpack_require__(/*! ./shownodes */ \"./view/search/shownodes.js\")\r\nconst ConnectionType = __webpack_require__(/*! ./connectiontype */ \"./view/search/connectiontype.js\")\r\nconst ConnectionState = __webpack_require__(/*! ./connectionstate */ \"./view/search/connectionstate.js\")\r\n\r\nconst search = (state, send) => {\r\n  if (!state.nodes) return\r\n  return H('div#search', [\r\n    DateSelect(state, send),\r\n    ShowNodes(state, send),\r\n    ConnectionType(state, send),\r\n    ConnectionState(state, send),\r\n    H('div.button', {on: {click: [send, {type: 'search'}]}}, 'Search')\r\n  ])\r\n}\r\n\r\nmodule.exports = search\n\n//# sourceURL=webpack:///./view/search/index.js?");
-
-/***/ }),
-
-/***/ "./view/search/shownodes.js":
-/*!**********************************!*\
-  !*** ./view/search/shownodes.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst showNodes = (state, send) => H('div.selector', [\r\n  H('label', {attrs: {for: 'show_nodes_select'}}, 'Show hosts outside my network'),\r\n  H('input#show_nodes_select', {\r\n    attrs: {type: 'checkbox', checked: state.search.show_external},\r\n    on: {change: [send, {type: 'show_external', value: !state.search.show_external}]}\r\n  })\r\n])\r\n\r\nmodule.exports = showNodes\n\n//# sourceURL=webpack:///./view/search/shownodes.js?");
-
-/***/ }),
-
 /***/ "./view/selection/edge.js":
 /*!********************************!*\
   !*** ./view/selection/edge.js ***!
@@ -938,6 +883,72 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /***/ (function(module, exports, __webpack_require__) {
 
 eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst NodesFromEdge = __webpack_require__(/*! ../util/nodesfromedge */ \"./util/nodesfromedge.js\")\r\nconst NodeName = __webpack_require__(/*! ../../common/util/nodename */ \"../common/util/nodename.js\")\r\n\r\nconst style = pos => ({left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`})\r\n\r\nconst tooltip = state => {\r\n  if (state.hovered.ui || !state.vis) return\r\n  if (state.hovered.nodes.length) {\r\n    const node_id = state.hovered.nodes[state.hovered.nodes.length - 1]\r\n    const node = state.nodes[node_id]\r\n    const box = state.vis.getBoundingBox(node_id)\r\n    const positions = state.vis.getPositions(node_id)\r\n    const pos = state.vis.canvasToDOM({x: positions[node_id].x, y: box.top})\r\n    return H('div#tooltip', {style: style(pos)}, [\r\n      H('div', NodeName(node)),\r\n      node.macs && node.macs.length ? H('div', `MAC: ${node.macs[0].mac}`) : undefined,\r\n      node.os ? H('div', node.os) : undefined,\r\n      H('div', `${(node.connections && node.connections.length) || 0} connection${node.connections && node.connections.length === 1 ? '' : 's'}`)\r\n    ])\r\n  }\r\n  if (state.hovered.edges.length) {\r\n    const {from, to, from_id, to_id} = NodesFromEdge(state, state.hovered.edges[state.hovered.edges.length - 1])\r\n    const positions = state.vis.getPositions([from_id, to_id])\r\n    const pos = state.vis.canvasToDOM({x: (positions[from_id].x + positions[to_id].x) / 2, y: Math.min(positions[from_id].y, positions[to_id].y)})\r\n    const connections = from.connections.filter(v => v.to_node === to.node_id)\r\n    return H('div#tooltip', {style: style(pos)}, [\r\n      H('div', `${connections.length} connection${connections.length == 1 ? '' : 's'} from ${NodeName(from)} to ${NodeName(to)}`)\r\n    ])\r\n  }\r\n}\r\n\r\nmodule.exports = tooltip\n\n//# sourceURL=webpack:///./view/tooltip.js?");
+
+/***/ }),
+
+/***/ "./view/top/index.js":
+/*!***************************!*\
+  !*** ./view/top/index.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst Search = __webpack_require__(/*! ./search */ \"./view/top/search/index.js\")\r\n\r\nconst top = (state, send) => H('div#top', [\r\n  H('h1', \"Fantastic\"),\r\n  Search(state, send),\r\n  H('div.icon_button', {\r\n    on: {click: e => window.open('/auth', '_self')}\r\n  }, [\r\n    H('span.fas fa-user-circle fa-fw'),\r\n    H('div.label', 'Account')\r\n  ]),\r\n  H('div.icon_button', {\r\n    on: {click: e => window.open('/logout', '_self')}\r\n  }, [\r\n    H('span.fas fa-sign-out-alt fa-fw'),\r\n    H('div.label', 'Log Out')\r\n  ]),\r\n  H('div.icon_button', {\r\n    on: {click: e => window.open('help/index.md', '_blank')}\r\n  }, [\r\n    H('span.fas fa-question-circle fa-fw'),\r\n    H('div.label', 'Help')\r\n  ])\r\n])\r\n\r\nmodule.exports = top\n\n//# sourceURL=webpack:///./view/top/index.js?");
+
+/***/ }),
+
+/***/ "./view/top/search/connectionstate.js":
+/*!********************************************!*\
+  !*** ./view/top/search/connectionstate.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst options = [\r\n  'listen',\r\n  'syn_sent',\r\n  'syn_received',\r\n  'established',\r\n  'fin_wait_1',\r\n  'fin_wait_2',\r\n  'close_wait',\r\n  'closing',\r\n  'last_ack',\r\n  'time_wait',\r\n  'bound'\r\n]\r\n\r\nconst selection_label = connection_state => {\r\n  if (connection_state.length === 0 || connection_state.length === options.length) return 'all'\r\n  if (connection_state.length === 1) return connection_state[0]\r\n  return `${connection_state[0]} + ${connection_state.length - 1} more`\r\n}\r\n\r\nconst connectionState = (state, send) => \r\n  H('div#connection_state.selector.checkboxes', {\r\n    on: { focusout: e => {\r\n        if (e.relatedTarget) { // this is a not very elegant way to check if we clicked outside of this element\r\n          let target = e.relatedTarget\r\n          while (target) {\r\n            if (target.id === 'connection_state') return\r\n            target = target.parentNode\r\n          }\r\n        }\r\n        send({type: 'connection_foldout', value: false})\r\n      }\r\n    }\r\n  }, [\r\n    H('label', 'Connection state'),\r\n    H('select', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},\r\n      H('option', {attrs: {selected: true}}, selection_label(state.search.connection_state)) // this is a dummy option to show the selection\r\n    ),\r\n    state.search.connection_foldout ? H('div.states', \r\n      options.map(v => H('div.state', [\r\n        H(`input#select${v}`, {\r\n          attrs: {type: 'checkbox', checked: state.search.connection_state.includes(v)},\r\n          on: {change: e => send({type: 'connection_state', state: v, value: e.target.checked})}\r\n        }),\r\n        H('label', {attrs: {for: `select${v}`}}, v)\r\n      ]))) : undefined\r\n  ])\r\n\r\nmodule.exports = connectionState\n\n//# sourceURL=webpack:///./view/top/search/connectionstate.js?");
+
+/***/ }),
+
+/***/ "./view/top/search/connectiontype.js":
+/*!*******************************************!*\
+  !*** ./view/top/search/connectiontype.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst options = ['all', 'different_host']\r\n\r\nconst connectionType = (state, send) =>\r\n  H('div.selector', [\r\n    H('label', {attrs: {for: 'connection_type_select'}}, 'Connections between'),\r\n    H('select#connection_type_select', {\r\n      attrs: {name: 'connection_type', disabled: state.loading},\r\n      on: {change: e => send({type: 'connection_type', connection_type: e.target.value})}}, \r\n      options.map(v => H('option', {attrs: {value: v, selected: v === state.search.connection_type}}, v))\r\n    )\r\n  ])\r\n\r\nmodule.exports = connectionType\n\n//# sourceURL=webpack:///./view/top/search/connectiontype.js?");
+
+/***/ }),
+
+/***/ "./view/top/search/dateselect.js":
+/*!***************************************!*\
+  !*** ./view/top/search/dateselect.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DateString = __webpack_require__(/*! ../../../../common/util/datestring */ \"../common/util/datestring.js\")\r\n\r\nconst options = [5, 15, 30, 60, 480, 1440, 0]\r\n\r\nconst option_label = minutes => {\r\n  if (!minutes) return 'forever'\r\n  return `last ${DateString(minutes)}`\r\n}\r\n\r\nconst dateSelect = (state, send) => H('div.selector', [\r\n  H('label', {attrs: {for: 'date_select'}}, 'Data from'),\r\n  H('select#date_select', {\r\n    attrs: {name: 'date', disabled: state.loading}, \r\n    on: {change: e => send({type: 'date', date: parseInt(e.target.value)})}}, \r\n    options.map((v, i) => \r\n      H('option', {attrs: {value: v, selected: v === state.search.date}}, option_label(v))\r\n    )\r\n  )\r\n])\r\n\r\nmodule.exports = dateSelect\n\n//# sourceURL=webpack:///./view/top/search/dateselect.js?");
+
+/***/ }),
+
+/***/ "./view/top/search/index.js":
+/*!**********************************!*\
+  !*** ./view/top/search/index.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst DateSelect = __webpack_require__(/*! ./dateselect */ \"./view/top/search/dateselect.js\")\r\nconst ShowNodes = __webpack_require__(/*! ./shownodes */ \"./view/top/search/shownodes.js\")\r\nconst ConnectionType = __webpack_require__(/*! ./connectiontype */ \"./view/top/search/connectiontype.js\")\r\nconst ConnectionState = __webpack_require__(/*! ./connectionstate */ \"./view/top/search/connectionstate.js\")\r\n\r\nconst search = (state, send) => {\r\n  if (!state.nodes) return\r\n  return H('div#search', [\r\n    DateSelect(state, send),\r\n    ShowNodes(state, send),\r\n    ConnectionType(state, send),\r\n    ConnectionState(state, send),\r\n    H('div.button', {on: {click: [send, {type: 'search'}]}}, 'Search')\r\n  ])\r\n}\r\n\r\nmodule.exports = search\n\n//# sourceURL=webpack:///./view/top/search/index.js?");
+
+/***/ }),
+
+/***/ "./view/top/search/shownodes.js":
+/*!**************************************!*\
+  !*** ./view/top/search/shownodes.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\n\r\nconst showNodes = (state, send) => H('div.selector', [\r\n  H('label', {attrs: {for: 'show_nodes_select'}}, 'Show hosts outside my network'),\r\n  H('input#show_nodes_select', {\r\n    attrs: {type: 'checkbox', checked: state.search.show_external},\r\n    on: {change: [send, {type: 'show_external', value: !state.search.show_external}]}\r\n  })\r\n])\r\n\r\nmodule.exports = showNodes\n\n//# sourceURL=webpack:///./view/top/search/shownodes.js?");
 
 /***/ })
 

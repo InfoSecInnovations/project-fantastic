@@ -1,5 +1,5 @@
 const H = require('snabbdom/h').default
-const DateString = require('../../../common/util/datestring')
+const DateString = require('../../../../common/util/datestring')
 
 const options = [5, 15, 30, 60, 480, 1440, 0]
 

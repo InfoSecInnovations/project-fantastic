@@ -146,6 +146,15 @@ label {
   flex: 0;
   cursor: pointer;
   font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon_button .label {
+  font-size: 0.6rem;
+  white-space: nowrap;
 }
 
 .success {
