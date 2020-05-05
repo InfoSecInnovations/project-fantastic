@@ -1,6 +1,7 @@
 const {remove} = require('../db')
+const LastAdmin = require('./lastadmin')
 
-// TODO: don't allow deleting the last admin
-const deleteAccount = username => remove({table: 'users', conditions: {columns: {username}}})
+const deleteAccount = username => LastAdmin(username)
+  .then(res => remove({table: 'users', conditions: {columns: {username}}}))
 
 module.exports = deleteAccount

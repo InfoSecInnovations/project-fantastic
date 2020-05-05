@@ -33,6 +33,10 @@ td .button {
   margin: 0.2rem auto;
 }
 
+.table_cell {
+  display: flex;
+}
+
 .input_container {
   margin: 0.5rem 0;
 }

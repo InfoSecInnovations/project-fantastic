@@ -11,6 +11,13 @@ const create_option = (text, value, selected) => {
   return elm
 }
 
+const create_button = (text, onclick) => {
+  const button = create('div', text)
+  button.className = 'button'
+  button.onclick = onclick
+  return button
+}
+
 let state = {data: {}}
 
 const update = func => {
@@ -20,7 +27,7 @@ const update = func => {
   .then(res => res.text())
   .then(res => res.length ? JSON.parse(res) : {})
   .then(res => {
-    state = {...state, data: res, loading: false}
+    state = {data: res, loading: false, confirm: false}
     render(state)
   })
 }
@@ -51,12 +58,32 @@ const render = state => {
     method: 'post',
     body: JSON.stringify({username: state.data.username, role: e.target.value}),
   }))
-  const delete_button = row.appendChild(document.createElement('td')).appendChild(create('div', 'Delete'))
-  delete_button.className = 'button'
-  delete_button.onclick = e => update(() => fetch('/auth/admin/deleteaccount', {
-    method: 'post',
-    body: state.data.username
-  }))
+  if (state.confirm) {
+    const cell = row.appendChild(document.createElement('td'))
+    cell.appendChild(create('div', `delete ${state.data.username}?`))
+    const buttons = cell.appendChild(document.createElement('div'))
+    buttons.className = 'table_cell'
+    buttons.appendChild(
+      create_button('Yes', e => 
+        update(() => fetch('/auth/admin/deleteaccount', {
+          method: 'post',
+          body: state.data.username
+        }))
+      )
+    )
+    buttons.appendChild(create_button('No', e => {
+      state.confirm = false
+      render(state)
+    }))
+  }
+  else {
+    const delete_button = row.appendChild(document.createElement('td')).appendChild(create('div', 'Delete'))
+    delete_button.className = 'button'
+    delete_button.onclick = e => {
+      state.confirm = true
+      render(state)
+    }
+  }
 }
 
 function GetUser(form) {

@@ -5,7 +5,12 @@ const deleteAccount = (res, req) => {
   res.onAborted(() => res.aborted = true)
   CheckAdmin(res, req)
   .then(async result => {
-    await DeleteAccount(result.data)
+    try {
+      await DeleteAccount(result.data)
+    }
+    catch(err) {
+      if (err.last_admin) return res.end(JSON.stringify({error: 'Deleting this account would mean that there would no longer be any admin accounts!'}))
+    }
     res.end()
   })
   .catch(() => {})
