@@ -1,5 +1,4 @@
-const DB = require('../db')
-const {all} = require('fantastic-utils/db')(require('../db/path'))
+const {all, addConnections, updateNode, addNodes} = require('../db')
 const RunPowerShell = require('fantastic-cli/runpowershell')
 const FlatUnique = require('fantastic-utils/flatunique')
 const DefaultIPs = require('fantastic-utils/defaultips')
@@ -52,7 +51,7 @@ const create_commands = commands =>
 const run = async get_commands => {
   const commands = create_commands(get_commands())
   if (!commands) return setTimeout(() => run(get_commands), 1000)
-  const ids = await get_node(commands).then(res => DB.addNodes([{...res, access: 'local'}], true)) // create the initial node belonging to the local host
+  const ids = await get_node(commands).then(res => addNodes([{...res, access: 'local'}], true)) // create the initial node belonging to the local host
   const local = ids[0]
   const loop = async () => {
     console.log('starting host data loop...')
@@ -62,8 +61,8 @@ const run = async get_commands => {
     await run_type(commands, 'hosts', 'local')
       .then(async res => {
         for (const r of res) {
-          await DB.updateNode(local, r.local)
-          await DB.addNodes(r.remote)
+          await updateNode(local, r.local)
+          await addNodes(r.remote)
         }
       })
       .then (() => {
@@ -76,17 +75,17 @@ const run = async get_commands => {
             const res = await RunPowerShell(`Test-WsMan ${hostname}`) // if Test-WsMan doesn't error it means we can run remote commands on this host             
             if (res) {
               remote.push({ id: v.node_id, hostname })
-              DB.updateNode(v.node_id, { access: 'remote' }, true)
+              updateNode(v.node_id, { access: 'remote' }, true)
             }    
           })))
           .then(() => console.log(`found ${remote.length} hosts with remote access enabled.`))
       })
       .then(() => Promise.all([
-        run_type(commands, 'connections', 'local').then(res => DB.addConnections(local, res)),
-        get_node(commands).then(res => DB.updateNode(local, res, true)),
+        run_type(commands, 'connections', 'local').then(res => addConnections(local, res)),
+        get_node(commands).then(res => updateNode(local, res, true)),
         ...remote.map(v => [
-          run_type(commands, 'connections', 'remote', v.hostname).then(res => DB.addConnections(v.id, res, true)),
-          get_node(commands, v.hostname).then(res => DB.updateNode(v.id, res, true))
+          run_type(commands, 'connections', 'remote', v.hostname).then(res => addConnections(v.id, res, true)),
+          get_node(commands, v.hostname).then(res => updateNode(v.id, res, true))
         ]).flat()
       ]))
       .then(() => loop ())

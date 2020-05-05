@@ -7,7 +7,7 @@ init()
 .then(() => GetConfig())
 .then(config => get({table: 'users', columns: ['user_id'], conditions: {columns: {username: config.admin_account.username, role: 'admin'}, combine: 'OR'}})
   .then(row => {
-    if (!row) CreateAccount(config.admin_account.username, config.admin_account.password, 'admin')
+    if (!row) return CreateAccount(config.admin_account.username, config.admin_account.password, 'admin')
   })
 )
 .catch(err => console.log(err.message))

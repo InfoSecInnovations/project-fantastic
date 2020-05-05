@@ -1,4 +1,4 @@
-const {get} = require('fantastic-utils/db')(require('../db/path'))
+const {get} = require('../db')
 const GetAction = require('../util/getpackagedasset')
 const UpdateResult = require('./updateresult')
 
