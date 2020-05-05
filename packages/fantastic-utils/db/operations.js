@@ -64,7 +64,10 @@ const insert = (table, row) =>
   db => new Promise(
     (resolve, reject) => db.run(
       `INSERT INTO ${table} ${row && Object.keys(row).length ? `(${Object.keys(row).join()})
-      VALUES(${Object.values(row).map(format_value).join()})` : 'DEFAULT VALUES'}`,
+      VALUES(${Object.values(row).map(v => '?').join(', ')})` : 'DEFAULT VALUES'}`,
+      [
+        ...(row && Object.values(row) || [])
+      ],
       function (err) {
         if (err) return reject(err)
         resolve(this.lastID)
@@ -72,7 +75,7 @@ const insert = (table, row) =>
     )
   )
 
-const update_new = query =>
+const update = query =>
   db => new Promise(
     (resolve, reject) => {
       const row = Object.entries(query.row).filter(v => typeof v[1] !== 'undefined')
@@ -124,4 +127,4 @@ const remove = query => run([
   ${where(query.conditions)}`
 ])
 
-module.exports = {insert, update: update_new, get, all, run, remove}
+module.exports = {insert, update, get, all, run, remove}
