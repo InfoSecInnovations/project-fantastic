@@ -14,9 +14,15 @@
         <div id="content">
           <h3 id="username">username</h3>
           <div id="role">Role: role</div>
-          <a href="/auth/logout">
-            <div class="button">Log Out</div>
-          </a>
+          <div class="buttons">
+            <a href="/">
+              <div class="button">Continue to app</div>
+            </a>
+            <a href="/auth/logout">
+              <div class="button">Log Out</div>
+            </a>
+            <div class="button" onclick="deleteButton(this)">Delete Account</div>
+          </div>
           <h3>Change Password</h3>
           <form action="auth/changepassword" method="post">
             <div class="item input_container">

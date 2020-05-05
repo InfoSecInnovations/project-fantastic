@@ -13,7 +13,7 @@ const register = (res, req) => {
     const row = await get({table: 'users', columns: ['user_id'], conditions: {columns: {username: json.username}}})
     if (row) return Error(res, 'user already exists or username is invalid!')
     const id = await CreateAccount(json.username, json.password, 'user')
-    Success(res, id)
+    Success(res, id, '/auth')
   })
 }
 

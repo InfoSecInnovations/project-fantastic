@@ -52,3 +52,7 @@ input[type=button], input[type=submit], input[type=reset], .button {
   font-size: 1rem;
   flex-grow: 0;
 }
+
+.confirm {
+  margin-right: 1rem;
+}

@@ -19,6 +19,7 @@ const configure = app => {
   app.post('/auth/changepassword', require('./http/changepassword'))
   app.get('/auth/myaccount', require('./http/myaccount'))
   app.get('/auth/logout', require('./http/logout'))
+  app.post('/auth/deleteaccount', require('./http/deleteaccount'))
   app.get('/auth/admin', (res, req) => Serve('adminlogin.html', res))
   app.post('/auth/admin', require('./admin/login'))
   app.post('/auth/admin/getuser', require('./admin/getaccount'))

@@ -103,6 +103,7 @@ a {
 
 .buttons {
   display: flex;
+  align-items: center;
 }
 
 input[type=button], input[type=submit], input[type=reset], .button {
