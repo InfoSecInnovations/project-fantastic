@@ -15,7 +15,7 @@ const postCommands = (res, req, commands) => {
     Object.entries(query).forEach(v => { // we should do this instead of just returning the query in case the user sends a bad post request to the server
       if (commands.hasOwnProperty(v[0])){
         const command = GetCommand(v[0])
-        if (!HasRole(user, command.role || 'user')) return
+        if (!HasRole(user, command.role)) return
         commands[v[0]] = v[1] === 'true' // all the query values are strings
         console.log(`${v[0]} command ${commands[v[0]] ? 'enabled' : 'disabled'}`)
       }

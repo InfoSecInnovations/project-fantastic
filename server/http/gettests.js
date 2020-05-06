@@ -15,7 +15,7 @@ const getTests = (res, req, tests) => {
         // TODO: filter out invalid scripts and warn the user
         return {...GetAsset(v), key: v}
       })
-      .filter(v => HasRole(user, v.role || 'user'))
+      .filter(v => HasRole(user, v.role))
       .reduce((result, v) => ({ 
           ...result, 
           [v.key]: {name: v.name, description: v.description, hosts: v.hosts, pass: v.pass, parameters: v.parameters}

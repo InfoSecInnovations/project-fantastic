@@ -1,19 +1,21 @@
 const GetAction = require('../util/getpackagedasset')
-const ValidateRole = require('./auth/validaterole')
+const HasRole = require('fantastic-utils/hasrole')
+const Auth = require('./auth')
 const Abort = require('./abort')
 
 const getActions = (res, req, actions) => {
   console.log('-----------')
   console.log('received http request to get available actions...')
   res.onAborted(() => Abort(res))
-  ValidateRole(req.getHeader('cookie'), 'user')  // TODO: filter actions by role
-  .then(valid => {
-    if (!valid) return !res.aborted && res.end()
+  Auth(req.getHeader('cookie'))
+  .then(user => {
+    if (!user) return !res.aborted && res.end()
     const action_data = actions
     .map(v => {
       // TODO: filter out invalid scripts and warn the user
       return {...GetAction(v), key: v}
     })
+    .filter(v => HasRole(user, v.role))
     .reduce((result, v) => ({ 
       ...result, 
       [v.key]: {name: v.name, description: v.description, hosts: v.hosts}

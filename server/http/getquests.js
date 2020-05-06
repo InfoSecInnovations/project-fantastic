@@ -18,7 +18,7 @@ const getQuests = (res, req, quests) => { // TODO: this should get daily quests,
     })
     .reduce((result, v) => {
       const test = GetAsset(v.test)
-      if (!HasRole(user, test.role || 'user')) return result
+      if (!HasRole(user, test.role)) return result
       return { 
         ...result, 
         [v.key]: {name: v.name, description: `${test.description} ${v.description}`, hosts: test.hosts, pass: test.pass, parameters: v.parameters}

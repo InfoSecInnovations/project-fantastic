@@ -16,6 +16,7 @@ const firewall = {
   name: 'Check Windows Defender Firewall Status',
   description: "This command should show the three default profiles (there might be more though).",
   hosts: ['local', 'remote'],
+  role: 'privileged',
   run: hostname => InvokeCommandJSON('get-netfirewallprofile | select name,enabled', hostname)
     .then(res => res.map(v => ({ // TODO fallback netsh command and parsing
       name: v.name,

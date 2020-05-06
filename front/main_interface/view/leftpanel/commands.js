@@ -8,7 +8,7 @@ const commands = (state, send) => H('div.scroll_container.panel', [
   H('div.scroll', Object.entries(state.commands).map(v => H('div.scroll_item', [
     H('div.item', [
       H('div.subtitle', v[1].name),
-      HasRole(state.user, v[1].role || 'user') ? H('div.button', 
+      HasRole(state.user, v[1].role) ? H('div.button', 
         {
           on: {click: [send, {type: 'enable_command', command: v[0], enabled: !v[1].enabled}]},
           class: {disabled: !v[1].enabled}

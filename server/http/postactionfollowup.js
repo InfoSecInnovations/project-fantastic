@@ -4,6 +4,7 @@ const RunActionFunction = require('../actions/runactionfunction')
 const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
+const GetAsset = require('../util/getpackagedasset')
 
 const postActionFollowup = (res, req) => {
   res.onAborted(() => Abort(res))
@@ -14,7 +15,10 @@ const postActionFollowup = (res, req) => {
   GetHTTPData(res)
   .then(async data => {
     const user = await Auth(header)
-    if (!user || !HasRole(user, 'user')) return !res.aborted && res.end() // TODO: check role specific to action
+    if (!user) return !res.aborted && res.end()
+    const action = GetAsset(query.action)
+    if (!HasRole(user, action.role)) return !res.aborted && res.end()
+    const date = Date.now()
     const json = JSON.parse(data)
     const result = await RunActionFunction(query.action, query.function, query.node_id, user.user_id, date, json, query.key)
     if (res.aborted) return

@@ -3,6 +3,7 @@ const Abort = require('./abort')
 const RunActionFunction = require('../actions/runactionfunction')
 const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
+const GetAsset = require('../util/getpackagedasset')
 
 const postActions = (res, req, config) => {
   res.onAborted(() => Abort(res))
@@ -11,7 +12,9 @@ const postActions = (res, req, config) => {
   console.log(`received http request to execute ${query.action} on node ${query.node_id}...`)
   Auth(req.getHeader('cookie'))
   .then(user => {
-    if (!user || !HasRole(user, 'user')) return !res.aborted && res.end() // TODO: check role specific to action
+    if (!user) return !res.aborted && res.end()
+    const action = GetAsset(query.action)
+    if (!HasRole(user, action.role)) return !res.aborted && res.end()
     const date = Date.now()
     RunActionFunction(query.action, 'run', query.node_id, user.user_id, date)
     .then(result => {
