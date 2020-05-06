@@ -9,7 +9,7 @@ const getNodes = (res, req) => {
   console.log('http request for nodes incoming...')
   const start = Date.now()
   const query = ParseQuery(req.getQuery())
-  ValidateRole(res, req, 'user')
+  ValidateRole(req.getHeader('cookie'), 'user')
   .then(valid => {
     if (!valid) return !res.aborted && res.end()
     console.log(`from ${Math.floor((Date.now() - query.date) / 1000 / 60)} minutes ago`)

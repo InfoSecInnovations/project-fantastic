@@ -2,26 +2,26 @@ const run = queries => db => db.serialize(() => {
   queries.forEach(v => db.run(v, err => err && console.log(err.message)))
 })
 
-const condition_entry_new = (v, compare) => {
+const condition_entry = (v, compare) => {
   if (!compare) compare = '='
-  if ((typeof v[1] === 'undefined' || v[1] === null) && compare === '=') return {text: `$[v[0]] IS NULL`}
+  if ((typeof v[1] === 'undefined' || v[1] === null) && compare === '=') return {text: `${v[0]} IS NULL`}
   if (Array.isArray(v[1])) {
     return {text: `${v[0]} ${compare} (${v[1].map(() => '?').join(', ')})`, values: v[1]}
   }
   return {text: `${v[0]} ${compare} ?`, values: v[1]}
 }
 
-const condition_group_new = group => {
-  const groups = Array.isArray(group.columns) ? group.columns.map(v => condition_entry_new(v, group.compare)) : Object.entries(group.columns).map(v => condition_entry_new(v, group.compare))
+const condition_group = group => {
+  const groups = Array.isArray(group.columns) ? group.columns.map(v => condition_entry(v, group.compare)) : Object.entries(group.columns).map(v => condition_entry(v, group.compare))
   return {
     text: groups.map(v => v.text).join(` ${group.combine || 'AND'} `),
-    values: groups.map(v => v.values).flat()
+    values: groups.filter(v => typeof v.values !== 'undefined' && v.values !== null).map(v => v.values).flat()
   }
 }
 
 const where = conditions => {
   if (!conditions) return {text: '', values: []} // TODO: filter out invalid values here, especially empty arrays
-  const groups = conditions.groups ? conditions.groups.map(v => condition_group_new(v)) : [condition_group_new(conditions)]
+  const groups = conditions.groups ? conditions.groups.map(v => condition_group(v)) : [condition_group(conditions)]
   return {
     text: `WHERE ${groups.map(v => v.text).join(` ${conditions.combine || 'AND'} `)}`,
     values: groups.map(v => v.values).flat()

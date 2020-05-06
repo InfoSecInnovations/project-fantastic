@@ -7,7 +7,7 @@ const getQuests = (res, req, quests) => { // TODO: this should get daily quests,
   console.log('-----------')
   console.log('received http request to get available quests...')
   res.onAborted(() => Abort(res))
-  Auth(res, req)
+  Auth(req.getHeader('cookie'))
   .then(user => {
     if (!HasRole(user, 'user')) return !res.aborted && res.end()
     // TODO: filter by role and current quest status

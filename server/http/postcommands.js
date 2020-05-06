@@ -7,7 +7,7 @@ const postCommands = (res, req, commands) => {
   const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log('received http request to change command settings...')
-  ValidateRole(res, req, 'user') // TODO: validate required role to toggle command
+  ValidateRole(req.getHeader('cookie'), 'user') // TODO: validate required role to toggle command
   .then(valid => {
     if (!valid) return !res.aborted && res.end()
     Object.entries(query).forEach(v => { // we should do this instead of just returning the query in case the user sends a bad post request to the server

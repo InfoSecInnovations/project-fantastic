@@ -6,7 +6,7 @@ const getTests = (res, req, tests) => {
   res.onAborted(() => Abort(res))
   console.log('-----------')
   console.log('received http request to get available tests...')
-  ValidateRole(res, req, 'user')  // TODO: filter tests by role
+  ValidateRole(req.getHeader('cookie'), 'user')  // TODO: filter tests by role
   .then(valid => {
     if (!valid) return !res.aborted && res.end()
     const test_data = tests

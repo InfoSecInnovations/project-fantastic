@@ -4,7 +4,7 @@ const HasRole = require('./auth/hasrole')
 
 const main = (res, req) => {
   res.onAborted(() => res.aborted = true)
-  Auth(res, req)
+  Auth(req.getHeader('cookie'))
   .then(user => {
     if (!user) {
       res.writeStatus('302')

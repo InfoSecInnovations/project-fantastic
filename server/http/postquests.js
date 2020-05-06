@@ -8,7 +8,7 @@ const postActions = (res, req) => {
   const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log(`received http request to start ${query.quest}...`)
-  ValidateRole(res, req, 'user') // TODO: validate required role for quest
+  ValidateRole(req.getHeader('cookie'), 'user') // TODO: validate required role for quest
   .then(valid => {
     if (!valid) return !res.aborted && res.end()
     const date = Date.now()

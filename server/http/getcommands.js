@@ -6,7 +6,7 @@ const getCommands = (res, req, commands) => {
   console.log('-----------')
   console.log('received http request to get command settings...')
   res.onAborted(() => Abort(res))
-  ValidateRole(res, req, 'user')
+  ValidateRole(req.getHeader('cookie'), 'user')
   .then(valid => {
     if (!valid) return !res.aborted && res.end()
     const command_data = Object.entries(commands)

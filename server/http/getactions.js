@@ -6,7 +6,7 @@ const getActions = (res, req, actions) => {
   console.log('-----------')
   console.log('received http request to get available actions...')
   res.onAborted(() => Abort(res))
-  ValidateRole(res, req, 'user')  // TODO: filter actions by role
+  ValidateRole(req.getHeader('cookie'), 'user')  // TODO: filter actions by role
   .then(valid => {
     if (!valid) return !res.aborted && res.end()
     const action_data = actions

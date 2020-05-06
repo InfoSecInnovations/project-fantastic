@@ -2,8 +2,7 @@ const FS = require('fs').promises
 const GetCookie = require('fantastic-utils/getcookie')
 
 const cookie_name = 'session_id'
-const auth = (res, req) => {
-  const header = req.getHeader('cookie')
+const auth = header => {
   return FS.readFile('config/config.json')
   .then(file => JSON.parse(file))
   .then(config => {
