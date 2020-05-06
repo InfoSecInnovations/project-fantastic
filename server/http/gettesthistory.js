@@ -1,13 +1,16 @@
 const { all } = require('../db')
 const Abort = require('./abort')
+const Auth = require('./auth')
 
 const getQuestHistory = (res, req) => {
   res.onAborted(() => Abort(res))
   const start = Date.now()
   console.log('-----------')
   console.log(`http request for test history incoming...`)
-  // TODO: filter by user
-  all({table: 'test_history'}).then(rows => {
+  Auth(req.getHeader('cookie'))
+  .then(async user => {
+    if (!user) return !res.aborted && res.end()
+    const rows = await all({table: 'test_history', conditions: {columns: {user_id: user.user_id}}})
     if (res.aborted) return
     console.log(`got test history from database in ${Date.now() - start}ms, returning results!`)
     console.log('-----------')

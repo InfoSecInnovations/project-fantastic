@@ -1,8 +1,8 @@
 const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
 const RunTest = require('../tests/runtest')
-const ValidateRole = require('./auth/validaterole')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
+const Auth = require('./auth')
 
 const postTests = (res, req) => {
   res.onAborted(() => Abort(res))
@@ -12,11 +12,11 @@ const postTests = (res, req) => {
   console.log(`received http request to start ${query.test}...`)
   GetHTTPData(res)
   .then(async data => {
-    const valid = await ValidateRole(header, 'user')
-    if (!valid) return !res.aborted && res.end()
+    const user = await Auth(header)
+    if (!user) return !res.aborted && res.end() // TODO: check if user has required role to run test
     const date = Date.now()
     const json = JSON.parse(data)
-    const result = await RunTest(query.test, date, query.date, json)
+    const result = await RunTest(query.test, user.user_id, date, query.date, json)
     if (res.aborted) return
     console.log(`completed quest ${query.test}, queried ${result.length} nodes`)
     console.log('-----------')
