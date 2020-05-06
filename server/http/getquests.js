@@ -9,7 +9,7 @@ const getQuests = (res, req, quests) => { // TODO: this should get daily quests,
   res.onAborted(() => Abort(res))
   Auth(req.getHeader('cookie'))
   .then(user => {
-    if (!HasRole(user, 'user')) return !res.aborted && res.end()
+    if (!user) return !res.aborted && res.end()
     // TODO: filter by role and current quest status
     const quest_data = quests
     .map(v => {
@@ -18,6 +18,7 @@ const getQuests = (res, req, quests) => { // TODO: this should get daily quests,
     })
     .reduce((result, v) => {
       const test = GetAsset(v.test)
+      if (!HasRole(user, test.role || 'user')) return result
       return { 
         ...result, 
         [v.key]: {name: v.name, description: `${test.description} ${v.description}`, hosts: test.hosts, pass: test.pass, parameters: v.parameters}

@@ -3,6 +3,8 @@ const Abort = require('./abort')
 const RunTest = require('../tests/runtest')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
 const Auth = require('./auth')
+const GetAsset = require('../util/getpackagedasset')
+const HasRole = require('fantastic-utils/hasrole')
 
 const postTests = (res, req) => {
   res.onAborted(() => Abort(res))
@@ -13,7 +15,9 @@ const postTests = (res, req) => {
   GetHTTPData(res)
   .then(async data => {
     const user = await Auth(header)
-    if (!user) return !res.aborted && res.end() // TODO: check if user has required role to run test
+    if (!user) return !res.aborted && res.end()
+    const test = GetAsset(query.test)
+    if (!HasRole(user, test.role || 'user')) return !res.aborted && res.end()
     const date = Date.now()
     const json = JSON.parse(data)
     const result = await RunTest(query.test, user.user_id, date, query.date, json)
