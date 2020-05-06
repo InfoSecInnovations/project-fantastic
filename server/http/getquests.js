@@ -1,6 +1,6 @@
 const GetAsset = require('../util/getpackagedasset')
 const Auth = require('./auth')
-const HasRole = require('./auth/hasrole')
+const HasRole = require('fantastic-utils/hasrole')
 const Abort = require('./abort')
 
 const getQuests = (res, req, quests) => { // TODO: this should get daily quests, instead of all of them.

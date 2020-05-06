@@ -1,6 +1,6 @@
 const Auth = require('./auth')
 const Serve = require('./serve')
-const HasRole = require('./auth/hasrole')
+const HasRole = require('fantastic-utils/hasrole')
 
 const main = (res, req) => {
   res.onAborted(() => res.aborted = true)

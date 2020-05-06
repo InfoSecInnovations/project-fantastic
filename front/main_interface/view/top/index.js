@@ -4,7 +4,11 @@ const Search = require('./search')
 const top = (state, send) => H('div#top', [
   H('h1', "Fantastic"),
   Search(state, send),
-  H('div.buttons', [
+  state.user ? H('div.buttons', [
+    H('div.user_info', [
+      H('div.username', state.user.username),
+      H('div.item', `Role: ${state.user.role}`)
+    ]),
     H('div.icon_button', {
       on: {click: e => window.open('/auth', '_self')}
     }, [
@@ -23,7 +27,7 @@ const top = (state, send) => H('div#top', [
       H('span.fas fa-question-circle fa-fw'),
       H('div.label', 'Help')
     ])
-  ])
+  ]) : undefined
 ])
 
 module.exports = top

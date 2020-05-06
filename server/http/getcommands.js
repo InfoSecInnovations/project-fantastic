@@ -17,7 +17,7 @@ const getCommands = (res, req, commands) => {
     })
     .reduce((result, v) => ({ 
       ...result, 
-      [v.key]: {name: v.name, description: v.description, hosts: v.hosts, enabled: v.enabled}
+      [v.key]: {name: v.name, description: v.description, hosts: v.hosts, enabled: v.enabled, role: v.role}
     }), {})
     console.log(`sent metadata for ${Object.keys(command_data).length} commands.`)
     console.log('-----------')

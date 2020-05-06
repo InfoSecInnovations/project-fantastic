@@ -9,6 +9,9 @@ const init = send => {
   fetch('/tests')
   .then(res => res.json())
   .then(res => send({type: 'tests', tests: res}))
+  fetch('/user')
+  .then(res => res.json())
+  .then(res => send({type: 'user', user: res}))
   window.onkeydown = e => {
     if (e.key === 'Shift') send({type: 'key', key: 'shift', value: true})
   }

@@ -243,3 +243,13 @@ label {
   width: 1.5rem;
   height: 1.5rem;
 }
+
+.user_info {
+  margin: 0.5rem;
+}
+
+.username {
+  font-weight: bold;
+  margin: 0;
+  font-size: 0.92rem;
+}
