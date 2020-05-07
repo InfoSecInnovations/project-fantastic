@@ -5,6 +5,7 @@ init()
 
 const configure = app => {
   app.get('/auth', require('./http/auth'))
+  app.get('/auth/myaccount', require('./http/myaccount'))
   app.get('/auth/public/*', (res, req) => {
     const url = req.getUrl()
     const split = url.split('/')

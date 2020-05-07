@@ -28,6 +28,7 @@ const login = (res, req) => {
       }
     }
     catch(err) {
+      res.end()
       return console.log(`Active Directory authentication error: ${JSON.stringify(err)}`)
     }
   })
