@@ -1,5 +1,5 @@
 const BCrypt = require('bcrypt')
-const GenerateID = require('../utils/generateid')
+const GenerateID = require('fantastic-utils/generateid')
 const {get, update} = require('../db')
 
 const login = json => get({table: 'users', conditions: {columns: {username: json.username}}})

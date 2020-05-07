@@ -1,0 +1,12 @@
+{
+  "credentials": { "url": "ldap://dc.domain.com",
+    "baseDN": "dc=domain,dc=com",
+    "username": "username@domain.com",
+    "password": "password"
+  },
+  "groups": {
+    "user": "fantastic-user",
+    "privileged": "fantastic-privileged",
+    "admin": "fantastic-admin"
+  }
+}

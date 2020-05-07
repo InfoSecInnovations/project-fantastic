@@ -1,5 +1,5 @@
 const {get} = require('../db')
 
-const verify = session_id => session_id ? get({table: 'users', columns: ['user_id', 'username'], conditions: {columns: {session_id}}}) : Promise.resolve() // TODO: check Active Directory group to get role
+const verify = session_id => session_id ? get({table: 'users', columns: ['user_id', 'role', 'username'], conditions: {columns: {session_id}}}) : Promise.resolve()
 
 module.exports = verify

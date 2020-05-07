@@ -1,7 +1,7 @@
 const Login = require('../accounts/login')
 const Serve = require('../http/serve')
 const ParseQuery = require('fantastic-utils/parsequery')
-const GenerateID = require('../utils/generateid')
+const GenerateID = require('fantastic-utils/generateid')
 const {get, update} = require('../db')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
 const Error = require('../http/error')

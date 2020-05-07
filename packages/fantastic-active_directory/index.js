@@ -1,7 +1,10 @@
 const Serve = require('./http/serve')
+const {init} = require('./db')
+
+init()
 
 const configure = app => {
-  app.get('/auth', (res, req) => Serve('auth.html', res))
+  app.get('/auth', require('./http/auth'))
   app.get('/auth/public/*', (res, req) => {
     const url = req.getUrl()
     const split = url.split('/')
