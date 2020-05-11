@@ -4,7 +4,7 @@ const RunActionFunction = require('../actions/runactionfunction')
 const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
-const GetAsset = require('../util/getpackagedasset')
+const GetAsset = require('../util/getpackagedfunction')
 
 const postActionFollowup = (res, req) => {
   res.onAborted(() => Abort(res))

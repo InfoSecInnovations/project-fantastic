@@ -2,7 +2,7 @@ const {all, addConnections, updateNode, addNodes} = require('../db')
 const RunPowerShell = require('fantastic-cli/runpowershell')
 const FlatUnique = require('fantastic-utils/flatunique')
 const DefaultIPs = require('fantastic-utils/defaultips')
-const GetCommand = require('../util/getpackagedasset')
+const GetCommand = require('../util/getpackagedfunction')
 
 const run_type = (commands, result_type, host, hostname) => commands[result_type] ?
   Promise.all(commands[result_type].filter(v => v.hosts.includes(host)).map(v => v.run(hostname))).then(FlatUnique) :

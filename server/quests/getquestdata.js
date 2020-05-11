@@ -1,13 +1,14 @@
-const GetConfigPath = require('../util/getconfigpath')
-const Path = require('path')
+const GetPackage = require('../util/getpackage')
 
 const getQuestData = async config => {
   if (!config.quests) return []
-  const path = await GetConfigPath()
-  return config.quests.map(v => {
-    const package = require(Path.join(path, 'node_modules', v))
-    return Object.keys(package).map(k => `${v}/${k}`)
-  }).flat()
+  return await Promise.all(
+    config.quests.map(v => 
+      GetPackage(v)
+      .then(res => Object.keys(res).map(k => `${v}/${k}`))
+    )
+  )
+  .then(res => res.flat())
 }
 
 module.exports = getQuestData

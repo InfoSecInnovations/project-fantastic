@@ -1,4 +1,4 @@
-const GetQuest = require('../util/getpackagedasset')
+const GetQuest = require('../util/getpackagedfunction')
 const RunTest = require('../tests/runtest')
 const UpdateHistory = require('./updatehistory')
 

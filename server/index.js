@@ -10,7 +10,7 @@ const GetTestData = require('./tests/gettestdata')
 const GetConfig = require('./util/getconfig')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
-const GetConfigPath = require('./util/getconfigpath')
+const GetPackage = require('./util/getpackage')
 
 const main = async () => {
 
@@ -43,7 +43,7 @@ const main = async () => {
     if (data_process) data_process.kill()
   })
 
-  const auth_module = await GetConfigPath().then(res => require(Path.join(res, 'node_modules', config.authentication)))
+  const auth_module = await GetPackage(config.authentication)
 
   const app = UWS.SSLApp({
     key_file_name: 'cert/key',

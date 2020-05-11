@@ -1,5 +1,5 @@
 const {all} = require('../db')
-const GetTest = require('../util/getpackagedasset')
+const GetTest = require('../util/getpackagedfunction')
 const RunAction = require('../actions/runactionfunction')
 const CheckResult = require('./checkresult')
 const UpdateHistory = require('./updatehistory')

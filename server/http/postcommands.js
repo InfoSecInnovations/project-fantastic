@@ -1,7 +1,7 @@
 const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
 const Auth = require('./auth')
-const GetCommand = require('../util/getpackagedasset')
+const GetCommand = require('../util/getpackagedfunction')
 const HasRole = require('fantastic-utils/hasrole')
 
 const postCommands = (res, req, commands) => {

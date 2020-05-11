@@ -1,5 +1,5 @@
 const {get} = require('../db')
-const GetAction = require('../util/getpackagedasset')
+const GetAction = require('../util/getpackagedfunction')
 const UpdateResult = require('./updateresult')
 
 const runActionFunction = async (action, func, node_id, user_id, date, data, key) => {

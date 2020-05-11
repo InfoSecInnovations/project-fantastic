@@ -1,7 +1,6 @@
 const GetCookie = require('fantastic-utils/getcookie')
 const GetConfig = require('../../util/getconfig')
-const GetConfigPath = require('../../util/getconfigpath')
-const Path = require('path')
+const GetPackage = require('../../util/getpackage')
 
 const redirect = res => {
   res.writeStatus('302 Found')
@@ -15,8 +14,7 @@ const logOut = async (res, req) => {
   const header = req.getHeader('cookie')
   const config = await GetConfig()
   const session_id = GetCookie(header, cookie_name)
-  const path = await GetConfigPath()
-  const auth_module = require(Path.join(path, 'node_modules', config.authentication))
+  const auth_module = await GetPackage(config.authentication)
   await auth_module.invalidate(session_id)
   return redirect(res)
 }
