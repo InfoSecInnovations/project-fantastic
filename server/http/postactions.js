@@ -11,9 +11,9 @@ const postActions = (res, req, config) => {
   console.log('-----------')
   console.log(`received http request to execute ${query.action} on node ${query.node_id}...`)
   Auth(req.getHeader('cookie'))
-  .then(user => {
+  .then(async user => {
     if (!user) return !res.aborted && res.end()
-    const action = GetAsset(query.action)
+    const action = await GetAsset(query.action)
     if (!HasRole(user, action.role)) return !res.aborted && res.end()
     const date = Date.now()
     RunActionFunction(query.action, 'run', query.node_id, user.user_id, date)

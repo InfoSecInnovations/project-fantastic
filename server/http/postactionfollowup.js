@@ -16,7 +16,7 @@ const postActionFollowup = (res, req) => {
   .then(async data => {
     const user = await Auth(header)
     if (!user) return !res.aborted && res.end()
-    const action = GetAsset(query.action)
+    const action = await GetAsset(query.action)
     if (!HasRole(user, action.role)) return !res.aborted && res.end()
     const date = Date.now()
     const json = JSON.parse(data)

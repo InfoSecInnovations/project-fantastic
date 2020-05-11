@@ -1,19 +1,21 @@
 const UWS = require('uWebSockets.js')
 const FS = require('fs').promises
+const Path = require('path')
 const DB = require('./db')
 const {fork} = require('child_process')
-
 const GetCommandData = require('./commands/getcommanddata')
 const RunCommands = require('./commands/runcommands')
 const GetActionData = require('./actions/getactiondata')
 const GetQuestData = require('./quests/getquestdata')
 const GetTestData = require('./tests/gettestdata')
+const GetConfig = require('./util/getconfig')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
+const GetConfigPath = require('./util/getconfigpath')
 
 const main = async () => {
 
-  let config = await FS.readFile('config/config.json').then(res => JSON.parse(res))
+  let config = await GetConfig()
   let data_process
   
   let command_data = await GetCommandData(config)
@@ -42,7 +44,7 @@ const main = async () => {
     if (data_process) data_process.kill()
   })
 
-  const auth_module = require(`./config/node_modules/${config.authentication}`)
+  const auth_module = await GetConfigPath().then(res => require(Path.join(res, 'node_modules', config.authentication)))
 
   const app = UWS.SSLApp({
     key_file_name: 'cert/key',

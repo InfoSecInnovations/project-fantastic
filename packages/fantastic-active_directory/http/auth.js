@@ -4,7 +4,7 @@ const GetCookie = require('fantastic-utils/getcookie')
 const auth = (res, req) => {
   res.onAborted(() => res.aborted = true)
   const session_id = GetCookie(req.getHeader('cookie'), 'session_id')
-  if (!session_id) res.end(error)
+  if (!session_id) return Serve('auth.html', res)
   get({table: 'users', columns: ['username'], conditions: {columns: {session_id}}})
   .then(row => {
     if (!row) return Serve('auth.html', res)

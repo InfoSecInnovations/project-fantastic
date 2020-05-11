@@ -10,16 +10,19 @@ const postCommands = (res, req, commands) => {
   console.log('-----------')
   console.log('received http request to change command settings...')
   return Auth(req.getHeader('cookie'))
-  .then(user => {
+  .then(async user => {
     if (!user) return !res.aborted && res.end()
-    Object.entries(query).forEach(v => { // we should do this instead of just returning the query in case the user sends a bad post request to the server
-      if (commands.hasOwnProperty(v[0])){
-        const command = GetCommand(v[0])
-        if (!HasRole(user, command.role)) return
-        commands[v[0]] = v[1] === 'true' // all the query values are strings
-        console.log(`${v[0]} command ${commands[v[0]] ? 'enabled' : 'disabled'}`)
-      }
-    })
+    await Promise.all(Object.entries(query)
+      .filter(v => commands.hasOwnProperty(v[0]))
+      .map(v => GetCommand(v[0]).then(c => ({...c, key: v[0], enabled: v[1]})))
+    )
+    .then(modules => modules
+      .filter(v => HasRole(user, v.role))
+      .forEach(v => {
+        commands[v.key] = v.enabled === 'true' // all the query values are strings
+        console.log(`${v.key} command ${commands[v.key] ? 'enabled' : 'disabled'}`)
+      })
+    )
     console.log('-----------')
     res.end()
     return commands

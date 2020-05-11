@@ -13,8 +13,8 @@ const postActions = (res, req) => {
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()
-    const quest = GetAsset(query.quest)
-    const test = GetAsset(quest.test)
+    const quest = await GetAsset(query.quest)
+    const test = await GetAsset(quest.test)
     if (!HasRole(user, test.role)) return !res.aborted && res.end()
     const date = Date.now()
     const result = await RunQuest(query.quest, user.user_id, date, query.date)

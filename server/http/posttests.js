@@ -16,7 +16,7 @@ const postTests = (res, req) => {
   .then(async data => {
     const user = await Auth(header)
     if (!user) return !res.aborted && res.end()
-    const test = GetAsset(query.test)
+    const test = await GetAsset(query.test)
     if (!HasRole(user, test.role)) return !res.aborted && res.end()
     const date = Date.now()
     const json = JSON.parse(data)

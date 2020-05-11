@@ -8,22 +8,27 @@ const getQuests = (res, req, quests) => { // TODO: this should get daily quests,
   console.log('received http request to get available quests...')
   res.onAborted(() => Abort(res))
   Auth(req.getHeader('cookie'))
-  .then(user => {
+  .then(async user => {
     if (!user) return !res.aborted && res.end()
-    // TODO: filter by role and current quest status
-    const quest_data = quests
-    .map(v => {
-      // TODO: filter out invalid scripts and warn the user
-      return {...GetAsset(v), key: v}
-    })
-    .reduce((result, v) => {
-      const test = GetAsset(v.test)
-      if (!HasRole(user, test.role)) return result
+    const quest_data = await Promise.all(quests
+      .map(v => GetAsset(v).then(a => ({...a, key: v})))
+    )
+    .then(quests => Promise.all(
+      quests.map(v => GetAsset(v.test).then(test => ({quest: v, test})))
+    ))
+    .then(quests => quests.reduce((result, v) => {
+      if (!HasRole(user, v.test.role)) return result
       return { 
         ...result, 
-        [v.key]: {name: v.name, description: `${test.description} ${v.description}`, hosts: test.hosts, pass: test.pass, parameters: v.parameters}
+        [v.quest.key]: {
+          name: v.quest.name, 
+          description: `${v.test.description} ${v.quest.description}`, 
+          hosts: v.test.hosts, 
+          pass: v.test.pass, 
+          parameters: v.quest.parameters
+        }
       }
-    }, {})
+    }, {}))
     console.log(`sent metadata for ${Object.keys(quest_data).length} quests.`)
     console.log('-----------')
     res.end(JSON.stringify(quest_data))

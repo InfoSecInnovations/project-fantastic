@@ -1,21 +1,23 @@
-const FSPromises = require('fs').promises
 const GetCommandData = require('./commands/getcommanddata')
 const FS = require('fs')
+const GetConfigPath = require('./util/getconfigpath')
+const Path = require('path')
+const GetConfig = require('./util/getconfig')
 
-const watchConfig = onchange => {
+const watchConfig = async onchange => {
   let fsWait
-  FS.watch('config/config.json', (e, filename) => {
+  const path = await GetConfigPath().then(res => Path.join(res, 'config.json'))
+  FS.watch(path, (e, filename) => {
     if (filename) {
       if (fsWait) return
       fsWait = setTimeout(() => { // debounce because FS.watch can trigger more than once
         fsWait = false
       }, 100)
-      FSPromises.readFile('config/config.json')
-        .then(res => JSON.parse(res))
-        .then(async res => onchange({
-          config: res,
-          command_data: await GetCommandData(res)
-        }))
+      GetConfig()
+      .then(async res => onchange({
+        config: res,
+        command_data: await GetCommandData(res)
+      }))
     }
   })
 }

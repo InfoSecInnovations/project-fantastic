@@ -6,7 +6,7 @@ const UpdateHistory = require('./updatehistory')
 
 const runTest = async (test, user_id, date, min_date, parameters) => {
   const date_condition = {columns: {date: min_date || 0}, compare: '>='} // if we didn't supply a date we want to get all of the results TODO: use full search criteria
-  const obj = GetTest(test)
+  const obj = await GetTest(test)
   const nodes = await all({table: 'nodes', conditions: {groups: [{columns: {access: obj.hosts}, compare: 'IN'}, date_condition]}})
   const results = []
   for (const action of obj.actions) {
