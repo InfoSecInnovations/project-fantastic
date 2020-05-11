@@ -55,37 +55,33 @@ const run = async get_commands => {
     const commands = await create_commands(get_commands())
     const remote = []
     console.log('finding hosts on network...')
-    await run_type(commands, 'hosts', 'local')
-      .then(async res => {
-        for (const r of res) {
-          await updateNode(local, r.local)
-          await addNodes(r.remote)
-        }
-      })
-      .then (() => {
-        console.log('finished searching for hosts, finding hosts with remote access enabled...')
-        return all({table: 'nodes', conditions: {columns: {important: true}}}) // "important" nodes are ones belonging to our network
-          .then(res => Promise.all(res.map(async v => {
-            if (v.node_id === local) return // we only want remote nodes here
-            const hostname = v.hostname
-            if (!hostname) return
-            const res = await RunPowerShell(`Test-WsMan ${hostname}`, false) // if Test-WsMan doesn't error it means we can run remote commands on this host             
-            if (res) {
-              remote.push({ id: v.node_id, hostname })
-              updateNode(v.node_id, { access: 'remote' }, true)
-            }    
-          })))
-          .then(() => console.log(`found ${remote.length} hosts with remote access enabled.`))
-      })
-      .then(() => Promise.all([
-        run_type(commands, 'connections', 'local').then(res => addConnections(local, res)),
-        get_node(commands).then(res => updateNode(local, res, true)),
-        ...remote.map(v => [
-          run_type(commands, 'connections', 'remote', v.hostname).then(res => addConnections(v.id, res, true)),
-          get_node(commands, v.hostname).then(res => updateNode(v.id, res, true))
-        ]).flat()
-      ]))
-      .then(() => loop ())
+    const hosts = await run_type(commands, 'hosts', 'local')
+    for (const host of hosts) {
+      await updateNode(local, host.local)
+      await addNodes(host.remote)
+    }
+    console.log('finished searching for hosts, finding hosts with remote access enabled...')
+    const nodes = await all({table: 'nodes', conditions: {columns: {important: true}}}) // "important" nodes are ones belonging to our network
+    await Promise.all(nodes.map(async v => {
+      if (v.node_id === local) return // we only want remote nodes here
+      const hostname = v.hostname
+      if (!hostname) return
+      const res = await RunPowerShell(`Test-WsMan ${hostname}`, false) // if Test-WsMan doesn't error it means we can run remote commands on this host             
+      if (res) {
+        remote.push({ id: v.node_id, hostname })
+        updateNode(v.node_id, { access: 'remote' }, true)
+      }    
+    }))
+    console.log(`found ${remote.length} hosts with remote access enabled.`)
+    await Promise.all([
+      run_type(commands, 'connections', 'local').then(res => addConnections(local, res)),
+      get_node(commands).then(res => updateNode(local, res, true)),
+      ...remote.map(v => [
+        run_type(commands, 'connections', 'remote', v.hostname).then(res => addConnections(v.id, res, true)),
+        get_node(commands, v.hostname).then(res => updateNode(v.id, res, true))
+      ]).flat()
+    ])
+    loop ()
   }
 
   loop()
