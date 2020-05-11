@@ -1,6 +1,6 @@
 const { spawn } = require('child_process')
 
-const child = (command, log = false) => new Promise((resolve, reject) => {
+const child = (command, log = true) => new Promise((resolve, reject) => {
   const child_process = spawn('powershell.exe', [command])
   let buffer
   child_process.stdout.on('data', d => {

@@ -1,5 +1,4 @@
 const UWS = require('uWebSockets.js')
-const FS = require('fs').promises
 const Path = require('path')
 const DB = require('./db')
 const {fork} = require('child_process')
