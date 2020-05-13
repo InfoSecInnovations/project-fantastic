@@ -23,7 +23,7 @@ const display = (action, line, foldout, status, node_id, host, send, id, keys) =
           }]},
           class: {...line.class, loading}
         },
-        loading ? 'Running...' : line.text),
+        loading ? 'Running...' : line.content),
         typeof foldout[line.click.function] === 'boolean' ? H(`div.foldout fas fa-${foldout[line.click.function] ? 'chevron-down' : 'chevron-right'} fa-fw`, {
           on: {click: [send, {
             type: 'followup_foldout',
@@ -38,7 +38,7 @@ const display = (action, line, foldout, status, node_id, host, send, id, keys) =
       ])
     }
     if (line.type == 'header') {
-      return H('div.result_header', line.text)
+      return H('div.result_header', line.content)
     }
     if (line.type == 'date') {
       return H('div.text', `${TimeAgo(line.date)}`)

@@ -1,6 +1,15 @@
 const { spawn } = require('child_process')
 
-const child = (command, log = true) => new Promise((resolve, reject) => {
+const format_value = v => {
+  if (typeof v === 'string') return `"${v}"`
+  return v
+}
+
+const child = (command, params, log = true) => new Promise((resolve, reject) => {
+  if (params) {
+    command = `${Object.entries(params).map(v => `$${v[0]} = ${format_value(v[1])}
+    `)} ${command}`
+  }
   const child_process = spawn('powershell.exe', [command])
   let buffer
   child_process.stdout.on('data', d => {

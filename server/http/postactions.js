@@ -1,6 +1,6 @@
 const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
-const RunActionFunction = require('../actions/runactionfunction')
+const RunActionFunction = require('../actions/runaction')
 const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
 const GetAsset = require('../util/getpackagedfunction')

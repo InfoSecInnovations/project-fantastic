@@ -8,35 +8,38 @@
       "command": "get-netfirewallprofile | select name, enabled",
       "method": "invoke",
       "json": true,
-      "result": {
-        "name": [
-          {"type": "header", "content": "name"},
-          {
-            "type": "button", 
-            "content": {"bool": "Enabled", "true": "Enabled", "false": "Disabled"},
-            "click": {
-              "function": "enable_profile",
-              "data": {
-                "profile": "name",
-                "state": {"bool": "Enabled", "true": "Enabled", "false": "Disabled"}
+      "result": [
+        {
+          "id": "name",
+          "values": [
+            {"type": "header", "content": "name"},
+            {
+              "type": "button", 
+              "content": {"bool": "Enabled", "true": "Enabled", "false": "Disabled"},
+              "click": {
+                "function": "enable_profile",
+                "data": {
+                  "profile": "name",
+                  "state": "Enabled"
+                }
+              },
+              "class": {
+                "disabled": "Enabled"
               }
             },
-            "class": {
-              "disabled": {"bool": "Enabled", "true": "Enabled", "false": "Disabled"}
-            }
-          },
-          {
-            "type": "button",
-            "content": {"static": "Get Profile Rules"},
-            "click": {
-              "function": "get_rules",
-              "data": {
-                "profile": "name"
+            {
+              "type": "button",
+              "content": {"static": "Get Profile Rules"},
+              "click": {
+                "function": "get_rules",
+                "data": {
+                  "profile": "name"
+                }
               }
             }
-          }
-        ]
-      }
+          ]
+        }
+      ]
     },
     "enable_profile": {
       "command": "Set-NetFirewallProfile -Profile $profile -Enabled $state"
