@@ -13,12 +13,16 @@ const pwsh_function = func_data => {
 
 const parse_value = (value_data, output) => {
   if (typeof value_data !== 'object') return output[value_data]
+  if (value_data.labelled) return `${value_data.labelled}: ${output[value_data.labelled]}`
   if (value_data.static) return value_data.static
   if (value_data.bool) {
     const value = output[value_data.bool] == 1
     if (value_data.true !== undefined && value_data.false !== undefined) return value ? value_data.true : value_data.false
     return value_data.inverse ? !value : value
   }
+  if (value_data.map) return value_data.map[output[value_data.key]]
+  if (value_data.combine) return value_data.combine.map(v => parse_value(v, output)).join('')
+
 }
 
 const parse_object = (obj, output) => 
@@ -31,6 +35,7 @@ const run_function = async (func_data, hostname, data) => {
   return output.map(o =>
     Object.values(func_data.result).map(r => {
       const values = r.values.map(v => {
+        if (!v.type) return parse_value(v, o)
         return {
           ...v,
           content: parse_value(v.content, o),

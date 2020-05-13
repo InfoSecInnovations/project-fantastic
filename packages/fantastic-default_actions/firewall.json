@@ -2,10 +2,9 @@
   "name": "Check Windows Defender Firewall Status",
   "description": "This command should show the three default profiles (there might be more though).",
   "hosts": ["local", "remote"],
-  "role": "privileged",
   "functions": {
     "run": {
-      "command": "get-netfirewallprofile | select name, enabled",
+      "command": "Get-NetFirewallProfile | select name, enabled",
       "method": "invoke",
       "json": true,
       "result": [
@@ -42,8 +41,53 @@
       ]
     },
     "enable_profile": {
+      "command": "Set-NetFirewallProfile -Profile $profile -Enabled $state",
       "role": "privileged",
-      "command": "Set-NetFirewallProfile -Profile $profile -Enabled $state"
+      "method": "cimsession"
+    },
+    "get_rules": {
+      "command": "Get-NetFirewallRule | where Profile -EQ $profile",
+      "method": "cimsession",
+      "json": true,
+      "result": [
+        {
+          "id": {"combine": ["ID", {"static": "header"}]},
+          "values": [
+            {
+              "type": "header",
+              "content": "DisplayName"
+            }
+          ]
+        },
+        {
+          "id": "ID",
+          "values": [
+            {
+              "map": {"1": "Inbound", "2": "Outbound"},
+              "key": "Direction"
+            },
+            {
+              "map": {"2": "Allow", "4": "Block"},
+              "key": "Action"
+            },
+            {
+              "type": "button",
+              "content":  {"bool": "Enabled", "true": "Enabled", "false": "Disabled"},
+              "click": {
+                "function": "enable_rule",
+                "data": {
+                  "profile": "Profile",
+                  "state": {"bool": "Enabled", "inverse": true},
+                  "rule": "ID"
+                },
+                "class": {
+                  "disabled": {"bool": "Enabled", "inverse": true}
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   }
 }
