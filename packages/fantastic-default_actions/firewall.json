@@ -20,11 +20,11 @@
                 "function": "enable_profile",
                 "data": {
                   "profile": "name",
-                  "state": "Enabled"
+                  "state": {"bool": "Enabled", "inverse": true}
                 }
               },
               "class": {
-                "disabled": "Enabled"
+                "disabled": {"bool": "Enabled", "inverse": true}
               }
             },
             {
@@ -42,6 +42,7 @@
       ]
     },
     "enable_profile": {
+      "role": "privileged",
       "command": "Set-NetFirewallProfile -Profile $profile -Enabled $state"
     }
   }

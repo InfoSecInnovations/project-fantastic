@@ -16,10 +16,13 @@ const parse_value = (value_data, output) => {
   if (value_data.static) return value_data.static
   if (value_data.bool) {
     const value = output[value_data.bool] == 1
-    if (value_data.true && value_data.false) return value ?  value_data.true : value_data.false
-    return value
+    if (value_data.true !== undefined && value_data.false !== undefined) return value ? value_data.true : value_data.false
+    return value_data.inverse ? !value : value
   }
 }
+
+const parse_object = (obj, output) => 
+  obj && Object.entries(obj).reduce((result, v) => ({...result, [v[0]]: parse_value(v[1], output)}), {})
 
 const run_function = async (func_data, hostname, data) => {
   const pwsh = pwsh_function(func_data)
@@ -31,7 +34,8 @@ const run_function = async (func_data, hostname, data) => {
         return {
           ...v,
           content: parse_value(v.content, o),
-          class: v.class && Object.entries(v.class).reduce((result, v) => ({[v[0]]: parse_value(v[1], o)}), {})
+          class: parse_object(v.class, o),
+          click: v.click && {...v.click, data: parse_object(v.click.data, o)}
         }
       })
       return {
