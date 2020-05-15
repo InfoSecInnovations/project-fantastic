@@ -1,0 +1,23 @@
+{
+  "name": "Get Logged In Users",
+  "description": "This is a quick and dirty way to pull the current logged in users",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "(Get-WmiObject Win32_LoggedOnUser).Antecedent",
+      "method": "invoke",
+      "json": true,
+      "result": [
+        {
+          "id": {"key_value_string": "Name"},
+          "values": [
+            {
+              "type": "header",
+              "content": {"key_value_string": "Name"}
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
