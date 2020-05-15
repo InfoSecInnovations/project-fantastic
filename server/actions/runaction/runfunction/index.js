@@ -9,7 +9,8 @@ const entry = (result, output) => {
       ...v,
       content: ParseValue(v.content, output),
       class: ParseObject(v.class, output),
-      click: v.click && {...v.click, data: ParseObject(v.click.data, output)}
+      click: v.click && {...v.click, data: ParseObject(v.click.data, output)},
+      date: ParseValue(v, output)
     }
   })
   return {

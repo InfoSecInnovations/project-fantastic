@@ -4,6 +4,4 @@ module.exports = {
   getMpComputerStatus: 'getmpcomputerstatus.json',
   lastBoot: 'lastboot.json',
   loggedInUsers: 'loggedinusers.json'
-  /*getInstalledSoftware: require('./getinstalledsoftware'),
-  loggedInUsers: require('./loggedinusers')*/
 }
