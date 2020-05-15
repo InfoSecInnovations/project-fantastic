@@ -3,7 +3,7 @@ const Abort = require('./abort')
 const RunActionFunction = require('../actions/runaction')
 const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
-const GetAsset = require('../util/getpackagedfunction')
+const GetAsset = require('../util/getpackageddata')
 
 const postActions = (res, req, config) => {
   res.onAborted(() => Abort(res))
