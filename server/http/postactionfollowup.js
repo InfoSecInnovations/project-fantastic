@@ -4,7 +4,7 @@ const RunActionFunction = require('../actions/runaction')
 const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
-const GetAsset = require('../util/getpackagedfunction')
+const GetAsset = require('../util/getpackageddata')
 
 const postActionFollowup = (res, req) => {
   res.onAborted(() => Abort(res))
@@ -18,6 +18,8 @@ const postActionFollowup = (res, req) => {
     if (!user) return !res.aborted && res.end()
     const action = await GetAsset(query.action)
     if (!HasRole(user, action.role)) return !res.aborted && res.end()
+    const func = action.functions[query.function]
+    if (func.role && !HasRole(user, func.role)) return !res.aborted && res.end()
     const date = Date.now()
     const json = JSON.parse(data)
     const result = await RunActionFunction(query.action, query.function, query.node_id, user.user_id, date, json, query.key)
