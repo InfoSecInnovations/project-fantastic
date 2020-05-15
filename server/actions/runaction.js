@@ -28,7 +28,7 @@ const parse_value = (value_data, output) => {
 const parse_object = (obj, output) => 
   obj && Object.entries(obj).reduce((result, v) => ({...result, [v[0]]: parse_value(v[1], output)}), {})
 
-const run_function = async (func_data, hostname, data) => {
+const run_function = async (func_data, hostname, data) => { // TODO: show buttons for functions we don't have permission for as plain text instead
   const pwsh = pwsh_function(func_data)
   const output = await pwsh(func_data.command, hostname, data)
   if (!func_data.result) return []

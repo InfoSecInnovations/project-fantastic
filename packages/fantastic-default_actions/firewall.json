@@ -63,12 +63,22 @@
           "id": "ID",
           "values": [
             {
-              "map": {"1": "Inbound", "2": "Outbound"},
-              "key": "Direction"
+              "combine": [
+                {"static": "Direction: "},
+                {
+                  "map": {"1": "Inbound", "2": "Outbound"},
+                  "key": "Direction"
+                }
+              ]
             },
             {
-              "map": {"2": "Allow", "4": "Block"},
-              "key": "Action"
+              "combine": [
+                {"static": "Action: "},
+                {
+                  "map": {"2": "Allow", "4": "Block"},
+                  "key": "Action"
+                }
+              ]
             },
             {
               "type": "button",
