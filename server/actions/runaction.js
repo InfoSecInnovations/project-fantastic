@@ -32,7 +32,7 @@ const run_function = async (func_data, hostname, data) => {
   const pwsh = pwsh_function(func_data)
   const output = await pwsh(func_data.command, hostname, data)
   if (!func_data.result) return []
-  return output.map(o =>
+  if (Array.isArray(output)) return output.map(o =>
     Object.values(func_data.result).map(r => {
       const values = r.values.map(v => {
         if (!v.type) return parse_value(v, o)
@@ -49,6 +49,21 @@ const run_function = async (func_data, hostname, data) => {
       }
     })
   ).flat()
+  return Object.values(func_data.result).map(r => { // TODO: proper parsing of non JSON result
+    const values = r.values.map(v => {
+      if (!v.type) return parse_value(v, output)
+      return {
+        ...v,
+        content: parse_value(v.content, output),
+        class: parse_object(v.class, output),
+        click: v.click && {...v.click, data: parse_object(v.click.data, output)}
+      }
+    })
+    return {
+      id: parse_value(r.id, output),
+      value: values
+    }
+  })
 }
 
 const runAction = async (action, func, node_id, user_id, date, data, key) => {

@@ -79,11 +79,25 @@
                   "profile": "Profile",
                   "state": {"bool": "Enabled", "inverse": true},
                   "rule": "ID"
-                },
-                "class": {
-                  "disabled": {"bool": "Enabled", "inverse": true}
                 }
+              },
+              "class": {
+                "disabled": {"bool": "Enabled", "inverse": true}
               }
+            }
+          ]
+        }
+      ]
+    },
+    "enable_rule": {
+      "command": "",
+      "role": "privileged",
+      "result": [
+        {
+          "id": {"static": "test"},
+          "values": [
+            {
+              "static": "This command will enable or disable firewall rules but for now it just demonstrates nesting..."
             }
           ]
         }
