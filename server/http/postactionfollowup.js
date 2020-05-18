@@ -1,6 +1,6 @@
 const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
-const RunActionFunction = require('../actions/runaction')
+const RunAction = require('../actions/runaction')
 const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
@@ -22,7 +22,7 @@ const postActionFollowup = (res, req) => {
     if (func.role && !HasRole(user, func.role)) return !res.aborted && res.end()
     const date = Date.now()
     const json = JSON.parse(data)
-    const result = await RunActionFunction(query.action, query.function, query.node_id, user.user_id, date, json, query.key)
+    const result = await RunAction(query.action, query.function, query.node_id, user, date, json, query.key)
     if (res.aborted) return
     console.log(`${query.function} function from ${query.action} executed on node ${query.node_id}.`)
     console.log('-----------')

@@ -86,6 +86,10 @@ a {
   margin: 0;
 }
 
+.item .not_permitted {
+  font-size: 1rem;
+}
+
 .targets {
   margin-top: 0.4rem;
   font-size: 0.8rem;

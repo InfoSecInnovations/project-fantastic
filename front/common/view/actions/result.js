@@ -43,6 +43,9 @@ const display = (action, line, foldout, status, node_id, host, send, id, keys) =
     if (line.type == 'date') {
       return H('div.text', `${TimeAgo(line.date)}`)
     }
+    if (line.type == 'not_permitted') {
+      return H('div.text not_permitted', line.content)
+    }
   }
   return H('div.text', line)
 }

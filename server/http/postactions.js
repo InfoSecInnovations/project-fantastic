@@ -1,6 +1,6 @@
 const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
-const RunActionFunction = require('../actions/runaction')
+const RunAction = require('../actions/runaction')
 const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
 const GetAsset = require('../util/getpackageddata')
@@ -16,7 +16,7 @@ const postActions = (res, req, config) => {
     const action = await GetAsset(query.action)
     if (!HasRole(user, action.role)) return !res.aborted && res.end()
     const date = Date.now()
-    RunActionFunction(query.action, 'run', query.node_id, user.user_id, date)
+    RunAction(query.action, 'run', query.node_id, user, date)
     .then(result => {
       if (res.aborted) return
       res.end(JSON.stringify({result, date}))
