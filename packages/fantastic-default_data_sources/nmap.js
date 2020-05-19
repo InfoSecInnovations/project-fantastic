@@ -50,7 +50,7 @@ const nmap = {
   hosts: ['local'],
   result_type: 'hosts',
   description: 'Performs a fast scan using nmap to detect hosts on the network',
-  role: 'privileged',
+  role: 'elevated',
   run: () => nmap_to_obj('-T4 -F 192.168.1.0/24', 'nmap.xml')
     .then(res => Promise.all(res.nmaprun.host.map(node)))
     .then(res => {

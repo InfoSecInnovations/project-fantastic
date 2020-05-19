@@ -50,7 +50,7 @@ const display = (action, line, foldout, status, node_id, host, send, id, keys) =
   return H('div.text', line)
 }
 
-const result = (action, action_result, node_id, host, loading, send, keys = []) => H('div.result', Object.entries(action_result.value).map((v, i, arr) => {
+const result_old = (action, action_result, node_id, host, loading, send, keys = []) => H('div.result', Object.entries(action_result.value).map((v, i, arr) => {
     if (v[0] === 'foldout') return  
     if (v[0] === 'value') return H('div.item', v[1].map(v => display(action, v, action_result.value.foldout, loading || action_result.value.status, node_id, host, send, action_result.key, keys)))
     return action_result.value.foldout[v[0]] ? 
@@ -65,6 +65,10 @@ const result = (action, action_result, node_id, host, loading, send, keys = []) 
       undefined
   }).flat()
 )
+
+const result = (action, action_result, node_id, host, loading, send, followups = []) => H('div.result', [
+  action_result.label ? H('div.result_header', action_result.label) : undefined
+])
 
 
 module.exports = result

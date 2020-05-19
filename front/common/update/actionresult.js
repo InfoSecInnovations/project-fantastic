@@ -1,20 +1,21 @@
 const actionResult = (state, action) => {
   if (!state.action_results.data[action.hostname]) {
     state.action_results.data[action.hostname] = {}
-    state.action_results.foldouts[action.hostname] = {}
-    state.action_results.status[action.hostname] = {}
-    state.action_results.date[action.hostname] = {}
   }
   if (!state.action_results.data[action.hostname][action.action]) {
     state.action_results.data[action.hostname][action.action] = {}
-    state.action_results.foldouts[action.hostname][action.action] = action.result.length ? true : undefined
   }
-  state.action_results.status[action.hostname][action.action] = 'loaded'
-  state.action_results.date[action.hostname][action.action] = action.date
-  action.result.forEach(v => {
-    if (!state.action_results.data[action.hostname][action.action][v.id]) state.action_results.data[action.hostname][action.action][v.id] = {value: v.value, foldout: {}, status: {}, date: {}}
-    else state.action_results.data[action.hostname][action.action][v.id] = {...state.action_results.data[action.hostname][action.action][v.id], value: v.value}
-  })
+  const action_result = state.action_results.data[action.hostname][action.action]
+  action_result.result = action.result
+  action_result.foldout = action.result ? true : undefined
+  action_result.status = 'loaded'
+  action_result.date = action.date
+  if (action.result && action.result.followups) {
+    if (!action_result.followups) action_result.followups = {}
+    action.result.followups.forEach(v => {
+      if (!action_result.followups[v.function]) action_result.followups[v.function] = {}
+    })
+  }
 }
 
 module.exports = actionResult

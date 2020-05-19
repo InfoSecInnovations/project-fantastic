@@ -42,7 +42,7 @@
     },
     "enable_profile": {
       "command": "Set-NetFirewallProfile -Profile $profile -Enabled $state",
-      "role": "privileged",
+      "role": "elevated",
       "method": "cimsession"
     },
     "get_rules": {
@@ -101,7 +101,7 @@
     },
     "enable_rule": {
       "command": "",
-      "role": "privileged",
+      "role": "elevated",
       "result": [
         {
           "id": {"static": "test"},

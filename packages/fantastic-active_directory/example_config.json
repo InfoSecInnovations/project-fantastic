@@ -6,7 +6,7 @@
   },
   "groups": {
     "user": "fantastic-user",
-    "privileged": "fantastic-privileged",
+    "elevated": "fantastic-elevated",
     "admin": "fantastic-admin"
   }
 }

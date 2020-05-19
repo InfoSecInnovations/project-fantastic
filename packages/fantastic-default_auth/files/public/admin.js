@@ -53,7 +53,7 @@ const render = state => {
   const dropdown = row.appendChild(document.createElement('td')).appendChild(document.createElement('select'))
   if (state.loading) dropdown.setAttribute('disabled', "")
   dropdown.className = 'dropdown'
-  ;['user', 'privileged', 'admin'].forEach(v => dropdown.appendChild(create_option(v, v, state.data.role === v)))
+  ;['user', 'elevated', 'admin'].forEach(v => dropdown.appendChild(create_option(v, v, state.data.role === v)))
   dropdown.onchange = e => update(() => fetch('/auth/admin/changerole', {
     method: 'post',
     body: JSON.stringify({username: state.data.username, role: e.target.value}),

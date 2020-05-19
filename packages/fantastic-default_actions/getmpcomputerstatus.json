@@ -43,7 +43,7 @@
     },
     "enable_antivirus": {
       "command": "",
-      "role": "privileged",
+      "role": "elevated",
       "result": [
         {
           "id": {"static": "antivirus"},
@@ -57,7 +57,7 @@
     },
     "enable_antispyware": {
       "command": "",
-      "role": "privileged",
+      "role": "elevated",
       "result": [
         {
           "id": {"static": "antispyware"},

@@ -13,7 +13,8 @@ const loadNodeResults = (node, send) => {
       Object.entries(results).map(r => {
         const data = r[1].run.null.data
         send({type: 'action_result', result: data, action: r[0], hostname: node.hostname, date: r[1].run.null.date})
-        const followup = (data, keys = []) => {
+        // TODO: fix loading followups
+        /*const followup = (data, keys = []) => {
           data.forEach(d => {
             d.value.forEach(v => {
               if (v.click && r[1][v.click.function] && r[1][v.click.function][d.id]) {
@@ -35,7 +36,7 @@ const loadNodeResults = (node, send) => {
             })
           })
         }
-        followup(data)
+        followup(data)*/
       })
     })
 }
