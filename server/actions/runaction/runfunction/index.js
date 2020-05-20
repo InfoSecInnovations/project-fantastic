@@ -26,7 +26,7 @@ const runFunction = async (action, func, user, hostname, data) => {
   const output = await PwshFunction(func_data)(func_data.command, hostname, data)
   if (!func_data.result) return []
   if (func_data.json) return output.map(o => result(func_data.result, o, action, user)).flat()
-  return result(func_data.result, output, action, user) // TODO: better handling of non JSON output
+  return [result(func_data.result, output, action, user)] // TODO: better handling of non JSON output
 }
 
 module.exports = runFunction

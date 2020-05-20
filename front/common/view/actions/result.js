@@ -96,7 +96,7 @@ const result = (action, action_result, index, node_id, host, loading, send, foll
   .filter(v => v.result)
   .map(v => 
     v.result.map((r, i) => 
-      result(action, r, i, node_id, host, loading || v.status === 'loading', send, [...followups, {index, followup: r.function}])
+      result(action, r, i, node_id, host, loading || v.status === 'loading', send, [...followups, {index, followup: v.function}])
     )
   ).flat() : [])
 ])
