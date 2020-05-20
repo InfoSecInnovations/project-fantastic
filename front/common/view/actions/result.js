@@ -11,6 +11,7 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
   ...(action_result.data ? action_result.data.map(v => H('div.item', v)) : []),
   ...(action_result.followups ? Object.values(action_result.followups).map(v => {
     if (v.not_permitted) return H('div.item', v.label || (v.enabled ? 'Enabled' : 'Disabled'))
+    const loading_followup = loading || v.status === 'loading'
     return H('div.followup_command', [
       H('div.item', H(
         'div.button', 
@@ -29,9 +30,10 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
                 date: Date.now()
               }
             ]
-          }
+          },
+          class: {loading: loading_followup, disabled: typeof v.enabled !== 'undefined' && !v.enabled}
         }, 
-        (loading || v.status === 'loading' && 'Running...') || v.label || (v.enabled ? 'Enabled' : 'Disabled')
+        (loading_followup && 'Running...') || v.label || (v.enabled ? 'Enabled' : 'Disabled')
       )),
       H('pre.command', format_command(state.actions[action].commands[v.function], v.data))
     ])
