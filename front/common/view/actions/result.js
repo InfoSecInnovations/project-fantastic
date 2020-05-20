@@ -69,8 +69,9 @@ const result_old = (action, action_result, node_id, host, loading, send, keys = 
 const result = (action, action_result, index, node_id, host, loading, send, followups = []) => H('div.result', [
   action_result.label ? H('div.result_header', action_result.label) : undefined,
   ...(action_result.data ? action_result.data.map(v => H('div.item', v)) : []),
-  ...(action_result.followups ? Object.values(action_result.followups).map(v =>
-    H('div.followup', [
+  ...(action_result.followups ? Object.values(action_result.followups).map(v => {
+    if (v.not_permitted) return H('div.item', v.label || (v.enabled ? 'Enabled' : 'Disabled'))
+    return H('div.item', [
       H(
         'div.button', 
         {
@@ -87,11 +88,17 @@ const result = (action, action_result, index, node_id, host, loading, send, foll
           }
         ]
       }}, 
-      v.label || (v.enabled ? 'Enabled' : 'Disabled')
+      (loading || v.status === 'loading' && 'Running...') || v.label || (v.enabled ? 'Enabled' : 'Disabled')
     )
     ])
-  ) : []),
-  ...(action_result.followups ? Object.values(action_result.followups).filter(v => v.result).map(v => v.result.map((v, i) => result(action, v, i, node_id, host, loading, send, [...followups, {index, followup: v.function}]))).flat() : [])
+  }) : []),
+  ...(action_result.followups ? Object.values(action_result.followups)
+  .filter(v => v.result)
+  .map(v => 
+    v.result.map((r, i) => 
+      result(action, r, i, node_id, host, loading || v.status === 'loading', send, [...followups, {index, followup: r.function}])
+    )
+  ).flat() : [])
 ])
 
 
