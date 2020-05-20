@@ -1,7 +1,7 @@
 const GenerateQuery = require('./generatequery')
 
 const loadNodeResults = (node, send) => {
-  fetch(`/results?${GenerateQuery({node_id: node.node_id})}`)
+  /*fetch(`/results?${GenerateQuery({node_id: node.node_id})}`)
     .then(res => res.json())
     .then(res => {
       const results = res.reduce((result, v) => {
@@ -14,7 +14,7 @@ const loadNodeResults = (node, send) => {
         const data = r[1].run.null.data
         send({type: 'action_result', result: data, action: r[0], hostname: node.hostname, date: r[1].run.null.date})
         // TODO: fix loading followups
-        /*const followup = (data, keys = []) => {
+        const followup = (data, keys = []) => {
           data.forEach(d => {
             d.value.forEach(v => {
               if (v.click && r[1][v.click.function] && r[1][v.click.function][d.id]) {
@@ -36,9 +36,9 @@ const loadNodeResults = (node, send) => {
             })
           })
         }
-        followup(data)*/
+        followup(data)
       })
-    })
+    })*/
 }
 
 module.exports = loadNodeResults

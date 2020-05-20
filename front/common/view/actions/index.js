@@ -31,7 +31,7 @@ const actions = (state, send, node) => {
               })
             ]),
             ...(state.action_results.data[node.hostname][v[0]].foldout ? state.action_results.data[node.hostname][v[0]].result
-              .map(r => Result(v[0], r, node.node_id, node.hostname, loading, send)) : [])
+              .map((r, i) => Result(v[0], r, i, node.node_id, node.hostname, loading, send)) : [])
           ]) : undefined
         ])
       }))

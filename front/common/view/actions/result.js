@@ -66,8 +66,32 @@ const result_old = (action, action_result, node_id, host, loading, send, keys = 
   }).flat()
 )
 
-const result = (action, action_result, node_id, host, loading, send, followups = []) => H('div.result', [
-  action_result.label ? H('div.result_header', action_result.label) : undefined
+const result = (action, action_result, index, node_id, host, loading, send, followups = []) => H('div.result', [
+  action_result.label ? H('div.result_header', action_result.label) : undefined,
+  ...(action_result.data ? action_result.data.map(v => H('div.item', v)) : []),
+  ...(action_result.followups ? Object.values(action_result.followups).map(v =>
+    H('div.followup', [
+      H(
+        'div.button', 
+        {
+          on: {click: [
+            send, {
+            type: 'action_followup', 
+            action,
+            data: v.data,
+            node_id,
+            host,
+            followups: [...followups, {index, followup: v.function}],
+            refresh: true,
+            date: Date.now()
+          }
+        ]
+      }}, 
+      v.label || (v.enabled ? 'Enabled' : 'Disabled')
+    )
+    ])
+  ) : []),
+  ...(action_result.followups ? Object.values(action_result.followups).filter(v => v.result).map(v => v.result.map((v, i) => result(action, v, i, node_id, host, loading, send, [...followups, {index, followup: v.function}]))).flat() : [])
 ])
 
 

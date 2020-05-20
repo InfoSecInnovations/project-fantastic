@@ -2,7 +2,7 @@ const GenerateQuery = require('./generatequery')
 
 const fetch_followup = action => fetch(`/action_followup?${GenerateQuery({
   action: action.action, 
-  function: action.function, 
+  function: action.followups[action.followups.length - 1].followup, 
   node_id: action.node_id, 
   key: action.id
 })}`, {method: 'POST', body: JSON.stringify(action.data)})
@@ -11,29 +11,18 @@ const actionFollowup = (state, action, send) => {
   fetch_followup(action)
     .then(res => res.json())
     .then(res => send({...action, type: 'action_followup_result', result: res.result, hostname: action.host, date: res.date}))  
-    .then(() => {
+    /*.then(() => { TODO: re-implement refreshing parent results
       if (!action.refresh) return
-      if (action.keys.length) { // refresh the results one tier above this one because executing a sub action may have modified them
-        let action_result = state.action_results.data[action.host][action.action]
-        for (let i = 0; i < action.keys.length - 1; i++) {
-          const keys = action.keys[i]
-          action_result = action_result[keys.id][keys.function]
-        }
-        const id = action.keys[action.keys.length - 1].id
-        const func = action.keys[action.keys.length - 1].function
-        action_result = action_result[id]
-        const result_value = action_result.value.find(v => v.click && v.click.function === func)
+      if (action.followups.length > 1) { // refresh the results one tier above this one because executing a sub action may have modified them
         const prev_action = {
           ...action,
-          keys: action.keys.slice(0, action.keys.length - 1),
-          function: func,
-          id,
+          followups: action.followups.slice(0, action.followups.length - 1),
           data: result_value.click.data
         }
         send({type: 'action_followup', ...prev_action, refresh: false})
       }
       else send({...action, type: 'perform_action'})
-    })
+    })*/
 }
 
 module.exports = actionFollowup
