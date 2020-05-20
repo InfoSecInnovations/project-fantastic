@@ -31,6 +31,7 @@ pre code {
 
 .command {
   overflow: auto;
+  margin: 0.2rem 0;
 }
 
 .title {
@@ -69,13 +70,29 @@ pre code {
   margin: 0.2rem;
 }
 
+.item :first-child {
+  margin-left: 0;
+}
+
 .followup {
   display: flex;
   margin: 0.2rem 0;
   flex: 0;
 }
 
-.followup .foldout {
+.followup_command {
+  margin: 0.5rem 0;
+}
+
+.followup_command .command {
+  display: none;
+}
+
+.followup_command:hover .command {
+  display: block;
+}
+
+.foldout {
   flex: none;
   align-self: center;
 }

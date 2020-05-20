@@ -20,7 +20,7 @@ const actions = (state, send, node) => {
               }, 
               loading ? 'Running...' : 'Run')
           ]),
-          H('pre.command', v[1].command),
+          H('pre.command', v[1].commands.run),
           v[1].description ? H('div.item', v[1].description) : undefined,
           H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),
           state.action_results.data[node.hostname] && state.action_results.data[node.hostname][v[0]] ? H('div.results', [
@@ -31,7 +31,7 @@ const actions = (state, send, node) => {
               })
             ]),
             ...(state.action_results.data[node.hostname][v[0]].foldout ? state.action_results.data[node.hostname][v[0]].result
-              .map((r, i) => Result(v[0], r, i, node.node_id, node.hostname, loading, send)) : [])
+              .map((r, i) => Result(state, v[0], r, i, node.node_id, node.hostname, loading, send)) : [])
           ]) : undefined
         ])
       }))
