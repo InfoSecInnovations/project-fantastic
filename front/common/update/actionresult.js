@@ -1,4 +1,5 @@
 const actionResult = (state, action) => {
+  if (Array.isArray(action.result) && !action.result.length) action.result = undefined
   if (!state.action_results.data[action.hostname]) {
     state.action_results.data[action.hostname] = {}
   }
@@ -10,12 +11,6 @@ const actionResult = (state, action) => {
   action_result.foldout = action.result ? true : undefined
   action_result.status = 'loaded'
   action_result.date = action.date
-  if (action.result && action.result.followups) {
-    if (!action_result.followups) action_result.followups = {}
-    action.result.followups.forEach(v => {
-      if (!action_result.followups[v.function]) action_result.followups[v.function] = {}
-    })
-  }
 }
 
 module.exports = actionResult
