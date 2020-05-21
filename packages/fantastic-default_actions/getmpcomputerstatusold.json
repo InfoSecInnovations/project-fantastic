@@ -1,0 +1,73 @@
+{
+  "name": "Check Windows Defender Status",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "Get-MpComputerStatus",
+      "method": "cimsession",
+      "json": true,
+      "result": [
+        {
+          "id": {"static": "antivirus"},
+          "values": [
+            {"type": "header", "content": {"static": "Antivirus"}},
+            {
+              "type": "button",
+              "content": {"bool": "AntivirusEnabled", "true": "Enabled", "false": "Disabled"},
+              "click": {
+                "function": "enable_antivirus",
+                "data": {
+                  "state": {"bool": "AntivirusEnabled", "inverse": true}
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": {"static": "antispyware"},
+          "values": [
+            {"type": "header", "content": {"static": "Antispyware"}},
+            {
+              "type": "button",
+              "content": {"bool": "AntispywareEnabled", "true": "Enabled", "false": "Disabled"},
+              "click": {
+                "function": "enable_antispyware",
+                "data": {
+                  "state": {"bool": "AntispywareEnabled", "inverse": true}
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "enable_antivirus": {
+      "command": "",
+      "role": "elevated",
+      "result": [
+        {
+          "id": {"static": "antivirus"},
+          "values": [
+            {
+              "static": "TODO: set Antivirus state"
+            }
+          ]
+        }
+      ]
+    },
+    "enable_antispyware": {
+      "command": "",
+      "role": "elevated",
+      "result": [
+        {
+          "id": {"static": "antispyware"},
+          "values": [
+            {
+              "static": "TODO: set Antispyware state"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

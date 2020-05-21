@@ -1,6 +1,6 @@
 const H = require('snabbdom/h').default
 const TimeAgo = require('../../util/timeago')
-const ResultLabel = require('../../util/resultlabel')
+const ResultLabel = require('./resultlabel')
 
 const format_command = (command, data) => {
   Object.entries(data).forEach(v => command = command.split(`$${v[0]}`).join(v[1]))
@@ -50,10 +50,9 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
   ...(action_result.followups ? Object.values(action_result.followups)
   .filter(v => v.result)
   .map(v => {
-    const followup_label = ResultLabel(v)
     return H('div', [
       H('div.result_time', [
-        H('div.result_header', followup_label),
+        H('div.result_header', v.label || v.enabled ? 'Enable' : 'Disable'),
         H('div.time', ` Results from ${TimeAgo(v.date)}`),
         H(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {
           on: {click: [send, {

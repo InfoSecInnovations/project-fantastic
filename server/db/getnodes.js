@@ -10,9 +10,10 @@ const getNodes = async query => {
 
     const connection_conditions = dir => {
       const conditions = [date_condition, {columns: {[`${dir}_id`]: ips.map(v => v.ip_id)}, compare: 'IN'}]
+      const connection_state = query.connection_state && query.connection_state.filter(v => v)
       if (query.connection_type === 'different_ip') conditions.push({columns: [['from_id', 'to_id']], compare: '!='})
       if (query.connection_type === 'different_host') conditions.push({columns: {[`${dir == 'from' ? 'to' : 'from'}_id`]: ips.map(v => v.ip_id)}, compare: 'NOT IN'})
-      if (query.connection_state && query.connection_state !== 'all') conditions.push({columns: {state: query.connection_state}, compare: Array.isArray(query.connection_state) ? 'IN' : undefined})
+      if (connection_state && connection_state.length && !connection_state.includes('all')) conditions.push({columns: {state: connection_state}, compare: 'IN'})
       return conditions
     }
 

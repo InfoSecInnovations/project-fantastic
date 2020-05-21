@@ -8,66 +8,44 @@
       "json": true,
       "result": [
         {
-          "id": {"static": "antivirus"},
-          "values": [
-            {"type": "header", "content": {"static": "Antivirus"}},
+        "label": {"static": "Antivirus"},
+          "followups": [
             {
-              "type": "button",
-              "content": {"bool": "AntivirusEnabled", "true": "Enabled", "false": "Disabled"},
-              "click": {
-                "function": "enable_antivirus",
-                "data": {
-                  "state": {"bool": "AntivirusEnabled", "inverse": true}
-                }
-              }
+              "function": "enable_antivirus",
+              "data": {
+                "state": {"bool": "AntivirusEnabled", "inverse": true}
+              },
+              "enabled": {"bool": "AntivirusEnabled"}
             }
           ]
         },
         {
-          "id": {"static": "antispyware"},
-          "values": [
-            {"type": "header", "content": {"static": "Antispyware"}},
-            {
-              "type": "button",
-              "content": {"bool": "AntispywareEnabled", "true": "Enabled", "false": "Disabled"},
-              "click": {
+          "label": {"static": "Antispyware"},
+            "followups": [
+              {
                 "function": "enable_antispyware",
                 "data": {
                   "state": {"bool": "AntispywareEnabled", "inverse": true}
-                }
+                },
+                "enabled": {"bool": "AntispywareEnabled"}
               }
-            }
-          ]
-        }
+            ]
+          }
       ]
     },
     "enable_antivirus": {
       "command": "",
       "role": "elevated",
-      "result": [
-        {
-          "id": {"static": "antivirus"},
-          "values": [
-            {
-              "static": "TODO: set Antivirus state"
-            }
-          ]
-        }
-      ]
+      "result": {
+        "label": {"static": "TODO: set Antivirus state"}
+      }
     },
     "enable_antispyware": {
       "command": "",
       "role": "elevated",
-      "result": [
-        {
-          "id": {"static": "antispyware"},
-          "values": [
-            {
-              "static": "TODO: set Antispyware state"
-            }
-          ]
-        }
-      ]
+      "result": {
+        "label": {"static": "TODO: set Antispyware state"}
+      }
     }
   }
 }

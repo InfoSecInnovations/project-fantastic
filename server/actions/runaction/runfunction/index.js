@@ -3,23 +3,26 @@ const ParseValue = require('./parsevalue')
 const ParseObject = require('./parseobject')
 const HasRole = require('fantastic-utils/hasrole')
 
-const result = (result_data, output, action, user) => ({
-  label: ParseValue(result_data.label, output),
-  data: result_data.data && result_data.data.map(v => ParseValue(v, output)),
-  followups: result_data.followups && result_data.followups.reduce((result, v) => {
-    const followup_func = action.functions[v.function]
-    const permitted = !followup_func.role || HasRole(user, followup_func.role)
-    return {
-      ...result,
-      [v.function]: {
-        ...v,
-        data: permitted && ParseObject(v.data, output),
-        enabled: ParseValue(v.enabled, output),
-        not_permitted: !permitted
+const result = (result_data, output, action, user) => {
+  if (Array.isArray(result_data)) return result_data.map(v => result(v, output, action, user))
+  return {
+    label: ParseValue(result_data.label, output),
+    data: result_data.data && result_data.data.map(v => ParseValue(v, output)),
+    followups: result_data.followups && result_data.followups.reduce((result, v) => {
+      const followup_func = action.functions[v.function]
+      const permitted = !followup_func.role || HasRole(user, followup_func.role)
+      return {
+        ...result,
+        [v.function]: {
+          ...v,
+          data: permitted && ParseObject(v.data, output),
+          enabled: ParseValue(v.enabled, output),
+          not_permitted: !permitted
+        }
       }
-    }
-  }, {})
-})
+    }, {})
+  }
+}
 
 const runFunction = async (action, func, user, hostname, data) => {
   const func_data = action.functions[func]
