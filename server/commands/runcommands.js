@@ -66,7 +66,7 @@ const run = async get_commands => {
       if (node.node_id === local) continue // we only want remote nodes here
       const hostname = node.hostname
       if (!hostname) continue
-      const res = await RunPowerShell(`Test-WsMan ${hostname}`, false) // if Test-WsMan doesn't error it means we can run remote commands on this host             
+      const res = await RunPowerShell(`Test-WsMan ${hostname}`, undefined, false) // if Test-WsMan doesn't error it means we can run remote commands on this host             
       if (res) {
         remote.push({ id: node.node_id, hostname })
         await DB.updateNode(node.node_id, { access: 'remote' }, DB, true)
