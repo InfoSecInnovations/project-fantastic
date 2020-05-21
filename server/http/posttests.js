@@ -3,7 +3,7 @@ const Abort = require('./abort')
 const RunTest = require('../tests/runtest')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
 const Auth = require('./auth')
-const GetAsset = require('../util/getpackagedfunction')
+const GetAsset = require('../util/getpackageddata')
 const HasRole = require('fantastic-utils/hasrole')
 
 const postTests = (res, req) => {

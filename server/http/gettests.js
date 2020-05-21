@@ -1,4 +1,4 @@
-const GetAsset = require('../util/getpackagedfunction')
+const GetAsset = require('../util/getpackageddata')
 const Abort = require('./abort')
 const Auth = require('./auth')
 const HasRole = require('fantastic-utils/hasrole')

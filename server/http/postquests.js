@@ -2,7 +2,7 @@ const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
 const RunQuest = require('../quests/runquest')
 const Auth = require('./auth')
-const GetAsset = require('../util/getpackagedfunction')
+const GetAsset = require('../util/getpackageddata')
 const HasRole = require('fantastic-utils/hasrole')
 
 const postActions = (res, req) => {

@@ -1,3 +1,3 @@
 module.exports = {
-  checkReboot: require('./checkreboot')
+  checkReboot: 'checkreboot.json'
 }
