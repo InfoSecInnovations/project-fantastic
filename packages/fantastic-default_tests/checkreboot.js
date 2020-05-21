@@ -6,7 +6,7 @@ const checkReboot = {
   actions: [
     {
       path: 'fantastic-default_actions/lastBoot',  
-      search: {date: {date: '< Date.now() - 30 * 1000 * 60 * 60 * $days'}}
+      search: {"Last Boot Up Time": {date: '< Date.now() - 30 * 1000 * 60 * 60 * $days'}}
     }
   ],
   pass: {

@@ -55,13 +55,12 @@ const effect = (state, action, send) => {
 
   if (action.type == 'quest_results' || action.type == 'test_results') {
     const data = (action.quest && state.quests[action.quest]) || state.tests[action.test]
-    const nodes = action.results.map(v => state.nodes.findIndex(n => n.node_id == v.node_id))
-    const node_indices = nodes.filter(v => v !== -1)
+    const node_indices = action.results.map(v => state.nodes.findIndex(n => n.node_id == v.node_id)).filter(v => v !== -1)
     const highlight = node_indices.filter(v => action.results.find(r => r.node_id === state.nodes[v].node_id && r.result != data.pass.condition))
     if (action.select) {
       send({type: 'select', nodes: highlight})
       send({type: 'vis_select', nodes: highlight})
-      LoadNodeResults(nodes, send)
+      LoadNodeResults(node_indices.map(v => state.nodes[v]), send)
     }
   }
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({...SearchQuery(state), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})

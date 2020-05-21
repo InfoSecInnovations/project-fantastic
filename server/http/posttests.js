@@ -20,7 +20,7 @@ const postTests = (res, req) => {
     if (!HasRole(user, test.role)) return !res.aborted && res.end()
     const date = Date.now()
     const json = JSON.parse(data)
-    const result = await RunTest(query.test, user.user_id, date, query.date, json)
+    const result = await RunTest(query.test, user, date, query.date, json)
     if (res.aborted) return
     console.log(`completed quest ${query.test}, queried ${result.length} nodes`)
     console.log('-----------')
