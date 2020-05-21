@@ -1,4 +1,4 @@
-const SQLite3 = require('sqlite3').verbose()
+const SQLite3 = require('sqlite3')
 const Operations = require('./operations')
 const Transaction = require('./transaction')
 
