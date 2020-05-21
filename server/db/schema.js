@@ -57,7 +57,7 @@ const schema = [
     result_id INTEGER PRIMARY KEY,
     action TEXT,
     function TEXT,
-    key TEXT,
+    result_index INTEGER,
     data TEXT,
     date INTEGER,
     node_id INTEGER,

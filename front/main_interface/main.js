@@ -3,7 +3,6 @@ const Snabbdom = require('snabbdom')
 const Update = require('./update')
 const View = require('./view')
 const Effect = require('./effect')
-const ActionResults = require('../common/defaults/actionresults')
 const QuestResults = require('./defaults/questresults')
 const TestResults = require('./defaults/testresults')
 const Hovered = require('./defaults/hovered')
@@ -19,7 +18,7 @@ let state = {
   tab: 'info', 
   selected: {}, 
   hovered: Hovered(), 
-  action_results: ActionResults(),
+  action_results: {},
   quest_results: QuestResults(),
   test_results: TestResults(),
   test_parameters: {},
