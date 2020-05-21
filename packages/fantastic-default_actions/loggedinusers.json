@@ -7,17 +7,9 @@
       "command": "(Get-WmiObject Win32_LoggedOnUser).Antecedent",
       "method": "invoke",
       "json": true,
-      "result": [
-        {
-          "id": {"key_value_string": "Name"},
-          "values": [
-            {
-              "type": "header",
-              "content": {"key_value_string": "Name"}
-            }
-          ]
-        }
-      ]
+      "result": {
+        "label": {"key_value_string": "Name"}
+      }
     }
   }
 }

@@ -24,12 +24,21 @@ const result = (result_data, output, action, user) => {
   }
 }
 
+const process_results = results => {
+  results = results.flat()
+  for (let i = 0; i < results.length;) {
+    if (results.find((v, j) => j !== i && v.label === results[i].label)) results.splice(i, 1)
+    else i++
+  }
+  return results
+}
+
 const runFunction = async (action, func, user, hostname, data) => {
   const func_data = action.functions[func]
   const output = await PwshFunction(func_data)(func_data.command, hostname, data)
   if (!func_data.result) return []
-  if (func_data.json) return output.map(o => result(func_data.result, o, action, user)).flat()
-  return [result(func_data.result, output, action, user)] // TODO: better handling of non JSON output
+  if (func_data.json) return process_results(output.map(o => result(func_data.result, o, action, user)))
+  return process_results([result(func_data.result, output, action, user)]) // TODO: better handling of non JSON output
 }
 
 module.exports = runFunction
