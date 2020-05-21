@@ -1,7 +1,7 @@
 module.exports = {
-  firewall: 'firewallnew.json',
+  firewall: 'firewall.json',
+  lastBoot: 'lastbootnew.json',
   /*getInstalledSoftware: 'getinstalledsoftware.json',
   getMpComputerStatus: 'getmpcomputerstatus.json',
-  lastBoot: 'lastboot.json',
   loggedInUsers: 'loggedinusers.json'*/
 }

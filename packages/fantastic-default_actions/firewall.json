@@ -7,38 +7,26 @@
       "command": "Get-NetFirewallProfile | select name, enabled",
       "method": "invoke",
       "json": true,
-      "result": [
-        {
-          "id": "name",
-          "values": [
-            {"type": "header", "content": "name"},
-            {
-              "type": "button", 
-              "content": {"bool": "Enabled", "true": "Enabled", "false": "Disabled"},
-              "click": {
-                "function": "enable_profile",
-                "data": {
-                  "profile": "name",
-                  "state": {"bool": "Enabled", "inverse": true}
-                }
-              },
-              "class": {
-                "disabled": {"bool": "Enabled", "inverse": true}
-              }
+      "result": {
+        "label": "name",
+        "followups": [
+          {
+            "function": "enable_profile",
+            "data": {
+              "profile": "name",
+              "state": {"bool": "Enabled", "inverse": true}
             },
-            {
-              "type": "button",
-              "content": {"static": "Get Profile Rules"},
-              "click": {
-                "function": "get_rules",
-                "data": {
-                  "profile": "name"
-                }
-              }
-            }
-          ]
-        }
-      ]
+            "enabled": {"bool": "Enabled"}
+          },
+          {
+            "function": "get_rules",
+            "data": {
+              "profile": "name"
+            },
+            "label": "Get Profile Rules"
+          }
+        ]
+      }
     },
     "enable_profile": {
       "command": "Set-NetFirewallProfile -Profile $profile -Enabled $state",
@@ -49,69 +37,36 @@
       "command": "Get-NetFirewallRule | where Profile -EQ $profile",
       "method": "cimsession",
       "json": true,
-      "result": [
-        {
-          "id": {"combine": ["ID", {"static": "header"}]},
-          "values": [
-            {
-              "type": "header",
-              "content": "DisplayName"
-            }
-          ]
-        },
-        {
-          "id": "ID",
-          "values": [
-            {
-              "combine": [
-                {"static": "Direction: "},
-                {
-                  "map": {"1": "Inbound", "2": "Outbound"},
-                  "key": "Direction"
-                }
-              ]
+      "result": {
+        "label": "DisplayName",
+        "data": [
+          {
+            "map": {"1": "Inbound", "2": "Outbound"},
+            "key": "Direction",
+            "labelled": "true"
+          },
+          {
+            "map": {"2": "Allow", "4": "Block"},
+            "key": "Action",
+            "labelled": true
+          }
+        ],
+        "followups": [
+          {
+            "function": "enable_rule",
+            "data": {
+              "profile": "Profile",
+              "state": {"bool": "Enabled", "inverse": true},
+              "rule": "ID"
             },
-            {
-              "combine": [
-                {"static": "Action: "},
-                {
-                  "map": {"2": "Allow", "4": "Block"},
-                  "key": "Action"
-                }
-              ]
-            },
-            {
-              "type": "button",
-              "content":  {"bool": "Enabled", "true": "Enabled", "false": "Disabled"},
-              "click": {
-                "function": "enable_rule",
-                "data": {
-                  "profile": "Profile",
-                  "state": {"bool": "Enabled", "inverse": true},
-                  "rule": "ID"
-                }
-              },
-              "class": {
-                "disabled": {"bool": "Enabled", "inverse": true}
-              }
-            }
-          ]
-        }
-      ]
+            "enabled": {"bool": "Enabled"} 
+          }
+        ]
+      }
     },
     "enable_rule": {
       "command": "",
-      "role": "elevated",
-      "result": [
-        {
-          "id": {"static": "test"},
-          "values": [
-            {
-              "static": "This command will enable or disable firewall rules but for now it just demonstrates nesting..."
-            }
-          ]
-        }
-      ]
+      "role": "elevated"
     }
   }
 }

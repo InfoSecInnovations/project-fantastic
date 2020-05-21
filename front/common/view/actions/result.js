@@ -7,9 +7,16 @@ const format_command = (command, data) => {
   return command
 }
 
+const format_value = value => {
+  if (typeof value === 'object') {
+    if (value.date) return TimeAgo(value.date)
+  }
+  return `${value}`
+}
+
 const result = (state, action, action_result, index, node_id, host, loading, send, followups = []) => H('div.result', [
   action_result.label ? H('div.result_header', action_result.label) : undefined,
-  ...(action_result.data ? action_result.data.map(v => H('div.item', v)) : []),
+  ...(action_result.data ? action_result.data.map(v => H('div.item', format_value(v))) : []),
   ...(action_result.followups ? Object.values(action_result.followups).map(v => {
     const followup_label = ResultLabel(v)
     if (v.not_permitted) return H('div.item', followup_label)

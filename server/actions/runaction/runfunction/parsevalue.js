@@ -14,7 +14,7 @@ const parseValue = (value_data, output) => {
     const value = output[value_data.date]
     const start_index = value.indexOf('(') + 1
     const end_index = value.indexOf(')')
-    return parseInt(value.slice(start_index, end_index))
+    return {date: parseInt(value.slice(start_index, end_index))}
   }
   if (value_data.key_value_string) {
     const obj = output.split(',').reduce((result, v) => {
