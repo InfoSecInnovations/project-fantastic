@@ -7,12 +7,15 @@ const transaction = path => new Promise((resolve, reject) => {
     if (err) return reject(err)
     return resolve({
       ...Object.entries(Operations).reduce((result, v) => ({...result, [v[0]]: (...args) => v[1].apply(null, args)(db)}), {}),
-      close: () => {
+      close: () => new Promise((resolve, reject) => {
         db.run('COMMIT;', err => {
-          if (err) return console.log(`SQLite error: ${err.message}`)
-          db.close()
+          if (err) return reject(err)
+          db.close(err => {
+            if (err) return reject(err)
+            resolve()
+          })
         })
-      }
+      })
     })
   })
 })

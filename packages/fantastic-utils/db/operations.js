@@ -40,17 +40,20 @@ const order = order_by => {
 
 const insert = (table, row) =>
   db => new Promise(
-    (resolve, reject) => db.run(
-      `INSERT INTO ${table} ${row && Object.keys(row).length ? `(${Object.keys(row).join()})
-      VALUES(${Object.values(row).map(v => '?').join(', ')})` : 'DEFAULT VALUES'}`,
-      [
-        ...(row && Object.values(row) || [])
-      ],
-      function (err) {
-        if (err) return reject(err)
-        resolve(this.lastID)
-      }
-    )
+    (resolve, reject) => {
+      const rows = Array.isArray(row) ? row : [row]
+      db.run(
+        `INSERT INTO ${table} ${rows[0] && Object.keys(rows[0]).length ? `(${Object.keys(rows[0]).join()})
+        VALUES${rows.map(v => `(${Object.values(v).map(v => '?').join(', ')})`).join(', ')}` : 'DEFAULT VALUES'}`,
+        [
+          ...(row && rows.map(v => Object.values(v)).flat() || [])
+        ],
+        function (err) {
+          if (err) return reject(err)
+          resolve(this.lastID)
+        }
+      )
+    }
   )
 
 const update = query =>

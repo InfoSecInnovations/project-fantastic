@@ -76,7 +76,7 @@ const addConnections = async (node_id, connections, is_remote) => {
     )
   }
 
-  db.close()
+  await db.close()
 
   console.log(`added ${connections.length} connections to database from node ${node_id} in ${Date.now() - date}ms. ${new_nodes} new nodes were found.`)
 }
