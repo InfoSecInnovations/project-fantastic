@@ -7,23 +7,13 @@
       "command": "Get-WmiObject -Class Win32_Product",
       "method": "invoke",
       "json": true,
-      "result": [
-        {
-          "id": {
-            "combine": ["IdentifyingNumber", {"static": "header"}]
-          },
-          "values": [
-            {"type": "header", "content": "Name"}
-          ]
-        },
-        {
-          "id": "IdentifyingNumber",
-          "values": [
-            {"labelled": "Version"},
-            {"labelled": "Vendor"}
-          ]
-        }
-      ]
+      "result": {
+        "label": "Name",
+        "data": [
+          {"labelled": "Version"},
+          {"labelled": "Vendor"}
+        ]
+      }
     }
   }
 }

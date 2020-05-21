@@ -7,17 +7,12 @@
       "command": "Get-CimInstance -ClassName win32_operatingsystem | select lastbootuptime",
       "method": "invoke",
       "json": true,
-      "result": [
-        {
-          "id": {"static": "date"},
-          "values": [
-            {
-              "type": "date",
-              "date": "lastbootuptime"
-            }
-          ]
-        }
-      ]
+      "result": {
+        "label": {"static": "Last Boot Up Time"},
+        "data": [
+          {"date": "lastbootuptime"}
+        ]
+      }
     }
   }
 }
