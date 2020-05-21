@@ -14,7 +14,7 @@ const load_followup = (action, send, node, results, followups) => {
   })
   result.forEach((r, i) => {
     if (!r.followups) return
-    Object.values(r.followups).forEach(f => load_followup(action, send, node, results, [...followups, {index: i, followup: f.function}]))
+    Object.values(r.followups).forEach(f => load_followup(action, send, node, results, [...followups, {label: r.label, followup: f.function}]))
   })
 }
 
@@ -34,7 +34,7 @@ const loadNodeResults = (nodes, send) => {
       })
       result.forEach((r, i) => {
         if (!r.followups) return
-        Object.values(r.followups).forEach(f => load_followup(v.action, send, node, res, [{index: i, followup: f.function}]))
+        Object.values(r.followups).forEach(f => load_followup(v.action, send, node, res, [{label: r.label, followup: f.function}]))
       })
     })
   })

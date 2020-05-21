@@ -66,14 +66,7 @@
     },
     "enable_rule": {
       "command": "",
-      "role": "elevated",
-      "result": {
-        "data": [
-          {
-            "static": "This command will enable or disable firewall rules but for now it just demonstrates nesting..."
-          }
-        ]
-      }
+      "role": "elevated"
     }
   }
 }
