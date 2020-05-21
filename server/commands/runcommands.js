@@ -73,14 +73,13 @@ const run = async get_commands => {
       }    
     }))
     console.log(`found ${remote.length} hosts with remote access enabled.`)
-    await Promise.all([
-      run_type(commands, 'connections', 'local').then(res => addConnections(local, res)),
-      get_node(commands).then(res => updateNode(local, res, true)),
-      ...remote.map(v => [
-        run_type(commands, 'connections', 'remote', v.hostname).then(res => addConnections(v.id, res, true)),
-        get_node(commands, v.hostname).then(res => updateNode(v.id, res, true))
-      ]).flat()
-    ])
+
+    await run_type(commands, 'connections', 'local').then(res => addConnections(local, res))
+    await get_node(commands).then(res => updateNode(local, res, true))
+    for (const node of remote) {
+      await run_type(commands, 'connections', 'remote', node.hostname).then(res => addConnections(node.id, res, true))
+      await get_node(commands, node.hostname).then(res => updateNode(node.id, res, true))
+    }
     loop ()
   }
 
