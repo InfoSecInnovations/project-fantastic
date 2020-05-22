@@ -1,5 +1,5 @@
 const UWS = require('uWebSockets.js')
-const Path = require('path')
+const HTTPolyglot = require('httpolyglot')
 const DB = require('./db')
 const {fork} = require('child_process')
 const GetCommandData = require('./commands/getcommanddata')
@@ -11,6 +11,7 @@ const GetConfig = require('./util/getconfig')
 const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
 const GetPackage = require('./util/getpackage')
+const FS = require('fs')
 
 const main = async () => {
 
@@ -81,7 +82,15 @@ const main = async () => {
 
   auth_module.configure(app)
 
-  app.listen(config.port, () => console.log(`Fantastic Server running on port ${config.port}!`))
+  app.listen(config.port + 1, () => console.log(`Fantastic Server running on port ${config.port + 1}!`))
+
+  HTTPolyglot.createServer({
+    key: FS.readFileSync('cert/key'),
+    cert: FS.readFileSync('cert/cert')
+  }, function(req, res) {
+    res.writeHead(301, { 'Location': `https://${req.headers.host.split(':')[0]}:${config.port + 1}` });
+    return res.end();
+  }).listen(config.port);
 
   // reload config and update changed data
   WatchConfig(data => {

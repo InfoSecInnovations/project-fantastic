@@ -13,6 +13,7 @@
     "fantastic-cli": "file:../packages/fantastic-cli",
     "fantastic-utils": "file:../packages/fantastic-utils",
     "fs-extra": "^8.1.0",
+    "httpolyglot": "^0.1.2",
     "markdown-it": "^10.0.0",
     "svgson": "^4.0.0",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries"
