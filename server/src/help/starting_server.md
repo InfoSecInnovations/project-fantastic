@@ -6,7 +6,7 @@ Clone the repository and run `npm i` inside it as administrator.
 
 ## Running the server
 
-Simply run `npm start` in the repository's `server` directory. If you want to be able to run actions which need administrator access, you will need to run the server with administrator privileges. Closing the window will stop the server.
+Simply run `npm start` in the repository's `server` directory as administrator. Closing the window will stop the server.
 
 For more information about configuring the application see:
 - [Configuration](config.md)

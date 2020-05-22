@@ -12,6 +12,7 @@ const WatchConfig = require('./watchconfig')
 const WriteConfig = require('./writeconfig')
 const GetPackage = require('./util/getpackage')
 const FS = require('fs')
+const Path = require('path')
 
 const main = async () => {
 
@@ -46,9 +47,11 @@ const main = async () => {
 
   const auth_module = await GetPackage(config.authentication)
 
+  const cert_directory = await FS.promises.access('cert').then(() => 'cert', () => 'default_cert')
+
   const app = UWS.SSLApp({
-    key_file_name: 'cert/key',
-    cert_file_name: 'cert/cert'
+    key_file_name: Path.join(cert_directory, 'key'),
+    cert_file_name: Path.join(cert_directory, 'cert'),
   })
   app.get('/', require('./http/main'))
   app.get('/*', require('./http/files'))
@@ -85,8 +88,8 @@ const main = async () => {
   app.listen(config.port + 1, () => console.log(`Fantastic Server running on port ${config.port + 1}!`))
 
   HTTPolyglot.createServer({
-    key: FS.readFileSync('cert/key'),
-    cert: FS.readFileSync('cert/cert')
+    key: FS.readFileSync(Path.join(cert_directory, 'key')),
+    cert: FS.readFileSync(Path.join(cert_directory, 'cert'))
   }, function(req, res) {
     res.writeHead(301, { 'Location': `https://${req.headers.host.split(':')[0]}:${config.port + 1}` });
     return res.end();

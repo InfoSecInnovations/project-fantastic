@@ -1,6 +1,6 @@
 # Configuration
 
-The application can be configured using `config/config.json`
+The application can be configured using `server/config/config.json`. If the `config` directory doesn't exist the values from `server/default_config` will be used. You can run `server/scripts/defaultconfig.js` to copy the default config, this will also happen automatically if you modify host data commands via the client.
 
 ## use_child_process
 
