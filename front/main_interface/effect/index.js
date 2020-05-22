@@ -7,7 +7,7 @@ const LoadNodeResults = require('../../common/effect/loadnoderesults')
 const LoadHistory = require('./loadhistory')
 const GenerateQuery = require('../../common/effect/generatequery')
 const SearchQuery = require('./searchquery')
-const RefreshResult = require('./resfreshresult')
+const RefreshResult = require('./refreshresult')
 
 const effect = (state, action, send) => {
   Common(state, action, send)
