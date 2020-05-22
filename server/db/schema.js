@@ -57,13 +57,29 @@ const schema = [
     result_id INTEGER PRIMARY KEY,
     action TEXT,
     function TEXT,
-    key TEXT,
+    label TEXT,
     data TEXT,
     date INTEGER,
     node_id INTEGER,
+    user_id TEXT,
     FOREIGN KEY (node_id)
       REFERENCES nodes (node_id)
       ON DELETE CASCADE
+  )`,
+  `CREATE TABLE IF NOT EXISTS quest_history(
+    quest_id INTEGER PRIMARY KEY,
+    quest TEXT,
+    results TEXT,
+    date INTEGER,
+    user_id TEXT
+  )`,
+  `CREATE TABLE IF NOT EXISTS test_history(
+    test_id INTEGER PRIMARY KEY,
+    test TEXT,
+    results TEXT,
+    parameters TEXT,
+    date INTEGER,
+    user_id TEXT
   )`
 ]
 

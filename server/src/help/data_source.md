@@ -2,6 +2,8 @@
 
 Data source scripts are used for gathering data about the network and storing it in the server's database.
 
+**IMPORTANT: the format of these scripts is likely to change significantly in the near future!**
+
 ## Data source output
 
 This should be output by a script placed in the `config/data_sources` directory.

@@ -4,7 +4,18 @@ Fantastic is a visual tool to explore a computer network, analyze security flaws
 
 ## Quick Start
 
-Once the server is up and running (see [Getting Started With The Server](starting_server.md)), connect to the server's address and port (the default is 5000) and you should be greeted by the application's interface.
+Once the server is up and running (see [Getting Started With The Server](starting_server.md)), connect to the server's address and port (the default is 5000) and you should be greeted by the application's interface. Note that you must use HTTPS.
+
+If you're using the supplied default authentication module you can simply enter a username and password and click register to create an account with basic access, or use the default admin account which has the username `admin` and the password `changeme`. We recommend changing the admin password if other people have access to the tool!
+
+Currently supported browsers:
+  - Google Chrome
+  - Mozilla Firefox
+
+Currently unsupported browsers:
+  - Microsoft Edge
+
+Other browsers haven't been tested yet.
 
 // TODO: insert picture when UI is more finalised
 
@@ -27,16 +38,42 @@ At the top of the screen you can change the filtering options for the data you w
 
 // TODO: insert picture when UI is more finalised
 
-A visual representation of the network. Each node represents a host, and the arrows show the connections between them. Clicking on a node or a connection opens the info panel where you can view more detailed information about it and perform actions if they are available.
+A visual representation of the network. Each node represents a host, and the arrows show the connections between them. Clicking on a node or a connection opens the info panel where you can view more detailed information about it and perform actions if they are available. Hold shift to select multiple nodes. Note that "local host" refers to the server hosting the application, and not your own machine, which may not be the server.
 
-## Host Data Commands
+## Menu
+
+In the bottom left of the interface there are buttons to open the Host Data Commands, Tests, and Quests panels
+
+### Host Data Commands
 
 // TODO: insert picture when UI is more finalised
 
 Here you can see all the available commands for getting data, and you can enable or disable them. Enabled commands will run constantly on the server and update the database.
 
-## Info Panel
+### Tests
 
 // TODO: insert picture when UI is more finalised
 
-Shows information about the selected item on the graph. When a host is selected, the connections list shows connections originating from that host. You can see the name of the process which created the connection, as well as its state.
+Tests run some actions and allow you to analyse the results according to the parameters you set. Upon completing the test, if any hosts didn't pass, they will be selected.
+
+### Quests
+
+// TODO: insert picture when UI is more finalised
+
+You will be assigned daily quests which show you some tests you can run with specific parameters, and explain why you should run them. We currently only have one quest available, but more are on their way soon. All hosts on the network must pass the test to succeed the quest.
+
+## Selection Panel
+
+Shows information and actions related to the selected items on the graph. The button next to the host name in the top right of this panel allows you to open both views at once in a new tab. If more than one host is selected you can open each one in a new tab provided you have disabled pop-up blocking in your browser.
+
+### Info View
+
+// TODO: insert picture when UI is more finalised
+
+When a host is selected, the connections list shows connections originating from that host. You can see the name of the process which created the connection, as well as its state.
+
+### Actions View
+
+// TODO: insert picture when UI is more finalised
+
+Here you can interact directly with the selected host(s). Currently our actions can only run on the server itself and hosts with PowerShell remote access from the server, but we plan to expand this in the future. When you run an action, you will get a result, which sometimes contains further actions you can execute as a consequence of the initial one.

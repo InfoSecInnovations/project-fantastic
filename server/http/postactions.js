@@ -1,20 +1,29 @@
-const GetQuery = require('./getquery')
+const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
-const RunActionFunction = require('../actions/runactionfunction')
+const RunAction = require('../actions/runaction')
+const HasRole = require('fantastic-utils/hasrole')
+const Auth = require('./auth')
+const GetAsset = require('../util/getpackageddata')
 
-const postActions = (res, req) => {
+const postActions = (res, req, config) => {
   res.onAborted(() => Abort(res))
-  const query = GetQuery(req)
+  const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log(`received http request to execute ${query.action} on node ${query.node_id}...`)
-  const date = Date.now()
-  RunActionFunction(query.action, 'run', query.node_id, date)
+  Auth(req.getHeader('cookie'))
+  .then(async user => {
+    if (!user) return !res.aborted && res.end()
+    const action = await GetAsset(query.action)
+    if (!HasRole(user, action.role)) return !res.aborted && res.end()
+    const date = Date.now()
+    RunAction(query.action, 'run', query.node_id, user, date)
     .then(result => {
       if (res.aborted) return
       res.end(JSON.stringify({result, date}))
       console.log(`${query.action} executed on node ${query.node_id}`)
       console.log('-----------')
     })
+  })
 }
 
 module.exports = postActions

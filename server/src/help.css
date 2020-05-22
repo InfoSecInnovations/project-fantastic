@@ -21,16 +21,5 @@ h1 {
 }
 
 pre {
-  background-color: white;
   padding: 1rem;
-}
-
-code {
-  background-color: white;
-  padding: 0.2rem;
-}
-
-pre code {
-  margin: 0;
-  padding: 0;
 }

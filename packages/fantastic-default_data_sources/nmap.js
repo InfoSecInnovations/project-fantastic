@@ -1,6 +1,6 @@
-const Shell = require('node-powershell')
 const FS = require('fs').promises
 const ParseXML = require('xml2js').parseStringPromise
+const RunPowershell = require('fantastic-cli/runpowershell')
 
 const get_os = (ip, index) => nmap_to_obj(`-O ${ip} -p 445`, `nmapos${index}.xml`) // TODO: should we check port 22 as well?
   .then(res => {
@@ -38,17 +38,11 @@ const node = async (host, index) => {
 
 const directory = 'nmap_xml'
 const nmap_to_obj = async (command, filename) => {
-  const ps = new Shell({
-    executionPolicy: 'Bypass',
-    noProfile: true
-  })
-  ps.addCommand(`nmap ${command} -oX ${directory}/${filename}`)
-  const result = await FS.mkdir(directory)
-  .then(() => ps.invoke(), () => ps.invoke()) // if mkdir failed we don't care because it just means we already made the directory
-  .then(() => FS.readFile(`${directory}/${filename}`))
-  .then(res => ParseXML(res))
-  .catch(rej => console.log(`Getting nmap results failed: ${rej}`))
-  ps.dispose()
+  await FS.mkdir(directory).catch(() => {})
+  const result = RunPowershell(`nmap ${command} -oX ${directory}/${filename}`)
+    .then(() => FS.readFile(`${directory}/${filename}`))
+    .then(res => ParseXML(res))
+    .catch(rej => console.log(`Getting nmap results failed: ${rej}`))
   return result
 }
 
@@ -56,6 +50,7 @@ const nmap = {
   hosts: ['local'],
   result_type: 'hosts',
   description: 'Performs a fast scan using nmap to detect hosts on the network',
+  role: 'elevated',
   run: () => nmap_to_obj('-T4 -F 192.168.1.0/24', 'nmap.xml')
     .then(res => Promise.all(res.nmaprun.host.map(node)))
     .then(res => {

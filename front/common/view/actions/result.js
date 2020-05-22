@@ -1,68 +1,76 @@
 const H = require('snabbdom/h').default
 const TimeAgo = require('../../util/timeago')
+const ResultLabel = require('./resultlabel')
 
-const display = (action, line, foldout, status, node_id, host, send, id, keys) => {
+const format_command = (command, data) => {
+  Object.entries(data).forEach(v => command = command.split(`$${v[0]}`).join(v[1]))
+  return command
+}
 
-  if (typeof(line) === 'object') {
-    if (line.type == 'button') {
-      const loading = status === true || status[line.click.function] === 'loading'
-      return H('div.followup', [
-        H('div.button', 
+const format_value = value => {
+  if (typeof value === 'object') {
+    if (value.date) return TimeAgo(value.date)
+  }
+  return `${value}`
+}
+
+const result = (state, action, action_result, index, node_id, host, loading, send, followups = []) => H('div.result', [
+  action_result.label ? H('div.result_header', action_result.label) : undefined,
+  ...(action_result.data ? action_result.data.map(v => H('div.item', format_value(v))) : []),
+  ...(action_result.followups ? Object.values(action_result.followups).map(v => {
+    const followup_label = ResultLabel(v)
+    if (v.not_permitted) return H('div.item', followup_label)
+    const loading_followup = loading || v.status === 'loading'
+    return H('div.followup_command', [
+      H('div.item', H(
+        'div.button', 
         {
-          on: loading ? undefined : { click: [send, {
-            type: 'action_followup', 
-            action,
-            function: line.click.function,
-            data: line.click.data,
-            node_id,
-            host,
-            id,
-            keys,
-            refresh: true,
-            date: Date.now()
-          }]},
-          class: {...line.class, loading}
-        },
-        loading ? 'Running...' : line.text),
-        typeof foldout[line.click.function] === 'boolean' ? H('div.foldout', {
+          on: {
+            click: [
+              send, 
+              {
+                type: 'action_followup', 
+                action,
+                data: v.data,
+                node_id,
+                host,
+                followups: [...followups, {index, followup: v.function, label: action_result.label}],
+                refresh: true,
+                date: Date.now()
+              }
+            ]
+          },
+          class: {loading: loading_followup, disabled: typeof v.enabled !== 'undefined' && !v.enabled}
+        }, 
+        (loading_followup && 'Running...') || followup_label
+      )),
+      H('pre.command', format_command(state.actions[action].commands[v.function], v.data))
+    ])
+  }) : []),
+  ...(action_result.followups ? Object.values(action_result.followups)
+  .filter(v => v.result)
+  .map(v => {
+    return H('div', [
+      H('div.result_time', [
+        H('div.result_header', v.label || v.enabled ? 'Enable' : 'Disable'),
+        H('div.time', ` Results from ${TimeAgo(v.date)}`),
+        H(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {
           on: {click: [send, {
             type: 'followup_foldout',
             action,
-            function: line.click.function,
+            node_id,
             hostname: host,
-            id,
-            keys,
-            value: !foldout[line.click.function]
-          }]},
-          class: { disabled: !foldout[line.click.function]}
-        }) : undefined
-      ])
-    }
-    if (line.type == 'header') {
-      return H('div.result_header', line.text)
-    }
-    if (line.type == 'date') {
-      return H('div.text', `${TimeAgo(line.date)}`)
-    }
-  }
-  return H('div.text', line)
-}
-
-const result = (action, action_result, node_id, host, loading, send, keys = []) => H('div.result', Object.entries(action_result.value).map((v, i, arr) => {
-    if (v[0] === 'foldout') return  
-    if (v[0] === 'value') return H('div.item', v[1].map(v => display(action, v, action_result.value.foldout, loading || action_result.value.status, node_id, host, send, action_result.key, keys)))
-    return action_result.value.foldout[v[0]] ? 
-      H('div', [
-        H('div.result_time', [
-          H('div.result_header', action_result.value.value.find(r => r.click && r.click.function === v[0]).text),
-          H('div.time', ` Results from ${TimeAgo(action_result.value.date[v[0]])}`)
-        ]),
-        ...Object.entries(v[1])
-        .map(r => result(action, {key: r[0], value: r[1]}, node_id, host, loading || action_result.value.status[v[0]] === 'loading', send, [...keys, {function: v[0], id: action_result.key}]))
-      ]) :
-      undefined
-  }).flat()
-)
+            followups: [...followups, {index, followup: v.function, label: action_result.label}],
+            value: !v.foldout
+          }]}
+        })
+      ]),
+      ...(v.foldout ? v.result.map((r, i) => 
+        result(state, action, r, i, node_id, host, loading || v.status === 'loading', send, [...followups, {index, followup: v.function, label: action_result.label}])
+      ) : [])
+    ])
+  }).flat() : [])
+])
 
 
 module.exports = result

@@ -11,6 +11,27 @@ body {
 a {
   cursor: pointer;
   color: rgb(19, 57, 128);
+  text-decoration: none;
+}
+
+pre {
+  background-color: white;
+  padding: 0.5rem;
+}
+
+code {
+  background-color: white;
+  padding: 0.2rem;
+}
+
+pre code {
+  margin: 0;
+  padding: 0;
+}
+
+.command {
+  overflow: auto;
+  margin: 0.2rem 0;
 }
 
 .title {
@@ -23,6 +44,12 @@ a {
   font-weight: bold;
   margin: 0.6rem 0.6rem 0.6rem 0;
   font-size: 1rem;
+}
+
+.subsubtitle {
+  font-weight: bold;
+  margin: 0.6rem 0.6rem 0.6rem 0;
+  font-size: 0.92rem;
 }
 
 .item {
@@ -43,27 +70,35 @@ a {
   margin: 0.2rem;
 }
 
+.item :first-child {
+  margin-left: 0;
+}
+
 .followup {
   display: flex;
   margin: 0.2rem 0;
   flex: 0;
 }
 
-.followup .foldout {
-  width: 1rem;
+.followup_command {
+  margin: 0.5rem 0;
+}
+
+.followup_command .command {
+  display: none;
+}
+
+.followup_command:hover .command {
+  display: block;
+}
+
+.foldout {
   flex: none;
+  align-self: center;
 }
 
 .followup .button {
   margin: 0 0 0 0.4rem;
-}
-
-.followup .foldout::after {
-  content: '-';
-}
-
-.followup .foldout.disabled::after {
-  content: '+';
 }
 
 .result, .result_time {
@@ -87,6 +122,10 @@ a {
   margin: 0;
 }
 
+.item .not_permitted {
+  font-size: 1rem;
+}
+
 .targets {
   margin-top: 0.4rem;
   font-size: 0.8rem;
@@ -102,7 +141,12 @@ a {
   height: 0.5rem;
 }
 
-.button, .foldout {
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+input[type=button], input[type=submit], input[type=reset], .button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,11 +155,12 @@ a {
   cursor: pointer;
   border: 2px solid orangered;
   text-align: center;
-}
-
-.button {
   padding: 0.5rem;
   margin: 0.2rem 0 0.2rem 1rem;
+}
+
+.foldout {
+  cursor: pointer;
 }
 
 .button.disabled, .foldout.disabled {
@@ -149,4 +194,16 @@ a {
 
 .result_header {
   font-weight: bold;
+}
+
+.fas {
+  font-size: 1.5rem;
+  flex-grow: 0;
+}
+
+.fa-fw {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1.25em;
 }

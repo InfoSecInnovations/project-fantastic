@@ -3,7 +3,6 @@ const Snabbdom = require('snabbdom')
 const Update = require('./update')
 const View = require('./view')
 const Effect = require('./effect')
-const ActionResults = require('../common/defaults/actionresults')
 
 const patch = Snabbdom.init([
   require('snabbdom/modules/class').default,
@@ -12,7 +11,7 @@ const patch = Snabbdom.init([
   require('snabbdom/modules/eventlisteners').default, ])
 
 let state = { 
-  action_results: ActionResults(),
+  action_results: {},
 }
 let vdom = ToVNode(document.body)
 

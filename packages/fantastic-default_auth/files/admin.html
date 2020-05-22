@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>Fantastic - Administrator Area</title>
+    <script src="/auth/public/admin.js"></script>
+    <link rel = "stylesheet" type = "text/css" href = "/common.css" />
+    <link rel = "stylesheet" type = "text/css" href = "/auth/public/style.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div id="panel">
+        <h1>Administrator Area</h1>
+        <form onsubmit="return GetUser(this);">
+          <div>      
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            <input type="submit" value="Find User">
+          </div>
+        </form>
+        <div id="user_account"></div>
+      </div>
+    </div>
+  </body>
+</html>

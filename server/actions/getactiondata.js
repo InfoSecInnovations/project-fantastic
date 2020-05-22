@@ -1,6 +1,10 @@
-const getActionData = async config => config.actions ? config.actions.map(v => {
-  const package = require(`../config/node_modules/${v}`)
-    return Object.keys(package).map(k => `${v}/${k}`)
-  }).flat() : []
+const GetPackage = require('../util/getpackage')
+
+const getActionData = async config => {
+  if (!config.actions) return []
+  return await Promise.all(
+    config.actions.map(v => GetPackage(v).then(res => Object.keys(res).map(k => `${v}/${k}`)))
+  ).then(res => res.flat())
+}
 
 module.exports = getActionData

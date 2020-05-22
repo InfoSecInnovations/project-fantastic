@@ -1,5 +1,7 @@
 const Common = require('../../common/update')
 const Hovered = require('../defaults/hovered')
+const QuestResults = require('./questresults')
+const TestResults = require('./testresults')
 
 const update = (state, action) => {
   if (action.type == 'nodes') state.nodes = action.nodes
@@ -38,11 +40,22 @@ const update = (state, action) => {
   if (action.type == 'vis') state.vis = action.vis
   if (action.type == 'commands') state.commands = action.commands
   if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled
+  if (action.type == 'quests') state.quests = action.quests
   if (action.type == 'tab') state.tab = action.tab
-  if (action.type == 'command_foldout') state.command_foldout = action.value
+  if (action.type == 'left_panel_state') state.left_panel_state = action.state
   if (action.type == 'key') state.keys[action.key] = action.value
   if (action.type == 'add_child_tab') state.child_tabs.push(action.tab)
   if (action.type == 'remove_child_tab') state.child_tabs.splice(state.child_tabs.findIndex(v => v === action.tab), 1)
+  if (action.type == 'quest_results') QuestResults(state, action)
+  if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading'
+  if (action.type == 'tests') state.tests = action.tests
+  if (action.type == 'test_results') TestResults(state, action)
+  if (action.type == 'run_test') state.test_results.status[action.test] = 'loading'
+  if (action.type == 'test_parameter') {
+    if (!state.test_parameters[action.test]) state.test_parameters[action.test] = {}
+    state.test_parameters[action.test][action.key] = action.value
+  }
+  if (action.type == 'user') state.user = action.user
   state = Common(state, action)
   return state
 }

@@ -1,7 +1,7 @@
-const {run} = require('./operations')
+const operations = require('./operations')
 const Schema = require('./schema')
 
-const init = () => run(Schema).catch(err => console.log(err.message))
+const init = () => operations.run(Schema).catch(err => console.log(err.message))
 
 module.exports = {
   init, 
@@ -9,5 +9,6 @@ module.exports = {
   addNodes: require('./addnodes'), 
   getNodes: require('./getnodes'), 
   updateNode: require('./updatenode'), 
-  addMacs: require('./addmacs')
+  addMacs: require('./addmacs'),
+  ...operations
 }

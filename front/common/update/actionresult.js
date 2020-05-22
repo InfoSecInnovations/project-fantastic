@@ -1,20 +1,19 @@
 const actionResult = (state, action) => {
-  if (!state.action_results.data[action.hostname]) {
-    state.action_results.data[action.hostname] = {}
-    state.action_results.foldouts[action.hostname] = {}
-    state.action_results.status[action.hostname] = {}
-    state.action_results.date[action.hostname] = {}
+  if (Array.isArray(action.result) && !action.result.length) action.result = undefined
+  if (!state.action_results[action.hostname]) {
+    state.action_results[action.hostname] = {}
   }
-  if (!state.action_results.data[action.hostname][action.action]) {
-    state.action_results.data[action.hostname][action.action] = {}
-    state.action_results.foldouts[action.hostname][action.action] = action.result.length ? true : undefined
+  if (!state.action_results[action.hostname][action.action]) {
+    state.action_results[action.hostname][action.action] = {}
   }
-  state.action_results.status[action.hostname][action.action] = 'loaded'
-  state.action_results.date[action.hostname][action.action] = action.date
-  action.result.forEach(v => {
-    if (!state.action_results.data[action.hostname][action.action][v.id]) state.action_results.data[action.hostname][action.action][v.id] = {value: v.value, foldout: {}, status: {}, date: {}}
-    else state.action_results.data[action.hostname][action.action][v.id] = {...state.action_results.data[action.hostname][action.action][v.id], value: v.value}
-  })
+  const action_result = state.action_results[action.hostname][action.action]
+  if (action.followup) {
+    action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]
+  }
+  else action_result.result = action.result
+  action_result.foldout = action.result ? true : undefined
+  action_result.status = 'loaded'
+  action_result.date = action.date
 }
 
 module.exports = actionResult

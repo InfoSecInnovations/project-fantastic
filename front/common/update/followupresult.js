@@ -1,18 +1,16 @@
 const followupResult = (state, action) => {
-  let action_result = state.action_results.data[action.hostname][action.action]
-  for (const keys of action.keys) {
-    action_result = action_result[keys.id][keys.function]
+  if (Array.isArray(action.result) && !action.result.length) action.result = undefined
+  let action_result = state.action_results[action.hostname][action.action]
+  for (const key of action.followups) {
+    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]
   }
-  action_result = action_result[action.id]
-  action_result.foldout[action.function] = action.result.length ? true : undefined
-  action_result.status[action.function] = 'loaded'
-  action_result.date[action.function] = action.date
-  if (!action_result[action.function]) action_result[action.function] = {}
-  action_result = action_result[action.function]
-  action.result.forEach(v => {
-    if (!action_result[v.id]) action_result[v.id] = {value: v.value, foldout: {}, status: {}, date: {}}
-    else action_result[v.id].value = v.value
-  })
+  if (action.followup) {
+    action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]
+  }
+  else action_result.result = action.result
+  action_result.foldout = action.result ? true : undefined
+  action_result.status = 'loaded'
+  action_result.date = action.date
 }
 
 module.exports = followupResult

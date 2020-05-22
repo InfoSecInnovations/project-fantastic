@@ -1,37 +1,16 @@
-//const Shell = require('node-powershell')
-//const Edge = require('edge-js')
 const { spawn } = require('child_process')
 
-/*const nodePowershell = async (command, log = false) => {
-  const ps = new Shell({
-    executionPolicy: 'Bypass',
-    noProfile: true
-  })
-  ps.addCommand(command)
-  const result = await ps.invoke().catch(rej => {
-    if (log) console.log(`PowerShell command failed: ${rej}`)
-    return ''
-  })
-  ps.dispose()
-  return result
-}*/
+const format_value = v => {
+  if (typeof v === 'string') return `"${v}"`
+  if (typeof v === 'boolean') return v ? 1 : 0
+  return v
+}
 
-/*
-const edge = (command, log = false) => new Promise((resolve, reject) => {
-  const run = Edge.func('ps', command)
-
-  run(command, (e, res) => {
-    if (e) {
-      if (log) console.log(e.message)
-      resolve('')
-    }
-    else {
-      resolve(res[0])
-    }
-  })
-})*/
-
-const child = (command, log = false) => new Promise((resolve, reject) => {
+const child = (command, params, log = true) => new Promise((resolve, reject) => {
+  if (params) {
+    command = `${Object.entries(params).map(v => `$${v[0]} = ${format_value(v[1])}
+    `).join('')} ${command}`
+  }
   const child_process = spawn('powershell.exe', [command])
   let buffer
   child_process.stdout.on('data', d => {

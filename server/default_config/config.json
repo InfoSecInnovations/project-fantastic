@@ -1,5 +1,5 @@
 {
-  "use_child_process": false,
+  "use_child_process": true,
   "port": 5000,
   "actions": [
     "fantastic-default_actions"
@@ -11,7 +11,15 @@
       "getMacAddress",
       "getNetIpAddress",
       "getNetTcpConnection",
-      "getOs"
+      "getOs",
+      "nmap"
     ]
-  }
+  },
+  "quests": [
+    "fantastic-default_quests"
+  ],
+  "tests": [
+    "fantastic-default_tests"
+  ],
+  "authentication": "fantastic-default_auth"
 }

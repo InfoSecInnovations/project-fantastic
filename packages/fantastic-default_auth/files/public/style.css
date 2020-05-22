@@ -1,0 +1,58 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+#container {
+  background-color: rgb(255, 171, 140);
+  width: min(40rem, 100vw);
+  padding: 2rem;
+}
+
+#panel {
+  background-color: coral;
+  padding: 2rem;
+  margin: 2rem;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  padding: 0 0.5rem;
+  min-width: 10rem;
+}
+
+table, th, td {
+  border: 2px solid black;
+}
+
+td .button {
+  margin: 0.2rem auto;
+}
+
+.table_cell {
+  display: flex;
+}
+
+.input_container {
+  margin: 0.5rem 0;
+}
+
+#error {
+  color: rgb(189, 0, 0);
+}
+
+input[type=button], input[type=submit], input[type=reset], .button {
+  margin: 1rem 1rem 1rem 0;
+  color: black;
+  width: max-content;
+  font-size: 1rem;
+  flex-grow: 0;
+}
+
+.confirm {
+  margin-right: 1rem;
+}

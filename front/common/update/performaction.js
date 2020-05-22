@@ -1,5 +1,11 @@
 const performAction = (state, action) => {
-  state.action_results.status[action.host][action.action] = 'loading'
+  if (!state.action_results[action.host]) {
+    state.action_results[action.host] = {}
+  }
+  if (!state.action_results[action.host][action.action]) {
+    state.action_results[action.host][action.action] = {}
+  }
+  state.action_results[action.host][action.action].status = 'loading'
 }
 
 module.exports = performAction

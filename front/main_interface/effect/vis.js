@@ -1,18 +1,25 @@
 const Vis = require('vis-network')
 const NodeName = require('../../common/util/nodename')
 
+const get_image = os => {
+  if (os) {
+    if (os.toLowerCase().includes('linux')) return 'brands/linux.svg'
+    if (os.toLowerCase().includes('windows')) return 'brands/windows.svg' // TODO: add old windows logo for pre Win 8 versions?
+    if (os.toLowerCase().includes('ios')) return 'brands/apple.svg' // TODO: ios vs mac logos?
+    // TODO: router icons?
+  }
+  return 'solid/question.svg'
+}
+
+const get_size = node => {
+  if (node.access === 'local') return 30
+  if (node.important) return 20
+  return 15
+}
+
 const graph = (state, send) => {
   const nodes = []
   const edges = []
-  const get_image = os => {
-    if (os) {
-      if (os.toLowerCase().includes('linux')) return '/images/linux.svg'
-      if (os.toLowerCase().includes('windows')) return '/images/win_new.svg' // TODO: add old windows logo for pre Win 8 versions?
-      if (os.toLowerCase().includes('ios')) return '/images/apple.svg' // TODO: ios vs mac logos?
-      // TODO: router icons?
-    }
-    return '/images/unknown.svg'
-  }
   state.nodes.forEach((v, i, arr) => {
     let connection_count = 0
     v.connections.forEach(c => {
@@ -28,13 +35,11 @@ const graph = (state, send) => {
     })
     const image = get_image(v.os)
     nodes.push({
-      ...{
-        id: i, 
-        label: `${NodeName(v)}${v.access === 'local' ? ' (local host)' : ''}`,
-        mass: connection_count || 1
-      }, 
-      ...(image && {image, shape: v.important ? 'image' : 'circularImage'}),
-      ...(v.access === 'local' ? {size: 25} : undefined)
+      id: i, 
+      label: `${NodeName(v)}${v.access === 'local' ? ' (local host)' : ''}`,
+      mass: connection_count || 1,
+      size: get_size(v),
+      ...(image && {image: `/fontawesome-free-5.13.0-web/svgs/${image}`, shape: v.important ? 'image' : 'circularImage'})
     })
   })
   const options = {

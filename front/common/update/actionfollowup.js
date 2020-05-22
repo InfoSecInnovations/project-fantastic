@@ -1,10 +1,9 @@
 const actionFollowup = (state, action) => {
-  let action_result = state.action_results.data[action.host][action.action]
-  for (const keys of action.keys) {
-    action_result = action_result[keys.id][keys.function]
+  let action_result = state.action_results[action.host][action.action]
+  for (const key of action.followups) {
+    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]
   }
-  action_result = action_result[action.id]
-  action_result.status[action.function] = 'loading'
+  action_result.status = 'loading'
 }
 
 module.exports = actionFollowup
