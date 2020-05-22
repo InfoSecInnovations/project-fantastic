@@ -8,10 +8,11 @@ const updateNode = async (node_id, data, db, overwrite) => {
   console.log(`updating node ${node_id} with fresh data...`)
 
   const date = Date.now()
-  await db.update({
+  await (overwrite ? Promise.resolve() : db.get({table: 'nodes', conditions: {columns: {node_id}}}))
+    .then(res => db.update({
       table: 'nodes', 
-      row: FilterColumns(data, overwrite).reduce((result, v) => ({...result, [v]: data[v]}), {date}), 
-      conditions: {columns: {node_id}}})
+      row: FilterColumns(res, overwrite).reduce((result, v) => ({...result, [v]: data[v]}), {date}), 
+      conditions: {columns: {node_id}}}))
     .then(() => AddIPs(node_id, data.ips, db, date))
     .then(() => AddMACs(node_id, data.macs, db, overwrite)) 
     .catch(rej => console.log(`updateNode failed: ${rej.message}`))
