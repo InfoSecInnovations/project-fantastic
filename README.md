@@ -10,8 +10,6 @@ If you just want to run the server, navigate to the `server` directory and use `
 
 **You do not have to build the client**, however the front end has 2 different directories: `front/main_interface` and `front/node_viewer`, the Node Viewer being the tab which breaks out from the main interface when you want to inspect a single host. These are already built and can be found in the `server/src` directory, however if you wish to build them again, navigate to the appropriate directory and run `npm run js` which will rebuild any changes as you make them.
 
-Note that when accessing the client you must specify HTTPS in the address otherwise it will fail to load, redirecting HTTP traffic is on our todo.
-
 Currently supported browsers:
   - Google Chrome
   - Mozilla Firefox

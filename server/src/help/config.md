@@ -12,4 +12,16 @@ The port used to connect to the server.
 
 ## data_sources
 
-The server will run these files from the `config/data_sources` directory to acquire data about the network and store it in the database. See [Data Sources](data_source.md) for more information.
+The object keys indicate which packages should be used for host data commands, and the array values indicate which commands are enabled. See [Data Sources](data_source.md) for more information.
+
+## quests
+
+Array of package names to get quests from.
+
+## tests
+
+Array of package names to get tests from.
+
+## authentication
+
+Package to use for user authentication.

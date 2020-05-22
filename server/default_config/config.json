@@ -11,8 +11,7 @@
       "getMacAddress",
       "getNetIpAddress",
       "getNetTcpConnection",
-      "getOs",
-      "nmap"
+      "getOs"
     ]
   },
   "quests": [

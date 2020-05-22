@@ -17,6 +17,6 @@ For more information about configuring the application see:
 
 ## Accessing the client
 
-To access the client use the port defined in the config file. The default is 5000. If you are running the server locally using this default port, go to `https://localhost:5000`. Don't forget the HTTPS otherwise it won't load (redirecting HTTP traffic is on our todo).
+To access the client use the port defined in the config file. The default is 5000. If you are running the server locally using this default port, go to `http://localhost:5000`.
 
 For more information about using the client see the [Client Help](index.md)
