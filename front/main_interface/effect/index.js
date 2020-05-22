@@ -52,7 +52,10 @@ const effect = (state, action, send) => {
   if (action.type == 'action_result' || action.type == 'action_followup_result') state.child_tabs.forEach(v => v.send(action))
   if (action.type == 'run_quest') fetch(`/quests?${GenerateQuery({...SearchQuery(state), quest: action.quest})}`, {method: 'POST'})
     .then(res => res.json())
-    .then(res => send({...action, type: 'quest_results', results: res.result, date: res.date, select: true}))
+    .then(res => {
+      send({...action, type: 'quest_results', results: res.result, date: res.date, select: true})
+      send({...action, type: 'test_results', results: res.result, date: res.date, parameters: state.quests[action.quest].parameters, test: state.quests[action.quest].test}) // quest results are the same as the test run by the quest
+    })
   if (action.type == 'quest_results') RefreshResult(state, action, send, state.quests[action.quest])
   if (action.type == 'test_results') RefreshResult(state, action, send, state.tests[action.test])
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({...SearchQuery(state), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
