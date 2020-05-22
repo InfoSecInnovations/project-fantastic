@@ -9,7 +9,7 @@ const run_type = (commands, result_type, host, hostname) => commands[result_type
   Promise.resolve([])
 
 const run_one_of_type = async (commands, result_type, host, hostname) => {
-  if (!commands[result_type]) return ''
+  if (!commands[result_type]) return undefined
   const funcs = commands[result_type].filter(v => v.hosts.includes(host))
   for (const f of funcs) { // TODO: instead of just running in order we should establish a priority so we run the best commands first
     const result = await f.run(hostname)
