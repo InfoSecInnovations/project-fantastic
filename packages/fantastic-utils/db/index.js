@@ -4,6 +4,7 @@ const Transaction = require('./transaction')
 
 const execute = (path, func) => new Promise(async (resolve, reject) => {
   const db = new SQLite3.Database(path, err => err && console.error(err.message))
+  db.configure('busyTimeout', 100000)
   const result = await func(db)
   db.close(err => err && reject(err) || resolve(result))
 })

@@ -7,6 +7,7 @@ const LoadNodeResults = require('../../common/effect/loadnoderesults')
 const LoadHistory = require('./loadhistory')
 const GenerateQuery = require('../../common/effect/generatequery')
 const SearchQuery = require('./searchquery')
+const RefreshResult = require('./resfreshresult')
 
 const effect = (state, action, send) => {
   Common(state, action, send)
@@ -52,17 +53,8 @@ const effect = (state, action, send) => {
   if (action.type == 'run_quest') fetch(`/quests?${GenerateQuery({...SearchQuery(state), quest: action.quest})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => send({...action, type: 'quest_results', results: res.result, date: res.date, select: true}))
-
-  if (action.type == 'quest_results' || action.type == 'test_results') {
-    const data = (action.quest && state.quests[action.quest]) || state.tests[action.test]
-    const node_indices = action.results.map(v => state.nodes.findIndex(n => n.node_id == v.node_id)).filter(v => v !== -1)
-    const highlight = node_indices.filter(v => action.results.find(r => r.node_id === state.nodes[v].node_id && r.result != data.pass.condition))
-    if (action.select) {
-      send({type: 'select', nodes: highlight})
-      send({type: 'vis_select', nodes: highlight})
-      LoadNodeResults(node_indices.map(v => state.nodes[v]), send)
-    }
-  }
+  if (action.type == 'quest_results') RefreshResult(state, action, send, state.quests[action.quest])
+  if (action.type == 'test_results') RefreshResult(state, action, send, state.tests[action.test])
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({...SearchQuery(state), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
     .then(res => send({...action, type: 'test_results', results: res.result, date: res.date, select: true, parameters: action.parameters}))

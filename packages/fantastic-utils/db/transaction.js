@@ -3,6 +3,7 @@ const SQLite3 = require('sqlite3')
 
 const transaction = path => new Promise((resolve, reject) => {
   const db = new SQLite3.Database(path, err => err && console.error(err.message))
+  db.configure('busyTimeout', 100000)
   db.run('BEGIN TRANSACTION;', err => {
     if (err) return reject(err)
     return resolve({
