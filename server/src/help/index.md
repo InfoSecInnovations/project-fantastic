@@ -6,6 +6,8 @@ Fantastic is a visual tool to explore a computer network, analyze security flaws
 
 Once the server is up and running (see [Getting Started With The Server](starting_server.md)), connect to the server's address and port (the default is 5000) and you should be greeted by the application's interface. Note that you must use HTTPS.
 
+If you're using the supplied default authentication module you can simply enter a username and password and click register to create an account with basic access, or use the default admin account which has the username `admin` and the password `changeme`. We recommend changing the admin password if other people have access to the tool!
+
 Currently supported browsers:
   - Google Chrome
   - Mozilla Firefox
@@ -40,7 +42,7 @@ A visual representation of the network. Each node represents a host, and the arr
 
 ## Menu
 
-In the bottom left of the interface there are buttons to open the Host Data Commands and Quests panels
+In the bottom left of the interface there are buttons to open the Host Data Commands, Tests, and Quests panels
 
 ### Host Data Commands
 
@@ -48,11 +50,17 @@ In the bottom left of the interface there are buttons to open the Host Data Comm
 
 Here you can see all the available commands for getting data, and you can enable or disable them. Enabled commands will run constantly on the server and update the database.
 
+### Tests
+
+// TODO: insert picture when UI is more finalised
+
+Tests run some actions and allow you to analyse the results according to the parameters you set. Upon completing the test, if any hosts didn't pass, they will be selected.
+
 ### Quests
 
 // TODO: insert picture when UI is more finalised
 
-You will be assigned daily quests which show you some tests you can run, and explain why you should run them. We currently only have one quest available, but more are on their way soon.
+You will be assigned daily quests which show you some tests you can run with specific parameters, and explain why you should run them. We currently only have one quest available, but more are on their way soon. All hosts on the network must pass the test to succeed the quest.
 
 ## Selection Panel
 
