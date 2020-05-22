@@ -12,6 +12,14 @@ const load_followup = (action, send, node, results, followups) => {
     date: row.date,
     followups
   })
+  send({
+    type: 'followup_foldout',
+    action,
+    hostname: node.hostname,
+    date: row.date,
+    followups,
+    value: false
+  })
   result.forEach((r, i) => {
     if (!r.followups) return
     Object.values(r.followups).forEach(f => load_followup(action, send, node, results, [...followups, {label: r.label, followup: f.function}]))
@@ -31,6 +39,13 @@ const loadNodeResults = (nodes, send) => {
         result,
         hostname: node.hostname,
         date: v.date
+      })
+      send({
+        type: 'result_foldout',
+        action: v.action,
+        result,
+        hostname: node.hostname,
+        value: false
       })
       result.forEach((r, i) => {
         if (!r.followups) return
