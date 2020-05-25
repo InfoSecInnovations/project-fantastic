@@ -1,11 +1,11 @@
 const GetPackage = require('../util/getpackage')
 
 const getQuestData = async config => {
-  if (!config.quests) return []
+  if (!config.tests) return []
   return await Promise.all(
-    config.quests.map(v => 
+    config.tests.map(v => 
       GetPackage(v)
-      .then(res => Object.keys(res).map(k => `${v}/${k}`))
+      .then(res => Object.entries(res).filter(e => e[1].quest).map(e => `${v}/${e[0]}`))
     )
   )
   .then(res => res.flat())

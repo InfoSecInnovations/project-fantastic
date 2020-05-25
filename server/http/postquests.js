@@ -6,7 +6,7 @@ const GetAsset = require('../util/getpackageddata')
 const HasRole = require('fantastic-utils/hasrole')
 const End = require('./end')
 
-const postQuests = (res, req, quests) => {
+const postQuests = (res, req, tests) => {
   res.onAborted(() => Abort(res))
   const query = ParseQuery(req.getQuery())
   console.log('-----------')
@@ -14,9 +14,8 @@ const postQuests = (res, req, quests) => {
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return End(res)
-    if (!quests.includes(query.quest)) return End(res)
-    const quest = await GetAsset(query.quest)
-    const test = await GetAsset(quest.test)
+    if (!tests.includes(query.quest)) return End(res)
+    const test = await GetAsset(query.quest)
     if (!HasRole(user, test.role)) return End(res)
     const date = Date.now()
     const result = await RunQuest(query.quest, user, date, query.date)

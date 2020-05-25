@@ -13,5 +13,9 @@
     "condition": false,
     "success": "All tested systems have been rebooted within the last $days days.",
     "failure": "need to be rebooted."
+  },
+  "quest": {
+    "explanation": "These machines are likely to have outdated software as many programs require a restart to complete updates.",
+    "parameters": {"days": 30}
   }
 }
