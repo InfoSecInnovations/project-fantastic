@@ -5,8 +5,9 @@ const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
 const GetAsset = require('../util/getpackageddata')
+const End = require('./end')
 
-const postActionFollowup = (res, req) => {
+const postActionFollowup = (res, req, actions) => {
   res.onAborted(() => Abort(res))
   const query = ParseQuery(req.getQuery())
   const header = req.getHeader('cookie')
@@ -15,18 +16,25 @@ const postActionFollowup = (res, req) => {
   GetHTTPData(res)
   .then(async data => {
     const user = await Auth(header)
-    if (!user) return !res.aborted && res.end()
+    if (!user) return End(res)
+    if (!actions.includes(query.action)) return End(res)
     const action = await GetAsset(query.action)
-    if (!HasRole(user, action.role)) return !res.aborted && res.end()
+    if (!HasRole(user, action.role)) return End(res)
     const func = action.functions[query.function]
-    if (func.role && !HasRole(user, func.role)) return !res.aborted && res.end()
+    if (!func) return End(res)
+    if (func.role && !HasRole(user, func.role)) return End(res)
     const date = Date.now()
-    const json = JSON.parse(data)
-    const result = await RunAction(query.action, query.function, query.node_id, user, date, json, query.label)
-    if (res.aborted) return
-    console.log(`${query.function} function from ${query.action} executed on node ${query.node_id}.`)
-    console.log('-----------')
-    res.end(JSON.stringify({result, date}))
+    try {
+      const json = JSON.parse(data)
+      const result = await RunAction(query.action, query.function, query.node_id, user, date, json, query.label)
+      if (res.aborted) return
+      console.log(`${query.function} function from ${query.action} executed on node ${query.node_id}.`)
+      console.log('-----------')
+      res.end(JSON.stringify({result, date}))
+    }
+    catch (err) {
+      return End(res)
+    }
   })
 }
 

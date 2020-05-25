@@ -4,18 +4,20 @@ const RunQuest = require('../quests/runquest')
 const Auth = require('./auth')
 const GetAsset = require('../util/getpackageddata')
 const HasRole = require('fantastic-utils/hasrole')
+const End = require('./end')
 
-const postActions = (res, req) => {
+const postQuests = (res, req, quests) => {
   res.onAborted(() => Abort(res))
   const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log(`received http request to start ${query.quest}...`)
   Auth(req.getHeader('cookie'))
   .then(async user => {
-    if (!user) return !res.aborted && res.end()
+    if (!user) return End(res)
+    if (!quests.includes(query.quest)) return End(res)
     const quest = await GetAsset(query.quest)
     const test = await GetAsset(quest.test)
-    if (!HasRole(user, test.role)) return !res.aborted && res.end()
+    if (!HasRole(user, test.role)) return End(res)
     const date = Date.now()
     const result = await RunQuest(query.quest, user, date, query.date)
     if (res.aborted) return
@@ -25,4 +27,4 @@ const postActions = (res, req) => {
   })
 }
 
-module.exports = postActions
+module.exports = postQuests
