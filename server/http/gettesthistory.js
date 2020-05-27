@@ -10,7 +10,12 @@ const getQuestHistory = (res, req) => {
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()
-    const rows = await all({table: 'test_history', conditions: {columns: {user_id: user.user_id}}})
+    const rows = await all({
+      table: 'test_history', 
+      columns: ['MAX(date)', 'test', 'results', 'parameters'],
+      conditions: {columns: {user_id: user.user_id}},
+      group_by: ['test']
+    })
     if (res.aborted) return
     console.log(`got test history from database in ${Date.now() - start}ms, returning results!`)
     console.log('-----------')
