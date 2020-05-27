@@ -12,7 +12,12 @@ const getResults = (res, req) => {
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()
-    const rows = await all({table: 'results', conditions: { groups: [{columns: {node_id: query.nodes}, compare: 'IN'}, {columns: {user_id: user.user_id}}] }})
+    const rows = await all({
+      table: 'results', 
+      columns: ['MAX(date)', 'action', 'function', 'label', 'node_id'],
+      conditions: {groups: [{columns: {node_id: query.nodes}, compare: 'IN'}, {columns: {user_id: user.user_id}}]},
+      group_by: ['action', 'function', 'label', 'node_id']
+    })
     if (res.aborted) return
     console.log(`got results from ${query.nodes.length} nodes from database in ${Date.now() - start}ms, returning results!`)
     console.log('-----------')

@@ -38,6 +38,11 @@ const order = order_by => {
   return `ORDER BY ${text()}`
 }
 
+const group = group_by => {
+  if (!group_by) return ''
+  return `GROUP BY ${group_by.join(', ')}`
+}
+
 const insert = (table, row) =>
   db => new Promise(
     (resolve, reject) => {
@@ -82,6 +87,7 @@ const select = query => {
     text: `SELECT ${(query.columns && query.columns.length && query.columns.join()) || '*'} 
       FROM ${query.table}
       ${where_query.text}
+      ${group(query.group_by)}
       ${order(query.order_by)}`,
     values: where_query.values
   }

@@ -22,5 +22,5 @@ Structure of the object expected by `packages/fantastic-utils/db/operations.js` 
       or
       [name, name...] // sort by these columns, ascending
       or
-      {name: 'ASC', 'DESC, ...} // sort by each key using the value for ascending / descending
+      {name: 'ASC', 'DESC', ...} // sort by each key using the value for ascending / descending
     }
