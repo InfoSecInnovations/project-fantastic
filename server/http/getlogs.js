@@ -23,7 +23,7 @@ const getLogs = (res, req) => {
     const results = []
     for (const row of rows) {
       const result = await db.get({table: `${row.event_type}_history`, conditions: {columns: {[`${row.event_type}_id`]: row.event_id}}})
-      const user = users[row.user_id] || await (users[row.user_id] = GetByID(row.user_id))
+      const user = users[row.user_id] || (users[row.user_id] = await GetByID(row.user_id))
       if (result) results.push({...row, ...result, user})
     }
     db.close()

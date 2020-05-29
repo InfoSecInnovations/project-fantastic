@@ -42,6 +42,7 @@ const serve = (res, path) => {
       res.writeHeader('Content-Type', 'image/svg+xml')
       return svg(file.toString()).then(file => !res.aborted && res.end(file))
     }
+    if (path.endsWith('.js')) res.writeHeader('Content-Type', 'text/javascript')
     return !res.aborted && res.end(file)
   }, rej => res.end(''))
 }
