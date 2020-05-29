@@ -6,7 +6,7 @@ const Abort = require('./abort')
 const getQuests = (res, req, tests) => { // TODO: this should get daily quests, instead of all of them.
   console.log('-----------')
   console.log('received http request to get available quests...')
-  res.onAborted(() => Abort(res))
+  Abort(res)
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()

@@ -7,7 +7,7 @@ const HasRole = require('fantastic-utils/hasrole')
 const End = require('./end')
 
 const postQuests = (res, req, tests) => {
-  res.onAborted(() => Abort(res))
+  Abort(res)
   const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log(`received http request to start ${query.quest}...`)

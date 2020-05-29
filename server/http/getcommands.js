@@ -5,7 +5,7 @@ const Abort = require('./abort')
 const getCommands = (res, req, commands) => {
   console.log('-----------')
   console.log('received http request to get command settings...')
-  res.onAborted(() => Abort(res))
+  Abort(res)
   ValidateRole(req.getHeader('cookie'), 'user')
   .then(async valid => {
     if (!valid) return !res.aborted && res.end()

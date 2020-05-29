@@ -43,6 +43,11 @@ const group = group_by => {
   return `GROUP BY ${group_by.join(', ')}`
 }
 
+const limit_to = limit => {
+  if (!limit) return ''
+  return `LIMIT ${typeof limit === 'number' ? limit : `${limit.offset}, ${limit.count}`}`
+}
+
 const insert = (table, row) =>
   db => new Promise(
     (resolve, reject) => {
@@ -88,7 +93,8 @@ const select = query => {
       FROM ${query.table}
       ${where_query.text}
       ${group(query.group_by)}
-      ${order(query.order_by)}`,
+      ${order(query.order_by)}
+      ${limit_to(query.limit)}`,
     values: where_query.values
   }
 }

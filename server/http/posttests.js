@@ -8,7 +8,7 @@ const HasRole = require('fantastic-utils/hasrole')
 const End = require('./end')
 
 const postTests = (res, req, tests) => {
-  res.onAborted(() => Abort(res))
+  Abort(res)
   const query = ParseQuery(req.getQuery())
   const header = req.getHeader('cookie')
   console.log('-----------')

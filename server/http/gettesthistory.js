@@ -3,7 +3,7 @@ const Abort = require('./abort')
 const Auth = require('./auth')
 
 const getQuestHistory = (res, req) => {
-  res.onAborted(() => Abort(res))
+  Abort(res)
   const start = Date.now()
   console.log('-----------')
   console.log(`http request for test history incoming...`)

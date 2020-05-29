@@ -4,7 +4,7 @@ const Abort = require('./abort')
 const Auth = require('./auth')
 
 const getResults = (res, req) => {
-  res.onAborted(() => Abort(res))
+  Abort(res)
   const start = Date.now()
   const query = ParseQuery(req.getQuery())
   console.log('-----------')
@@ -13,7 +13,7 @@ const getResults = (res, req) => {
   .then(async user => {
     if (!user) return !res.aborted && res.end()
     const rows = await all({
-      table: 'results', 
+      table: 'action_history', 
       columns: ['MAX(date)', 'action', 'function', 'label', 'node_id'],
       conditions: {groups: [{columns: {node_id: query.nodes}, compare: 'IN'}, {columns: {user_id: user.user_id}}]},
       group_by: ['action', 'function', 'label', 'node_id']

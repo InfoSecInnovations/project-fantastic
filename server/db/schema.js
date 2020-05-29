@@ -53,8 +53,8 @@ const schema = [
       REFERENCES nodes (node_id)
       ON DELETE CASCADE
   )`,
-  `CREATE TABLE IF NOT EXISTS results(
-    result_id INTEGER PRIMARY KEY,
+  `CREATE TABLE IF NOT EXISTS action_history(
+    action_id INTEGER PRIMARY KEY,
     action TEXT,
     function TEXT,
     label TEXT,
@@ -78,6 +78,19 @@ const schema = [
     test TEXT,
     results TEXT,
     parameters TEXT,
+    date INTEGER,
+    user_id TEXT
+  )`,
+  `CREATE TABLE IF NOT EXISTS command_history(
+    command_id INTEGER PRIMARY KEY,
+    command TEXT,
+    status INTEGER,
+    date INTEGER
+  )`,
+  `CREATE TABLE IF NOT EXISTS all_history(
+    history_id INTEGER PRIMARY KEY,
+    event_type TEXT,
+    event_id INTEGER,
     date INTEGER,
     user_id TEXT
   )`

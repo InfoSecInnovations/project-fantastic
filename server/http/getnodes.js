@@ -4,7 +4,7 @@ const Abort = require('./abort')
 const ValidateRole = require('./auth/validaterole')
 
 const getNodes = (res, req) => {
-  res.onAborted(() => Abort(res))
+  Abort(res)
   console.log('-----------')
   console.log('http request for nodes incoming...')
   const start = Date.now()

@@ -6,7 +6,7 @@ const GetPackagedData = require('../util/getpackageddata')
 const getActions = (res, req, actions) => {
   console.log('-----------')
   console.log('received http request to get available actions...')
-  res.onAborted(() => Abort(res))
+  Abort(res)
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()

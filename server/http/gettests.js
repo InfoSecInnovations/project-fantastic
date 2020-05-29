@@ -4,7 +4,7 @@ const Auth = require('./auth')
 const HasRole = require('fantastic-utils/hasrole')
 
 const getTests = (res, req, tests) => {
-  res.onAborted(() => Abort(res))
+  Abort(res)
   console.log('-----------')
   console.log('received http request to get available tests...')
   Auth(req.getHeader('cookie'))

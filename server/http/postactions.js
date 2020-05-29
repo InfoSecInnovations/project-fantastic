@@ -7,7 +7,7 @@ const GetAsset = require('../util/getpackageddata')
 const End = require('./end')
 
 const postActions = (res, req, actions) => {
-  res.onAborted(() => Abort(res))
+  Abort(res)
   const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log(`received http request to execute ${query.action} on node ${query.node_id}...`)

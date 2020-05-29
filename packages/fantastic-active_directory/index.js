@@ -14,4 +14,4 @@ const configure = app => {
   })
 }
 
-module.exports = {configure, invalidate: require('./accounts/invalidate'), verify: require('./accounts/verify')}
+module.exports = {configure, invalidate: require('./accounts/invalidate'), verify: require('./accounts/verify'), get: require('./accounts/getbyid')}

@@ -5,7 +5,7 @@ const GetCommand = require('../util/getpackagedfunction')
 const HasRole = require('fantastic-utils/hasrole')
 
 const postCommands = (res, req, commands) => {
-  res.onAborted(() => Abort(res))
+  Abort(res)
   const query = ParseQuery(req.getQuery())
   console.log('-----------')
   console.log('received http request to change command settings...')
