@@ -1,5 +1,12 @@
 import { h, app } from "https://unpkg.com/hyperapp"
 
+// ---- ACTION
+
+const change_page = (state, page) => [
+  {...state, page},
+  set_page(page)
+]
+
 // ---- EFFECT
 
 const fetch_json = (dispatch, options) =>
@@ -10,23 +17,23 @@ const fetch_json = (dispatch, options) =>
 
 const assign = (state, key, data) => ({...state, [key]: data})
 
-const init_effects = ['logs', 'actions', 'tests', 'quests'].map(v => [
+const set_page = page => [
   fetch_json,
   {
-    url: `/${v}`,
-    onresponse: (state, data) => assign(state, v, data)
+    url: `/logs?page=${page}`,
+    onresponse: (state, data) => ({...state, logs: data.results, last_page: data.is_last})
   }
-])
+]
 
-const change_page = (state, page) => [
-  {...state, page},
-  [
+const init_effects = [
+  ...(['actions', 'tests', 'quests'].map(v => [
     fetch_json,
     {
-      url: `/logs?page=${page}`,
-      onresponse: (state, data) => ({...state, logs: data})
+      url: `/${v}`,
+      onresponse: (state, data) => assign(state, v, data)
     }
-  ]
+  ])),
+  set_page(0)
 ]
 
 // ---- VIEW
@@ -76,15 +83,15 @@ const log_view = (state, log) => h('div', {class: 'log'}, [
 
 const controls = state => h('div', {class: 'controls'}, [
   h('div', {
-    class: 'foldout fas fa-step-backward fa-fw',
+    class: ['foldout fas fa-step-backward fa-fw', {disabled: state.page === 0}],
     onClick: [change_page, 0]
   }),
   h('div', {
-    class: 'foldout fas fa-chevron-left fa-fw',
+    class: ['foldout fas fa-chevron-left fa-fw', {disabled: state.page === 0}],
     onClick: [change_page, state.page - 1]
   }),
   h('div', {
-    class: 'foldout fas fa-chevron-right fa-fw',
+    class: ['foldout fas fa-chevron-right fa-fw', {disabled: state.last_page}],
     onClick: [change_page, state.page + 1]
   })
 ])
@@ -105,7 +112,8 @@ app({
       h('div', {class: 'search'}, [
         controls(state)
       ]),
-      h('div', {}, state.logs.map(v => log_view(state, v)))
+      h('div', {}, state.logs.map(v => log_view(state, v))),
+      controls(state)
     ])
   }
 })

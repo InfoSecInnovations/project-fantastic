@@ -19,4 +19,5 @@
 .controls {
   display: flex;
   margin-left: auto;
+  justify-content: flex-end;
 }

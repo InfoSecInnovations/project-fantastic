@@ -20,6 +20,12 @@ const getLogs = (res, req) => {
       order_by: {date: 'DESC'},
       pagination: {page_size: count, page}
     })
+    const is_last = rows.length < count || await db.all({
+      table: 'all_history',
+      columns: ['history_id'],
+      order_by: {date: 'DESC'},
+      pagination: {page_size: count, page: page + 1}
+    }).then(rows => !rows.length)
     const results = []
     for (const row of rows) {
       const result = await db.get({table: `${row.event_type}_history`, conditions: {columns: {[`${row.event_type}_id`]: row.event_id}}})
@@ -28,7 +34,7 @@ const getLogs = (res, req) => {
     }
     db.close()
     if (res.aborted) return
-    res.end(JSON.stringify(results))
+    res.end(JSON.stringify({results, is_last}))
   })
 }
 

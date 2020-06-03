@@ -160,8 +160,13 @@ input[type=button], input[type=submit], input[type=reset], .button {
   margin: 0.2rem 0 0.2rem 1rem;
 }
 
-.button.disabled, .foldout.disabled {
+.button.disabled{
   background-color: lightgray;
+}
+
+.foldout.disabled {
+  color: gray;
+  cursor: auto;
 }
 
 .loading {
