@@ -206,7 +206,7 @@ eval("const actionResult = (state, action) => {\r\n  if (Array.isArray(action.re
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const followupFoldout = (state, action) => {\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result[key.index].followups[key.followup]\r\n  }\r\n  action_result.foldout = action.value\r\n}\r\n\r\nmodule.exports = followupFoldout\n\n//# sourceURL=webpack:///../common/update/followupfoldout.js?");
+eval("const followupFoldout = (state, action) => {\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.foldout = action.value\r\n}\r\n\r\nmodule.exports = followupFoldout\n\n//# sourceURL=webpack:///../common/update/followupfoldout.js?");
 
 /***/ }),
 

@@ -43,11 +43,6 @@ const group = group_by => {
   return `GROUP BY ${group_by.join(', ')}`
 }
 
-const limit_to = limit => {
-  if (!limit) return ''
-  return `LIMIT ${typeof limit === 'number' ? limit : `${limit.offset}, ${limit.count}`}`
-}
-
 const insert = (table, row) =>
   db => new Promise(
     (resolve, reject) => {
@@ -88,13 +83,27 @@ const update = query =>
 
 const select = query => {
   const where_query = where(query.conditions)
+  if (query.pagination) {
+    return {
+      text: `SELECT ${(query.columns && query.columns.length && query.columns.join()) || '*'} 
+      FROM ${query.table}
+      ${where_query.text ? `${where_query.text} AND` : 'WHERE'} oid NOT IN (SELECT oid FROM ${query.table}
+        ${where_query.text}
+        ${group(query.group_by)}
+        ${order(query.order_by)}
+        LIMIT ${query.pagination.page_size * query.pagination.page})
+      ${group(query.group_by)}
+      ${order(query.order_by)}
+      LIMIT ${query.pagination.page_size}`,
+      values: where_query.values.concat(where_query.values)
+    }
+  }
   return { 
     text: `SELECT ${(query.columns && query.columns.length && query.columns.join()) || '*'} 
       FROM ${query.table}
       ${where_query.text}
       ${group(query.group_by)}
-      ${order(query.order_by)}
-      ${limit_to(query.limit)}`,
+      ${order(query.order_by)}`,
     values: where_query.values
   }
 }

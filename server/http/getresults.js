@@ -14,7 +14,7 @@ const getResults = (res, req) => {
     if (!user) return !res.aborted && res.end()
     const rows = await all({
       table: 'action_history', 
-      columns: ['MAX(date)', 'action', 'function', 'label', 'node_id'],
+      columns: ['MAX(date) AS date', 'action', 'function', 'label', 'node_id', 'data'],
       conditions: {groups: [{columns: {node_id: query.nodes}, compare: 'IN'}, {columns: {user_id: user.user_id}}]},
       group_by: ['action', 'function', 'label', 'node_id']
     })

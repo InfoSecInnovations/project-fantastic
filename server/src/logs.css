@@ -1,0 +1,22 @@
+.log {
+  margin: 2rem 0;
+}
+
+.log_details {
+  display: flex;
+  align-items: flex-end;
+  margin: 1rem;
+}
+
+.log_details > * {
+  margin-right: 1rem;
+}
+
+.search {
+  display: flex;
+}
+
+.controls {
+  display: flex;
+  margin-left: auto;
+}

@@ -95,6 +95,7 @@ pre code {
 .foldout {
   flex: none;
   align-self: center;
+  cursor: pointer;
 }
 
 .followup .button {
@@ -157,10 +158,6 @@ input[type=button], input[type=submit], input[type=reset], .button {
   text-align: center;
   padding: 0.5rem;
   margin: 0.2rem 0 0.2rem 1rem;
-}
-
-.foldout {
-  cursor: pointer;
 }
 
 .button.disabled, .foldout.disabled {

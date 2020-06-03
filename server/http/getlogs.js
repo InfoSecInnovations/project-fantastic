@@ -18,7 +18,7 @@ const getLogs = (res, req) => {
     const rows = await db.all({
       table: 'all_history',
       order_by: {date: 'DESC'},
-      limit: {offset: page * count, count}
+      pagination: {page_size: count, page}
     })
     const results = []
     for (const row of rows) {
