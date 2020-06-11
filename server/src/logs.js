@@ -11,10 +11,17 @@ const generate_query = obj => Object.entries(obj).map(v => {
 
 const change_page = (state, page) => [
   {...state, page},
-  set_page(state, page)
+  set_page(page, state.search)
 ]
 
 const set_username_search = (state, event) => ({...state, search: {...state.search, username: event.target.value}})
+
+const enable_event_type = (state, parameters) => {
+  const event_types = state.search.event_types
+  event_types[parameters.event_type] = parameters.enabled
+  const search = {...state.search, event_types}
+  return {...state, search}
+}
 
 // ---- EFFECT
 
@@ -26,10 +33,10 @@ const fetch_json = (dispatch, options) =>
 
 const assign = (state, key, data) => ({...state, [key]: data})
 
-const set_page = (state, page) => [
+const set_page = (page, search) => [
   fetch_json,
   {
-    url: `/logs?${generate_query({...state.search, ...(page && {page})})}`,
+    url: `/logs?${generate_query({...search, event_types: Object.entries(search.event_types).filter(v => v[1]).map(v => v[0]), ...(page && {page})})}`,
     onresponse: (state, data) => ({...state, logs: data.results, last_page: data.is_last})
   }
 ]
@@ -42,7 +49,7 @@ const init_effects = [
       onresponse: (state, data) => assign(state, v, data)
     }
   ])),
-  set_page(0)
+  set_page(0, {event_types: {}})
 ]
 
 // ---- VIEW
@@ -120,20 +127,36 @@ const filtering = state => h('div', {class: 'filtering'}, [
   ]),
   h('div', {class: 'checkboxes'}, [
     h('div', {class: 'checkbox'}, [
-      h('input', {type: 'checkbox', id: 'actions_check'}),
+      h('input', {
+        type: 'checkbox', 
+        id: 'actions_check',
+        onClick: [enable_event_type, {event_type: 'action', enabled: !state.search.event_types.action}]
+      }),
       h('label', {for: 'actions_check'}, 'Actions')
 
     ]),
     h('div', {class: 'checkbox'}, [
-      h('input', {type: 'checkbox', id: 'tests_check'}),
+      h('input', {
+        type: 'checkbox', 
+        id: 'tests_check',
+        onClick: [enable_event_type, {event_type: 'test', enabled: !state.search.event_types.test}]
+      }),
       h('label', {for: 'tests_check'}, 'Tests')
     ]),
     h('div', {class: 'checkbox'}, [
-      h('input', {type: 'checkbox', id: 'quests_check'}),
+      h('input', {
+        type: 'checkbox', 
+        id: 'quests_check',
+        onClick: [enable_event_type, {event_type: 'quest', enabled: !state.search.event_types.quest}]
+      }),
       h('label', {for: 'quests_check'}, 'Quests')
     ]),
     h('div', {class: 'checkbox'}, [
-      h('input', {type: 'checkbox', id: 'commands_check'}),
+      h('input', {
+        type: 'checkbox', 
+        id: 'commands_check',
+        onClick: [enable_event_type, {event_type: 'command', enabled: !state.search.event_types.command}]
+      }),
       h('label', {for: 'commands_check'}, 'Host Data Commands')
     ])
   ]),
@@ -151,7 +174,7 @@ app({
   init: [
     {
       page: 0,
-      search: {}
+      search: {event_types: {}}
     }, 
     init_effects
   ],
