@@ -14,10 +14,25 @@
 
 .search {
   display: flex;
+  align-items: flex-start;
 }
 
 .controls {
   display: flex;
   margin-left: auto;
   justify-content: flex-end;
+}
+
+.filtering {
+  display: flex;
+  align-items: flex-start;
+}
+
+.text_search {
+  display: flex;
+  margin-right: 2rem;
+}
+
+.text_search label {
+  margin-right: 1rem;
 }

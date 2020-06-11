@@ -1,10 +1,17 @@
 import { h, app } from "https://unpkg.com/hyperapp"
 
+// ---- UTIL
+
+const generate_query = obj => Object.entries(obj).map(v => {
+  const value = Array.isArray(v[1]) ? `[${v[1]}]` : v[1]
+  return `${v[0]}=${value}`
+}).join('&')
+
 // ---- ACTION
 
 const change_page = (state, page) => [
   {...state, page},
-  set_page(page)
+  set_page(state, page)
 ]
 
 // ---- EFFECT
@@ -17,16 +24,16 @@ const fetch_json = (dispatch, options) =>
 
 const assign = (state, key, data) => ({...state, [key]: data})
 
-const set_page = page => [
+const set_page = (state, page) => [
   fetch_json,
   {
-    url: `/logs?page=${page}`,
+    url: `/logs?${generate_query({...state.search, ...(page && {page})})}`,
     onresponse: (state, data) => ({...state, logs: data.results, last_page: data.is_last})
   }
 ]
 
 const init_effects = [
-  ...(['actions', 'tests', 'quests'].map(v => [
+  ...(['actions', 'tests', 'quests', 'commands'].map(v => [
     fetch_json,
     {
       url: `/${v}`,
@@ -41,7 +48,8 @@ const init_effects = [
 const headers = {
   action: 'Run Action',
   test: 'Run Test',
-  quest: 'Run Quest'
+  quest: 'Run Quest',
+  command: 'Set Host Data Command'
 }
 
 const test_results = (data, results) => {
@@ -64,12 +72,16 @@ const log_details = (state, log) => {
     const results = test_results(state.quests[log.quest], JSON.parse(log.results))
     return h('div', {class: 'log_details'}, results.pass ? 'All nodes passed' : `${results.failed.length} nodes failed`)
   }
+  if (log.event_type == 'command') {
+    return h('div', {class: 'log_details'}, `${log.status ? 'Enabled' : 'Disabled'}`)
+  }
 }
 
 const log_name = (state, log) => {
   if (log.event_type == 'action') return state.actions[log.action].name
   if (log.event_type == 'test') return state.tests[log.test].name
   if (log.event_type == 'quest') return state.quests[log.quest].name
+  if (log.event_type == 'command') return state.commands[log.command].name
 }
 
 const log_view = (state, log) => h('div', {class: 'log'}, [
@@ -96,13 +108,45 @@ const controls = state => h('div', {class: 'controls'}, [
   })
 ])
 
+const filtering = state => h('div', {class: 'filtering'}, [
+  h('div', {class: 'text_search'}, [
+    h('label', {for: 'username_search'}, 'username'),
+    h('input', {id: 'username_search'})
+  ]),
+  h('div', {class: 'checkboxes'}, [
+    h('div', {class: 'checkbox'}, [
+      h('input', {type: 'checkbox', id: 'actions_check'}),
+      h('label', {for: 'actions_check'}, 'Actions')
+
+    ]),
+    h('div', {class: 'checkbox'}, [
+      h('input', {type: 'checkbox', id: 'tests_check'}),
+      h('label', {for: 'tests_check'}, 'Tests')
+    ]),
+    h('div', {class: 'checkbox'}, [
+      h('input', {type: 'checkbox', id: 'quests_check'}),
+      h('label', {for: 'quests_check'}, 'Quests')
+    ]),
+    h('div', {class: 'checkbox'}, [
+      h('input', {type: 'checkbox', id: 'commands_check'}),
+      h('label', {for: 'commands_check'}, 'Host Data Commands')
+    ])
+  ]),
+  h('div', {
+    class: 'button',
+    onClick: [change_page, 0]
+  }, 'Search')
+
+])
+
 // ---- RUN
 
 app({
   node: document.getElementById('logs'),
   init: [
     {
-      page: 0
+      page: 0,
+      search: {}
     }, 
     init_effects
   ],
@@ -110,6 +154,7 @@ app({
     if (!state.actions || !state.quests || !state.tests) return
     if (state.logs) return h('div', {id: 'logs'}, [
       h('div', {class: 'search'}, [
+        filtering(state),
         controls(state)
       ]),
       h('div', {}, state.logs.map(v => log_view(state, v))),

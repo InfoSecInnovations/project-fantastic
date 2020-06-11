@@ -20,7 +20,7 @@ const condition_group = group => {
 }
 
 const where = conditions => {
-  if (!conditions) return {text: '', values: []} // TODO: filter out invalid values here, especially empty arrays
+  if (!conditions || (conditions.groups && !conditions.groups.length)) return {text: '', values: []} // TODO: filter out invalid values here, especially empty arrays
   const groups = conditions.groups ? conditions.groups.map(v => condition_group(v)) : [condition_group(conditions)]
   return {
     text: `WHERE ${groups.map(v => v.text).join(` ${conditions.combine || 'AND'} `)}`,

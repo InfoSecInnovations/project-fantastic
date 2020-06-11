@@ -15,15 +15,20 @@ const getLogs = (res, req) => {
     const page = (query && query.page) || 0
     const count = (query && query.count) || 25
     const users = {}
+    const conditions = {groups: []}
+    if (query && query.user) conditions.groups.push({columns: {user: query.user}})
+    if (query && query.event_types && query.event_types.length) conditions.groups.push({columns: {event_type: query.event_types}, compare: 'IN'})
     const rows = await db.all({
       table: 'all_history',
       order_by: {date: 'DESC'},
+      conditions,
       pagination: {page_size: count, page}
     })
     const is_last = rows.length < count || await db.all({
       table: 'all_history',
       columns: ['history_id'],
       order_by: {date: 'DESC'},
+      conditions,
       pagination: {page_size: count, page: page + 1}
     }).then(rows => !rows.length)
     const results = []

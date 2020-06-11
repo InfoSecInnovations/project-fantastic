@@ -3,6 +3,7 @@ const Abort = require('./abort')
 const Auth = require('./auth')
 const GetCommand = require('../util/getpackagedfunction')
 const HasRole = require('fantastic-utils/hasrole')
+const {insert} = require('../db')
 
 const postCommands = (res, req, commands) => {
   Abort(res)
@@ -19,7 +20,13 @@ const postCommands = (res, req, commands) => {
     .then(modules => modules
       .filter(v => HasRole(user, v.role))
       .forEach(v => {
-        commands[v.key] = v.enabled === 'true' // all the query values are strings
+        const enabled = v.enabled === 'true' // all the query values are strings
+        if (commands[v.key] != enabled) {
+          const date = Date.now()
+          insert('command_history', {command: v.key, status: enabled, date})
+          .then(id => insert('all_history', {event_type: 'command', event_id: id, date, user_id: user.user_id}))
+        }
+        commands[v.key] = enabled
         console.log(`${v.key} command ${commands[v.key] ? 'enabled' : 'disabled'}`)
       })
     )
