@@ -14,6 +14,8 @@ const change_page = (state, page) => [
   set_page(state, page)
 ]
 
+const set_username_search = (state, event) => ({...state, search: {...state.search, username: event.target.value}})
+
 // ---- EFFECT
 
 const fetch_json = (dispatch, options) =>
@@ -111,7 +113,10 @@ const controls = state => h('div', {class: 'controls'}, [
 const filtering = state => h('div', {class: 'filtering'}, [
   h('div', {class: 'text_search'}, [
     h('label', {for: 'username_search'}, 'username'),
-    h('input', {id: 'username_search'})
+    h('input', {
+      id: 'username_search',
+      onInput: set_username_search
+    })
   ]),
   h('div', {class: 'checkboxes'}, [
     h('div', {class: 'checkbox'}, [

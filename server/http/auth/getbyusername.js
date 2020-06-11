@@ -1,10 +1,10 @@
 const GetConfig = require('../../util/getconfig')
 const GetPackage = require('../../util/getpackage')
 
-const getById = async id => {
+const getByUsername = async username => {
   const config = await GetConfig()
   const auth_module = await GetPackage(config.authentication)
-  return await auth_module.getByID(id)
+  return await auth_module.getByUsername(username)
 }
 
-module.exports = getById
+module.exports = getByUsername

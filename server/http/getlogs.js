@@ -4,6 +4,7 @@ const End = require('./end')
 const ParseQuery = require('fantastic-utils/parsequery')
 const {transaction} = require('../db')
 const GetByID = require('./auth/getbyid')
+const GetByUsername = require('./auth/getbyusername')
 
 const getLogs = (res, req) => {
   const header = req.getHeader('cookie')
@@ -16,7 +17,7 @@ const getLogs = (res, req) => {
     const count = (query && query.count) || 25
     const users = {}
     const conditions = {groups: []}
-    if (query && query.user) conditions.groups.push({columns: {user: query.user}})
+    if (query && query.username) conditions.groups.push({columns: {user_id: await GetByUsername(query.username).then(user => user.user_id)}})
     if (query && query.event_types && query.event_types.length) conditions.groups.push({columns: {event_type: query.event_types}, compare: 'IN'})
     const rows = await db.all({
       table: 'all_history',
