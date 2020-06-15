@@ -3,5 +3,7 @@
   "admin_account": {
     "username": "admin",
     "password": "changeme"
-  }
+  },
+  "min_username_length": 4,
+  "min_password_length": 4
 }
