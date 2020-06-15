@@ -5,3 +5,4 @@ node_modules
 config
 cert
 .current_version
+package-lock.json
