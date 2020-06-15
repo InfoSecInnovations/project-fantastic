@@ -4,15 +4,19 @@
   "actions": [
     "fantastic-default_actions"
   ],
-  "data_sources": {
-    "fantastic-default_data_sources": [
-      "getDnsClientCache",
-      "getHostname",
-      "getMacAddress",
-      "getNetIpAddress",
-      "getNetTcpConnection",
-      "getOs"
-    ]
+  "host_data_commands": {
+    "fantastic-default_commands": {
+      "force": [
+        "getHostname",
+        "getMacAddress",
+        "getNetIpAddress",
+        "getNetTcpConnection"
+      ],
+      "default_enabled": [
+        "getDnsClientCache",
+        "getOs"
+      ]
+    }
   },
   "quests": [
     "fantastic-default_quests"
