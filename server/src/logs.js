@@ -70,8 +70,10 @@ const test_results = (data, results) => {
 
 const log_details = (state, log) => {
   if (log.event_type == 'action') {
-    if (log.function == 'run') return
-    return h('div', {class: 'log_details'}, `Followup action: ${log.function}`)
+    return h('div', {class: 'log_details'}, [
+      h('div', {}, log.function != 'run' && `Followup action: ${log.function}`),
+      h('div', {}, `Target node: ${log.node_id}`)
+    ])
   }
   if (log.event_type == 'test') {
     const results = test_results(state.tests[log.test], JSON.parse(log.results))

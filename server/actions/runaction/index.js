@@ -8,7 +8,7 @@ const runAction = async (action, func, node_id, user, date, data, label) => {
   const hostname = row.access === 'local' ? '' : row.hostname
   const obj = await GetAction(action)
   const result = await RunFunction(obj, func, user, hostname, data)
-  await UpdateResult(action, func, node_id, user.user_id, date, result, label)
+  UpdateResult(action, func, node_id, user.user_id, date, result, label)
   return result
 }
 
