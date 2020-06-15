@@ -37,7 +37,7 @@ const get_node = async (commands, computer_name) => {
 
 const create_commands = commands => 
   commands ? Promise.all(Object.entries(commands)
-  .filter(v => v[1])
+  .filter(v => v[1] != 'disabled')
   .map(v => GetCommand(v[0]))) // TODO: filter out invalid scripts and warn the user
   .then(res => res.reduce((result, v) => {
     (result[v.result_type] = result[v.result_type] || []).push(v)

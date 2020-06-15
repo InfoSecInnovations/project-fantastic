@@ -9,7 +9,6 @@ const GetQuestData = require('./quests/getquestdata')
 const GetTestData = require('./tests/gettestdata')
 const GetConfig = require('./util/getconfig')
 const WatchConfig = require('./watchconfig')
-const WriteConfig = require('./writeconfig')
 const GetPackage = require('./util/getpackage')
 const FS = require('fs')
 const Path = require('path')
@@ -65,16 +64,7 @@ const main = async () => {
   app.get('/commands', (res, req) => require('./http/getcommands')(res, req, command_data))
   app.post('/commands', (res, req) => {
     require('./http/postcommands')(res, req, command_data)
-    .then(commands => {
-      command_data = update_commands(commands)
-      config.data_sources = Object.entries(command_data).filter(v => v[1]).reduce((result, v) => {
-        const split = v[0].split('/')
-        if (!result[split[0]]) result[split[0]] = []
-        result[split[0]].push(split[1])
-        return result
-      }, {})
-      WriteConfig(config)
-    })
+    .then(commands => command_data = update_commands(commands))
   })
   app.get('/actions', (res, req) => require('./http/getactions')(res, req, actions))
   app.post('/actions', (res, req) => require('./http/postactions')(res, req, actions))
