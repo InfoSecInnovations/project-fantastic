@@ -2,17 +2,18 @@ const DB = require('../db')
 const RunPowerShell = require('fantastic-cli/runpowershell')
 const FlatUnique = require('fantastic-utils/flatunique')
 const DefaultIPs = require('fantastic-utils/defaultips')
-const GetCommand = require('../util/getpackagedfunction')
+const GetCommand = require('../util/getpackageddata')
+const RunCommand = require('./runcommand')
 
 const run_type = (commands, result_type, host, hostname) => commands[result_type] ?
-  Promise.all(commands[result_type].filter(v => v.hosts.includes(host)).map(v => v.run(hostname))).then(FlatUnique) :
+  Promise.all(commands[result_type].filter(v => v.hosts.includes(host)).map(v => RunCommand(v, hostname))).then(FlatUnique) :
   Promise.resolve([])
 
 const run_one_of_type = async (commands, result_type, host, hostname) => {
   if (!commands[result_type]) return undefined
   const funcs = commands[result_type].filter(v => v.hosts.includes(host))
   for (const f of funcs) { // TODO: instead of just running in order we should establish a priority so we run the best commands first
-    const result = await f.run(hostname)
+    const result = await RunCommand(f, hostname)
     if (result) return result
   }
 }

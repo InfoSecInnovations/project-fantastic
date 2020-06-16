@@ -1,5 +1,5 @@
 {
-  "use_child_process": true,
+  "use_child_process": false,
   "port": 5000,
   "actions": [
     "fantastic-default_actions"

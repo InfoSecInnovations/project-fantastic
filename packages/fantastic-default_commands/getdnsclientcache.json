@@ -1,0 +1,12 @@
+{
+  "name": "Get-DnsClientCache",
+  "description": "Run Get-DnsClientCache cmdlet on the host and return records which correspond to internal IP Addresses.",
+  "hosts": ["local", "remote"],
+  "result_type": "ip_addresses",
+  "run": {
+    "command": "Get-DnsClientCache -RecordType A | where {($_.Data.StartsWith(\"192.168\") -Or $_.Data.StartsWith(\"10.\"))}",
+    "json": true,
+    "method": "cimsession",
+    "result": "Data"
+  }
+}

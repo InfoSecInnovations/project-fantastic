@@ -47,8 +47,9 @@ const insert = (table, row) =>
   db => new Promise(
     (resolve, reject) => {
       const rows = Array.isArray(row) ? row : [row]
+      if (!rows.length) return resolve()
       db.run(
-        `INSERT INTO ${table} ${rows[0] && Object.keys(rows[0]).length ? `(${Object.keys(rows[0]).join()})
+        `INSERT INTO ${table} ${Object.keys(rows[0]).length ? `(${Object.keys(rows[0]).join()})
         VALUES${rows.map(v => `(${Object.values(v).map(v => '?').join(', ')})`).join(', ')}` : 'DEFAULT VALUES'}`,
         [
           ...(row && rows.map(v => Object.values(v)).flat() || [])

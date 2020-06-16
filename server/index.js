@@ -24,9 +24,8 @@ const main = async () => {
 
   let config = await GetConfig()
   let data_process
-  let command_data = await GetCommandData(config)
+  let command_data
   let actions = await GetActionData(config)
-  let quests = await GetQuestData(config)
   let tests = await GetTestData(config)
 
   const update_commands = commands => {
@@ -35,7 +34,8 @@ const main = async () => {
   }
 
   DB.init()
-  .then(() => {
+  .then(async () => {
+    const command_data = await GetCommandData(config)
     if (config.use_child_process) {
       data_process = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
       data_process.on('error', err => console.log(err.message))

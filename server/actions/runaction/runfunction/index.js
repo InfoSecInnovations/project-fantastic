@@ -1,4 +1,4 @@
-const PwshFunction = require('./pwshfunction')
+const PwshFunction = require('../../../util/pwshfunction')
 const ParseValue = require('./parsevalue')
 const ParseObject = require('./parseobject')
 const HasRole = require('fantastic-utils/hasrole')
