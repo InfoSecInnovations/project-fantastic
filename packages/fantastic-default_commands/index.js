@@ -1,7 +1,7 @@
 module.exports = {
   getDnsClientCache: 'getdnsclientcache.json',
-  /*getHostname: require('./gethostname'),
-  getMacAddress: require('./getmacaddress'),
+  getHostname: 'gethostname.json',
+  /*getMacAddress: require('./getmacaddress'),
   getNetIpAddress: require('./getnetipaddress'),
   getNetTcpConnection: require('./getnettcpconnection'),
   getOs: require('./getos'),

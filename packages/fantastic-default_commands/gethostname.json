@@ -1,0 +1,11 @@
+{
+  "name": "Get Hostname",
+  "description": "Simply executes hostname command on host",
+  "hosts": ["local", "remote"],
+  "result_type": "hostname",
+  "run": {
+    "command": "hostname",
+    "method": "invoke",
+    "json": false
+  }
+}
