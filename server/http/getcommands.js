@@ -1,4 +1,4 @@
-const GetCommand = require('../util/getpackagedfunction')
+const GetCommand = require('../util/getpackageddata')
 const ValidateRole = require('./auth/validaterole')
 const Abort = require('./abort')
 

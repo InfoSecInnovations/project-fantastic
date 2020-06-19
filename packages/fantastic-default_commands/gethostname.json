@@ -5,7 +5,6 @@
   "result_type": "hostname",
   "run": {
     "command": "hostname",
-    "method": "invoke",
-    "json": false
+    "method": "invoke"
   }
 }

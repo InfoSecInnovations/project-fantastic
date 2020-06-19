@@ -17,7 +17,8 @@
     "is-admin": "^3.0.0",
     "markdown-it": "^10.0.0",
     "svgson": "^4.0.0",
-    "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries"
+    "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "decache": "^4.5.1"

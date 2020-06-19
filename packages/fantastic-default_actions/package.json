@@ -8,7 +8,5 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "fantastic-cli": "file:../fantastic-cli"
-  }
+  "dependencies": {}
 }

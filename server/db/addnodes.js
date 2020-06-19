@@ -26,8 +26,8 @@ const addNodes = async (nodes, overwrite) => {
           ids.push(res)
           new_nodes ++
           // and add all the IPs and MACs
-          for (const ip of n.ips) await db.insert('ips', {ip, node_id: res, date})
-          for (const mac of n.macs) await db.insert('macs', {mac: mac.mac, vendor: mac.vendor, node_id: res})
+          if (n.ips) for (const ip of n.ips) await db.insert('ips', {ip, node_id: res, date})
+          if (n.macs) for (const mac of n.macs) await db.insert('macs', {mac: mac.mac, vendor: mac.vendor, node_id: res})
         })
       else if (matches.length == 1) await UpdateNode(matches[0].node_id, n, db, overwrite) // if we just found one node we can update it
         .then(() => ids.push(matches[0].node_id))

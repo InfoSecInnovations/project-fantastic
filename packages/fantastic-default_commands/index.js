@@ -4,6 +4,6 @@ module.exports = {
   getMacAddress: 'getmacaddress.json',
   getNetIpAddress: 'getnetipaddress.json',
   getNetTcpConnection: 'getnettcpconnection.json',
-  /*getOs: require('./getos'),
-  nmap: require('./nmap')*/
+  getOs: 'getos.json',
+  nmap: 'nmap.json'
 }

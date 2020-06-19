@@ -57,10 +57,16 @@ const run = async get_commands => {
     const remote = []
     console.log('finding hosts on network...')
     const hosts = await run_type(commands, 'hosts', 'local')
+    const local_hosts = []
+    const remote_hosts = []
     for (const host of hosts) {
-      await DB.updateNode(local, host.local, DB)
-      await DB.addNodes(host.remote)
+      if (host.local) local_hosts.push(host)
+      else remote_hosts.push(host)
     }
+    for (const host of local_hosts) {
+      await DB.updateNode(local, host, DB)
+    }
+    await DB.addNodes(remote_hosts)
     console.log('finished searching for hosts, finding hosts with remote access enabled...')
     const nodes = await DB.all({table: 'nodes', conditions: {columns: {important: true}}}) // "important" nodes are ones belonging to our network
     for (const node of nodes) {
