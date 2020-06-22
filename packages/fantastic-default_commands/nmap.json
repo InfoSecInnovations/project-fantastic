@@ -17,8 +17,16 @@
       "hostname": "hostnames.hostname.$.name",
       "ips": {
         "array": "address",
-        "key": "$.addr",
+        "result": "$.addr",
         "filter": {"$.addrtype": "ipv4"}
+      },
+      "macs": {
+        "array": "address",
+        "result": {
+          "mac": "$.addr",
+          "vendor": "$.vendor"
+        },
+        "filter": {"$.addrtype": "mac"}
       },
       "important": true
     }
