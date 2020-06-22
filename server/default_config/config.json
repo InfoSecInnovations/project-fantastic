@@ -7,12 +7,12 @@
   "host_data_commands": {
     "fantastic-default_commands": {
       "force": [
-        "getHostname",
         "getMacAddress",
         "getNetIpAddress",
         "getNetTcpConnection"
       ],
       "default_enabled": [
+        "getHostname",
         "getDnsClientCache",
         "getOs"
       ]

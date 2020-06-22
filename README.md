@@ -2,7 +2,7 @@
 
 ## Installation
 
-Clone the repository and run `npm i` inside the repository root as administrator.
+Clone the repository and run `npm i` inside the repository root.
 
 ## Getting started
 
@@ -26,6 +26,10 @@ For more information on using the application itself:
 - [Client Help](server/src/help/index.md)
 
 **PLEASE NOTE: a lot of the documentation is out of date because the project is still changing a lot, we're trying to keep this README relevant, but there's no guarantee regarding the other docs until the project is a bit more stable.**
+
+## Known issues
+
+- Attempting to run `npm i` after the project has already been installed results in errors. A workaround that seems to solve this is to delete all node_modules directories and all package-lock.json files from the project directory (just skip any that can't be deleted, this is due to symlinks)
 
 ## Contributing
 

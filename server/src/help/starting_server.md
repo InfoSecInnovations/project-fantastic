@@ -2,15 +2,15 @@
 
 ## Installation
 
-Clone the repository and run `npm i` inside it as administrator.
+Run `npm i` inside the server directory (or the top level repository if working with the full project source code).
 
 ## Running the server
 
-Simply run `npm start` in the repository's `server` directory as administrator. Closing the window will stop the server.
+Simply run `npm start` in the server directory as administrator. Closing the window will stop the server.
 
 For more information about configuring the application see:
 - [Configuration](config.md)
-- [Data Sources](data_source.md)
+- // TODO: document host data commands
 - // TODO: document actions
 - // TODO: document tests
 - // TODO: document quests 

@@ -10,9 +10,15 @@ If this is enabled the data acquisition will run in a different process from the
 
 The port used to connect to the server.
 
-## data_sources
+## actions
 
-The object keys indicate which packages should be used for host data commands, and the array values indicate which commands are enabled. See [Data Sources](data_source.md) for more information.
+Array of package names to get actions from.
+
+## host_data_commands
+
+The object keys indicate which packages should be used for host data commands, the `force` array indicates which host data commands must always be enabled, and the `default_enabled` array indicates which commands will be enabled by default. Other commands from the package will be available, but disabled by default.
+
+**IMPORTANT:** if you remove any of the defaults from the forced commands you run the risk of not collecting enough data to be useful. We recommend that you have at least one of each of these data types enabled at all times: `ips`, `macs`, `connections`.
 
 ## quests
 

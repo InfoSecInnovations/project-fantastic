@@ -48,7 +48,7 @@ In the bottom left of the interface there are buttons to open the Host Data Comm
 
 // TODO: insert picture when UI is more finalised
 
-Here you can see all the available commands for getting data, and you can enable or disable them. Enabled commands will run constantly on the server and update the database.
+Here you can see all the available commands for getting data, and you can enable or disable them if permitted. Enabled commands will run constantly on the server and update the database. These settings affect all users, so use with care!
 
 ### Tests
 
