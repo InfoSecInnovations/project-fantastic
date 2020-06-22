@@ -87,46 +87,46 @@
 /******/ ({
 
 /***/ "../../packages/fantastic-utils/defaultips.js":
-/*!*********************************************************************!*\
-  !*** F:/network viewer test/packages/fantastic-utils/defaultips.js ***!
-  \*********************************************************************/
+/*!*******************************************************************!*\
+  !*** F:/project-fantastic/packages/fantastic-utils/defaultips.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack:///F:/network_viewer_test/packages/fantastic-utils/defaultips.js?");
+eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack:///F:/project-fantastic/packages/fantastic-utils/defaultips.js?");
 
 /***/ }),
 
 /***/ "../../packages/fantastic-utils/flatunique.js":
-/*!*********************************************************************!*\
-  !*** F:/network viewer test/packages/fantastic-utils/flatunique.js ***!
-  \*********************************************************************/
+/*!*******************************************************************!*\
+  !*** F:/project-fantastic/packages/fantastic-utils/flatunique.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const flatUnique = arr => [...new Set(arr.flat().filter(v => typeof v !== 'undefined'))]\r\n\r\nmodule.exports = flatUnique\n\n//# sourceURL=webpack:///F:/network_viewer_test/packages/fantastic-utils/flatunique.js?");
+eval("const flatUnique = arr => [...new Set(arr.flat().filter(v => typeof v !== 'undefined'))]\r\n\r\nmodule.exports = flatUnique\n\n//# sourceURL=webpack:///F:/project-fantastic/packages/fantastic-utils/flatunique.js?");
 
 /***/ }),
 
 /***/ "../../packages/fantastic-utils/formatstring.js":
-/*!***********************************************************************!*\
-  !*** F:/network viewer test/packages/fantastic-utils/formatstring.js ***!
-  \***********************************************************************/
+/*!*********************************************************************!*\
+  !*** F:/project-fantastic/packages/fantastic-utils/formatstring.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const formatString = (string, parameters) => {\r\n  Object.entries(parameters).forEach(v => string = string.replace(new RegExp(`$${v[0]}`.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'), 'g'), `${v[1]}`)) // regex escape magic I found on StackOverflow\r\n  return string\r\n}\r\n\r\nmodule.exports = formatString\n\n//# sourceURL=webpack:///F:/network_viewer_test/packages/fantastic-utils/formatstring.js?");
+eval("const formatString = (string, parameters) => {\r\n  Object.entries(parameters).forEach(v => string = string.replace(new RegExp(`$${v[0]}`.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'), 'g'), `${v[1]}`)) // regex escape magic I found on StackOverflow\r\n  return string\r\n}\r\n\r\nmodule.exports = formatString\n\n//# sourceURL=webpack:///F:/project-fantastic/packages/fantastic-utils/formatstring.js?");
 
 /***/ }),
 
 /***/ "../../packages/fantastic-utils/hasrole.js":
-/*!******************************************************************!*\
-  !*** F:/network viewer test/packages/fantastic-utils/hasrole.js ***!
-  \******************************************************************/
+/*!****************************************************************!*\
+  !*** F:/project-fantastic/packages/fantastic-utils/hasrole.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const hasRole = (user, role) => {\r\n  if (!user) return false\r\n  if (user.role === 'admin') return true\r\n  if (user.role === 'elevated' && role !== 'admin') return true \r\n  return user.role === (role || 'user')\r\n}\r\n\r\nmodule.exports = hasRole\n\n//# sourceURL=webpack:///F:/network_viewer_test/packages/fantastic-utils/hasrole.js?");
+eval("const hasRole = (user, role) => {\r\n  if (!user) return false\r\n  if (user.role === 'admin') return true\r\n  if (user.role === 'elevated' && role !== 'admin') return true \r\n  return user.role === (role || 'user')\r\n}\r\n\r\nmodule.exports = hasRole\n\n//# sourceURL=webpack:///F:/project-fantastic/packages/fantastic-utils/hasrole.js?");
 
 /***/ }),
 
@@ -794,7 +794,7 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst HostString = __webpack_require__(/*! ../../../common/util/hoststring */ \"../common/util/hoststring.js\")\r\nconst HasRole = __webpack_require__(/*! fantastic-utils/hasrole */ \"../../packages/fantastic-utils/hasrole.js\")\r\n\r\nconst enabled_button = (state, send, command, data) => {\r\n  if (data.mode == 'force') return H('div', 'This command must always be enabled')\r\n  if (HasRole(state.user, data.role)) return H('div.button', \r\n    {\r\n      on: {click: [send, {type: 'enable_command', command, enabled: data.mode != 'enabled'}]},\r\n      class: {disabled: data.mode != 'enabled'}\r\n    }, \r\n    data.mode == 'enabled' ? 'Enabled' : 'Disabled')\r\n  return H('div', `${data.mode == 'enabled' ? 'Enabled' : 'Disabled'} (requires ${data.role} role to change)`)\r\n}\r\n\r\nconst commands = (state, send) => H('div.scroll_container.panel', [\r\n  H('div.item', [\r\n    H('div.title', 'Host Data Commands')\r\n  ]),\r\n  H('div.scroll', Object.entries(state.commands).map(v => H('div.scroll_item', [\r\n    H('div.item', [\r\n      H('div.subtitle', v[1].name),\r\n      enabled_button(state, send, v[0], v[1]),\r\n    ]),\r\n    v[1].description ? H('div.item', v[1].description) : undefined,\r\n    H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])\r\n  ])))\r\n])\r\n\r\nmodule.exports = commands\n\n//# sourceURL=webpack:///./view/leftpanel/commands.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/h.js\").default\r\nconst HostString = __webpack_require__(/*! ../../../common/util/hoststring */ \"../common/util/hoststring.js\")\r\nconst HasRole = __webpack_require__(/*! fantastic-utils/hasrole */ \"../../packages/fantastic-utils/hasrole.js\")\r\n\r\nconst enabled_button = (state, send, command, data) => {\r\n  if (data.mode == 'force') return H('div', 'This command must always be enabled')\r\n  if (HasRole(state.user, data.role)) return H('div.button', \r\n    {\r\n      on: {click: [send, {type: 'enable_command', command, enabled: data.mode != 'enabled'}]},\r\n      class: {disabled: data.mode != 'enabled'}\r\n    }, \r\n    data.mode == 'enabled' ? 'Enabled' : 'Disabled')\r\n  return H('div', `${data.mode == 'enabled' ? 'Enabled' : 'Disabled'} (requires ${data.role} role to change)`)\r\n}\r\n\r\nconst commands = (state, send) => H('div.scroll_container.panel', [\r\n  H('div.item', [\r\n    H('div.title', 'Host Data Commands')\r\n  ]),\r\n  H('div.scroll', Object.entries(state.commands).map(v => H('div.scroll_item', [\r\n    H('div.item', [\r\n      H('div.subtitle', v[1].name),\r\n      enabled_button(state, send, v[0], v[1]),\r\n    ]),\r\n    H('pre.command', v[1].command),\r\n    v[1].description ? H('div.item', v[1].description) : undefined,\r\n    H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])\r\n  ])))\r\n])\r\n\r\nmodule.exports = commands\n\n//# sourceURL=webpack:///./view/leftpanel/commands.js?");
 
 /***/ }),
 

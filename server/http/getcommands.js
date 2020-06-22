@@ -14,7 +14,7 @@ const getCommands = (res, req, commands) => {
     ) // TODO: filter out invalid scripts and warn the user
     .then(commands => commands.reduce((result, v) => ({ 
       ...result, 
-      [v.key]: {name: v.name, description: v.description, hosts: v.hosts, mode: v.mode, role: v.role}
+      [v.key]: {name: v.name, description: v.description, hosts: v.hosts, mode: v.mode, role: v.role, command: v.run.command}
     }), {}))
     console.log(`sent metadata for ${Object.keys(command_data).length} commands.`)
     console.log('-----------')

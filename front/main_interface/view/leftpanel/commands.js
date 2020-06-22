@@ -22,6 +22,7 @@ const commands = (state, send) => H('div.scroll_container.panel', [
       H('div.subtitle', v[1].name),
       enabled_button(state, send, v[0], v[1]),
     ]),
+    H('pre.command', v[1].command),
     v[1].description ? H('div.item', v[1].description) : undefined,
     H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])
   ])))
