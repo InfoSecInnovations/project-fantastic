@@ -19,7 +19,8 @@
         "array": "address",
         "key": "$.addr",
         "filter": {"$.addrtype": "ipv4"}
-      }
+      },
+      "important": true
     }
   }
 }
