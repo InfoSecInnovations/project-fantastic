@@ -52,7 +52,7 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
   .map(v => {
     return H('div', [
       H('div.result_time', [
-        H('div.result_header', v.label || v.enabled ? 'Enable' : 'Disable'),
+        H('div.result_header', v.label || (v.enabled ? 'Enable' : 'Disable')),
         H('div.time', ` Results from ${TimeAgo(v.date)}`),
         H(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {
           on: {click: [send, {
