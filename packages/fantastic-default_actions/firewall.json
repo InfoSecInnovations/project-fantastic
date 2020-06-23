@@ -43,7 +43,7 @@
           {
             "map": {"1": "Inbound", "2": "Outbound"},
             "key": "Direction",
-            "labelled": "true"
+            "labelled": true
           },
           {
             "map": {"2": "Allow", "4": "Block"},
