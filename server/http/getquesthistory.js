@@ -19,7 +19,7 @@ const getQuestHistory = (res, req) => {
     if (res.aborted) return
     console.log(`got quest history from database in ${Date.now() - start}ms, returning results!`)
     console.log('-----------')
-    res.end(JSON.stringify(rows))
+    res.end(JSON.stringify(rows.map(v => ({...v, date: v['MAX(date)']}))))
   })
 }
 
