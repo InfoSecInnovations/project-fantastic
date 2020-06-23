@@ -11,7 +11,7 @@ Simply run `npm start` in the server directory as administrator. Closing the win
 For more information about configuring the application see:
 - [Configuration](config.md)
 - // TODO: document host data commands
-- // TODO: document actions
+- [Actions](actions.md)
 - // TODO: document tests
 - // TODO: document quests 
 
