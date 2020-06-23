@@ -58,7 +58,7 @@ const effect = (state, action, send) => {
     })
   if (action.type == 'quest_results') RefreshResult(state, action, send, state.quests[action.quest])
   if (action.type == 'test_results') RefreshResult(state, action, send, state.tests[action.test])
-  if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({...SearchQuery(state), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
+  if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
     .then(res => send({...action, type: 'test_results', results: res.result, date: res.date, select: true, parameters: action.parameters}))
 }
