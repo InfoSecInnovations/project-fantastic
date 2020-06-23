@@ -1,7 +1,7 @@
 const GenerateQuery = require('./generatequery')
 
 const load_followup = (action, send, node, results, followups) => {
-  const row = results.find(v => v.node_id === node.node_id && v.action === action && v.function === followups[followups.length - 1].followup)
+  const row = results.find(v => v.node_id === node.node_id && v.action === action && v.function === followups[followups.length - 1].followup && v.label === followups[followups.length - 1].label)
   if (!row) return
   const result = JSON.parse(row.data)
   send({
@@ -22,7 +22,7 @@ const load_followup = (action, send, node, results, followups) => {
   })
   result.forEach((r, i) => {
     if (!r.followups) return
-    Object.values(r.followups).forEach(f => load_followup(action, send, node, results, [...followups, {label: r.label, followup: f.function}]))
+    Object.values(r.followups).forEach(f => load_followup(action, send, node, results, [...followups, {label: r.label, followup: f.function}], ))
   })
 }
 
