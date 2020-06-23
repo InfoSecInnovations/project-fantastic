@@ -50,7 +50,7 @@ const effect = (state, action, send) => {
     else send({...action, type: 'select'})
   }
   if (action.type == 'action_result' || action.type == 'action_followup_result') state.child_tabs.forEach(v => v.send(action))
-  if (action.type == 'run_quest') fetch(`/quests?${GenerateQuery({...SearchQuery(state), quest: action.quest})}`, {method: 'POST'})
+  if (action.type == 'run_quest') fetch(`/quests?${GenerateQuery({quest: action.quest})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => {
       send({...action, type: 'quest_results', results: res.result, date: res.date, select: true})

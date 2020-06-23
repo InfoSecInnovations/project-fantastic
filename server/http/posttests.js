@@ -23,7 +23,7 @@ const postTests = (res, req, tests) => {
     const date = Date.now()
     try {
       const json = JSON.parse(data)
-      if (!query.nodes || !Array.isArray(query.nodes) || !query.test) return End(res)
+      if (!query.nodes || !Array.isArray(query.nodes)) return End(res)
       const result = await RunTest(query.test, user, date, query.nodes, json)
       if (res.aborted) return
       console.log(`completed quest ${query.test}, queried ${result.length} nodes`)

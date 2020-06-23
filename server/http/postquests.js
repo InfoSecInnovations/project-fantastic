@@ -18,7 +18,7 @@ const postQuests = (res, req, tests) => {
     const test = await GetAsset(query.quest)
     if (!HasRole(user, test.role)) return End(res)
     const date = Date.now()
-    const result = await RunQuest(query.quest, user, date, query.date)
+    const result = await RunQuest(query.quest, user, date)
     if (res.aborted) return
     res.end(JSON.stringify({result, date}))
     console.log(`completed quest ${query.quest}, queried ${result.length} nodes`)
