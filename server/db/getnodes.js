@@ -1,16 +1,19 @@
 const {transaction} = require('./operations')
 
 const getNodes = async query => {
-  const date_condition = {columns: {date: query.date || 0}, compare: '>='} // if we didn't supply a date we want to get all of the results
+  const date_condition = [ // if we didn't supply a date we want to get all of the results
+    query.date && {columns: {date: query.date}, compare: '>='}, 
+    query.max_date && {columns: {first_date: query.max_date}, compare: '<='}
+  ] 
   const db = await transaction()
-  const rows = await db.all({table: 'nodes', conditions: date_condition})
+  const rows = await db.all({table: 'nodes', conditions: {groups: [...date_condition, query.nodes && Array.isArray(query.nodes) && {columns: {node_id: query.nodes}, compare: 'IN'}]}})
   const nodes = []
  
   for (const r of rows) {
-    const ips = await db.all({table: 'ips', conditions: {groups: [{columns: {node_id: r.node_id}}, date_condition]}})
+    const ips = await db.all({table: 'ips', conditions: {groups: [{columns: {node_id: r.node_id}}, ...date_condition]}})
 
     const connection_conditions = dir => {
-      const conditions = [date_condition, {columns: {[`${dir}_id`]: ips.map(v => v.ip_id)}, compare: 'IN'}]
+      const conditions = [...date_condition, {columns: {[`${dir}_id`]: ips.map(v => v.ip_id)}, compare: 'IN'}]
       const connection_state = query.connection_state && query.connection_state.filter(v => v)
       if (query.connection_type === 'different_ip') conditions.push({columns: [['from_id', 'to_id']], compare: '!='})
       if (query.connection_type === 'different_host') conditions.push({columns: {[`${dir == 'from' ? 'to' : 'from'}_id`]: ips.map(v => v.ip_id)}, compare: 'NOT IN'})

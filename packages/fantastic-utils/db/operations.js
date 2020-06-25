@@ -21,7 +21,8 @@ const condition_group = group => {
 
 const where = conditions => {
   if (!conditions || (conditions.groups && !conditions.groups.length)) return {text: '', values: []} // TODO: filter out invalid values here, especially empty arrays
-  const groups = conditions.groups ? conditions.groups.map(v => condition_group(v)) : [condition_group(conditions)]
+  const groups = conditions.groups ? conditions.groups.filter(v => v).map(v => condition_group(v)) : [condition_group(conditions)]
+  if (!groups || !groups.length) return {text: '', values: []}
   return {
     text: `WHERE ${groups.map(v => v.text).join(` ${conditions.combine || 'AND'} `)}`,
     values: groups.map(v => v.values).flat()

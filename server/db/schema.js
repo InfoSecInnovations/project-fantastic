@@ -3,6 +3,7 @@ const schema = [
     node_id INTEGER PRIMARY KEY,
     hostname TEXT,
     date INTEGER,
+    first_date INTEGER,
     os TEXT,
     important INTEGER,
     access TEXT
@@ -25,6 +26,7 @@ const schema = [
     remote_port INTEGER,
     state TEXT,
     date INTEGER,
+    first_date INTEGER,
     FOREIGN KEY (from_id)
       REFERENCES nodes (node_id)
       ON DELETE CASCADE,
@@ -40,6 +42,7 @@ const schema = [
     ip TEXT,
     node_id INTEGER,
     date INTEGER,
+    first_date INTEGER,
     FOREIGN KEY (node_id)
       REFERENCES nodes (node_id)
       ON DELETE CASCADE
@@ -70,6 +73,7 @@ const schema = [
     quest_id INTEGER PRIMARY KEY,
     quest TEXT,
     results TEXT,
+    rows TEXT,
     date INTEGER,
     user_id TEXT
   )`,

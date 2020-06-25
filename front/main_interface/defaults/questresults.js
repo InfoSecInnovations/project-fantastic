@@ -1,7 +1,8 @@
 const questResults = () => ({
   data: {}, 
   status: {},
-  date: {}
+  date: {},
+  nodes: {}
 })
 
 module.exports = questResults

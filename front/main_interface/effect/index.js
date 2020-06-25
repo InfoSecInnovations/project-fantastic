@@ -1,35 +1,23 @@
 const Init = require('./init')
-const Vis = require('./vis')
 const Common = require('../../common/effect')
 const FlatUnique = require('fantastic-utils/flatunique')
 const OpenTabs = require('./opentabs')
-const LoadNodeResults = require('../../common/effect/loadnoderesults')
-const LoadHistory = require('./loadhistory')
 const GenerateQuery = require('../../common/effect/generatequery')
 const SearchQuery = require('./searchquery')
 const RefreshResult = require('./refreshresult')
+const RefreshNodes = require('./refreshnodes')
+const Nodes = require('./nodes')
 
 const effect = (state, action, send) => {
   Common(state, action, send)
   if (action.type == 'init') Init(send)
-  if (action.type == 'nodes') {
-    send({type: 'clear_selection'})
-    send({type: 'loading', value: false})
-    LoadNodeResults(state.nodes, send)
-    LoadHistory(send)
-    Vis(state, send)
-  }
+  if (action.type == 'nodes') Nodes(state, send)
+  if (action.type == 'get_nodes') RefreshNodes(send, {nodes: action.nodes, date: action.date, max_date: action.max_date})
   if (action.type == 'graph_container') {
     action.container.onmouseleave = e => send({type: 'hover_ui', value: true})
     action.container.onmouseenter = e => send({type: 'hover_ui', value: false})
   }
-  if (action.type == 'search' || action.type == 'graph_container') {
-    send({type: 'loading', value: true})
-    send({type: 'clear_selection'})
-    fetch(`/nodes?${GenerateQuery(SearchQuery(state))}`)
-    .then(res => res.json())
-    .then(res => send({type: 'nodes', nodes: res}))
-  }
+  if (action.type == 'search' || action.type == 'graph_container') RefreshNodes(send, SearchQuery(state))
   if (action.type == 'enable_command') fetch(`/commands?${GenerateQuery({[action.command]: action.enabled})}`, {method: 'POST'})
     .then(() => fetch('/commands'))    
     .then(res => res.json())
@@ -57,7 +45,10 @@ const effect = (state, action, send) => {
       send({...action, type: 'test_results', results: res.result, date: res.date, parameters: state.quests[action.quest].parameters, test: action.quest}) // quest results are the same as the test run by the quest
     })
   if (action.type == 'quest_results'){
-    if (action.nodes) send({type: 'nodes', nodes: action.nodes})
+    if (action.nodes) {
+      send({type: 'nodes', nodes: action.nodes})
+      send({type: 'quest_nodes', quest: action.quest, nodes: action.nodes.map(v => v.node_id)})
+    }
     RefreshResult(state, action, send, state.quests[action.quest])
   }
   if (action.type == 'test_results') RefreshResult(state, action, send, state.tests[action.test])

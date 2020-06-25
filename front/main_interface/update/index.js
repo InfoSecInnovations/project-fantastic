@@ -47,6 +47,7 @@ const update = (state, action) => {
   if (action.type == 'add_child_tab') state.child_tabs.push(action.tab)
   if (action.type == 'remove_child_tab') state.child_tabs.splice(state.child_tabs.findIndex(v => v === action.tab), 1)
   if (action.type == 'quest_results') QuestResults(state, action)
+  if (action.type == 'quest_nodes') state.quest_results.nodes[action.quest] = action.nodes
   if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading'
   if (action.type == 'tests') state.tests = action.tests
   if (action.type == 'test_results') TestResults(state, action)

@@ -21,18 +21,19 @@ const addNodes = async (nodes, overwrite) => {
       else matches = await (n.ips && n.ips.length ? 
         db.all({table: 'ips', columns: ['node_id'], conditions: {columns: {ip: n.ips.filter(v => !DefaultIPs.includes(v))}, compare: 'IN'}, order_by: {date: 'DESC'}})
         .then(res => db.all({table: 'nodes', conditions: {columns: {node_id: res.map(v => v.node_id)}, compare: 'IN'}})) : Promise.resolve([])) // if we can't find the MAC Address, find nodes with the same IP address as this one 
-      if (!matches.length) await db.insert('nodes', NodeColumns.reduce((result, v) => ({...result, [v]: n[v]}), {date})) // if we didn't find any nodes we just insert a new one
+      if (!matches.length) await db.insert('nodes', NodeColumns.reduce((result, v) => ({...result, [v]: n[v]}), {date, first_date: date})) // if we didn't find any nodes we just insert a new one
         .then(async res => {
           ids.push(res)
           new_nodes ++
           // and add all the IPs and MACs
-          if (n.ips) for (const ip of n.ips) await db.insert('ips', {ip, node_id: res, date})
+          if (n.ips) for (const ip of n.ips) await db.insert('ips', {ip, node_id: res, date, first_date: date})
           if (n.macs) for (const mac of n.macs) await db.insert('macs', {mac: mac.mac, vendor: mac.vendor, node_id: res})
         })
       else if (matches.length == 1) await UpdateNode(matches[0].node_id, n, db, overwrite) // if we just found one node we can update it
         .then(() => ids.push(matches[0].node_id))
       else { // if we found multiple nodes that match, we have to merge all the information   
         ids.push(matches[0].node_id)
+        const first_date = Math.min.apply(Math, matches.map(v => v.first_date)) // find the earliest first date
         await db.update({table: 'ips', row: {node_id: matches[0].node_id, date}, conditions: {columns: {node_id: matches.slice(1).map(v => v.node_id)}, compare: 'IN'}}) // update IP table to point at first node
         .then(() => AddIPs(matches[0].node_id, n.ips, db, date))
         .then(() => db.update({table: 'macs', row: {node_id: matches[0].node_id}, conditions: {columns: {node_id: matches.slice(1).map(v => v.node_id)}, compare: 'IN'}})) // update MAC table to point at first node
@@ -47,7 +48,7 @@ const addNodes = async (nodes, overwrite) => {
                 if (f) result[v] = f[v]
               }
               return result
-            }, {date}), 
+            }, {date, first_date}), 
           conditions:{ columns: {node_id: matches[0].node_id}}
         }))
       }

@@ -21,8 +21,8 @@ const addConnections = async (node_id, connections, is_remote) => {
     } 
     else {
       new_nodes++
-      row = await db.insert('nodes', {date}) // if not we have to insert a new node and then an IP belonging to this node
-      .then(res => db.insert('ips', {ip, date, node_id: res}))
+      row = await db.insert('nodes', {date, first_date: date}) // if not we have to insert a new node and then an IP belonging to this node
+      .then(res => db.insert('ips', {ip, date, first_date: date, node_id: res}))
       .then(res => db.get({table: 'ips', columns: ['ip_id'], conditions:{columns: {ip_id: res}}}))
     }
     return row
@@ -35,7 +35,7 @@ const addConnections = async (node_id, connections, is_remote) => {
       .then(() => db.update({table: 'nodes', row: {date}, conditions: {columns: {node_id}}}))
     } 
     else {
-      row = await db.insert('ips', {ip, date, node_id}) // if we didn't find it we should insert it
+      row = await db.insert('ips', {ip, date, first_date: date, node_id}) // if we didn't find it we should insert it
       .then(res => db.get({table: 'ips', columns: ['ip_id'], conditions:{columns: {ip_id: res}}}))
     }
     return row
@@ -71,7 +71,8 @@ const addConnections = async (node_id, connections, is_remote) => {
         local_port: c.local_port, 
         remote_port: c.remote_port, 
         state: c.state, 
-        date
+        date,
+        first_date: date
       }) 
     )
   }

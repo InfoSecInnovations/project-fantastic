@@ -12,7 +12,7 @@ const getQuestHistory = (res, req) => {
     if (!user) return !res.aborted && res.end()
     const rows = await all({
       table: 'quest_history',
-      columns: ['MAX(date)', 'quest', 'results'], 
+      columns: ['MAX(date)', 'quest', 'results', 'rows'], 
       conditions: {columns: {user_id: user.user_id}},
       group_by: ['quest']
     })

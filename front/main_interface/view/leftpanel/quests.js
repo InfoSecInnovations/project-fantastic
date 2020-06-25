@@ -1,6 +1,7 @@
 const H = require('snabbdom/h').default
 const Alea = require('alea')
 const TestResult = require('./testresult')
+const ConvertTime = require('fantastic-utils/converttime')
 
 const success_texts = [
   'Well done',
@@ -19,7 +20,14 @@ const quests = (state, send) => H('div.scroll_container.panel', [
       state, 
       send, 
       v[1],
-      {get: () => v[1].parameters}, 
+      {
+        get: () => v[1].parameters, 
+        result: () => H('div.item', H('a', {
+          on: {click: e => {
+            send({type: 'get_nodes', nodes: state.quest_results.nodes[quest], date: state.quest_results.date[quest] - ConvertTime(state.quests[quest].selection.age), max_date: state.quest_results.date[quest]})
+          }}
+        }, 'Show hosts scanned by quest'))
+      }, 
       state.quest_results.data[quest],
       date,
       v[1].parameters,
