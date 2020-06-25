@@ -18,7 +18,7 @@
     "explanation": "These machines are likely to have outdated software as many programs require a restart to complete updates.",
     "parameters": {"days": 30},
     "selection": {
-      "age": {"d": 1}
+      "age": {"h": 1}
     }
   }
 }

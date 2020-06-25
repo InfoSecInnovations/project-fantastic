@@ -20,7 +20,7 @@ const postQuests = (res, req, tests) => {
     const date = Date.now()
     const result = await RunQuest(query.quest, user, date)
     if (res.aborted) return
-    res.end(JSON.stringify({result, date}))
+    res.end(JSON.stringify({result: result.results, rows: result.rows, date}))
     console.log(`completed quest ${query.quest}, queried ${result.length} nodes`)
     console.log('-----------')
   })

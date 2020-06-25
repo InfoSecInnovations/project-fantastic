@@ -53,10 +53,13 @@ const effect = (state, action, send) => {
   if (action.type == 'run_quest') fetch(`/quests?${GenerateQuery({quest: action.quest})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => {
-      send({...action, type: 'quest_results', results: res.result, date: res.date, select: true})
+      send({...action, type: 'quest_results', results: res.result, date: res.date, select: true, nodes: res.rows})
       send({...action, type: 'test_results', results: res.result, date: res.date, parameters: state.quests[action.quest].parameters, test: action.quest}) // quest results are the same as the test run by the quest
     })
-  if (action.type == 'quest_results') RefreshResult(state, action, send, state.quests[action.quest])
+  if (action.type == 'quest_results'){
+    if (action.nodes) send({type: 'nodes', nodes: action.nodes})
+    RefreshResult(state, action, send, state.quests[action.quest])
+  }
   if (action.type == 'test_results') RefreshResult(state, action, send, state.tests[action.test])
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())

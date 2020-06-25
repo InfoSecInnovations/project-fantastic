@@ -22,7 +22,7 @@ const graph = (state, send) => {
   const edges = []
   state.nodes.forEach((v, i, arr) => {
     let connection_count = 0
-    v.connections.forEach(c => {
+    v.connections && v.connections.forEach(c => {
       const target_index = arr.findIndex(n => n.node_id === c.to_node)
       if (target_index == -1 || target_index == i) return
       let edge = edges.find(e => e.from == i && e.to == target_index)
