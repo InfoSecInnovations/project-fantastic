@@ -6,6 +6,10 @@ fetch('/auth/myaccount')
   document.getElementById('role').innerHTML = `Role: ${res.role}`
 })
 
+document.onkeyup = e => {
+  if (e.key == 'Enter') document.getElementById('continue').click()
+}
+
 function deleteButton(button){
   const parent = button.parentElement
   parent.removeChild(button)
