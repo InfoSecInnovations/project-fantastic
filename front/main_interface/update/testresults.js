@@ -1,4 +1,5 @@
 const testResults = (state, action) => {
+  if (!action.results) continue
   state.test_results.data[action.test] = action.results
   state.test_results.status[action.test] = 'loaded'
   state.test_results.date[action.test] = action.date
