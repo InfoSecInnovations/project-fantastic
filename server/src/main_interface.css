@@ -26,6 +26,7 @@ label {
   justify-content: space-between;
   background-color: coral;
   padding: 0.5rem 2rem;
+  flex-wrap: wrap;
 }
 
 #search {
@@ -134,12 +135,13 @@ label {
 #selection {
   margin-left: auto;
   width: 500px;
-  max-width: 40%;
+  max-width: 50%;
   min-height: 0;
   display: flex;
   flex-direction: column;
   background-color: rgb(255, 171, 140);
   z-index: 1;
+  overflow-y: auto;
 }
 
 .icon_button {
@@ -179,7 +181,7 @@ label {
 #commands {
   margin-right: auto;
   width: 400px;
-  max-width: 40%;
+  max-width: 50%;
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -202,6 +204,7 @@ label {
 #left_panel_controls {
   margin-top: auto;
   display: flex;
+  flex-wrap: wrap;
   background-color: coral;
 }
 
