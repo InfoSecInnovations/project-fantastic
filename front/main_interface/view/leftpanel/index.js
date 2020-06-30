@@ -2,6 +2,7 @@ const H = require('snabbdom/h').default
 const Commands = require('./commands')
 const Quests = require('./quests')
 const Tests = require('./tests')
+const History = require('./history')
 
 const panel_button = (state, send, panel_state, icon, label) => 
   H('div.icon_button', {
@@ -16,6 +17,7 @@ const leftPanel = (state, send) => {
     state.commands && state.left_panel_state == 'host_data' ? Commands(state, send) : undefined,
     state.quests && state.left_panel_state == 'quests' ? Quests(state, send) : undefined,
     state.tests && state.left_panel_state == 'tests' ? Tests(state, send) : undefined,
+    state.history && state.left_panel_state == 'history' ? History(state, send) : undefined,
     H('div#left_panel_controls', [
       panel_button(state, send, 'host_data', 'network-wired', 'Host Data Commands'),
       panel_button(state, send, 'tests', 'clipboard-list', 'Tests'),

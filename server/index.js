@@ -78,6 +78,7 @@ const main = async () => {
   app.get('/test_history', require('./http/gettesthistory'))
   app.get('/logout', require('./http/auth/logout'))
   app.get('/user', require('./http/getuser'))
+  app.get('/user_history', require('./http/getuserhistory'))
   app.get('/logs', require('./http/getlogs'))
 
   auth_module.configure(app)

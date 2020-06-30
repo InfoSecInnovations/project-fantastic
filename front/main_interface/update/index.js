@@ -57,6 +57,7 @@ const update = (state, action) => {
     state.test_parameters[action.test][action.key] = action.value
   }
   if (action.type == 'user') state.user = action.user
+  if (action.type == 'user_history') state.history = action.history
   state = Common(state, action)
   return state
 }
