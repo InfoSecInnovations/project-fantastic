@@ -42,7 +42,6 @@ const addConnections = async (node_id, connections, is_remote) => {
   for (const c of connections) {
 
     const db = await transaction()
-
     const hostname = is_remote ? await db.get({table: 'nodes', columns: ['hostname'], conditions: {columns: {node_id}}}).then(res => res.hostname) : ''
     const name = processes[c.process] || await GetProcess(c.process, hostname)
     processes[c.process] = name
@@ -57,26 +56,28 @@ const addConnections = async (node_id, connections, is_remote) => {
     }
     const local_ip = await get_local_row(db, c.local_address)
     const remote_ip = await get_remote_row(db, c.remote_address)
-    await db.get({table: 'connections', columns: ['connection_id'], conditions: {columns: { // check if we already have a connection identical to this one
+    const existing = await db.get({table: 'connections', columns: ['connection_id'], conditions: {columns: { // check if we already have a connection identical to this one
       from_id: local_ip.ip_id, 
       to_id: remote_ip.ip_id, 
       local_port: c.local_port, 
       remote_port: c.remote_port
     }}})
-    .then(res => res ?
-      db.update({table: 'connections', row: {state: c.state, process_id, date}, conditions: {columns: {connection_id: res.connection_id}}}) : // if we do, update with fresh information
-      db.insert('connections', { // if not, insert
-        from_id: local_ip.ip_id, 
-        to_id: remote_ip.ip_id, 
-        process_id, 
-        local_port: c.local_port, 
-        remote_port: c.remote_port, 
-        state: c.state, 
-        date,
-        first_date: date
-      }) 
-    )
-    .then(() => db.close())
+    if (existing) await db.update({ // if we do, update with fresh information
+      table: 'connections', 
+      row: {state: c.state, process_id, date}, 
+      conditions: {columns: {connection_id: existing.connection_id}}
+    })
+    else await db.insert('connections', { // if not, insert
+      from_id: local_ip.ip_id, 
+      to_id: remote_ip.ip_id, 
+      process_id, 
+      local_port: c.local_port, 
+      remote_port: c.remote_port, 
+      state: c.state, 
+      date,
+      first_date: date
+    })
+    await db.close()
   }
 
   console.log(`added ${connections.length} connections to database from node ${node_id} in ${Date.now() - date}ms. ${new_nodes} new nodes were found.`)

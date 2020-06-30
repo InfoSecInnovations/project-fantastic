@@ -1,10 +1,11 @@
 const Operations = require('./operations')
-const SQLite3 = require('sqlite3').verbose()
+const SQLite3 = require('sqlite3')
 
 const transaction = (path, mode) => new Promise((resolve, reject) => {
   const db = new SQLite3.Database(path, mode, err => err && console.error(err.message))
   db.configure('busyTimeout', 1000000)
-  db.run('BEGIN TRANSACTION;', err => {
+  const transaction_type = mode === SQLite3.OPEN_READONLY ? '' : 'IMMEDIATE'
+  db.run(`BEGIN ${transaction_type} TRANSACTION;`, err => {
     if (err) return reject(err)
     return resolve({
       ...Object.entries(Operations.write)
