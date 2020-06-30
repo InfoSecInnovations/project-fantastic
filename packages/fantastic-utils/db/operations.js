@@ -156,4 +156,4 @@ const remove = query =>
     }
   )
 
-module.exports = {insert, update, get, all, run, remove}
+module.exports = {write: {insert, update, run, remove}, read: {all, get}}

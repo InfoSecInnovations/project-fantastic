@@ -1,4 +1,5 @@
 const schema = [
+  `PRAGMA journal_mode = WAL;`,
   `CREATE TABLE IF NOT EXISTS nodes(
     node_id INTEGER PRIMARY KEY,
     hostname TEXT,

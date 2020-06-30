@@ -9,7 +9,7 @@ const runQuest = async (quest, user, date) => {
   const rows = await getNodes({date: Date.now() - ConvertTime(test_obj.quest.selection.age)})
   const row_ids = rows.map(v => v.node_id)
   const results = await RunTest(quest, user, date, row_ids, test_obj.quest.parameters)
-  UpdateHistory(quest, user.user_id, date, results, row_ids)
+  await UpdateHistory(quest, user.user_id, date, results, row_ids)
   return {results, rows}
 }
 

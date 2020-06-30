@@ -14,7 +14,7 @@ const runTest = async (test, user, date, nodes, parameters) => {
       results.push({node_id: row.node_id, result: CheckResult(result, action.search, parameters)})
     }
   }
-  UpdateHistory(test, user.user_id, date, results, parameters)
+  await UpdateHistory(test, user.user_id, date, results, parameters)
   return results
 }
 

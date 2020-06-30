@@ -1,11 +1,11 @@
-const {transaction} = require('./operations')
+const {transaction, OPEN_READONLY} = require('./operations')
 
 const getNodes = async query => {
   const date_condition = [ // if we didn't supply a date we want to get all of the results
     query.date && {columns: {date: query.date}, compare: '>='}, 
     query.max_date && {columns: {first_date: query.max_date}, compare: '<='}
   ] 
-  const db = await transaction()
+  const db = await transaction(OPEN_READONLY)
   const rows = await db.all({table: 'nodes', conditions: {groups: [...date_condition, query.nodes && Array.isArray(query.nodes) && {columns: {node_id: query.nodes}, compare: 'IN'}]}})
   const nodes = []
  
