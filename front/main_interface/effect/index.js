@@ -4,7 +4,6 @@ const FlatUnique = require('fantastic-utils/flatunique')
 const OpenTabs = require('./opentabs')
 const GenerateQuery = require('../../common/effect/generatequery')
 const SearchQuery = require('./searchquery')
-const RefreshResult = require('./refreshresult')
 const RefreshNodes = require('./refreshnodes')
 const Nodes = require('./nodes')
 
@@ -49,9 +48,7 @@ const effect = (state, action, send) => {
       send({type: 'nodes', nodes: action.nodes})
       send({type: 'quest_nodes', quest: action.quest, nodes: action.nodes.map(v => v.node_id)})
     }
-    RefreshResult(state, action, send, state.quests[action.quest])
   }
-  if (action.type == 'test_results') RefreshResult(state, action, send, state.tests[action.test])
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
     .then(res => send({...action, type: 'test_results', results: res.result, date: res.date, select: true, parameters: action.parameters}))
