@@ -5,8 +5,7 @@ const HasRole = require('fantastic-utils/hasrole')
 
 const getTests = (res, req, tests) => {
   Abort(res)
-  console.log('-----------')
-  console.log('received http request to get available tests...')
+  console.log('getTests: received http request to get available tests...')
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()
@@ -20,8 +19,7 @@ const getTests = (res, req, tests) => {
         [v.key]: {name: v.name, description: v.description, hosts: v.hosts, pass: v.pass, parameters: v.parameters}
       }), {})
     )
-    console.log(`sent metadata for ${Object.keys(test_data).length} tests.`)
-    console.log('-----------')
+    console.log(`getTests: sent metadata for ${Object.keys(test_data).length} tests.`)
     res.end(JSON.stringify(test_data))
   })
 }

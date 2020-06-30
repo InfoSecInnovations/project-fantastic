@@ -9,8 +9,7 @@ const End = require('./end')
 const postQuests = (res, req, tests) => {
   Abort(res)
   const query = ParseQuery(req.getQuery())
-  console.log('-----------')
-  console.log(`received http request to start ${query.quest}...`)
+  console.log(`postQuests: received http request to start ${query.quest}...`)
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return End(res)
@@ -21,8 +20,7 @@ const postQuests = (res, req, tests) => {
     const result = await RunQuest(query.quest, user, date)
     if (res.aborted) return
     res.end(JSON.stringify({result: result.results, rows: result.rows, date}))
-    console.log(`completed quest ${query.quest}, queried ${result.rows.length} nodes`)
-    console.log('-----------')
+    console.log(`postQuests: completed quest ${query.quest}, queried ${result.rows.length} nodes`)
   })
 }
 

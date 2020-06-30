@@ -9,8 +9,7 @@ const End = require('./end')
 const postActions = (res, req, actions) => {
   Abort(res)
   const query = ParseQuery(req.getQuery())
-  console.log('-----------')
-  console.log(`received http request to execute ${query.action} on node ${query.node_id}...`)
+  console.log(`postActions: received http request to execute ${query.action} on node ${query.node_id}...`)
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return End(res)
@@ -22,8 +21,7 @@ const postActions = (res, req, actions) => {
     .then(result => {
       if (res.aborted) return
       res.end(JSON.stringify({result, date}))
-      console.log(`${query.action} executed on node ${query.node_id}`)
-      console.log('-----------')
+      console.log(`postActions: ${query.action} executed on node ${query.node_id}`)
     })
   })
 }

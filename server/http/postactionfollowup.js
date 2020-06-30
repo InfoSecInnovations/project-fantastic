@@ -11,8 +11,7 @@ const postActionFollowup = (res, req, actions) => {
   Abort(res)
   const query = ParseQuery(req.getQuery())
   const header = req.getHeader('cookie')
-  console.log('-----------')
-  console.log(`received http request to execute ${query.function} function from ${query.action} on node ${query.node_id}...`)
+  console.log(`postActionFollowup: received http request to execute ${query.function} function from ${query.action} on node ${query.node_id}...`)
   GetHTTPData(res)
   .then(async data => {
     const user = await Auth(header)
@@ -28,8 +27,7 @@ const postActionFollowup = (res, req, actions) => {
       const json = JSON.parse(data)
       const result = await RunAction(query.action, query.function, query.node_id, user, date, json, query.label)
       if (res.aborted) return
-      console.log(`${query.function} function from ${query.action} executed on node ${query.node_id}.`)
-      console.log('-----------')
+      console.log(`postActionFollowup: ${query.function} function from ${query.action} executed on node ${query.node_id}.`)
       res.end(JSON.stringify({result, date}))
     }
     catch (err) {

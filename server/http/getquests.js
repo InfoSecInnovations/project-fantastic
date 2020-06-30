@@ -4,8 +4,7 @@ const HasRole = require('fantastic-utils/hasrole')
 const Abort = require('./abort')
 
 const getQuests = (res, req, tests) => { // TODO: this should get daily quests, instead of all of them.
-  console.log('-----------')
-  console.log('received http request to get available quests...')
+  console.log('getQuests: received http request to get available quests...')
   Abort(res)
   Auth(req.getHeader('cookie'))
   .then(async user => {
@@ -26,8 +25,7 @@ const getQuests = (res, req, tests) => { // TODO: this should get daily quests, 
         }
       }
     }, {}))
-    console.log(`sent metadata for ${Object.keys(quest_data).length} quests.`)
-    console.log('-----------')
+    console.log(`getQuests: sent metadata for ${Object.keys(quest_data).length} quests.`)
     res.end(JSON.stringify(quest_data))
   })
 

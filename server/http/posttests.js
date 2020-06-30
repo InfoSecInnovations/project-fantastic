@@ -11,8 +11,7 @@ const postTests = (res, req, tests) => {
   Abort(res)
   const query = ParseQuery(req.getQuery())
   const header = req.getHeader('cookie')
-  console.log('-----------')
-  console.log(`received http request to start ${query.test} test...`)
+  console.log(`postTests: received http request to start ${query.test} test...`)
   GetHTTPData(res)
   .then(async data => {
     const user = await Auth(header)
@@ -26,8 +25,7 @@ const postTests = (res, req, tests) => {
       if (!query.nodes || !Array.isArray(query.nodes)) return End(res)
       const result = await RunTest(query.test, user, date, query.nodes, json)
       if (res.aborted) return
-      console.log(`completed ${query.test} test, queried ${result.length} nodes`)
-      console.log('-----------')
+      console.log(`postTests: completed ${query.test} test, queried ${result.length} nodes`)
       res.end(JSON.stringify({result, date}))
     }
     catch(err) {

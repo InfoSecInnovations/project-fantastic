@@ -7,8 +7,7 @@ const getResults = (res, req) => {
   Abort(res)
   const start = Date.now()
   const query = ParseQuery(req.getQuery())
-  console.log('-----------')
-  console.log(`http request for results from ${query.nodes.length} nodes incoming...`)
+  console.log(`getResults: http request for results from ${query.nodes.length} nodes incoming...`)
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()
@@ -19,8 +18,7 @@ const getResults = (res, req) => {
       group_by: ['action', 'function', 'label', 'node_id']
     })
     if (res.aborted) return
-    console.log(`got results from ${query.nodes.length} nodes from database in ${Date.now() - start}ms, returning results!`)
-    console.log('-----------')
+    console.log(`getResults: got results from ${query.nodes.length} nodes from database in ${Date.now() - start}ms, returning results!`)
     res.end(JSON.stringify(rows))
   })
 }

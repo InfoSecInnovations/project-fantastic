@@ -48,11 +48,15 @@ const create_commands = commands =>
 
 const run = async get_commands => {
   const commands = await create_commands(get_commands())
-  if (!commands) return setTimeout(() => run(get_commands), 1000)
+  if (!commands) {
+    console.log('no host data commands found, retrying in 1s!')
+    return setTimeout(() => run(get_commands), 1000)
+  }
+  console.log('-----gathering initial local host data...-----')
   const ids = await get_node(commands).then(res => DB.addNodes([{...res, access: 'local'}], true)) // create the initial node belonging to the local host
   const local = ids[0]
   const loop = async () => {
-    console.log('starting host data loop...')
+    console.log('-----starting host data loop...-----')
     const commands = await create_commands(get_commands())
     const remote = []
     console.log('finding hosts on network...')

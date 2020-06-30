@@ -8,8 +8,7 @@ const {insert} = require('../db')
 const postCommands = (res, req, commands) => {
   Abort(res)
   const query = ParseQuery(req.getQuery())
-  console.log('-----------')
-  console.log('received http request to change command settings...')
+  console.log('postCommands: received http request to change command settings...')
   return Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()
@@ -28,10 +27,9 @@ const postCommands = (res, req, commands) => {
           .then(id => insert('all_history', {event_type: 'command', event_id: id, date, user_id: user.user_id}))
         }
         commands[v.key] = enabled ? 'enabled' : 'disabled'
-        console.log(`${v.key} command ${commands[v.key] ? 'enabled' : 'disabled'}`)
+        console.log(`postCommands: ${v.key} command ${commands[v.key] ? 'enabled' : 'disabled'}`)
       })
     )
-    console.log('-----------')
     res.end()
     return commands
   })

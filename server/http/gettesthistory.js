@@ -5,8 +5,8 @@ const Auth = require('./auth')
 const getQuestHistory = (res, req) => {
   Abort(res)
   const start = Date.now()
-  console.log('-----------')
-  console.log(`http request for test history incoming...`)
+
+  console.log(`getQuestHistory: http request for test history incoming...`)
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()
@@ -17,8 +17,7 @@ const getQuestHistory = (res, req) => {
       group_by: ['test']
     })
     if (res.aborted) return
-    console.log(`got test history from database in ${Date.now() - start}ms, returning results!`)
-    console.log('-----------')
+    console.log(`getQuestHistory: got test history from database in ${Date.now() - start}ms, returning results!`)
     res.end(JSON.stringify(rows.map(v => ({...v, date: v['MAX(date)']}))))
   })
 }

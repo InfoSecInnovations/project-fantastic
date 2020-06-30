@@ -4,8 +4,7 @@ const Abort = require('./abort')
 const GetPackagedData = require('../util/getpackageddata')
 
 const getActions = (res, req, actions) => {
-  console.log('-----------')
-  console.log('received http request to get available actions...')
+  console.log('getActions: received http request to get available actions...')
   Abort(res)
   Auth(req.getHeader('cookie'))
   .then(async user => {
@@ -19,8 +18,8 @@ const getActions = (res, req, actions) => {
         [v.key]: {name: v.name, description: v.description, hosts: v.hosts, commands: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].command}), {})}
       }), {})
     )  
-    console.log(`sent metadata for ${Object.keys(action_data).length} actions.`)
-    console.log('-----------')
+    console.log(`getActions: sent metadata for ${Object.keys(action_data).length} actions.`)
+
     res.end(JSON.stringify(action_data))
   })
 }
