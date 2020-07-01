@@ -1,15 +1,13 @@
-const {get} = require('../../db')
 const GetAction = require('../../util/getpackageddata')
-const UpdateResult = require('./updateresult')
 const RunFunction = require('./runfunction')
 
-const runAction = async (action, func, node_id, user, date, data, label) => {
-  const row = await get({table: 'nodes', conditions: {columns: {node_id}}})
+const runAction = async (db, action, func, node_id, user, date, options) => {
+  const row = await db.get({table: 'nodes', conditions: {columns: {node_id}}})
   const hostname = row.access === 'local' ? '' : row.hostname
   const obj = await GetAction(action)
-  const result = await RunFunction(obj, func, user, hostname, data)
-  await UpdateResult(action, func, node_id, user.user_id, date, result, label)
-  return result
+  const result = await RunFunction(obj, func, user, hostname, options && options.data)
+  const event_id = await db.insert('action_history', {data: JSON.stringify(result), date, action, function: func, node_id, label: options && options.label, user_id: user.user_id, test_id: options && options.test_id})
+  return {result, event_id}
 }
 
 module.exports = runAction

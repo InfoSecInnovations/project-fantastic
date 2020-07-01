@@ -6,6 +6,7 @@ const Auth = require('./auth')
 const GetAsset = require('../util/getpackageddata')
 const HasRole = require('fantastic-utils/hasrole')
 const End = require('./end')
+const {transaction} = require('../db')
 
 const postTests = (res, req, tests) => {
   Abort(res)
@@ -23,10 +24,13 @@ const postTests = (res, req, tests) => {
     try {
       const json = JSON.parse(data)
       if (!query.nodes || !Array.isArray(query.nodes)) return End(res)
-      const result = await RunTest(query.test, user, date, query.nodes, json)
+      const db = await transaction()
+      const result = await RunTest(db, query.test, user, date, query.nodes, json)
+      await db.insert('all_history', {event_type: 'test', event_id: result.event_id, user_id: user.user_id})
+      await db.close()
       if (res.aborted) return
-      console.log(`postTests: completed ${query.test} test, queried ${result.length} nodes`)
-      res.end(JSON.stringify({result, date}))
+      console.log(`postTests: completed ${query.test} test, queried ${result.results.length} nodes`)
+      res.end(JSON.stringify({result: result.results, date}))
     }
     catch(err) {
       return End(res)

@@ -6,6 +6,7 @@ const Auth = require('./auth')
 const GetHTTPData = require('fantastic-utils/gethttpdata')
 const GetAsset = require('../util/getpackageddata')
 const End = require('./end')
+const {transaction} = require('../db')
 
 const postActionFollowup = (res, req, actions) => {
   Abort(res)
@@ -25,10 +26,13 @@ const postActionFollowup = (res, req, actions) => {
     const date = Date.now()
     try {
       const json = JSON.parse(data)
-      const result = await RunAction(query.action, query.function, query.node_id, user, date, json, query.label)
+      const db = await transaction()
+      const result = await RunAction(db, query.action, query.function, query.node_id, user, date, {label: query.label, data: json})
+      await db.insert('all_history', {event_type: 'action', event_id: result.event_id, date, user_id: user.user_id})
+      await db.close()
       if (res.aborted) return
       console.log(`postActionFollowup: ${query.function} function from ${query.action} executed on node ${query.node_id}.`)
-      res.end(JSON.stringify({result, date}))
+      res.end(JSON.stringify({result: result.result, date}))
     }
     catch (err) {
       return End(res)

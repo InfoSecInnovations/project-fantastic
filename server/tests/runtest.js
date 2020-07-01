@@ -1,21 +1,20 @@
-const {all} = require('../db')
 const GetTest = require('../util/getpackageddata')
 const RunAction = require('../actions/runaction')
 const CheckResult = require('./checkresult')
-const UpdateHistory = require('./updatehistory')
 
-const runTest = async (test, user, date, nodes, parameters) => {
+const runTest = async (db, test, user, date, nodes, parameters, quest_id) => {
   const obj = await GetTest(test)
-  const rows = await all({table: 'nodes', conditions: {groups: [{columns: {access: obj.hosts}, compare: 'IN'}, {columns: {node_id: nodes}, compare: 'IN'}]}})
+  const event_id = await db.insert('test_history', {test, date, parameters: JSON.stringify(parameters), user_id: user.user_id, quest_id})
+  const rows = await db.all({table: 'nodes', conditions: {groups: [{columns: {access: obj.hosts}, compare: 'IN'}, {columns: {node_id: nodes}, compare: 'IN'}]}})
   const results = []
   for (const action of obj.actions) {
     for (const row of rows) {
-      const result = await RunAction(action.path, 'run', row.node_id, user, date)
-      results.push({node_id: row.node_id, result: CheckResult(result, action.search, parameters)})
+      const result = await RunAction(db, action.path, 'run', row.node_id, user, date, {test_id: event_id})
+      results.push({node_id: row.node_id, result: CheckResult(result.result, action.search, parameters)})
     }
   }
-  await UpdateHistory(test, user.user_id, date, results, parameters)
-  return results
+  await db.update({table: 'test_history', row: {results: JSON.stringify(results)}, conditions: {columns: {test_id: event_id}}})
+  return {results, event_id}
 }
 
 module.exports = runTest
