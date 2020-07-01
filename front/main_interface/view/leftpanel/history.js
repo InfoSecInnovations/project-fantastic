@@ -38,7 +38,7 @@ const history = (state, send) => H('div.scroll_container.panel', [
     ]),
     H('div.item', log_content(state, v)),
     H('div.item', [
-      H('div.play history_item', {on: {click: () => {}}}, [
+      H('div.play history_item', {on: {click: () => send({type: 'favorite', history_id: v.history_id})}}, [
         H('div.item', 'Favorite'),
         H('span.fas fa-star fa-fw play_button')
       ]),

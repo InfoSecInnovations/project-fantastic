@@ -106,6 +106,14 @@ const schema = [
     event_id INTEGER,
     date INTEGER,
     user_id TEXT
+  )`,
+  `CREATE TABLE IF NOT EXISTS favorites(
+    favorite_id INTEGER PRIMARY KEY,
+    history_id INTEGER,
+    user_id TEXT,
+    FOREIGN KEY (history_id)
+      REFERENCES all_history (history_id)
+      ON DELETE CASCADE
   )`
 ]
 
