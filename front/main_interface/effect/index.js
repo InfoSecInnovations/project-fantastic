@@ -6,6 +6,7 @@ const GenerateQuery = require('../../common/effect/generatequery')
 const SearchQuery = require('./searchquery')
 const RefreshNodes = require('./refreshnodes')
 const Nodes = require('./nodes')
+const UserHistory = require('./userhistory')
 
 const effect = (state, action, send) => {
   Common(state, action, send)
@@ -20,7 +21,10 @@ const effect = (state, action, send) => {
   if (action.type == 'enable_command') fetch(`/commands?${GenerateQuery({[action.command]: action.enabled})}`, {method: 'POST'})
     .then(() => fetch('/commands'))    
     .then(res => res.json())
-    .then(res => send({type: 'commands', commands: res}))
+    .then(res => {
+      send({type: 'commands', commands: res})
+      UserHistory(send)
+    })
 
   if (action.type == 'vis_select') state.vis.selectNodes(action.node !== undefined ? [action.node] : action.nodes)
   if (action.type == 'open_viewer') OpenTabs(state, action, send)
@@ -42,6 +46,7 @@ const effect = (state, action, send) => {
     .then(res => {
       send({...action, type: 'quest_results', results: res.result, date: res.date, select: true, nodes: res.rows})
       send({...action, type: 'test_results', results: res.result, date: res.date, parameters: state.quests[action.quest].parameters, test: action.quest}) // quest results are the same as the test run by the quest
+      UserHistory(send)
     })
   if (action.type == 'quest_results'){
     if (action.nodes) {
@@ -51,7 +56,10 @@ const effect = (state, action, send) => {
   }
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
-    .then(res => send({...action, type: 'test_results', results: res.result, date: res.date, select: true, parameters: action.parameters}))
+    .then(res => {
+      send({...action, type: 'test_results', results: res.result, date: res.date, select: true, parameters: action.parameters})
+      UserHistory(send)
+    })
 }
 
 module.exports = effect

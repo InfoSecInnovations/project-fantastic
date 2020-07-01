@@ -188,7 +188,7 @@ app({
     init_effects
   ],
   view: state => {
-    if (!state.actions || !state.quests || !state.tests) return
+    if (!state.actions || !state.quests || !state.tests) return h('div')
     if (state.logs) return h('div', {id: 'logs'}, [
       h('div', {class: 'search'}, [
         filtering(state),
@@ -197,5 +197,6 @@ app({
       h('div', {}, state.logs.map(v => log_view(state, v))),
       controls(state)
     ])
+    return h('div')
   }
 })

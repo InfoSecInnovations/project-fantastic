@@ -14,8 +14,10 @@ const getUserHistory = (res, req) => {
     const db = await transaction(OPEN_READONLY)
     const page = (query && query.page) || 0
     const count = (query && query.count) || 25
-    const conditions = {groups: []}
-    conditions.groups.push({columns: {user_id: user.user_id}})
+    const conditions = {groups: [
+      {columns: {user_id: user.user_id}},
+      {columns: {event_type: ['quest', 'test', 'command']}, compare: 'IN'}
+    ]}
     const rows = await db.all({
       table: 'all_history',
       order_by: {date: 'DESC'},

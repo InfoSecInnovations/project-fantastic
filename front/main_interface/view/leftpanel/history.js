@@ -22,7 +22,9 @@ const log_content = (state, log) => {
       H('ul', Object.entries(parameters).map(v => H('li', `${v[0]}: ${v[1]}`)))
     ])
   }
-  if (log.event_type == 'action' && log.function != 'run') return H('div', `Followup action: ${state.actions[log.action].names[log.function]}`)
+  if (log.event_type == 'command') {
+    return H('div.item', log.status ? 'Enabled' : 'Disabled')
+  }
 }
 
 const history = (state, send) => H('div.scroll_container.panel', [
@@ -40,7 +42,20 @@ const history = (state, send) => H('div.scroll_container.panel', [
         H('div.item', 'Favorite'),
         H('span.fas fa-star fa-fw play_button')
       ]),
-      H('div.play history_item', {on: {click: () => {}}}, [
+      H('div.play history_item', {on: {click: () => {
+        if (v.event_type == 'test') {
+          send({type: 'run_test', test: v.test, parameters: JSON.parse(v.parameters)})
+          send({type: 'left_panel_state', state: 'tests'})
+        }
+        if (v.event_type == 'quest') {
+          send({type: 'run_quest', quest: v.quest})
+          send({type: 'left_panel_state', state: 'quests'})
+        }
+        if (v.event_type == 'command') {
+          send({type: 'enable_command', command: v.command, enabled: v.status ? true : false})
+          send({type: 'left_panel_state', state: 'host_data'})
+        }
+      }}}, [
         H('div.item', 'Run Again'),
         H('span.fas fa-play fa-fw play_button')
       ])
