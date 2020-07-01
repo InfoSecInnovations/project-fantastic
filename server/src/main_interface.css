@@ -262,3 +262,21 @@ label {
   flex-wrap: wrap;
   align-items: center;
 }
+
+.history_item {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.play.history_item {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+
+.scroll_item.history_item {
+  margin-bottom: 1.5rem;
+}
+
+.parameters.history_item ul {
+  margin: 0;
+}

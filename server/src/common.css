@@ -210,3 +210,7 @@ input[type=button], input[type=submit], input[type=reset], .button {
   align-items: center;
   height: 1.25em;
 }
+
+.unbold {
+  font-weight: normal;
+}
