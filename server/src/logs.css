@@ -4,7 +4,7 @@
 
 .log_details {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
   margin: 1rem;
 }
 
@@ -35,4 +35,8 @@
 
 .text_search label {
   margin-right: 1rem;
+}
+
+.parameters {
+  flex-direction: column;
 }

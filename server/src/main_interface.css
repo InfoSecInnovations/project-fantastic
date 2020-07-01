@@ -256,3 +256,9 @@ label {
   margin: 0;
   font-size: 0.92rem;
 }
+
+.history_title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}

@@ -70,21 +70,28 @@ const test_results = (data, results) => {
 
 const log_details = (state, log) => {
   if (log.event_type == 'action') {
-    return h('div', {class: 'log_details'}, [
+    return [h('div', {class: 'log_details'}, [
       h('div', {}, log.function != 'run' && `Followup action: ${log.function}`),
       h('div', {}, `Target node: ${log.node_id}`)
-    ])
+    ])]
   }
   if (log.event_type == 'test') {
     const results = test_results(state.tests[log.test], JSON.parse(log.results))
-    return h('div', {class: 'log_details'}, results.pass ? 'All nodes passed' : `${results.failed.length} nodes failed`)
+    const parameters = JSON.parse(log.parameters)
+    return [
+      h('div', {class: 'log_details'}, results.pass ? 'All nodes passed' : `${results.failed.length} nodes failed`),
+      h('div', {class: 'log_details parameters'}, [
+        h('div', {}, 'Parameters used:'),
+        h('ul', {}, Object.entries(parameters).map(v => h('li', {}, `${v[0]}: ${v[1]}`)))
+      ])
+    ]
   }
   if (log.event_type == 'quest') {
     const results = test_results(state.quests[log.quest], JSON.parse(log.results))
-    return h('div', {class: 'log_details'}, results.pass ? 'All nodes passed' : `${results.failed.length} nodes failed`)
+    return [h('div', {class: 'log_details'}, results.pass ? 'All nodes passed' : `${results.failed.length} nodes failed`)]
   }
   if (log.event_type == 'command') {
-    return h('div', {class: 'log_details'}, `${log.status ? 'Enabled' : 'Disabled'}`)
+    return [h('div', {class: 'log_details'}, `${log.status ? 'Enabled' : 'Disabled'}`)]
   }
 }
 
@@ -101,7 +108,7 @@ const log_view = (state, log) => h('div', {class: 'log'}, [
     h('div', {}, log.user.username),
     h('div', {}, new Date(log.date).toString())
   ]),
-  log_details(state, log)
+  ...log_details(state, log)
 ])
 
 const controls = state => h('div', {class: 'controls'}, [

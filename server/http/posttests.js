@@ -26,7 +26,7 @@ const postTests = (res, req, tests) => {
       if (!query.nodes || !Array.isArray(query.nodes)) return End(res)
       const db = await transaction()
       const result = await RunTest(db, query.test, user, date, query.nodes, json)
-      await db.insert('all_history', {event_type: 'test', event_id: result.event_id, user_id: user.user_id})
+      await db.insert('all_history', {event_type: 'test', event_id: result.event_id, user_id: user.user_id, date})
       await db.close()
       if (res.aborted) return
       console.log(`postTests: completed ${query.test} test, queried ${result.results.length} nodes`)

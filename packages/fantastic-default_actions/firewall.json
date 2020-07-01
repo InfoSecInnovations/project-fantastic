@@ -29,11 +29,13 @@
       }
     },
     "enable_profile": {
+      "name": "Enable Profile",
       "command": "Set-NetFirewallProfile -Profile $profile -Enabled $state",
       "role": "elevated",
       "method": "cimsession"
     },
     "get_rules": {
+      "name": "Get Profile Rules",
       "command": "Get-NetFirewallRule | where Profile -EQ $profile",
       "method": "cimsession",
       "json": true,
@@ -65,6 +67,7 @@
       }
     },
     "enable_rule": {
+      "name": "Enable Rule",
       "command": "",
       "role": "elevated"
     }

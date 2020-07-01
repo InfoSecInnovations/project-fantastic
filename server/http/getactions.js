@@ -15,7 +15,13 @@ const getActions = (res, req, actions) => {
     .then(actions => actions.filter(v => HasRole(user, v.role)) // TODO: filter out invalid scripts and warn the user
       .reduce((result, v) => ({ 
         ...result, 
-        [v.key]: {name: v.name, description: v.description, hosts: v.hosts, commands: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].command}), {})}
+        [v.key]: {
+          name: v.name, 
+          description: v.description, 
+          hosts: v.hosts, 
+          commands: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].command}), {}),
+          names: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].name || v[0]}), {})
+        }
       }), {})
     )  
     console.log(`getActions: sent metadata for ${Object.keys(action_data).length} actions.`)
