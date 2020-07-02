@@ -259,18 +259,27 @@ label {
 
 .history_title {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
+}
+
+.history_controls {
+  margin-right: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.history_control {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.favorited {
+  color: rgb(255, 196, 0);
 }
 
 .history_item {
   margin-top: 0;
   margin-bottom: 0;
-}
-
-.play.history_item {
-  margin-top: 0.4rem;
-  margin-bottom: 0.4rem;
 }
 
 .scroll_item.history_item {

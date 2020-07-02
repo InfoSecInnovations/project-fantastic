@@ -1,4 +1,5 @@
 const H = require('snabbdom/h').default
+const CompareEvent = require('fantastic-utils/compareevent')
 
 const headers = {
   action: 'Run Action',
@@ -27,40 +28,63 @@ const log_content = (state, log) => {
   }
 }
 
-const history = (state, send) => H('div.scroll_container.panel', [
-  H('div.item', [
-    H('div.title', 'History')
-  ]),
-  H('div.scroll', state.history.results.map(v => H('div.scroll_item history_item', [
-    H('div.history_title', [
-      H('div.subtitle history_item', headers[v.event_type]),
-      H('div.subtitle unbold history_item', log_name(state, v))
-    ]),
-    H('div.item', log_content(state, v)),
-    H('div.item', [
-      H('div.play history_item', {on: {click: () => send({type: 'favorite', history_id: v.history_id})}}, [
-        H('div.item', 'Favorite'),
-        H('span.fas fa-star fa-fw play_button')
+const history_item_controls = (state, send, item) => {
+  const favorited = state.history.favorites.some(v => CompareEvent(v, item))
+  return H('div.history_controls', [
+    H('span.fas fa-star fa-fw history_control', {
+      on: {click: () => send({type: 'favorite', remove: favorited, history_id: item.history_id})},
+      class: {favorited}
+    }),
+    H('span.fas fa-redo-alt fa-fw history_control', {on: {click: () => {
+      if (item.event_type == 'test') {
+        send({type: 'run_test', test: item.test, parameters: JSON.parse(item.parameters)})
+        send({type: 'left_panel_state', state: 'tests'})
+      }
+      if (item.event_type == 'quest') {
+        send({type: 'run_quest', quest: item.quest})
+        send({type: 'left_panel_state', state: 'quests'})
+      }
+      if (item.event_type == 'command') {
+        send({type: 'enable_command', command: item.command, enabled: item.status ? true : false})
+        send({type: 'left_panel_state', state: 'host_data'})
+      }
+    }}})
+  ])
+}
+
+const favorites = (state, send) => {
+  if (!state.history.favorites.length) return []
+  return [ 
+    H('div.title', 'Favorites'),
+    H('div.scroll', state.history.favorites.map(v => H('div.scroll_item history_item', [
+      H('div.history_title', [
+        history_item_controls(state, send, v),
+        H('div.subsubtitle', `${headers[v.event_type]}: ${log_name(state, v)}`)
       ]),
-      H('div.play history_item', {on: {click: () => {
-        if (v.event_type == 'test') {
-          send({type: 'run_test', test: v.test, parameters: JSON.parse(v.parameters)})
-          send({type: 'left_panel_state', state: 'tests'})
-        }
-        if (v.event_type == 'quest') {
-          send({type: 'run_quest', quest: v.quest})
-          send({type: 'left_panel_state', state: 'quests'})
-        }
-        if (v.event_type == 'command') {
-          send({type: 'enable_command', command: v.command, enabled: v.status ? true : false})
-          send({type: 'left_panel_state', state: 'host_data'})
-        }
-      }}}, [
-        H('div.item', 'Run Again'),
-        H('span.fas fa-play fa-fw play_button')
-      ])
-    ])
-  ])))
+      H('div.item', log_content(state, v))
+    ])))
+  ]
+}
+
+const history = (state, send) => {
+  if (!state.history.results.length) return [
+    H('div.title', 'Run tests, complete quests or toggle host data commands to see something here!')
+  ]
+  return [
+    H('div.title', 'History'),
+    H('div.scroll', state.history.results.map(v => H('div.scroll_item history_item', [
+      H('div.history_title', [
+        history_item_controls(state, send, v),
+        H('div.subsubtitle', `${headers[v.event_type]}: ${log_name(state, v)}`)
+      ]),
+      H('div.item', log_content(state, v))
+    ])))
+  ]
+}
+
+const history_panel = (state, send) => H('div.scroll_container.panel', [
+  ...favorites(state, send),
+  ...history(state, send)
 ])
 
-module.exports = history
+module.exports = history_panel

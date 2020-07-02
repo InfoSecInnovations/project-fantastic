@@ -1,13 +1,6 @@
-const {transaction, OPEN_READONLY} = require('./operations')
-
-const get_data = async (db, rows) => {
-  const results = []
-  for (const row of rows) {
-    const result = await db.get({table: `${row.event_type}_history`, conditions: {columns: {[`${row.event_type}_id`]: row.event_id}}})
-    if (result) results.push({...row, ...result})
-  }
-  return results
-}
+const {transaction, OPEN_READONLY} = require('../operations')
+const GetData = require('./getdata')
+const GetFavorites = require('./getuserfavorites')
 
 const getUserHistory = async (user, options) => {
   const db = await transaction(OPEN_READONLY)
@@ -30,10 +23,8 @@ const getUserHistory = async (user, options) => {
     conditions,
     pagination: {page_size: count, page: page + 1}
   }).then(rows => !rows.length)
-  const results = await get_data(db, rows)
-  const favorites = await db.all({table: 'favorites', user_id: user.user_id})
-  .then(rows => db.all({table: 'all_history', conditions: {columns: {history_id: rows.map(v => v.history_id)}, compare: 'IN'}}))
-  .then(rows => get_data(db, rows))
+  const results = await GetData(db, rows)
+  const favorites = await GetFavorites(db, user)
   await db.close()
   return {results, is_last, favorites}
 }

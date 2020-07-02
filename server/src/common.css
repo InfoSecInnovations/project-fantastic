@@ -189,6 +189,8 @@ input[type=button], input[type=submit], input[type=reset], .button {
   overflow-y: auto;
   background-color: coral;
   min-height: 6rem;
+  max-height: max-content;
+  flex: 1;
 }
 
 .scroll_item {
