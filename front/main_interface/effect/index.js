@@ -23,6 +23,7 @@ const effect = (state, action, send) => {
     .then(res => res.json())
     .then(res => {
       send({type: 'commands', commands: res})
+      send({type: 'command_loaded', command: action.command})
       UserHistory(send)
     })
 

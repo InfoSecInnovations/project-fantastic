@@ -4,7 +4,9 @@ const HasRole = require('fantastic-utils/hasrole')
 
 const enabled_button = (state, send, command, data) => {
   if (data.mode == 'force') return H('div', 'This command must always be enabled')
-  if (HasRole(state.user, data.role)) return H('div.button', 
+  if (HasRole(state.user, data.role)) return state.command_status[command] == 'loading' ? 
+  H('div.button loading', 'Updating status...') :
+  H('div.button', 
     {
       on: {click: [send, {type: 'enable_command', command, enabled: data.mode != 'enabled'}]},
       class: {disabled: data.mode != 'enabled'}

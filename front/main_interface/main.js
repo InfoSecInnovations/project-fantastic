@@ -23,7 +23,8 @@ let state = {
   test_results: TestResults(),
   test_parameters: {},
   keys: {},
-  child_tabs: []
+  child_tabs: [],
+  command_status: {}
 }
 let vdom = ToVNode(document.body)
 

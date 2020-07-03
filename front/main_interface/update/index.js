@@ -40,7 +40,8 @@ const update = (state, action) => {
   if (action.type == 'loading') state.loading = action.value
   if (action.type == 'vis') state.vis = action.vis
   if (action.type == 'commands') state.commands = action.commands
-  if (action.type == 'enable_command') state.commands[action.command].enabled = action.enabled
+  if (action.type == 'enable_command') state.command_status[action.command] = 'loading'
+  if (action.type == 'command_loaded') state.command_status[action.command] = 'loaded'
   if (action.type == 'quests') state.quests = action.quests
   if (action.type == 'tab') state.tab = action.tab
   if (action.type == 'left_panel_state') state.left_panel_state = action.state
