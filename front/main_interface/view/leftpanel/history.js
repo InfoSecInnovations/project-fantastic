@@ -28,12 +28,19 @@ const log_content = (state, log) => {
   }
 }
 
+const get_status = (state, item) => {
+  if (state.history.waiting.some(v => CompareEvent(state.history.favorites.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), item))) return 'waiting'
+  if (state.history.favorites.some(v => CompareEvent(v, item))) return 'favorited'
+}
+
 const history_item_controls = (state, send, item) => {
-  const favorited = state.history.favorites.some(v => CompareEvent(v, item))
+  const status = get_status(state, item)
   return H('div.history_controls', [
+    status == 'waiting' ? 
+    H('span.fas fa-ellipsis-h fa-fw history_control waiting') :
     H('span.fas fa-star fa-fw history_control', {
-      on: {click: () => send({type: 'favorite', remove: favorited, history_id: item.history_id})},
-      class: {favorited}
+      on: {click: () => send({type: 'favorite', remove: status == 'favorited', history_id: item.history_id})},
+      class: {favorited: status == 'favorited'}
     }),
     H('span.fas fa-redo-alt fa-fw history_control', {on: {click: () => {
       if (item.event_type == 'test') {

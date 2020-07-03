@@ -62,7 +62,10 @@ const effect = (state, action, send) => {
     })
   if (action.type == 'favorite') fetch(`/favorites?${GenerateQuery({history_id: action.history_id, remove: action.remove})}`, {method: 'POST'})
     .then(res => res.json())
-    .then(res => send({type: 'user_history', history: res}))
+    .then(res => {
+      send({type: 'user_history', history: res})
+      send({type: 'favorite_result', history_id: action.history_id})
+    })
 }
 
 module.exports = effect

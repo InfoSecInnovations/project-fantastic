@@ -18,7 +18,7 @@ const testResult = (state, send, data, parameters, result_data, result_date, res
     data.description ? H('div.item', FormatString(data.description, parameters.get())) : undefined,
     H('div.targets', [H('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
     ...(loading ?
-    [H('div.play.loading', [
+    [H('div.play waiting', [
       H('div.item', 'Gathering results...')
     ])] :
     [

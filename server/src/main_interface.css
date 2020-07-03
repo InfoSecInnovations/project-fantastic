@@ -289,3 +289,8 @@ label {
 .parameters.history_item ul {
   margin: 0;
 }
+
+.waiting {
+  cursor: auto;
+  color: dimgray;
+}

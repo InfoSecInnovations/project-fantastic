@@ -1,4 +1,5 @@
 const compareEvent = (a, b) => {
+  if (!a || !b) return false
   if (a.event_type != b.event_type) return false
   if (a.event_type == 'quest') return a.quest === b.quest
   if (a.event_type == 'test') {
