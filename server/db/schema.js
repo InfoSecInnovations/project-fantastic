@@ -111,6 +111,7 @@ const schema = [
     favorite_id INTEGER PRIMARY KEY,
     history_id INTEGER,
     user_id TEXT,
+    sorting INTEGER,
     FOREIGN KEY (history_id)
       REFERENCES all_history (history_id)
       ON DELETE CASCADE

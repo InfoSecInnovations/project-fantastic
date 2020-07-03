@@ -63,13 +63,29 @@ const favorites = (state, send) => {
   if (!state.history.favorites.length) return []
   return [ 
     H('div.title', 'Favorites'),
-    H('div.scroll', state.history.favorites.map(v => H('div.scroll_item history_item', [
-      H('div.history_title', [
-        history_item_controls(state, send, v),
-        H('div.subsubtitle', `${headers[v.event_type]}: ${log_name(state, v)}`)
-      ]),
-      H('div.item', log_content(state, v))
-    ])))
+    H('div.scroll', state.history.ordering ?
+      H('div.scroll_item subtitle waiting', 'Please wait...') :
+      state.history.favorites.map((v, i) => H('div.scroll_item history_item', {
+        attrs: {draggable: 'true'}, // draggable won't work unless it's a string with the value "true"
+        on: {
+          dragstart: e => e.dataTransfer.setData('text/plain', i),
+          drop: e => {
+            e.preventDefault() // preventDefault stops other events interfering with drag and drop
+            send({type: 'order_favorites', a: v.favorite_id, b: state.history.favorites[parseInt(e.dataTransfer.getData('text/plain'))].favorite_id})
+          },
+          dragover: e => {
+            e.preventDefault()
+            e.dataTransfer.dropEffect = 'move'
+          }
+        }
+      }, [
+        H('div.history_title', [
+          history_item_controls(state, send, v),
+          H('div.subsubtitle', `${headers[v.event_type]}: ${log_name(state, v)}`)
+        ]),
+        H('div.item', log_content(state, v))
+      ]))
+    )
   ]
 }
 

@@ -11,13 +11,13 @@ const getQuestHistory = (res, req) => {
     if (!user) return !res.aborted && res.end()
     const rows = await all({
       table: 'quest_history',
-      columns: ['MAX(date)', 'quest', 'results', 'rows'], 
+      columns: ['MAX(date) AS date', 'quest', 'results', 'rows'], 
       conditions: {columns: {user_id: user.user_id}},
       group_by: ['quest']
     })
     if (res.aborted) return
     console.log(`getQuestHistory: got quest history from database in ${Date.now() - start}ms, returning results!`)
-    res.end(JSON.stringify(rows.map(v => ({...v, date: v['MAX(date)']}))))
+    res.end(JSON.stringify(rows))
   })
 }
 

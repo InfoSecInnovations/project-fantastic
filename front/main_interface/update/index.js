@@ -68,6 +68,8 @@ const update = (state, action) => {
       if (event >= 0) state.history.waiting.splice(event, 1)
     } while(event >= 0 && history_item)
   }
+  if (action.type == 'order_favorites') state.history.ordering = true
+  if (action.type == 'favorites_ordered') state.history.ordering = false
   state = Common(state, action)
   return state
 }

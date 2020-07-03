@@ -8,11 +8,11 @@ const GetUserFavorites = require('../db/getuserhistory/getuserfavorites')
 const CompareEvent = require('fantastic-utils/compareevent')
 const GetData = require('../db/getuserhistory/getdata')
 
-const postFavourites = (res, req) => {
+const postFavorites = (res, req) => {
   Abort(res)
   const query = ParseQuery(req.getQuery())
   const remove = query.remove == 'true' // query entries are always strings!
-  console.log(`postFavourites: received http request to ${remove ? 'unfavorite' : 'favorite'} history item ${query.history_id}...`)
+  console.log(`postFavorites: received http request to ${remove ? 'unfavorite' : 'favorite'} history item ${query.history_id}...`)
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return End(res)
@@ -32,13 +32,16 @@ const postFavourites = (res, req) => {
       if (existing) await db.remove({table: 'favorites', conditions: {columns: {user_id: user.user_id, history_id: existing.history_id}}})
     }
     else {
-      if (!existing) await db.insert('favorites', {user_id: user.user_id, history_id: query.history_id})
+      if (!existing) {
+        const max_sort = await db.get({table: 'favorites', columns: ['MAX(sorting) AS sorting'], conditions: {columns: {user_id: user.user_id}}}).then(row => (row && row.sorting) || 0)
+        await db.insert('favorites', {user_id: user.user_id, history_id: query.history_id, sorting: max_sort + 1})
+      }
     }
     await db.close()
     const history = await GetUserHistory(user)
     res.end(JSON.stringify(history))
-    console.log(`postFavourites: ${remove ? 'unfavorited' : 'favorited'} history item ${query.history_id}`)
+    console.log(`postFavorites: ${remove ? 'unfavorited' : 'favorited'} history item ${query.history_id}`)
   })
 }
 
-module.exports = postFavourites
+module.exports = postFavorites

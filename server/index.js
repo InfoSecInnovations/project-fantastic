@@ -79,6 +79,7 @@ const main = async () => {
   app.get('/logout', require('./http/auth/logout'))
   app.get('/user', require('./http/getuser'))
   app.get('/user_history', require('./http/getuserhistory'))
+  app.post('/swap_favorites', require('./http/postswapfavorites'))
   app.post('/favorites', require('./http/postfavorites'))
   app.get('/logs', require('./http/getlogs'))
 
