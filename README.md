@@ -3,7 +3,7 @@
 ## About
 
 ![Fantastic UI](fantastic-ui.png)
-Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infosecinnovations.com/) for exploring computer networks. It aims to provide a way for network security novices and professionals alike to find and fix security issues. If you don't know where to start, the quest system will guide you, or you can ignore it and try out the various options by yourself!
+Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infosecinnovations.com/) for exploring computer networks. It aims to provide a way for network security novices and professionals alike to find and fix security issues. If you don't know where to start, the quest system (work in progress!) will guide you, or you can ignore it and try out the various options by yourself.
 
 ## Installation
 
@@ -14,7 +14,7 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 If you just want to start the server, navigate to the `server` directory and run `npm start` as administrator. Closing the window will stop the server.
 
-Using the default configuration you will be able to see the client at http://localhost:5000 in your browser
+Using the default configuration you will be able to see the client at http://localhost:5000 in your browser, and you can log in as `admin` using the password `changeme`. Please change this password or use a different authorization module (feature coming soon!) as accessing the tool as admin allows you to perform some actions which should be used responsibly.
 
 Using the default self signed certificate bundled with the app will cause warnings in the browser, but you can safely ignore these. If you want to use your own certificate, just create the `server/cert` directory with files named `cert` and `key`, please don't put it anywhere else as that may result in you committing your private key to GitHub!
 
