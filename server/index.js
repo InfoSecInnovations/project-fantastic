@@ -20,7 +20,7 @@ const main = async () => {
   if (!is_admin) return console.log('ADMINISTRATOR ACCESS REQUIRED: Please run as administrator!')
   const version = await FS.promises.readFile('.version').then(res => parseInt(res))
   const current_version = await FS.promises.readFile('.current_version').then(res => parseInt(res)).catch(() => 0)
-  if (version > current_version) return console.log('VERSION MISMATCH: Please run npm i to update your installation to the latest version!')
+  if (version != current_version) return console.log('VERSION MISMATCH: Please run npm i to update your installation to the latest version!')
 
   let config = await GetConfig()
   let data_process
