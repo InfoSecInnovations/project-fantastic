@@ -7,7 +7,8 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 ## Installation
 
-- If you don't have git cli installed you will need that first. You can install it using [Chocolatey](https://chocolatey.org/packages/git) or [GitHub Desktop](https://desktop.github.com/)
+- We'll only be supporting Windows 10 for the forseeable future, but other platforms may be added if there's a demand for it.
+- If you don't have git cli installed you will need that first. You can install it using [Chocolatey](https://chocolatey.org/packages/git) or [GitHub Desktop](https://desktop.github.com/).
 - Clone the repository and run `npm i` inside the repository root.
 
 ## Getting started
