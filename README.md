@@ -40,6 +40,8 @@ For more information on using the application itself:
 
 - Attempting to run `npm i` after the project has already been installed results in errors. A workaround that seems to solve this is to delete all node_modules directories and all package-lock.json files from the project directory (just skip any that can't be deleted, this is due to symlinks). Alternatively, try deleting the whole repo and cloning it again.
 
+- When the server is writing connections to the database, a lot of interactions take a while to respond (such as running actions or even favoriting an event from the history).
+
 ## Contributing
 
 If you wish to propose modifications to the project, please create a branch or fork to work on the proposed changes and submit a pull request when you're ready. We don't want unapproved changes to master, thanks!
