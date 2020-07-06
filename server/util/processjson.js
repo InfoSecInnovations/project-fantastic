@@ -1,4 +1,9 @@
-const parseValue = (value_data, output) => {
+/** 
+ * Grab values from JSON output using the method specified in a user script. 
+ * @param {(Object | string | undefined)} value_data - the data from the script defining how we should get the value from the output.
+ * @param {Object} output - the JSON output we are processing.
+ */
+const processJSON = (value_data, output) => {
   if (typeof value_data == 'undefined') return
   if (typeof value_data !== 'object') return output[value_data]
   if (value_data.map) return `${value_data.labelled ? `${value_data.key}: ` : ''}${value_data.map[output[value_data.key]]}`
@@ -25,4 +30,4 @@ const parseValue = (value_data, output) => {
   }
 }
 
-module.exports = parseValue
+module.exports = processJSON

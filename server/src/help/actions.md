@@ -45,6 +45,7 @@ Data about the commands and parsing the results of said commands.
 
 There must always be a `run` function, this is the entrypoint for the action. The other functions can be called as followups to this one.
 
+- `name` : the display name for this function, only applies to followup functions. This will be used on buttons to run this function that don't specify another labelling method.
 - `command` : the PowerShell command used to perform the action. If this is a followup function PowerShell variables will be created from the data that was passed into it.
 
   data:
@@ -66,7 +67,7 @@ There must always be a `run` function, this is the entrypoint for the action. Th
 - `json` : *Optional.* if true, `ConvertTo-Json` will be appended to the command and the output will be parsed as a JSON object instead of a string. Parsing of non-JSON output isn't well supported at the moment, so this should be enabled if the action returns a result. 
 - `result` : *Optional* how the output of the command will be processed into a result object. See below. If this isn't specified, the command will simply be run on the host, and nothing will be returned.
 
-### Output parsing
+### Output mapping
 
 The `result` object specifies how certain fields should be mapped from the JSON object returned by the command to the output required by the application. The following values and fields are supported:
 
@@ -84,16 +85,16 @@ The `result` object specifies how certain fields should be mapped from the JSON 
   will take the `Direction` field from the command output and return `"Inbound"` if the value is `1` and `"Outbound"` if the value is `2`.
 - static: returns a static value. `{"static": "Example"}` will always return `"Example"` regardless of the command output.
 - labelled: prefix the output with the key. For example `{"labelled": "Version"}` will return `"Version: 2"` if the value of `Version` is `2`. If used in conjunction with the `map` field it will label the result with the key specified in `key`.
-- combine: combine the results of parsing each item of the `combine` array into one string.
+- combine: combine the results of processing each item of the `combine` array into one string.
 - date: convert the field with this name from PowerShell `Date(int)` format to `{date: number}` (which the client will display as a formatted date string).
 - key_value_string: parses a string in `"key1=value1,key2=value2"` format and returns the value corresponding to the specified key. For example: `{"key_value_string": "Name"}` returns `"sebovzeoueb"` for the string `Domain="DESKTOP-PBNIV5R",Name="sebovzeoueb"`.
 
 ### Object structure
 
-- `label` : uses output parsing to get the value, this will show up as the title of the action results in the client.
-- `data` : an array of text fields displayed below the label. The items use output parsing.
+- `label` : uses output mapping to get the value, this will show up as the title of the action results in the client.
+- `data` : an array of text fields displayed below the label. The items use output mapping.
 - `followups` : an array of functions which can be called as a result of running this one. These will display as buttons if the user has the necessary permissions to run them, or plain text if not. Each followup has the following fields:
   - `function` : the function from this action that will run when clicking the button.
-  - `data` : the parameters which will be used by the followup's command (see the `command` field example above). These use output parsing to populate the values.
+  - `data` : the parameters which will be used by the followup's command (see the `command` field example above). These use output mapping to populate the values.
   - `enabled` : The text on the button will read "Enabled" if the parsed value is true, and "Disabled" if not, and the button uses a special class to visually show this state.
-  - `label` : Use output parsing to generate the text displayed on the button. The followup object should either use this field or the `enabled` field to generate the button text.
+  - `label` : Use output mapping to generate the text displayed on the button.

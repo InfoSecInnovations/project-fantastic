@@ -1,6 +1,5 @@
 const H = require('snabbdom/h').default
 const TimeAgo = require('../../util/timeago')
-const ResultLabel = require('./resultlabel')
 
 const format_command = (command, data) => {
   Object.entries(data).forEach(v => command = command.split(`$${v[0]}`).join(v[1]))
@@ -18,7 +17,7 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
   action_result.label ? H('div.result_header', action_result.label) : undefined,
   ...(action_result.data ? action_result.data.map(v => H('div.item', format_value(v))) : []),
   ...(action_result.followups ? Object.values(action_result.followups).map(v => {
-    const followup_label = ResultLabel(v)
+    const followup_label = v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enabled' : 'Disabled')) || state.actions[action].names[v.function]
     if (v.not_permitted) return H('div.item', followup_label)
     const loading_followup = loading || v.status === 'loading'
     return H('div.followup_command', [
@@ -52,7 +51,7 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
   .map(v => {
     return H('div', [
       H('div.result_time', [
-        H('div.result_header', v.label || (v.enabled ? 'Enable' : 'Disable')),
+        H('div.result_header', v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enable' : 'Disable')) || state.actions[action].names[v.function]),
         H('div.time', ` Results from ${TimeAgo(v.date)}`),
         H(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {
           on: {click: [send, {

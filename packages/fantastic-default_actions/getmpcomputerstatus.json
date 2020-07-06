@@ -34,6 +34,7 @@
       ]
     },
     "enable_antivirus": {
+      "name": "Enable Antivirus",
       "command": "",
       "role": "elevated",
       "result": {
@@ -41,6 +42,7 @@
       }
     },
     "enable_antispyware": {
+      "name": "Enable Antispyware",
       "command": "",
       "role": "elevated",
       "result": {
