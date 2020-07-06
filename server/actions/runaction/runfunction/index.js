@@ -1,13 +1,13 @@
 const PwshFunction = require('../../../util/pwshfunction')
-const ParseValue = require('./parsevalue')
-const ParseObject = require('./parseobject')
+const ProcessJSON = require('../../../util/processjson')
+const ProcessJSONObject = require('../../../util/processjsonobject')
 const HasRole = require('fantastic-utils/hasrole')
 
 const result = (result_data, output, action, user) => {
   if (Array.isArray(result_data)) return result_data.map(v => result(v, output, action, user))
   return {
-    label: ParseValue(result_data.label, output),
-    data: result_data.data && result_data.data.map(v => ParseValue(v, output)),
+    label: ProcessJSON(result_data.label, output),
+    data: result_data.data && result_data.data.map(v => ProcessJSON(v, output)),
     followups: result_data.followups && result_data.followups.reduce((result, v) => {
       const followup_func = action.functions[v.function]
       const permitted = !followup_func.role || HasRole(user, followup_func.role)
@@ -15,8 +15,9 @@ const result = (result_data, output, action, user) => {
         ...result,
         [v.function]: {
           ...v,
-          data: permitted && ParseObject(v.data, output),
-          enabled: ParseValue(v.enabled, output),
+          data: permitted && ProcessJSONObject(v.data, output),
+          enabled: ProcessJSON(v.enabled, output),
+          label: ProcessJSON(v.label, output),
           not_permitted: !permitted
         }
       }
