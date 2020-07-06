@@ -1,6 +1,6 @@
 const H = require('snabbdom/h').default
 const Alea = require('alea')
-const TestResult = require('./testresult')
+const TestEntry = require('./testentry')
 const ConvertTime = require('fantastic-utils/converttime')
 
 const success_texts = [
@@ -16,7 +16,7 @@ const quests = (state, send) => H('div.scroll_container.panel', [
   H('div.scroll', Object.entries(state.quests).map(v => {
     const quest = v[0]
     const date = state.quest_results.date[quest]
-    return TestResult(
+    return TestEntry(
       state, 
       send, 
       v[1],

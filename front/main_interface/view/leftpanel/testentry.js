@@ -3,7 +3,7 @@ const HostString = require('../../../common/util/hoststring')
 const TimeAgo = require('../../../common/util/timeago')
 const FormatString = require('fantastic-utils/formatstring')
 
-const testResult = (state, send, data, parameters, result_data, result_date, result_parameters, loading, play_action, options = {}) => {
+const testEntry = (state, send, data, parameters, result_data, result_date, result_parameters, loading, play_action, options = {}) => {
   const results = result_date > Date.now() - 1000 * 60 * 60 * 24 && result_data // TODO: maybe we want to be able to define a custom maximum result age
   const pass = results && results.every(r => r.result == data.pass.condition)
   const failed_results = results ? result_data.filter(r => r.result != data.pass.condition) : []
@@ -16,6 +16,8 @@ const testResult = (state, send, data, parameters, result_data, result_date, res
       H(`span.fas fa-${icon} fa-fw`, {class: {success: results && pass, failure: results && !pass, pending: !results}}),
     ]),
     data.description ? H('div.item', FormatString(data.description, parameters.get())) : undefined,
+    H('div.subsubtitle', 'Uses Actions:'),
+    H('ul', data.actions.map(v => H('li', state.actions[v].name))),
     H('div.targets', [H('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
     ...(loading ?
     [H('div.play waiting', [
@@ -47,4 +49,4 @@ const testResult = (state, send, data, parameters, result_data, result_date, res
   ])
 }
 
-module.exports = testResult
+module.exports = testEntry

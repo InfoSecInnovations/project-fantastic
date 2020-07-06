@@ -21,7 +21,8 @@ const getQuests = (res, req, tests) => { // TODO: this should get daily quests, 
           hosts: v.hosts, 
           pass: v.pass, 
           parameters: v.quest.parameters,
-          selection: v.quest.selection
+          selection: v.quest.selection,
+          actions: v.actions.map(v => v.path)
         }
       }
     }, {}))

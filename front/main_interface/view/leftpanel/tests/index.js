@@ -1,5 +1,5 @@
 const H = require('snabbdom/h').default
-const TestResult = require('../testresult')
+const TestEntry = require('../testentry')
 const Parameter = require('./parameter')
 
 const tests = (state, send) => H('div.scroll_container.panel', [
@@ -22,7 +22,7 @@ const tests = (state, send) => H('div.scroll_container.panel', [
         H('ul', Object.entries(state.test_results.parameters[test]).map(v => H('li', `${v[0]}: ${v[1]}`)))
       ])
     }
-    return TestResult(
+    return TestEntry(
       state, 
       send, 
       v[1],

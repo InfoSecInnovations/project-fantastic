@@ -16,7 +16,14 @@ const getTests = (res, req, tests) => {
       .filter(v => HasRole(user, v.role))
       .reduce((result, v) => ({ 
         ...result, 
-        [v.key]: {name: v.name, description: v.description, hosts: v.hosts, pass: v.pass, parameters: v.parameters}
+        [v.key]: {
+          name: v.name, 
+          description: v.description, 
+          hosts: v.hosts, 
+          pass: v.pass, 
+          parameters: v.parameters,
+          actions: v.actions.map(v => v.path)
+        }
       }), {})
     )
     console.log(`getTests: sent metadata for ${Object.keys(test_data).length} tests.`)
