@@ -8,3 +8,4 @@ config
 cert
 .current_version
 package-lock.json
+.cpuprofile

@@ -9,10 +9,10 @@ const DefaultIPs = require('fantastic-utils/defaultips')
 const addNodes = async (nodes, overwrite) => {
   console.log(`adding ${nodes.length} nodes to the database...`)
   const date = Date.now()
-  const db = await transaction()
   const ids = []
   let new_nodes = 0
   for (const n of nodes) {
+    const db = await transaction()
     try {
       let matches
       const mac_match = await (n.macs && n.macs.length && db.get({table: 'macs', columns:['node_id'], conditions: {columns: {mac: n.macs.map(v => v.mac)}, compare: 'IN'}}) // if we have a node with the same MAC Address we don't need to look any further
@@ -56,8 +56,8 @@ const addNodes = async (nodes, overwrite) => {
     catch(e) {
       console.log(`addNodes failed: ${e.message}`)
     }
+    await db.close()
   }
-  await db.close()
   console.log(`added data for ${nodes.length} nodes to the database in ${Date.now() - date}ms of which ${new_nodes} were new.`)
   return ids
 }
