@@ -11,7 +11,86 @@ To create your own actions, make an npm package which returns an object indicati
 }
 ```
 
-Each action is a json file with the following fields:
+Each action is a json file something like this:
+
+```
+{
+  "name": "Check Windows Defender Firewall Status",
+  "description": "This command should show the three default profiles (there might be more though).",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "Get-NetFirewallProfile | select name, enabled",
+      "method": "invoke",
+      "json": true,
+      "result": {
+        "label": "name",
+        "followups": [
+          {
+            "function": "enable_profile",
+            "data": {
+              "profile": "name",
+              "state": {"bool": "Enabled", "inverse": true}
+            },
+            "enabled": {"bool": "Enabled"}
+          },
+          {
+            "function": "get_rules",
+            "data": {
+              "profile": "name"
+            }
+          }
+        ]
+      }
+    },
+    "enable_profile": {
+      "name": "Enable Profile",
+      "command": "Set-NetFirewallProfile -Profile $profile -Enabled $state",
+      "role": "elevated",
+      "method": "cimsession"
+    },
+    "get_rules": {
+      "name": "Get Profile Rules",
+      "command": "Get-NetFirewallRule | where Profile -EQ $profile",
+      "method": "cimsession",
+      "json": true,
+      "result": {
+        "label": "DisplayName",
+        "data": [
+          {
+            "map": {"1": "Inbound", "2": "Outbound"},
+            "key": "Direction",
+            "labelled": true
+          },
+          {
+            "map": {"2": "Allow", "4": "Block"},
+            "key": "Action",
+            "labelled": true
+          }
+        ],
+        "followups": [
+          {
+            "function": "enable_rule",
+            "data": {
+              "profile": "Profile",
+              "state": {"bool": "Enabled", "inverse": true},
+              "rule": "ID"
+            },
+            "enabled": {"bool": "Enabled"} 
+          }
+        ]
+      }
+    },
+    "enable_rule": {
+      "name": "Enable Rule",
+      "command": "",
+      "role": "elevated"
+    }
+  }
+}
+```
+
+here's a breakdown of what the fields mean:
 
 ## name
 
