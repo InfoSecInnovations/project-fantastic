@@ -14,9 +14,9 @@ const getNodes = async query => {
 
     const connection_conditions = dir => {
       const conditions = [...date_condition, {columns: {[`${dir}_id`]: ips.map(v => v.ip_id)}, compare: 'IN'}]
-      const connection_state = query.connection_state && query.connection_state.filter(v => v)
       if (query.connection_type === 'different_ip') conditions.push({columns: [['from_id', 'to_id']], compare: '!='})
       if (query.connection_type === 'different_host') conditions.push({columns: {[`${dir == 'from' ? 'to' : 'from'}_id`]: ips.map(v => v.ip_id)}, compare: 'NOT IN'})
+      const connection_state = query.connection_state && query.connection_state.filter(v => v)
       if (connection_state && connection_state.length && !connection_state.includes('all')) conditions.push({columns: {state: connection_state}, compare: 'IN'})
       return conditions
     }
@@ -41,6 +41,8 @@ const getNodes = async query => {
 
     const valid_connections = () => connections.length || db.get({table: 'connections', conditions: {groups: connection_conditions('to')}})
     if (!r.important && (query.show_external !== 'true' || !(await valid_connections()))) continue
+    const node_access = query.access && query.access.filter(v => v)
+    if (node_access && node_access.length && !node_access.find(v => v === r.access)) continue // check if we're filtering by access type
     const macs = await db.all({table: 'macs', conditions: {groups: [{columns: {node_id: r.node_id}}]}}) // if we got this far we want to add the MAC Addresses for this node
     nodes.push({...r, connections, ips: ips.map(v => v.ip), macs})
   }
