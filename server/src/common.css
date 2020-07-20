@@ -110,10 +110,7 @@ pre code {
 .result_time {
   display: flex;
   margin-bottom: 1rem;
-}
-
-.result_time .time {
-  white-space: pre;
+  flex-wrap: wrap;
 }
 
 .item .text {
@@ -199,6 +196,7 @@ input[type=button], input[type=submit], input[type=reset], .button {
 
 .result_header {
   font-weight: bold;
+  margin-right: 0.3rem;
 }
 
 .fas {
