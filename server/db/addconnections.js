@@ -21,7 +21,7 @@ const addConnections = async (node_id, connections, is_remote) => {
     const process = await read.get({table: 'processes', columns: ['process_id'], conditions: {columns: {pid: c.process, node_id}}}) // find the process in the relevant table
     const local_ip_row = await read.get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip: c.local_address, node_id}}})
     const remote_ip_row = await read.get({table: 'ips', columns: ['ip_id', 'node_id'], conditions: {columns: {ip: c.remote_address, node_id}}}) || // first we have to find if a row already exists with the IP on the same node (if so this is an internal connection)
-    await read.get({table: 'ips', columns: ['ip_id'], conditions: {columns: {ip: c.remote_address}}, order_by: {date: 'DESC'}}) // if not check if the IP corresponds to another node, it's likely that in the case of more than one result the most recent is the correct one
+    await read.get({table: 'ips', columns: ['ip_id', 'node_id'], conditions: {columns: {ip: c.remote_address}}, order_by: {date: 'DESC'}}) // if not check if the IP corresponds to another node, it's likely that in the case of more than one result the most recent is the correct one
     const existing = local_ip_row && remote_ip_row && await read.get({table: 'connections', columns: ['connection_id'], conditions: {columns: { // check if we already have a connection identical to this one
       from_id: local_ip_row.ip_id, 
       to_id: remote_ip_row.ip_id, 
