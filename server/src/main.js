@@ -470,7 +470,7 @@ eval("const UserHistory = __webpack_require__(/*! ./userhistory */ \"./effect/us
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const loadHistory = send => {\r\n  fetch('/quest_history')\r\n  .then(res => res.json())\r\n  .then(res => res.forEach(v => send({type: 'quest_results', quest: v.quest, date: v.date, results: JSON.parse(v.results), select: false})))\r\n  fetch('/test_history')\r\n  .then(res => res.json())\r\n  .then(res => res.forEach(v => send({type: 'test_results', test: v.test, parameters: JSON.parse(v.parameters), date: v.date, results: JSON.parse(v.results), select: false})))\r\n}\r\n\r\nmodule.exports = loadHistory\n\n//# sourceURL=webpack:///./effect/loadhistory.js?");
+eval("const loadHistory = send => {\r\n  fetch('/quest_history')\r\n  .then(res => res.json())\r\n  .then(res => res.forEach(v => {\r\n    send({type: 'quest_results', quest: v.quest, date: v.date, results: JSON.parse(v.results), select: false})\r\n    send({type: 'quest_nodes', quest: v.quest, nodes: JSON.parse(v.rows)})\r\n  }))\r\n  fetch('/test_history')\r\n  .then(res => res.json())\r\n  .then(res => res.forEach(v => send({type: 'test_results', test: v.test, parameters: JSON.parse(v.parameters), date: v.date, results: JSON.parse(v.results), select: false})))\r\n}\r\n\r\nmodule.exports = loadHistory\n\n//# sourceURL=webpack:///./effect/loadhistory.js?");
 
 /***/ }),
 

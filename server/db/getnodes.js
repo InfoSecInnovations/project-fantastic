@@ -5,8 +5,10 @@ const getNodes = async query => {
     query.date && {columns: {date: query.date}, compare: '>='}, 
     query.max_date && {columns: {first_date: query.max_date}, compare: '<='}
   ] 
+  const node_access = query.access && query.access.filter(v => v)
+  const access_condition = node_access && node_access.length && {columns: {access: node_access}, compare: 'IN'}
   const db = await transaction(OPEN_READONLY)
-  const rows = await db.all({table: 'nodes', conditions: {groups: [...date_condition, query.nodes && Array.isArray(query.nodes) && {columns: {node_id: query.nodes}, compare: 'IN'}]}})
+  const rows = await db.all({table: 'nodes', conditions: {groups: [...date_condition, query.nodes && Array.isArray(query.nodes) && {columns: {node_id: query.nodes}, compare: 'IN'}, access_condition]}})
   const nodes = []
  
   for (const r of rows) {
@@ -41,8 +43,7 @@ const getNodes = async query => {
 
     const valid_connections = () => connections.length || db.get({table: 'connections', conditions: {groups: connection_conditions('to')}})
     if (!r.important && (query.show_external !== 'true' || !(await valid_connections()))) continue
-    const node_access = query.access && query.access.filter(v => v)
-    if (node_access && node_access.length && !node_access.find(v => v === r.access)) continue // check if we're filtering by access type
+
     const macs = await db.all({table: 'macs', conditions: {groups: [{columns: {node_id: r.node_id}}]}}) // if we got this far we want to add the MAC Addresses for this node
     nodes.push({...r, connections, ips: ips.map(v => v.ip), macs})
   }
