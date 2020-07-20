@@ -8,6 +8,7 @@ const testEntry = (state, send, data, parameters, result_data, result_date, resu
   const pass = results && results.every(r => r.result == data.pass.condition)
   const failed_results = results ? result_data.filter(r => r.result != data.pass.condition) : []
   const failed_nodes = failed_results.map(v => state.nodes.findIndex(n => n.node_id === v.node_id))
+  const valid_parameters = Object.values(parameters.get()).every(v => (typeof v === 'number' && !isNaN(v) && isFinite(v)) || typeof v === 'boolean' || v)
   let icon = 'exclamation-circle'
   if (results) icon = pass ? 'check-circle' : 'times-circle'
   return H('div.scroll_item', [
@@ -25,7 +26,7 @@ const testEntry = (state, send, data, parameters, result_data, result_date, resu
     ])] :
     [
       parameters.edit && parameters.edit(),
-      H('div.play', {on: {click: [send, play_action]}}, [
+      H('div.play', valid_parameters ? {on: {click: [send, play_action]}} : {class: {waiting: true}}, [
         H('div.item', 'Start'),
         H('span.fas fa-play fa-fw play_button')
       ])
