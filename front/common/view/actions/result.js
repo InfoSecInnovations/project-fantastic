@@ -52,17 +52,19 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
     return H('div', [
       H('div.result_time', [
         H('div.result_header', v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enable' : 'Disable')) || state.actions[action].names[v.function]),
-        H('div.time', ` Results from ${TimeAgo(v.date)}`),
-        H(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {
-          on: {click: [send, {
-            type: 'followup_foldout',
-            action,
-            node_id,
-            hostname: host,
-            followups: [...followups, {index, followup: v.function, label: action_result.label}],
-            value: !v.foldout
-          }]}
-        })
+        H('div.time', [
+          ` Results from ${TimeAgo(v.date)}`, 
+          H(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {
+            on: {click: [send, {
+              type: 'followup_foldout',
+              action,
+              node_id,
+              hostname: host,
+              followups: [...followups, {index, followup: v.function, label: action_result.label}],
+              value: !v.foldout
+            }]}
+          })
+        ])
       ]),
       ...(v.foldout ? v.result.map((r, i) => 
         result(state, action, r, i, node_id, host, loading || v.status === 'loading', send, [...followups, {index, followup: v.function, label: action_result.label}])

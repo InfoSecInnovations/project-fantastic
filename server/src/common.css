@@ -113,6 +113,10 @@ pre code {
   flex-wrap: wrap;
 }
 
+.time {
+  display: flex;
+}
+
 .item .text {
   margin-right: 0.4rem;
 }
