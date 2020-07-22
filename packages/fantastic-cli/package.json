@@ -7,5 +7,7 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {}
+  "dependencies": {
+    "fantastic-utils": "file:../fantastic-utils"
+  }
 }

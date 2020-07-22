@@ -1,5 +1,6 @@
 const H = require('snabbdom/h').default
 const TimeAgo = require('../../util/timeago')
+const FormatString = require('fantastic-utils/formatstring')
 
 const format_command = (command, data) => {
   Object.entries(data).forEach(v => command = command.split(`$${v[0]}`).join(v[1]))
@@ -43,7 +44,7 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
         }, 
         (loading_followup && 'Running...') || followup_label
       )),
-      H('pre.command', format_command(state.actions[action].commands[v.function], v.data))
+      H('pre.command', FormatString(state.actions[action].commands[v.function], v.data))//format_command(state.actions[action].commands[v.function], v.data))
     ])
   }) : []),
   ...(action_result.followups ? Object.values(action_result.followups)

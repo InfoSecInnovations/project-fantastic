@@ -8,6 +8,7 @@ const formatString = (string, parameters) => {
     if (typeof v[1] == 'undefined') return
     if (typeof v[1] == 'number') sanitized_value = `${v[1]}`
     if (typeof v[1] == 'string') sanitized_value = `"${v[1]}"`
+    if (typeof v[1] == 'boolean') sanitized_value = v[1] ? 'True' : 'False'
     string = string.replace(key_regex, sanitized_value)
   }) 
   return string

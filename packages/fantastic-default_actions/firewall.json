@@ -56,9 +56,8 @@
           {
             "function": "enable_rule",
             "data": {
-              "profile": "Profile",
-              "state": {"bool": "Enabled", "inverse": true},
-              "rule": "ID"
+              "name": "Name",
+              "state": {"bool": "Enabled", "inverse": true}
             },
             "enabled": {"bool": "Enabled"} 
           }
@@ -67,7 +66,7 @@
     },
     "enable_rule": {
       "name": "Enable Rule",
-      "command": "",
+      "command": "Set-NetFirewallRule -Name $name -Enabled $state",
       "role": "elevated"
     }
   }

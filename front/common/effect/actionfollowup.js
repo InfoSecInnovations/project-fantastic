@@ -16,6 +16,7 @@ const actionFollowup = (state, action, send) => {
         if (action.followups.length === 1) {
           send({
             ...action,
+            refresh: false,
             type: 'perform_action',
             followup: action.followups[0],
           })
@@ -23,6 +24,7 @@ const actionFollowup = (state, action, send) => {
         else {
           send({
             ...action,
+            refresh: false,
             type: 'action_followup',
             followups: action.followups.slice(0, action.followups.length - 1),
             followup: action.followups[action.followups.length - 1]
