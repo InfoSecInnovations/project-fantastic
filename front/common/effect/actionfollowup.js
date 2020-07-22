@@ -22,11 +22,17 @@ const actionFollowup = (state, action, send) => {
           })
         }
         else {
+          let action_result = state.action_results[action.host][action.action]
+          const followups = action.followups.slice(0, action.followups.length - 1)
+          for (const key of followups) {
+            action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]
+          }
           send({
             ...action,
+            data: action_result.data,
             refresh: false,
             type: 'action_followup',
-            followups: action.followups.slice(0, action.followups.length - 1),
+            followups,
             followup: action.followups[action.followups.length - 1]
           })
         }
