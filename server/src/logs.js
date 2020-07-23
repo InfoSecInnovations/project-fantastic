@@ -1,4 +1,4 @@
-import { h, app } from "https://unpkg.com/hyperapp"
+import { h, text, app } from "https://unpkg.com/hyperapp"
 
 // ---- UTIL
 
@@ -128,7 +128,7 @@ const controls = state => h('div', {class: 'controls'}, [
 
 const filtering = state => h('div', {class: 'filtering'}, [
   h('div', {class: 'text_search'}, [
-    h('label', {for: 'username_search'}, 'username'),
+    h('label', {for: 'username_search'}, text('username')),
     h('input', {
       id: 'username_search',
       onInput: set_username_search
@@ -185,10 +185,10 @@ app({
       page: 0,
       search: {event_types: {}}
     }, 
-    init_effects
+    ...init_effects
   ],
   view: state => {
-    if (!state.actions || !state.quests || !state.tests) return h('div')
+    if (!state.actions || !state.quests || !state.tests) return h('div', {})
     if (state.logs) return h('div', {id: 'logs'}, [
       h('div', {class: 'search'}, [
         filtering(state),
@@ -197,6 +197,6 @@ app({
       h('div', {}, state.logs.map(v => log_view(state, v))),
       controls(state)
     ])
-    return h('div')
+    return h('div', {})
   }
 })

@@ -1,4 +1,4 @@
-const parseQuery = query => query.split('&').reduce((result, v) => {
+const parseQuery = query => decodeURI(query).split('&').reduce((result, v) => {
   if (!v) return
   const split = v.split('=')
   if (split[1].startsWith('[') && split[1].endsWith(']')) {

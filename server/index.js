@@ -33,25 +33,21 @@ const main = async () => {
     return commands
   }
 
-  DB.init()
-  .then(async () => {
-    command_data = await GetCommandData(config)
-    if (config.use_child_process) {
-      data_process = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
-      data_process.on('error', err => console.log(err.message))
-      update_commands(command_data)
-    }
-    else {
-      RunCommands(() => command_data)
-    }
-  })
-
+  await DB.init()
+  command_data = await GetCommandData(config)
+  if (config.use_child_process) {
+    data_process = fork('./getdata.js', [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
+    data_process.on('error', err => console.log(err.message))
+    update_commands(command_data)
+  }
+  else {
+    RunCommands(() => command_data)
+  }
   process.on('exit', () => {
     if (data_process) data_process.kill()
   })
 
   const auth_module = await GetPackage(config.authentication)
-
   const cert_directory = await FS.promises.access('cert').then(() => 'cert', () => 'default_cert')
 
   const app = UWS.SSLApp({

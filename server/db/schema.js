@@ -115,6 +115,14 @@ const schema = [
     FOREIGN KEY (history_id)
       REFERENCES all_history (history_id)
       ON DELETE CASCADE
+  )`,
+  `CREATE TABLE IF NOT EXISTS action_data(
+    action_data_id INTEGER PRIMARY KEY,
+    action TEXT,
+    function TEXT,
+    label TEXT,
+    data TEXT,
+    user_id TEXT
   )`
 ]
 

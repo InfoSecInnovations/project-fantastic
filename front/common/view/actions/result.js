@@ -27,7 +27,6 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
               {
                 type: 'action_followup', 
                 action,
-                data: v.data,
                 node_id,
                 host,
                 followups: [...followups, {index, followup: v.function, label: action_result.label}],
