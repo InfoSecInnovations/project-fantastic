@@ -1,18 +1,8 @@
 const { spawn } = require('child_process')
 const FormatString = require('fantastic-utils/formatstring')
 
-const format_value = v => {
-  if (typeof v === 'string') return `"${v}"`
-  if (typeof v === 'boolean') return v ? 1 : 0
-  return v
-}
-
 const child = (command, params, log = true) => new Promise((resolve, reject) => {
-  if (params) {
-    /*command = `${Object.entries(params).map(v => `$${v[0]} = ${format_value(v[1])}
-    `).join('')} ${command}`*/
-    command = FormatString(command, params)
-  }
+  if (params) command = FormatString(command, params)
   const child_process = spawn('powershell.exe', [command])
   let buffer
   child_process.stdout.on('data', d => {

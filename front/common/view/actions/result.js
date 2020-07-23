@@ -2,11 +2,6 @@ const H = require('snabbdom/h').default
 const TimeAgo = require('../../util/timeago')
 const FormatString = require('fantastic-utils/formatstring')
 
-const format_command = (command, data) => {
-  Object.entries(data).forEach(v => command = command.split(`$${v[0]}`).join(v[1]))
-  return command
-}
-
 const format_value = value => {
   if (typeof value === 'object') {
     if (value.date) return TimeAgo(value.date)
@@ -21,11 +16,12 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
     const followup_label = v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enabled' : 'Disabled')) || state.actions[action].names[v.function]
     if (v.not_permitted) return H('div.item', followup_label)
     const loading_followup = loading || v.status === 'loading'
+    const disabled = !loading_followup && typeof v.enabled !== 'undefined' && !v.enabled
     return H('div.followup_command', [
       H('div.item', H(
         'div.button', 
         {
-          on: {
+          on: loading_followup ? {} : {
             click: [
               send, 
               {
@@ -40,7 +36,7 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
               }
             ]
           },
-          class: {loading: loading_followup, disabled: typeof v.enabled !== 'undefined' && !v.enabled}
+          class: {loading: loading_followup, disabled}
         }, 
         (loading_followup && 'Running...') || followup_label
       )),
