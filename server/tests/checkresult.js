@@ -1,7 +1,11 @@
 const FormatString = require('fantastic-utils/formatstring')
+const {VM} = require('vm2')
 
-const compare = (value, condition, parameters) => { // TODO: we might have to make this into some kind of parser. but for now we just use eval
-  return eval(`${value} ${FormatString(condition, parameters)}`)  
+const compare = (value, condition, parameters) => { // TODO: we might have to make this into some kind of parser. but for now we just use VM2 which is supposed to do a decent job of sandboxing the code
+  const vm = new VM()
+  const func = `${value} ${FormatString(condition, parameters)}`
+  const result = vm.run(func)
+  return result
 }
 
 const checkResult = (result, condition, parameters) => {

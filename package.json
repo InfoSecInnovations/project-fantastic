@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/besimorhino/project-fantastic#readme",
   "dependencies": {
-    "recursive-install": "^1.4.0"
+    "recursive-install": "^1.4.0",
+    "vm2": "^3.9.2"
   }
 }

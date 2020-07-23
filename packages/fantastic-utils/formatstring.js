@@ -1,7 +1,7 @@
 /**
- * Replace placeholders in the '$key' format with corresponding values from the parameters object 
+ * Replace placeholders in the '$key' format with corresponding values from the parameters object
  * @param {string} string 
- * @param {Object} parameters 
+ * @param {} parameters 
  */
 const formatString = (string, parameters) => {
   Object.entries(parameters).forEach(v => {
