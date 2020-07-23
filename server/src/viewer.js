@@ -195,7 +195,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nfuncti
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const actionFollowup = (state, action) => {\r\n  let action_result = state.action_results[action.host][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.status = 'loading'\r\n}\r\n\r\nmodule.exports = actionFollowup\n\n//# sourceURL=webpack:///../common/update/actionfollowup.js?");
+eval("const actionFollowup = (state, action) => {\r\n  let action_result = state.action_results[action.host][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.status = 'loading'\r\n  action_result.requests = (action_result.requests || 0) + 1 // track the number of requests we're waiting for relating to this followup\r\n}\r\n\r\nmodule.exports = actionFollowup\n\n//# sourceURL=webpack:///../common/update/actionfollowup.js?");
 
 /***/ }),
 
@@ -228,7 +228,7 @@ eval("const followupFoldout = (state, action) => {\r\n  let action_result = stat
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const followupResult = (state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  if (action.followup) {\r\n    if (action.result) action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = true\r\n  action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n}\r\n\r\nmodule.exports = followupResult\n\n//# sourceURL=webpack:///../common/update/followupresult.js?");
+eval("const followupResult = (state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  if (action.followup) {\r\n    if (action.result) action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = true\r\n  action_result.requests && action_result.requests-- // we may not have any requests if we're loading the result from the history so we have to check it\r\n  if (!action_result.requests) action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n}\r\n\r\nmodule.exports = followupResult\n\n//# sourceURL=webpack:///../common/update/followupresult.js?");
 
 /***/ }),
 

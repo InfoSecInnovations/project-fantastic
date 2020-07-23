@@ -9,7 +9,8 @@ const followupResult = (state, action) => {
   }
   else action_result.result = action.result
   action_result.foldout = true
-  action_result.status = 'loaded'
+  action_result.requests && action_result.requests-- // we may not have any requests if we're loading the result from the history so we have to check it
+  if (!action_result.requests) action_result.status = 'loaded'
   action_result.date = action.date
 }
 
