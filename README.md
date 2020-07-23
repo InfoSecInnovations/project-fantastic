@@ -40,7 +40,9 @@ For more information on using the application itself:
 
 - Attempting to run `npm i` after the project has already been installed can result in errors. A workaround that seems to solve this is to delete all node_modules directories and all package-lock.json files from the project directory (just skip any that can't be deleted, this is due to symlinks). Alternatively, try deleting the whole repo and cloning it again.
 
-- When the server is writing connections to the database, a lot of interactions take a while to respond (such as running actions or even favoriting an event from the history).
+- The Logs page is currently broken since a recent hyperapp update. This will be fixed soon.
+
+- Re-installing the project deletes the database and custom config as we haven't yet provided a way to gracefully upgrade.
 
 ## Contributing
 
