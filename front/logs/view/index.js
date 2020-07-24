@@ -2,7 +2,7 @@ import Search from './search'
 import Logs from './logs'
 import {h} from 'snabbdom/h'
 
-export default (state, action, send) => h('body',
+export default (state, send) => h('body',
   h('div#container',
     h('div#md_container', [
       h('h1', 'Logs'),

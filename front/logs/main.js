@@ -2,6 +2,7 @@ import {init} from 'snabbdom/init'
 import { classModule } from 'snabbdom/modules/class'
 import { propsModule } from 'snabbdom/modules/props'
 import { styleModule } from 'snabbdom/modules/style'
+import { attributesModule } from 'snabbdom/modules/attributes'
 import { eventListenersModule } from 'snabbdom/modules/eventlisteners'
 import View from './view'
 import Update from './update'
@@ -11,6 +12,7 @@ const patch = init([
   classModule,
   propsModule,
   styleModule,
+  attributesModule,
   eventListenersModule,
 ])
 

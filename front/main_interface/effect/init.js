@@ -3,7 +3,7 @@ const FetchScripts = require('../../common/effect/fetchscripts')
 
 const init = send => {
   window.onresize = e => send({type: 'render'})
-  ['actions', 'tests', 'quests', 'commands'].forEach(v => FetchScripts(send, v))
+  ;['actions', 'tests', 'quests', 'commands'].forEach(v => FetchScripts(send, v)) // automatic semicolon insertion doesn't work on this line
   fetch('/user')
   .then(res => res.json())
   .then(res => send({type: 'user', user: res}))
