@@ -4,8 +4,8 @@ import { propsModule } from 'snabbdom/modules/props'
 import { styleModule } from 'snabbdom/modules/style'
 import { eventListenersModule } from 'snabbdom/modules/eventlisteners'
 import View from './view'
-const Update = require('./update')
-const Effect = require('./effect')
+import Update from './update'
+import Effect from './effect'
 
 const patch = init([
   classModule,
@@ -15,7 +15,8 @@ const patch = init([
 ])
 
 let state = {
-  search: {event_types: {}}
+  search: {event_types: {}},
+  page: 0
 }
 let vnode = document.body
 

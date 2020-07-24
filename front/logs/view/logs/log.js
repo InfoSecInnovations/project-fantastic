@@ -14,8 +14,6 @@ const log_name = (state, log) => {
   if (log.event_type == 'command') return state.commands[log.command].name
 }
 
-const log = (state, send, data) => h('div.log', [
+export default (state, send, data) => h('div.log', [
   h('div.log_details log_name', [h('b', {}, headers[data.event_type]), log_name(state, data)]),
 ])
-
-module.exports = log

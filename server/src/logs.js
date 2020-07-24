@@ -109,11 +109,14 @@ eval("const performAction = (state, action) => {\r\n  if (!state.action_results[
 /*!*************************!*\
   !*** ./effect/index.js ***!
   \*************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const FetchScripts = __webpack_require__(/*! ../../common/effect/fetchscripts */ \"../common/effect/fetchscripts.js\")\r\nconst GenerateQuery = __webpack_require__(/*! ../../common/effect/generatequery */ \"../common/effect/generatequery.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') {\r\n    ['actions', 'tests', 'quests', 'commands'].forEach(v => FetchScripts(send, v))\r\n    send({type: 'page', page: 0})\r\n  }\r\n  if (action.type == 'page') {\r\n    fetch(`/logs?${GenerateQuery({\r\n      ...state.search, \r\n      event_types: Object.entries(state.search.event_types).filter(v => v[1]).map(v => v[0]), \r\n      ...(action.page && {page: action.page})})}`)\r\n    .then(res => res.json())\r\n    .then(res => send({type: 'logs', logs:res}))\r\n  }\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack://logs/./effect/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\nconst FetchScripts = __webpack_require__(/*! ../../common/effect/fetchscripts */ \"../common/effect/fetchscripts.js\")\r\nconst GenerateQuery = __webpack_require__(/*! ../../common/effect/generatequery */ \"../common/effect/generatequery.js\")\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => {\r\n  if (action.type == 'init') {\r\n    ['actions', 'tests', 'quests', 'commands'].forEach(v => FetchScripts(send, v))\r\n    send({type: 'page', page: 0})\r\n  }\r\n  if (action.type == 'page') {\r\n    fetch(`/logs?${GenerateQuery({\r\n      ...state.search, \r\n      event_types: Object.entries(state.search.event_types).filter(v => v[1]).map(v => v[0]), \r\n      ...(action.page && {page: action.page})})}`)\r\n    .then(res => res.json())\r\n    .then(res => {\r\n      send({type: 'logs', logs: res.results})\r\n      send({type: 'last_page', last_page: res.is_last})\r\n    })\r\n  }\r\n});\n\n//# sourceURL=webpack://logs/./effect/index.js?");
 
 /***/ }),
 
@@ -127,7 +130,7 @@ eval("const FetchScripts = __webpack_require__(/*! ../../common/effect/fetchscri
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var snabbdom_init__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/init */ \"./node_modules/snabbdom/build/package/init.js\");\n/* harmony import */ var snabbdom_modules_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! snabbdom/modules/class */ \"./node_modules/snabbdom/build/package/modules/class.js\");\n/* harmony import */ var snabbdom_modules_props__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! snabbdom/modules/props */ \"./node_modules/snabbdom/build/package/modules/props.js\");\n/* harmony import */ var snabbdom_modules_style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! snabbdom/modules/style */ \"./node_modules/snabbdom/build/package/modules/style.js\");\n/* harmony import */ var snabbdom_modules_eventlisteners__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! snabbdom/modules/eventlisteners */ \"./node_modules/snabbdom/build/package/modules/eventlisteners.js\");\n/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./view */ \"./view/index.js\");\n\r\n\r\n\r\n\r\n\r\n\r\nconst Update = __webpack_require__(/*! ./update */ \"./update/index.js\")\r\nconst Effect = __webpack_require__(/*! ./effect */ \"./effect/index.js\")\r\n\r\nconst patch = (0,snabbdom_init__WEBPACK_IMPORTED_MODULE_0__.init)([\r\n  snabbdom_modules_class__WEBPACK_IMPORTED_MODULE_1__.classModule,\r\n  snabbdom_modules_props__WEBPACK_IMPORTED_MODULE_2__.propsModule,\r\n  snabbdom_modules_style__WEBPACK_IMPORTED_MODULE_3__.styleModule,\r\n  snabbdom_modules_eventlisteners__WEBPACK_IMPORTED_MODULE_4__.eventListenersModule,\r\n])\r\n\r\nlet state = {\r\n  search: {event_types: {}}\r\n}\r\nlet vnode = document.body\r\n\r\nconst send = action=> {\r\n  state = Update(state, action)\r\n  vnode = patch(vnode, (0,_view__WEBPACK_IMPORTED_MODULE_5__.default)(state, send))\r\n  Effect(state,action,send) \r\n}\r\n  \r\nsend({type:'init'})\r\n\r\nwindow.state = state\n\n//# sourceURL=webpack://logs/./main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var snabbdom_init__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/init */ \"./node_modules/snabbdom/build/package/init.js\");\n/* harmony import */ var snabbdom_modules_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! snabbdom/modules/class */ \"./node_modules/snabbdom/build/package/modules/class.js\");\n/* harmony import */ var snabbdom_modules_props__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! snabbdom/modules/props */ \"./node_modules/snabbdom/build/package/modules/props.js\");\n/* harmony import */ var snabbdom_modules_style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! snabbdom/modules/style */ \"./node_modules/snabbdom/build/package/modules/style.js\");\n/* harmony import */ var snabbdom_modules_eventlisteners__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! snabbdom/modules/eventlisteners */ \"./node_modules/snabbdom/build/package/modules/eventlisteners.js\");\n/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./view */ \"./view/index.js\");\n/* harmony import */ var _update__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./update */ \"./update/index.js\");\n/* harmony import */ var _effect__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./effect */ \"./effect/index.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nconst patch = (0,snabbdom_init__WEBPACK_IMPORTED_MODULE_0__.init)([\r\n  snabbdom_modules_class__WEBPACK_IMPORTED_MODULE_1__.classModule,\r\n  snabbdom_modules_props__WEBPACK_IMPORTED_MODULE_2__.propsModule,\r\n  snabbdom_modules_style__WEBPACK_IMPORTED_MODULE_3__.styleModule,\r\n  snabbdom_modules_eventlisteners__WEBPACK_IMPORTED_MODULE_4__.eventListenersModule,\r\n])\r\n\r\nlet state = {\r\n  search: {event_types: {}},\r\n  page: 0\r\n}\r\nlet vnode = document.body\r\n\r\nconst send = action=> {\r\n  state = (0,_update__WEBPACK_IMPORTED_MODULE_6__.default)(state, action)\r\n  vnode = patch(vnode, (0,_view__WEBPACK_IMPORTED_MODULE_5__.default)(state, send))\r\n  Object(_effect__WEBPACK_IMPORTED_MODULE_7__.default)(state,action,send) \r\n}\r\n  \r\nsend({type:'init'})\r\n\r\nwindow.state = state\n\n//# sourceURL=webpack://logs/./main.js?");
 
 /***/ }),
 
@@ -271,11 +274,14 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*!*************************!*\
   !*** ./update/index.js ***!
   \*************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const Common = __webpack_require__(/*! ../../common/update */ \"../common/update/index.js\")\r\n\r\nconst update = (state, action) => {\r\n  state = Common(state, action)\r\n  if (action.type == 'logs') state.logs = action.logs\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack://logs/./update/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\nconst Common = __webpack_require__(/*! ../../common/update */ \"../common/update/index.js\")\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  state = Common(state, action)\r\n  if (action.type == 'logs') state.logs = action.logs\r\n  if (action.type == 'page') state.page = action.page\r\n  if (action.type == 'last_page') state.last_page = action.last_page\r\n  return state\r\n});\n\n//# sourceURL=webpack://logs/./update/index.js?");
 
 /***/ }),
 
@@ -290,7 +296,37 @@ eval("const Common = __webpack_require__(/*! ../../common/update */ \"../common/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./search */ \"./view/search/index.js\");\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/build/package/h.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('body',\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('div#container',\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('div#md_container', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('h1', 'Logs'),\r\n      state.actions && state.quests && state.tests && state.logs ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('div#logs', [\r\n        (0,_search__WEBPACK_IMPORTED_MODULE_0__.default)(state, send)\r\n      ]) : undefined\r\n    ])\r\n  )\r\n));\n\n//# sourceURL=webpack://logs/./view/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./search */ \"./view/search/index.js\");\n/* harmony import */ var _logs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logs */ \"./view/logs/index.js\");\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/build/package/h.js\");\n\r\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_2__.h)('body',\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_2__.h)('div#container',\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_2__.h)('div#md_container', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_2__.h)('h1', 'Logs'),\r\n      state.actions && state.quests && state.tests && state.logs ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_2__.h)('div#logs', [\r\n        (0,_search__WEBPACK_IMPORTED_MODULE_0__.default)(state, send),\r\n        (0,_logs__WEBPACK_IMPORTED_MODULE_1__.default)(state, send)\r\n      ]) : undefined\r\n    ])\r\n  )\r\n));\n\n//# sourceURL=webpack://logs/./view/index.js?");
+
+/***/ }),
+
+/***/ "./view/logs/index.js":
+/*!****************************!*\
+  !*** ./view/logs/index.js ***!
+  \****************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _log__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./log */ \"./view/logs/log.js\");\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', state.logs.map(v => (0,_log__WEBPACK_IMPORTED_MODULE_1__.default)(state, send, v))));\n\n//# sourceURL=webpack://logs/./view/logs/index.js?");
+
+/***/ }),
+
+/***/ "./view/logs/log.js":
+/*!**************************!*\
+  !*** ./view/logs/log.js ***!
+  \**************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/build/package/h.js\");\n\r\n\r\nconst headers = {\r\n  action: 'Run Action',\r\n  test: 'Run Test',\r\n  quest: 'Run Quest',\r\n  command: 'Set Host Data Command'\r\n}\r\n\r\nconst log_name = (state, log) => {\r\n  if (log.event_type == 'action') return state.actions[log.action].name\r\n  if (log.event_type == 'test') return state.tests[log.test].name\r\n  if (log.event_type == 'quest') return state.quests[log.quest].name\r\n  if (log.event_type == 'command') return state.commands[log.command].name\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send, data) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.log', [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.log_details log_name', [(0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('b', {}, headers[data.event_type]), log_name(state, data)]),\r\n]));\n\n//# sourceURL=webpack://logs/./view/logs/log.js?");
 
 /***/ }),
 

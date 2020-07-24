@@ -1,6 +1,4 @@
 import {h} from 'snabbdom/h'
-const Log = require('./log')
+import Log from './log'
 
-const logs = (state, send) => h('div', state.logs.map(v => Log(state, send, v)))
-
-module.exports = logs
+export default (state, send) => h('div', state.logs.map(v => Log(state, send, v)))
