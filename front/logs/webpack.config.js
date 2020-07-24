@@ -5,6 +5,6 @@ module.exports={
   entry: path.resolve(__dirname, 'main.js'),
   output:{
     path: path.resolve(__dirname, '../../server/src'),
-    filename:'main.js'
+    filename:'logs.js'
   }
 }

@@ -39,10 +39,8 @@ const update = (state, action) => {
   if (action.type == 'hover_ui') state.hovered.ui = action.value
   if (action.type == 'loading') state.loading = action.value
   if (action.type == 'vis') state.vis = action.vis
-  if (action.type == 'commands') state.commands = action.commands
   if (action.type == 'enable_command') state.command_status[action.command] = 'loading'
   if (action.type == 'command_loaded') state.command_status[action.command] = 'loaded'
-  if (action.type == 'quests') state.quests = action.quests
   if (action.type == 'tab') state.tab = action.tab
   if (action.type == 'left_panel_state') state.left_panel_state = action.state
   if (action.type == 'key') state.keys[action.key] = action.value
@@ -51,7 +49,6 @@ const update = (state, action) => {
   if (action.type == 'quest_results') QuestResults(state, action)
   if (action.type == 'quest_nodes') state.quest_results.nodes[action.quest] = action.nodes
   if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading'
-  if (action.type == 'tests') state.tests = action.tests
   if (action.type == 'test_results') TestResults(state, action)
   if (action.type == 'run_test') state.test_results.status[action.test] = 'loading'
   if (action.type == 'test_parameter') {

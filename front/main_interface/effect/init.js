@@ -1,16 +1,9 @@
 const UserHistory = require('./userhistory')
+const FetchScripts = require('../../common/effect/fetchscripts')
 
 const init = send => {
   window.onresize = e => send({type: 'render'})
-  fetch('/commands')
-  .then(res => res.json())
-  .then(res => send({type: 'commands', commands: res}))
-  fetch('/quests')
-  .then(res => res.json())
-  .then(res => send({type: 'quests', quests: res}))
-  fetch('/tests')
-  .then(res => res.json())
-  .then(res => send({type: 'tests', tests: res}))
+  ['actions', 'tests', 'quests', 'commands'].forEach(v => FetchScripts(send, v))
   fetch('/user')
   .then(res => res.json())
   .then(res => send({type: 'user', user: res}))

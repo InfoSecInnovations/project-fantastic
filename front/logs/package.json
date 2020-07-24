@@ -1,0 +1,18 @@
+{
+  "name": "logs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.0.0-beta.22",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "js": "webpack -w"
+  },
+  "devDependencies": {
+    "snabbdom": "^1.0.1"
+  }
+}

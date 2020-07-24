@@ -1,202 +1,387 @@
-import { h, text, app } from "https://unpkg.com/hyperapp"
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is not neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
-// ---- UTIL
+/***/ "../common/effect/fetchscripts.js":
+/*!****************************************!*\
+  !*** ../common/effect/fetchscripts.js ***!
+  \****************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/***/ ((module) => {
 
-const generate_query = obj => Object.entries(obj).map(v => {
-  const value = Array.isArray(v[1]) ? `[${v[1]}]` : v[1]
-  return `${v[0]}=${value}`
-}).join('&')
+eval("const fetchScripts = (send, type) => {\r\n  fetch(`/${type}`)\r\n  .then(res => res.json())\r\n  .then(res => send({type, [type]: res}))\r\n}\r\n\r\nmodule.exports = fetchScripts\n\n//# sourceURL=webpack://logs/../common/effect/fetchscripts.js?");
 
-// ---- ACTION
+/***/ }),
 
-const change_page = (state, page) => [
-  {...state, page},
-  set_page(page, state.search)
-]
+/***/ "../common/effect/generatequery.js":
+/*!*****************************************!*\
+  !*** ../common/effect/generatequery.js ***!
+  \*****************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/***/ ((module) => {
 
-const set_username_search = (state, event) => ({...state, search: {...state.search, username: event.target.value}})
+eval("const generateQuery = obj => Object.entries(obj).map(v => {\r\n  const value = Array.isArray(v[1]) ? `[${v[1]}]` : v[1]\r\n  return `${v[0]}=${value}`\r\n}).join('&')\r\n\r\nmodule.exports = generateQuery\n\n//# sourceURL=webpack://logs/../common/effect/generatequery.js?");
 
-const enable_event_type = (state, parameters) => {
-  const event_types = state.search.event_types
-  event_types[parameters.event_type] = parameters.enabled
-  const search = {...state.search, event_types}
-  return {...state, search}
-}
+/***/ }),
 
-// ---- EFFECT
+/***/ "../common/update/actionfollowup.js":
+/*!******************************************!*\
+  !*** ../common/update/actionfollowup.js ***!
+  \******************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/***/ ((module) => {
 
-const fetch_json = (dispatch, options) =>
-  fetch(options.url)
-  .then(response => response.json())
-  .then(data => dispatch(options.onresponse, data))
-  .catch(() => dispatch(options.onresponse, {}))
+eval("const actionFollowup = (state, action) => {\r\n  let action_result = state.action_results[action.host][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.status = 'loading'\r\n  action_result.requests = (action_result.requests || 0) + 1 // track the number of requests we're waiting for relating to this followup\r\n}\r\n\r\nmodule.exports = actionFollowup\n\n//# sourceURL=webpack://logs/../common/update/actionfollowup.js?");
 
-const assign = (state, key, data) => ({...state, [key]: data})
+/***/ }),
 
-const set_page = (page, search) => [
-  fetch_json,
-  {
-    url: `/logs?${generate_query({...search, event_types: Object.entries(search.event_types).filter(v => v[1]).map(v => v[0]), ...(page && {page})})}`,
-    onresponse: (state, data) => ({...state, logs: data.results, last_page: data.is_last})
-  }
-]
+/***/ "../common/update/actionresult.js":
+/*!****************************************!*\
+  !*** ../common/update/actionresult.js ***!
+  \****************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/***/ ((module) => {
 
-const init_effects = [
-  ...(['actions', 'tests', 'quests', 'commands'].map(v => [
-    fetch_json,
-    {
-      url: `/${v}`,
-      onresponse: (state, data) => assign(state, v, data)
-    }
-  ])),
-  set_page(0, {event_types: {}})
-]
+eval("const actionResult = (state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  if (!state.action_results[action.hostname]) {\r\n    state.action_results[action.hostname] = {}\r\n  }\r\n  if (!state.action_results[action.hostname][action.action]) {\r\n    state.action_results[action.hostname][action.action] = {}\r\n  }\r\n  const action_result = state.action_results[action.hostname][action.action]\r\n  if (action.followup) {\r\n    action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = action.result ? true : undefined\r\n  action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n}\r\n\r\nmodule.exports = actionResult\n\n//# sourceURL=webpack://logs/../common/update/actionresult.js?");
 
-// ---- VIEW
+/***/ }),
 
-const headers = {
-  action: 'Run Action',
-  test: 'Run Test',
-  quest: 'Run Quest',
-  command: 'Set Host Data Command'
-}
+/***/ "../common/update/followupfoldout.js":
+/*!*******************************************!*\
+  !*** ../common/update/followupfoldout.js ***!
+  \*******************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/***/ ((module) => {
 
-const test_results = (data, results) => {
-  return {
-    pass: results.every(v => v.result == data.pass.condition),
-    failed: results.filter(v => v.result != data.pass.condition)
-  }
-}
+eval("const followupFoldout = (state, action) => {\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.foldout = action.value\r\n}\r\n\r\nmodule.exports = followupFoldout\n\n//# sourceURL=webpack://logs/../common/update/followupfoldout.js?");
 
-const log_details = (state, log) => {
-  if (log.event_type == 'action') {
-    return [h('div', {class: 'log_details'}, [
-      h('div', {}, log.function != 'run' && `Followup action: ${log.function}`),
-      h('div', {}, `Target node: ${log.node_id}`)
-    ])]
-  }
-  if (log.event_type == 'test') {
-    const results = test_results(state.tests[log.test], JSON.parse(log.results))
-    const parameters = JSON.parse(log.parameters)
-    return [
-      h('div', {class: 'log_details'}, results.pass ? 'All nodes passed' : `${results.failed.length} nodes failed`),
-      h('div', {class: 'log_details parameters'}, [
-        h('div', {}, 'Parameters used:'),
-        h('ul', {}, Object.entries(parameters).map(v => h('li', {}, `${v[0]}: ${v[1]}`)))
-      ])
-    ]
-  }
-  if (log.event_type == 'quest') {
-    const results = test_results(state.quests[log.quest], JSON.parse(log.results))
-    return [h('div', {class: 'log_details'}, results.pass ? 'All nodes passed' : `${results.failed.length} nodes failed`)]
-  }
-  if (log.event_type == 'command') {
-    return [h('div', {class: 'log_details'}, `${log.status ? 'Enabled' : 'Disabled'}`)]
-  }
-}
+/***/ }),
 
-const log_name = (state, log) => {
-  if (log.event_type == 'action') return state.actions[log.action].name
-  if (log.event_type == 'test') return state.tests[log.test].name
-  if (log.event_type == 'quest') return state.quests[log.quest].name
-  if (log.event_type == 'command') return state.commands[log.command].name
-}
+/***/ "../common/update/followupresult.js":
+/*!******************************************!*\
+  !*** ../common/update/followupresult.js ***!
+  \******************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/***/ ((module) => {
 
-const log_view = (state, log) => h('div', {class: 'log'}, [
-  h('div', {class: 'log_details log_name'}, [h('b', {}, headers[log.event_type]), log_name(state, log)]),
-  h('div', {class: 'log_details'}, [
-    h('div', {}, log.user.username),
-    h('div', {}, new Date(log.date).toString())
-  ]),
-  ...log_details(state, log)
-])
+eval("const followupResult = (state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  if (action.followup) {\r\n    if (action.result) action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = true\r\n  action_result.requests && action_result.requests-- // we may not have any requests if we're loading the result from the history so we have to check it\r\n  if (!action_result.requests) action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n}\r\n\r\nmodule.exports = followupResult\n\n//# sourceURL=webpack://logs/../common/update/followupresult.js?");
 
-const controls = state => h('div', {class: 'controls'}, [
-  h('div', {
-    class: ['foldout fas fa-step-backward fa-fw', {disabled: state.page === 0}],
-    onClick: [change_page, 0]
-  }),
-  h('div', {
-    class: ['foldout fas fa-chevron-left fa-fw', {disabled: state.page === 0}],
-    onClick: [change_page, state.page - 1]
-  }),
-  h('div', {
-    class: ['foldout fas fa-chevron-right fa-fw', {disabled: state.last_page}],
-    onClick: [change_page, state.page + 1]
-  })
-])
+/***/ }),
 
-const filtering = state => h('div', {class: 'filtering'}, [
-  h('div', {class: 'text_search'}, [
-    h('label', {for: 'username_search'}, text('username')),
-    h('input', {
-      id: 'username_search',
-      onInput: set_username_search
-    })
-  ]),
-  h('div', {class: 'checkboxes'}, [
-    h('div', {class: 'checkbox'}, [
-      h('input', {
-        type: 'checkbox', 
-        id: 'actions_check',
-        onClick: [enable_event_type, {event_type: 'action', enabled: !state.search.event_types.action}]
-      }),
-      h('label', {for: 'actions_check'}, 'Actions')
+/***/ "../common/update/index.js":
+/*!*********************************!*\
+  !*** ../common/update/index.js ***!
+  \*********************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module, __webpack_require__ */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-    ]),
-    h('div', {class: 'checkbox'}, [
-      h('input', {
-        type: 'checkbox', 
-        id: 'tests_check',
-        onClick: [enable_event_type, {event_type: 'test', enabled: !state.search.event_types.test}]
-      }),
-      h('label', {for: 'tests_check'}, 'Tests')
-    ]),
-    h('div', {class: 'checkbox'}, [
-      h('input', {
-        type: 'checkbox', 
-        id: 'quests_check',
-        onClick: [enable_event_type, {event_type: 'quest', enabled: !state.search.event_types.quest}]
-      }),
-      h('label', {for: 'quests_check'}, 'Quests')
-    ]),
-    h('div', {class: 'checkbox'}, [
-      h('input', {
-        type: 'checkbox', 
-        id: 'commands_check',
-        onClick: [enable_event_type, {event_type: 'command', enabled: !state.search.event_types.command}]
-      }),
-      h('label', {for: 'commands_check'}, 'Host Data Commands')
-    ])
-  ]),
-  h('div', {
-    class: 'button',
-    onClick: [change_page, 0]
-  }, 'Search')
+eval("const PerformAction = __webpack_require__(/*! ./performaction */ \"../common/update/performaction.js\")\r\nconst ActionResult = __webpack_require__(/*! ./actionresult */ \"../common/update/actionresult.js\")\r\nconst ActionFollowup = __webpack_require__(/*! ./actionfollowup */ \"../common/update/actionfollowup.js\")\r\nconst FollowupFoldout = __webpack_require__(/*! ./followupfoldout */ \"../common/update/followupfoldout.js\")\r\nconst FollowupResult = __webpack_require__(/*! ./followupresult */ \"../common/update/followupresult.js\")\r\n\r\nconst update = (state, action) => {\r\n  if (action.type == 'actions') state.actions = action.actions\r\n  if (action.type == 'commands') state.commands = action.commands\r\n  if (action.type == 'quests') state.quests = action.quests\r\n  if (action.type == 'tests') state.tests = action.tests\r\n  if (action.type == 'perform_action') PerformAction(state, action)\r\n  if (action.type == 'action_result') ActionResult(state, action)\r\n  if (action.type == 'result_foldout') state.action_results[action.hostname][action.action].foldout = action.value\r\n  if (action.type == 'action_followup') ActionFollowup(state, action)\r\n  if (action.type == 'action_followup_result') FollowupResult(state, action)\r\n  if (action.type == 'followup_foldout') FollowupFoldout(state, action)\r\n\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack://logs/../common/update/index.js?");
 
-])
+/***/ }),
 
-// ---- RUN
+/***/ "../common/update/performaction.js":
+/*!*****************************************!*\
+  !*** ../common/update/performaction.js ***!
+  \*****************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/***/ ((module) => {
 
-app({
-  node: document.getElementById('logs'),
-  init: [
-    {
-      page: 0,
-      search: {event_types: {}}
-    }, 
-    ...init_effects
-  ],
-  view: state => {
-    if (!state.actions || !state.quests || !state.tests) return h('div', {})
-    if (state.logs) return h('div', {id: 'logs'}, [
-      h('div', {class: 'search'}, [
-        filtering(state),
-        controls(state)
-      ]),
-      h('div', {}, state.logs.map(v => log_view(state, v))),
-      controls(state)
-    ])
-    return h('div', {})
-  }
-})
+eval("const performAction = (state, action) => {\r\n  if (!state.action_results[action.host]) {\r\n    state.action_results[action.host] = {}\r\n  }\r\n  if (!state.action_results[action.host][action.action]) {\r\n    state.action_results[action.host][action.action] = {}\r\n  }\r\n  state.action_results[action.host][action.action].status = 'loading'\r\n}\r\n\r\nmodule.exports = performAction\n\n//# sourceURL=webpack://logs/../common/update/performaction.js?");
+
+/***/ }),
+
+/***/ "./effect/index.js":
+/*!*************************!*\
+  !*** ./effect/index.js ***!
+  \*************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module, __webpack_require__ */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const FetchScripts = __webpack_require__(/*! ../../common/effect/fetchscripts */ \"../common/effect/fetchscripts.js\")\r\nconst GenerateQuery = __webpack_require__(/*! ../../common/effect/generatequery */ \"../common/effect/generatequery.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'init') {\r\n    ['actions', 'tests', 'quests', 'commands'].forEach(v => FetchScripts(send, v))\r\n    send({type: 'page', page: 0})\r\n  }\r\n  if (action.type == 'page') {\r\n    fetch(`/logs?${GenerateQuery({\r\n      ...state.search, \r\n      event_types: Object.entries(state.search.event_types).filter(v => v[1]).map(v => v[0]), \r\n      ...(action.page && {page: action.page})})}`)\r\n    .then(res => res.json())\r\n    .then(res => send({type: 'logs', logs:res}))\r\n  }\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack://logs/./effect/index.js?");
+
+/***/ }),
+
+/***/ "./main.js":
+/*!*****************!*\
+  !*** ./main.js ***!
+  \*****************/
+/*! namespace exports */
+/*! exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var snabbdom_init__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/init */ \"./node_modules/snabbdom/build/package/init.js\");\n/* harmony import */ var snabbdom_modules_class__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! snabbdom/modules/class */ \"./node_modules/snabbdom/build/package/modules/class.js\");\n/* harmony import */ var snabbdom_modules_props__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! snabbdom/modules/props */ \"./node_modules/snabbdom/build/package/modules/props.js\");\n/* harmony import */ var snabbdom_modules_style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! snabbdom/modules/style */ \"./node_modules/snabbdom/build/package/modules/style.js\");\n/* harmony import */ var snabbdom_modules_eventlisteners__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! snabbdom/modules/eventlisteners */ \"./node_modules/snabbdom/build/package/modules/eventlisteners.js\");\n/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./view */ \"./view/index.js\");\n\r\n\r\n\r\n\r\n\r\n\r\nconst Update = __webpack_require__(/*! ./update */ \"./update/index.js\")\r\nconst Effect = __webpack_require__(/*! ./effect */ \"./effect/index.js\")\r\n\r\nconst patch = (0,snabbdom_init__WEBPACK_IMPORTED_MODULE_0__.init)([\r\n  snabbdom_modules_class__WEBPACK_IMPORTED_MODULE_1__.classModule,\r\n  snabbdom_modules_props__WEBPACK_IMPORTED_MODULE_2__.propsModule,\r\n  snabbdom_modules_style__WEBPACK_IMPORTED_MODULE_3__.styleModule,\r\n  snabbdom_modules_eventlisteners__WEBPACK_IMPORTED_MODULE_4__.eventListenersModule,\r\n])\r\n\r\nlet state = {\r\n  search: {event_types: {}}\r\n}\r\nlet vnode = document.body\r\n\r\nconst send = action=> {\r\n  state = Update(state, action)\r\n  vnode = patch(vnode, (0,_view__WEBPACK_IMPORTED_MODULE_5__.default)(state, send))\r\n  Effect(state,action,send) \r\n}\r\n  \r\nsend({type:'init'})\r\n\r\nwindow.state = state\n\n//# sourceURL=webpack://logs/./main.js?");
+
+/***/ }),
+
+/***/ "./node_modules/snabbdom/build/package/h.js":
+/*!**************************************************!*\
+  !*** ./node_modules/snabbdom/build/package/h.js ***!
+  \**************************************************/
+/*! namespace exports */
+/*! export h [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"h\": () => /* binding */ h\n/* harmony export */ });\n/* harmony import */ var _vnode_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vnode.js */ \"./node_modules/snabbdom/build/package/vnode.js\");\n/* harmony import */ var _is_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./is.js */ \"./node_modules/snabbdom/build/package/is.js\");\n\n\nfunction addNS(data, children, sel) {\n    data.ns = 'http://www.w3.org/2000/svg';\n    if (sel !== 'foreignObject' && children !== undefined) {\n        for (let i = 0; i < children.length; ++i) {\n            const childData = children[i].data;\n            if (childData !== undefined) {\n                addNS(childData, children[i].children, children[i].sel);\n            }\n        }\n    }\n}\nfunction h(sel, b, c) {\n    var data = {};\n    var children;\n    var text;\n    var i;\n    if (c !== undefined) {\n        if (b !== null) {\n            data = b;\n        }\n        if (_is_js__WEBPACK_IMPORTED_MODULE_1__.array(c)) {\n            children = c;\n        }\n        else if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(c)) {\n            text = c;\n        }\n        else if (c && c.sel) {\n            children = [c];\n        }\n    }\n    else if (b !== undefined && b !== null) {\n        if (_is_js__WEBPACK_IMPORTED_MODULE_1__.array(b)) {\n            children = b;\n        }\n        else if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(b)) {\n            text = b;\n        }\n        else if (b && b.sel) {\n            children = [b];\n        }\n        else {\n            data = b;\n        }\n    }\n    if (children !== undefined) {\n        for (i = 0; i < children.length; ++i) {\n            if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(children[i]))\n                children[i] = (0,_vnode_js__WEBPACK_IMPORTED_MODULE_0__.vnode)(undefined, undefined, undefined, children[i], undefined);\n        }\n    }\n    if (sel[0] === 's' && sel[1] === 'v' && sel[2] === 'g' &&\n        (sel.length === 3 || sel[3] === '.' || sel[3] === '#')) {\n        addNS(data, children, sel);\n    }\n    return (0,_vnode_js__WEBPACK_IMPORTED_MODULE_0__.vnode)(sel, data, children, text, undefined);\n}\n;\n//# sourceMappingURL=h.js.map\n\n//# sourceURL=webpack://logs/./node_modules/snabbdom/build/package/h.js?");
+
+/***/ }),
+
+/***/ "./node_modules/snabbdom/build/package/htmldomapi.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/snabbdom/build/package/htmldomapi.js ***!
+  \***********************************************************/
+/*! namespace exports */
+/*! export htmlDomApi [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"htmlDomApi\": () => /* binding */ htmlDomApi\n/* harmony export */ });\nfunction createElement(tagName) {\n    return document.createElement(tagName);\n}\nfunction createElementNS(namespaceURI, qualifiedName) {\n    return document.createElementNS(namespaceURI, qualifiedName);\n}\nfunction createTextNode(text) {\n    return document.createTextNode(text);\n}\nfunction createComment(text) {\n    return document.createComment(text);\n}\nfunction insertBefore(parentNode, newNode, referenceNode) {\n    parentNode.insertBefore(newNode, referenceNode);\n}\nfunction removeChild(node, child) {\n    node.removeChild(child);\n}\nfunction appendChild(node, child) {\n    node.appendChild(child);\n}\nfunction parentNode(node) {\n    return node.parentNode;\n}\nfunction nextSibling(node) {\n    return node.nextSibling;\n}\nfunction tagName(elm) {\n    return elm.tagName;\n}\nfunction setTextContent(node, text) {\n    node.textContent = text;\n}\nfunction getTextContent(node) {\n    return node.textContent;\n}\nfunction isElement(node) {\n    return node.nodeType === 1;\n}\nfunction isText(node) {\n    return node.nodeType === 3;\n}\nfunction isComment(node) {\n    return node.nodeType === 8;\n}\nconst htmlDomApi = {\n    createElement,\n    createElementNS,\n    createTextNode,\n    createComment,\n    insertBefore,\n    removeChild,\n    appendChild,\n    parentNode,\n    nextSibling,\n    tagName,\n    setTextContent,\n    getTextContent,\n    isElement,\n    isText,\n    isComment,\n};\n//# sourceMappingURL=htmldomapi.js.map\n\n//# sourceURL=webpack://logs/./node_modules/snabbdom/build/package/htmldomapi.js?");
+
+/***/ }),
+
+/***/ "./node_modules/snabbdom/build/package/init.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/snabbdom/build/package/init.js ***!
+  \*****************************************************/
+/*! namespace exports */
+/*! export init [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"init\": () => /* binding */ init\n/* harmony export */ });\n/* harmony import */ var _vnode_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vnode.js */ \"./node_modules/snabbdom/build/package/vnode.js\");\n/* harmony import */ var _is_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./is.js */ \"./node_modules/snabbdom/build/package/is.js\");\n/* harmony import */ var _htmldomapi_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./htmldomapi.js */ \"./node_modules/snabbdom/build/package/htmldomapi.js\");\n\n\n\nfunction isUndef(s) {\n    return s === undefined;\n}\nfunction isDef(s) {\n    return s !== undefined;\n}\nconst emptyNode = (0,_vnode_js__WEBPACK_IMPORTED_MODULE_0__.vnode)('', {}, [], undefined, undefined);\nfunction sameVnode(vnode1, vnode2) {\n    return vnode1.key === vnode2.key && vnode1.sel === vnode2.sel;\n}\nfunction isVnode(vnode) {\n    return vnode.sel !== undefined;\n}\nfunction createKeyToOldIdx(children, beginIdx, endIdx) {\n    var _a;\n    const map = {};\n    for (let i = beginIdx; i <= endIdx; ++i) {\n        const key = (_a = children[i]) === null || _a === void 0 ? void 0 : _a.key;\n        if (key !== undefined) {\n            map[key] = i;\n        }\n    }\n    return map;\n}\nconst hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];\nfunction init(modules, domApi) {\n    let i;\n    let j;\n    const cbs = {\n        create: [],\n        update: [],\n        remove: [],\n        destroy: [],\n        pre: [],\n        post: []\n    };\n    const api = domApi !== undefined ? domApi : _htmldomapi_js__WEBPACK_IMPORTED_MODULE_2__.htmlDomApi;\n    for (i = 0; i < hooks.length; ++i) {\n        cbs[hooks[i]] = [];\n        for (j = 0; j < modules.length; ++j) {\n            const hook = modules[j][hooks[i]];\n            if (hook !== undefined) {\n                cbs[hooks[i]].push(hook);\n            }\n        }\n    }\n    function emptyNodeAt(elm) {\n        const id = elm.id ? '#' + elm.id : '';\n        const c = elm.className ? '.' + elm.className.split(' ').join('.') : '';\n        return (0,_vnode_js__WEBPACK_IMPORTED_MODULE_0__.vnode)(api.tagName(elm).toLowerCase() + id + c, {}, [], undefined, elm);\n    }\n    function createRmCb(childElm, listeners) {\n        return function rmCb() {\n            if (--listeners === 0) {\n                const parent = api.parentNode(childElm);\n                api.removeChild(parent, childElm);\n            }\n        };\n    }\n    function createElm(vnode, insertedVnodeQueue) {\n        var _a, _b;\n        let i;\n        let data = vnode.data;\n        if (data !== undefined) {\n            const init = (_a = data.hook) === null || _a === void 0 ? void 0 : _a.init;\n            if (isDef(init)) {\n                init(vnode);\n                data = vnode.data;\n            }\n        }\n        const children = vnode.children;\n        const sel = vnode.sel;\n        if (sel === '!') {\n            if (isUndef(vnode.text)) {\n                vnode.text = '';\n            }\n            vnode.elm = api.createComment(vnode.text);\n        }\n        else if (sel !== undefined) {\n            // Parse selector\n            const hashIdx = sel.indexOf('#');\n            const dotIdx = sel.indexOf('.', hashIdx);\n            const hash = hashIdx > 0 ? hashIdx : sel.length;\n            const dot = dotIdx > 0 ? dotIdx : sel.length;\n            const tag = hashIdx !== -1 || dotIdx !== -1 ? sel.slice(0, Math.min(hash, dot)) : sel;\n            const elm = vnode.elm = isDef(data) && isDef(i = data.ns)\n                ? api.createElementNS(i, tag)\n                : api.createElement(tag);\n            if (hash < dot)\n                elm.setAttribute('id', sel.slice(hash + 1, dot));\n            if (dotIdx > 0)\n                elm.setAttribute('class', sel.slice(dot + 1).replace(/\\./g, ' '));\n            for (i = 0; i < cbs.create.length; ++i)\n                cbs.create[i](emptyNode, vnode);\n            if (_is_js__WEBPACK_IMPORTED_MODULE_1__.array(children)) {\n                for (i = 0; i < children.length; ++i) {\n                    const ch = children[i];\n                    if (ch != null) {\n                        api.appendChild(elm, createElm(ch, insertedVnodeQueue));\n                    }\n                }\n            }\n            else if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(vnode.text)) {\n                api.appendChild(elm, api.createTextNode(vnode.text));\n            }\n            const hook = vnode.data.hook;\n            if (isDef(hook)) {\n                (_b = hook.create) === null || _b === void 0 ? void 0 : _b.call(hook, emptyNode, vnode);\n                if (hook.insert) {\n                    insertedVnodeQueue.push(vnode);\n                }\n            }\n        }\n        else {\n            vnode.elm = api.createTextNode(vnode.text);\n        }\n        return vnode.elm;\n    }\n    function addVnodes(parentElm, before, vnodes, startIdx, endIdx, insertedVnodeQueue) {\n        for (; startIdx <= endIdx; ++startIdx) {\n            const ch = vnodes[startIdx];\n            if (ch != null) {\n                api.insertBefore(parentElm, createElm(ch, insertedVnodeQueue), before);\n            }\n        }\n    }\n    function invokeDestroyHook(vnode) {\n        var _a, _b;\n        const data = vnode.data;\n        if (data !== undefined) {\n            (_b = (_a = data === null || data === void 0 ? void 0 : data.hook) === null || _a === void 0 ? void 0 : _a.destroy) === null || _b === void 0 ? void 0 : _b.call(_a, vnode);\n            for (let i = 0; i < cbs.destroy.length; ++i)\n                cbs.destroy[i](vnode);\n            if (vnode.children !== undefined) {\n                for (let j = 0; j < vnode.children.length; ++j) {\n                    const child = vnode.children[j];\n                    if (child != null && typeof child !== 'string') {\n                        invokeDestroyHook(child);\n                    }\n                }\n            }\n        }\n    }\n    function removeVnodes(parentElm, vnodes, startIdx, endIdx) {\n        var _a, _b;\n        for (; startIdx <= endIdx; ++startIdx) {\n            let listeners;\n            let rm;\n            const ch = vnodes[startIdx];\n            if (ch != null) {\n                if (isDef(ch.sel)) {\n                    invokeDestroyHook(ch);\n                    listeners = cbs.remove.length + 1;\n                    rm = createRmCb(ch.elm, listeners);\n                    for (let i = 0; i < cbs.remove.length; ++i)\n                        cbs.remove[i](ch, rm);\n                    const removeHook = (_b = (_a = ch === null || ch === void 0 ? void 0 : ch.data) === null || _a === void 0 ? void 0 : _a.hook) === null || _b === void 0 ? void 0 : _b.remove;\n                    if (isDef(removeHook)) {\n                        removeHook(ch, rm);\n                    }\n                    else {\n                        rm();\n                    }\n                }\n                else { // Text node\n                    api.removeChild(parentElm, ch.elm);\n                }\n            }\n        }\n    }\n    function updateChildren(parentElm, oldCh, newCh, insertedVnodeQueue) {\n        let oldStartIdx = 0;\n        let newStartIdx = 0;\n        let oldEndIdx = oldCh.length - 1;\n        let oldStartVnode = oldCh[0];\n        let oldEndVnode = oldCh[oldEndIdx];\n        let newEndIdx = newCh.length - 1;\n        let newStartVnode = newCh[0];\n        let newEndVnode = newCh[newEndIdx];\n        let oldKeyToIdx;\n        let idxInOld;\n        let elmToMove;\n        let before;\n        while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {\n            if (oldStartVnode == null) {\n                oldStartVnode = oldCh[++oldStartIdx]; // Vnode might have been moved left\n            }\n            else if (oldEndVnode == null) {\n                oldEndVnode = oldCh[--oldEndIdx];\n            }\n            else if (newStartVnode == null) {\n                newStartVnode = newCh[++newStartIdx];\n            }\n            else if (newEndVnode == null) {\n                newEndVnode = newCh[--newEndIdx];\n            }\n            else if (sameVnode(oldStartVnode, newStartVnode)) {\n                patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue);\n                oldStartVnode = oldCh[++oldStartIdx];\n                newStartVnode = newCh[++newStartIdx];\n            }\n            else if (sameVnode(oldEndVnode, newEndVnode)) {\n                patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue);\n                oldEndVnode = oldCh[--oldEndIdx];\n                newEndVnode = newCh[--newEndIdx];\n            }\n            else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right\n                patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue);\n                api.insertBefore(parentElm, oldStartVnode.elm, api.nextSibling(oldEndVnode.elm));\n                oldStartVnode = oldCh[++oldStartIdx];\n                newEndVnode = newCh[--newEndIdx];\n            }\n            else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left\n                patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue);\n                api.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);\n                oldEndVnode = oldCh[--oldEndIdx];\n                newStartVnode = newCh[++newStartIdx];\n            }\n            else {\n                if (oldKeyToIdx === undefined) {\n                    oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);\n                }\n                idxInOld = oldKeyToIdx[newStartVnode.key];\n                if (isUndef(idxInOld)) { // New element\n                    api.insertBefore(parentElm, createElm(newStartVnode, insertedVnodeQueue), oldStartVnode.elm);\n                }\n                else {\n                    elmToMove = oldCh[idxInOld];\n                    if (elmToMove.sel !== newStartVnode.sel) {\n                        api.insertBefore(parentElm, createElm(newStartVnode, insertedVnodeQueue), oldStartVnode.elm);\n                    }\n                    else {\n                        patchVnode(elmToMove, newStartVnode, insertedVnodeQueue);\n                        oldCh[idxInOld] = undefined;\n                        api.insertBefore(parentElm, elmToMove.elm, oldStartVnode.elm);\n                    }\n                }\n                newStartVnode = newCh[++newStartIdx];\n            }\n        }\n        if (oldStartIdx <= oldEndIdx || newStartIdx <= newEndIdx) {\n            if (oldStartIdx > oldEndIdx) {\n                before = newCh[newEndIdx + 1] == null ? null : newCh[newEndIdx + 1].elm;\n                addVnodes(parentElm, before, newCh, newStartIdx, newEndIdx, insertedVnodeQueue);\n            }\n            else {\n                removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx);\n            }\n        }\n    }\n    function patchVnode(oldVnode, vnode, insertedVnodeQueue) {\n        var _a, _b, _c, _d, _e;\n        const hook = (_a = vnode.data) === null || _a === void 0 ? void 0 : _a.hook;\n        (_b = hook === null || hook === void 0 ? void 0 : hook.prepatch) === null || _b === void 0 ? void 0 : _b.call(hook, oldVnode, vnode);\n        const elm = vnode.elm = oldVnode.elm;\n        const oldCh = oldVnode.children;\n        const ch = vnode.children;\n        if (oldVnode === vnode)\n            return;\n        if (vnode.data !== undefined) {\n            for (let i = 0; i < cbs.update.length; ++i)\n                cbs.update[i](oldVnode, vnode);\n            (_d = (_c = vnode.data.hook) === null || _c === void 0 ? void 0 : _c.update) === null || _d === void 0 ? void 0 : _d.call(_c, oldVnode, vnode);\n        }\n        if (isUndef(vnode.text)) {\n            if (isDef(oldCh) && isDef(ch)) {\n                if (oldCh !== ch)\n                    updateChildren(elm, oldCh, ch, insertedVnodeQueue);\n            }\n            else if (isDef(ch)) {\n                if (isDef(oldVnode.text))\n                    api.setTextContent(elm, '');\n                addVnodes(elm, null, ch, 0, ch.length - 1, insertedVnodeQueue);\n            }\n            else if (isDef(oldCh)) {\n                removeVnodes(elm, oldCh, 0, oldCh.length - 1);\n            }\n            else if (isDef(oldVnode.text)) {\n                api.setTextContent(elm, '');\n            }\n        }\n        else if (oldVnode.text !== vnode.text) {\n            if (isDef(oldCh)) {\n                removeVnodes(elm, oldCh, 0, oldCh.length - 1);\n            }\n            api.setTextContent(elm, vnode.text);\n        }\n        (_e = hook === null || hook === void 0 ? void 0 : hook.postpatch) === null || _e === void 0 ? void 0 : _e.call(hook, oldVnode, vnode);\n    }\n    return function patch(oldVnode, vnode) {\n        let i, elm, parent;\n        const insertedVnodeQueue = [];\n        for (i = 0; i < cbs.pre.length; ++i)\n            cbs.pre[i]();\n        if (!isVnode(oldVnode)) {\n            oldVnode = emptyNodeAt(oldVnode);\n        }\n        if (sameVnode(oldVnode, vnode)) {\n            patchVnode(oldVnode, vnode, insertedVnodeQueue);\n        }\n        else {\n            elm = oldVnode.elm;\n            parent = api.parentNode(elm);\n            createElm(vnode, insertedVnodeQueue);\n            if (parent !== null) {\n                api.insertBefore(parent, vnode.elm, api.nextSibling(elm));\n                removeVnodes(parent, [oldVnode], 0, 0);\n            }\n        }\n        for (i = 0; i < insertedVnodeQueue.length; ++i) {\n            insertedVnodeQueue[i].data.hook.insert(insertedVnodeQueue[i]);\n        }\n        for (i = 0; i < cbs.post.length; ++i)\n            cbs.post[i]();\n        return vnode;\n    };\n}\n//# sourceMappingURL=init.js.map\n\n//# sourceURL=webpack://logs/./node_modules/snabbdom/build/package/init.js?");
+
+/***/ }),
+
+/***/ "./node_modules/snabbdom/build/package/is.js":
+/*!***************************************************!*\
+  !*** ./node_modules/snabbdom/build/package/is.js ***!
+  \***************************************************/
+/*! namespace exports */
+/*! export array [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export primitive [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"array\": () => /* binding */ array,\n/* harmony export */   \"primitive\": () => /* binding */ primitive\n/* harmony export */ });\nconst array = Array.isArray;\nfunction primitive(s) {\n    return typeof s === 'string' || typeof s === 'number';\n}\n//# sourceMappingURL=is.js.map\n\n//# sourceURL=webpack://logs/./node_modules/snabbdom/build/package/is.js?");
+
+/***/ }),
+
+/***/ "./node_modules/snabbdom/build/package/modules/class.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/snabbdom/build/package/modules/class.js ***!
+  \**************************************************************/
+/*! namespace exports */
+/*! export classModule [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"classModule\": () => /* binding */ classModule\n/* harmony export */ });\nfunction updateClass(oldVnode, vnode) {\n    var cur;\n    var name;\n    var elm = vnode.elm;\n    var oldClass = oldVnode.data.class;\n    var klass = vnode.data.class;\n    if (!oldClass && !klass)\n        return;\n    if (oldClass === klass)\n        return;\n    oldClass = oldClass || {};\n    klass = klass || {};\n    for (name in oldClass) {\n        if (oldClass[name] &&\n            !Object.prototype.hasOwnProperty.call(klass, name)) {\n            // was `true` and now not provided\n            elm.classList.remove(name);\n        }\n    }\n    for (name in klass) {\n        cur = klass[name];\n        if (cur !== oldClass[name]) {\n            elm.classList[cur ? 'add' : 'remove'](name);\n        }\n    }\n}\nconst classModule = { create: updateClass, update: updateClass };\n//# sourceMappingURL=class.js.map\n\n//# sourceURL=webpack://logs/./node_modules/snabbdom/build/package/modules/class.js?");
+
+/***/ }),
+
+/***/ "./node_modules/snabbdom/build/package/modules/eventlisteners.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/snabbdom/build/package/modules/eventlisteners.js ***!
+  \***********************************************************************/
+/*! namespace exports */
+/*! export eventListenersModule [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"eventListenersModule\": () => /* binding */ eventListenersModule\n/* harmony export */ });\nfunction invokeHandler(handler, vnode, event) {\n    if (typeof handler === 'function') {\n        // call function handler\n        handler.call(vnode, event, vnode);\n    }\n    else if (typeof handler === 'object') {\n        // call handler with arguments\n        if (typeof handler[0] === 'function') {\n            // special case for single argument for performance\n            if (handler.length === 2) {\n                handler[0].call(vnode, handler[1], event, vnode);\n            }\n            else {\n                var args = handler.slice(1);\n                args.push(event);\n                args.push(vnode);\n                handler[0].apply(vnode, args);\n            }\n        }\n        else {\n            // call multiple handlers\n            for (var i = 0; i < handler.length; i++) {\n                invokeHandler(handler[i], vnode, event);\n            }\n        }\n    }\n}\nfunction handleEvent(event, vnode) {\n    var name = event.type;\n    var on = vnode.data.on;\n    // call event handler(s) if exists\n    if (on && on[name]) {\n        invokeHandler(on[name], vnode, event);\n    }\n}\nfunction createListener() {\n    return function handler(event) {\n        handleEvent(event, handler.vnode);\n    };\n}\nfunction updateEventListeners(oldVnode, vnode) {\n    var oldOn = oldVnode.data.on;\n    var oldListener = oldVnode.listener;\n    var oldElm = oldVnode.elm;\n    var on = vnode && vnode.data.on;\n    var elm = (vnode && vnode.elm);\n    var name;\n    // optimization for reused immutable handlers\n    if (oldOn === on) {\n        return;\n    }\n    // remove existing listeners which no longer used\n    if (oldOn && oldListener) {\n        // if element changed or deleted we remove all existing listeners unconditionally\n        if (!on) {\n            for (name in oldOn) {\n                // remove listener if element was changed or existing listeners removed\n                oldElm.removeEventListener(name, oldListener, false);\n            }\n        }\n        else {\n            for (name in oldOn) {\n                // remove listener if existing listener removed\n                if (!on[name]) {\n                    oldElm.removeEventListener(name, oldListener, false);\n                }\n            }\n        }\n    }\n    // add new listeners which has not already attached\n    if (on) {\n        // reuse existing listener or create new\n        var listener = vnode.listener = oldVnode.listener || createListener();\n        // update vnode for listener\n        listener.vnode = vnode;\n        // if element changed or added we add all needed listeners unconditionally\n        if (!oldOn) {\n            for (name in on) {\n                // add listener if element was changed or new listeners added\n                elm.addEventListener(name, listener, false);\n            }\n        }\n        else {\n            for (name in on) {\n                // add listener if new listener added\n                if (!oldOn[name]) {\n                    elm.addEventListener(name, listener, false);\n                }\n            }\n        }\n    }\n}\nconst eventListenersModule = {\n    create: updateEventListeners,\n    update: updateEventListeners,\n    destroy: updateEventListeners\n};\n//# sourceMappingURL=eventlisteners.js.map\n\n//# sourceURL=webpack://logs/./node_modules/snabbdom/build/package/modules/eventlisteners.js?");
+
+/***/ }),
+
+/***/ "./node_modules/snabbdom/build/package/modules/props.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/snabbdom/build/package/modules/props.js ***!
+  \**************************************************************/
+/*! namespace exports */
+/*! export propsModule [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"propsModule\": () => /* binding */ propsModule\n/* harmony export */ });\nfunction updateProps(oldVnode, vnode) {\n    var key;\n    var cur;\n    var old;\n    var elm = vnode.elm;\n    var oldProps = oldVnode.data.props;\n    var props = vnode.data.props;\n    if (!oldProps && !props)\n        return;\n    if (oldProps === props)\n        return;\n    oldProps = oldProps || {};\n    props = props || {};\n    for (key in props) {\n        cur = props[key];\n        old = oldProps[key];\n        if (old !== cur && (key !== 'value' || elm[key] !== cur)) {\n            elm[key] = cur;\n        }\n    }\n}\nconst propsModule = { create: updateProps, update: updateProps };\n//# sourceMappingURL=props.js.map\n\n//# sourceURL=webpack://logs/./node_modules/snabbdom/build/package/modules/props.js?");
+
+/***/ }),
+
+/***/ "./node_modules/snabbdom/build/package/modules/style.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/snabbdom/build/package/modules/style.js ***!
+  \**************************************************************/
+/*! namespace exports */
+/*! export styleModule [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"styleModule\": () => /* binding */ styleModule\n/* harmony export */ });\n// Bindig `requestAnimationFrame` like this fixes a bug in IE/Edge. See #360 and #409.\nvar raf = (typeof window !== 'undefined' && (window.requestAnimationFrame).bind(window)) || setTimeout;\nvar nextFrame = function (fn) {\n    raf(function () {\n        raf(fn);\n    });\n};\nvar reflowForced = false;\nfunction setNextFrame(obj, prop, val) {\n    nextFrame(function () {\n        obj[prop] = val;\n    });\n}\nfunction updateStyle(oldVnode, vnode) {\n    var cur;\n    var name;\n    var elm = vnode.elm;\n    var oldStyle = oldVnode.data.style;\n    var style = vnode.data.style;\n    if (!oldStyle && !style)\n        return;\n    if (oldStyle === style)\n        return;\n    oldStyle = oldStyle || {};\n    style = style || {};\n    var oldHasDel = 'delayed' in oldStyle;\n    for (name in oldStyle) {\n        if (!style[name]) {\n            if (name[0] === '-' && name[1] === '-') {\n                elm.style.removeProperty(name);\n            }\n            else {\n                elm.style[name] = '';\n            }\n        }\n    }\n    for (name in style) {\n        cur = style[name];\n        if (name === 'delayed' && style.delayed) {\n            for (const name2 in style.delayed) {\n                cur = style.delayed[name2];\n                if (!oldHasDel || cur !== oldStyle.delayed[name2]) {\n                    setNextFrame(elm.style, name2, cur);\n                }\n            }\n        }\n        else if (name !== 'remove' && cur !== oldStyle[name]) {\n            if (name[0] === '-' && name[1] === '-') {\n                elm.style.setProperty(name, cur);\n            }\n            else {\n                elm.style[name] = cur;\n            }\n        }\n    }\n}\nfunction applyDestroyStyle(vnode) {\n    var style;\n    var name;\n    var elm = vnode.elm;\n    var s = vnode.data.style;\n    if (!s || !(style = s.destroy))\n        return;\n    for (name in style) {\n        elm.style[name] = style[name];\n    }\n}\nfunction applyRemoveStyle(vnode, rm) {\n    var s = vnode.data.style;\n    if (!s || !s.remove) {\n        rm();\n        return;\n    }\n    if (!reflowForced) {\n        // eslint-disable-next-line @typescript-eslint/no-unused-expressions\n        vnode.elm.offsetLeft;\n        reflowForced = true;\n    }\n    var name;\n    var elm = vnode.elm;\n    var i = 0;\n    var compStyle;\n    var style = s.remove;\n    var amount = 0;\n    var applied = [];\n    for (name in style) {\n        applied.push(name);\n        elm.style[name] = style[name];\n    }\n    compStyle = getComputedStyle(elm);\n    var props = compStyle['transition-property'].split(', ');\n    for (; i < props.length; ++i) {\n        if (applied.indexOf(props[i]) !== -1)\n            amount++;\n    }\n    elm.addEventListener('transitionend', function (ev) {\n        if (ev.target === elm)\n            --amount;\n        if (amount === 0)\n            rm();\n    });\n}\nfunction forceReflow() {\n    reflowForced = false;\n}\nconst styleModule = {\n    pre: forceReflow,\n    create: updateStyle,\n    update: updateStyle,\n    destroy: applyDestroyStyle,\n    remove: applyRemoveStyle\n};\n//# sourceMappingURL=style.js.map\n\n//# sourceURL=webpack://logs/./node_modules/snabbdom/build/package/modules/style.js?");
+
+/***/ }),
+
+/***/ "./node_modules/snabbdom/build/package/vnode.js":
+/*!******************************************************!*\
+  !*** ./node_modules/snabbdom/build/package/vnode.js ***!
+  \******************************************************/
+/*! namespace exports */
+/*! export vnode [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"vnode\": () => /* binding */ vnode\n/* harmony export */ });\nfunction vnode(sel, data, children, text, elm) {\n    const key = data === undefined ? undefined : data.key;\n    return { sel, data, children, text, elm, key };\n}\n//# sourceMappingURL=vnode.js.map\n\n//# sourceURL=webpack://logs/./node_modules/snabbdom/build/package/vnode.js?");
+
+/***/ }),
+
+/***/ "./update/index.js":
+/*!*************************!*\
+  !*** ./update/index.js ***!
+  \*************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module, __webpack_require__ */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("const Common = __webpack_require__(/*! ../../common/update */ \"../common/update/index.js\")\r\n\r\nconst update = (state, action) => {\r\n  state = Common(state, action)\r\n  if (action.type == 'logs') state.logs = action.logs\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack://logs/./update/index.js?");
+
+/***/ }),
+
+/***/ "./view/index.js":
+/*!***********************!*\
+  !*** ./view/index.js ***!
+  \***********************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _search__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./search */ \"./view/search/index.js\");\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/build/package/h.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('body',\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('div#container',\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('div#md_container', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('h1', 'Logs'),\r\n      state.actions && state.quests && state.tests && state.logs ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_1__.h)('div#logs', [\r\n        (0,_search__WEBPACK_IMPORTED_MODULE_0__.default)(state, send)\r\n      ]) : undefined\r\n    ])\r\n  )\r\n));\n\n//# sourceURL=webpack://logs/./view/index.js?");
+
+/***/ }),
+
+/***/ "./view/search/controls.js":
+/*!*********************************!*\
+  !*** ./view/search/controls.js ***!
+  \*********************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/build/package/h.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.controls', [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.foldout fas fa-step-backward fa-fw', {\r\n    class: {disabled: !state.page},\r\n    on: {click: [send, {type: 'page', page: 0}]}\r\n  }),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.foldout fas fa-chevron-left fa-fw', {\r\n    class: {disabled: !state.page},\r\n    on: {click: [send, {type: 'page', page: state.page - 1}]}\r\n  }),  \r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.foldout fas fa-chevron-right fa-fw', {\r\n    class: {disabled: state.last_page},\r\n    on: {click: [send, {type: 'page', page: state.page + 1}]}\r\n  }),\r\n]));\n\n//# sourceURL=webpack://logs/./view/search/controls.js?");
+
+/***/ }),
+
+/***/ "./view/search/index.js":
+/*!******************************!*\
+  !*** ./view/search/index.js ***!
+  \******************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controls */ \"./view/search/controls.js\");\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.search', [\r\n    (0,_controls__WEBPACK_IMPORTED_MODULE_1__.default)(state, send)\r\n  ]));\n\n//# sourceURL=webpack://logs/./view/search/index.js?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		if(__webpack_module_cache__[moduleId]) {
+/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	// startup
+/******/ 	// Load entry module
+/******/ 	__webpack_require__("./main.js");
+/******/ 	// This entry module used 'exports' so it can't be inlined
+/******/ })()
+;

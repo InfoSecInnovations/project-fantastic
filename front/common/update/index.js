@@ -6,6 +6,9 @@ const FollowupResult = require('./followupresult')
 
 const update = (state, action) => {
   if (action.type == 'actions') state.actions = action.actions
+  if (action.type == 'commands') state.commands = action.commands
+  if (action.type == 'quests') state.quests = action.quests
+  if (action.type == 'tests') state.tests = action.tests
   if (action.type == 'perform_action') PerformAction(state, action)
   if (action.type == 'action_result') ActionResult(state, action)
   if (action.type == 'result_foldout') state.action_results[action.hostname][action.action].foldout = action.value
