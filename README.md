@@ -19,7 +19,11 @@ Using the default configuration you will be able to see the client at http://loc
 
 Using the default self signed certificate bundled with the app will cause warnings in the browser, but you can safely ignore these. If you want to use your own certificate, just create the `server/cert` directory with files named `cert` and `key`, please don't put it anywhere else as that may result in you committing your private key to GitHub!
 
-**You do not have to build the client**, however the front end has 2 different directories: `front/main_interface` and `front/node_viewer`, the Node Viewer being the tab which breaks out from the main interface when you want to inspect a single host. These are already built and can be found in the `server/src` directory, however if you wish to build them again, navigate to the appropriate directory and run `npm run js` which will rebuild any changes as you make them.
+**You do not have to build the client**, there are 3 different pages which are built using webpack. These are already built and can be found in the `server/src` directory. However if you need to modify them, the source can be found in the `front` directory. The individual directories are: 
+  - `main_interface` - the app's main view. Builds to `main.js`.
+  - `node_viewer` - the pop out view to inspect hosts. Builds to `viewer.js`.
+  - `logs` - the logs screen viewable by admins. Builds to `logs.js`.
+The command to build them is `npm run js`. If you run this in the top level `front` directory it will build all 3, or you can run it in an individual directory. It will automatically build your changes until you close the terminal.
 
 Currently supported browsers:
   - Google Chrome
