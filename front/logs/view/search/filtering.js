@@ -3,7 +3,7 @@ import {h} from 'snabbdom/h'
 const event_checkbox = (send, event_type, label) => h('div.checkbox', [
   h(`input#${event_type}_check`, {
     attrs: {type: 'checkbox'},
-    on: {click: e => send({type: 'enable_event_type', enabled: !e.target.value, event_type})} 
+    on: {click: e => send({type: 'enable_event_type', enabled: e.target.checked, event_type})} 
   }),
   h('label', {attrs: {for: `${event_type}_check`}}, label)
 ])
