@@ -23,7 +23,10 @@ Using the default self signed certificate bundled with the app will cause warnin
   - `main_interface` - the app's main view. Builds to `main.js`.
   - `node_viewer` - the pop out view to inspect hosts. Builds to `viewer.js`.
   - `logs` - the logs screen viewable by admins. Builds to `logs.js`.
+
 The command to build them is `npm run js`. If you run this in the top level `front` directory it will build all 3, or you can run it in an individual directory. It will automatically build your changes until you close the terminal.
+
+Please note: the `logs` directory uses snabbdom 1.0 which works a bit differently from the 0.7 currently used in the other directories. All front end directories will be upgraded in the future.
 
 Currently supported browsers:
   - Google Chrome
@@ -43,8 +46,6 @@ For more information on using the application itself:
 ## Known issues
 
 - Attempting to run `npm i` after the project has already been installed can result in errors. A workaround that seems to solve this is to delete all node_modules directories and all package-lock.json files from the project directory (just skip any that can't be deleted, this is due to symlinks). Alternatively, try deleting the whole repo and cloning it again.
-
-- The Logs page is currently broken since a recent hyperapp update. This will be fixed soon.
 
 - Re-installing the project deletes the database and custom config as we haven't yet provided a way to gracefully upgrade.
 
