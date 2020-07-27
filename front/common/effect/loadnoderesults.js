@@ -3,7 +3,7 @@ const GenerateQuery = require('./generatequery')
 const load_followup = (action, send, node, results, followups) => {
   const row = results.find(v => v.node_id === node.node_id && v.action === action && v.function === followups[followups.length - 1].followup && v.label === followups[followups.length - 1].label)
   if (!row) return
-  const result = JSON.parse(row.data)
+  const result = JSON.parse(row.result)
   send({
     type: 'action_followup_result',
     action,
@@ -32,7 +32,7 @@ const loadNodeResults = (nodes, send) => {
   .then(res => {
     res.filter(v => v.function === 'run').forEach(v => {
       const node = nodes.find(n => n.node_id === v.node_id)
-      const result = JSON.parse(v.data)
+      const result = JSON.parse(v.result)
       send({
         type: 'action_result',
         action: v.action,

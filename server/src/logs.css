@@ -15,17 +15,20 @@
 .search {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .controls {
   display: flex;
   margin-left: auto;
   justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .filtering {
   display: flex;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .text_search {

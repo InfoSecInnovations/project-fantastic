@@ -17,7 +17,7 @@ const runAction = async (db, action, func, node_id, user, date, options) => {
       }
     }
   }
-  const event_id = await db.insert('action_history', {data: JSON.stringify(result), date, action, function: func, node_id, label: options && options.label, user_id: user.user_id, test_id: options && options.test_id})
+  const event_id = await db.insert('action_history', {result: JSON.stringify(result), data: options && options.data && JSON.stringify(options.data),  date, action, function: func, node_id, label: options && options.label, user_id: user.user_id, test_id: options && options.test_id})
   return {result, event_id}
 }
 
