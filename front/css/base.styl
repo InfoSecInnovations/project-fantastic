@@ -12,7 +12,7 @@ title_font_size = 3rem
 
 border()
   border-radius: 1rem
-  border: 1px solid highlight_color
+  border: 2px solid highlight_color
 
 body
   font-family: main_font
@@ -40,10 +40,17 @@ h1
   font-size: title_font_size
   margin: 0
 
-.button
+ul
+  margin: 0
+
+.button, input[type=button], input[type=submit], input[type=reset]
   cursor: pointer
   padding: 1rem
   background-color: button_background_color
   color: button_font_color
   flex-grow: 0
   border()
+
+input[type=text]
+  border()
+  padding: 0.5rem

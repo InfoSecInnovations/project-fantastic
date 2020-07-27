@@ -1,9 +1,9 @@
-const H = require('snabbdom/h').default
+import {h} from 'snabbdom/h'
 const HostString = require('../../../common/util/hoststring')
 const TimeAgo = require('../../../common/util/timeago')
 const FormatString = require('fantastic-utils/formatstring')
 
-const testEntry = (state, send, data, parameters, result_data, result_date, result_parameters, loading, play_action, options = {}) => {
+export default (state, send, data, parameters, result_data, result_date, result_parameters, loading, play_action, options = {}) => {
   const results = result_date > Date.now() - 1000 * 60 * 60 * 24 && result_data // TODO: maybe we want to be able to define a custom maximum result age
   const pass = results && results.every(r => r.result == data.pass.condition)
   const failed_results = results ? result_data.filter(r => r.result != data.pass.condition) : []
@@ -11,34 +11,34 @@ const testEntry = (state, send, data, parameters, result_data, result_date, resu
   const valid_parameters = Object.values(parameters.get()).every(v => (typeof v === 'number' && !isNaN(v) && isFinite(v)) || typeof v === 'boolean' || v)
   let icon = 'exclamation-circle'
   if (results) icon = pass ? 'check-circle' : 'times-circle'
-  return H('div.scroll_item', [
-    H('div.item', [
-      H('div.subtitle', data.name),
-      H(`span.fas fa-${icon} fa-fw`, {class: {success: results && pass, failure: results && !pass, pending: !results}}),
+  return h('div.scroll_item', [
+    h('div.item', [
+      h('div.subtitle', data.name),
+      h(`span.fas fa-${icon} fa-fw`, {class: {success: results && pass, failure: results && !pass, pending: !results}}),
     ]),
-    data.description ? H('div.item', FormatString(data.description, parameters.get())) : undefined,
-    H('div.subsubtitle', 'Uses Actions:'),
-    H('ul', data.actions.map(v => H('li', state.actions[v].name))),
-    H('div.targets', [H('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
+    data.description ? h('div.item', FormatString(data.description, parameters.get())) : undefined,
+    h('div.subsubtitle', 'Uses Actions:'),
+    h('ul', data.actions.map(v => h('li', state.actions[v].name))),
+    h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
     ...(loading ?
-    [H('div.play waiting', [
-      H('div.item', 'Gathering results...')
+    [h('div.play waiting', [
+      h('div.item', 'Gathering results...')
     ])] :
     [
       parameters.edit && parameters.edit(),
-      H('div.play', valid_parameters ? {on: {click: [send, play_action]}} : {class: {waiting: true}}, [
-        H('div.item', 'Start'),
-        H('span.fas fa-play fa-fw play_button')
+      h('div.play', valid_parameters ? {on: {click: [send, play_action]}} : {class: {waiting: true}}, [
+        h('div.item', 'Start'),
+        h('span.fas fa-play fa-fw play_button')
       ])
     ]),
     ...(results ?
     [
-      H('div.subsubtitle', `Results from ${TimeAgo(result_date)}`),
+      h('div.subsubtitle', `Results from ${TimeAgo(result_date)}`),
       parameters.result && parameters.result(),
-      H('div.item', `${results.length} systems scanned`),
+      h('div.item', `${results.length} systems scanned`),
       pass ?
-      H('div.item', `${options.success_prefix ? `${options.success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`) :
-      H('a.item', 
+      h('div.item', `${options.success_prefix ? `${options.success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`) :
+      h('a.item', 
       {
         on: {click: [
           [send, {type: 'vis_select', nodes: failed_nodes}],
@@ -49,5 +49,3 @@ const testEntry = (state, send, data, parameters, result_data, result_date, resu
     ] : [])
   ])
 }
-
-module.exports = testEntry

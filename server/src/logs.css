@@ -25,47 +25,65 @@ h1 {
   font-size: 3rem;
   margin: 0;
 }
-.button {
+ul {
+  margin: 0;
+}
+.button,
+input[type=button],
+input[type=submit],
+input[type=reset] {
   cursor: pointer;
   padding: 1rem;
   background-color: #2e2f30;
   color: #fff;
   flex-grow: 0;
   border-radius: 1rem;
-  border: 1px solid #fc6203;
+  border: 2px solid #fc6203;
+}
+input[type=text] {
+  border-radius: 1rem;
+  border: 2px solid #fc6203;
+  padding: 0.5rem;
 }
 body {
   display: flex;
   justify-content: center;
 }
 #container {
-  max-width: 1400px;
+  max-width: 1200px;
   flex: 1;
   padding: 4rem;
 }
 #container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
 }
 .search {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: auto auto auto 1fr;
-  align-items: start;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2rem;
 }
 .search .text_search {
   display: flex;
+  align-items: center;
   gap: 1rem;
 }
 .search .controls {
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
+  margin-left: auto;
 }
 .logs {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
+}
+.logs .log_details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2rem;
 }
 /*# sourceMappingURL=logs.css.map */

@@ -24,7 +24,7 @@ const test_results = (data, results) => {
 const parameters = obj => {
   try {
     const json = JSON.parse(obj)
-    return h('div.log_details parameters', [
+    return h('div.parameters', [
       h('div', 'Parameters:'),
       h('ul', Object.entries(json).map(v => h('li', `${v[0]}: ${v[1]}`)))
     ])
@@ -61,7 +61,7 @@ const log_details = (state, log) => {
 }
 
 export default (state, send, log) => h('div.log', [
-  h('div.log_details', [h('b', headers[log.event_type]), ' ' ,log_name(state, log)]),
+  h('div.log_name', [h('b', headers[log.event_type]), ' ' ,log_name(state, log)]),
   h('div.log_details', [
     h('div', log.user.username),
     h('div', new Date(log.date).toString())

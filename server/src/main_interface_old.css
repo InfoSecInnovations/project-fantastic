@@ -1,0 +1,296 @@
+p {
+  margin: 0;
+}
+
+h1 {
+  margin: 0.5rem;
+}
+
+label {
+  margin-right: 0.5rem;
+}
+
+#container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: coral;
+  padding: 0.5rem 2rem;
+  flex-wrap: wrap;
+}
+
+#search {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#search .selector {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem;
+}
+
+#main {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+  display: flex;
+}
+
+#graph_container, #loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 5vw;
+}
+
+.vis-network {
+  outline:none;
+}
+
+.checkboxes {
+  position: relative;
+}
+
+.checkboxes option {
+  display: none;
+}
+
+.states {
+  position: absolute;
+  background-color: white;
+  z-index: 2;
+  top: 100%;
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  background-color: coral;
+}
+
+.tab {
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 1rem 1rem 0 0;
+}
+
+.tab:first-child {
+  border-radius: 0 1rem 0 0;
+}
+
+.tabs_title {
+  margin-left: auto;
+  min-width: 0;
+  display: flex;
+}
+
+.tabs_title .content {
+  margin-left: 1rem;
+  background-color: rgb(255, 171, 140);
+  font-weight: bold;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  min-width: 0;
+}
+
+.tabs_title .content .text {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 1rem;
+}
+
+.tab.selected {
+  background-color: rgb(255, 171, 140);
+  font-weight: bold;
+}
+
+#selection {
+  margin-left: auto;
+  width: 500px;
+  max-width: 50%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 171, 140);
+  z-index: 1;
+  overflow-y: auto;
+}
+
+.icon_button {
+  padding: 0.3rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  width: 3rem;
+}
+
+.icon_button.small {
+  width: auto;
+}
+
+.icon_button .label {
+  font-size: 0.6rem;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.success {
+  color: rgb(36, 135, 0);
+}
+
+.failure {
+  color: red;
+}
+
+.pending {
+  color: rgb(255, 193, 23);
+}
+
+#commands {
+  margin-right: auto;
+  width: 400px;
+  max-width: 50%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+  background-color: rgb(255, 171, 140);
+}
+
+#commands.folded {
+  background-color: transparent;
+  width: auto;
+}
+
+.panel {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+#left_panel_controls {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: coral;
+}
+
+#commands.folded #left_panel_controls {
+  border-top-right-radius: 1rem;
+}
+
+#left_panel_controls > * {
+  margin: 1rem;
+  background-color: rgb(255, 171, 140);
+}
+
+#tooltip {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: rgb(255, 171, 140);
+  font-size: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 2px solid coral;
+  z-index: 100;
+  transform: translate(-50%, 0);
+}
+
+.play {
+  cursor: pointer;
+  display: flex;
+  margin: 1rem 0;
+  font-weight: bold;
+}
+
+.play.loading {
+  cursor: auto;
+}
+
+.play .play_button {
+  margin-left: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.user_info {
+  margin: 0.5rem;
+}
+
+.username {
+  font-weight: bold;
+  margin: 0;
+  font-size: 0.92rem;
+}
+
+.history_title {
+  display: flex;
+  align-items: center;
+}
+
+.history_controls {
+  margin-right: 0.3rem;
+  display: flex;
+  align-items: center;
+}
+
+.history_control {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.favorited {
+  color: rgb(255, 196, 0);
+}
+
+.history_item {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.scroll_item.history_item {
+  margin-bottom: 1.5rem;
+}
+
+.parameters.history_item ul {
+  margin: 0;
+}
+
+.waiting {
+  cursor: auto;
+  color: dimgray;
+}

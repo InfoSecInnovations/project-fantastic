@@ -1,25 +1,25 @@
-const H = require('snabbdom/h').default
-const TestEntry = require('../testentry')
-const Parameter = require('./parameter')
+import {h} from 'snabbdom/h'
+import TestEntry from '../testentry'
+import Parameter from './parameter'
 
-const tests = (state, send) => H('div.scroll_container.panel', [
-  H('div.item', [
-    H('div.title', 'Tests')
+export default (state, send) => h('div.scroll_container.panel', [
+  h('div.item', [
+    h('div.title', 'Tests')
   ]),
-  H('div.scroll', Object.entries(state.tests).map(v => {
+  h('div.scroll', Object.entries(state.tests).map(v => {
     const test = v[0]
     const parameters = {
       initial: v[1].parameters.reduce((result, p) => ({...result, [p.name]: p.default}), {}),
       get: () => ({...parameters.initial, ...state.test_parameters[test]}),
       edit: () => 
-        H('div.parameters', [
-          H('div.subsubtitle', 'Parameters'), 
+        h('div.parameters', [
+          h('div.subsubtitle', 'Parameters'), 
           ...v[1].parameters
           .map(p => Parameter(state.test_parameters[test] && state.test_parameters[test][p.name], test, send, p))
         ]),
-      result: () => H('div.parameters', [
-        H('div.item', 'Parameters used:'),
-        H('ul', Object.entries(state.test_results.parameters[test]).map(v => H('li', `${v[0]}: ${v[1]}`)))
+      result: () => h('div.parameters', [
+        h('div.item', 'Parameters used:'),
+        h('ul', Object.entries(state.test_results.parameters[test]).map(v => h('li', `${v[0]}: ${v[1]}`)))
       ])
     }
     return TestEntry(
@@ -35,5 +35,3 @@ const tests = (state, send) => H('div.scroll_container.panel', [
     )
   }))
 ])
-
-module.exports = tests

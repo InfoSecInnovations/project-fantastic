@@ -1,8 +1,6 @@
-const testResults = () => ({
+export default () => ({
   data: {}, 
   status: {},
   date: {},
   parameters: {}
 })
-
-module.exports = testResults

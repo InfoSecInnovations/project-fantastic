@@ -1,8 +1,6 @@
-const questResults = () => ({
+export default () => ({
   data: {}, 
   status: {},
   date: {},
   nodes: {}
 })
-
-module.exports = questResults

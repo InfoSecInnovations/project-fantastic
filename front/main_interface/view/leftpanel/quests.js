@@ -1,6 +1,6 @@
-const H = require('snabbdom/h').default
+import {h} from 'snabbdom/h'
 const Alea = require('alea')
-const TestEntry = require('./testentry')
+import TestEntry from './testentry'
 const ConvertTime = require('fantastic-utils/converttime')
 
 const success_texts = [
@@ -9,11 +9,11 @@ const success_texts = [
   'Good job'
 ]
 
-const quests = (state, send) => H('div.scroll_container.panel', [
-  H('div.item', [
-    H('div.title', 'Quests')
+export default (state, send) => h('div.scroll_container.panel', [
+  h('div.item', [
+    h('div.title', 'Quests')
   ]),
-  H('div.scroll', Object.entries(state.quests).map(v => {
+  h('div.scroll', Object.entries(state.quests).map(v => {
     const quest = v[0]
     const date = state.quest_results.date[quest]
     return TestEntry(
@@ -22,7 +22,7 @@ const quests = (state, send) => H('div.scroll_container.panel', [
       v[1],
       {
         get: () => v[1].parameters, 
-        result: () => H('div.item', H('a', {
+        result: () => h('div.item', h('a', {
           on: {click: e => {
             send({type: 'get_nodes', nodes: state.quest_results.nodes[quest], date: state.quest_results.date[quest] - ConvertTime(state.quests[quest].selection.age), max_date: state.quest_results.date[quest]})
           }}
@@ -37,5 +37,3 @@ const quests = (state, send) => H('div.scroll_container.panel', [
     )
   }))
 ])
-
-module.exports = quests

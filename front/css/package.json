@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "css": "stylus logs.styl -o ../../server/src/logs.css -w -m"
+    "css": "stylus output -o ../../server/src -w -m"
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "stylus": "^0.54.8"
   }
 }

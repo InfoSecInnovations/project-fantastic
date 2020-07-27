@@ -13,6 +13,7 @@ export default (state, send) => h('div.search', [
   h('div.text_search', [
     h('label', {attrs: {for: 'username_search'}}, 'username'),
     h('input#username_search', {
+      attrs: {type: 'text'},
       on: {input: e => send({type: 'username_search', username: e.target.value})}
     })
   ]),

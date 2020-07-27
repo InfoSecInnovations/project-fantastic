@@ -1,6 +1,4 @@
-const hovered = () => ({
+export default () => ({
   nodes: [], 
   edges: []
 })
-
-module.exports = hovered

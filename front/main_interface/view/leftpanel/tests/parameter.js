@@ -1,4 +1,4 @@
-const H = require('snabbdom/h').default
+import {h} from 'snabbdom/h'
 
 const parseValue = (type, value) => {
   if (type === 'number') return parseFloat(value)
@@ -12,11 +12,11 @@ const inputType = type => {
   return 'text'
 }
 
-const parameter = (parameter_data, test, send, param) => {
+export default (parameter_data, test, send, param) => {
   const value = parameter_data !== undefined ? parameter_data : param.default
-  return H('div.item', [
-    H('label', {attrs: {for: `param_${param.name}`}}, param.name), 
-    H(`input#param_${param.name}`, {
+  return h('div.item', [
+    h('label', {attrs: {for: `param_${param.name}`}}, param.name), 
+    h(`input#param_${param.name}`, {
       on: {input: e => send({type: 'test_parameter', key: param.name, value: parseValue(param.type, e.target.value), test})},
       attrs: {
         type: inputType(param.type),
@@ -28,5 +28,3 @@ const parameter = (parameter_data, test, send, param) => {
     })
   ])
 }
-
-module.exports = parameter
