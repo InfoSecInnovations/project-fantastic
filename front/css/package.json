@@ -1,0 +1,14 @@
+{
+  "name": "css",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "css": "stylus logs.styl -o ../../server/src/logs.css -w -m"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "stylus": "^0.54.8"
+  }
+}

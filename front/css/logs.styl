@@ -1,0 +1,25 @@
+@require('base.styl')
+@require('container.styl')
+
+#container
+  display: flex
+  flex-direction: column
+  gap: 2rem
+
+.search
+  display: grid
+  gap: 1rem
+  grid-template-columns: auto auto auto 1fr
+  align-items: start
+  .text_search
+    display: flex
+    gap: 1rem
+  .controls
+    display: flex
+    justify-content: flex-end
+    align-items: flex-end
+
+.logs
+  display: flex
+  flex-direction: column
+  gap: 1rem

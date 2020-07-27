@@ -1,45 +1,71 @@
-.log {
-  margin: 2rem 0;
+@import url("https://fonts.googleapis.com/css2?family=Exo+2&display=swap");
+body {
+  font-family: 'Exo 2', sans-serif;
+  color: #fff;
+  font-size: 1rem;
+  background-color: #2e2f30;
+  margin: 0;
+  padding: 0;
 }
-
-.log_details {
+.panel {
+  background-color: #242424;
+}
+.fas {
+  font-size: 1.5rem;
+  flex-grow: 0;
+  color: #fc6203;
+}
+.fa-fw {
+  display: grid;
+  place-items: center;
+  height: 1.25em;
+}
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  margin: 0;
+}
+.button {
+  cursor: pointer;
+  padding: 1rem;
+  background-color: #2e2f30;
+  color: #fff;
+  flex-grow: 0;
+  border-radius: 1rem;
+  border: 1px solid #fc6203;
+}
+body {
   display: flex;
-  align-items: flex-start;
-  margin: 1rem;
+  justify-content: center;
 }
-
-.log_details > * {
-  margin-right: 1rem;
+#container {
+  max-width: 1400px;
+  flex: 1;
+  padding: 4rem;
 }
-
-.search {
+#container {
   display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.controls {
-  display: flex;
-  margin-left: auto;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-}
-
-.filtering {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.text_search {
-  display: flex;
-  margin-right: 2rem;
-}
-
-.text_search label {
-  margin-right: 1rem;
-}
-
-.parameters {
   flex-direction: column;
+  gap: 2rem;
 }
+.search {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto auto auto 1fr;
+  align-items: start;
+}
+.search .text_search {
+  display: flex;
+  gap: 1rem;
+}
+.search .controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.logs {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+/*# sourceMappingURL=logs.css.map */

@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap')
+
+background_color = rgb(46, 47, 48)
+panel_color = rgb(36, 36, 36)
+highlight_color = rgb(252, 98, 3)
+button_background_color = background_color
+font_color = white
+button_font_color = font_color
+main_font = 'Exo 2', sans-serif
+base_font_size = 1rem
+title_font_size = 3rem
+
+border()
+  border-radius: 1rem
+  border: 1px solid highlight_color
+
+body
+  font-family: main_font
+  color: font_color
+  font-size: base_font_size
+  background-color: background_color
+  margin: 0
+  padding: 0
+
+.panel
+  background-color: panel_color
+
+.fas
+  font-size: 1.5rem
+  flex-grow: 0
+  color: highlight_color
+
+.fa-fw 
+  display: grid
+  place-items: center
+  height: 1.25em
+
+h1
+  text-align: center
+  font-size: title_font_size
+  margin: 0
+
+.button
+  cursor: pointer
+  padding: 1rem
+  background-color: button_background_color
+  color: button_font_color
+  flex-grow: 0
+  border()
