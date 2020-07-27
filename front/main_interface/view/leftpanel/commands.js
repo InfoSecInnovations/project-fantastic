@@ -2,7 +2,7 @@ import {h} from 'snabbdom/h'
 const HostString = require('../../../common/util/hoststring')
 const HasRole = require('fantastic-utils/hasrole')
 
-export default (state, send, command, data) => {
+const enabled_button = (state, send, command, data) => {
   if (data.mode == 'force') return h('div', 'This command must always be enabled')
   if (HasRole(state.user, data.role)) return state.command_status[command] == 'loading' ? 
   h('div.button loading', 'Updating status...') :
