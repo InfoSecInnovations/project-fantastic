@@ -1,5 +1,5 @@
-const Vis = require('vis-network')
 const NodeName = require('../../common/util/nodename')
+import Vis from 'vis-network'
 
 const get_image = os => {
   if (os) {
@@ -17,7 +17,7 @@ const get_size = node => {
   return 15
 }
 
-const graph = (state, send) => {
+export default (state, send) => {
   const nodes = []
   const edges = []
   state.nodes.forEach((v, i, arr) => {
@@ -107,5 +107,3 @@ const graph = (state, send) => {
 
   send({type: 'vis', vis: network})
 }
-
-module.exports = graph

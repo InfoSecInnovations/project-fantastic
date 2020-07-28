@@ -1,7 +1,7 @@
-const UserHistory = require('./userhistory')
+import UserHistory from './userhistory'
 const FetchScripts = require('../../common/effect/fetchscripts')
 
-const init = send => {
+export default send => {
   window.onresize = e => send({type: 'render'})
   ;['actions', 'tests', 'quests', 'commands'].forEach(v => FetchScripts(send, v)) // automatic semicolon insertion doesn't work on this line
   fetch('/user')
@@ -15,5 +15,3 @@ const init = send => {
     if (e.key === 'Shift') send({type: 'key', key: 'shift', value: false})
   }
 }
-
-module.exports = init

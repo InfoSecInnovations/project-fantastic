@@ -1,7 +1,7 @@
 const Common = require('../../common/update')
 import Hovered from '../defaults/hovered'
-const QuestResults = require('./questresults')
-const TestResults = require('./testresults')
+import QuestResults from './questresults'
+import TestResults from './testresults'
 const CompareEvent = require('fantastic-utils/compareevent')
 
 export default (state, action) => {

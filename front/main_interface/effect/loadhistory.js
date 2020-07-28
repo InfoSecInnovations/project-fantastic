@@ -1,4 +1,4 @@
-const loadHistory = send => {
+export default send => {
   fetch('/quest_history')
   .then(res => res.json())
   .then(res => res.forEach(v => {
@@ -9,5 +9,3 @@ const loadHistory = send => {
   .then(res => res.json())
   .then(res => res.forEach(v => send({type: 'test_results', test: v.test, parameters: JSON.parse(v.parameters), date: v.date, results: JSON.parse(v.results), select: false})))
 }
-
-module.exports = loadHistory

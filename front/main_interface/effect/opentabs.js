@@ -1,4 +1,4 @@
-const openTabs = (state, action, send) => {
+export default (state, action, send) => {
   let last_window
   action.nodes.forEach(v => {
     const viewer_tab = window.open('/node_viewer.html', '_blank')
@@ -19,5 +19,3 @@ const openTabs = (state, action, send) => {
     }
   })
 } 
-
-module.exports = openTabs

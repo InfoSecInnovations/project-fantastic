@@ -1,12 +1,12 @@
-const Init = require('./init')
 const Common = require('../../common/effect')
 const FlatUnique = require('fantastic-utils/flatunique')
-const OpenTabs = require('./opentabs')
 const GenerateQuery = require('../../common/effect/generatequery')
-const SearchQuery = require('./searchquery')
-const RefreshNodes = require('./refreshnodes')
-const Nodes = require('./nodes')
-const UserHistory = require('./userhistory')
+import Init from './init'
+import OpenTabs from './opentabs'
+import SearchQuery from './searchquery'
+import RefreshNodes from './refreshnodes'
+import Nodes from './nodes'
+import UserHistory from './userhistory'
 
 export default (state, action, send) => {
   Common(state, action, send)
