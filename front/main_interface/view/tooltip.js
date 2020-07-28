@@ -11,7 +11,9 @@ export default state => {
     const node = state.nodes[node_id]
     const box = state.vis.getBoundingBox(node_id)
     const positions = state.vis.getPositions(node_id)
-    const pos = state.vis.canvasToDOM({x: positions[node_id].x, y: box.top})
+    const rect = state.vis.canvas.frame.canvas.getBoundingClientRect()
+    const relative = state.vis.canvasToDOM({x: positions[node_id].x, y: box.top})
+    const pos = {x: rect.left + relative.x, y: rect.top + relative.y}
     return h('div#tooltip', {style: style(pos)}, [
       h('div', NodeName(node)),
       node.macs && node.macs.length ? h('div', `MAC: ${node.macs[0].mac}`) : undefined,
@@ -21,8 +23,10 @@ export default state => {
   }
   if (state.hovered.edges.length) {
     const {from, to, from_id, to_id} = NodesFromEdge(state, state.hovered.edges[state.hovered.edges.length - 1])
+    const rect = state.vis.canvas.frame.canvas.getBoundingClientRect()
     const positions = state.vis.getPositions([from_id, to_id])
-    const pos = state.vis.canvasToDOM({x: (positions[from_id].x + positions[to_id].x) / 2, y: Math.min(positions[from_id].y, positions[to_id].y)})
+    const relative = state.vis.canvasToDOM({x: (positions[from_id].x + positions[to_id].x) / 2, y: Math.min(positions[from_id].y, positions[to_id].y)})
+    const pos = {x: rect.left + relative.x, y: rect.top + relative.y}
     const connections = from.connections.filter(v => v.to_node === to.node_id)
     return h('div#tooltip', {style: style(pos)}, [
       h('div', `${connections.length} connection${connections.length == 1 ? '' : 's'} from ${NodeName(from)} to ${NodeName(to)}`)

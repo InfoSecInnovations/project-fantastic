@@ -1,1 +1,29 @@
 @require('../base.styl')
+
+#container
+  display: grid
+  grid-template: auto 1fr / @css{min(400px, 50%)} 1fr @css{min(500px, 50%)}
+  height: 100%
+  #top
+    display: flex
+    grid-column: 1 / 4
+    grid-row: 1
+  #graph_container
+    grid-column: 1 / 4
+    grid-row: 2
+    .vis-network
+      outline: none
+  #left_panel
+    grid-row: 2
+    grid-column: 1
+    z-index: 1
+  #selection
+    grid-row: 2
+    grid-column: 3
+    z-index: 1
+    overflow-y: auto
+#tooltip
+  display: flex
+  position: absolute
+  z-index: 100
+  transform: translate(-50%, 0)

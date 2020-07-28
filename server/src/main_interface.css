@@ -45,4 +45,38 @@ input[type=text] {
   border: 2px solid #fc6203;
   padding: 0.5rem;
 }
+#container {
+  display: grid;
+  grid-template: auto 1fr/min(400px, 50%) 1fr min(500px, 50%);
+  height: 100%;
+}
+#container #top {
+  display: flex;
+  grid-column: 1/4;
+  grid-row: 1;
+}
+#container #graph_container {
+  grid-column: 1/4;
+  grid-row: 2;
+}
+#container #graph_container .vis-network {
+  outline: none;
+}
+#container #left_panel {
+  grid-row: 2;
+  grid-column: 1;
+  z-index: 1;
+}
+#container #selection {
+  grid-row: 2;
+  grid-column: 3;
+  z-index: 1;
+  overflow-y: auto;
+}
+#tooltip {
+  display: flex;
+  position: absolute;
+  z-index: 100;
+  transform: translate(-50%, 0);
+}
 /*# sourceMappingURL=main_interface.css.map */

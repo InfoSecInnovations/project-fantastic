@@ -13,7 +13,7 @@ const panel_button = (state, send, panel_state, icon, label) =>
   ])
 
 export default (state, send) => {
-  return h('div#commands', {class: {folded: !state.left_panel_state || state.left_panel_state == 'none'}}, [
+  return h('div#left_panel', {class: {folded: !state.left_panel_state || state.left_panel_state == 'none'}}, [
     state.commands && state.left_panel_state == 'host_data' ? Commands(state, send) : undefined,
     state.quests && state.left_panel_state == 'quests' ? Quests(state, send) : undefined,
     state.tests && state.left_panel_state == 'tests' ? Tests(state, send) : undefined,
