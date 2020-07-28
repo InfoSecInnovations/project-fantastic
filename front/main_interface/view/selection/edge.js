@@ -1,21 +1,21 @@
-const H = require('snabbdom/h').default
+import {h} from 'snabbdom/h'
 const Connections = require('../../../common/view/connections')
 const NodeName = require('../../../common/util/nodename')
-const NodesFromEdge = require('../../util/nodesfromedge')
+import NodesFromEdge from '../../util/nodesfromedge'
 
-const edge = (state, send) => {
+export default (state, send) => {
   const {from, to, from_id, to_id} = NodesFromEdge(state, state.selected.edge)
-  return H('div', [
+  return h('div', [
     Connections(from.connections.filter(v => v.to_node === to.node_id), [
       'Connections from ', 
-      H('a', {
+      h('a', {
         on: {click: [
           [send, {type: 'vis_select', node: from_id}],
           [send, {type: 'select', node: from_id}]
         ]}
       }, NodeName(from)), 
       ' to ', 
-      H('a', {
+      h('a', {
         on: {click: [
           [send, {type: 'vis_select', node: to_id}],
           [send, {type: 'select', node: to_id}]
@@ -24,5 +24,3 @@ const edge = (state, send) => {
     ])
   ])
 }
-
-module.exports = edge

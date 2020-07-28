@@ -1,4 +1,4 @@
-const H = require('snabbdom/h').default
+import {h} from 'snabbdom/h'
 
 const options = [
   'listen',
@@ -20,8 +20,8 @@ const selection_label = connection_state => {
   return `${connection_state[0]} + ${connection_state.length - 1} more`
 }
 
-const connectionState = (state, send) => 
-  H('div#connection_state.selector.checkboxes', {
+export default (state, send) => 
+  h('div#connection_state.selector.checkboxes', {
     on: { focusout: e => {
         if (e.relatedTarget) { // this is a not very elegant way to check if we clicked outside of this element
           let target = e.relatedTarget
@@ -34,18 +34,16 @@ const connectionState = (state, send) =>
       }
     }
   }, [
-    H('label', 'Connection state'),
-    H('select', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},
-      H('option', {attrs: {selected: true}}, selection_label(state.search.connection_state)) // this is a dummy option to show the selection
+    h('label', 'Connection state'),
+    h('select', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},
+      h('option', {attrs: {selected: true}}, selection_label(state.search.connection_state)) // this is a dummy option to show the selection
     ),
-    state.search.connection_foldout ? H('div.states', 
-      options.map(v => H('div.state', [
-        H(`input#select${v}`, {
+    state.search.connection_foldout ? h('div.states', 
+      options.map(v => h('div.state', [
+        h(`input#select${v}`, {
           attrs: {type: 'checkbox', checked: state.search.connection_state.includes(v)},
           on: {change: e => send({type: 'connection_state', state: v, value: e.target.checked})}
         }),
-        H('label', {attrs: {for: `select${v}`}}, v)
+        h('label', {attrs: {for: `select${v}`}}, v)
       ]))) : undefined
   ])
-
-module.exports = connectionState

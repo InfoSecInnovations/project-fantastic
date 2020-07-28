@@ -1,10 +1,10 @@
 const Common = require('../../common/update')
-const Hovered = require('../defaults/hovered')
+import Hovered from '../defaults/hovered'
 const QuestResults = require('./questresults')
 const TestResults = require('./testresults')
 const CompareEvent = require('fantastic-utils/compareevent')
 
-const update = (state, action) => {
+export default (state, action) => {
   if (action.type == 'nodes') state.nodes = action.nodes
   if (action.type == 'graph_container') state.graph_container = action.container
   if (action.type == 'select') {
@@ -71,5 +71,3 @@ const update = (state, action) => {
   state = Common(state, action)
   return state
 }
-
-module.exports = update

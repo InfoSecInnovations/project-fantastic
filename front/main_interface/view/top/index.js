@@ -1,22 +1,22 @@
-const H = require('snabbdom/h').default
-const Search = require('./search')
+import {h} from 'snabbdom/h'
+import Search from './search'
 const HasRole = require('fantastic-utils/hasrole')
 
 const link = (url, target, icon, label) => 
-  H('div.icon_button', {
+  h('div.icon_button', {
     on: {click: e => window.open(url, target)}
   }, [
-    H(`span.fas fa-${icon} fa-fw`),
-    H('div.label', label)
+    h(`span.fas fa-${icon} fa-fw`),
+    h('div.label', label)
   ])
 
-const top = (state, send) => H('div#top', [
-  H('h1', "Fantastic"),
+export default (state, send) => h('div#top', [
+  h('h1', "Fantastic"),
   Search(state, send),
-  state.user ? H('div.buttons', [
-    H('div.user_info', [
-      H('div.username', state.user.username),
-      H('div.item', `Role: ${state.user.role}`)
+  state.user ? h('div.buttons', [
+    h('div.user_info', [
+      h('div.username', state.user.username),
+      h('div.item', `Role: ${state.user.role}`)
     ]),
     HasRole(state.user, 'admin') ? link('/logs.html', '_blank', 'bars', 'Logs') : undefined,
     link('/auth', '_self', 'user-circle', 'Account'),
@@ -24,5 +24,3 @@ const top = (state, send) => H('div#top', [
     link('/help/index.md', '_blank', 'question-circle', 'Help')
   ]) : undefined
 ])
-
-module.exports = top

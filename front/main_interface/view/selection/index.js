@@ -1,27 +1,27 @@
-const H = require('snabbdom/h').default
+import {h} from 'snabbdom/h'
 const Info = require('../../../common/view/info')
 const Actions = require('../../../common/view/actions')
-const Edge = require('./edge')
+import Edge from './edge'
 const NodeName = require('../../../common/util/nodename')
 const Multi = require('./multi')
 const MultiActions = require('./multiactions')
 
 const tabs = (state, send, nodes) => {
-  if (nodes && nodes.length) return H('div.tabs', [
-    H('div.tab', {
+  if (nodes && nodes.length) return h('div.tabs', [
+    h('div.tab', {
       on: {click: [send, {type: 'tab', tab: 'info'}]},
       class: {selected: state.tab === 'info'}
     }, 'Info'),
-    H('div.tab', {
+    h('div.tab', {
       on: {click: [send, {type: 'tab', tab: 'actions'}]},
       class: {selected: state.tab === 'actions'}
     }, 'Actions'),
-    H('div.tabs_title', 
-      H('div.content', [
-        H('div.icon_button small', [
-          H('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})
+    h('div.tabs_title', 
+      h('div.content', [
+        h('div.icon_button small', [
+          h('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})
         ]), 
-        H('div.text', nodes.map(v => NodeName(state.nodes[v])).join(', '))
+        h('div.text', nodes.map(v => NodeName(state.nodes[v])).join(', '))
       ])
     )
   ])
@@ -41,13 +41,11 @@ const get_tab = (state, send, nodes) => {
   return Edge(state, send)
 }
 
-const selection = (state, send) => {
+export default (state, send) => {
   const nodes = state.selected.nodes && state.selected.nodes.length ? state.selected.nodes : (typeof state.selected.node != 'undefined' ? [state.selected.node] : undefined)
   if (!nodes && typeof state.selected.edge !== 'string') return
-  return H('div#selection', [
+  return h('div#selection', [
     tabs(state, send, nodes),
     get_tab(state, send, nodes)
   ])
 }
-
-module.exports = selection

@@ -1,8 +1,8 @@
 import {h} from 'snabbdom/h'
 import LeftPanel from './leftpanel'
-const Selection = require('./selection')
+import Selection from './selection'
 import Tooltip from './tooltip'
-const Top = require('./top')
+import Top from './top'
 
 export default (state, send) => 
   h('body', [

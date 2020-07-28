@@ -8,7 +8,7 @@ const RefreshNodes = require('./refreshnodes')
 const Nodes = require('./nodes')
 const UserHistory = require('./userhistory')
 
-const effect = (state, action, send) => {
+export default (state, action, send) => {
   Common(state, action, send)
   if (action.type == 'init') Init(send)
   if (action.type == 'nodes') Nodes(state, send)
@@ -74,5 +74,3 @@ const effect = (state, action, send) => {
     send({type: 'favorites_ordered'})
   })
 }
-
-module.exports = effect
