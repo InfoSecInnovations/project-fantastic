@@ -31,10 +31,12 @@ ul {
 select {
   font-size: 1rem;
   font-family: 'Exo 2', sans-serif;
+  color: #000;
   background-color: #fff;
   border: 1px solid #000;
   border-radius: 2px;
   padding: 0.1rem;
+  box-sizing: border-box;
 }
 .button,
 input[type=button],
@@ -56,6 +58,17 @@ input[type=text] {
 .icon_button {
   cursor: pointer;
 }
+.highlight_panel {
+  background-color: #fc6203;
+  color: #000;
+}
+.highlight_panel .fas {
+  color: #000;
+}
+.highlight_panel .button {
+  border-radius: 1rem;
+  border: 2px solid #000;
+}
 #container {
   display: grid;
   grid-template: auto 1fr/min(400px, 50%) 1fr min(500px, 50%);
@@ -69,11 +82,6 @@ input[type=text] {
   gap: 2rem;
   padding: 1rem 2rem;
   align-items: center;
-  background-color: #fc6203;
-  color: #000;
-}
-#container #top .fas {
-  color: #000;
 }
 #container #top #search {
   display: flex;
@@ -95,10 +103,12 @@ input[type=text] {
   align-items: center;
   font-size: 1rem;
   font-family: 'Exo 2', sans-serif;
+  color: #000;
   background-color: #fff;
   border: 1px solid #000;
   border-radius: 2px;
   padding: 0.1rem;
+  box-sizing: border-box;
 }
 #container #top #search .checkboxes .dropdown .fas {
   font-size: 0.7rem;

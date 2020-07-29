@@ -10,7 +10,7 @@ const link = (url, target, icon, label) =>
     h('div.label', label)
   ])
 
-export default (state, send) => h('div#top', [
+export default (state, send) => h('div#top.highlight_panel', [
   h('h1', "Fantastic"),
   Search(state, send),
   state.user ? h('div.buttons', [

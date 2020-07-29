@@ -31,10 +31,12 @@ ul {
 select {
   font-size: 1rem;
   font-family: 'Exo 2', sans-serif;
+  color: #000;
   background-color: #fff;
   border: 1px solid #000;
   border-radius: 2px;
   padding: 0.1rem;
+  box-sizing: border-box;
 }
 .button,
 input[type=button],

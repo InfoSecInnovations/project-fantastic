@@ -10,18 +10,26 @@ button_font_color = font_color
 main_font = 'Exo 2', sans-serif
 base_font_size = 1rem
 title_font_size = 3rem
+border_radius = 1rem
+border_thickness = 2px
 
 highlight_border()
-  border-radius: 1rem
-  border: 2px solid highlight_color
+  border-radius: border_radius
+  border: border_thickness solid highlight_color
+
+alt_border()
+  border-radius: border_radius
+  border: border_thickness solid title_color
 
 dropdown()
   font-size: 1rem
   font-family: main_font
+  color: black
   background-color: white
   border: 1px solid black
   border-radius: 2px
   padding: 0.1rem
+  box-sizing: border-box
 
 body
   font-family: main_font

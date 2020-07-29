@@ -35,7 +35,7 @@ export default (state, send) =>
     }
   }, [
     h('label', 'Connection state'),
-    h('span.dropdown', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},
+    h('div.dropdown', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},
       [
         selection_label(state.search.connection_state),
         h('div.fas fa-chevron-down')
