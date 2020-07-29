@@ -1,18 +1,19 @@
-@require('../base.styl')
+@require('../common/base.styl')
 
 #container
   display: grid
   grid-template: auto 1fr / @css{min(400px, 50%)} 1fr @css{min(500px, 50%)}
   height: 100%
-  #top
-    display: flex
-    grid-column: 1 / 4
-    grid-row: 1
+  @require('../main_interface/top.styl')
   #graph_container
     grid-column: 1 / 4
     grid-row: 2
     .vis-network
       outline: none
+  #loading
+    display: grid
+    place-items: center
+    font-size: 5vw
   #left_panel
     grid-row: 2
     grid-column: 1

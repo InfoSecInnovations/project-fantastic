@@ -21,7 +21,7 @@ const selection_label = connection_state => {
 }
 
 export default (state, send) => 
-  h('div#connection_state.selector.checkboxes', {
+  h('div#connection_state.checkboxes selector', {
     on: { focusout: e => {
         if (e.relatedTarget) { // this is a not very elegant way to check if we clicked outside of this element
           let target = e.relatedTarget
@@ -35,8 +35,11 @@ export default (state, send) =>
     }
   }, [
     h('label', 'Connection state'),
-    h('select', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},
-      h('option', {attrs: {selected: true}}, selection_label(state.search.connection_state)) // this is a dummy option to show the selection
+    h('span.dropdown', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},
+      [
+        selection_label(state.search.connection_state),
+        h('div.fas fa-chevron-down')
+      ]
     ),
     state.search.connection_foldout ? h('div.states', 
       options.map(v => h('div.state', [

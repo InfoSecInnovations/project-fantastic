@@ -28,6 +28,14 @@ h1 {
 ul {
   margin: 0;
 }
+select {
+  font-size: 1rem;
+  font-family: 'Exo 2', sans-serif;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 2px;
+  padding: 0.1rem;
+}
 .button,
 input[type=button],
 input[type=submit],
@@ -44,6 +52,9 @@ input[type=text] {
   border-radius: 1rem;
   border: 2px solid #fc6203;
   padding: 0.5rem;
+}
+.icon_button {
+  cursor: pointer;
 }
 body {
   display: flex;

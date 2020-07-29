@@ -28,6 +28,14 @@ h1 {
 ul {
   margin: 0;
 }
+select {
+  font-size: 1rem;
+  font-family: 'Exo 2', sans-serif;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 2px;
+  padding: 0.1rem;
+}
 .button,
 input[type=button],
 input[type=submit],
@@ -45,15 +53,70 @@ input[type=text] {
   border: 2px solid #fc6203;
   padding: 0.5rem;
 }
+.icon_button {
+  cursor: pointer;
+}
 #container {
   display: grid;
   grid-template: auto 1fr/min(400px, 50%) 1fr min(500px, 50%);
   height: 100%;
 }
 #container #top {
-  display: flex;
   grid-column: 1/4;
   grid-row: 1;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2rem;
+  padding: 1rem 2rem;
+  align-items: center;
+  background-color: #fc6203;
+  color: #000;
+}
+#container #top .fas {
+  color: #000;
+}
+#container #top #search {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+#container #top #search .selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 10rem;
+}
+#container #top #search .checkboxes {
+  position: relative;
+}
+#container #top #search .checkboxes .dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  font-family: 'Exo 2', sans-serif;
+  background-color: #fff;
+  border: 1px solid #000;
+  border-radius: 2px;
+  padding: 0.1rem;
+}
+#container #top #search .checkboxes .dropdown .fas {
+  font-size: 0.7rem;
+}
+#container #top #search .checkboxes .states {
+  position: absolute;
+  z-index: 2;
+  top: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+#container #top #search .checkboxes option {
+  display: none;
+}
+#container #top .buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 #container #graph_container {
   grid-column: 1/4;
@@ -61,6 +124,11 @@ input[type=text] {
 }
 #container #graph_container .vis-network {
   outline: none;
+}
+#container #loading {
+  display: grid;
+  place-items: center;
+  font-size: 5vw;
 }
 #container #left_panel {
   grid-row: 2;

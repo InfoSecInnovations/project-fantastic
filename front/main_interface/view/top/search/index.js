@@ -5,7 +5,7 @@ import ConnectionType from './connectiontype'
 import ConnectionState from './connectionstate'
 
 export default (state, send) => {
-  if (!state.nodes) return
+  if (!state.nodes) return h('div')
   return h('div#search', [
     DateSelect(state, send),
     ShowNodes(state, send),

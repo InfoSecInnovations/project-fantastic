@@ -1,0 +1,42 @@
+#top
+  grid-column: 1 / 4
+  grid-row: 1
+  display: grid
+  grid-template-columns: auto 1fr auto
+  gap: 2rem
+  padding: 1rem 2rem
+  align-items: center
+  background-color: highlight_color
+  color: title_color
+  .fas
+    color: title_color
+  #search
+    display: flex
+    align-items: flex-start
+    gap: 1rem
+    .selector
+      display: flex
+      flex-direction: column
+      gap: 0.3rem
+      min-width: 10rem
+    .checkboxes
+      position: relative
+      .dropdown
+        display: flex
+        justify-content: space-between
+        align-items: center
+        dropdown()
+        .fas
+          font-size: 0.7rem
+      .states
+        position: absolute
+        z-index: 2
+        top: 100%
+        width: 100%
+        background-color: white
+      option
+        display: none
+  .buttons
+    display: flex
+    align-items: center
+    gap: 1rem

@@ -5,14 +5,23 @@ panel_color = rgb(36, 36, 36)
 highlight_color = rgb(252, 98, 3)
 button_background_color = background_color
 font_color = white
+title_color = black
 button_font_color = font_color
 main_font = 'Exo 2', sans-serif
 base_font_size = 1rem
 title_font_size = 3rem
 
-border()
+highlight_border()
   border-radius: 1rem
   border: 2px solid highlight_color
+
+dropdown()
+  font-size: 1rem
+  font-family: main_font
+  background-color: white
+  border: 1px solid black
+  border-radius: 2px
+  padding: 0.1rem
 
 body
   font-family: main_font
@@ -43,14 +52,20 @@ h1
 ul
   margin: 0
 
+select
+  dropdown()
+
 .button, input[type=button], input[type=submit], input[type=reset]
   cursor: pointer
   padding: 1rem
   background-color: button_background_color
   color: button_font_color
   flex-grow: 0
-  border()
+  highlight_border()
 
 input[type=text]
-  border()
+  highlight_border()
   padding: 0.5rem
+
+.icon_button
+  cursor: pointer
