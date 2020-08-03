@@ -15,16 +15,14 @@ const enabled_button = (state, send, command, data) => {
   return h('div', `${data.mode == 'enabled' ? 'Enabled' : 'Disabled'} (requires ${data.role} role to change)`)
 }
 
-export default (state, send) => h('div.scroll_container.panel', [
-  h('div.item', [
-    h('div.title', 'Host Data Commands')
-  ]),
+export default (state, send) => h('div.scroll_container panel', [
+  h('h2', 'Host Data Commands'),
   h('div.scroll', Object.entries(state.commands).map(v => h('div.scroll_item', [
     h('div.item', [
-      h('div.subtitle', v[1].name),
+      h('h3', v[1].name),
       enabled_button(state, send, v[0], v[1]),
     ]),
-    h('pre.command', v[1].command),
+    h('pre', v[1].command),
     v[1].description ? h('div.item', v[1].description) : undefined,
     h('div.targets', [h('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])
   ])))

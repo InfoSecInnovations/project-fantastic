@@ -20,7 +20,7 @@ const actions = (state, send, node) => {
               }, 
               loading ? 'Running...' : 'Run')
           ]),
-          H('pre.command', v[1].commands.run),
+          H('pre', v[1].commands.run),
           v[1].description ? H('div.item', v[1].description) : undefined,
           H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),
           state.action_results[node.hostname] && state.action_results[node.hostname][v[0]] && state.action_results[node.hostname][v[0]].result ? H('div.results', [

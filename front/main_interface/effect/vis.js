@@ -1,6 +1,12 @@
 const NodeName = require('../../common/util/nodename')
 import Vis from 'vis-network'
 
+const node_color = 'rgb(252, 98, 3)'
+const border_color = 'rgb(255, 143, 74)'
+const font_color = 'white'
+const highlight_color = 'steelblue'
+const highlight_border_color = 'lightsteelblue'
+
 const get_image = os => {
   if (os) {
     if (os.toLowerCase().includes('linux')) return 'brands/linux.svg'
@@ -48,17 +54,17 @@ export default (state, send) => {
       shapeProperties: {useBorderWithImage: true},
       size: 15,
       font: {
-        color: 'white', 
+        color: font_color, 
         size: 16
       },
       borderWidth: 2,
       borderWidthSelected: 1,
       color: {
-        border: 'coral',
-        background: 'orangered',
+        border: border_color,
+        background: node_color,
         highlight: {
-          border: 'lightsteelblue',
-          background: 'steelblue'
+          border: highlight_border_color,
+          background: highlight_color
         }
       },
       imagePadding: 3
@@ -66,7 +72,7 @@ export default (state, send) => {
     edges: {
       arrows: 'to',
       font: {
-        color: 'white',
+        color: font_color,
         strokeWidth: 0
       }
     },

@@ -3,12 +3,12 @@ body {
   font-family: 'Exo 2', sans-serif;
   color: #fff;
   font-size: 1rem;
-  background-color: #2e2f30;
+  background-color: #242424;
   margin: 0;
   padding: 0;
 }
 .panel {
-  background-color: #242424;
+  background-color: #2e2f30;
 }
 .fas {
   font-size: 1.5rem;
@@ -20,10 +20,21 @@ body {
   place-items: center;
   height: 1.25em;
 }
-h1 {
+h1,
+h2,
+h3 {
   text-align: center;
-  font-size: 3rem;
   margin: 0;
+}
+h1 {
+  font-size: 3rem;
+  color: #fc6203;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.2rem;
 }
 ul {
   margin: 0;
@@ -32,11 +43,14 @@ select {
   font-size: 1rem;
   font-family: 'Exo 2', sans-serif;
   color: #000;
-  background-color: #fff;
+  background-color: #ff8f4a;
   border: 1px solid #000;
   border-radius: 2px;
   padding: 0.1rem;
   box-sizing: border-box;
+}
+select .fas {
+  color: #000;
 }
 .button,
 input[type=button],
@@ -44,7 +58,7 @@ input[type=submit],
 input[type=reset] {
   cursor: pointer;
   padding: 1rem;
-  background-color: #2e2f30;
+  background-color: #46484a;
   color: #fff;
   flex-grow: 0;
   border-radius: 1rem;
@@ -57,6 +71,29 @@ input[type=text] {
 }
 .icon_button {
   cursor: pointer;
+  padding: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  width: 3rem;
+}
+.icon_button .label {
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+pre {
+  background-color: #ff8f4a;
+  color: #000;
+  padding: 0.5rem;
+}
+.item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 }
 body {
   display: flex;

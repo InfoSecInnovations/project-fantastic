@@ -1,15 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap')
 
-background_color = rgb(46, 47, 48)
-panel_color = rgb(36, 36, 36)
+background_color = rgb(36, 36, 36)
+panel_color = rgb(46, 47, 48)
+inner_panel_color = rgb(36, 36, 36)
 highlight_color = rgb(252, 98, 3)
-button_background_color = background_color
+button_background_color = rgb(70, 72, 74)
 font_color = white
-title_color = black
-button_font_color = font_color
+button_font_color = white
+alt_background_color = rgb(255, 143, 74)
+alt_font_color = black
+alt_border_color = black
+
 main_font = 'Exo 2', sans-serif
+
 base_font_size = 1rem
-title_font_size = 3rem
+h1_font_size = 3rem
+h2_font_size = 2rem
+h3_font_size = 1.2rem
+small_font_size = 0.7rem
+
+icon_size = 1.5rem
 border_radius = 1rem
 border_thickness = 2px
 
@@ -17,19 +27,17 @@ highlight_border()
   border-radius: border_radius
   border: border_thickness solid highlight_color
 
-alt_border()
-  border-radius: border_radius
-  border: border_thickness solid title_color
-
 dropdown()
   font-size: 1rem
   font-family: main_font
-  color: black
-  background-color: white
-  border: 1px solid black
+  color: alt_font_color
+  background-color: alt_background_color
+  border: 1px solid alt_border_color
   border-radius: 2px
   padding: 0.1rem
   box-sizing: border-box
+  .fas
+    color: alt_font_color
 
 body
   font-family: main_font
@@ -43,7 +51,7 @@ body
   background-color: panel_color
 
 .fas
-  font-size: 1.5rem
+  font-size: icon_size
   flex-grow: 0
   color: highlight_color
 
@@ -53,9 +61,20 @@ body
   height: 1.25em
 
 h1
+h2
+h3
   text-align: center
-  font-size: title_font_size
   margin: 0
+
+h1
+  font-size: h1_font_size
+  color: highlight_color
+
+h2
+  font-size: h2_font_size
+
+h3
+  font-size: h3_font_size
 
 ul
   margin: 0
@@ -77,3 +96,26 @@ input[type=text]
 
 .icon_button
   cursor: pointer
+  padding: 0.3rem
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: stretch
+  width: 3rem
+  .label
+    font-size: small_font_size
+    display: flex
+    align-items: center
+    flex-grow: 1
+
+pre
+  background-color: alt_background_color
+  color: alt_font_color
+  padding: 0.5rem
+
+.item {
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  justify-content: space-between
+}
