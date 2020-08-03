@@ -179,6 +179,7 @@ pre::-webkit-scrollbar-thumb {
   padding: 1rem 2rem;
   gap: 1rem;
   flex-wrap: wrap;
+  min-height: 0;
 }
 #container #top #search {
   display: flex;
@@ -235,6 +236,7 @@ pre::-webkit-scrollbar-thumb {
 #container #graph_container {
   grid-column: 1/4;
   grid-row: 2;
+  min-height: 0;
 }
 #container #graph_container .vis-network {
   outline: none;
@@ -249,11 +251,11 @@ pre::-webkit-scrollbar-thumb {
   grid-column: 1;
   z-index: 1;
   min-height: 0;
-  display: grid;
-  grid-template-rows: 1fr auto;
+  display: flex;
+  flex-direction: column;
 }
 #container #left_panel #left_panel_controls {
-  grid-row: 2;
+  margin-top: auto;
   display: flex;
   justify-content: space-evenly;
   padding: 1rem 0;

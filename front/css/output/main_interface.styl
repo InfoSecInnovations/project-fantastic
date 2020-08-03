@@ -8,6 +8,7 @@
   #graph_container
     grid-column: 1 / 4
     grid-row: 2
+    min-height: 0
     .vis-network
       outline: none
   #loading
@@ -19,10 +20,10 @@
     grid-column: 1
     z-index: 1
     min-height: 0
-    display: grid
-    grid-template-rows: 1fr auto
+    display: flex
+    flex-direction: column
     #left_panel_controls
-      grid-row: 2
+      margin-top: auto
       display: flex
       justify-content: space-evenly
       padding: 1rem 0
