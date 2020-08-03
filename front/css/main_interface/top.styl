@@ -1,16 +1,17 @@
 #top
   grid-column: 1 / 4
   grid-row: 1
-  display: grid
-  grid-template-columns: @css{minmax(min-content, 400px)} 1fr auto
-  gap: 2rem
-  padding: 1rem 2rem
+  display: flex
   align-items: center
-  justify-items: start
+  justify-content: center
+  padding: 1rem 2rem
+  gap: 1rem
+  flex-wrap: wrap
   #search
     display: flex
     flex-wrap: wrap
     align-items: flex-start
+    margin: 0 auto
     gap: 1rem
     .selector
       display: flex
