@@ -2,12 +2,14 @@
   grid-column: 1 / 4
   grid-row: 1
   display: grid
-  grid-template-columns: auto 1fr auto
+  grid-template-columns: @css{minmax(min-content, 400px)} 1fr auto
   gap: 2rem
   padding: 1rem 2rem
   align-items: center
+  justify-items: start
   #search
     display: flex
+    flex-wrap: wrap
     align-items: flex-start
     gap: 1rem
     .selector
@@ -35,5 +37,6 @@
         display: none
   .buttons
     display: flex
+    flex-wrap: wrap
     align-items: center
     gap: 1rem

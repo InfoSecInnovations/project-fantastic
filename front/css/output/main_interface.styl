@@ -26,6 +26,10 @@
       display: flex
       gap: 1rem
       padding: 1rem
+    .command_title
+      min-height: 3rem
+      h3
+        text-align: left
   #selection
     grid-row: 2
     grid-column: 3
@@ -58,7 +62,15 @@
     padding: 1rem
     display: flex
     flex-direction: column
-    gap: 2rem
+    gap: 4rem
+    scrollbar-width: thin
+    scrollbar-color: highlight_color alt_background_color
+    &::-webkit-scrollbar
+      width: 0.5rem
+    &::-webkit-scrollbar-track
+      background: alt_background_color
+    &::-webkit-scrollbar-thumb
+      background-color: highlight_color
     pre
       overflow-x: auto
 

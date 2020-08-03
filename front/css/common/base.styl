@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2&display=swap')
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap')
 
 background_color = rgb(36, 36, 36)
 panel_color = rgb(46, 47, 48)
@@ -65,6 +65,7 @@ h2
 h3
   text-align: center
   margin: 0
+  font-weight: 600
 
 h1
   font-size: h1_font_size
@@ -81,6 +82,16 @@ ul
 
 select
   dropdown()
+
+.item
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  justify-content: space-between
+  gap: 1rem
+  &>*
+    flex-grow: 1
+    flex-basis: 0
 
 .button, input[type=button], input[type=submit], input[type=reset]
   cursor: pointer
@@ -112,10 +123,13 @@ pre
   background-color: alt_background_color
   color: alt_font_color
   padding: 0.5rem
+  scrollbar-width: thin
+  scrollbar-color: highlight_color alt_background_color
+  &::-webkit-scrollbar
+    height: 0.5rem
+  &::-webkit-scrollbar-track
+    background: alt_background_color
+  &::-webkit-scrollbar-thumb
+    background-color: highlight_color
 
-.item {
-  display: flex
-  flex-wrap: wrap
-  align-items: center
-  justify-content: space-between
-}
+
