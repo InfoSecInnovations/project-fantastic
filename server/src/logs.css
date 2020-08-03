@@ -10,49 +10,6 @@ body {
 .panel {
   background-color: #2e2f30;
 }
-.fas {
-  font-size: 1.5rem;
-  flex-grow: 0;
-  color: #fc6203;
-}
-.fa-fw {
-  display: grid;
-  place-items: center;
-  height: 1.25em;
-}
-h1,
-h2,
-h3 {
-  text-align: center;
-  margin: 0;
-  font-weight: 600;
-}
-h1 {
-  font-size: 3rem;
-  color: #fc6203;
-}
-h2 {
-  font-size: 2rem;
-}
-h3 {
-  font-size: 1.2rem;
-}
-ul {
-  margin: 0;
-}
-select {
-  font-size: 1rem;
-  font-family: 'Exo 2', sans-serif;
-  color: #000;
-  background-color: #ff8f4a;
-  border: 1px solid #000;
-  border-radius: 2px;
-  padding: 0.1rem;
-  box-sizing: border-box;
-}
-select .fas {
-  color: #000;
-}
 .item {
   display: flex;
   flex-wrap: wrap;
@@ -64,6 +21,53 @@ select .fas {
   flex-grow: 1;
   flex-basis: 0;
 }
+.fas {
+  font-size: 1.5rem;
+  flex-grow: 0;
+  color: #f55100;
+}
+.fa-fw {
+  display: grid;
+  place-items: center;
+  height: 1.25em;
+}
+h1,
+h2,
+h3,
+h4 {
+  text-align: left;
+  margin: 0;
+  font-weight: 600;
+}
+h1 {
+  font-size: 3rem;
+  color: #f55100;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.2rem;
+}
+h4 {
+  font-size: 1rem;
+}
+ul {
+  margin: 0;
+}
+select {
+  font-size: 1rem;
+  font-family: 'Exo 2', sans-serif;
+  color: #000;
+  background-color: #ffa666;
+  border: 1px solid #000;
+  border-radius: 2px;
+  padding: 0.1rem;
+  box-sizing: border-box;
+}
+select .fas {
+  color: #000;
+}
 .button,
 input[type=button],
 input[type=submit],
@@ -74,16 +78,17 @@ input[type=reset] {
   color: #fff;
   flex-grow: 0;
   border-radius: 1rem;
-  border: 2px solid #fc6203;
+  border: 2px solid #f55100;
 }
 input[type=text] {
   border-radius: 1rem;
-  border: 2px solid #fc6203;
+  border: 2px solid #000;
+  background-color: #ffa666;
   padding: 0.5rem;
 }
 .icon_button {
   cursor: pointer;
-  padding: 0.3rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,20 +102,68 @@ input[type=text] {
   flex-grow: 1;
 }
 pre {
-  background-color: #ff8f4a;
+  background-color: #ffa666;
   color: #000;
+  margin: 0;
   padding: 0.5rem;
   scrollbar-width: thin;
-  scrollbar-color: #fc6203 #ff8f4a;
+  scrollbar-color: #f55100 #ffa666;
 }
 pre::-webkit-scrollbar {
   height: 0.5rem;
 }
 pre::-webkit-scrollbar-track {
-  background: #ff8f4a;
+  background: #ffa666;
 }
 pre::-webkit-scrollbar-thumb {
-  background-color: #fc6203;
+  background-color: #f55100;
+}
+.section {
+  padding: 1rem;
+}
+.scroll_container {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+.scroll_container .scroll {
+  background-color: #242424;
+  overflow-y: auto;
+  min-height: 6rem;
+  max-height: max-content;
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: #f55100 #ffa666;
+}
+.scroll_container .scroll::-webkit-scrollbar {
+  width: 0.5rem;
+}
+.scroll_container .scroll::-webkit-scrollbar-track {
+  background: #ffa666;
+}
+.scroll_container .scroll::-webkit-scrollbar-thumb {
+  background-color: #f55100;
+}
+.scroll_container .scroll pre {
+  overflow-x: auto;
+}
+.scroll_container .scroll.spaced {
+  gap: 3.5rem;
+}
+.scroll_container .scroll .scroll_item {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.targets {
+  font-size: 0.7rem;
 }
 body {
   display: flex;

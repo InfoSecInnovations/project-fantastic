@@ -13,27 +13,29 @@ export default (state, send, data, parameters, result_data, result_date, result_
   if (results) icon = pass ? 'check-circle' : 'times-circle'
   return h('div.scroll_item', [
     h('div.item', [
-      h('div.subtitle', data.name),
+      h('h3', data.name),
       h(`span.fas fa-${icon} fa-fw`, {class: {success: results && pass, failure: results && !pass, pending: !results}}),
     ]),
     data.description ? h('div.item', FormatString(data.description, parameters.get())) : undefined,
-    h('div.subsubtitle', 'Uses Actions:'),
-    h('ul', data.actions.map(v => h('li', state.actions[v].name))),
+    h('div', [
+      'Uses Actions:',
+      h('ul', data.actions.map(v => h('li', state.actions[v].name)))
+    ]),
     h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
     ...(loading ?
-    [h('div.play waiting', [
+    [h('div.play button waiting', [
       h('div.item', 'Gathering results...')
     ])] :
     [
       parameters.edit && parameters.edit(),
-      h('div.play', valid_parameters ? {on: {click: [send, play_action]}} : {class: {waiting: true}}, [
-        h('div.item', 'Start'),
-        h('span.fas fa-play fa-fw play_button')
+      h('div.play button', valid_parameters ? {on: {click: [send, play_action]}} : {class: {waiting: true}}, [
+        'Start',
+        h('span.fas fa-play')
       ])
     ]),
     ...(results ?
     [
-      h('div.subsubtitle', `Results from ${TimeAgo(result_date)}`),
+      h('h4', `Results from ${TimeAgo(result_date)}`),
       parameters.result && parameters.result(),
       h('div.item', `${results.length} systems scanned`),
       pass ?

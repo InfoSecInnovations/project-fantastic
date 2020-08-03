@@ -1,8 +1,8 @@
 const NodeName = require('../../common/util/nodename')
 import Vis from 'vis-network'
 
-const node_color = 'rgb(252, 98, 3)'
-const border_color = 'rgb(255, 143, 74)'
+const node_color = 'rgb(245, 81, 0)'
+const border_color = 'rgb(255, 166, 102)'
 const font_color = 'white'
 const highlight_color = 'steelblue'
 const highlight_border_color = 'lightsteelblue'

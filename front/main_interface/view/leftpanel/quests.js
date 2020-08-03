@@ -10,10 +10,8 @@ const success_texts = [
 ]
 
 export default (state, send) => h('div.scroll_container.panel', [
-  h('div.item', [
-    h('div.title', 'Quests')
-  ]),
-  h('div.scroll', Object.entries(state.quests).map(v => {
+  h('h2.panel_title', 'Quests'),
+  h('div.scroll spaced', Object.entries(state.quests).map(v => {
     const quest = v[0]
     const date = state.quest_results.date[quest]
     return TestEntry(

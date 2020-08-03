@@ -62,7 +62,7 @@ const history_item_controls = (state, send, item) => {
 const favorites = (state, send) => {
   if (!state.history.favorites.length) return []
   return [ 
-    h('div.title', 'Favorites'),
+    h('h2.panel_title', 'Favorites'),
     h('div.scroll', state.history.ordering ?
       h('div.scroll_item subtitle waiting', 'Please wait...') :
       state.history.favorites.map((v, i) => h('div.scroll_item history_item', {
@@ -91,10 +91,10 @@ const favorites = (state, send) => {
 
 const history = (state, send) => {
   if (!state.history.results.length) return [
-    h('div.title', 'Run tests, complete quests or toggle host data commands to see something here!')
+    h('h2.panel_title', 'Run tests, complete quests or toggle host data commands to see something here!')
   ]
   return [
-    h('div.title', 'History'),
+    h('h2.panel_title', 'History'),
     h('div.scroll', state.history.results.map(v => h('div.scroll_item history_item', [
       h('div.history_title', [
         history_item_controls(state, send, v),

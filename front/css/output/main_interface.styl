@@ -24,55 +24,55 @@
     #left_panel_controls
       grid-row: 2
       display: flex
-      gap: 1rem
-      padding: 1rem
+      justify-content: space-evenly
+      padding: 1rem 0
+      background-color: panel_color
     .command_title
       min-height: 3rem
       h3
         text-align: left
+    .history_title
+      display: flex
+      .history_controls
+        display: flex
+        .favorited
+          color: favorite_color
+    .play
+      align-self: flex-start
+      display: flex
+      gap: 1rem
+      align-items: center
   #selection
     grid-row: 2
     grid-column: 3
     z-index: 1
-    overflow-y: auto
+    min-height: 0
+    display: flex
+    flex-direction: column
+    .tabs
+      display: flex
+      .selected
+        background-color: button_background_color
+      .tabs_title
+        display: flex
 #tooltip
   display: flex
   flex-direction: column
   background-color: button_background_color
-  border-radius: border_radius
-  border: border_thickness solid alt_border_color
+  alt_border()
   padding: 1rem
   position: absolute
   z-index: 100
   transform: translate(-50%, 0)
 
-.scroll_container
-  min-height: 0
-  min-width: 0
-  display: flex
-  flex-direction: column
-  gap: 1rem
-  padding: 1rem
-  .scroll
-    background-color: inner_panel_color
-    overflow-y: auto
-    min-height: 6rem
-    max-height: max-content
-    flex: 1
-    padding: 1rem
-    display: flex
-    flex-direction: column
-    gap: 4rem
-    scrollbar-width: thin
-    scrollbar-color: highlight_color alt_background_color
-    &::-webkit-scrollbar
-      width: 0.5rem
-    &::-webkit-scrollbar-track
-      background: alt_background_color
-    &::-webkit-scrollbar-thumb
-      background-color: highlight_color
-    pre
-      overflow-x: auto
+.panel_title
+  padding: 0 1rem
 
-.targets
-  font-size: small_font_size
+.success
+  color: success_color
+
+.failure
+  color: failure_color
+
+.pending
+  color: pending_color

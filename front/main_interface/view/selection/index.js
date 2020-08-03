@@ -16,14 +16,12 @@ const tabs = (state, send, nodes) => {
       on: {click: [send, {type: 'tab', tab: 'actions'}]},
       class: {selected: state.tab === 'actions'}
     }, 'Actions'),
-    h('div.tabs_title', 
-      h('div.content', [
-        h('div.icon_button small', [
-          h('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})
-        ]), 
-        h('div.text', nodes.map(v => NodeName(state.nodes[v])).join(', '))
-      ])
-    )
+    h('div.tabs_title', [
+      h('div.icon_button small', [
+        h('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})
+      ]), 
+      h('div.text', nodes.map(v => NodeName(state.nodes[v])).join(', '))
+    ])
   ])
 }
 
@@ -44,8 +42,9 @@ const get_tab = (state, send, nodes) => {
 export default (state, send) => {
   const nodes = state.selected.nodes && state.selected.nodes.length ? state.selected.nodes : (typeof state.selected.node != 'undefined' ? [state.selected.node] : undefined)
   if (!nodes && typeof state.selected.edge !== 'string') return
-  return h('div#selection', [
+  const tab = get_tab(state, send, nodes)
+  return h('div#selection.panel', [
     tabs(state, send, nodes),
-    get_tab(state, send, nodes)
+    ...(Array.isArray(tab) ? tab : [tab])
   ])
 }

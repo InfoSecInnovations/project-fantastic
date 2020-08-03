@@ -3,13 +3,17 @@
 background_color = rgb(36, 36, 36)
 panel_color = rgb(46, 47, 48)
 inner_panel_color = rgb(36, 36, 36)
-highlight_color = rgb(252, 98, 3)
+highlight_color = rgb(245, 81, 0)
 button_background_color = rgb(70, 72, 74)
 font_color = white
 button_font_color = white
-alt_background_color = rgb(255, 143, 74)
+alt_background_color = rgb(255, 166, 102)
 alt_font_color = black
 alt_border_color = black
+success_color = rgb(56, 209, 64)
+failure_color = rgb(255, 50, 36)
+pending_color = rgb(255, 225, 89)
+favorite_color = pending_color
 
 main_font = 'Exo 2', sans-serif
 
@@ -17,6 +21,7 @@ base_font_size = 1rem
 h1_font_size = 3rem
 h2_font_size = 2rem
 h3_font_size = 1.2rem
+h4_font_size = 1rem
 small_font_size = 0.7rem
 
 icon_size = 1.5rem
@@ -26,6 +31,10 @@ border_thickness = 2px
 highlight_border()
   border-radius: border_radius
   border: border_thickness solid highlight_color
+
+alt_border()
+  border-radius: border_radius
+  border: border_thickness solid alt_border_color
 
 dropdown()
   font-size: 1rem
@@ -50,6 +59,16 @@ body
 .panel
   background-color: panel_color
 
+.item
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  justify-content: space-between
+  gap: 1rem
+  &>*
+    flex-grow: 1
+    flex-basis: 0
+
 .fas
   font-size: icon_size
   flex-grow: 0
@@ -63,7 +82,8 @@ body
 h1
 h2
 h3
-  text-align: center
+h4
+  text-align: left
   margin: 0
   font-weight: 600
 
@@ -77,21 +97,14 @@ h2
 h3
   font-size: h3_font_size
 
+h4
+  font-size: h4_font_size
+
 ul
   margin: 0
 
 select
   dropdown()
-
-.item
-  display: flex
-  flex-wrap: wrap
-  align-items: center
-  justify-content: space-between
-  gap: 1rem
-  &>*
-    flex-grow: 1
-    flex-basis: 0
 
 .button, input[type=button], input[type=submit], input[type=reset]
   cursor: pointer
@@ -102,12 +115,13 @@ select
   highlight_border()
 
 input[type=text]
-  highlight_border()
+  alt_border()
+  background-color: alt_background_color
   padding: 0.5rem
 
 .icon_button
   cursor: pointer
-  padding: 0.3rem
+  padding: 0.5rem
   display: flex
   flex-direction: column
   align-items: center
@@ -122,6 +136,7 @@ input[type=text]
 pre
   background-color: alt_background_color
   color: alt_font_color
+  margin: 0
   padding: 0.5rem
   scrollbar-width: thin
   scrollbar-color: highlight_color alt_background_color
@@ -132,4 +147,43 @@ pre
   &::-webkit-scrollbar-thumb
     background-color: highlight_color
 
+.section
+  padding: 1rem
+
+.scroll_container
+  min-height: 0
+  min-width: 0
+  display: flex
+  flex-direction: column
+  gap: 1rem
+  padding: 1rem
+  .scroll
+    background-color: inner_panel_color
+    overflow-y: auto
+    min-height: 6rem
+    max-height: max-content
+    flex: 1
+    padding: 1rem
+    display: flex
+    flex-direction: column
+    gap: 1rem
+    scrollbar-width: thin
+    scrollbar-color: highlight_color alt_background_color
+    &::-webkit-scrollbar
+      width: 0.5rem
+    &::-webkit-scrollbar-track
+      background: alt_background_color
+    &::-webkit-scrollbar-thumb
+      background-color: highlight_color
+    pre
+      overflow-x: auto
+    &.spaced
+      gap: 3.5rem
+    .scroll_item
+      display: flex
+      flex-direction: column
+      gap: 1rem
+
+.targets
+  font-size: small_font_size
 
