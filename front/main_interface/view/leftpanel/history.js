@@ -66,7 +66,7 @@ const favorites = (state, send) => {
     h('h2.panel_title', 'Favorites'),
     h('div.scroll', state.history.ordering ?
       h('h3.scroll_item waiting', 'Please wait...') :
-      state.history.favorites.map((v, i) => h('div.scroll_item history_item', {
+      state.history.favorites.map((v, i) => h('div.scroll_item', {
         attrs: {draggable: 'true'}, // draggable won't work unless it's a string with the value "true"
         on: {
           dragstart: e => e.dataTransfer.setData('text/plain', i),
@@ -92,11 +92,11 @@ const favorites = (state, send) => {
 
 const history = (state, send) => {
   if (!state.history.results.length) return [
-    h('h2.panel_title', 'Run tests, complete quests or toggle host data commands to see something here!')
+    h('h3.panel_title', 'Run tests, complete quests or toggle host data commands to see something here!')
   ]
   return [
     h('h2.panel_title', 'History'),
-    h('div.scroll', state.history.results.map(v => h('div.scroll_item history_item', [
+    h('div.scroll', state.history.results.map(v => h('div.scroll_item', [
       h('div.history_title', [
         history_item_controls(state, send, v),
         h('h4', `${headers[v.event_type]}: ${log_name(state, v)}`)

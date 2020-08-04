@@ -74,7 +74,7 @@ input[type=submit],
 input[type=reset] {
   cursor: pointer;
   padding: 1rem;
-  background-color: #46484a;
+  background-color: #3c3d3d;
   color: #fff;
   flex-grow: 0;
   border-radius: 1rem;
@@ -110,6 +110,7 @@ pre {
   scrollbar-color: #f55100 #ffa666;
 }
 pre::-webkit-scrollbar {
+  width: 0.5rem;
   height: 0.5rem;
 }
 pre::-webkit-scrollbar-track {
@@ -119,7 +120,22 @@ pre::-webkit-scrollbar-thumb {
   background-color: #f55100;
 }
 .section {
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #f55100 #ffa666;
+}
+.section::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.section::-webkit-scrollbar-track {
+  background: #ffa666;
+}
+.section::-webkit-scrollbar-thumb {
+  background-color: #f55100;
 }
 .scroll_container {
   min-height: 0;
@@ -143,6 +159,7 @@ pre::-webkit-scrollbar-thumb {
 }
 .scroll_container .scroll::-webkit-scrollbar {
   width: 0.5rem;
+  height: 0.5rem;
 }
 .scroll_container .scroll::-webkit-scrollbar-track {
   background: #ffa666;
@@ -159,6 +176,8 @@ pre::-webkit-scrollbar-thumb {
 .scroll_container .scroll .scroll_item {
   display: flex;
   flex-direction: column;
+}
+.scroll_container .scroll .scroll_item.spaced {
   gap: 0.7rem;
 }
 .targets {

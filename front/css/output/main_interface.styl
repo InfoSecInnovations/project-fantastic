@@ -15,54 +15,9 @@
     display: grid
     place-items: center
     font-size: 5vw
-  #left_panel
-    grid-row: 2
-    grid-column: 1
-    z-index: 1
-    min-height: 0
-    display: flex
-    flex-direction: column
-    #left_panel_controls
-      margin-top: auto
-      display: flex
-      justify-content: space-evenly
-      padding: 1rem 0
-      background-color: panel_color
-    .command_title
-      min-height: 3rem
-      h3
-        text-align: left
-    .history_item
-      gap: 0
-      .history_title
-        display: flex
-        align-items: center
-        gap: 0.5rem
-        .history_controls
-          display: flex
-          .favorited
-            color: favorite_color
-          .history_control
-            font-size: base_font_size
-            cursor: pointer
-    .play
-      align-self: flex-start
-      display: flex
-      gap: 1rem
-      align-items: center
-  #selection
-    grid-row: 2
-    grid-column: 3
-    z-index: 1
-    min-height: 0
-    display: flex
-    flex-direction: column
-    .tabs
-      display: flex
-      .selected
-        background-color: button_background_color
-      .tabs_title
-        display: flex
+  @require('../main_interface/left_panel.styl')
+  @require('../main_interface/selection.styl')
+
 #tooltip
   display: flex
   flex-direction: column

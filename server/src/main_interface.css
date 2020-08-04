@@ -74,7 +74,7 @@ input[type=submit],
 input[type=reset] {
   cursor: pointer;
   padding: 1rem;
-  background-color: #46484a;
+  background-color: #3c3d3d;
   color: #fff;
   flex-grow: 0;
   border-radius: 1rem;
@@ -110,6 +110,7 @@ pre {
   scrollbar-color: #f55100 #ffa666;
 }
 pre::-webkit-scrollbar {
+  width: 0.5rem;
   height: 0.5rem;
 }
 pre::-webkit-scrollbar-track {
@@ -119,7 +120,22 @@ pre::-webkit-scrollbar-thumb {
   background-color: #f55100;
 }
 .section {
-  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #f55100 #ffa666;
+}
+.section::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.section::-webkit-scrollbar-track {
+  background: #ffa666;
+}
+.section::-webkit-scrollbar-thumb {
+  background-color: #f55100;
 }
 .scroll_container {
   min-height: 0;
@@ -143,6 +159,7 @@ pre::-webkit-scrollbar-thumb {
 }
 .scroll_container .scroll::-webkit-scrollbar {
   width: 0.5rem;
+  height: 0.5rem;
 }
 .scroll_container .scroll::-webkit-scrollbar-track {
   background: #ffa666;
@@ -159,6 +176,8 @@ pre::-webkit-scrollbar-thumb {
 .scroll_container .scroll .scroll_item {
   display: flex;
   flex-direction: column;
+}
+.scroll_container .scroll .scroll_item.spaced {
   gap: 0.7rem;
 }
 .targets {
@@ -266,21 +285,18 @@ pre::-webkit-scrollbar-thumb {
 #container #left_panel .command_title h3 {
   text-align: left;
 }
-#container #left_panel .history_item {
-  gap: 0;
-}
-#container #left_panel .history_item .history_title {
+#container #left_panel .history_title {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
-#container #left_panel .history_item .history_title .history_controls {
+#container #left_panel .history_title .history_controls {
   display: flex;
 }
-#container #left_panel .history_item .history_title .history_controls .favorited {
+#container #left_panel .history_title .history_controls .favorited {
   color: #ffe159;
 }
-#container #left_panel .history_item .history_title .history_controls .history_control {
+#container #left_panel .history_title .history_controls .history_control {
   font-size: 1rem;
   cursor: pointer;
 }
@@ -298,19 +314,39 @@ pre::-webkit-scrollbar-thumb {
   display: flex;
   flex-direction: column;
 }
-#container #selection .tabs {
+#container #selection .tab_bar {
+  background-color: #3c3d3d;
   display: flex;
 }
-#container #selection .tabs .selected {
-  background-color: #46484a;
-}
-#container #selection .tabs .tabs_title {
+#container #selection .tab_bar .tabs {
   display: flex;
+  margin: 1rem 1rem 0 1rem;
+}
+#container #selection .tab_bar .tabs .tab {
+  padding: 1rem;
+  cursor: pointer;
+  background-color: #242424;
+  font-size: 1.2rem;
+}
+#container #selection .tab_bar .tabs .selected {
+  background-color: #2e2f30;
+}
+#container #selection .tab_bar .tabs_title {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  font-weight: 600;
+  flex: 1;
+}
+#container #selection .tab_bar .tabs_title .text {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 #tooltip {
   display: flex;
   flex-direction: column;
-  background-color: #46484a;
+  background-color: #3c3d3d;
   border-radius: 1rem;
   border: 2px solid #000;
   padding: 1rem;

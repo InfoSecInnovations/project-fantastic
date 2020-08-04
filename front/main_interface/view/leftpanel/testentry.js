@@ -11,7 +11,7 @@ export default (state, send, data, parameters, result_data, result_date, result_
   const valid_parameters = Object.values(parameters.get()).every(v => (typeof v === 'number' && !isNaN(v) && isFinite(v)) || typeof v === 'boolean' || v)
   let icon = 'exclamation-circle'
   if (results) icon = pass ? 'check-circle' : 'times-circle'
-  return h('div.scroll_item', [
+  return h('div.scroll_item spaced', [
     h('div.item', [
       h('h3', data.name),
       h(`span.fas fa-${icon} fa-fw`, {class: {success: results && pass, failure: results && !pass, pending: !results}}),

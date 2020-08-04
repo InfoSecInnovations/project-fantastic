@@ -4,7 +4,7 @@ background_color = rgb(36, 36, 36)
 panel_color = rgb(46, 47, 48)
 inner_panel_color = rgb(36, 36, 36)
 highlight_color = rgb(245, 81, 0)
-button_background_color = rgb(70, 72, 74)
+button_background_color = rgb(60, 61, 61)
 font_color = white
 button_font_color = white
 alt_background_color = rgb(255, 166, 102)
@@ -47,6 +47,17 @@ dropdown()
   box-sizing: border-box
   .fas
     color: alt_font_color
+
+scrollbars()
+  scrollbar-width: thin
+  scrollbar-color: highlight_color alt_background_color
+  &::-webkit-scrollbar
+    width: 0.5rem
+    height: 0.5rem
+  &::-webkit-scrollbar-track
+    background: alt_background_color
+  &::-webkit-scrollbar-thumb
+    background-color: highlight_color
 
 body
   font-family: main_font
@@ -138,17 +149,14 @@ pre
   color: alt_font_color
   margin: 0
   padding: 0.5rem
-  scrollbar-width: thin
-  scrollbar-color: highlight_color alt_background_color
-  &::-webkit-scrollbar
-    height: 0.5rem
-  &::-webkit-scrollbar-track
-    background: alt_background_color
-  &::-webkit-scrollbar-thumb
-    background-color: highlight_color
+  scrollbars()
 
 .section
-  padding: 1rem
+  display: flex
+  flex-direction: column
+  gap: 0.7rem
+  overflow-y: auto
+  scrollbars()
 
 .scroll_container
   min-height: 0
@@ -166,14 +174,7 @@ pre
     flex-direction: column
     gap: 1rem
     flex: 1
-    scrollbar-width: thin
-    scrollbar-color: highlight_color alt_background_color
-    &::-webkit-scrollbar
-      width: 0.5rem
-    &::-webkit-scrollbar-track
-      background: alt_background_color
-    &::-webkit-scrollbar-thumb
-      background-color: highlight_color
+    scrollbars()
     pre
       overflow-x: auto
     &.spaced
@@ -181,7 +182,8 @@ pre
     .scroll_item
       display: flex
       flex-direction: column
-      gap: 0.7rem
+      &.spaced
+        gap: 0.7rem
 
 .targets
   font-size: small_font_size

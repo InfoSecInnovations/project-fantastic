@@ -7,15 +7,17 @@ const Multi = require('./multi')
 const MultiActions = require('./multiactions')
 
 const tabs = (state, send, nodes) => {
-  if (nodes && nodes.length) return h('div.tabs', [
-    h('div.tab', {
-      on: {click: [send, {type: 'tab', tab: 'info'}]},
-      class: {selected: state.tab === 'info'}
-    }, 'Info'),
-    h('div.tab', {
-      on: {click: [send, {type: 'tab', tab: 'actions'}]},
-      class: {selected: state.tab === 'actions'}
-    }, 'Actions'),
+  if (nodes && nodes.length) return h('div.tab_bar', [
+    h('div.tabs', [
+      h('div.tab', {
+        on: {click: [send, {type: 'tab', tab: 'info'}]},
+        class: {selected: state.tab === 'info'}
+      }, 'Info'),
+      h('div.tab', {
+        on: {click: [send, {type: 'tab', tab: 'actions'}]},
+        class: {selected: state.tab === 'actions'}
+      }, 'Actions')
+    ]),
     h('div.tabs_title', [
       h('div.icon_button small', [
         h('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})

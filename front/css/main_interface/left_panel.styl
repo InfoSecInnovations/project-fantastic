@@ -1,0 +1,33 @@
+#left_panel
+  grid-row: 2
+  grid-column: 1
+  z-index: 1
+  min-height: 0
+  display: flex
+  flex-direction: column
+  #left_panel_controls
+    margin-top: auto
+    display: flex
+    justify-content: space-evenly
+    padding: 1rem 0
+    background-color: panel_color
+  .command_title
+    min-height: 3rem
+    h3
+      text-align: left
+  .history_title
+    display: flex
+    align-items: center
+    gap: 0.5rem
+    .history_controls
+      display: flex
+      .favorited
+        color: favorite_color
+      .history_control
+        font-size: base_font_size
+        cursor: pointer
+  .play
+    align-self: flex-start
+    display: flex
+    gap: 1rem
+    align-items: center

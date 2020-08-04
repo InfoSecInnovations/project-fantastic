@@ -17,7 +17,7 @@ const enabled_button = (state, send, command, data) => {
 
 export default (state, send) => h('div.scroll_container', [
   h('h2.panel_title', 'Host Data Commands'),
-  h('div.scroll spaced', Object.entries(state.commands).map(v => h('div.scroll_item', [
+  h('div.scroll spaced', Object.entries(state.commands).map(v => h('div.scroll_item spaced', [
     h('div.item command_title', [
       h('h3', v[1].name),
       enabled_button(state, send, v[0], v[1]),
