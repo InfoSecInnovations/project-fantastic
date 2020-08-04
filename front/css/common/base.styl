@@ -119,10 +119,13 @@ select
 
 .button, input[type=button], input[type=submit], input[type=reset]
   cursor: pointer
-  padding: 1rem
+  padding: 0.8rem
   background-color: button_background_color
   color: button_font_color
-  flex-grow: 0
+  flex: none
+  display: flex
+  align-items: center
+  justify-content: center
   highlight_border()
 
 input[type=text]

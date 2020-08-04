@@ -73,10 +73,13 @@ input[type=button],
 input[type=submit],
 input[type=reset] {
   cursor: pointer;
-  padding: 1rem;
+  padding: 0.8rem;
   background-color: #3c3d3d;
   color: #fff;
-  flex-grow: 0;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 1rem;
   border: 2px solid #f55100;
 }

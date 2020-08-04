@@ -10,16 +10,15 @@ const format_value = value => {
 }
 
 const result = (state, action, action_result, index, node_id, host, loading, send, followups = []) => H('div.result', [
-  action_result.label ? H('div.result_header', action_result.label) : undefined,
+  action_result.label ? H('h4', action_result.label) : undefined,
   ...(action_result.result ? action_result.result.map(v => H('div.item', format_value(v))) : []),
   ...(action_result.followups ? Object.values(action_result.followups).map(v => {
     const followup_label = v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enabled' : 'Disabled')) || state.actions[action].names[v.function]
     if (v.not_permitted) return H('div.item', followup_label)
     const loading_followup = loading || v.status === 'loading'
     const disabled = !loading_followup && typeof v.enabled !== 'undefined' && !v.enabled
-    return H('div.followup_command', [
-      H('div.item', H(
-        'div.button', 
+    return [
+      H('div.button', 
         {
           on: loading_followup ? {} : {
             click: [
@@ -38,16 +37,16 @@ const result = (state, action, action_result, index, node_id, host, loading, sen
           class: {loading: loading_followup, disabled}
         }, 
         (loading_followup && 'Running...') || followup_label
-      )),
+      ),
       H('pre', FormatString(state.actions[action].commands[v.function], v.data))//format_command(state.actions[action].commands[v.function], v.data))
-    ])
-  }) : []),
+    ]
+  }).flat() : []),
   ...(action_result.followups ? Object.values(action_result.followups)
   .filter(v => v.result)
   .map(v => {
     return H('div', [
       H('div.result_time', [
-        H('div.result_header', v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enable' : 'Disable')) || state.actions[action].names[v.function]),
+        H('h4', v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enable' : 'Disable')) || state.actions[action].names[v.function]),
         H('div.time', [
           ` Results from ${TimeAgo(v.date)}`, 
           H(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {
