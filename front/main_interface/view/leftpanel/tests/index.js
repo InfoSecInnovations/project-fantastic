@@ -2,7 +2,7 @@ import {h} from 'snabbdom/h'
 import TestEntry from '../testentry'
 import Parameter from './parameter'
 
-export default (state, send) => h('div.scroll_container.panel', [
+export default (state, send) => h('div.scroll_container', [
   h('h2.panel_title', 'Tests'),
   h('div.scroll spaced', Object.entries(state.tests).map(v => {
     const test = v[0]

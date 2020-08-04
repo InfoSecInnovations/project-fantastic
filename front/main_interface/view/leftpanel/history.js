@@ -18,14 +18,15 @@ const log_name = (state, log) => {
 const log_content = (state, log) => {
   if (log.event_type == 'test') {
     const parameters = JSON.parse(log.parameters)
-    return h('div.parameters history_item', [
-      h('div.item', 'Parameters used:'),
+    return [
+      'Parameters used:',
       h('ul', Object.entries(parameters).map(v => h('li', `${v[0]}: ${v[1]}`)))
-    ])
+    ]
   }
   if (log.event_type == 'command') {
-    return h('div.item', log.status ? 'Enabled' : 'Disabled')
+    return log.status ? ['Enabled'] : ['Disabled']
   }
+  return []
 }
 
 const get_status = (state, item) => {
@@ -64,7 +65,7 @@ const favorites = (state, send) => {
   return [ 
     h('h2.panel_title', 'Favorites'),
     h('div.scroll', state.history.ordering ?
-      h('div.scroll_item subtitle waiting', 'Please wait...') :
+      h('h3.scroll_item waiting', 'Please wait...') :
       state.history.favorites.map((v, i) => h('div.scroll_item history_item', {
         attrs: {draggable: 'true'}, // draggable won't work unless it's a string with the value "true"
         on: {
@@ -81,9 +82,9 @@ const favorites = (state, send) => {
       }, [
         h('div.history_title', [
           history_item_controls(state, send, v),
-          h('div.subsubtitle', `${headers[v.event_type]}: ${log_name(state, v)}`)
+          h('h4', `${headers[v.event_type]}: ${log_name(state, v)}`)
         ]),
-        h('div.item', log_content(state, v))
+        ...log_content(state, v)
       ]))
     )
   ]
@@ -98,14 +99,14 @@ const history = (state, send) => {
     h('div.scroll', state.history.results.map(v => h('div.scroll_item history_item', [
       h('div.history_title', [
         history_item_controls(state, send, v),
-        h('div.subsubtitle', `${headers[v.event_type]}: ${log_name(state, v)}`)
+        h('h4', `${headers[v.event_type]}: ${log_name(state, v)}`)
       ]),
-      h('div.item', log_content(state, v))
+      ...log_content(state, v)
     ])))
   ]
 }
 
-export default (state, send) => h('div.scroll_container.panel', [
+export default (state, send) => h('div.scroll_container', [
   ...favorites(state, send),
   ...history(state, send)
 ])

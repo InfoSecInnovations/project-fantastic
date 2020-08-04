@@ -9,7 +9,7 @@ const success_texts = [
   'Good job'
 ]
 
-export default (state, send) => h('div.scroll_container.panel', [
+export default (state, send) => h('div.scroll_container', [
   h('h2.panel_title', 'Quests'),
   h('div.scroll spaced', Object.entries(state.quests).map(v => {
     const quest = v[0]
