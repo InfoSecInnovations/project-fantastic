@@ -112,6 +112,9 @@ input[type=text] {
   align-items: center;
   flex-grow: 1;
 }
+.icon_button:hover .fas {
+  color: #ff712b;
+}
 pre {
   background-color: #ffa666;
   color: #000;
@@ -365,6 +368,12 @@ pre::-webkit-scrollbar-thumb {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+#container #selection .results .followup .foldout {
+  cursor: pointer;
+}
+#container #selection .results .followup .foldout:hover {
+  color: #ff7a38;
 }
 #container #selection .results .result {
   min-width: 0;

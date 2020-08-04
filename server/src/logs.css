@@ -112,6 +112,9 @@ input[type=text] {
   align-items: center;
   flex-grow: 1;
 }
+.icon_button:hover .fas {
+  color: #ff712b;
+}
 pre {
   background-color: #ffa666;
   color: #000;

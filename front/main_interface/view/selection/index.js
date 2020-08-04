@@ -3,8 +3,8 @@ const Info = require('../../../common/view/info')
 const Actions = require('../../../common/view/actions')
 import Edge from './edge'
 const NodeName = require('../../../common/util/nodename')
-const Multi = require('./multi')
-const MultiActions = require('./multiactions')
+import Multi from './multi'
+import MultiActions from './multiactions'
 
 const tabs = (state, send, nodes) => {
   if (nodes && nodes.length) return h('div.tab_bar', [
