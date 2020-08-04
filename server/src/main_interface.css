@@ -80,8 +80,16 @@ input[type=reset] {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  min-width: 5rem;
   border-radius: 1rem;
   border: 2px solid #f55100;
+}
+.button:hover,
+input[type=button]:hover,
+input[type=submit]:hover,
+input[type=reset]:hover {
+  background-color: #464747;
 }
 input[type=text] {
   border-radius: 1rem;
@@ -331,6 +339,9 @@ pre::-webkit-scrollbar-thumb {
   background-color: #242424;
   font-size: 1.2rem;
 }
+#container #selection .tab_bar .tabs .tab:hover {
+  background-color: #2e2f30;
+}
 #container #selection .tab_bar .tabs .selected {
   background-color: #2e2f30;
 }
@@ -360,8 +371,10 @@ pre::-webkit-scrollbar-thumb {
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 0.7rem;
+}
+#container #selection .results .result .button {
+  align-self: flex-start;
 }
 #container #selection .results .result .result_time {
   display: flex;

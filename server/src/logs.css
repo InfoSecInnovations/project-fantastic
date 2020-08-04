@@ -80,8 +80,16 @@ input[type=reset] {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-align: center;
+  min-width: 5rem;
   border-radius: 1rem;
   border: 2px solid #f55100;
+}
+.button:hover,
+input[type=button]:hover,
+input[type=submit]:hover,
+input[type=reset]:hover {
+  background-color: #464747;
 }
 input[type=text] {
   border-radius: 1rem;

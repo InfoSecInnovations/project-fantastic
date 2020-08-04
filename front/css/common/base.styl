@@ -126,7 +126,11 @@ select
   display: flex
   align-items: center
   justify-content: center
+  text-align: center
+  min-width: 5rem
   highlight_border()
+  &:hover
+    background-color: lighten(button_background_color, 5%)
 
 input[type=text]
   alt_border()

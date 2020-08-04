@@ -16,6 +16,8 @@
         cursor: pointer
         background-color: inner_panel_color
         font-size: h3_font_size
+        &:hover
+          background-color: panel_color
       .selected
         background-color: panel_color
     .tabs_title
@@ -40,8 +42,9 @@
       padding: 1rem
       display: flex
       flex-direction: column
-      align-items: flex-start
       gap: 0.7rem
+      .button
+        align-self: flex-start
       .result_time
         display: flex
         align-items: center
