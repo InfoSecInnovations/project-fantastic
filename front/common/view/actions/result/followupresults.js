@@ -1,7 +1,7 @@
 import {h} from 'snabbdom/h'
 import TimeAgo from '../../../util/timeago'
 
-export default (state, action, action_result, node_id, host, loading, send, followups) => action_result.followups ? Object.values(action_result.followups)
+export default (state, action, action_result, node_id, host, loading, send, followups, result_func) => action_result.followups ? Object.values(action_result.followups)
   .filter(v => v.result)
   .map(v => {
     return h('div', [
@@ -22,7 +22,7 @@ export default (state, action, action_result, node_id, host, loading, send, foll
         ])
       ]),
       ...(v.foldout ? v.result.map(r => 
-        result(state, action, r, node_id, host, loading || v.status === 'loading', send, [...followups, {followup: v.function, label: action_result.label}])
+        result_func(state, action, r, node_id, host, loading || v.status === 'loading', send, [...followups, {followup: v.function, label: action_result.label}])
       ) : [])
     ])
   }).flat() : []

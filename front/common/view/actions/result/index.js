@@ -10,9 +10,11 @@ const format_value = value => {
   return `${value}`
 }
 
-export default (state, action, action_result, node_id, host, loading, send, followups = []) => h('div.result', [
+const result = (state, action, action_result, node_id, host, loading, send, followups = []) => h('div.result', [
   action_result.label ? h('h4', action_result.label) : undefined,
-  ...(action_result.data ? action_result.data.map(v => h('div.item', format_value(v))) : []),
+  action_result.data ? h('div', action_result.data.map(v => h('div', format_value(v)))) : undefined,
   ...FollowupButtons(state, action, action_result, node_id, host, loading, send, followups),
-  ...FollowupResults(state, action, action_result, node_id, host, loading, send, followups)
+  ...FollowupResults(state, action, action_result, node_id, host, loading, send, followups, result)
 ])
+
+export default result
