@@ -1,63 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap')
-
-background_color = rgb(36, 36, 36)
-panel_color = rgb(46, 47, 48)
-inner_panel_color = rgb(36, 36, 36)
-highlight_color = rgb(245, 81, 0)
-button_background_color = rgb(60, 61, 61)
-font_color = white
-button_font_color = white
-alt_background_color = rgb(255, 166, 102)
-alt_font_color = black
-alt_border_color = black
-success_color = rgb(56, 209, 64)
-failure_color = rgb(255, 50, 36)
-pending_color = rgb(255, 225, 89)
-favorite_color = pending_color
-
-main_font = 'Exo 2', sans-serif
-
-base_font_size = 1rem
-h1_font_size = 3rem
-h2_font_size = 2rem
-h3_font_size = 1.2rem
-h4_font_size = 1rem
-small_font_size = 0.7rem
-
-icon_size = 1.5rem
-border_radius = 1rem
-border_thickness = 2px
-
-highlight_border()
-  border-radius: border_radius
-  border: border_thickness solid highlight_color
-
-alt_border()
-  border-radius: border_radius
-  border: border_thickness solid alt_border_color
-
-dropdown()
-  font-size: 1rem
-  font-family: main_font
-  color: alt_font_color
-  background-color: alt_background_color
-  border: 1px solid alt_border_color
-  border-radius: 2px
-  padding: 0.1rem
-  box-sizing: border-box
-  .fas
-    color: alt_font_color
-
-scrollbars()
-  scrollbar-width: thin
-  scrollbar-color: highlight_color alt_background_color
-  &::-webkit-scrollbar
-    width: 0.5rem
-    height: 0.5rem
-  &::-webkit-scrollbar-track
-    background: alt_background_color
-  &::-webkit-scrollbar-thumb
-    background-color: highlight_color
+@require('./parameters.styl')
+@require('./functions.styl')
 
 body
   font-family: main_font
@@ -197,4 +139,12 @@ pre
 
 .targets
   font-size: small_font_size
+
+.link
+  color: alt_background_color
+  font-weight: 600
+  cursor: pointer
+  display: inline
+  &:hover
+    color: highlight_color
 

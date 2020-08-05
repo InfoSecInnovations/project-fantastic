@@ -20,11 +20,11 @@ export default (state, send) => h('div.scroll_container', [
       v[1],
       {
         get: () => v[1].parameters, 
-        result: () => h('div.item', h('a', {
+        result: () => h('div.link', {
           on: {click: e => {
             send({type: 'get_nodes', nodes: state.quest_results.nodes[quest], date: state.quest_results.date[quest] - ConvertTime(state.quests[quest].selection.age), max_date: state.quest_results.date[quest]})
           }}
-        }, 'Show hosts scanned by quest'))
+        }, 'Show hosts scanned by quest')
       }, 
       state.quest_results.data[quest],
       date,

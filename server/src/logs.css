@@ -197,6 +197,15 @@ pre::-webkit-scrollbar-thumb {
 .targets {
   font-size: 0.7rem;
 }
+.link {
+  color: #ffa666;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline;
+}
+.link:hover {
+  color: #f55100;
+}
 body {
   display: flex;
   justify-content: center;

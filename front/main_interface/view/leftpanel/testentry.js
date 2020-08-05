@@ -23,9 +23,7 @@ export default (state, send, data, parameters, result_data, result_date, result_
     ]),
     h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
     ...(loading ?
-    [h('div.play button waiting', [
-      h('div.item', 'Gathering results...')
-    ])] :
+    [h('div.play button waiting', 'Gathering results...')] :
     [
       parameters.edit && parameters.edit(),
       h('div.play button', valid_parameters ? {on: {click: [send, play_action]}} : {class: {waiting: true}}, [
@@ -37,10 +35,10 @@ export default (state, send, data, parameters, result_data, result_date, result_
     [
       h('h4', `Results from ${TimeAgo(result_date)}`),
       parameters.result && parameters.result(),
-      h('div.item', `${results.length} systems scanned`),
+      h('div', `${results.length} systems scanned`),
       pass ?
-      h('div.item', `${options.success_prefix ? `${options.success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`) :
-      h('a.item', 
+      h('div', `${options.success_prefix ? `${options.success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`) :
+      h('div.link', 
       {
         on: {click: [
           [send, {type: 'vis_select', nodes: failed_nodes}],

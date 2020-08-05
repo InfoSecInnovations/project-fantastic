@@ -1,0 +1,30 @@
+highlight_border()
+  border-radius: border_radius
+  border: border_thickness solid highlight_color
+
+alt_border()
+  border-radius: border_radius
+  border: border_thickness solid alt_border_color
+
+dropdown()
+  font-size: 1rem
+  font-family: main_font
+  color: alt_font_color
+  background-color: alt_background_color
+  border: 1px solid alt_border_color
+  border-radius: 2px
+  padding: 0.1rem
+  box-sizing: border-box
+  .fas
+    color: alt_font_color
+
+scrollbars()
+  scrollbar-width: thin
+  scrollbar-color: highlight_color alt_background_color
+  &::-webkit-scrollbar
+    width: 0.5rem
+    height: 0.5rem
+  &::-webkit-scrollbar-track
+    background: alt_background_color
+  &::-webkit-scrollbar-thumb
+    background-color: highlight_color

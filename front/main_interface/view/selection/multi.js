@@ -7,7 +7,7 @@ export default (state, send) => {
     const node = state.nodes[v]
     const ip = node.ips.find(v => !DefaultIPs.includes(v))
     return h('div.section', [
-      h('h3', {
+      h('h3.link', {
         on: {click: [
           [send, {type: 'vis_select', node: v}],
           [send, {type: 'select', node: v}]

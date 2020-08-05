@@ -8,14 +8,14 @@ export default (state, send) => {
   return h('div.scroll_container', [
     ...Connections(from.connections.filter(v => v.to_node === to.node_id), [
       'Connections from ', 
-      h('a', {
+      h('div.link', {
         on: {click: [
           [send, {type: 'vis_select', node: from_id}],
           [send, {type: 'select', node: from_id}]
         ]}
       }, NodeName(from)), 
       ' to ', 
-      h('a', {
+      h('div.link', {
         on: {click: [
           [send, {type: 'vis_select', node: to_id}],
           [send, {type: 'select', node: to_id}]

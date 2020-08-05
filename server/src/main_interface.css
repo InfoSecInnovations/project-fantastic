@@ -197,6 +197,15 @@ pre::-webkit-scrollbar-thumb {
 .targets {
   font-size: 0.7rem;
 }
+.link {
+  color: #ffa666;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline;
+}
+.link:hover {
+  color: #f55100;
+}
 #container {
   display: grid;
   grid-template: auto 1fr/min(400px, 50%) 1fr min(500px, 50%);
