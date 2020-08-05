@@ -1,0 +1,43 @@
+select
+  dropdown()
+
+.button, input[type=button], input[type=submit], input[type=reset]
+  cursor: pointer
+  padding: 0.8rem
+  background-color: button_background_color
+  color: button_font_color
+  font-family: main_font
+  font-size: base_font_size
+  font-weight: normal
+  flex: none
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+  min-width: 5rem
+  highlight_border()
+  &:hover
+    background-color: lighten(button_background_color, 5%)
+
+input[type=text], input[type=password]
+  alt_border()
+  background-color: alt_background_color
+  padding: 0.5rem
+  flex: 1
+
+.icon_button
+  cursor: pointer
+  padding: 0.5rem
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: stretch
+  width: 3rem
+  .label
+    font-size: small_font_size
+    display: flex
+    align-items: center
+    flex-grow: 1
+  &:hover
+    .fas
+      color: lighten(highlight_color, 20%)

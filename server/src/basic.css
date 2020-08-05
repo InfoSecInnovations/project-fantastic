@@ -31,6 +31,67 @@ body {
   place-items: center;
   height: 1.25em;
 }
+ul {
+  margin: 0;
+}
+pre {
+  background-color: #ffa666;
+  color: #000;
+  margin: 0;
+  padding: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: #f55100 #ffa666;
+}
+pre::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+pre::-webkit-scrollbar-track {
+  background: #ffa666;
+}
+pre::-webkit-scrollbar-thumb {
+  background-color: #f55100;
+}
+pre code {
+  padding: 0;
+  font-size: unset;
+}
+code {
+  font-size: 1.2rem;
+}
+.targets {
+  font-size: 0.7rem;
+}
+a,
+.link {
+  color: #ffa666;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline;
+  text-decoration: none;
+}
+a:hover,
+.link:hover {
+  color: #f55100;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #f55100 #ffa666;
+}
+.section::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+.section::-webkit-scrollbar-track {
+  background: #ffa666;
+}
+.section::-webkit-scrollbar-thumb {
+  background-color: #f55100;
+}
 h1,
 h2,
 h3,
@@ -51,9 +112,6 @@ h3 {
 }
 h4 {
   font-size: 1rem;
-}
-ul {
-  margin: 0;
 }
 select {
   font-size: 1rem;
@@ -120,49 +178,6 @@ input[type=password] {
 .icon_button:hover .fas {
   color: #ff712b;
 }
-pre {
-  background-color: #ffa666;
-  color: #000;
-  margin: 0;
-  padding: 0.5rem;
-  scrollbar-width: thin;
-  scrollbar-color: #f55100 #ffa666;
-}
-pre::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-pre::-webkit-scrollbar-track {
-  background: #ffa666;
-}
-pre::-webkit-scrollbar-thumb {
-  background-color: #f55100;
-}
-pre code {
-  padding: 0;
-  font-size: unset;
-}
-code {
-  font-size: 1.2rem;
-}
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #f55100 #ffa666;
-}
-.section::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-.section::-webkit-scrollbar-track {
-  background: #ffa666;
-}
-.section::-webkit-scrollbar-thumb {
-  background-color: #f55100;
-}
 .scroll_container {
   min-height: 0;
   min-width: 0;
@@ -205,21 +220,6 @@ code {
 }
 .scroll_container .scroll .scroll_item.spaced {
   gap: 0.7rem;
-}
-.targets {
-  font-size: 0.7rem;
-}
-a,
-.link {
-  color: #ffa666;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline;
-  text-decoration: none;
-}
-a:hover,
-.link:hover {
-  color: #f55100;
 }
 body {
   display: flex;
