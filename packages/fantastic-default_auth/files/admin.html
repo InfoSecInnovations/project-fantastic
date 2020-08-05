@@ -6,18 +6,18 @@
     <link rel = "stylesheet" type = "text/css" href = "/auth/public/style.css" />
   </head>
   <body>
-    <div id="container">
-      <div id="panel">
-        <h1>Administrator Area</h1>
-        <form onsubmit="return GetUser(this);">
-          <div>      
+    <div id="container" class="panel">
+      <h1>Administrator Area</h1>
+      <form onsubmit="return GetUser(this);">
+        <div>
+          <div class="input_container">
             <label for="username">Username</label>
             <input type="text" id="username" name="username">
-            <input type="submit" value="Find User">
           </div>
-        </form>
-        <div id="user_account"></div>
-      </div>
+          <input type="submit" value="Find User">
+        </div>
+      </form>
+      <div id="user_account"></div>
     </div>
   </body>
 </html>

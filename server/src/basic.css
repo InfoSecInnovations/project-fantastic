@@ -78,6 +78,7 @@ input[type=reset] {
   color: #fff;
   font-family: 'Exo 2', sans-serif;
   font-size: 1rem;
+  font-weight: normal;
   flex: none;
   display: flex;
   align-items: center;

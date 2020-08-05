@@ -12,7 +12,8 @@ const panel_button = (state, send, panel_state, icon, label) =>
     h('div.label', label)
   ])
 
-export default (state, send) => h('div#left_panel', {class: {panel: state.left_panel_state && state.left_panel_state != 'none'}}, [
+export default (state, send) => 
+  h('div#left_panel', {class: {panel: state.left_panel_state && state.left_panel_state != 'none'}}, [
     state.commands && state.left_panel_state == 'host_data' ? Commands(state, send) : undefined,
     state.quests && state.left_panel_state == 'quests' ? Quests(state, send) : undefined,
     state.tests && state.left_panel_state == 'tests' ? Tests(state, send) : undefined,

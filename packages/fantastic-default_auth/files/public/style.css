@@ -3,12 +3,12 @@ table {
 }
 
 td, th {
-  padding: 0 0.5rem;
+  padding: 0.5rem;
   min-width: 10rem;
 }
 
 table, th, td {
-  border: 2px solid black;
+  border: 2px solid white;
 }
 
 td .button {
@@ -21,13 +21,14 @@ td .button {
 
 .input_container {
   display: grid;
+  align-items: center;
   gap: 1rem;
   grid-template-columns: 1fr 2fr;
   margin: 0.5rem 0;
 }
 
 #error {
-  color: rgb(189, 0, 0);
+  color: rgb(255, 50, 36);
 }
 
 .buttons {

@@ -1,23 +1,29 @@
-const ToVNode = require('snabbdom/tovnode').default
-const Snabbdom = require('snabbdom')
-const Update = require('./update')
-const View = require('./view')
-const Effect = require('./effect')
+import {init} from 'snabbdom/init'
+import { classModule } from 'snabbdom/modules/class'
+import { propsModule } from 'snabbdom/modules/props'
+import { styleModule } from 'snabbdom/modules/style'
+import { attributesModule } from 'snabbdom/modules/attributes'
+import { eventListenersModule } from 'snabbdom/modules/eventlisteners'
+import View from './view'
+import Update from './update'
+import Effect from './effect'
 
-const patch = Snabbdom.init([
-  require('snabbdom/modules/class').default,
-  require('snabbdom/modules/attributes').default,
-  require('snabbdom/modules/style').default,
-  require('snabbdom/modules/eventlisteners').default, ])
+const patch = init([
+  classModule,
+  propsModule,
+  styleModule,
+  attributesModule,
+  eventListenersModule,
+])
 
 let state = { 
   action_results: {},
 }
-let vdom = ToVNode(document.body)
+let vnode = document.body
 
 const send = action=> {
   state = Update(state, action)
-  vdom = patch(vdom, View(state, send))
+  vnode = patch(vnode, View(state, send))
   Effect(state,action,send) 
 }
   
