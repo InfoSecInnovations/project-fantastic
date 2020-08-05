@@ -1,4 +1,4 @@
-const GenerateQuery = require('./generatequery')
+import GenerateQuery from './generatequery'
 
 const load_followup = (action, send, node, results, followups) => {
   const row = results.find(v => v.node_id === node.node_id && v.action === action && v.function === followups[followups.length - 1].followup && v.label === followups[followups.length - 1].label)
@@ -26,7 +26,7 @@ const load_followup = (action, send, node, results, followups) => {
   })
 }
 
-const loadNodeResults = (nodes, send) => {
+export default (nodes, send) => {
   fetch(`/results?${GenerateQuery({nodes: nodes.map(v => v.node_id)})}`)
   .then(res => res.json())
   .then(res => {
@@ -54,5 +54,3 @@ const loadNodeResults = (nodes, send) => {
     })
   })
 }
-
-module.exports = loadNodeResults

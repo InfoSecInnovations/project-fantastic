@@ -1,5 +1,5 @@
 import UserHistory from './userhistory'
-const FetchScripts = require('../../common/effect/fetchscripts')
+import FetchScripts from '../../common/effect/fetchscripts'
 
 export default send => {
   window.onresize = e => send({type: 'render'})

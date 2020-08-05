@@ -1,10 +1,8 @@
-const H = require('snabbdom/h').default
-const NodeTop = require('./nodetop')
-const Connections = require('../connections')
+import {h} from 'snabbdom/h'
+import NodeTop from './nodetop'
+import Connections from '../connections'
 
-const info = (state, send, node) => H('div.scroll_container', [
+export default (state, send, node) => h('div.scroll_container', [
     NodeTop(node),
     ...Connections(node.connections)
   ])
-
-module.exports = info

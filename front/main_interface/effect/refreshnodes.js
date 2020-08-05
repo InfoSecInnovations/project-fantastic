@@ -1,4 +1,4 @@
-const GenerateQuery = require('../../common/effect/generatequery')
+import GenerateQuery from '../../common/effect/generatequery'
 
 export default (send, node_parameters) => {
   send({type: 'loading', value: true})

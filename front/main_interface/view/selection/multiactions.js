@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-const HostString = require('../../../common/util/hoststring')
+import HostString from '../../../common/util/hoststring'
 
 export default (state, send) => {
   if (!state.actions) return

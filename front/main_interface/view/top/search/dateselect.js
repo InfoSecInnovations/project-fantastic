@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-const DateString = require('../../../../common/util/datestring')
+import DateString from '../../../../common/util/datestring'
 
 const options = [5, 15, 30, 60, 480, 1440, 0]
 

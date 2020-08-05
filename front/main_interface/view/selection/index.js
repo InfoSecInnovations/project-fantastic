@@ -1,8 +1,8 @@
 import {h} from 'snabbdom/h'
-const Info = require('../../../common/view/info')
-const Actions = require('../../../common/view/actions')
+import Info from '../../../common/view/info'
+import Actions from '../../../common/view/actions'
 import Edge from './edge'
-const NodeName = require('../../../common/util/nodename')
+import NodeName from '../../../common/util/nodename'
 import Multi from './multi'
 import MultiActions from './multiactions'
 

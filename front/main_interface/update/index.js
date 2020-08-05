@@ -1,4 +1,4 @@
-const Common = require('../../common/update')
+import Common from '../../common/update'
 import Hovered from '../defaults/hovered'
 import QuestResults from './questresults'
 import TestResults from './testresults'

@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-const Info = require('../../common/view/info')
-const Actions = require('../../common/view/actions')
+import Info from '../../common/view/info'
+import Actions from '../../common/view/actions'
 
 export default (state, send) => 
   h('body', h('div#container', state.node_data ? [

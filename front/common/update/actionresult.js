@@ -1,4 +1,4 @@
-const actionResult = (state, action) => {
+export default (state, action) => {
   if (Array.isArray(action.result) && !action.result.length) action.result = undefined
   if (!state.action_results[action.hostname]) {
     state.action_results[action.hostname] = {}
@@ -15,5 +15,3 @@ const actionResult = (state, action) => {
   action_result.status = 'loaded'
   action_result.date = action.date
 }
-
-module.exports = actionResult

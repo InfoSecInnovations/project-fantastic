@@ -1,10 +1,10 @@
-const PerformAction = require('./performaction')
-const ActionResult = require('./actionresult')
-const ActionFollowup = require('./actionfollowup')
-const FollowupFoldout = require('./followupfoldout')
-const FollowupResult = require('./followupresult')
+import PerformAction from './performaction'
+import ActionResult from './actionresult'
+import ActionFollowup from './actionfollowup'
+import FollowupFoldout from './followupfoldout'
+import FollowupResult from './followupresult'
 
-const update = (state, action) => {
+export default (state, action) => {
   if (action.type == 'actions') state.actions = action.actions
   if (action.type == 'commands') state.commands = action.commands
   if (action.type == 'quests') state.quests = action.quests
@@ -18,5 +18,3 @@ const update = (state, action) => {
 
   return state
 }
-
-module.exports = update

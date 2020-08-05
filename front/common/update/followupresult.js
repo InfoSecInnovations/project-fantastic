@@ -1,4 +1,4 @@
-const followupResult = (state, action) => {
+export default (state, action) => {
   if (Array.isArray(action.result) && !action.result.length) action.result = undefined
   let action_result = state.action_results[action.hostname][action.action]
   for (const key of action.followups) {
@@ -13,5 +13,3 @@ const followupResult = (state, action) => {
   if (!action_result.requests) action_result.status = 'loaded'
   action_result.date = action.date
 }
-
-module.exports = followupResult

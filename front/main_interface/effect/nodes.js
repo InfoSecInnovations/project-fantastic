@@ -1,4 +1,4 @@
-const LoadNodeResults = require('../../common/effect/loadnoderesults')
+import LoadNodeResults from '../../common/effect/loadnoderesults'
 import LoadHistory from './loadhistory'
 import Vis from './vis'
 

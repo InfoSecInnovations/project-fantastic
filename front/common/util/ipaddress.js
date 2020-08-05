@@ -1,3 +1,1 @@
-const ipAddress = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`
-
-module.exports = ipAddress
+export default (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`

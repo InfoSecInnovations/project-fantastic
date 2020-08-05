@@ -1,6 +1,6 @@
 const unit_string = (amount, unit) => `${amount} ${unit}${amount === 1 ? '' : 's'}`
 
-const dateString = minutes => {
+export default minutes => {
   minutes = Math.round(minutes)
   if (minutes < 60) return unit_string(minutes, 'minute')
   const hours = Math.floor(minutes / 60)
@@ -13,5 +13,3 @@ const dateString = minutes => {
   const hours_remainder = hours % 24
   return `${unit_string(days, 'day')}${hours_remainder ? `, ${unit_string(hours_remainder, 'hour')}` : ''}${minutes_remainder ? `, ${unit_string(minutes_remainder, 'minute')}` : ''}`
 }
-
-module.exports = dateString

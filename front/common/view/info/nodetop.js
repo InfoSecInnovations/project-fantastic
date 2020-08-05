@@ -1,4 +1,4 @@
-const H = require('snabbdom/h').default
+import {h} from 'snabbdom/h'
 const DefaultIPs = require('fantastic-utils/defaultips')
 
 const node_type = node => {
@@ -8,21 +8,19 @@ const node_type = node => {
   return 'Host on my network without remote access'
 }
 
-const nodeTop = node => 
-  H('div.section', [
-    H('h3', node_type(node)),
-    node.hostname || node.os ? H('div', [
-      node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,
-      node.os ? H('div.item', `Operating System: ${node.os}`) : undefined
+export default node => 
+  h('div.section', [
+    h('h3', node_type(node)),
+    node.hostname || node.os ? h('div', [
+      node.hostname ? h('div.item', `Hostname: ${node.hostname}`) : undefined,
+      node.os ? h('div.item', `Operating System: ${node.os}`) : undefined
     ]) : undefined,
-    node.macs && node.macs.length ? H('div', [
-      H('h4', 'MAC Addresses:'),
-      ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`))
+    node.macs && node.macs.length ? h('div', [
+      h('h4', 'MAC Addresses:'),
+      ...node.macs.map(v => h('div.item', `${v.mac} (${v.vendor})`))
     ]) : undefined,
-    H('div', [
-      H('h4', 'IP Addresses:'),
-      ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : H('div.item', v))
+    h('div', [
+      h('h4', 'IP Addresses:'),
+      ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : h('div.item', v))
     ])
   ])
-
-module.exports = nodeTop

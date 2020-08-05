@@ -1,5 +1,5 @@
-const FetchScripts = require('../../common/effect/fetchscripts')
-const GenerateQuery = require('../../common/effect/generatequery')
+import FetchScripts from '../../common/effect/fetchscripts'
+import GenerateQuery from '../../common/effect/generatequery'
 
 export default (state, action, send) => {
   if (action.type == 'init') {

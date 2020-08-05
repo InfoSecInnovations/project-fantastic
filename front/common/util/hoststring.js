@@ -1,6 +1,4 @@
-const hostString = host => {
+export default host => {
   if (host == 'local') return 'local host'
   if (host == 'remote') return 'host with PowerShell remote access'
 }
-
-module.exports = hostString

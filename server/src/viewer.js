@@ -13,11 +13,14 @@
 /*!*****************************************!*\
   !*** ./common/effect/actionfollowup.js ***!
   \*****************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const GenerateQuery = __webpack_require__(/*! ./generatequery */ \"./common/effect/generatequery.js\")\r\n\r\nconst fetch_followup = action => fetch(`/action_followup?${GenerateQuery({\r\n  action: action.action, \r\n  function: action.followups[action.followups.length - 1].followup, \r\n  node_id: action.node_id, \r\n  label: action.followups[action.followups.length - 1].label\r\n})}`, {method: 'POST'})\r\n\r\nconst actionFollowup = (state, action, send) => {\r\n  fetch_followup(action)\r\n    .then(res => res.json())\r\n    .then(res => {\r\n      send({...action, type: 'action_followup_result', result: res.result, hostname: action.host, date: res.date})\r\n      if (action.followups && action.refresh && !res.result.length) { // TODO: maybe 0 results isn't always a good indication of needing to refresh?\r\n        if (action.followups.length === 1) {\r\n          send({\r\n            ...action,\r\n            refresh: false,\r\n            type: 'perform_action',\r\n            followup: action.followups[0],\r\n          })\r\n        }\r\n        else {\r\n          let action_result = state.action_results[action.host][action.action]\r\n          const followups = action.followups.slice(0, action.followups.length - 1)\r\n          for (const key of followups) {\r\n            action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n          }\r\n          send({\r\n            ...action,\r\n            refresh: false,\r\n            type: 'action_followup',\r\n            followups,\r\n            followup: action.followups[action.followups.length - 1]\r\n          })\r\n        }\r\n      }\r\n    })  \r\n\r\n}\r\n\r\nmodule.exports = actionFollowup\n\n//# sourceURL=webpack://front/./common/effect/actionfollowup.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _generatequery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generatequery */ \"./common/effect/generatequery.js\");\n\r\n\r\nconst fetch_followup = action => fetch(`/action_followup?${(0,_generatequery__WEBPACK_IMPORTED_MODULE_0__.default)({\r\n  action: action.action, \r\n  function: action.followups[action.followups.length - 1].followup, \r\n  node_id: action.node_id, \r\n  label: action.followups[action.followups.length - 1].label\r\n})}`, {method: 'POST'})\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => {\r\n  fetch_followup(action)\r\n  .then(res => res.json())\r\n  .then(res => {\r\n    send({...action, type: 'action_followup_result', result: res.result, hostname: action.host, date: res.date})\r\n    if (action.followups && action.refresh && !res.result.length) { // TODO: maybe 0 results isn't always a good indication of needing to refresh?\r\n      if (action.followups.length === 1) {\r\n        send({\r\n          ...action,\r\n          refresh: false,\r\n          type: 'perform_action',\r\n          followup: action.followups[0],\r\n        })\r\n      }\r\n      else {\r\n        let action_result = state.action_results[action.host][action.action]\r\n        const followups = action.followups.slice(0, action.followups.length - 1)\r\n        for (const key of followups) {\r\n          action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n        }\r\n        send({\r\n          ...action,\r\n          refresh: false,\r\n          type: 'action_followup',\r\n          followups,\r\n          followup: action.followups[action.followups.length - 1]\r\n        })\r\n      }\r\n    }\r\n  })\r\n});\n\n//# sourceURL=webpack://front/./common/effect/actionfollowup.js?");
 
 /***/ }),
 
@@ -25,11 +28,14 @@ eval("const GenerateQuery = __webpack_require__(/*! ./generatequery */ \"./commo
 /*!***************************************!*\
   !*** ./common/effect/fetchscripts.js ***!
   \***************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const fetchScripts = (send, type) => {\r\n  fetch(`/${type}`)\r\n  .then(res => res.json())\r\n  .then(res => send({type, [type]: res}))\r\n}\r\n\r\nmodule.exports = fetchScripts\n\n//# sourceURL=webpack://front/./common/effect/fetchscripts.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((send, type) => {\r\n  fetch(`/${type}`)\r\n  .then(res => res.json())\r\n  .then(res => send({type, [type]: res}))\r\n});\n\n//# sourceURL=webpack://front/./common/effect/fetchscripts.js?");
 
 /***/ }),
 
@@ -37,11 +43,14 @@ eval("const fetchScripts = (send, type) => {\r\n  fetch(`/${type}`)\r\n  .then(r
 /*!****************************************!*\
   !*** ./common/effect/generatequery.js ***!
   \****************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const generateQuery = obj => Object.entries(obj).map(v => {\r\n  const value = Array.isArray(v[1]) ? `[${v[1]}]` : v[1]\r\n  return `${v[0]}=${value}`\r\n}).join('&')\r\n\r\nmodule.exports = generateQuery\n\n//# sourceURL=webpack://front/./common/effect/generatequery.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (obj => Object.entries(obj).map(v => {\r\n  const value = Array.isArray(v[1]) ? `[${v[1]}]` : v[1]\r\n  return `${v[0]}=${value}`\r\n}).join('&'));\n\n//# sourceURL=webpack://front/./common/effect/generatequery.js?");
 
 /***/ }),
 
@@ -49,11 +58,14 @@ eval("const generateQuery = obj => Object.entries(obj).map(v => {\r\n  const val
 /*!********************************!*\
   !*** ./common/effect/index.js ***!
   \********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const ActionFollowup = __webpack_require__(/*! ./actionfollowup */ \"./common/effect/actionfollowup.js\")\r\nconst GenerateQuery = __webpack_require__(/*! ./generatequery */ \"./common/effect/generatequery.js\")\r\n\r\nconst effect = (state, action, send) => {\r\n  if (action.type == 'perform_action') fetch(`/actions?${GenerateQuery({action: action.action, node_id: action.node_id})}`, {method: 'POST'})\r\n    .then(res => res.json())\r\n    .then(res => send({...action, type: 'action_result', result: res.result, hostname: action.host, date: res.date}))\r\n  if (action.type == 'action_followup') ActionFollowup(state, action, send)\r\n}\r\n\r\nmodule.exports = effect\n\n//# sourceURL=webpack://front/./common/effect/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _actionfollowup__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actionfollowup */ \"./common/effect/actionfollowup.js\");\n/* harmony import */ var _generatequery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./generatequery */ \"./common/effect/generatequery.js\");\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => {\r\n  if (action.type == 'perform_action') fetch(`/actions?${(0,_generatequery__WEBPACK_IMPORTED_MODULE_1__.default)({action: action.action, node_id: action.node_id})}`, {method: 'POST'})\r\n    .then(res => res.json())\r\n    .then(res => send({...action, type: 'action_result', result: res.result, hostname: action.host, date: res.date}))\r\n  if (action.type == 'action_followup') (0,_actionfollowup__WEBPACK_IMPORTED_MODULE_0__.default)(state, action, send)\r\n});\n\n//# sourceURL=webpack://front/./common/effect/index.js?");
 
 /***/ }),
 
@@ -61,62 +73,60 @@ eval("const ActionFollowup = __webpack_require__(/*! ./actionfollowup */ \"./com
 /*!******************************************!*\
   !*** ./common/effect/loadnoderesults.js ***!
   \******************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-eval("const GenerateQuery = __webpack_require__(/*! ./generatequery */ \"./common/effect/generatequery.js\")\r\n\r\nconst load_followup = (action, send, node, results, followups) => {\r\n  const row = results.find(v => v.node_id === node.node_id && v.action === action && v.function === followups[followups.length - 1].followup && v.label === followups[followups.length - 1].label)\r\n  if (!row) return\r\n  const result = JSON.parse(row.result)\r\n  send({\r\n    type: 'action_followup_result',\r\n    action,\r\n    result,\r\n    hostname: node.hostname,\r\n    date: row.date,\r\n    followups\r\n  })\r\n  send({\r\n    type: 'followup_foldout',\r\n    action,\r\n    hostname: node.hostname,\r\n    date: row.date,\r\n    followups,\r\n    value: false\r\n  })\r\n  result.forEach((r, i) => {\r\n    if (!r.followups) return\r\n    Object.values(r.followups).forEach(f => load_followup(action, send, node, results, [...followups, {label: r.label, followup: f.function}], ))\r\n  })\r\n}\r\n\r\nconst loadNodeResults = (nodes, send) => {\r\n  fetch(`/results?${GenerateQuery({nodes: nodes.map(v => v.node_id)})}`)\r\n  .then(res => res.json())\r\n  .then(res => {\r\n    res.filter(v => v.function === 'run').forEach(v => {\r\n      const node = nodes.find(n => n.node_id === v.node_id)\r\n      const result = JSON.parse(v.result)\r\n      send({\r\n        type: 'action_result',\r\n        action: v.action,\r\n        result,\r\n        hostname: node.hostname,\r\n        date: v.date\r\n      })\r\n      send({\r\n        type: 'result_foldout',\r\n        action: v.action,\r\n        result,\r\n        hostname: node.hostname,\r\n        value: false\r\n      })\r\n      result.forEach((r, i) => {\r\n        if (!r.followups) return\r\n        Object.values(r.followups).forEach(f => load_followup(v.action, send, node, res, [{label: r.label, followup: f.function}]))\r\n      })\r\n    })\r\n  })\r\n}\r\n\r\nmodule.exports = loadNodeResults\n\n//# sourceURL=webpack://front/./common/effect/loadnoderesults.js?");
-
-/***/ }),
-
-/***/ "./common/node_modules/snabbdom/h.js":
-/*!*******************************************!*\
-  !*** ./common/node_modules/snabbdom/h.js ***!
-  \*******************************************/
-/*! flagged exports */
-/*! export __esModule [provided] [no usage info] [missing usage info prevents renaming] */
+/*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export h [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__ */
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nvar vnode_1 = __webpack_require__(/*! ./vnode */ \"./common/node_modules/snabbdom/vnode.js\");\nvar is = __webpack_require__(/*! ./is */ \"./common/node_modules/snabbdom/is.js\");\nfunction addNS(data, children, sel) {\n    data.ns = 'http://www.w3.org/2000/svg';\n    if (sel !== 'foreignObject' && children !== undefined) {\n        for (var i = 0; i < children.length; ++i) {\n            var childData = children[i].data;\n            if (childData !== undefined) {\n                addNS(childData, children[i].children, children[i].sel);\n            }\n        }\n    }\n}\nfunction h(sel, b, c) {\n    var data = {}, children, text, i;\n    if (c !== undefined) {\n        data = b;\n        if (is.array(c)) {\n            children = c;\n        }\n        else if (is.primitive(c)) {\n            text = c;\n        }\n        else if (c && c.sel) {\n            children = [c];\n        }\n    }\n    else if (b !== undefined) {\n        if (is.array(b)) {\n            children = b;\n        }\n        else if (is.primitive(b)) {\n            text = b;\n        }\n        else if (b && b.sel) {\n            children = [b];\n        }\n        else {\n            data = b;\n        }\n    }\n    if (children !== undefined) {\n        for (i = 0; i < children.length; ++i) {\n            if (is.primitive(children[i]))\n                children[i] = vnode_1.vnode(undefined, undefined, undefined, children[i], undefined);\n        }\n    }\n    if (sel[0] === 's' && sel[1] === 'v' && sel[2] === 'g' &&\n        (sel.length === 3 || sel[3] === '.' || sel[3] === '#')) {\n        addNS(data, children, sel);\n    }\n    return vnode_1.vnode(sel, data, children, text, undefined);\n}\nexports.h = h;\n;\nexports.default = h;\n//# sourceMappingURL=h.js.map\n\n//# sourceURL=webpack://front/./common/node_modules/snabbdom/h.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _generatequery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generatequery */ \"./common/effect/generatequery.js\");\n\r\n\r\nconst load_followup = (action, send, node, results, followups) => {\r\n  const row = results.find(v => v.node_id === node.node_id && v.action === action && v.function === followups[followups.length - 1].followup && v.label === followups[followups.length - 1].label)\r\n  if (!row) return\r\n  const result = JSON.parse(row.result)\r\n  send({\r\n    type: 'action_followup_result',\r\n    action,\r\n    result,\r\n    hostname: node.hostname,\r\n    date: row.date,\r\n    followups\r\n  })\r\n  send({\r\n    type: 'followup_foldout',\r\n    action,\r\n    hostname: node.hostname,\r\n    date: row.date,\r\n    followups,\r\n    value: false\r\n  })\r\n  result.forEach((r, i) => {\r\n    if (!r.followups) return\r\n    Object.values(r.followups).forEach(f => load_followup(action, send, node, results, [...followups, {label: r.label, followup: f.function}], ))\r\n  })\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((nodes, send) => {\r\n  fetch(`/results?${(0,_generatequery__WEBPACK_IMPORTED_MODULE_0__.default)({nodes: nodes.map(v => v.node_id)})}`)\r\n  .then(res => res.json())\r\n  .then(res => {\r\n    res.filter(v => v.function === 'run').forEach(v => {\r\n      const node = nodes.find(n => n.node_id === v.node_id)\r\n      const result = JSON.parse(v.result)\r\n      send({\r\n        type: 'action_result',\r\n        action: v.action,\r\n        result,\r\n        hostname: node.hostname,\r\n        date: v.date\r\n      })\r\n      send({\r\n        type: 'result_foldout',\r\n        action: v.action,\r\n        result,\r\n        hostname: node.hostname,\r\n        value: false\r\n      })\r\n      result.forEach((r, i) => {\r\n        if (!r.followups) return\r\n        Object.values(r.followups).forEach(f => load_followup(v.action, send, node, res, [{label: r.label, followup: f.function}]))\r\n      })\r\n    })\r\n  })\r\n});\n\n//# sourceURL=webpack://front/./common/effect/loadnoderesults.js?");
 
 /***/ }),
 
-/***/ "./common/node_modules/snabbdom/is.js":
-/*!********************************************!*\
-  !*** ./common/node_modules/snabbdom/is.js ***!
-  \********************************************/
-/*! flagged exports */
-/*! export __esModule [provided] [no usage info] [missing usage info prevents renaming] */
+/***/ "./common/node_modules/snabbdom/build/package/h.js":
+/*!*********************************************************!*\
+  !*** ./common/node_modules/snabbdom/build/package/h.js ***!
+  \*********************************************************/
+/*! namespace exports */
+/*! export h [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"h\": () => /* binding */ h\n/* harmony export */ });\n/* harmony import */ var _vnode_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vnode.js */ \"./common/node_modules/snabbdom/build/package/vnode.js\");\n/* harmony import */ var _is_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./is.js */ \"./common/node_modules/snabbdom/build/package/is.js\");\n\n\nfunction addNS(data, children, sel) {\n    data.ns = 'http://www.w3.org/2000/svg';\n    if (sel !== 'foreignObject' && children !== undefined) {\n        for (let i = 0; i < children.length; ++i) {\n            const childData = children[i].data;\n            if (childData !== undefined) {\n                addNS(childData, children[i].children, children[i].sel);\n            }\n        }\n    }\n}\nfunction h(sel, b, c) {\n    var data = {};\n    var children;\n    var text;\n    var i;\n    if (c !== undefined) {\n        if (b !== null) {\n            data = b;\n        }\n        if (_is_js__WEBPACK_IMPORTED_MODULE_1__.array(c)) {\n            children = c;\n        }\n        else if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(c)) {\n            text = c;\n        }\n        else if (c && c.sel) {\n            children = [c];\n        }\n    }\n    else if (b !== undefined && b !== null) {\n        if (_is_js__WEBPACK_IMPORTED_MODULE_1__.array(b)) {\n            children = b;\n        }\n        else if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(b)) {\n            text = b;\n        }\n        else if (b && b.sel) {\n            children = [b];\n        }\n        else {\n            data = b;\n        }\n    }\n    if (children !== undefined) {\n        for (i = 0; i < children.length; ++i) {\n            if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(children[i]))\n                children[i] = (0,_vnode_js__WEBPACK_IMPORTED_MODULE_0__.vnode)(undefined, undefined, undefined, children[i], undefined);\n        }\n    }\n    if (sel[0] === 's' && sel[1] === 'v' && sel[2] === 'g' &&\n        (sel.length === 3 || sel[3] === '.' || sel[3] === '#')) {\n        addNS(data, children, sel);\n    }\n    return (0,_vnode_js__WEBPACK_IMPORTED_MODULE_0__.vnode)(sel, data, children, text, undefined);\n}\n;\n//# sourceMappingURL=h.js.map\n\n//# sourceURL=webpack://front/./common/node_modules/snabbdom/build/package/h.js?");
+
+/***/ }),
+
+/***/ "./common/node_modules/snabbdom/build/package/is.js":
+/*!**********************************************************!*\
+  !*** ./common/node_modules/snabbdom/build/package/is.js ***!
+  \**********************************************************/
+/*! namespace exports */
 /*! export array [provided] [no usage info] [missing usage info prevents renaming] */
 /*! export primitive [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__ */
-/***/ ((__unused_webpack_module, exports) => {
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.array = Array.isArray;\nfunction primitive(s) {\n    return typeof s === 'string' || typeof s === 'number';\n}\nexports.primitive = primitive;\n//# sourceMappingURL=is.js.map\n\n//# sourceURL=webpack://front/./common/node_modules/snabbdom/is.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"array\": () => /* binding */ array,\n/* harmony export */   \"primitive\": () => /* binding */ primitive\n/* harmony export */ });\nconst array = Array.isArray;\nfunction primitive(s) {\n    return typeof s === 'string' || typeof s === 'number';\n}\n//# sourceMappingURL=is.js.map\n\n//# sourceURL=webpack://front/./common/node_modules/snabbdom/build/package/is.js?");
 
 /***/ }),
 
-/***/ "./common/node_modules/snabbdom/vnode.js":
-/*!***********************************************!*\
-  !*** ./common/node_modules/snabbdom/vnode.js ***!
-  \***********************************************/
-/*! flagged exports */
-/*! export __esModule [provided] [no usage info] [missing usage info prevents renaming] */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/***/ "./common/node_modules/snabbdom/build/package/vnode.js":
+/*!*************************************************************!*\
+  !*** ./common/node_modules/snabbdom/build/package/vnode.js ***!
+  \*************************************************************/
+/*! namespace exports */
 /*! export vnode [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__ */
-/***/ ((__unused_webpack_module, exports) => {
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nfunction vnode(sel, data, children, text, elm) {\n    var key = data === undefined ? undefined : data.key;\n    return { sel: sel, data: data, children: children, text: text, elm: elm, key: key };\n}\nexports.vnode = vnode;\nexports.default = vnode;\n//# sourceMappingURL=vnode.js.map\n\n//# sourceURL=webpack://front/./common/node_modules/snabbdom/vnode.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"vnode\": () => /* binding */ vnode\n/* harmony export */ });\nfunction vnode(sel, data, children, text, elm) {\n    const key = data === undefined ? undefined : data.key;\n    return { sel, data, children, text, elm, key };\n}\n//# sourceMappingURL=vnode.js.map\n\n//# sourceURL=webpack://front/./common/node_modules/snabbdom/build/package/vnode.js?");
 
 /***/ }),
 
@@ -124,11 +134,14 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nfunc
 /*!*****************************************!*\
   !*** ./common/update/actionfollowup.js ***!
   \*****************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const actionFollowup = (state, action) => {\r\n  let action_result = state.action_results[action.host][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.status = 'loading'\r\n  action_result.requests = (action_result.requests || 0) + 1 // track the number of requests we're waiting for relating to this followup\r\n}\r\n\r\nmodule.exports = actionFollowup\n\n//# sourceURL=webpack://front/./common/update/actionfollowup.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  let action_result = state.action_results[action.host][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.status = 'loading'\r\n  action_result.requests = (action_result.requests || 0) + 1 // track the number of requests we're waiting for relating to this followup\r\n});\n\n//# sourceURL=webpack://front/./common/update/actionfollowup.js?");
 
 /***/ }),
 
@@ -136,11 +149,14 @@ eval("const actionFollowup = (state, action) => {\r\n  let action_result = state
 /*!***************************************!*\
   !*** ./common/update/actionresult.js ***!
   \***************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const actionResult = (state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  if (!state.action_results[action.hostname]) {\r\n    state.action_results[action.hostname] = {}\r\n  }\r\n  if (!state.action_results[action.hostname][action.action]) {\r\n    state.action_results[action.hostname][action.action] = {}\r\n  }\r\n  const action_result = state.action_results[action.hostname][action.action]\r\n  if (action.followup) {\r\n    action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = action.result ? true : undefined\r\n  action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n}\r\n\r\nmodule.exports = actionResult\n\n//# sourceURL=webpack://front/./common/update/actionresult.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  if (!state.action_results[action.hostname]) {\r\n    state.action_results[action.hostname] = {}\r\n  }\r\n  if (!state.action_results[action.hostname][action.action]) {\r\n    state.action_results[action.hostname][action.action] = {}\r\n  }\r\n  const action_result = state.action_results[action.hostname][action.action]\r\n  if (action.followup) {\r\n    action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = action.result ? true : undefined\r\n  action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n});\n\n//# sourceURL=webpack://front/./common/update/actionresult.js?");
 
 /***/ }),
 
@@ -148,11 +164,14 @@ eval("const actionResult = (state, action) => {\r\n  if (Array.isArray(action.re
 /*!******************************************!*\
   !*** ./common/update/followupfoldout.js ***!
   \******************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const followupFoldout = (state, action) => {\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.foldout = action.value\r\n}\r\n\r\nmodule.exports = followupFoldout\n\n//# sourceURL=webpack://front/./common/update/followupfoldout.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.foldout = action.value\r\n});\n\n//# sourceURL=webpack://front/./common/update/followupfoldout.js?");
 
 /***/ }),
 
@@ -160,11 +179,14 @@ eval("const followupFoldout = (state, action) => {\r\n  let action_result = stat
 /*!*****************************************!*\
   !*** ./common/update/followupresult.js ***!
   \*****************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const followupResult = (state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  if (action.followup) {\r\n    if (action.result) action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = true\r\n  action_result.requests && action_result.requests-- // we may not have any requests if we're loading the result from the history so we have to check it\r\n  if (!action_result.requests) action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n}\r\n\r\nmodule.exports = followupResult\n\n//# sourceURL=webpack://front/./common/update/followupresult.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  if (action.followup) {\r\n    if (action.result) action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = true\r\n  action_result.requests && action_result.requests-- // we may not have any requests if we're loading the result from the history so we have to check it\r\n  if (!action_result.requests) action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n});\n\n//# sourceURL=webpack://front/./common/update/followupresult.js?");
 
 /***/ }),
 
@@ -172,11 +194,14 @@ eval("const followupResult = (state, action) => {\r\n  if (Array.isArray(action.
 /*!********************************!*\
   !*** ./common/update/index.js ***!
   \********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const PerformAction = __webpack_require__(/*! ./performaction */ \"./common/update/performaction.js\")\r\nconst ActionResult = __webpack_require__(/*! ./actionresult */ \"./common/update/actionresult.js\")\r\nconst ActionFollowup = __webpack_require__(/*! ./actionfollowup */ \"./common/update/actionfollowup.js\")\r\nconst FollowupFoldout = __webpack_require__(/*! ./followupfoldout */ \"./common/update/followupfoldout.js\")\r\nconst FollowupResult = __webpack_require__(/*! ./followupresult */ \"./common/update/followupresult.js\")\r\n\r\nconst update = (state, action) => {\r\n  if (action.type == 'actions') state.actions = action.actions\r\n  if (action.type == 'commands') state.commands = action.commands\r\n  if (action.type == 'quests') state.quests = action.quests\r\n  if (action.type == 'tests') state.tests = action.tests\r\n  if (action.type == 'perform_action') PerformAction(state, action)\r\n  if (action.type == 'action_result') ActionResult(state, action)\r\n  if (action.type == 'result_foldout') state.action_results[action.hostname][action.action].foldout = action.value\r\n  if (action.type == 'action_followup') ActionFollowup(state, action)\r\n  if (action.type == 'action_followup_result') FollowupResult(state, action)\r\n  if (action.type == 'followup_foldout') FollowupFoldout(state, action)\r\n\r\n  return state\r\n}\r\n\r\nmodule.exports = update\n\n//# sourceURL=webpack://front/./common/update/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _performaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./performaction */ \"./common/update/performaction.js\");\n/* harmony import */ var _actionresult__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actionresult */ \"./common/update/actionresult.js\");\n/* harmony import */ var _actionfollowup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actionfollowup */ \"./common/update/actionfollowup.js\");\n/* harmony import */ var _followupfoldout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./followupfoldout */ \"./common/update/followupfoldout.js\");\n/* harmony import */ var _followupresult__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./followupresult */ \"./common/update/followupresult.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (action.type == 'actions') state.actions = action.actions\r\n  if (action.type == 'commands') state.commands = action.commands\r\n  if (action.type == 'quests') state.quests = action.quests\r\n  if (action.type == 'tests') state.tests = action.tests\r\n  if (action.type == 'perform_action') (0,_performaction__WEBPACK_IMPORTED_MODULE_0__.default)(state, action)\r\n  if (action.type == 'action_result') (0,_actionresult__WEBPACK_IMPORTED_MODULE_1__.default)(state, action)\r\n  if (action.type == 'result_foldout') state.action_results[action.hostname][action.action].foldout = action.value\r\n  if (action.type == 'action_followup') (0,_actionfollowup__WEBPACK_IMPORTED_MODULE_2__.default)(state, action)\r\n  if (action.type == 'action_followup_result') (0,_followupresult__WEBPACK_IMPORTED_MODULE_4__.default)(state, action)\r\n  if (action.type == 'followup_foldout') (0,_followupfoldout__WEBPACK_IMPORTED_MODULE_3__.default)(state, action)\r\n\r\n  return state\r\n});\n\n//# sourceURL=webpack://front/./common/update/index.js?");
 
 /***/ }),
 
@@ -184,11 +209,14 @@ eval("const PerformAction = __webpack_require__(/*! ./performaction */ \"./commo
 /*!****************************************!*\
   !*** ./common/update/performaction.js ***!
   \****************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const performAction = (state, action) => {\r\n  if (!state.action_results[action.host]) {\r\n    state.action_results[action.host] = {}\r\n  }\r\n  if (!state.action_results[action.host][action.action]) {\r\n    state.action_results[action.host][action.action] = {}\r\n  }\r\n  state.action_results[action.host][action.action].status = 'loading'\r\n}\r\n\r\nmodule.exports = performAction\n\n//# sourceURL=webpack://front/./common/update/performaction.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (!state.action_results[action.host]) {\r\n    state.action_results[action.host] = {}\r\n  }\r\n  if (!state.action_results[action.host][action.action]) {\r\n    state.action_results[action.host][action.action] = {}\r\n  }\r\n  state.action_results[action.host][action.action].status = 'loading'\r\n});\n\n//# sourceURL=webpack://front/./common/update/performaction.js?");
 
 /***/ }),
 
@@ -196,11 +224,14 @@ eval("const performAction = (state, action) => {\r\n  if (!state.action_results[
 /*!***********************************!*\
   !*** ./common/util/datestring.js ***!
   \***********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const unit_string = (amount, unit) => `${amount} ${unit}${amount === 1 ? '' : 's'}`\r\n\r\nconst dateString = minutes => {\r\n  minutes = Math.round(minutes)\r\n  if (minutes < 60) return unit_string(minutes, 'minute')\r\n  const hours = Math.floor(minutes / 60)\r\n  const minutes_remainder = minutes % 60\r\n  if (hours < 24) {\r\n    if (minutes_remainder) return `${unit_string(hours, 'hour')} and ${unit_string(minutes_remainder, 'minute')}`\r\n    return `${unit_string(hours, 'hour')}`\r\n  }\r\n  const days = Math.floor(hours / 24)\r\n  const hours_remainder = hours % 24\r\n  return `${unit_string(days, 'day')}${hours_remainder ? `, ${unit_string(hours_remainder, 'hour')}` : ''}${minutes_remainder ? `, ${unit_string(minutes_remainder, 'minute')}` : ''}`\r\n}\r\n\r\nmodule.exports = dateString\n\n//# sourceURL=webpack://front/./common/util/datestring.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\nconst unit_string = (amount, unit) => `${amount} ${unit}${amount === 1 ? '' : 's'}`\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (minutes => {\r\n  minutes = Math.round(minutes)\r\n  if (minutes < 60) return unit_string(minutes, 'minute')\r\n  const hours = Math.floor(minutes / 60)\r\n  const minutes_remainder = minutes % 60\r\n  if (hours < 24) {\r\n    if (minutes_remainder) return `${unit_string(hours, 'hour')} and ${unit_string(minutes_remainder, 'minute')}`\r\n    return `${unit_string(hours, 'hour')}`\r\n  }\r\n  const days = Math.floor(hours / 24)\r\n  const hours_remainder = hours % 24\r\n  return `${unit_string(days, 'day')}${hours_remainder ? `, ${unit_string(hours_remainder, 'hour')}` : ''}${minutes_remainder ? `, ${unit_string(minutes_remainder, 'minute')}` : ''}`\r\n});\n\n//# sourceURL=webpack://front/./common/util/datestring.js?");
 
 /***/ }),
 
@@ -208,11 +239,14 @@ eval("const unit_string = (amount, unit) => `${amount} ${unit}${amount === 1 ? '
 /*!***********************************!*\
   !*** ./common/util/hoststring.js ***!
   \***********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const hostString = host => {\r\n  if (host == 'local') return 'local host'\r\n  if (host == 'remote') return 'host with PowerShell remote access'\r\n}\r\n\r\nmodule.exports = hostString\n\n//# sourceURL=webpack://front/./common/util/hoststring.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (host => {\r\n  if (host == 'local') return 'local host'\r\n  if (host == 'remote') return 'host with PowerShell remote access'\r\n});\n\n//# sourceURL=webpack://front/./common/util/hoststring.js?");
 
 /***/ }),
 
@@ -220,11 +254,14 @@ eval("const hostString = host => {\r\n  if (host == 'local') return 'local host'
 /*!**********************************!*\
   !*** ./common/util/ipaddress.js ***!
   \**********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const ipAddress = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`\r\n\r\nmodule.exports = ipAddress\n\n//# sourceURL=webpack://front/./common/util/ipaddress.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${port}`);\n\n//# sourceURL=webpack://front/./common/util/ipaddress.js?");
 
 /***/ }),
 
@@ -232,11 +269,14 @@ eval("const ipAddress = (ip, port) => `${(ip.includes(':') ? `[${ip}]` : ip)}:${
 /*!********************************!*\
   !*** ./common/util/timeago.js ***!
   \********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: module, __webpack_require__ */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const DateString = __webpack_require__(/*! ./datestring */ \"./common/util/datestring.js\")\r\n\r\nconst timeAgo = date => {\r\n  const diff = Date.now() - date\r\n  if (diff < 60000) return 'just now'\r\n  return `${DateString(diff / 1000 / 60)} ago`\r\n}\r\n\r\nmodule.exports = timeAgo\n\n//# sourceURL=webpack://front/./common/util/timeago.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _datestring__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./datestring */ \"./common/util/datestring.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (date => {\r\n  const diff = Date.now() - date\r\n  if (diff < 60000) return 'just now'\r\n  return `${(0,_datestring__WEBPACK_IMPORTED_MODULE_0__.default)(diff / 1000 / 60)} ago`\r\n});\n\n//# sourceURL=webpack://front/./common/util/timeago.js?");
 
 /***/ }),
 
@@ -244,23 +284,59 @@ eval("const DateString = __webpack_require__(/*! ./datestring */ \"./common/util
 /*!**************************************!*\
   !*** ./common/view/actions/index.js ***!
   \**************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__, module */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/h.js\").default\r\nconst HostString = __webpack_require__(/*! ../../util/hoststring */ \"./common/util/hoststring.js\")\r\nconst Result = __webpack_require__(/*! ./result */ \"./common/view/actions/result.js\")\r\nconst TimeAgo = __webpack_require__(/*! ../../util/timeago */ \"./common/util/timeago.js\")\r\n\r\nconst actions = (state, send, node) => {\r\n  if (!state.actions) return\r\n  const actions = Object.entries(state.actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)) \r\n  return H('div.scroll_container',\r\n    H('div.scroll spaced', !actions.length ? H('div.scroll_item', 'No actions compatible with this host') : actions.map(v => {\r\n      const loading = state.action_results[node.hostname] && state.action_results[node.hostname][v[0]] && state.action_results[node.hostname][v[0]].status === 'loading'\r\n      return H('div.scroll_item spaced', [\r\n        H('div.item', [\r\n          H('h3', v[1].name),\r\n          H('div.button', \r\n            { \r\n              on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname}]},\r\n              class: {loading}\r\n            }, \r\n            loading ? 'Running...' : 'Run')\r\n        ]),\r\n        H('pre', v[1].commands.run),\r\n        v[1].description ? v[1].description : undefined,\r\n        H('div.targets', [H('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),\r\n        state.action_results[node.hostname] && state.action_results[node.hostname][v[0]] && state.action_results[node.hostname][v[0]].result ? H('div.results', [\r\n          H('div.followup', [\r\n            `Results from ${TimeAgo(state.action_results[node.hostname][v[0]].date)}`, \r\n            H(`div.foldout fas fa-${state.action_results[node.hostname][v[0]].foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {\r\n              on: {click: [send, {type: 'result_foldout', action: v[0], hostname: node.hostname, value: !state.action_results[node.hostname][v[0]].foldout}]}\r\n            })\r\n          ]),\r\n          ...(state.action_results[node.hostname][v[0]].foldout ? state.action_results[node.hostname][v[0]].result\r\n            .map((r, i) => Result(state, v[0], r, i, node.node_id, node.hostname, loading, send)) : [])\r\n        ]) : undefined\r\n      ])\r\n    }))\r\n  )\r\n}\r\n\r\nmodule.exports = actions\n\n//# sourceURL=webpack://front/./common/view/actions/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _util_hoststring__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/hoststring */ \"./common/util/hoststring.js\");\n/* harmony import */ var _result__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./result */ \"./common/view/actions/result/index.js\");\n/* harmony import */ var _util_timeago__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/timeago */ \"./common/util/timeago.js\");\n\r\n\r\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send, node) => {\r\n  if (!state.actions) return\r\n  const actions = Object.entries(state.actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)) \r\n  return (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll_container',\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll spaced', !actions.length ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll_item', 'No actions compatible with this host') : actions.map(v => {\r\n      const loading = state.action_results[node.hostname] && state.action_results[node.hostname][v[0]] && state.action_results[node.hostname][v[0]].status === 'loading'\r\n      return (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll_item spaced', [\r\n        (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', [\r\n          (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h3', v[1].name),\r\n          (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.button', \r\n            { \r\n              on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname}]},\r\n              class: {loading}\r\n            }, \r\n            loading ? 'Running...' : 'Run')\r\n        ]),\r\n        (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('pre', v[1].commands.run),\r\n        v[1].description ? v[1].description : undefined,\r\n        (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.targets', [(0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('b', 'Valid targets:'), ` ${v[1].hosts.map(_util_hoststring__WEBPACK_IMPORTED_MODULE_1__.default).join(', ')}.`]),\r\n        state.action_results[node.hostname] && state.action_results[node.hostname][v[0]] && state.action_results[node.hostname][v[0]].result ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.results', [\r\n          (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.followup', [\r\n            `Results from ${(0,_util_timeago__WEBPACK_IMPORTED_MODULE_3__.default)(state.action_results[node.hostname][v[0]].date)}`, \r\n            (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)(`div.foldout fas fa-${state.action_results[node.hostname][v[0]].foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {\r\n              on: {click: [send, {type: 'result_foldout', action: v[0], hostname: node.hostname, value: !state.action_results[node.hostname][v[0]].foldout}]}\r\n            })\r\n          ]),\r\n          ...(state.action_results[node.hostname][v[0]].foldout ? state.action_results[node.hostname][v[0]].result\r\n            .map(r => (0,_result__WEBPACK_IMPORTED_MODULE_2__.default)(state, v[0], r, node.node_id, node.hostname, loading, send)) : [])\r\n        ]) : undefined\r\n      ])\r\n    }))\r\n  )\r\n});\n\n//# sourceURL=webpack://front/./common/view/actions/index.js?");
 
 /***/ }),
 
-/***/ "./common/view/actions/result.js":
-/*!***************************************!*\
-  !*** ./common/view/actions/result.js ***!
-  \***************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__, module */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ "./common/view/actions/result/followupbuttons.js":
+/*!*******************************************************!*\
+  !*** ./common/view/actions/result/followupbuttons.js ***!
+  \*******************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/h.js\").default\r\nconst TimeAgo = __webpack_require__(/*! ../../util/timeago */ \"./common/util/timeago.js\")\r\nconst FormatString = __webpack_require__(/*! fantastic-utils/formatstring */ \"../packages/fantastic-utils/formatstring.js\")\r\n\r\nconst format_value = value => {\r\n  if (typeof value === 'object') {\r\n    if (value.date) return TimeAgo(value.date)\r\n  }\r\n  return `${value}`\r\n}\r\n\r\nconst result = (state, action, action_result, index, node_id, host, loading, send, followups = []) => H('div.result', [\r\n  action_result.label ? H('h4', action_result.label) : undefined,\r\n  ...(action_result.data ? action_result.data.map(v => H('div.item', format_value(v))) : []),\r\n  ...(action_result.followups ? Object.values(action_result.followups).map(v => {\r\n    const followup_label = v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enabled' : 'Disabled')) || state.actions[action].names[v.function]\r\n    if (v.not_permitted) return H('div.item', followup_label)\r\n    const loading_followup = loading || v.status === 'loading'\r\n    const disabled = !loading_followup && typeof v.enabled !== 'undefined' && !v.enabled\r\n    return [\r\n      H('div.button', \r\n        {\r\n          on: loading_followup ? {} : {\r\n            click: [\r\n              send, \r\n              {\r\n                type: 'action_followup', \r\n                action,\r\n                node_id,\r\n                host,\r\n                followups: [...followups, {index, followup: v.function, label: action_result.label}],\r\n                refresh: true,\r\n                date: Date.now()\r\n              }\r\n            ]\r\n          },\r\n          class: {loading: loading_followup, disabled}\r\n        }, \r\n        (loading_followup && 'Running...') || followup_label\r\n      ),\r\n      H('pre', FormatString(state.actions[action].commands[v.function], v.data))//format_command(state.actions[action].commands[v.function], v.data))\r\n    ]\r\n  }).flat() : []),\r\n  ...(action_result.followups ? Object.values(action_result.followups)\r\n  .filter(v => v.result)\r\n  .map(v => {\r\n    return H('div', [\r\n      H('div.result_time', [\r\n        H('h4', v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enable' : 'Disable')) || state.actions[action].names[v.function]),\r\n        H('div.time', [\r\n          ` Results from ${TimeAgo(v.date)}`, \r\n          H(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {\r\n            on: {click: [send, {\r\n              type: 'followup_foldout',\r\n              action,\r\n              node_id,\r\n              hostname: host,\r\n              followups: [...followups, {index, followup: v.function, label: action_result.label}],\r\n              value: !v.foldout\r\n            }]}\r\n          })\r\n        ])\r\n      ]),\r\n      ...(v.foldout ? v.result.map((r, i) => \r\n        result(state, action, r, i, node_id, host, loading || v.status === 'loading', send, [...followups, {index, followup: v.function, label: action_result.label}])\r\n      ) : [])\r\n    ])\r\n  }).flat() : [])\r\n])\r\n\r\n\r\nmodule.exports = result\n\n//# sourceURL=webpack://front/./common/view/actions/result.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n\r\nconst FormatString = __webpack_require__(/*! fantastic-utils/formatstring */ \"../packages/fantastic-utils/formatstring.js\")\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, action_result, node_id, host, loading, send, followups) => action_result.followups ? Object.values(action_result.followups).map(v => {\r\n  const followup_label = v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enabled' : 'Disabled')) || state.actions[action].names[v.function]\r\n  if (v.not_permitted) return (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', followup_label)\r\n  const loading_followup = loading || v.status === 'loading'\r\n  const disabled = !loading_followup && typeof v.enabled !== 'undefined' && !v.enabled\r\n  return [\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.button', \r\n      {\r\n        on: loading_followup ? {} : {\r\n          click: [\r\n            send, \r\n            {\r\n              type: 'action_followup', \r\n              action,\r\n              node_id,\r\n              host,\r\n              followups: [...followups, {followup: v.function, label: action_result.label}],\r\n              refresh: true,\r\n              date: Date.now()\r\n            }\r\n          ]\r\n        },\r\n        class: {loading: loading_followup, disabled}\r\n      }, \r\n      (loading_followup && 'Running...') || followup_label\r\n    ),\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('pre', FormatString(state.actions[action].commands[v.function], v.data))\r\n  ]\r\n}).flat() : []);\n\n//# sourceURL=webpack://front/./common/view/actions/result/followupbuttons.js?");
+
+/***/ }),
+
+/***/ "./common/view/actions/result/followupresults.js":
+/*!*******************************************************!*\
+  !*** ./common/view/actions/result/followupresults.js ***!
+  \*******************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _util_timeago__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../util/timeago */ \"./common/util/timeago.js\");\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, action_result, node_id, host, loading, send, followups) => action_result.followups ? Object.values(action_result.followups)\r\n  .filter(v => v.result)\r\n  .map(v => {\r\n    return (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.result_time', [\r\n        (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h4', v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enable' : 'Disable')) || state.actions[action].names[v.function]),\r\n        (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.time', [\r\n          ` Results from ${(0,_util_timeago__WEBPACK_IMPORTED_MODULE_1__.default)(v.date)}`, \r\n          (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`, {\r\n            on: {click: [send, {\r\n              type: 'followup_foldout',\r\n              action,\r\n              node_id,\r\n              hostname: host,\r\n              followups: [...followups, {followup: v.function, label: action_result.label}],\r\n              value: !v.foldout\r\n            }]}\r\n          })\r\n        ])\r\n      ]),\r\n      ...(v.foldout ? v.result.map(r => \r\n        result(state, action, r, node_id, host, loading || v.status === 'loading', send, [...followups, {followup: v.function, label: action_result.label}])\r\n      ) : [])\r\n    ])\r\n  }).flat() : []);\n\n//# sourceURL=webpack://front/./common/view/actions/result/followupresults.js?");
+
+/***/ }),
+
+/***/ "./common/view/actions/result/index.js":
+/*!*********************************************!*\
+  !*** ./common/view/actions/result/index.js ***!
+  \*********************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _followupbuttons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./followupbuttons */ \"./common/view/actions/result/followupbuttons.js\");\n/* harmony import */ var _followupresults__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./followupresults */ \"./common/view/actions/result/followupresults.js\");\n/* harmony import */ var _util_timeago__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../util/timeago */ \"./common/util/timeago.js\");\n\r\n\r\n\r\n\r\n\r\nconst format_value = value => {\r\n  if (typeof value === 'object') {\r\n    if (value.date) return (0,_util_timeago__WEBPACK_IMPORTED_MODULE_3__.default)(value.date)\r\n  }\r\n  return `${value}`\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, action_result, node_id, host, loading, send, followups = []) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.result', [\r\n  action_result.label ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h4', action_result.label) : undefined,\r\n  ...(action_result.data ? action_result.data.map(v => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', format_value(v))) : []),\r\n  ...(0,_followupbuttons__WEBPACK_IMPORTED_MODULE_1__.default)(state, action, action_result, node_id, host, loading, send, followups),\r\n  ...(0,_followupresults__WEBPACK_IMPORTED_MODULE_2__.default)(state, action, action_result, node_id, host, loading, send, followups)\r\n]));\n\n//# sourceURL=webpack://front/./common/view/actions/result/index.js?");
 
 /***/ }),
 
@@ -268,11 +344,14 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/sn
 /*!************************************!*\
   !*** ./common/view/connections.js ***!
   \************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__, module */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/h.js\").default\r\nconst IPAddress = __webpack_require__(/*! ../util/ipaddress */ \"./common/util/ipaddress.js\")\r\n\r\nconst connections = (connections, label) => \r\n  [\r\n    H('h4', [label || 'Connections', ` (${connections.length}):`].flat()),\r\n    connections.length ? H('div.scroll', connections.map(v => H('div.scroll_item', [\r\n      H('div.item', `Local address: ${IPAddress(v.local_address, v.local_port)}`),\r\n      H('div.item', `Remote address: ${IPAddress(v.remote_address, v.remote_port)}`),\r\n      H('div.item', `Process: ${v.process.name}`),\r\n      H('div.item', `State: ${v.state.replace('_', ' ')}`)\r\n    ]))) : undefined\r\n  ]\r\n\r\n\r\nmodule.exports = connections\n\n//# sourceURL=webpack://front/./common/view/connections.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _util_ipaddress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/ipaddress */ \"./common/util/ipaddress.js\");\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((connections, label) => [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h4', [label || 'Connections', ` (${connections.length}):`].flat()),\r\n  connections.length ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll', connections.map(v => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll_item', [\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Local address: ${(0,_util_ipaddress__WEBPACK_IMPORTED_MODULE_1__.default)(v.local_address, v.local_port)}`),\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Remote address: ${(0,_util_ipaddress__WEBPACK_IMPORTED_MODULE_1__.default)(v.remote_address, v.remote_port)}`),\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Process: ${v.process.name}`),\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `State: ${v.state.replace('_', ' ')}`)\r\n  ]))) : undefined\r\n]);\n\n//# sourceURL=webpack://front/./common/view/connections.js?");
 
 /***/ }),
 
@@ -280,11 +359,14 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/sn
 /*!***********************************!*\
   !*** ./common/view/info/index.js ***!
   \***********************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__, module */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/h.js\").default\r\nconst NodeTop = __webpack_require__(/*! ./nodetop */ \"./common/view/info/nodetop.js\")\r\nconst Connections = __webpack_require__(/*! ../connections */ \"./common/view/connections.js\")\r\n\r\nconst info = (state, send, node) => H('div.scroll_container', [\r\n    NodeTop(node),\r\n    ...Connections(node.connections)\r\n  ])\r\n\r\nmodule.exports = info\n\n//# sourceURL=webpack://front/./common/view/info/index.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _nodetop__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nodetop */ \"./common/view/info/nodetop.js\");\n/* harmony import */ var _connections__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../connections */ \"./common/view/connections.js\");\n\r\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send, node) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll_container', [\r\n    (0,_nodetop__WEBPACK_IMPORTED_MODULE_1__.default)(node),\r\n    ...(0,_connections__WEBPACK_IMPORTED_MODULE_2__.default)(node.connections)\r\n  ]));\n\n//# sourceURL=webpack://front/./common/view/info/index.js?");
 
 /***/ }),
 
@@ -292,11 +374,14 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/sn
 /*!*************************************!*\
   !*** ./common/view/info/nodetop.js ***!
   \*************************************/
-/*! unknown exports (runtime-defined) */
-/*! runtime requirements: __webpack_require__, module */
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/h.js\").default\r\nconst DefaultIPs = __webpack_require__(/*! fantastic-utils/defaultips */ \"../packages/fantastic-utils/defaultips.js\")\r\n\r\nconst node_type = node => {\r\n  if (!node.important) return 'Host outside my network'\r\n  if (node.access === 'local') return 'Local host'\r\n  if (node.access === 'remote') return 'Remote host with PowerShell access configured'\r\n  return 'Host on my network without remote access'\r\n}\r\n\r\nconst nodeTop = node => \r\n  H('div.section', [\r\n    H('h3', node_type(node)),\r\n    node.hostname || node.os ? H('div', [\r\n      node.hostname ? H('div.item', `Hostname: ${node.hostname}`) : undefined,\r\n      node.os ? H('div.item', `Operating System: ${node.os}`) : undefined\r\n    ]) : undefined,\r\n    node.macs && node.macs.length ? H('div', [\r\n      H('h4', 'MAC Addresses:'),\r\n      ...node.macs.map(v => H('div.item', `${v.mac} (${v.vendor})`))\r\n    ]) : undefined,\r\n    H('div', [\r\n      H('h4', 'IP Addresses:'),\r\n      ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : H('div.item', v))\r\n    ])\r\n  ])\r\n\r\nmodule.exports = nodeTop\n\n//# sourceURL=webpack://front/./common/view/info/nodetop.js?");
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n\r\nconst DefaultIPs = __webpack_require__(/*! fantastic-utils/defaultips */ \"../packages/fantastic-utils/defaultips.js\")\r\n\r\nconst node_type = node => {\r\n  if (!node.important) return 'Host outside my network'\r\n  if (node.access === 'local') return 'Local host'\r\n  if (node.access === 'remote') return 'Remote host with PowerShell access configured'\r\n  return 'Host on my network without remote access'\r\n}\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (node => \r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.section', [\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h3', node_type(node)),\r\n    node.hostname || node.os ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', [\r\n      node.hostname ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Hostname: ${node.hostname}`) : undefined,\r\n      node.os ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Operating System: ${node.os}`) : undefined\r\n    ]) : undefined,\r\n    node.macs && node.macs.length ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h4', 'MAC Addresses:'),\r\n      ...node.macs.map(v => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `${v.mac} (${v.vendor})`))\r\n    ]) : undefined,\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h4', 'IP Addresses:'),\r\n      ...node.ips.map(v => DefaultIPs.includes(v) ? undefined : (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', v))\r\n    ])\r\n  ]));\n\n//# sourceURL=webpack://front/./common/view/info/nodetop.js?");
 
 /***/ }),
 
@@ -307,11 +392,11 @@ eval("const H = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/sn
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\nconst Common = __webpack_require__(/*! ../../common/effect */ \"./common/effect/index.js\")\r\nconst LoadNodeResults = __webpack_require__(/*! ../../common/effect/loadnoderesults */ \"./common/effect/loadnoderesults.js\")\r\nconst FetchScripts = __webpack_require__(/*! ../../common/effect/fetchscripts */ \"./common/effect/fetchscripts.js\")\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => {\r\n  Common(state, action, send)\r\n  if (action.type == 'init') FetchScripts(send, 'actions')\r\n  if (action.type == 'node_data') LoadNodeResults([action.data], send)\r\n});\n\n//# sourceURL=webpack://front/./node_viewer/effect/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _common_effect__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/effect */ \"./common/effect/index.js\");\n/* harmony import */ var _common_effect_loadnoderesults__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common/effect/loadnoderesults */ \"./common/effect/loadnoderesults.js\");\n/* harmony import */ var _common_effect_fetchscripts__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common/effect/fetchscripts */ \"./common/effect/fetchscripts.js\");\n\r\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => {\r\n  (0,_common_effect__WEBPACK_IMPORTED_MODULE_0__.default)(state, action, send)\r\n  if (action.type == 'init') (0,_common_effect_fetchscripts__WEBPACK_IMPORTED_MODULE_2__.default)(send, 'actions')\r\n  if (action.type == 'node_data') (0,_common_effect_loadnoderesults__WEBPACK_IMPORTED_MODULE_1__.default)([action.data], send)\r\n});\n\n//# sourceURL=webpack://front/./node_viewer/effect/index.js?");
 
 /***/ }),
 
@@ -487,11 +572,11 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*! namespace exports */
 /*! export default [provided] [no usage info] [missing usage info prevents renaming] */
 /*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__, __webpack_require__.d, __webpack_require__.* */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\nconst Common = __webpack_require__(/*! ../../common/update */ \"./common/update/index.js\")\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (action.type == 'node_data') state.node_data = action.data\r\n  state = Common(state, action)\r\n  return state\r\n});\n\n//# sourceURL=webpack://front/./node_viewer/update/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _common_update__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/update */ \"./common/update/index.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (action.type == 'node_data') state.node_data = action.data\r\n  state = (0,_common_update__WEBPACK_IMPORTED_MODULE_0__.default)(state, action)\r\n  return state\r\n});\n\n//# sourceURL=webpack://front/./node_viewer/update/index.js?");
 
 /***/ }),
 
@@ -506,7 +591,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./node_viewer/node_modules/snabbdom/build/package/h.js\");\n\r\nconst Info = __webpack_require__(/*! ../../common/view/info */ \"./common/view/info/index.js\")\r\nconst Actions = __webpack_require__(/*! ../../common/view/actions */ \"./common/view/actions/index.js\")\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send) => \r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('body', (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div#container', state.node_data ? [\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.column', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h2', 'Info'),\r\n      Info(state, send, state.node_data)\r\n    ]),\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.column', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h2', 'Actions'),\r\n      Actions(state, send, state.node_data)\r\n    ])\r\n  ] : (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.title', 'Loading data...'))));\n\n//# sourceURL=webpack://front/./node_viewer/view/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./node_viewer/node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _common_view_info__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common/view/info */ \"./common/view/info/index.js\");\n/* harmony import */ var _common_view_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common/view/actions */ \"./common/view/actions/index.js\");\n\r\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send) => \r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('body', (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div#container', state.node_data ? [\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.column', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h2', 'Info'),\r\n      (0,_common_view_info__WEBPACK_IMPORTED_MODULE_1__.default)(state, send, state.node_data)\r\n    ]),\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.column', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h2', 'Actions'),\r\n      (0,_common_view_actions__WEBPACK_IMPORTED_MODULE_2__.default)(state, send, state.node_data)\r\n    ])\r\n  ] : (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.title', 'Loading data...'))));\n\n//# sourceURL=webpack://front/./node_viewer/view/index.js?");
 
 /***/ }),
 

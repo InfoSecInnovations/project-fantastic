@@ -1,4 +1,4 @@
-const Common = require('../../common/update')
+import Common from '../../common/update'
 
 export default (state, action) => {
   if (action.type == 'node_data') state.node_data = action.data

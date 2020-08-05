@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-const NodeName = require('../../../common/util/nodename')
-const DefaultIPs = require('fantastic-utils/defaultips')
+import NodeName from '../../../common/util/nodename'
+import DefaultIPs from 'fantastic-utils/defaultips'
 
 export default (state, send) => {
   return h('div.scroll_container', state.selected.nodes.map(v => {

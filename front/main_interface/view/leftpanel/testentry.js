@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-const HostString = require('../../../common/util/hoststring')
-const TimeAgo = require('../../../common/util/timeago')
+import HostString from '../../../common/util/hoststring'
+import TimeAgo from '../../../common/util/timeago'
 const FormatString = require('fantastic-utils/formatstring')
 
 export default (state, send, data, parameters, result_data, result_date, result_parameters, loading, play_action, options = {}) => {

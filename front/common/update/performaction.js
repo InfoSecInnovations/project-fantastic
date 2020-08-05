@@ -1,4 +1,4 @@
-const performAction = (state, action) => {
+export default (state, action) => {
   if (!state.action_results[action.host]) {
     state.action_results[action.host] = {}
   }
@@ -7,5 +7,3 @@ const performAction = (state, action) => {
   }
   state.action_results[action.host][action.action].status = 'loading'
 }
-
-module.exports = performAction

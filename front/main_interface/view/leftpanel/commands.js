@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-const HostString = require('../../../common/util/hoststring')
+import HostString from '../../../common/util/hoststring'
 const HasRole = require('fantastic-utils/hasrole')
 
 const enabled_button = (state, send, command, data) => {

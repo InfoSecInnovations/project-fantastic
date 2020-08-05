@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-const Connections = require('../../../common/view/connections')
-const NodeName = require('../../../common/util/nodename')
+import Connections from '../../../common/view/connections'
+import NodeName from '../../../common/util/nodename'
 import NodesFromEdge from '../../util/nodesfromedge'
 
 export default (state, send) => {

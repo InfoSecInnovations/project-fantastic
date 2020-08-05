@@ -1,6 +1,6 @@
-const Common = require('../../common/effect')
-const LoadNodeResults = require('../../common/effect/loadnoderesults')
-const FetchScripts = require('../../common/effect/fetchscripts')
+import Common from '../../common/effect'
+import LoadNodeResults from '../../common/effect/loadnoderesults'
+import FetchScripts from '../../common/effect/fetchscripts'
 
 export default (state, action, send) => {
   Common(state, action, send)
