@@ -1,16 +1,18 @@
 #left_panel
   grid-row: 2
   grid-column: 1
-  z-index: 1
   min-height: 0
   display: flex
   flex-direction: column
+  &.panel
+    z-index: 1
   #left_panel_controls
     margin-top: auto
     display: flex
     justify-content: space-evenly
     padding: 1rem 0
     background-color: panel_color
+    z-index: 1
   .command_title
     min-height: 3rem
     h3

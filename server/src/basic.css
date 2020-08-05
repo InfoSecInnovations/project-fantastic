@@ -60,8 +60,8 @@ select {
   font-family: 'Exo 2', sans-serif;
   color: #000;
   background-color: #ffa666;
-  border: 1px solid #000;
-  border-radius: 2px;
+  border-radius: 0.4rem;
+  border: 2px solid #e86100;
   padding: 0.1rem;
   box-sizing: border-box;
 }
@@ -95,8 +95,8 @@ input[type=reset]:hover {
 }
 input[type=text],
 input[type=password] {
-  border-radius: 1rem;
-  border: 2px solid #000;
+  border-radius: 0.4rem;
+  border: 2px solid #e86100;
   background-color: #ffa666;
   padding: 0.5rem;
   flex: 1;

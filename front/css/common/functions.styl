@@ -3,7 +3,7 @@ highlight_border()
   border: border_thickness solid highlight_color
 
 alt_border()
-  border-radius: border_radius
+  border-radius: alt_border_radius
   border: border_thickness solid alt_border_color
 
 dropdown()
@@ -11,8 +11,7 @@ dropdown()
   font-family: main_font
   color: alt_font_color
   background-color: alt_background_color
-  border: 1px solid alt_border_color
-  border-radius: 2px
+  alt_border()
   padding: 0.1rem
   box-sizing: border-box
   .fas
