@@ -562,7 +562,7 @@ eval("const Common = __webpack_require__(/*! ../../common/update */ \"./common/u
 /*! runtime requirements: __webpack_require__, module */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_viewer/node_modules/snabbdom/h.js\").default\r\nconst Info = __webpack_require__(/*! ../../common/view/info */ \"./common/view/info/index.js\")\r\nconst Actions = __webpack_require__(/*! ../../common/view/actions */ \"./common/view/actions/index.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', H('div#container', state.node_data ? [\r\n    H('div.column', [\r\n      H('div.title', 'Info'),\r\n      Info(state, send, state.node_data)\r\n    ]),\r\n    H('div.column', [\r\n      H('div.title', 'Actions'),\r\n      Actions(state, send, state.node_data)\r\n    ])\r\n  ] : H('div.title', 'Loading data...')))\r\n\r\nmodule.exports = view\n\n//# sourceURL=webpack://front/./node_viewer/view/index.js?");
+eval("const H = __webpack_require__(/*! snabbdom/h */ \"./node_viewer/node_modules/snabbdom/h.js\").default\r\nconst Info = __webpack_require__(/*! ../../common/view/info */ \"./common/view/info/index.js\")\r\nconst Actions = __webpack_require__(/*! ../../common/view/actions */ \"./common/view/actions/index.js\")\r\n\r\nconst view = (state, send) => \r\n  H('body', H('div#container', state.node_data ? [\r\n    H('div.column', [\r\n      H('h2', 'Info'),\r\n      Info(state, send, state.node_data)\r\n    ]),\r\n    H('div.column', [\r\n      H('h2', 'Actions'),\r\n      Actions(state, send, state.node_data)\r\n    ])\r\n  ] : H('div.title', 'Loading data...')))\r\n\r\nmodule.exports = view\n\n//# sourceURL=webpack://front/./node_viewer/view/index.js?");
 
 /***/ }),
 

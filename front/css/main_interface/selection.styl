@@ -31,28 +31,4 @@
         overflow-x: hidden
         text-overflow: ellipsis
         white-space: nowrap
-  .results
-    min-width: 0
-    .followup
-      display: flex
-      align-items: center
-      gap: 0.5rem
-      .foldout
-        cursor: pointer
-        &:hover
-          color: lighten(highlight_color, 25%)
-    .result
-      min-width: 0
-      padding: 1rem
-      display: flex
-      flex-direction: column
-      gap: 0.7rem
-      .button
-        align-self: flex-start
-      .result_time
-        display: flex
-        align-items: center
-        gap: 0.5rem
-        .time
-          align-items: center
-          display: flex
+  @require('../common/actions.styl')

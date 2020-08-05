@@ -64,6 +64,8 @@ select
   padding: 0.8rem
   background-color: button_background_color
   color: button_font_color
+  font-family: main_font
+  font-size: base_font_size
   flex: none
   display: flex
   align-items: center
@@ -74,10 +76,11 @@ select
   &:hover
     background-color: lighten(button_background_color, 5%)
 
-input[type=text]
+input[type=text], input[type=password]
   alt_border()
   background-color: alt_background_color
   padding: 0.5rem
+  flex: 1
 
 .icon_button
   cursor: pointer
@@ -102,6 +105,12 @@ pre
   margin: 0
   padding: 0.5rem
   scrollbars()
+  code
+    padding: 0
+    font-size: unset
+
+code
+  font-size: 1.2rem
 
 .section
   display: flex
@@ -140,11 +149,12 @@ pre
 .targets
   font-size: small_font_size
 
-.link
+a, .link
   color: alt_background_color
   font-weight: 600
   cursor: pointer
   display: inline
+  text-decoration: none
   &:hover
     color: highlight_color
 

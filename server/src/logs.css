@@ -76,6 +76,8 @@ input[type=reset] {
   padding: 0.8rem;
   background-color: #3c3d3d;
   color: #fff;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
   flex: none;
   display: flex;
   align-items: center;
@@ -91,11 +93,13 @@ input[type=submit]:hover,
 input[type=reset]:hover {
   background-color: #464747;
 }
-input[type=text] {
+input[type=text],
+input[type=password] {
   border-radius: 1rem;
   border: 2px solid #000;
   background-color: #ffa666;
   padding: 0.5rem;
+  flex: 1;
 }
 .icon_button {
   cursor: pointer;
@@ -132,6 +136,13 @@ pre::-webkit-scrollbar-track {
 }
 pre::-webkit-scrollbar-thumb {
   background-color: #f55100;
+}
+pre code {
+  padding: 0;
+  font-size: unset;
+}
+code {
+  font-size: 1.2rem;
 }
 .section {
   display: flex;
@@ -197,12 +208,15 @@ pre::-webkit-scrollbar-thumb {
 .targets {
   font-size: 0.7rem;
 }
+a,
 .link {
   color: #ffa666;
   font-weight: 600;
   cursor: pointer;
   display: inline;
+  text-decoration: none;
 }
+a:hover,
 .link:hover {
   color: #f55100;
 }

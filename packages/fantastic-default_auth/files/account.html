@@ -1,43 +1,41 @@
 <html>
   <head>
     <title>Fantastic - Account</title>
-    <link rel = "stylesheet" type = "text/css" href = "/common.css" />
+    <link rel = "stylesheet" type = "text/css" href = "/basic.css" />
     <link rel = "stylesheet" type = "text/css" href = "/auth/public/style.css" />
     <script src="/auth/public/account.js"></script>
     <script src="/auth/public/error.js"></script>
   </head>
   <body>
-    <div id="container">
-      <div id="panel">
-        <div id="error"></div>
-        <h1>Account</h1>
-        <div id="content">
-          <h3 id="username">username</h3>
-          <div id="role">Role: role</div>
-          <div class="buttons">
-            <a href="/">
-              <div class="button" id="continue">Continue to app</div>
-            </a>
-            <a href="/auth/logout">
-              <div class="button">Log Out</div>
-            </a>
-            <div class="button" onclick="deleteButton(this)">Delete Account</div>
-          </div>
-          <h3>Change Password</h3>
-          <form action="auth/changepassword" method="post">
-            <div class="item input_container">
-              <label for="password">Current Password</label>
-              <input type="password" id="password" name="password">
-            </div>
-            <div class="item input_container">
-              <label for="new_password">New Password</label>
-              <input type="password" id="new_password" name="new_password">
-            </div>
-            <div>
-              <input type="submit" value="Change">
-            </div>
-          </form>
+    <div id="container" class="panel">
+      <div id="error"></div>
+      <h1>Account</h1>
+      <div id="content">
+        <h3 id="username">username</h3>
+        <div id="role">Role: role</div>
+        <div class="buttons">
+          <a href="/">
+            <div class="button" id="continue">Continue to app</div>
+          </a>
+          <a href="/auth/logout">
+            <div class="button">Log Out</div>
+          </a>
+          <div class="button" onclick="deleteButton(this)">Delete Account</div>
         </div>
+        <h3>Change Password</h3>
+        <form action="auth/changepassword" method="post">
+          <div class="input_container">
+            <label for="password">Current Password</label>
+            <input type="password" id="password" name="password">
+          </div>
+          <div class="input_container">
+            <label for="new_password">New Password</label>
+            <input type="password" id="new_password" name="new_password">
+          </div>
+          <div>
+            <input type="submit" value="Change">
+          </div>
+        </form>
       </div>
     </div>
   </body>
