@@ -5,7 +5,6 @@ export default (state, action, action_result, node_id, host, loading, send, foll
   const followup_label = v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enabled' : 'Disabled')) || state.actions[action].names[v.function]
   if (v.not_permitted) return h('div.item', followup_label)
   const loading_followup = loading || v.status === 'loading'
-  const disabled = !loading_followup && typeof v.enabled !== 'undefined' && !v.enabled
   return [
     h('div.button', 
       {
@@ -23,7 +22,7 @@ export default (state, action, action_result, node_id, host, loading, send, foll
             }
           ]
         },
-        class: {loading: loading_followup, disabled}
+        class: {disabled: loading_followup}
       }, 
       (loading_followup && 'Running...') || followup_label
     ),

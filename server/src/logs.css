@@ -126,6 +126,10 @@ select {
 select .fas {
   color: #000;
 }
+select:disabled,
+select.disabled {
+  opacity: 0.7;
+}
 .button,
 input[type=button],
 input[type=submit],
@@ -152,6 +156,16 @@ input[type=submit]:hover,
 input[type=reset]:hover {
   background-color: #464747;
 }
+.button.disabled,
+input[type=button].disabled,
+input[type=submit].disabled,
+input[type=reset].disabled {
+  background-color: #3c3d3d;
+  color: #949494;
+  cursor: auto;
+  border-radius: 1rem;
+  border: 2px solid #949494;
+}
 input[type=text],
 input[type=password] {
   border-radius: 0.4rem;
@@ -176,7 +190,17 @@ input[type=password] {
   flex-grow: 1;
 }
 .icon_button:hover .fas {
-  color: #ff712b;
+  color: #ffa666;
+}
+.foldout {
+  cursor: pointer;
+}
+.foldout:hover {
+  color: #ffa666;
+}
+.foldout.disabled {
+  color: #949494;
+  cursor: auto;
 }
 .scroll_container {
   min-height: 0;

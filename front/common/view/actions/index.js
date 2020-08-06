@@ -15,7 +15,7 @@ export default (state, send, node) => {
           h('div.button', 
             { 
               on: loading ? undefined : {click: [send, {type: 'perform_action', action: v[0], node_id: node.node_id, host: node.hostname}]},
-              class: {loading}
+              class: {disabled: loading}
             }, 
             loading ? 'Running...' : 'Run')
         ]),

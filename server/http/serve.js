@@ -27,20 +27,21 @@ const markdown = file => FS.readFile('src/markdown_template.html')
     return res
   })
 
-const svg = file => SVGSon.parse(file)
+const svg = (file, query) => SVGSon.parse(file)
   .then(res => {
     if (!res.attributes.width) res.attributes.width = 256
     if (!res.attributes.height) res.attributes.height = 256
+    res.attributes.fill = query
     return SVGSon.stringify(res)
   })
 
-const serve = (res, path) => {
+const serve = (res, path, query) => {
   if (!path || path === '/') path = '/index.html'
   FS.readFile(`src${path}`).then(file => {
     if (path.endsWith('.md')) return markdown(file.toString()).then(file => !res.aborted && res.end(file))
     if (path.endsWith('.svg')) {
       res.writeHeader('Content-Type', 'image/svg+xml')
-      return svg(file.toString()).then(file => !res.aborted && res.end(file))
+      return svg(file.toString(), query).then(file => !res.aborted && res.end(file))
     }
     if (path.endsWith('.js')) res.writeHeader('Content-Type', 'text/javascript')
     return !res.aborted && res.end(file)

@@ -23,7 +23,7 @@ export default (state, send, data, parameters, result_data, result_date, result_
     ]),
     h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
     ...(loading ?
-    [h('div.play button waiting', 'Gathering results...')] :
+    [h('div.play button disabled', 'Gathering results...')] :
     [
       parameters.edit && parameters.edit(),
       h('div.play button', valid_parameters ? {on: {click: [send, play_action]}} : {class: {waiting: true}}, [

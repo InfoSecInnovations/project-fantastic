@@ -13,14 +13,14 @@ const link = (url, target, icon, label) =>
 export default (state, send) => h('div#top.panel', [
   h('h1', "Fantastic"),
   Search(state, send),
-  state.user ? h('div.buttons', [
-    h('div.user_info', [
+   h('div.buttons', [
+    state.user ? h('div.user_info', [
       h('div.username', state.user.username),
       h('div.item', `Role: ${state.user.role}`)
-    ]),
-    HasRole(state.user, 'admin') ? link('/logs.html', '_blank', 'bars', 'Logs') : undefined,
+    ]) : undefined,
+    state.user && HasRole(state.user, 'admin') ? link('/logs.html', '_blank', 'bars', 'Logs') : undefined,
     link('/auth', '_self', 'user-circle', 'Account'),
     link('/logout', '_self', 'sign-out-alt', 'Log Out'),
     link('/help/index.md', '_blank', 'question-circle', 'Help')
-  ]) : undefined
+  ])
 ])

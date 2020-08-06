@@ -4,8 +4,12 @@ import Vis from 'vis-network'
 const node_color = 'rgb(245, 81, 0)'
 const border_color = 'rgb(255, 166, 102)'
 const font_color = 'white'
-const highlight_color = 'steelblue'
-const highlight_border_color = 'lightsteelblue'
+const highlight_color = 'rgb(0, 77, 209)'
+const highlight_border_color = 'rgb(102, 158, 255)'
+const hover_color = 'rgb(255, 166, 102)'
+const hover_border_color = 'rgb(255, 166, 102)'
+const image_color = 'black'
+const selected_image_color = 'white'
 
 const get_image = os => {
   if (os) {
@@ -45,7 +49,13 @@ export default (state, send) => {
       label: `${NodeName(v)}${v.access === 'local' ? ' (local host)' : ''}`,
       mass: connection_count || 1,
       size: get_size(v),
-      ...(image && {image: `/fontawesome-free-5.13.0-web/svgs/${image}`, shape: v.important ? 'image' : 'circularImage'})
+      ...(image && {
+        image: {
+          unselected: `/fontawesome-free-5.13.0-web/svgs/${image}?${image_color}`,
+          selected: `/fontawesome-free-5.13.0-web/svgs/${image}?${selected_image_color}`
+        }, 
+        shape: v.important ? 'image' : 'circularImage'
+      })
     })
   })
   const options = {
@@ -58,13 +68,16 @@ export default (state, send) => {
         size: 16
       },
       borderWidth: 2,
-      borderWidthSelected: 1,
       color: {
         border: border_color,
         background: node_color,
         highlight: {
           border: highlight_border_color,
           background: highlight_color
+        },
+        hover: {
+          border: hover_border_color,
+          background: hover_color
         }
       },
       imagePadding: 3

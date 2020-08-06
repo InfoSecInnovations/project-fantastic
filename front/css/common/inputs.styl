@@ -18,6 +18,11 @@ select
   highlight_border()
   &:hover
     background-color: lighten(button_background_color, 5%)
+  &.disabled
+    background-color: disabled_background_color
+    color: disabled_color
+    cursor: auto
+    disabled_border()
 
 input[type=text], input[type=password]
   alt_border()
@@ -40,4 +45,12 @@ input[type=text], input[type=password]
     flex-grow: 1
   &:hover
     .fas
-      color: lighten(highlight_color, 20%)
+      color: alt_background_color
+
+.foldout
+  cursor: pointer
+  &:hover
+    color: alt_background_color
+  &.disabled
+    color: disabled_color
+    cursor: auto

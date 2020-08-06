@@ -35,7 +35,10 @@ export default (state, send) =>
     }
   }, [
     h('label', 'Connection state'),
-    h('div.dropdown', {on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]}},
+    h('div.dropdown', {
+        on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]},
+        class: {disabled: state.loading}
+      },
       [
         selection_label(state.search.connection_state),
         h('div.fas fa-chevron-down')
@@ -44,7 +47,7 @@ export default (state, send) =>
     state.search.connection_foldout ? h('div.states', 
       options.map(v => h('div.state', [
         h(`input#select${v}`, {
-          attrs: {type: 'checkbox', checked: state.search.connection_state.includes(v)},
+          attrs: {type: 'checkbox', disabled: state.loading, checked: state.search.connection_state.includes(v)},
           on: {change: e => send({type: 'connection_state', state: v, value: e.target.checked})}
         }),
         h('label', {attrs: {for: `select${v}`}}, v)

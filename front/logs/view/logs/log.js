@@ -61,7 +61,7 @@ const log_details = (state, log) => {
 }
 
 export default (state, send, log) => h('div.log', [
-  h('div.log_name', [h('b', headers[log.event_type]), ' ' ,log_name(state, log)]),
+  h('h3', [h('b', headers[log.event_type]), ' ' ,log_name(state, log)]),
   h('div.log_details', [
     h('div', log.user.username),
     h('div', new Date(log.date).toString())
