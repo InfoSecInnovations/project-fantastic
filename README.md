@@ -26,7 +26,7 @@ Using the default self signed certificate bundled with the app will cause warnin
 
 The command to build them is `npm run js`. If you run this in the top level `front` directory it will build all 3, or you can run it in an individual directory. It will automatically build your changes until you close the terminal.
 
-Please note: the `logs` directory uses snabbdom 1.0 which works a bit differently from the 0.7 currently used in the other directories. All front end directories will be upgraded in the future.
+The CSS is built using [Stylus](https://stylus-lang.com/). You can run the build by going to the `front/css` directory and running `npm run css`. The main files are in the `output` directory: each `.styl` file from this directory will be built to a corresponding `.css` file on the server.
 
 Currently supported browsers:
   - Google Chrome
