@@ -256,4 +256,9 @@ body {
   flex: 1;
   padding: 4rem;
 }
+img {
+  max-width: 100%;
+  border: 0.5rem solid #57595a;
+  box-sizing: border-box;
+}
 /*# sourceMappingURL=basic.css.map */

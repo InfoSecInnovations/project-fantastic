@@ -35,7 +35,6 @@ export default (state, send, data, parameters, result_data, result_date, result_
     [
       h('h4', `Results from ${TimeAgo(result_date)}`),
       parameters.result && parameters.result(),
-      h('div', `${results.length} systems scanned`),
       pass ?
       h('div', `${options.success_prefix ? `${options.success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`) :
       h('div.link', 

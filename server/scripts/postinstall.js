@@ -1,8 +1,6 @@
 const FS = require('fs-extra')
 
 const run = async () => {
-  await FS.ensureSymlink('./node_modules/fantastic-cli/documentation', './src/help/fantastic-cli')
-
   await FS.remove('data.db')
   await FS.remove('data.db-journal')
   await FS.remove('config')
