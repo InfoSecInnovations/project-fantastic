@@ -154,7 +154,9 @@ input[type=reset] {
 input[type=button]:hover,
 input[type=submit]:hover,
 input[type=reset]:hover {
-  background-color: #464747;
+  background-color: #505151;
+  border-radius: 1rem;
+  border: 2px solid #ffa666;
 }
 .button.disabled,
 input[type=button].disabled,
@@ -364,12 +366,18 @@ input[type=password] {
 #container #left_panel .history_title .history_controls {
   display: flex;
 }
-#container #left_panel .history_title .history_controls .favorited {
-  color: #ffe159;
-}
 #container #left_panel .history_title .history_controls .history_control {
   font-size: 1rem;
   cursor: pointer;
+}
+#container #left_panel .history_title .history_controls .history_control:hover {
+  color: #ffa666;
+}
+#container #left_panel .history_title .history_controls .favorited {
+  color: #ffe159;
+}
+#container #left_panel .history_title .history_controls .favorited:hover {
+  color: #fff;
 }
 #container #left_panel .play {
   align-self: flex-start;

@@ -17,7 +17,8 @@ select
   min-width: 5rem
   highlight_border()
   &:hover
-    background-color: lighten(button_background_color, 5%)
+    background-color: button_hover_color
+    hover_border()
   &.disabled
     background-color: disabled_background_color
     color: disabled_color
