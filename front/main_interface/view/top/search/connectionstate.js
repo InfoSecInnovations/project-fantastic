@@ -21,35 +21,33 @@ const selection_label = connection_state => {
 }
 
 export default (state, send) => 
-  h('div#connection_state.checkboxes selector', {
-    on: { focusout: e => {
-        if (e.relatedTarget) { // this is a not very elegant way to check if we clicked outside of this element
-          let target = e.relatedTarget
-          while (target) {
-            if (target.id === 'connection_state') return
-            target = target.parentNode
-          }
-        }
-        send({type: 'connection_foldout', value: false})
+  h('div#connection_state.checkboxes selector',
+    {
+      on: {focusout: e => {
+        if (e.relatedTarget && (e.relatedTarget.id == 'connection_state' || document.getElementById('connection_state').contains(e.relatedTarget))) return
+        send({type: 'connection_foldout', value: false})}
       }
-    }
-  }, [
-    h('label', 'Connection state'),
-    h('div.dropdown', {
-        on: {click: [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]},
-        class: {disabled: state.loading}
-      },
-      [
-        selection_label(state.search.connection_state),
-        h('div.fas fa-chevron-down')
-      ]
-    ),
-    state.search.connection_foldout ? h('div.states', 
-      options.map(v => h('div.state', [
-        h(`input#select${v}`, {
-          attrs: {type: 'checkbox', disabled: state.loading, checked: state.search.connection_state.includes(v)},
-          on: {change: e => send({type: 'connection_state', state: v, value: e.target.checked})}
-        }),
-        h('label', {attrs: {for: `select${v}`}}, v)
-      ]))) : undefined
-  ])
+    },
+    [
+      h('label', 'Connection state'),
+      h('div.dropdown', {
+          attrs: {tabIndex: 0},
+          on: {click: state.loading ? () => {} : [send, {type: 'connection_foldout', value: !state.search.connection_foldout}]},
+          class: {disabled: state.loading}
+        },
+        [
+          selection_label(state.search.connection_state),
+          h('div.fas fa-chevron-down')
+        ]
+      ),
+      state.search.connection_foldout ? h('div.states', 
+        options.map(v => h('div.state', [
+          h(`input#select${v}`, {
+            attrs: {type: 'checkbox', disabled: state.loading, checked: state.search.connection_state.includes(v)},
+            on: {change: e => send({type: 'connection_state', state: v, value: e.target.checked})}
+          }),
+          h('label', {attrs: {for: `select${v}`}}, v)
+        ]))
+      ) : undefined
+    ]
+  )
