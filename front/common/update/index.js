@@ -15,6 +15,9 @@ export default (state, action) => {
   if (action.type == 'action_followup') ActionFollowup(state, action)
   if (action.type == 'action_followup_result') FollowupResult(state, action)
   if (action.type == 'followup_foldout') FollowupFoldout(state, action)
+  if (action.type == 'flex_search') state.flex_search = action.search
+  if (action.type == 'search_results') state.search_results = action.results
+  if (action.type == 'action_search') state.search_query = action.query
 
   return state
 }
