@@ -2,17 +2,16 @@ import {h} from 'snabbdom/h'
 import HostString from '../../util/hoststring'
 import Result from './result'
 import TimeAgo from '../../util/timeago'
-import result from './result'
 
 export default (state, send, node) => {
   if (!state.actions) return
-  const base_actions = state.search_query && state.search_results ? state.search_results.reduce((r, v) => ({...r, [v]: state.actions[v]}), {}) : state.actions
+  const base_actions = state.flex_search.actions.query && state.flex_search.actions.results ? state.flex_search.actions.results.reduce((r, v) => ({...r, [v]: state.actions[v]}), {}) : state.actions
   const actions = Object.entries(base_actions).filter(v => v[1].hosts.includes('none') || v[1].hosts.includes(node.access)) 
   return h('div.scroll_container', [
     h('div.item', [
       h('input', {
         attrs: {type: 'text'},
-        on: {input: e => send({type: 'action_search', query: e.target.value})}
+        on: {input: e => send({type: 'search_input', query: e.target.value, search_type: 'actions'})}
       }),
       h('label.fas fa-search fa-fw')
     ]),

@@ -7,13 +7,13 @@ export default (state, action, send) => {
     .then(res => res.json())
     .then(res => send({...action, type: 'action_result', result: res.result, hostname: action.host, date: res.date}))
   if (action.type == 'actions') {
-    const search = new FlexSearch()
-    Object.entries(action.actions).forEach(v => search.add(v[0], v[1].name))
-    send({type: 'flex_search', search})
+    const index = new FlexSearch()
+    Object.entries(action.actions).forEach(v => index.add(v[0], v[1].name))
+    send({type: 'search_index', index, search_type: 'actions'})
   }
   if (action.type == 'action_followup') ActionFollowup(state, action, send)
-  if (action.type == 'action_search') {
-    const results = state.flex_search.search(action.query)
-    send({type: 'search_results', results})
+  if (action.type == 'search_input') {
+    const results = state.flex_search[action.search_type].index.search(action.query)
+    send({type: 'search_results', results, search_type: action.search_type})
   }
 }

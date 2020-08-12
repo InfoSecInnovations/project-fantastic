@@ -18,6 +18,7 @@ const patch = init([
 
 let state = { 
   action_results: {},
+  flex_search: {actions: {}}
 }
 let vnode = document.body
 

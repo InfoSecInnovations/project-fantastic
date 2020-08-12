@@ -20,6 +20,7 @@ const patch = init([
 ])
 
 let state = {
+  flex_search: {actions: {}},
   search: {date: 15, show_external: true, connection_type: 'all', connection_state: []}, 
   tab: 'info', 
   selected: {}, 
