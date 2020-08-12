@@ -1,4 +1,5 @@
 import Common from '../../common/update'
+import FlexSearch from '../../common/update/flexsearch'
 import Hovered from '../defaults/hovered'
 import QuestResults from './questresults'
 import TestResults from './testresults'
@@ -69,5 +70,6 @@ export default (state, action) => {
   if (action.type == 'order_favorites') state.history.ordering = true
   if (action.type == 'favorites_ordered') state.history.ordering = false
   state = Common(state, action)
+  state = FlexSearch(state, action)
   return state
 }

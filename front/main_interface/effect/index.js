@@ -1,4 +1,5 @@
 import Common from '../../common/effect'
+import FlexSearch from '../../common/effect/flexsearch'
 const FlatUnique = require('fantastic-utils/flatunique')
 import GenerateQuery from '../../common/effect/generatequery'
 import Init from './init'
@@ -10,6 +11,7 @@ import UserHistory from './userhistory'
 
 export default (state, action, send) => {
   Common(state, action, send)
+  FlexSearch(state, action, send)
   if (action.type == 'init') Init(send)
   if (action.type == 'nodes') Nodes(state, send)
   if (action.type == 'get_nodes') RefreshNodes(send, {nodes: action.nodes, date: action.date, max_date: action.max_date})

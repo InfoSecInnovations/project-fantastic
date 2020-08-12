@@ -1,5 +1,6 @@
 import {h} from 'snabbdom/h'
 import HostString from '../../../common/util/hoststring'
+import SearchBar from '../../../common/view/searchbar'
 const HasRole = require('fantastic-utils/hasrole')
 
 const enabled_button = (state, send, command, data) => {
@@ -14,15 +15,19 @@ const enabled_button = (state, send, command, data) => {
   return h('div', `${data.mode == 'enabled' ? 'Enabled' : 'Disabled'} (requires ${data.role} role to change)`)
 }
 
-export default (state, send) => h('div.scroll_container', [
-  h('h2.panel_title', 'Host Data Commands'),
-  h('div.scroll spaced', Object.entries(state.commands).map(v => h('div.scroll_item spaced', [
-    h('div.item command_title', [
-      h('h3', v[1].name),
-      enabled_button(state, send, v[0], v[1]),
-    ]),
-    h('pre', v[1].command),
-    v[1].description ? h('div.item', v[1].description) : undefined,
-    h('div.targets', [h('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])
-  ])))
-])
+export default (state, send) => {
+  const commands = state.flex_search.commands.query && state.flex_search.commands.results ? state.flex_search.commands.results.reduce((r, v) => ({...r, [v]: state.commands[v]}), {}) : state.commands
+  return h('div.scroll_container', [
+    h('h2.panel_title', 'Host Data Commands'),
+    SearchBar(send, 'commands'),
+    h('div.scroll spaced', Object.entries(commands).map(v => h('div.scroll_item spaced', [
+      h('div.item command_title', [
+        h('h3', v[1].name),
+        enabled_button(state, send, v[0], v[1]),
+      ]),
+      h('pre', v[1].command),
+      v[1].description ? h('div.item', v[1].description) : undefined,
+      h('div.targets', [h('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])
+    ])))
+  ])
+}
