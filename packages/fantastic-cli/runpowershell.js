@@ -1,6 +1,13 @@
 const { spawn } = require('child_process')
 const FormatString = require('fantastic-utils/formatstring')
 
+/**
+ * Run a PowerShell command in a child process.
+ * @param {string} command 
+ * @param {Object} params 
+ * @param {boolean} log Enable error logging.
+ * @returns {Promise<string>} The result of running the command.
+ */
 const child = (command, params, log = true) => new Promise((resolve, reject) => {
   if (params) command = FormatString(command, params)
   const child_process = spawn('powershell.exe', [command])
