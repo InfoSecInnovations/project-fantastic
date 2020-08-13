@@ -1,3 +1,23 @@
+/**
+ * @typedef {{
+ *  columns: Object.<string, *>|[string, any][], 
+ *  combine: 'AND'|'OR', 
+ *  compare: '='|'<'|'<='|'>'|'>='|'IN'
+ * }} QueryCondition
+ */
+
+/**
+ * 
+ * @typedef {{
+ *  table: string,
+ *  conditions: QueryCondition|{groups: QueryCondition[], combine: 'AND'|'OR'},
+ *  order_by: string|string[]|Object.<string, string>,
+ *  pagination: {page_size: number, page: number},
+ *  columns: string[],
+ *  row: Object.<string, *>
+ * }} Query
+ */
+
 const run = queries => db => db.serialize(() => {
   queries.forEach(v => db.run(v, err => err && console.log(err.message)))
 })

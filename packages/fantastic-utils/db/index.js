@@ -9,6 +9,18 @@ const execute = (path, func, mode) => new Promise(async (resolve, reject) => {
   db.close(err => err && reject(err) || resolve(result))
 })
 
+/**
+ * Create a new database object to communicate with the database at the given path.
+ * @param {string} path 
+ * @returns {{
+ *  transaction: (mode: number) => Promise<{
+ *    run: (queries: string[]) => Promise
+ *  }>,
+ *  run: (queries: string[]) => Promise,
+ *  update: (query: import('./operations').Query) => Promise,
+ *  select: (query: import('./operations').Query) => Promise<*[]>
+ * }} database object
+ */
 const init = path => ({
   ...Object.entries(Operations.write).reduce((result, v) => ({...result, [v[0]]: (...args) => execute(path, v[1].apply(null, args))}), {}),
   ...Object.entries(Operations.read).reduce((result, v) => ({...result, [v[0]]: (...args) => execute(path, v[1].apply(null, args), SQLite3.OPEN_READONLY)}), {}),

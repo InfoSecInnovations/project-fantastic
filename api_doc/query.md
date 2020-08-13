@@ -23,5 +23,5 @@ Structure of the object expected by `packages/fantastic-utils/db/operations.js` 
       [name, name...] // sort by these columns, ascending
       or
       {name: 'ASC', 'DESC', ...} // sort by each key using the value for ascending / descending
-      limit: number or {offset: number, count: number}
+      pagination: {page_size, page}
     }
