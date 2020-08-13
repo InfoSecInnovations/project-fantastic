@@ -1254,10 +1254,10 @@ eval("const flatUnique = arr => [...new Set(arr.flat().filter(v => typeof v !== 
   !*** ../packages/fantastic-utils/formatstring.js ***!
   \***************************************************/
 /*! unknown exports (runtime-defined) */
-/*! runtime requirements: module */
-/***/ ((module) => {
+/*! runtime requirements: module, __webpack_require__ */
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("/**\r\n * Replace placeholders in the '$key' format with corresponding values from the parameters object\r\n * @param {string} string \r\n * @param {Object} parameters \r\n * @returns {string}\r\n */\r\nconst formatString = (string, parameters) => {\r\n  Object.entries(parameters).forEach(v => {\r\n     // regex escape magic I found to preserve special characters when searching and replacing the key\r\n     // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions\r\n    const key_regex = new RegExp(`$${v[0]}`.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&', 'g'))\r\n    // TODO sanitize v[1] value to prevent injection\r\n    let sanitized_value\r\n    if (typeof v[1] == 'undefined') return\r\n    if (typeof v[1] == 'number') sanitized_value = `${v[1]}`\r\n    if (typeof v[1] == 'string') sanitized_value = `\"${v[1]}\"`\r\n    if (typeof v[1] == 'boolean') sanitized_value = v[1] ? 'True' : 'False'\r\n    string = string.replace(key_regex, sanitized_value)\r\n  }) \r\n  return string\r\n}\r\n\r\nmodule.exports = formatString\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/formatstring.js?");
+eval("const JSToPS = __webpack_require__(/*! ./jstops */ \"../packages/fantastic-utils/jstops.js\")\r\n\r\nconst js_string = js => {\r\n  if (typeof js == 'undefined') return 'undefined'\r\n  if (typeof js == 'number') return `${js}`\r\n  if (typeof js == 'string') return `\"${js}\"`\r\n  if (typeof js == 'boolean') return js ? 'true' : 'false'\r\n}\r\n\r\n/**\r\n * Replace placeholders in the '$key' format with corresponding values from the parameters object\r\n * @param {string} string \r\n * @param {Object} parameters \r\n * @param {('powershell'|'js')} mode\r\n * @returns {string}\r\n */\r\nconst formatString = (string, parameters, mode = 'powershell') => {\r\n  Object.entries(parameters).forEach(v => {\r\n     // regex escape magic I found to preserve special characters when searching and replacing the key\r\n     // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions\r\n    const key_regex = new RegExp(`$${v[0]}`.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&', 'g'))\r\n    string = string.replace(key_regex, mode == 'powershell' ? JSToPS(v[1]) : js_string(v[1]))\r\n  }) \r\n  return string\r\n}\r\n\r\nmodule.exports = formatString\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/formatstring.js?");
 
 /***/ }),
 
@@ -1270,6 +1270,18 @@ eval("/**\r\n * Replace placeholders in the '$key' format with corresponding val
 /***/ ((module) => {
 
 eval("const hasRole = (user, role) => {\r\n  if (!user) return false\r\n  if (user.role === 'admin') return true\r\n  if (user.role === 'elevated' && role !== 'admin') return true \r\n  return user.role === (role || 'user')\r\n}\r\n\r\nmodule.exports = hasRole\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/hasrole.js?");
+
+/***/ }),
+
+/***/ "../packages/fantastic-utils/jstops.js":
+/*!*********************************************!*\
+  !*** ../packages/fantastic-utils/jstops.js ***!
+  \*********************************************/
+/*! unknown exports (runtime-defined) */
+/*! runtime requirements: module */
+/***/ ((module) => {
+
+eval("/**\r\n * Convert a JavaScript value to a PowerShell variable\r\n * @param {*} js \r\n * @returns {string}\r\n */\r\nconst JStoPS = js => {\r\n  if (typeof js == 'undefined') return '$null'\r\n  if (typeof js == 'number') return `${js}`\r\n  if (typeof js == 'string') return `\"${js}\"`\r\n  if (typeof js == 'boolean') return js ? 'True' : 'False'\r\n}\r\n\r\nmodule.exports = JStoPS\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/jstops.js?");
 
 /***/ })
 
