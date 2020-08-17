@@ -9,7 +9,7 @@ const login = (res, req) => {
   GetHTTPData(res)
   .then(async data => {
     const json = ParseQuery(data)
-    const ad = await ActiveDirectory
+    const ad = await ActiveDirectory()
     try {
       const auth = await ad.authenticate(json.username, json.password)
       if (auth) {
