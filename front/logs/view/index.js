@@ -8,6 +8,8 @@ export default (state, send) => h('body',
     ...(state.actions && state.quests && state.tests && state.logs ? [
       Search(state, send),
       Logs(state, send)
-    ] : [])
+    ] : [
+      h('div', 'Loading data...')
+    ])
   ])
 )
