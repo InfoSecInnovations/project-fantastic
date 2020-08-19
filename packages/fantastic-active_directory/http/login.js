@@ -2,7 +2,10 @@ const GetHTTPData = require('fantastic-utils/gethttpdata')
 const ParseQuery = require('fantastic-utils/parsequery')
 const ActiveDirectory = require('../activedirectory')
 const GenerateID = require('fantastic-utils/generateid')
+const Error = require('./error')
 const {get, update, insert} = require('../db')
+
+const error = 'Invalid Active Directory login. If the problem persists please contact the server administrator.'
 
 const login = (res, req) => {
   res.onAborted(() => res.aborted = true)
@@ -24,14 +27,11 @@ const login = (res, req) => {
         res.writeHeader('Set-Cookie', `session_id=${session_id}; Secure; HttpOnly; Path=/;`)
         res.end()
       }
-      else {
-        // TODO: send error cookie
-        res.end()
-      }
+      else Error(res, error)
     }
     catch(err) {
-      res.end()
-      return console.log(`Active Directory authentication error: ${typeof err == 'string' ? err : JSON.stringify(err)}`)
+      console.log(`Active Directory authentication error: ${typeof err == 'string' ? err : JSON.stringify(err)}`)
+      Error(res, error)
     }
   })
 }
