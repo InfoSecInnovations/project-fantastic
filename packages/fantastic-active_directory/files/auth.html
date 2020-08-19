@@ -5,23 +5,21 @@
     <link rel = "stylesheet" type = "text/css" href = "/auth/public/style.css" />
   </head>
   <body>
-    <div id="container">
-      <div id="panel">
-        <h1>Active Directory Login</h1>
-        <form action="/auth/login" method="post">
-          <div class="item input_container">      
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
-          </div>
-          <div class="item input_container">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-          </div>
-          <div class="buttons">
-            <input type="submit" value="Log In">
-          </div>
-        </form>
-      </div>
+    <div id="container" class="panel">
+      <h1>Active Directory Login</h1>
+      <form action="/auth/login" method="post">
+        <div class="item input_container">      
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username">
+        </div>
+        <div class="item input_container">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password">
+        </div>
+        <div class="buttons">
+          <input type="submit" value="Log In">
+        </div>
+      </form>
     </div>
   </body>
 </html>
