@@ -13,13 +13,15 @@ const login = (res, req) => {
     try {
       const auth = await ad.authenticate(json.username, json.password)
       if (auth) {
+        const split = json.username.split('\\')
+        const username = split[split.length - 1]
         const session_id = await GenerateID()
-        const row = await get({table: 'users', columns: ['user_id'], conditions: {columns: {username: json.username}}})
-        if (row) await update({table: 'users', row: {session_id}, conditions: {columns: {username: json.username}}})
-        else await insert('users', {username: json.username, session_id})
+        const row = await get({table: 'users', columns: ['user_id'], conditions: {columns: {username}}})
+        if (row) await update({table: 'users', row: {session_id}, conditions: {columns: {username}}})
+        else await insert('users', {username, session_id})
         res.writeStatus('302 Found')
         res.writeHeader('Location', '/')
-        res.writeHeader('Set-Cookie', `session_id=${id}; Secure; HttpOnly; Path=/;`)
+        res.writeHeader('Set-Cookie', `session_id=${session_id}; Secure; HttpOnly; Path=/;`)
         res.end()
       }
       else {
