@@ -1,0 +1,19 @@
+{
+  "name": "Get Installed Software",
+  "description": "Placeholder \"dirty\" way to get installed software pending a more elegant script",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "Get-WmiObject -Class Win32_Product",
+      "method": "invoke",
+      "json": true,
+      "result": {
+        "label": "Name",
+        "data": [
+          {"labelled": "Version"},
+          {"labelled": "Vendor"}
+        ]
+      }
+    }
+  }
+}

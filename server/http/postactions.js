@@ -3,7 +3,7 @@ const Abort = require('./abort')
 const RunAction = require('../actions/runaction')
 const HasRole = require('fantastic-utils/hasrole')
 const Auth = require('./auth')
-const GetAsset = require('../util/getpackageddata')
+const GetPackagedData = require('../util/getpackageddata')
 const End = require('./end')
 const {transaction} = require('../db')
 
@@ -15,7 +15,7 @@ const postActions = (res, req, actions) => {
   .then(async user => {
     if (!user) return End(res)
     if (!actions.includes(query.action)) return End(res)
-    const action = await GetAsset(query.action)
+    const action = await GetPackagedData(query.action, 'actions')
     if (!HasRole(user, action.role)) return End(res)
     const date = Date.now()
     const db = await transaction()

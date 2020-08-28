@@ -2,7 +2,7 @@ const DB = require('../db')
 const RunPowerShell = require('fantastic-cli/runpowershell')
 const FlatUnique = require('fantastic-utils/flatunique')
 const DefaultIPs = require('fantastic-utils/defaultips')
-const GetCommand = require('../util/getpackageddata')
+const GetPackagedData = require('../util/getpackageddata')
 const RunCommand = require('./runcommand')
 
 const run_type = (commands, result_type, host, hostname) => commands[result_type] ?
@@ -39,7 +39,7 @@ const get_node = async (commands, computer_name) => {
 const create_commands = commands => 
   commands ? Promise.all(Object.entries(commands)
   .filter(v => v[1] != 'disabled')
-  .map(v => GetCommand(v[0]))) // TODO: filter out invalid scripts and warn the user
+  .map(v => GetPackagedData(v[0], 'commands'))) // TODO: filter out invalid scripts and warn the user
   .then(res => res.reduce((result, v) => {
     (result[v.result_type] = result[v.result_type] || []).push(v)
     return result

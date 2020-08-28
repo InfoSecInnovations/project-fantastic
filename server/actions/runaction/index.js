@@ -1,10 +1,10 @@
-const GetAction = require('../../util/getpackageddata')
+const GetPackagedData = require('../../util/getpackageddata')
 const RunFunction = require('./runfunction')
 
 const runAction = async (db, action, func, node_id, user, date, options) => {
   const row = await db.get({table: 'nodes', conditions: {columns: {node_id}}})
   const hostname = row.access === 'local' ? '' : row.hostname
-  const obj = await GetAction(action)
+  const obj = await GetPackagedData(action, 'actions')
   const result = await RunFunction(obj, func, user, hostname, options && options.data)
   for (const r of result) {
     if (r.followups) {

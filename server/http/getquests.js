@@ -1,4 +1,4 @@
-const GetAsset = require('../util/getpackageddata')
+const GetPackagedData = require('../util/getpackageddata')
 const Auth = require('./auth')
 const HasRole = require('fantastic-utils/hasrole')
 const Abort = require('./abort')
@@ -9,7 +9,7 @@ const getQuests = (res, req, tests) => { // TODO: this should get daily quests, 
   Auth(req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()
-    const quest_data = await Promise.all(tests.map(v => GetAsset(v).then(a => ({...a, key: v}))))
+    const quest_data = await Promise.all(tests.map(v => GetPackagedData(v, 'tests').then(a => ({...a, key: v}))))
     .then(tests => tests.filter(v => v.quest))
     .then(tests => tests.reduce((result, v) => {
       if (!HasRole(user, v.role)) return result

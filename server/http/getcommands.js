@@ -1,4 +1,4 @@
-const GetCommand = require('../util/getpackageddata')
+const GetPackagedData = require('../util/getpackageddata')
 const ValidateRole = require('./auth/validaterole')
 const Abort = require('./abort')
 
@@ -9,7 +9,7 @@ const getCommands = (res, req, commands) => {
   .then(async valid => {
     if (!valid) return !res.aborted && res.end()
     const command_data = await Promise.all(Object.entries(commands)
-      .map(v => GetCommand(v[0]).then(c => ({...c, key: v[0], mode: v[1]})))
+      .map(v => GetPackagedData(v[0], 'commands').then(c => ({...c, key: v[0], mode: v[1]})))
     ) // TODO: filter out invalid scripts and warn the user
     .then(commands => commands.reduce((result, v) => ({ 
       ...result, 

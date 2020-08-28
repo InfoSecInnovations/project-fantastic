@@ -1,28 +1,20 @@
 {
   "use_child_process": true,
   "port": 5000,
-  "actions": [
-    "fantastic-default_actions"
-  ],
-  "host_data_commands": {
-    "fantastic-default_commands": {
-      "force": [
-        "getMacAddress",
-        "getNetIpAddress",
-        "getNetTcpConnection"
-      ],
-      "default_enabled": [
-        "getHostname",
-        "getDnsClientCache",
-        "getOs"
-      ]
-    }
+  "assets": {
+    "packages": [
+      "fantastic-default"
+    ],
+    "force_commands": [
+      "fantastic-default/getMacAddress",
+      "fantastic-default/getNetIpAddress",
+      "fantastic-default/getNetTcpConnection"
+    ],
+    "default_enable_commands": [
+      "fantastic-default/getHostname",
+      "fantastic-default/getDnsClientCache",
+      "fantastic-default/getOs"
+    ]
   },
-  "quests": [
-    "fantastic-default_quests"
-  ],
-  "tests": [
-    "fantastic-default_tests"
-  ],
   "authentication": "fantastic-default_auth"
 }

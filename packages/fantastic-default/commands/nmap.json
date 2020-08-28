@@ -1,0 +1,34 @@
+{
+  "hosts": ["local"],
+  "result_type": "hosts",
+  "description": "Performs a fast scan using nmap to detect hosts on the network",
+  "role": "elevated",
+  "run": {
+    "command": "nmap -T4 -F 192.168.1.0/24 -oX nmap.xml",
+    "method": "invoke",
+    "read_xml": {
+      "file": "nmap.xml",
+      "root": "nmaprun.host"
+    },
+    "result": {
+      "local": {
+        "bool": {"status.$.reason": "localhost-response"}
+      },
+      "hostname": "hostnames.hostname.$.name",
+      "ips": {
+        "array": "address",
+        "result": "$.addr",
+        "filter": {"$.addrtype": "ipv4"}
+      },
+      "macs": {
+        "array": "address",
+        "result": {
+          "mac": "$.addr",
+          "vendor": "$.vendor"
+        },
+        "filter": {"$.addrtype": "mac"}
+      },
+      "important": true
+    }
+  }
+}

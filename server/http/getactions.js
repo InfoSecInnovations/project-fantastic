@@ -10,7 +10,7 @@ const getActions = (res, req, actions) => {
   .then(async user => {
     if (!user) return !res.aborted && res.end()
     const action_data = await Promise.all(actions
-      .map(v => GetPackagedData(v).then(a => ({...a, key: v})))
+      .map(v => GetPackagedData(v, 'actions').then(a => ({...a, key: v})))
     )
     .then(actions => actions.filter(v => HasRole(user, v.role)) // TODO: filter out invalid scripts and warn the user
       .reduce((result, v) => ({ 

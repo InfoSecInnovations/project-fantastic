@@ -1,9 +1,9 @@
-const GetTest = require('../util/getpackageddata')
+const GetPackagedData = require('../util/getpackageddata')
 const RunAction = require('../actions/runaction')
 const CheckResult = require('./checkresult')
 
 const runTest = async (db, test, user, date, nodes, parameters, quest_id) => {
-  const obj = await GetTest(test)
+  const obj = await GetPackagedData(test, 'tests')
   const event_id = await db.insert('test_history', {test, date, parameters: JSON.stringify(parameters), user_id: user.user_id, quest_id})
   const rows = await db.all({table: 'nodes', conditions: {groups: [{columns: {access: obj.hosts}, compare: 'IN'}, {columns: {node_id: nodes}, compare: 'IN'}]}})
   const results = []

@@ -1,0 +1,15 @@
+{
+  "name": "Get MAC Addresses",
+  "description": "Find Network Adapters with PCI and USB device IDs and return their MAC Addresses.",
+  "hosts": ["local", "remote"],
+  "result_type": "mac_addresses",
+  "run": {
+    "command": "get-ciminstance -ClassName Win32_NetworkAdapter | where {($_.AdapterTypeId -eq 0) -And ($_.PNPDeviceID -Like \"*PCI*\" -Or $_.PNPDeviceID -Like \"*USB*\")} | select MACAddress, name",
+    "method": "invoke",
+    "json": true,
+    "result": {
+      "mac": "MACAddress",
+      "vendor": "name"
+    }
+  }
+}

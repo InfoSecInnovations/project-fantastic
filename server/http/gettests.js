@@ -1,4 +1,4 @@
-const GetAsset = require('../util/getpackageddata')
+const GetPackagedData = require('../util/getpackageddata')
 const Abort = require('./abort')
 const Auth = require('./auth')
 const HasRole = require('fantastic-utils/hasrole')
@@ -10,7 +10,7 @@ const getTests = (res, req, tests) => {
   .then(async user => {
     if (!user) return !res.aborted && res.end()
     const test_data = await Promise.all(tests
-      .map(v => GetAsset(v).then(t => ({...t, key:v})))
+      .map(v => GetPackagedData(v, 'tests').then(t => ({...t, key:v})))
     )
     .then(tests => tests      
       .filter(v => HasRole(user, v.role))

@@ -1,0 +1,18 @@
+{
+  "name": "Get Last Boot Time",
+  "description": "Find out when this computer was last booted up (may not include certain start ups based on settings)",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "Get-CimInstance -ClassName win32_operatingsystem | select lastbootuptime",
+      "method": "invoke",
+      "json": true,
+      "result": {
+        "label": {"static": "Last Boot Up Time"},
+        "data": [
+          {"date": "lastbootuptime"}
+        ]
+      }
+    }
+  }
+}

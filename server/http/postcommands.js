@@ -1,7 +1,7 @@
 const ParseQuery = require('fantastic-utils/parsequery')
 const Abort = require('./abort')
 const Auth = require('./auth')
-const GetCommand = require('../util/getpackagedfunction')
+const GetPackagedData = require('../util/getpackageddata')
 const HasRole = require('fantastic-utils/hasrole')
 const {transaction} = require('../db')
 
@@ -14,7 +14,7 @@ const postCommands = (res, req, commands) => {
     if (!user) return !res.aborted && res.end()
     const modules = await Promise.all(Object.entries(query)
     .filter(v => commands.hasOwnProperty(v[0]))
-    .map(v => GetCommand(v[0]).then(c => ({...c, key: v[0], enabled: v[1]}))))
+    .map(v => GetPackagedData(v[0], 'commands').then(c => ({...c, key: v[0], enabled: v[1]}))))
     .then(modules => modules.filter(v => HasRole(user, v.role)))
     const db = await transaction()
     for (const module of modules) {
