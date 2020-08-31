@@ -4,7 +4,8 @@ module.exports = {
     lastBoot: 'actions/lastboot.json',
     getInstalledSoftware: 'actions/getinstalledsoftware.json',
     getMpComputerStatus: 'actions/getmpcomputerstatus.json',
-    loggedInUsers: 'actions/loggedinusers.json'
+    loggedInUsers: 'actions/loggedinusers.json',
+    getUSBDevices: 'actions/getusbdevices.json'
   },
   tests: {
     checkReboot: 'tests/checkreboot.json'

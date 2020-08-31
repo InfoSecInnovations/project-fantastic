@@ -1,0 +1,19 @@
+{
+  "name": "Get USB Devices",
+  "description": "Find USB devices connected to this machine",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "Get-WMIObject Win32_USBControllerDevice |%{[wmi]($_.Dependent)} | Select Name, Manufacturer, PNPClass",
+      "method": "invoke",
+      "json": true,
+      "result": {
+        "label": "Name",
+        "data": [
+          {"labelled": "PNPClass"},
+          {"labelled": "Manufacturer"}
+        ]
+      }
+    }
+  }
+}
