@@ -1,0 +1,19 @@
+{
+  "name": "Get Certificates",
+  "description": "Get certificates installed on this machine",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "dir cert: -Recurse",
+      "method": "invoke",
+      "json": true,
+      "result": {
+        "label": "Subject",
+        "data": [
+          {"labelled": "FriendlyName"},
+          {"labelled": "Thumbprint"}
+        ]
+      }
+    }
+  }
+}

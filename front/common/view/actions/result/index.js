@@ -4,6 +4,8 @@ import FollowupResults from './followupresults'
 import TimeAgo from '../../../util/timeago'
 
 const format_value = value => {
+  if (value === null) return 'null'
+  if (typeof value === 'undefined') return 'undefined'
   if (typeof value === 'object') {
     if (value.date) return TimeAgo(value.date)
   }

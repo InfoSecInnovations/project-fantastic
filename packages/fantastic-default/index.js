@@ -5,7 +5,8 @@ module.exports = {
     getInstalledSoftware: 'actions/getinstalledsoftware.json',
     getMpComputerStatus: 'actions/getmpcomputerstatus.json',
     loggedInUsers: 'actions/loggedinusers.json',
-    getUSBDevices: 'actions/getusbdevices.json'
+    getUSBDevices: 'actions/getusbdevices.json',
+    getCertificates: "actions/getcertificates.json"
   },
   tests: {
     checkReboot: 'tests/checkreboot.json'
