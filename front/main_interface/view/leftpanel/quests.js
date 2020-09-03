@@ -19,8 +19,8 @@ export default (state, send) => h('div.scroll_container', [
       send, 
       v[1],
       {
-        get: () => v[1].parameters, 
-        result: () => h('div.link', {
+        get: () => v[1].parameters || {}, 
+        result: () => state.quest_results.nodes[quest] && h('div.link', {
           on: {click: e => {
             send({type: 'get_nodes', nodes: state.quest_results.nodes[quest], date: state.quest_results.date[quest] - ConvertTime(state.quests[quest].selection.age), max_date: state.quest_results.date[quest]})
           }}

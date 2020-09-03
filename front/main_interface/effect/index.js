@@ -52,10 +52,8 @@ export default (state, action, send) => {
       UserHistory(send)
     })
   if (action.type == 'quest_results'){
-    if (action.nodes) {
-      send({type: 'nodes', nodes: action.nodes})
-      send({type: 'quest_nodes', quest: action.quest, nodes: action.nodes.map(v => v.node_id)})
-    }
+    if (action.select) send({type: 'nodes', nodes: action.nodes || []})
+    send({type: 'quest_nodes', quest: action.quest, nodes: action.nodes ? action.nodes.map(v => v.node_id) : []})
   }
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
