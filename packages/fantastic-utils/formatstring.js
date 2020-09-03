@@ -15,6 +15,7 @@ const js_string = js => {
  * @returns {string}
  */
 const formatString = (string, parameters, mode = 'powershell') => {
+  if (!parameters) return string
   Object.entries(parameters).forEach(v => {
      // regex escape magic I found to preserve special characters when searching and replacing the key
      // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions

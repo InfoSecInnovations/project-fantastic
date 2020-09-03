@@ -1,0 +1,17 @@
+{
+  "name": "Review USB Devices",
+  "description": "Check USB devices connected to this machine.",
+  "hosts": ["local", "remote"],
+  "actions": [
+    {
+      "path": "fantastic-default/getUSBDevices"
+    }
+  ],
+  "pass": "review",
+  "quest": {
+    "explanation": "Look out for any devices you don't recognize.",
+    "selection": {
+      "age": {"h": 1}
+    }
+  }
+}
