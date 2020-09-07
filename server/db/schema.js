@@ -78,7 +78,6 @@ const schema = [
   `CREATE TABLE IF NOT EXISTS quest_history(
     quest_id INTEGER PRIMARY KEY,
     quest TEXT,
-    results TEXT,
     rows TEXT,
     date INTEGER,
     user_id TEXT
@@ -91,6 +90,7 @@ const schema = [
     date INTEGER,
     user_id TEXT,
     quest_id INTEGER,
+    approved INTEGER,
     FOREIGN KEY (quest_id)
       REFERENCES quest_history (quest_id)
       ON DELETE CASCADE

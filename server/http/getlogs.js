@@ -5,6 +5,7 @@ const ParseQuery = require('fantastic-utils/parsequery')
 const {transaction, OPEN_READONLY} = require('../db')
 const GetByID = require('./auth/getbyid')
 const GetByUsername = require('./auth/getbyusername')
+const GetData = require('../db/getuserhistory/getdata')
 
 const getLogs = (res, req) => {
   const header = req.getHeader('cookie')
@@ -32,11 +33,9 @@ const getLogs = (res, req) => {
       conditions,
       pagination: {page_size: count, page: page + 1}
     }).then(rows => !rows.length)
-    const results = []
+    const results = await GetData(db, rows)
     for (const row of rows) {
-      const result = await db.get({table: `${row.event_type}_history`, conditions: {columns: {[`${row.event_type}_id`]: row.event_id}}})
-      const user = users[row.user_id] || (users[row.user_id] = await GetByID(row.user_id))
-      if (result) results.push({...row, ...result, user})
+      row.user = users[row.user_id] || (users[row.user_id] = await GetByID(row.user_id))
     }
     db.close()
     if (res.aborted) return
