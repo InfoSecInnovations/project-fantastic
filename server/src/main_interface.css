@@ -329,6 +329,33 @@ input[type=password] {
 #container #graph_container .vis-network {
   outline: none;
 }
+#container #review {
+  grid-column: 1/4;
+  grid-row: 1/3;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  z-index: 5;
+  background-color: rgba(36,36,36,0.8);
+  padding: 0 4rem;
+}
+#container #review .panel {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  max-width: 800px;
+}
+#container #review .panel .header {
+  display: flex;
+  gap: 0.5em;
+}
+#container #review .panel .buttons {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 #container #loading {
   display: grid;
   place-items: center;

@@ -16,7 +16,7 @@ const log_name = (state, log) => {
 }
 
 const log_content = (state, log) => {
-  if (log.event_type == 'test') {
+  if (log.event_type == 'test' && log.parameters) {
     const parameters = JSON.parse(log.parameters)
     return [
       'Parameters used:',

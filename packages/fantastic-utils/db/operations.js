@@ -87,6 +87,7 @@ const update = query =>
   db => new Promise(
     (resolve, reject) => {
       const row = Object.entries(query.row).filter(v => typeof v[1] !== 'undefined')
+      if (!row.length) return resolve()
       const where_query = where(query.conditions)
       db.run(
         `UPDATE ${query.table}
@@ -97,7 +98,7 @@ const update = query =>
           ...where_query.values
         ],
         function (err) {
-          if (err) return reject(err)
+          if (err) return !reject(err)
           resolve()
         }
       )

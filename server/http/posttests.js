@@ -22,7 +22,7 @@ const postTests = (res, req, tests) => {
     if (!HasRole(user, test.role)) return End(res)
     const date = Date.now()
     try {
-      const json = JSON.parse(data)
+      const json = !data ? undefined : JSON.parse(data)
       if (!query.nodes || !Array.isArray(query.nodes)) return End(res)
       const db = await transaction()
       const result = await RunTest(db, query.test, user, date, query.nodes, json)

@@ -9,7 +9,7 @@ module.exports = {
     getCertificates: "actions/getcertificates.json"
   },
   tests: {
-    checkReboot: 'tests/checkreboot.json',
+    //checkReboot: 'tests/checkreboot.json',
     reviewUsbDevices: 'tests/reviewusbdevices.json'
   },
   commands: {

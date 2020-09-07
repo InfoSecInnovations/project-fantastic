@@ -69,6 +69,15 @@ export default (state, action) => {
   }
   if (action.type == 'order_favorites') state.history.ordering = true
   if (action.type == 'favorites_ordered') state.history.ordering = false
+  if (action.type == 'review') {
+    if (!action.results) state.review = undefined
+    else {
+      state.review = {results: action.results, name: action.name, foldouts: {}}
+    }
+  }
+  if (action.type == 'review_foldout') {
+    if (state.review) state.review.foldouts[action.node_id] = action.value
+  }
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

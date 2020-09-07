@@ -3,6 +3,7 @@ import LeftPanel from './leftpanel'
 import Selection from './selection'
 import Tooltip from './tooltip'
 import Top from './top'
+import Review from './review'
 
 export default (state, send) => 
   h('body', [
@@ -14,7 +15,8 @@ export default (state, send) =>
       }),
       state.loading ? h('div#loading', 'Loading...') : undefined,
       LeftPanel(state, send),
-      Selection(state, send)
+      Selection(state, send),
+      Review(state, send)
     ]),
     Tooltip(state)
   ])
