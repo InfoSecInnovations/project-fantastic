@@ -82,6 +82,7 @@ export default (state, action) => {
     if (action.quest) state.quest_results.approval[action.test] = action.approved
     if (!action.quest || state.quest_results.date[action.test] === state.test_results[action.test]) state.test_results.approval[action.test] = action.approved // if the current test results have the same date as the quest results then it's assumed to be the same result set
   }
+  if (action.type == 'post_review') state.review.loading = true
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

@@ -50,6 +50,7 @@ export default (state, action, send) => {
       send({...action, type: 'quest_results', results: res.result, date: res.date, select: true, nodes: res.rows})
       send({...action, type: 'test_results', results: res.result, date: res.date, parameters: state.quests[action.quest].parameters, test: action.quest}) // quest results are the same as the test run by the quest
       UserHistory(send)
+      if (state.quests[action.quest].pass === 'review') send({type: 'review', results: res.result, name: action.quest, quest: true})
     })
   if (action.type == 'quest_results'){
     if (action.select) send({type: 'nodes', nodes: action.nodes || []})
@@ -60,6 +61,7 @@ export default (state, action, send) => {
     .then(res => {
       send({...action, type: 'test_results', results: res.result, date: res.date, select: true, parameters: action.parameters})
       UserHistory(send)
+      if (state.tests[action.test].pass === 'review') send({type: 'review', results: res.result, name: action.test})
     })
   if (action.type == 'favorite') fetch(`/favorites?${GenerateQuery({history_id: action.history_id, remove: action.remove})}`, {method: 'POST'})
     .then(res => res.json())

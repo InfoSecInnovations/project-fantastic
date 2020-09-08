@@ -21,8 +21,14 @@ export default (state, send) => {
       ])
     })),
     h('div.buttons', [
-      h('div.button', {on: {click: [send, {type: 'post_review', approved: true, test, quest}]}}, 'Everything looks OK'),
-      h('div.button', {on: {click: [send, {type: 'post_review', approved: false, test, quest}]}}, "Something's not right")
+      h('div.button', {
+        class: {disabled: state.review.loading},
+        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: true, test, quest}]}
+      }, 'Everything looks OK'),
+      h('div.button', {
+        class: {disabled: state.review.loading},
+        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: false, test, quest}]}
+      }, "Something's not right")
     ])
   ])))
 }
