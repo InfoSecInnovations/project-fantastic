@@ -1,6 +1,6 @@
 {
   "name": "Review USB Devices",
-  "description": "Check USB devices connected to this machine.",
+  "description": "Check USB devices connected to machines on this network.",
   "hosts": ["local", "remote"],
   "actions": [
     {

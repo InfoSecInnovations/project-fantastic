@@ -1,0 +1,17 @@
+{
+  "name": "Review Certificates",
+  "description": "Check certificates installed on machines on this network.",
+  "hosts": ["local", "remote"],
+  "actions": [
+    {
+      "path": "fantastic-default/getCertificates"
+    }
+  ],
+  "pass": "review",
+  "quest": {
+    "explanation": "Look out for any certificates you don't recognize.",
+    "selection": {
+      "age": {"h": 1}
+    }
+  }
+}

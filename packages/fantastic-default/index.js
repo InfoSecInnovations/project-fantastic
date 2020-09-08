@@ -9,8 +9,9 @@ module.exports = {
     getCertificates: "actions/getcertificates.json"
   },
   tests: {
-    //checkReboot: 'tests/checkreboot.json',
-    reviewUsbDevices: 'tests/reviewusbdevices.json'
+    checkReboot: 'tests/checkreboot.json',
+    reviewUsbDevices: 'tests/reviewusbdevices.json',
+    reviewCertificates: 'tests/reviewcertificates.json'
   },
   commands: {
     getDnsClientCache: 'commands/getdnsclientcache.json',
