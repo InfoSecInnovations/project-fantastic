@@ -36,9 +36,11 @@ const postReview = (res, req) => {
       if (test_result) test_id = test_result.test_id
     }
     if (test_id) {
-      await db.insert('approval_history', {test_id, approved: query.approved, user_id: user.user_id})
+      const approved = query.approved === 'true' ? 1 : 0
+      await db.insert('approval_history', {test_id, approved, user_id: user.user_id})
       await db.close()
-      return res.end(JSON.stringify({approved: query.approved}))
+      console.log(`postReview: updated approval status for ${query.test}.`)
+      return res.end(JSON.stringify({approved}))
     }
     await db.close()
     return res.end(JSON.stringify({approved: false}))

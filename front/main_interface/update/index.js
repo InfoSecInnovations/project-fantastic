@@ -72,7 +72,7 @@ export default (state, action) => {
   if (action.type == 'review') {
     if (!action.results) state.review = undefined
     else {
-      state.review = {results: action.results, name: action.name, foldouts: {}}
+      state.review = {results: action.results, name: action.name, foldouts: {}, quest: action.quest}
     }
   }
   if (action.type == 'review_foldout') {
