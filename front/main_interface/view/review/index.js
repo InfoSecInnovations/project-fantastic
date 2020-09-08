@@ -3,8 +3,10 @@ import NodeName from '../../../common/util/nodename'
 
 export default (state, send) => {
   if (!state.review) return
+  const test = state.review.name
+  const quest = state.review.quest
   return h('div#review', h('div.panel', h('div.scroll_container', [
-    h('h2', `Please check results from ${state.review.name}`),
+    h('h2', `Please check results from ${state.tests[test].name}`),
     h('div.results scroll', state.review.results.map(v => {
       const node = state.nodes.find(n => n.node_id === v.node_id)
       return h('div.result scroll_item spaced', [
@@ -19,8 +21,8 @@ export default (state, send) => {
       ])
     })),
     h('div.buttons', [
-      h('div.button', {on: {click: [send, {type: 'review', results: undefined}]}}, 'Everything looks OK'),
-      h('div.button', {on: {click: [send, {type: 'review', results: undefined}]}}, "Something's not right")
+      h('div.button', {on: {click: [send, {type: 'post_review', approved: true, test, quest}]}}, 'Everything looks OK'),
+      h('div.button', {on: {click: [send, {type: 'post_review', approved: false, test, quest}]}}, "Something's not right")
     ])
   ])))
 }

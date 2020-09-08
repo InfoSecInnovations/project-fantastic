@@ -12,6 +12,7 @@ const GetPackage = require('./util/getpackage')
 const FS = require('fs')
 const Path = require('path')
 const IsAdmin = require('is-admin')
+const Routes = require('./routes')
 
 const main = async () => {
 
@@ -53,31 +54,8 @@ const main = async () => {
     key_file_name: Path.join(cert_directory, 'key'),
     cert_file_name: Path.join(cert_directory, 'cert'),
   })
-  app.get('/', require('./http/main'))
-  app.get('/*', require('./http/files'))
-  app.get('/nodes', require('./http/getnodes'))
-  app.get('/commands', (res, req) => require('./http/getcommands')(res, req, command_data))
-  app.post('/commands', (res, req) => {
-    require('./http/postcommands')(res, req, command_data)
-    .then(commands => command_data = update_commands(commands))
-  })
-  app.get('/actions', (res, req) => require('./http/getactions')(res, req, actions))
-  app.post('/actions', (res, req) => require('./http/postactions')(res, req, actions))
-  app.post('/action_followup', (res, req) => require('./http/postactionfollowup')(res, req, actions))
-  app.get('/results', require('./http/getresults'))
-  app.get('/quests', (res, req) => require('./http/getquests')(res, req, tests))
-  app.post('/quests', (res, req) => require('./http/postquests')(res, req, tests))
-  app.get('/quest_history', require('./http/getquesthistory'))
-  app.get('/tests', (res, req) => require('./http/gettests')(res, req, tests))
-  app.post('/tests', (res, req) => require('./http/posttests')(res, req, tests))
-  app.get('/test_history', require('./http/gettesthistory'))
-  app.get('/logout', require('./http/auth/logout'))
-  app.get('/user', require('./http/getuser'))
-  app.get('/user_history', require('./http/getuserhistory'))
-  app.post('/swap_favorites', require('./http/postswapfavorites'))
-  app.post('/favorites', require('./http/postfavorites'))
-  app.get('/logs', require('./http/getlogs'))
 
+  Routes(app, () => command_data, () => actions, () => tests, commands => command_data = update_commands(commands))
   auth_module.configure(app)
 
   app.listen(config.port + 1, () => console.log(`Fantastic Server running on port ${config.port + 1}!`))

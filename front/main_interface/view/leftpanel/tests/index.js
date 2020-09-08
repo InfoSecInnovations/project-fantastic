@@ -27,11 +27,13 @@ export default (state, send) => {
       return TestEntry(
         state, 
         send, 
+        test,
         v[1],
         parameters,
         state.test_results.data[test],
         state.test_results.date[test],
         state.test_results.parameters[test],
+        state.test_results.approval[test],
         state.test_results.status[test] === 'loading',
         {type: 'run_test', test, parameters: parameters && parameters.get()}
       )

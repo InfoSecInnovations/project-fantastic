@@ -2,5 +2,6 @@ export default () => ({
   data: {}, 
   status: {},
   date: {},
-  parameters: {}
+  parameters: {},
+  approval: {}
 })

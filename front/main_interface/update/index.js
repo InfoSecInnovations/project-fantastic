@@ -78,6 +78,10 @@ export default (state, action) => {
   if (action.type == 'review_foldout') {
     if (state.review) state.review.foldouts[action.node_id] = action.value
   }
+  if (action.type == 'review_approval') {
+    if (action.quest) state.quest_results.approval[action.test] = action.approved
+    if (!action.quest || state.quest_results.date[action.test] === state.test_results[action.test]) state.test_results.approval[action.test] = action.approved // if the current test results have the same date as the quest results then it's assumed to be the same result set
+  }
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

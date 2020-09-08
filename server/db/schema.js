@@ -90,7 +90,6 @@ const schema = [
     date INTEGER,
     user_id TEXT,
     quest_id INTEGER,
-    approved INTEGER,
     FOREIGN KEY (quest_id)
       REFERENCES quest_history (quest_id)
       ON DELETE CASCADE
@@ -100,6 +99,15 @@ const schema = [
     command TEXT,
     status INTEGER,
     date INTEGER
+  )`,
+  `CREATE TABLE IF NOT EXISTS approval_history(
+    approval_id INTEGER PRIMARY KEY,
+    test_id INTEGER,
+    approved INTEGER,
+    user_id TEXT,
+    FOREIGN KEY (test_id)
+      REFERENCES test_history (test_id)
+      ON DELETE CASCADE
   )`,
   `CREATE TABLE IF NOT EXISTS all_history(
     history_id INTEGER PRIMARY KEY,

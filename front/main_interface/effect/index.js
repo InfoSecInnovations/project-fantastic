@@ -67,10 +67,16 @@ export default (state, action, send) => {
       send({type: 'user_history', history: res})
       send({type: 'favorite_result', history_id: action.history_id})
     })
-  if (action.type == 'order_favorites')  fetch(`/swap_favorites?${GenerateQuery({a: action.a, b: action.b})}`, {method: 'POST'})
-  .then(res => res.json())
-  .then(res => {
-    send({type: 'user_history', history: res})
-    send({type: 'favorites_ordered'})
-  })
+  if (action.type == 'order_favorites') fetch(`/swap_favorites?${GenerateQuery({a: action.a, b: action.b})}`, {method: 'POST'})
+    .then(res => res.json())
+    .then(res => {
+      send({type: 'user_history', history: res})
+      send({type: 'favorites_ordered'})
+    })
+  if (action.type == 'post_review') fetch(`/review?${GenerateQuery({approved: action.approved, test: action.test, quest: action.quest})}`, {method: 'POST'})
+    .then(res => res.json())
+    .then(res => {
+      send({...action, type: 'review_approval', approved: res.approved})
+      send({type: 'review', results: undefined})
+    })
 }

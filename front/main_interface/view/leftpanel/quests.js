@@ -17,6 +17,7 @@ export default (state, send) => h('div.scroll_container', [
     return TestEntry(
       state, 
       send, 
+      quest,
       v[1],
       {
         get: () => v[1].parameters || {}, 
@@ -29,9 +30,10 @@ export default (state, send) => h('div.scroll_container', [
       state.quest_results.data[quest],
       date,
       v[1].parameters,
+      state.quest_results.approval[quest],
       state.quest_results.status[quest] === 'loading',
       {type: 'run_quest', quest},
-      date && {success_prefix: `${success_texts[Math.floor(success_texts.length * new Alea(date)())]}!`}
+      date && {success_prefix: `${success_texts[Math.floor(success_texts.length * new Alea(date)())]}!`, is_quest: true}
     )
   }))
 ])
