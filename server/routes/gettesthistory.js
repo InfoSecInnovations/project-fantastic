@@ -13,7 +13,7 @@ const getQuestHistory = (res, req) => {
     const db = await transaction()
     const rows = await db.all({
       table: 'test_history', 
-      columns: ['MAX(date) AS date', 'test', 'results', 'parameters'],
+      columns: ['MAX(date) AS date', 'test', 'results', 'parameters', 'test_id'],
       conditions: {columns: {user_id: user.user_id}},
       group_by: ['test']
     })
