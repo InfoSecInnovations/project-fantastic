@@ -4,14 +4,20 @@
   "hosts": ["local", "remote"],
   "functions": {
     "run": {
-      "command": "Get-WMIObject Win32_USBControllerDevice |%{[wmi]($_.Dependent)} | Select Name, Manufacturer, PNPClass",
+      "command": "Get-WMIObject Win32_USBControllerDevice |%{[wmi]($_.Dependent)} | Select Name, Manufacturer, PNPClass, DeviceID",
       "method": "invoke",
       "json": true,
       "result": {
+        "filter": {
+          "file": "allowedusb.json",
+          "pass": "Authorized devices",
+          "fail": "Devices needing manual approval"
+        },
         "label": "Name",
         "data": [
           {"labelled": "PNPClass"},
-          {"labelled": "Manufacturer"}
+          {"labelled": "Manufacturer"},
+          {"labelled": "DeviceID"}
         ]
       }
     }
