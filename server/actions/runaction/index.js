@@ -6,7 +6,7 @@ const runAction = async (db, action, func, node_id, user, date, options) => {
   const hostname = row.access === 'local' ? '' : row.hostname
   const obj = await GetPackagedData(action, 'actions')
   const result = await RunFunction(obj, func, user, hostname, options && options.data)
-  for (const r of result) {
+  for (const r of result.results) {
     if (r.followups) {
       for (const v of Object.entries(r.followups)) {
         if (v[1].data) {
@@ -17,7 +17,17 @@ const runAction = async (db, action, func, node_id, user, date, options) => {
       }
     }
   }
-  const event_id = await db.insert('action_history', {result: JSON.stringify(result), data: options && options.data && JSON.stringify(options.data),  date, action, function: func, node_id, label: options && options.label, user_id: user.user_id, test_id: options && options.test_id})
+  const event_id = await db.insert('action_history', {
+    result: JSON.stringify(result.results), 
+    data: options && options.data && JSON.stringify(options.data), 
+    filter: result.filter, 
+    date, 
+    action, 
+    function: func, 
+    node_id, 
+    label: options && options.label, 
+    user_id: user.user_id, 
+    test_id: options && options.test_id})
   return {result, event_id}
 }
 

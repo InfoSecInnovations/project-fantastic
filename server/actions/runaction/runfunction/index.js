@@ -47,8 +47,8 @@ const runFunction = async (action, func, user, hostname, data) => {
   const output = await PwshFunction(func_data)(func_data.command, hostname, data)
   if (!func_data.result) return []
   const filter = func_data.result.filter ? await get_filter(func_data.result.filter) : undefined
-  if (func_data.json) return process_results(output.map(o => result(func_data.result, o, action, user, filter)))
-  return process_results([result(func_data.result, output, action, user)]) // TODO: better handling of non JSON output
+  if (func_data.json) return {results: process_results(output.map(o => result(func_data.result, o, action, user, filter))), filter: filter ? true : false}
+  return {results: process_results([result(func_data.result, output, action, user)])} // TODO: better handling of non JSON output
 }
 
 module.exports = runFunction

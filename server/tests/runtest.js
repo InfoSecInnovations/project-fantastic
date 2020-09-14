@@ -9,7 +9,7 @@ const runTest = async (db, test, user, date, nodes, parameters, quest_id) => {
   const results = []
   for (const action of obj.actions) {
     for (const row of rows) {
-      const result = await RunAction(db, action.path, 'run', row.node_id, user, date, {test_id: event_id})
+      const result = (await RunAction(db, action.path, 'run', row.node_id, user, date, {test_id: event_id})).result.results
       if (obj.pass === "review") results.push({node_id: row.node_id, result})
       else results.push({node_id: row.node_id, result: CheckResult(result.result, action.search, parameters)})
     }

@@ -43,6 +43,7 @@ const postReview = (res, req) => {
       return res.end(JSON.stringify({approved}))
     }
     await db.close()
+    console.log(`postReview: unable to update approval status for ${query.test}.`)
     return res.end(JSON.stringify({approved: false}))
   })
 }

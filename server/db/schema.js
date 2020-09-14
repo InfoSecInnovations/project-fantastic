@@ -65,6 +65,7 @@ const schema = [
     result TEXT,
     data TEXT,
     date INTEGER,
+    filter INTEGER,
     node_id INTEGER,
     user_id TEXT,
     test_id INTEGER,
