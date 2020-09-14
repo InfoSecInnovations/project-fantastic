@@ -9,9 +9,9 @@ const runTest = async (db, test, user, date, nodes, parameters, quest_id) => {
   const results = []
   for (const action of obj.actions) {
     for (const row of rows) {
-      const result = (await RunAction(db, action.path, 'run', row.node_id, user, date, {test_id: event_id})).result.results
-      if (obj.pass === "review") results.push({node_id: row.node_id, result})
-      else results.push({node_id: row.node_id, result: CheckResult(result.result, action.search, parameters)})
+      const result = (await RunAction(db, action.path, 'run', row.node_id, user, date, {test_id: event_id})).result
+      if (obj.pass === "review") results.push({node_id: row.node_id, result: result.results, filter: result.filter})
+      else results.push({node_id: row.node_id, result: CheckResult(result.result.results, action.search, parameters)})
     }
   }
   await db.update({table: 'test_history', row: {results: JSON.stringify(results)}, conditions: {columns: {test_id: event_id}}})

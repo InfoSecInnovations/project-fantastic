@@ -20,7 +20,7 @@ const result = (send, name, data, pass, options, result_parameters, failed_nodes
 export default (state, send, name, data, parameters, result_data, result_date, result_parameters, result_approval, loading, play_action, options = {}) => {
   const results = result_date > Date.now() - 1000 * 60 * 60 * 24 && result_data // TODO: maybe we want to be able to define a custom maximum result age
   const pass = results && (data.pass === 'review' ? result_approval : results.every(r => r.result == data.pass.condition))
-  const failed_results = results && data.pass !== 'review' ? result_data.filter(r => r.result != data.pass.condition) : []
+  const failed_results = results && data.pass !== 'review' ? results.filter(r => r.result != data.pass.condition) : []
   const failed_nodes = failed_results.map(v => state.nodes.findIndex(n => n.node_id === v.node_id))
   const valid_parameters = !parameters || Object.values(parameters.get()).every(v => (typeof v === 'number' && !isNaN(v) && isFinite(v)) || typeof v === 'boolean' || v)
   let icon = 'exclamation-circle'

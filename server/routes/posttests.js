@@ -30,7 +30,7 @@ const postTests = (res, req, tests) => {
       await db.close()
       if (res.aborted) return
       console.log(`postTests: completed ${query.test} test, queried ${result.results.length} nodes`)
-      res.end(JSON.stringify({result: result.results, date}))
+      res.end(JSON.stringify({result, date}))
     }
     catch(err) {
       return End(res)
