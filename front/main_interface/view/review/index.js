@@ -19,7 +19,7 @@ export default (state, send) => {
           h('h3', node ? NodeName(node) : `Node ID: ${v.node_id}`), 
           h(`div.foldout fas fa-${state.review.foldouts[v.node_id] ? 'chevron-down' : 'chevron-right'}`, {on: {click: [send, {type: 'review_foldout', node_id: v.node_id, value: !state.review.foldouts[v.node_id]}]}})
         ]),
-        ...(state.review.foldouts[v.node_id] ? v.result.map(r => h('div', [
+        ...(state.review.foldouts[v.node_id] ? v.result.filter(r => state.review.filter !== 'fail' ? true : !r.pass).map(r => h('div', [
           h('h4', r.label),
           ...(r.data ? r.data.map(d => h('div', d)) : [])
         ])) : [])

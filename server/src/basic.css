@@ -146,6 +146,7 @@ input[type=reset] {
   align-items: center;
   justify-content: center;
   text-align: center;
+  max-width: max-content;
   min-width: 5rem;
   border-radius: 1rem;
   border: 2px solid #f55100;

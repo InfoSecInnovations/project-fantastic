@@ -35,7 +35,7 @@ let state = {
 }
 let vnode = document.body
 
-const send = action=> {
+const send = action => {
   state = Update(state, action)
   vnode = patch(vnode, View(state, send))
   Effect(state,action,send) 
