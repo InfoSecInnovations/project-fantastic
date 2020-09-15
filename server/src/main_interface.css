@@ -357,6 +357,9 @@ input[type=password] {
   justify-content: center;
   flex-wrap: wrap;
 }
+#container #review .panel .tooltip {
+  transform: translate(-50%, var(--review-scroll-height, 0));
+}
 #container #loading {
   display: grid;
   place-items: center;
@@ -481,7 +484,8 @@ input[type=password] {
   align-items: center;
   display: flex;
 }
-#tooltip {
+#tooltip,
+.tooltip {
   display: flex;
   flex-direction: column;
   background-color: #3c3d3d;
@@ -491,6 +495,17 @@ input[type=password] {
   position: absolute;
   z-index: 100;
   transform: translate(-50%, 0);
+  pointer-events: none;
+}
+.tooltippable {
+  flex-grow: 0;
+}
+.tooltippable .tooltip {
+  display: none;
+}
+.tooltippable:hover .tooltip {
+  display: flex;
+  width: max-content;
 }
 .panel_title {
   padding: 0 1rem;

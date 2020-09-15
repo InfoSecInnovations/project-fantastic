@@ -20,6 +20,7 @@
   @require('../main_interface/selection.styl')
 
 #tooltip
+.tooltip
   display: flex
   flex-direction: column
   background-color: button_background_color
@@ -29,6 +30,16 @@
   position: absolute
   z-index: 100
   transform: translate(-50%, 0)
+  pointer-events: none
+
+.tooltippable
+  flex-grow: 0
+  .tooltip
+    display: none
+  &:hover
+    .tooltip
+      display: flex
+      width: max-content
 
 .panel_title
   padding: 0 1rem

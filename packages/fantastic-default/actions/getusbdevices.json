@@ -10,8 +10,8 @@
       "result": {
         "filter": {
           "file": "allowedusb.json",
-          "pass": "Authorized devices",
-          "fail": "Devices needing manual approval"
+          "pass": "Authorized device",
+          "fail": "Device needs manual approval"
         },
         "label": "Name",
         "data": [
