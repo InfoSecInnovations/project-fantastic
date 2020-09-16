@@ -7,6 +7,9 @@ const IsValid = require('fantastic-utils/isvalid')
  */
 const processJSON = (value_data, output) => {
   if (typeof value_data == 'undefined') return
+  if (typeof output !== 'object') {
+    if (value_data.text) return output
+  }
   if (typeof value_data !== 'object') return output[value_data]
   if (value_data.map) return `${value_data.labelled ? `${value_data.key}: ` : ''}${value_data.map[output[value_data.key]]}`
   if (value_data.labelled) return IsValid(output[value_data.labelled]) ? `${value_data.labelled}: ${output[value_data.labelled]}` : undefined

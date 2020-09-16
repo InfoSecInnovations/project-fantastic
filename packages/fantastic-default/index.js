@@ -7,7 +7,8 @@ module.exports = {
     loggedInUsers: 'actions/loggedinusers.json',
     getUSBDevices: 'actions/getusbdevices.json',
     getCertificates: "actions/getcertificates.json",
-    installSysmon: "actions/installsysmon.json"
+    installSysmon: "actions/installsysmon.json",
+    checkSysmon: "actions/checksysmon.json"
   },
   tests: {
     checkReboot: 'tests/checkreboot.json',
