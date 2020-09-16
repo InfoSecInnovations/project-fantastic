@@ -23,7 +23,7 @@ const postActions = (res, req, actions) => {
     await db.insert('all_history', {event_type: 'action', event_id: result.event_id, date, user_id: user.user_id})
     await db.close()
     if (res.aborted) return
-    res.end(JSON.stringify({result: result.result.results, date}))
+    res.end(JSON.stringify({result: result.result.results, filter: result.result.filter, date}))
     console.log(`postActions: ${query.action} executed on node ${query.node_id}`)
   })
 }

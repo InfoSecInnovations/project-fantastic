@@ -265,6 +265,10 @@ input[type=password] {
 .column .results {
   min-width: 0;
 }
+.column .results .tooltip {
+  transform: translate(0, var(--actions-scroll-height, 0));
+  right: 2rem;
+}
 .column .results .followup {
   display: flex;
   align-items: center;

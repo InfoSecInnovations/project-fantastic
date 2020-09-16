@@ -344,7 +344,7 @@ input[type=password] {
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  max-width: 800px;
+  width: 800px;
 }
 #container #review .panel .header {
   display: flex;
@@ -459,6 +459,10 @@ input[type=password] {
 }
 #container #selection .results {
   min-width: 0;
+}
+#container #selection .results .tooltip {
+  transform: translate(0, var(--actions-scroll-height, 0));
+  right: 2rem;
 }
 #container #selection .results .followup {
   display: flex;

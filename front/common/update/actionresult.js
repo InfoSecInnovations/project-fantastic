@@ -14,4 +14,5 @@ export default (state, action) => {
   action_result.foldout = action.result ? true : undefined
   action_result.status = 'loaded'
   action_result.date = action.date
+  action_result.filter = action.filter
 }

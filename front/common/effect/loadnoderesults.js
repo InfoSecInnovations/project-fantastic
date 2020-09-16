@@ -10,13 +10,13 @@ const load_followup = (action, send, node, results, followups) => {
     result,
     hostname: node.hostname,
     date: row.date,
+    filter: row.filter,
     followups
   })
   send({
     type: 'followup_foldout',
     action,
     hostname: node.hostname,
-    date: row.date,
     followups,
     value: false
   })
@@ -38,7 +38,8 @@ export default (nodes, send) => {
         action: v.action,
         result,
         hostname: node.hostname,
-        date: v.date
+        date: v.date,
+        filter: v.filter
       })
       send({
         type: 'result_foldout',

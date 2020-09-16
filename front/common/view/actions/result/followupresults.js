@@ -22,7 +22,7 @@ export default (state, action, action_result, node_id, host, loading, send, foll
         ])
       ]),
       ...(v.foldout ? v.result.map(r => 
-        result_func(state, action, r, node_id, host, loading || v.status === 'loading', send, [...followups, {followup: v.function, label: action_result.label}])
+        result_func(state, action, r, node_id, host, loading || v.status === 'loading', v.filter, send, [...followups, {followup: v.function, label: action_result.label}])
       ) : [])
     ])
   }).flat() : []

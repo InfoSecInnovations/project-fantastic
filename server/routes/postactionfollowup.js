@@ -31,7 +31,7 @@ const postActionFollowup = (res, req, actions) => {
       await db.close()
       if (res.aborted) return
       console.log(`postActionFollowup: ${query.function} function from ${query.action} executed on node ${query.node_id}.`)
-      res.end(JSON.stringify({result: result.result.results, date}))
+      res.end(JSON.stringify({result: result.result.results, filter: result.result.filter, date}))
     }
     catch (err) {
       return End(res)
