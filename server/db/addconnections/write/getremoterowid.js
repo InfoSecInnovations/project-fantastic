@@ -4,7 +4,7 @@
  * @param {number} node_id database ID of local host
  * @param {number} date 
  * @param {string} ip remote IP address
- * @param {?{}} remote_ip_row existing data for the remote IP
+ * @param {{} | undefined} remote_ip_row existing data for the remote IP
  */
 const getRemoteRowID = async (db, node_id, date, ip, remote_ip_row) => {
   if (remote_ip_row) { // if we already have a row for the remote IP, we need to update the date

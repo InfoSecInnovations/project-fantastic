@@ -3,7 +3,7 @@
  * @param {import('fantastic-utils/db/operations').Operations} db 
  * @param {import('../index').Connection} connection 
  * @param {number} date 
- * @param {?{}} existing existing data matching this connection if we have it
+ * @param {{} | undefined} existing existing data matching this connection if we have it
  * @param {number} process_id database ID of the process owning the connection
  * @param {number} local_ip_id database ID of the local IP
  * @param {number} remote_ip_id database ID of the remote IP

@@ -10,11 +10,11 @@ const WriteConnection = require('./writeconnection')
  * @param {import('../index').Connection} connection
  * @param {number} date
  * @param {{
- * process: {},
- * process_name: string,
- * local_ip_row: {},
- * remote_ip_row: {},
- * existing: {}
+ * process?: {},
+ * process_name?: string,
+ * local_ip_row?: {},
+ * remote_ip_row?: {},
+ * existing?: {}
  * }} read_data data from the previous read operations
  */
 const write = async (node_id, connection, date, read_data) => {

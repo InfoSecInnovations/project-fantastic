@@ -3,8 +3,8 @@
  * @param {import('fantastic-utils/db/operations').Operations} db write transaction
  * @param {number} node_id database ID of the host owning the connection
  * @param {number} pid
- * @param {{}} process data about the process owning the connection
- * @param {string} process_name name of process owning the connection
+ * @param {{} | undefined} process data about the process owning the connection
+ * @param {string | undefined} process_name name of process owning the connection
  */
 const getProcessID = async (db, node_id, pid, process, process_name) => {
   if (process) {

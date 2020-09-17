@@ -4,7 +4,7 @@
  * @param {number} node_id database ID for local host
  * @param {number} date
  * @param {string} ip local IP
- * @param {{}} local_ip_row existing data for local IP
+ * @param {{} | undefined} local_ip_row existing data for local IP
  * @returns {Promise<number>}
  */
 const getLocalIpRowID = async (db, node_id, date, ip, local_ip_row) => {
