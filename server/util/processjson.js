@@ -1,7 +1,7 @@
 const IsValid = require('fantastic-utils/isvalid')
 
 /** 
- * Grab values from JSON output using the method specified in a user script. 
+ * Grab value from JSON output using the method specified in a user script. 
  * @param {(Object | string | undefined)} value_data - the data from the script defining how we should get the value from the output.
  * @param {Object} output - the JSON output we are processing.
  */

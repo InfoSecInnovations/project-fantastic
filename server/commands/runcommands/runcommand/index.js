@@ -1,7 +1,12 @@
-const PwshFunction = require('../../util/pwshfunction')
+const PwshFunction = require('../../../util/pwshfunction')
 const JSONOutput = require('./json')
 const XML = require('./xml')
 
+/**
+ * 
+ * @param {import('../index').Command} command 
+ * @param {string} hostname 
+ */
 const runCommand = async (command, hostname) => {
   const output = await PwshFunction(command.run)(command.run.command, hostname, undefined, false) // TODO: do we always want logging set to false?
   if (!output) return

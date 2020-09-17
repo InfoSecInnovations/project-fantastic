@@ -16,7 +16,7 @@ const InsertNode = require('./insertnode')
  */
 
 /**
- * Add nodes (hosts) to the database
+ * Add nodes (hosts) to the database. Will update existing data if matching hosts are found.
  * @param {Node[]} nodes 
  * @param {boolean} overwrite 
  */

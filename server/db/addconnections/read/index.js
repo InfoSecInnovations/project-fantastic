@@ -1,10 +1,10 @@
-const {transaction, OPEN_READONLY} = require('../operations')
-const GetProcess = require('../../commands/getprocess')
+const {transaction, OPEN_READONLY} = require('../../operations')
+const GetProcess = require('./getprocess')
 
 /**
  * Read the information required to handle adding connection data
  * @param {number} node_id ID of the host in the database
- * @param {import('./index').Connection} connection
+ * @param {import('../index').Connection} connection
  * @param {boolean} is_remote Is this host the server or a different host?
  * @param {Object.<string, string>} processes bookeeping for process names
  */

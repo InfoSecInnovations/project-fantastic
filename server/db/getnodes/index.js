@@ -31,7 +31,7 @@ const getNodes = async query => {
   for (const r of rows) {
     const ips = await db.all({table: 'ips', conditions: {groups: [{columns: {node_id: r.node_id}}, ...date_conditions]}})
     const connections = await GetConnections(db, ips, query, date_conditions)
-    const valid_connections = connections.length || await db.get({table: 'connections', conditions: {groups: [...date_conditions, ConnectionConditions('to', ips, query)]}})
+    const valid_connections = connections.length || await db.get({table: 'connections', conditions: {groups: [...date_conditions, ...ConnectionConditions('to', ips, query)]}})
     if (!r.important && (query.show_external !== 'true' || !valid_connections)) continue
     const macs = await db.all({table: 'macs', conditions: {groups: [{columns: {node_id: r.node_id}}]}}) // if we got this far we want to add the MAC Addresses for this node
     nodes.push({...r, connections, ips: ips.map(v => v.ip), macs})

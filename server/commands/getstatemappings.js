@@ -17,7 +17,9 @@ const states = [
   "TimeWait"
 ]
 
-// write the mapping for each state number from Get-NetTcpConnection to a file until we know all the states
+/**
+ *  write the mapping for each state number from Get-NetTcpConnection to a file until we know all the states  
+ */
 const getStateMappings = async () => {
   for (const s of states) {
     await RunPowerShell(`get-nettcpconnection | where state -eq "${s}" | select -First 1 | ConvertTo-Json`)
