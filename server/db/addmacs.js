@@ -1,3 +1,10 @@
+/**
+ * Add MAC addresses corresponding to a node to the database
+ * @param {number} node_id database ID of the node owning the MACs
+ * @param {?{mac: string, vendor: string}[]} macs 
+ * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {boolean} overwrite can we overwrite existing data?
+ */
 const addMacs = (node_id, macs, db, overwrite) => {
   if (!macs) return Promise.resolve()
   return db.all({table: 'macs', columns: ['mac', 'mac_id'], conditions: {columns: {mac: macs.map(v => v.mac)}, compare: 'IN'}}) // select MACs we already have

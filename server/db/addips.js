@@ -1,3 +1,10 @@
+/**
+ * Add IPs to the database for a node
+ * @param {number} node_id database ID of the node owning the IPs
+ * @param {?string[]} ips 
+ * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {number} date 
+ */
 const addIps = (node_id, ips, db, date) => {
   if (!ips) return Promise.resolve() 
   return db.all({table: 'ips', columns: ['ip', 'ip_id'], conditions: {groups: [{columns: {node_id}}, {columns: {ip: ips}, compare: 'IN'}]}}) // select IPs we already have
