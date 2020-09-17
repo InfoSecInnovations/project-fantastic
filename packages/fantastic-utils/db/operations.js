@@ -18,6 +18,17 @@
  * }} Query
  */
 
+ /**
+ * @typedef {{
+  *  run: (queries: string[]) => Promise,
+  *  insert: (table: string, row: {}) => Promise<number>,
+  *  update: (query: Query) => Promise,
+  *  remove: (query: Query) => Promise,
+  *  all: (query: Query) => Promise<*[]>,
+  *  get: (query: Query) => Promise<{} | undefined>
+  * }} Operations
+  */
+
 const run = queries => db => db.serialize(() => {
   queries.forEach(v => db.run(v, err => err && console.log(err.message)))
 })
