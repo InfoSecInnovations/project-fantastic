@@ -24,13 +24,7 @@ const read = async (node_id, connection, is_remote, processes) => {
     remote_port: connection.remote_port
   }}})
   db.close()
-  return {
-    process_name,
-    process,
-    local_ip_row,
-    remote_ip_row,
-    existing
-  }
+  return { process_name, process, local_ip_row, remote_ip_row, existing }
 }
 
 module.exports = read
