@@ -1,8 +1,8 @@
 /**
  * @typedef {{
  *  columns: Object.<string, *>|[string, any][], 
- *  combine: 'AND'|'OR', 
- *  compare: '='|'<'|'<='|'>'|'>='|'IN'
+ *  combine?: 'AND'|'OR', 
+ *  compare?: '='|'<'|'<='|'>'|'>='|'IN'
  * }} QueryCondition
  */
 
