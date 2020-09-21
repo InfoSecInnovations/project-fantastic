@@ -5,19 +5,8 @@ const MergeNodes = require('./mergenodes')
 const InsertNode = require('./insertnode')
 
 /**
- * @typedef {{
- *  macs: ?{mac: string, vendor: string}[],
- *  ips: ?string[],
- *  hostname: ?string,
- *  os: ?string,
- *  important: boolean,
- *  access: 'local' | 'remote' | 'none'
- * }} Node
- */
-
-/**
  * Add nodes (hosts) to the database. Will update existing data if matching hosts are found.
- * @param {Node[]} nodes 
+ * @param {import('../index').Node[]} nodes 
  * @param {boolean} overwrite 
  */
 const addNodes = async (nodes, overwrite) => {

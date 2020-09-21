@@ -1,7 +1,7 @@
 const ConnectionConditions = require('./connectionconditions')
 
 /**
- * 
+ * Get connections from the database originating from these IP addresses
  * @param {import('fantastic-utils/db/operations').Operations} db 
  * @param {{ip_id: number}[]} ips 
  * @param {import('./index').NodeQuery} query 

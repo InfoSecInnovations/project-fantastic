@@ -14,7 +14,7 @@ const merge_func = (node, matches) => (result, column) => {
 /**
  * merge all data matching the node we're adding
  * @param {import('fantastic-utils/db/operations').Operations} db 
- * @param {import('./index').Node} node 
+ * @param {import('../index').Node} node 
  * @param {{}[]} matches database rows matching the node
  * @param {boolean} overwrite 
  * @param {number[]} ids bookeeping for node IDs

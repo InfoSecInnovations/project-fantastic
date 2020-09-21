@@ -2,6 +2,13 @@ const FilterColumns = require('./filtercolumns')
 const AddMACs = require('./addmacs')
 const AddIPs = require('./addips')
 
+/**
+ * Update database data for a host we know the ID of
+ * @param {number} node_id database ID of the host we're updating
+ * @param {import('./index').Node} data 
+ * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {boolean} overwrite 
+ */
 const updateNode = async (node_id, data, db, overwrite) => {
   if (!data) return
 
