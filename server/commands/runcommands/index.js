@@ -25,7 +25,7 @@ const FindHosts = require('./findhosts')
 
 /**
  * continuously run commands to gather data about hosts
- * @param {() => (Object.<string, string>)} get_commands function which returns the commands and their status
+ * @param {() => (Object.<string, 'enabled' | 'disabled' | 'force'>)} get_commands function which returns the commands and their status
  */
 const runCommands = async get_commands => {
   const commands = await CreateCommands(get_commands())

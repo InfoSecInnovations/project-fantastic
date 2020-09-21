@@ -1,6 +1,20 @@
 const GetPackagedData = require('../../util/getpackageddata')
 const RunFunction = require('./runfunction')
 
+/**
+ * Run a function from an action and record it in the database
+ * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {string} action 
+ * @param {string} func 
+ * @param {number} node_id 
+ * @param {{}} user 
+ * @param {number} date 
+ * @param {{
+ *  data?: {},
+ *  label?: string,
+ *  test_id?: number
+ * }} [options]
+ */
 const runAction = async (db, action, func, node_id, user, date, options) => {
   const row = await db.get({table: 'nodes', conditions: {columns: {node_id}}})
   const hostname = row.access === 'local' ? '' : row.hostname

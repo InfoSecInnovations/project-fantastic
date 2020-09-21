@@ -1,6 +1,11 @@
 const GetPackage = require('../util/getpackage')
 const {get} = require('../db')
 
+/**
+ * 
+ * @param {{}} config 
+ * @returns {Object.<string, 'enabled' | 'disabled' | 'force'>} keys are command name, values are the command's status
+ */
 const getCommandData = async config => {
   return await Promise.all(
     config.assets.packages.map(v => GetPackage(v)
