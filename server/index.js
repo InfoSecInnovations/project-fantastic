@@ -1,5 +1,4 @@
 const UWS = require('uWebSockets.js')
-const HTTPolyglot = require('httpolyglot')
 const DB = require('./db')
 const {fork} = require('child_process')
 const GetCommandData = require('./commands/getcommanddata')
@@ -13,6 +12,7 @@ const FS = require('fs')
 const Path = require('path')
 const IsAdmin = require('is-admin')
 const Routes = require('./routes')
+const CreateRoutingServer = require('./createroutingserver')
 
 const main = async () => {
 
@@ -47,26 +47,15 @@ const main = async () => {
     if (data_process) data_process.kill()
   })
 
-  const auth_module = await GetPackage(config.authentication)
   const cert_directory = await FS.promises.access('cert').then(() => 'cert', () => 'default_cert')
-
   const app = UWS.SSLApp({
     key_file_name: Path.join(cert_directory, 'key'),
     cert_file_name: Path.join(cert_directory, 'cert'),
   })
-
   Routes(app, () => command_data, () => actions, () => tests, commands => command_data = update_commands(commands))
-  auth_module.configure(app)
-
+  await GetPackage(config.authentication).then(res => res.configure(app))
   app.listen(config.port + 1, () => console.log(`Fantastic Server running on port ${config.port + 1}!`))
-
-  HTTPolyglot.createServer({
-    key: FS.readFileSync(Path.join(cert_directory, 'key')),
-    cert: FS.readFileSync(Path.join(cert_directory, 'cert'))
-  }, function(req, res) {
-    res.writeHead(301, { 'Location': `https://${req.headers.host.split(':')[0]}:${config.port + 1}` });
-    return res.end();
-  }).listen(config.port);
+  CreateRoutingServer(config, cert_directory)
 
   // reload config and update changed data
   WatchConfig(data => {
