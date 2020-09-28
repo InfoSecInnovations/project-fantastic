@@ -4,9 +4,6 @@
  *  combine?: 'AND'|'OR', 
  *  compare?: '='|'<'|'<='|'>'|'>='|'IN'
  * }} QueryCondition
- */
-
-/**
  * 
  * @typedef {{
  *  table: string,
@@ -16,9 +13,7 @@
  *  columns: string[],
  *  row: Object.<string, *>
  * }} Query
- */
-
- /**
+ *
  * @typedef {{
   *  run: (queries: string[]) => Promise,
   *  insert: (table: string, row: {}) => Promise<number>,

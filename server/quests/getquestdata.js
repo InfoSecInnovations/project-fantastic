@@ -1,5 +1,10 @@
 const GetPackage = require('../util/getpackage')
 
+/**
+ * Get all quests available on the server
+ * @param {{}} config
+ * @returns {Promise<string[]>}
+ */
 const getQuestData = async config => {
   return await Promise.all(
     config.assets.packages.map(v => 

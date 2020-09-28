@@ -3,6 +3,13 @@ const RunTest = require('../tests/runtest')
 const {getNodes} = require('../db')
 const ConvertTime = require('fantastic-utils/converttime')
 
+/**
+ * Run a quest
+ * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {string} quest 
+ * @param {{}} user 
+ * @param {number} date 
+ */
 const runQuest = async (db, quest, user, date) => {
   const test_obj = await GetPackagedData(quest, 'tests')
   const rows = await getNodes({date: Date.now() - ConvertTime(test_obj.quest.selection.age), access: test_obj.hosts})

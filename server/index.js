@@ -14,6 +14,9 @@ const IsAdmin = require('is-admin')
 const Routes = require('./routes')
 const CreateRoutingServer = require('./createroutingserver')
 
+/**
+ * Start the server
+ */
 const main = async () => {
 
   const is_admin = await IsAdmin()

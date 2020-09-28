@@ -4,7 +4,7 @@ const GetConnections = require('./getconnections')
 
 /**
  * @typedef {{
-* date?: number,
+ * date?: number,
  * max_date?: number,
  * access?: string[],
  * nodes?: number[],
@@ -17,7 +17,7 @@ const GetConnections = require('./getconnections')
 /**
  * Retrieve nodes from the database based on the query object
  * @param {NodeQuery} query 
- * @returns {import('../index').Node[] & {connections: [], node_id: number}}
+ * @returns {Promise<Array.<import('../index').Node & {connections: [], node_id: number}>>}
  */
 const getNodes = async query => {
   const date_conditions = [ // if we didn't supply a date we want to get all of the results
