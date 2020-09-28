@@ -8,5 +8,6 @@ const Path = require('path')
  */
 const getFilter = async filter => filter && GetConfigPath()
   .then(res => FS.readJson(Path.join(res, filter.file), {throws: false}))
+  .catch(() => null)
 
 module.exports = getFilter

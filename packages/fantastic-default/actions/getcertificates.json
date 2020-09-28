@@ -8,6 +8,11 @@
       "method": "invoke",
       "json": true,
       "result": {
+        "filter": {
+          "file": "allowedcertificates.json",
+          "pass": "Recognized certificate",
+          "fail": "Certificate needs manual approval"
+        },
         "label": "Subject",
         "data": [
           {"labelled": "FriendlyName"},
