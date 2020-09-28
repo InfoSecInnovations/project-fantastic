@@ -6,7 +6,7 @@ const InsertNode = require('./insertnode')
 
 /**
  * Add nodes (hosts) to the database. Will update existing data if matching hosts are found.
- * @param {import('../index').Node[]} nodes 
+ * @param {import('../types').Node[]} nodes 
  * @param {boolean} overwrite 
  */
 const addNodes = async (nodes, overwrite) => {

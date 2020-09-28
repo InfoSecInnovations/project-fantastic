@@ -7,7 +7,7 @@ const WriteConnection = require('./writeconnection')
 /**
  * Write connection data to database
  * @param {number} node_id ID of the host in the database
- * @param {import('../index').Connection} connection
+ * @param {import('../../types').Connection} connection
  * @param {number} date
  * @param {{
  * process?: {},

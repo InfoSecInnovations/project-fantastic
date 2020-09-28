@@ -2,8 +2,8 @@
  * 
  * @param {'from' | 'to'} dir 
  * @param {{ip_id: number}[]} ips 
- * @param {import('./index').NodeQuery} query 
- * @returns {import('fantastic-utils/db/operations').QueryCondition[]}
+ * @param {import('../types').NodeQuery} query 
+ * @returns {import('fantastic-utils/db/types').QueryCondition[]}
  */
 const connectionConditions = (dir, ips, query) => {
   const conditions = [{columns: {[`${dir}_id`]: ips.map(v => v.ip_id)}, compare: 'IN'}]

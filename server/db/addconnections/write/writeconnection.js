@@ -1,7 +1,7 @@
 /**
  * Write the connection data to the database
- * @param {import('fantastic-utils/db/operations').Operations} db 
- * @param {import('../index').Connection} connection 
+ * @param {import('fantastic-utils/db/types').Operations} db 
+ * @param {import('../../types').Connection} connection 
  * @param {number} date 
  * @param {{} | undefined} existing existing data matching this connection if we have it
  * @param {number} process_id database ID of the process owning the connection

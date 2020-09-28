@@ -1,29 +1,3 @@
-/**
- * @typedef {{
- *  columns: Object.<string, *>|[string, any][], 
- *  combine?: 'AND'|'OR', 
- *  compare?: '='|'<'|'<='|'>'|'>='|'IN'
- * }} QueryCondition
- * 
- * @typedef {{
- *  table: string,
- *  conditions: QueryCondition|{groups: QueryCondition[], combine: 'AND'|'OR'},
- *  order_by: string|string[]|Object.<string, string>,
- *  pagination: {page_size: number, page: number},
- *  columns: string[],
- *  row: Object.<string, *>
- * }} Query
- *
- * @typedef {{
-  *  run: (queries: string[]) => Promise,
-  *  insert: (table: string, row: {}) => Promise<number>,
-  *  update: (query: Query) => Promise,
-  *  remove: (query: Query) => Promise,
-  *  all: (query: Query) => Promise<*[]>,
-  *  get: (query: Query) => Promise<{} | undefined>
-  * }} Operations
-  */
-
 const run = queries => db => db.serialize(() => {
   queries.forEach(v => db.run(v, err => err && console.log(err.message)))
 })

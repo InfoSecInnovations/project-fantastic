@@ -2,8 +2,8 @@ const NodeColumns = require('../nodecolumns')
 
 /**
  * Insert a new node into the database and its corresponding IPs and MACs
- * @param {import('fantastic-utils/db/operations').Operations} db 
- * @param {import('../index').Node} node 
+ * @param {import('fantastic-utils/db/types').Operations} db 
+ * @param {import('../types').Node} node 
  * @param {number} date 
  */
 const insertNode = (db, node, date) => db.insert('nodes', NodeColumns.reduce((result, v) => ({...result, [v]: node[v]}), {date, first_date: date})) // if we didn't find any nodes we just insert a new one

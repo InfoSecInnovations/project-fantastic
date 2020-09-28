@@ -38,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -95,7 +93,7 @@
 					<div class="tsd-signature tsd-kind-icon">FS<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;fs&quot;</span><span class="tsd-signature-symbol"> = require(&#x27;fs&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/0cdc6e6/server/createroutingserver.js#L3">server/createroutingserver.js:3</a></li>
+							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/5d7b125/server/createroutingserver.js#L3">server/createroutingserver.js:3</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -105,7 +103,7 @@
 					<div class="tsd-signature tsd-kind-icon">HTTPolyglot<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = require(&#x27;httpolyglot&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/0cdc6e6/server/createroutingserver.js#L1">server/createroutingserver.js:1</a></li>
+							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/5d7b125/server/createroutingserver.js#L1">server/createroutingserver.js:1</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -115,7 +113,7 @@
 					<div class="tsd-signature tsd-kind-icon">Path<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PlatformPath</span><span class="tsd-signature-symbol"> = require(&#x27;path&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/0cdc6e6/server/createroutingserver.js#L2">server/createroutingserver.js:2</a></li>
+							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/5d7b125/server/createroutingserver.js#L2">server/createroutingserver.js:2</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -126,22 +124,31 @@
 					<a name="createroutingserver" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> create<wbr>Routing<wbr>Server</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">create<wbr>Routing<wbr>Server<span class="tsd-signature-symbol">(</span>config<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, cert_directory<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">create<wbr>Routing<wbr>Server<span class="tsd-signature-symbol">(</span>port<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, cert_directory<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/0cdc6e6/server/createroutingserver.js#L5">server/createroutingserver.js:5</a></li>
+									<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/5d7b125/server/createroutingserver.js#L10">server/createroutingserver.js:10</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a server that redirects http and https traffic on a port to https on that port +1</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>config: <span class="tsd-signature-type">any</span></h5>
+									<h5>port: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>cert_directory: <span class="tsd-signature-type">any</span></h5>
+									<h5>cert_directory: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<div class="lead">
+										</div>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>

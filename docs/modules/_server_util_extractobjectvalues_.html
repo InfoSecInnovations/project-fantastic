@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;server/util/processjson&quot; | fantastic-server</title>
+	<title>&quot;server/util/extractobjectvalues&quot; | fantastic-server</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -38,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -56,10 +54,10 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_server_util_processjson_.html">&quot;server/util/processjson&quot;</a>
+					<a href="_server_util_extractobjectvalues_.html">&quot;server/util/extractobjectvalues&quot;</a>
 				</li>
 			</ul>
-			<h1>Module &quot;server/util/processjson&quot;</h1>
+			<h1>Module &quot;server/util/extractobjectvalues&quot;</h1>
 		</div>
 	</div>
 </header>
@@ -73,13 +71,13 @@
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_server_util_processjson_.html#isvalid" class="tsd-kind-icon">Is<wbr>Valid</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_server_util_extractobjectvalues_.html#extractvalue" class="tsd-kind-icon">Extract<wbr>Value</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_server_util_processjson_.html#processjson" class="tsd-kind-icon">processJSON</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module"><a href="_server_util_extractobjectvalues_.html#extractobjectvalues" class="tsd-kind-icon">extract<wbr>Object<wbr>Values</a></li>
 							</ul>
 						</section>
 					</div>
@@ -88,12 +86,12 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="isvalid" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> Is<wbr>Valid</h3>
-					<div class="tsd-signature tsd-kind-icon">Is<wbr>Valid<span class="tsd-signature-symbol">:</span> <a href="_packages_fantastic_utils_isvalid_.html#isvalid" class="tsd-signature-type">isValid</a><span class="tsd-signature-symbol"> = require(&#x27;fantastic-utils/isvalid&#x27;)</span></div>
+					<a name="extractvalue" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Extract<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">Extract<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="_server_util_extractvalue_.html#extractvalue" class="tsd-signature-type">extractValue</a><span class="tsd-signature-symbol"> = require(&#x27;./extractvalue&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/0cdc6e6/server/util/processjson.js#L1">server/util/processjson.js:1</a></li>
+							<li>Defined in server/util/extractobjectvalues.js:1</li>
 						</ul>
 					</aside>
 				</section>
@@ -101,43 +99,43 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module">
-					<a name="processjson" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> processJSON</h3>
+					<a name="extractobjectvalues" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> extract<wbr>Object<wbr>Values</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">processJSON<span class="tsd-signature-symbol">(</span>value_data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Object</span>, output<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Object</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">extract<wbr>Object<wbr>Values<span class="tsd-signature-symbol">(</span>mapping<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span>, raw_data<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/0cdc6e6/server/util/processjson.js#L8">server/util/processjson.js:8</a></li>
+									<li>Defined in server/util/extractobjectvalues.js:9</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Grab value from JSON output using the method specified in a user script.</p>
+									<p>Grab values from raw data using the methods specified in the mapping object.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>value_data: <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Object</span></h5>
+									<h5>mapping: <span class="tsd-signature-symbol">{}</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
-											<p>the data from the script defining how we should get the value from the output.</p>
+											<p>The object containing the mapping data.</p>
 										</div>
 									</div>
+									<ul class="tsd-parameters">
+									</ul>
 								</li>
 								<li>
-									<h5>output: <span class="tsd-signature-type">Object</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>the JSON output we are processing.</p>
-										</div>
-									</div>
+									<h5>raw_data: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{}</span></h4>
+							<p>An object with the same structure as the mapping object, but containing the values from the processing.</p>
+							<ul class="tsd-parameters">
+							</ul>
 						</li>
 					</ul>
 				</section>
@@ -150,17 +148,17 @@
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
 					<li class="current tsd-kind-module">
-						<a href="_server_util_processjson_.html">&quot;server/util/processjson&quot;</a>
+						<a href="_server_util_extractobjectvalues_.html">&quot;server/util/extractobjectvalues&quot;</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="_server_util_processjson_.html#isvalid" class="tsd-kind-icon">Is<wbr>Valid</a>
+						<a href="_server_util_extractobjectvalues_.html#extractvalue" class="tsd-kind-icon">Extract<wbr>Value</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
-						<a href="_server_util_processjson_.html#processjson" class="tsd-kind-icon">processJSON</a>
+						<a href="_server_util_extractobjectvalues_.html#extractobjectvalues" class="tsd-kind-icon">extract<wbr>Object<wbr>Values</a>
 					</li>
 				</ul>
 			</nav>

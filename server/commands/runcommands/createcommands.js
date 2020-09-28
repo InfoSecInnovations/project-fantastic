@@ -2,8 +2,8 @@ const GetPackagedData = require('../../util/getpackageddata')
 
 /**
  * Select enabled commands and load their data grouped by command type
- * @param {Object.<string, 'disabled' | 'enabled' | 'force'} commands
- * @returns {Promise<Object.<string, import('./index').Command[]>>}
+ * @param {Object.<string, import('../types').CommandType} commands
+ * @returns {Promise<Object.<string, import('../types').Command[]>>}
  */
 const createCommands = commands => 
   commands ? Promise.all(Object.entries(commands)

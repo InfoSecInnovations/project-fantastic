@@ -3,20 +3,9 @@ const Read = require('./read')
 const Write = require('./write')
 
 /**
- * @typedef {{
- * local_address: string,
- * local_port: number,
- * remote_address: string,
- * remote_port: number,
- * process: number,
- * state: string
- * }} Connection
- */
-
-/**
  * Add connections to the database or update if we already have them
  * @param {number} node_id ID of the host in the database
- * @param {Connection[]} connections 
+ * @param {import('../types').Connection[]} connections 
  * @param {boolean} is_remote Is this host the server or a different host?
  */
 const addConnections = async (node_id, connections, is_remote) => {

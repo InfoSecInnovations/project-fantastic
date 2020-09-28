@@ -38,8 +38,6 @@
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -73,8 +71,8 @@
 						<section class="tsd-index-section ">
 							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_server_commands_runcommands_runcommand_json_.html#processjson" class="tsd-kind-icon">ProcessJSON</a></li>
-								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_server_commands_runcommands_runcommand_json_.html#processjsonobject" class="tsd-kind-icon">ProcessJSONObject</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_server_commands_runcommands_runcommand_json_.html#extractobjectvalues" class="tsd-kind-icon">Extract<wbr>Object<wbr>Values</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module"><a href="_server_commands_runcommands_runcommand_json_.html#extractvalue" class="tsd-kind-icon">Extract<wbr>Value</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -89,22 +87,22 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Variables</h2>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="processjson" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> ProcessJSON</h3>
-					<div class="tsd-signature tsd-kind-icon">ProcessJSON<span class="tsd-signature-symbol">:</span> <a href="_server_util_processjson_.html#processjson" class="tsd-signature-type">processJSON</a><span class="tsd-signature-symbol"> = require(&#x27;../../../util/processjson&#x27;)</span></div>
+					<a name="extractobjectvalues" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Extract<wbr>Object<wbr>Values</h3>
+					<div class="tsd-signature tsd-kind-icon">Extract<wbr>Object<wbr>Values<span class="tsd-signature-symbol">:</span> <a href="_server_util_extractobjectvalues_.html#extractobjectvalues" class="tsd-signature-type">extractObjectValues</a><span class="tsd-signature-symbol"> = require(&#x27;../../../util/extractobjectvalues&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/0cdc6e6/server/commands/runcommands/runcommand/json.js#L1">server/commands/runcommands/runcommand/json.js:1</a></li>
+							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/5d7b125/server/commands/runcommands/runcommand/json.js#L2">server/commands/runcommands/runcommand/json.js:2</a></li>
 						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module">
-					<a name="processjsonobject" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> ProcessJSONObject</h3>
-					<div class="tsd-signature tsd-kind-icon">ProcessJSONObject<span class="tsd-signature-symbol">:</span> <a href="_server_util_processjsonobject_.html#processjsonobject" class="tsd-signature-type">processJSONObject</a><span class="tsd-signature-symbol"> = require(&#x27;../../../util/processjsonobject&#x27;)</span></div>
+					<a name="extractvalue" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> Extract<wbr>Value</h3>
+					<div class="tsd-signature tsd-kind-icon">Extract<wbr>Value<span class="tsd-signature-symbol">:</span> <a href="_server_util_extractvalue_.html#extractvalue" class="tsd-signature-type">extractValue</a><span class="tsd-signature-symbol"> = require(&#x27;../../../util/extractvalue&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/0cdc6e6/server/commands/runcommands/runcommand/json.js#L2">server/commands/runcommands/runcommand/json.js:2</a></li>
+							<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/5d7b125/server/commands/runcommands/runcommand/json.js#L1">server/commands/runcommands/runcommand/json.js:1</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -115,13 +113,13 @@
 					<a name="json" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> json</h3>
 					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module">
-						<li class="tsd-signature tsd-kind-icon">json<span class="tsd-signature-symbol">(</span>command<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>description<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hosts<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HostType</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>result_type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CommandType</span><span class="tsd-signature-symbol">; </span>run<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>command<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>json<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>method<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">"invoke"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"cimsession"</span><span class="tsd-signature-symbol">; </span>read_xml<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span>, output<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">json<span class="tsd-signature-symbol">(</span>mapping<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span>, output<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/0cdc6e6/server/commands/runcommands/runcommand/json.js#L9">server/commands/runcommands/runcommand/json.js:9</a></li>
+									<li>Defined in <a href="https://github.com/besimorhino/project-fantastic/blob/5d7b125/server/commands/runcommands/runcommand/json.js#L9">server/commands/runcommands/runcommand/json.js:9</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -132,48 +130,16 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>command: <span class="tsd-signature-symbol">{ </span>description<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>hosts<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HostType</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>result_type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CommandType</span><span class="tsd-signature-symbol">; </span>run<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>command<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>json<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>method<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">"invoke"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"cimsession"</span><span class="tsd-signature-symbol">; </span>read_xml<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol"> }</span></h5>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter">
-											<h5><span class="tsd-flag ts-flagOptional">Optional</span> description<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>hosts<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">HostType</span><span class="tsd-signature-symbol">[]</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>result_<wbr>type<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">CommandType</span></h5>
-										</li>
-										<li class="tsd-parameter">
-											<h5>run<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>command<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>json<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>method<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">"invoke"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"cimsession"</span><span class="tsd-signature-symbol">; </span>read_xml<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> }</span></h5>
-											<ul class="tsd-parameters">
-												<li class="tsd-parameter">
-													<h5>command<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></h5>
-												</li>
-												<li class="tsd-parameter">
-													<h5><span class="tsd-flag ts-flagOptional">Optional</span> json<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
-												</li>
-												<li class="tsd-parameter">
-													<h5><span class="tsd-flag ts-flagOptional">Optional</span> method<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">"invoke"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"cimsession"</span></h5>
-												</li>
-												<li class="tsd-parameter">
-													<h5><span class="tsd-flag ts-flagOptional">Optional</span> read_<wbr>xml<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
-												</li>
-												<li class="tsd-parameter">
-													<h5>result<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span></h5>
-												</li>
-											</ul>
-										</li>
-									</ul>
+									<h5>mapping: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span></h5>
 								</li>
 								<li>
-									<h5>output: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">{}</span></h5>
+									<h5>output: <span class="tsd-signature-symbol">{}</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<div class="lead">
 										</div>
 									</div>
+									<ul class="tsd-parameters">
+									</ul>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
@@ -196,10 +162,10 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="_server_commands_runcommands_runcommand_json_.html#processjson" class="tsd-kind-icon">ProcessJSON</a>
+						<a href="_server_commands_runcommands_runcommand_json_.html#extractobjectvalues" class="tsd-kind-icon">Extract<wbr>Object<wbr>Values</a>
 					</li>
 					<li class=" tsd-kind-variable tsd-parent-kind-module">
-						<a href="_server_commands_runcommands_runcommand_json_.html#processjsonobject" class="tsd-kind-icon">ProcessJSONObject</a>
+						<a href="_server_commands_runcommands_runcommand_json_.html#extractvalue" class="tsd-kind-icon">Extract<wbr>Value</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-module">
 						<a href="_server_commands_runcommands_runcommand_json_.html#json" class="tsd-kind-icon">json</a>

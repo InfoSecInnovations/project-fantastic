@@ -12,4 +12,8 @@
     "allowJs": true,
     "outDir": "./build"
   },
+  "typedocOptions": {
+    "includeDeclarations": true,
+    "excludeExternals": true
+  }
 }

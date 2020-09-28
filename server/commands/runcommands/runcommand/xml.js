@@ -51,7 +51,7 @@ const get_object = (root, obj) => {
 
 /**
  * Get command value from XML
- * @param {import('../index').Command} command 
+ * @param {import('../../types').Command} command 
  */
 const xml = async command => await FS.readFile(command.run.read_xml.file)
   .then(ParseXML)

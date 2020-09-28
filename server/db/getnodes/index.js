@@ -3,21 +3,9 @@ const ConnectionConditions = require('./connectionconditions')
 const GetConnections = require('./getconnections')
 
 /**
- * @typedef {{
- * date?: number,
- * max_date?: number,
- * access?: string[],
- * nodes?: number[],
- * connection_type?: 'different_ip' | 'different_host',
- * connection_state?: string[],
- * show_external?: boolean
- * }} NodeQuery
- */
-
-/**
  * Retrieve nodes from the database based on the query object
- * @param {NodeQuery} query 
- * @returns {Promise<Array.<import('../index').Node & {connections: [], node_id: number}>>}
+ * @param {import('../types').NodeQuery} query 
+ * @returns {Promise<Array.<import('../types').Node & {connections: [], node_id: number}>>}
  */
 const getNodes = async query => {
   const date_conditions = [ // if we didn't supply a date we want to get all of the results

@@ -3,7 +3,7 @@ const RunFunction = require('./runfunction')
 
 /**
  * Run a function from an action and record it in the database
- * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {import('fantastic-utils/db/types').Operations} db 
  * @param {string} action 
  * @param {string} func 
  * @param {number} node_id 

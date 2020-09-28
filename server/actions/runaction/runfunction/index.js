@@ -11,7 +11,7 @@ const ProcessResults = require('./processresults')
  * @param {string} hostname 
  * @param {{}} [data]
  * @returns {{
- *  results: import('./result').Result[],
+ *  results: import('./types').Result[],
  *  filter?: boolean
  * }}
  */

@@ -58,7 +58,7 @@ const main = async () => {
   Routes(app, () => command_data, () => actions, () => tests, commands => command_data = update_commands(commands))
   await GetPackage(config.authentication).then(res => res.configure(app))
   app.listen(config.port + 1, () => console.log(`Fantastic Server running on port ${config.port + 1}!`))
-  CreateRoutingServer(config, cert_directory)
+  CreateRoutingServer(config.port, cert_directory)
 
   // reload config and update changed data
   WatchConfig(data => {

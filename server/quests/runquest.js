@@ -5,7 +5,7 @@ const ConvertTime = require('fantastic-utils/converttime')
 
 /**
  * Run a quest
- * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {import('fantastic-utils/db/types').Operations} db 
  * @param {string} quest 
  * @param {{}} user 
  * @param {number} date 

@@ -1,6 +1,6 @@
 /**
  * Get ID of local IP in database, adding/updating the entry if required
- * @param {import('fantastic-utils/db/operations').Operations} db write transation
+ * @param {import('fantastic-utils/db/types').Operations} db write transation
  * @param {number} node_id database ID for local host
  * @param {number} date
  * @param {string} ip local IP

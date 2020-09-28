@@ -1,6 +1,6 @@
 /**
  * 
- * @param {import('./result').Result[] } results 
+ * @param {import('./types').Result[] } results 
  */
 const processResults = results => {
   results = results.flat()

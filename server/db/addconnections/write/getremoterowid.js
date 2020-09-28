@@ -1,6 +1,6 @@
 /**
  * Get the database ID for the remote IP, adding/updating entries for the IP and remote host if required.
- * @param {import('fantastic-utils/db/operations').Operations} db write transaction
+ * @param {import('fantastic-utils/db/types').Operations} db write transaction
  * @param {number} node_id database ID of local host
  * @param {number} date 
  * @param {string} ip remote IP address

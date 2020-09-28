@@ -3,9 +3,9 @@ const FlatUnique = require('fantastic-utils/flatunique')
 
 /**
  * Run all commands of a particular type on a host
- * @param {Object.<string, import('./index').Command>} commands 
- * @param {import('./index').CommandType} result_type 
- * @param {import('./index').HostType} host 
+ * @param {Object.<string, import('../types').Command>} commands 
+ * @param {import('../types').CommandType} result_type 
+ * @param {import('../types').HostType} host 
  * @param {string} hostname 
  */
 const runType = (commands, result_type, host, hostname) => commands[result_type] ?

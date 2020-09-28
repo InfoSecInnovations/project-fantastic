@@ -3,7 +3,7 @@ const RunType = require('./runtype')
 
 /**
  * Run commands to find hosts on the network and add them to the database
- * @param {Object.<string, import('./index').Command[]>} commands
+ * @param {Object.<string, import('../types').Command[]>} commands
  * @param {number} local database ID of host the server is running on
  */
 const findHosts = async (commands, local) => {

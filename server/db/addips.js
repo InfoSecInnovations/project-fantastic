@@ -2,7 +2,7 @@
  * Add IPs to the database for a node
  * @param {number} node_id database ID of the node owning the IPs
  * @param {?string[]} ips 
- * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {import('fantastic-utils/db/types').Operations} db 
  * @param {number} date 
  */
 const addIps = (node_id, ips, db, date) => {

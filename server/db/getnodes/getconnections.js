@@ -2,10 +2,10 @@ const ConnectionConditions = require('./connectionconditions')
 
 /**
  * Get connections from the database originating from these IP addresses
- * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {import('fantastic-utils/db/types').Operations} db 
  * @param {{ip_id: number}[]} ips 
- * @param {import('./index').NodeQuery} query 
- * @param {import('fantastic-utils/db/operations').QueryCondition[]} date_conditions
+ * @param {import('../types').NodeQuery} query 
+ * @param {import('fantastic-utils/db/types').QueryCondition[]} date_conditions
  */
 const getConnections = (db, ips, query, date_conditions) => db.all({table: 'connections', conditions: {groups: [...date_conditions, ...ConnectionConditions('from', ips, query)]}})
   .then(async res => {

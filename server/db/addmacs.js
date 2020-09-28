@@ -2,7 +2,7 @@
  * Add MAC addresses corresponding to a node to the database
  * @param {number} node_id database ID of the node owning the MACs
  * @param {?{mac: string, vendor: string}[]} macs 
- * @param {import('fantastic-utils/db/operations').Operations} db 
+ * @param {import('fantastic-utils/db/types').Operations} db 
  * @param {boolean} overwrite can we overwrite existing data?
  */
 const addMacs = (node_id, macs, db, overwrite) => {

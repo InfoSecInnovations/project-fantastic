@@ -5,9 +5,9 @@ const FlatUnique = require('fantastic-utils/flatunique')
 
 /**
  * run the first command of a certain type on the specified host
- * @param {Object.<string, import('./index').Command[]} commands 
- * @param {import('./index').CommandType} result_type 
- * @param {import('./index').HostType} host 
+ * @param {Object.<string, import('../types').Command[]} commands 
+ * @param {import('../types').CommandType} result_type 
+ * @param {import('../types').HostType} host 
  * @param {string} hostname 
  */
 const run_one_of_type = async (commands, result_type, host, hostname) => {
@@ -23,7 +23,7 @@ const remove_line_breaks = s => s && s.replace(/\r?\n|\r/g, '') // for some reas
 
 /**
  * run all the relevant commands to get data about a host
- * @param {Object.<string, import('./index').Command[]} commands 
+ * @param {Object.<string, import('../types').Command[]} commands 
  * @param {string} [computer_name] if no computer name is provided we're getting data about the local host
  */
 const getNode = async (commands, computer_name) => {

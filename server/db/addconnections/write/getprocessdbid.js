@@ -1,6 +1,6 @@
 /**
  * Get the database ID for a process, adding/updating the entry if required
- * @param {import('fantastic-utils/db/operations').Operations} db write transaction
+ * @param {import('fantastic-utils/db/types').Operations} db write transaction
  * @param {number} node_id database ID of the host owning the connection
  * @param {number} pid
  * @param {{} | undefined} process data about the process owning the connection

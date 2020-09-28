@@ -6,26 +6,8 @@ const DB = require('../../db')
 const FindHosts = require('./findhosts')
 
 /**
- * @typedef {'hosts' | 'connections' | 'ip_addresses' | 'mac_addresses' | 'os' | 'hostname'} CommandType
- * @typedef {'local' | 'remote' | 'none'} HostType
- * @typedef {{
- *  name: string,
- *  description?: string,
- *  hosts: HostType[],
- *  result_type: CommandType,
- *  run: {
- *    command: string, 
- *    method?: 'invoke' | 'cimsession'
- *    json?: boolean, 
- *    read_xml?: boolean
- *    result: string | {}
- *  }
- * }} Command
- */
-
-/**
  * continuously run commands to gather data about hosts
- * @param {() => (Object.<string, 'enabled' | 'disabled' | 'force'>)} get_commands function which returns the commands and their status
+ * @param {() => (Object.<string, import('../types').CommandType>)} get_commands function which returns the commands and their status
  */
 const runCommands = async get_commands => {
   const commands = await CreateCommands(get_commands())
