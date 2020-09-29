@@ -3,6 +3,16 @@ const RunAction = require('../actions/runaction')
 const CheckResult = require('./checkresult')
 const GetAbsolutePath = require('../util/getabsolutedatapath')
 
+/**
+ * 
+ * @param {import('fantastic-utils/db/types').Operations} db 
+ * @param {string} test 
+ * @param {import('fantastic-utils/types').User user 
+ * @param {number} date 
+ * @param {number[]} nodes database IDs of nodes we're running the test on
+ * @param {Object.<string, *>} parameters 
+ * @param {number} [quest_id] database ID of quest event that called this test run 
+ */
 const runTest = async (db, test, user, date, nodes, parameters, quest_id) => {
   const obj = await GetPackagedData(test, 'tests')
   const event_id = await db.insert('test_history', {test, date, parameters: JSON.stringify(parameters), user_id: user.user_id, quest_id})

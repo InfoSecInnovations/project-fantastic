@@ -2,6 +2,11 @@ const {transaction, OPEN_READONLY} = require('../operations')
 const GetData = require('./getdata')
 const GetFavorites = require('./getuserfavorites')
 
+/**
+ * 
+ * @param {import('fantastic-utils/types').User} user 
+ * @param {{page?: number, count?: number}} [options] 
+ */
 const getUserHistory = async (user, options) => {
   const db = await transaction(OPEN_READONLY)
   const page = (options && options.page) || 0

@@ -1,6 +1,11 @@
 const {get} = require('../db')
 const GetRole = require('./getrole')
 
+/**
+ * 
+ * @param {string} username 
+ * @returns {Promise<import('fantastic-utils/types').User>}
+ */
 const getByUsername = async username => {
   const row = await get({table: 'users', columns: ['username', 'user_id'], conditions: {columns: {username}}})
   if (!row) return

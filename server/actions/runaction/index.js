@@ -7,7 +7,7 @@ const RunFunction = require('./runfunction')
  * @param {string} action 
  * @param {string} func 
  * @param {number} node_id 
- * @param {{}} user 
+ * @param {import('fantastic-utils/types').User} user 
  * @param {number} date 
  * @param {{
  *  data?: {},

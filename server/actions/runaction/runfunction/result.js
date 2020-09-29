@@ -8,7 +8,7 @@ const IsValid = require('fantastic-utils/isvalid')
  * @param {{}} result_data 
  * @param {{}  | string} output 
  * @param {{}} action 
- * @param {{}} user 
+ * @param {import('fantastic-utils/types').User} user 
  * @param {boolean} filter 
  * @returns {import('./types).Result | import('./types).Result[]}
  */

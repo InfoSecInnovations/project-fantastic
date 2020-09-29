@@ -7,7 +7,7 @@ const ProcessResults = require('./processresults')
  * Run a function from an action on the specified host
  * @param {{}} action 
  * @param {string} func 
- * @param {{}} user 
+ * @param {import('fantastic-utils/types').User} user 
  * @param {string} hostname 
  * @param {{}} [data]
  * @returns {{
