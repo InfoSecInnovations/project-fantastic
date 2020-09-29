@@ -22,7 +22,7 @@
 
 • `Const` **Decache**: "F:/project-fantastic/server/node_modules/decache/decache" = require('decache')
 
-*Defined in [server/util/getpackage.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getpackage.js#L3)*
+*Defined in [server/util/getpackage.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getpackage.js#L3)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **GetConfigPath**: [getConfigPath](_server_util_getconfigpath_.md#getconfigpath) = require('./getconfigpath')
 
-*Defined in [server/util/getpackage.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getpackage.js#L1)*
+*Defined in [server/util/getpackage.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getpackage.js#L1)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/util/getpackage.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getpackage.js#L2)*
+*Defined in [server/util/getpackage.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getpackage.js#L2)*
 
 ## Functions
 
@@ -46,7 +46,7 @@ ___
 
 ▸ `Const`**getPackage**(`name`: string): Promise\<any>
 
-*Defined in [server/util/getpackage.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getpackage.js#L9)*
+*Defined in [server/util/getpackage.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getpackage.js#L9)*
 
 get an npm module installed in the config directory by name
 

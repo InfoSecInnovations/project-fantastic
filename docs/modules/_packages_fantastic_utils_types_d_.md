@@ -17,7 +17,7 @@
 
 Ƭ  **User**: { role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  }
 
-*Defined in [packages/fantastic-utils/types.d.ts:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/types.d.ts#L3)*
+*Defined in [packages/fantastic-utils/types.d.ts:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/types.d.ts#L3)*
 
 #### Type declaration:
 
@@ -33,4 +33,4 @@ ___
 
 Ƭ  **UserRole**: \"user\" \| \"elevated\" \| \"admin\"
 
-*Defined in [packages/fantastic-utils/types.d.ts:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/types.d.ts#L1)*
+*Defined in [packages/fantastic-utils/types.d.ts:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/types.d.ts#L1)*

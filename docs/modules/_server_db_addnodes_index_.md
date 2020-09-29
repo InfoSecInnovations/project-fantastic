@@ -24,7 +24,7 @@
 
 • `Const` **InsertNode**: [insertNode](_server_db_addnodes_insertnode_.md#insertnode) = require('./insertnode')
 
-*Defined in [server/db/addnodes/index.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addnodes/index.js#L5)*
+*Defined in [server/db/addnodes/index.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addnodes/index.js#L5)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • `Const` **MatchingNodes**: [matchingNodes](_server_db_addnodes_matchingnodes_.md#matchingnodes) = require('./matchingnodes')
 
-*Defined in [server/db/addnodes/index.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addnodes/index.js#L3)*
+*Defined in [server/db/addnodes/index.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addnodes/index.js#L3)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • `Const` **MergeNodes**: [mergeNodes](_server_db_addnodes_mergenodes_.md#mergenodes) = require('./mergenodes')
 
-*Defined in [server/db/addnodes/index.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addnodes/index.js#L4)*
+*Defined in [server/db/addnodes/index.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addnodes/index.js#L4)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • `Const` **UpdateNode**: [updateNode](_server_db_updatenode_.md#updatenode) = require('../updatenode')
 
-*Defined in [server/db/addnodes/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addnodes/index.js#L2)*
+*Defined in [server/db/addnodes/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addnodes/index.js#L2)*
 
 ___
 
@@ -56,15 +56,15 @@ ___
 
 •  **transaction**: (mode: number) => Promise\<[Operations](_packages_fantastic_utils_db_types_d_.md#operations)>
 
-*Defined in [server/db/addnodes/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addnodes/index.js#L1)*
+*Defined in [server/db/addnodes/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addnodes/index.js#L1)*
 
 ## Functions
 
 ### addNodes
 
-▸ `Const`**addNodes**(`nodes`: { access: [HostAccess](_server_db_types_d_.md#hostaccess) ; hostname?: undefined \| string ; important: boolean ; ips?: string[] ; macs?: Array\<{ mac: string ; vendor: string  }> ; os?: undefined \| string  }[], `overwrite`: boolean): Promise\<any[]>
+▸ `Const`**addNodes**(`nodes`: [Node](_server_db_types_d_.md#node)[], `overwrite`: boolean): Promise\<any[]>
 
-*Defined in [server/db/addnodes/index.js:12](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addnodes/index.js#L12)*
+*Defined in [server/db/addnodes/index.js:12](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addnodes/index.js#L12)*
 
 Add nodes (hosts) to the database. Will update existing data if matching hosts are found.
 
@@ -72,7 +72,7 @@ Add nodes (hosts) to the database. Will update existing data if matching hosts a
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`nodes` | { access: [HostAccess](_server_db_types_d_.md#hostaccess) ; hostname?: undefined \| string ; important: boolean ; ips?: string[] ; macs?: Array\<{ mac: string ; vendor: string  }> ; os?: undefined \| string  }[] |  |
+`nodes` | [Node](_server_db_types_d_.md#node)[] |  |
 `overwrite` | boolean |   |
 
 **Returns:** Promise\<any[]>

@@ -22,7 +22,7 @@
 
 • `Const` **Read**: [read](_server_db_addconnections_read_index_.md#read) = require('./read')
 
-*Defined in [server/db/addconnections/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/index.js#L2)*
+*Defined in [server/db/addconnections/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/index.js#L2)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **Write**: [write](_server_db_addconnections_write_index_.md#write) = require('./write')
 
-*Defined in [server/db/addconnections/index.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/index.js#L3)*
+*Defined in [server/db/addconnections/index.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/index.js#L3)*
 
 ___
 
@@ -38,15 +38,15 @@ ___
 
 •  **update**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise
 
-*Defined in [server/db/addconnections/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/index.js#L1)*
+*Defined in [server/db/addconnections/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/index.js#L1)*
 
 ## Functions
 
 ### addConnections
 
-▸ `Const`**addConnections**(`node_id`: number, `connections`: { local_address: string ; local_port: number ; process: number ; remote_address: string ; remote_port: number ; state: string  }[], `is_remote`: boolean): Promise\<void>
+▸ `Const`**addConnections**(`node_id`: number, `connections`: [Connection](_server_db_types_d_.md#connection)[], `is_remote`: boolean): Promise\<void>
 
-*Defined in [server/db/addconnections/index.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/index.js#L11)*
+*Defined in [server/db/addconnections/index.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/index.js#L11)*
 
 Add connections to the database or update if we already have them
 
@@ -55,7 +55,7 @@ Add connections to the database or update if we already have them
 Name | Type | Description |
 ------ | ------ | ------ |
 `node_id` | number | ID of the host in the database |
-`connections` | { local_address: string ; local_port: number ; process: number ; remote_address: string ; remote_port: number ; state: string  }[] |  |
+`connections` | [Connection](_server_db_types_d_.md#connection)[] |  |
 `is_remote` | boolean | Is this host the server or a different host?  |
 
 **Returns:** Promise\<void>

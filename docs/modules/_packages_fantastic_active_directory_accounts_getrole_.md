@@ -21,7 +21,7 @@
 
 • `Const` **ActiveDirectory**: [activeDirectory](_packages_fantastic_active_directory_activedirectory_.md#activedirectory) = require('../activedirectory')
 
-*Defined in [packages/fantastic-active_directory/accounts/getrole.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/accounts/getrole.js#L2)*
+*Defined in [packages/fantastic-active_directory/accounts/getrole.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/accounts/getrole.js#L2)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • `Const` **GetConfig**: [getConfig](_server_util_getconfig_.md#getconfig) = require('../utils/getconfig')
 
-*Defined in [packages/fantastic-active_directory/accounts/getrole.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/accounts/getrole.js#L1)*
+*Defined in [packages/fantastic-active_directory/accounts/getrole.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/accounts/getrole.js#L1)*
 
 ## Functions
 
@@ -37,7 +37,7 @@ ___
 
 ▸ `Const`**getRole**(`username`: any): Promise\<undefined \| \"user\" \| \"elevated\" \| \"admin\">
 
-*Defined in [packages/fantastic-active_directory/accounts/getrole.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/accounts/getrole.js#L4)*
+*Defined in [packages/fantastic-active_directory/accounts/getrole.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/accounts/getrole.js#L4)*
 
 #### Parameters:
 

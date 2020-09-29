@@ -21,7 +21,7 @@
 
 • `Const` **ActiveDirectory**: any = require('activedirectory2').promiseWrapper
 
-*Defined in [packages/fantastic-active_directory/activedirectory.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/activedirectory.js#L1)*
+*Defined in [packages/fantastic-active_directory/activedirectory.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/activedirectory.js#L1)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • `Const` **GetConfig**: [getConfig](_server_util_getconfig_.md#getconfig) = require('./utils/getconfig')
 
-*Defined in [packages/fantastic-active_directory/activedirectory.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/activedirectory.js#L2)*
+*Defined in [packages/fantastic-active_directory/activedirectory.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/activedirectory.js#L2)*
 
 ## Functions
 
@@ -37,6 +37,6 @@ ___
 
 ▸ `Const`**activeDirectory**(): Promise\<any>
 
-*Defined in [packages/fantastic-active_directory/activedirectory.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/activedirectory.js#L4)*
+*Defined in [packages/fantastic-active_directory/activedirectory.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/activedirectory.js#L4)*
 
 **Returns:** Promise\<any>

@@ -23,7 +23,7 @@
 
 • `Const` **GetFilter**: [getFilter](_server_actions_runaction_runfunction_getfilter_.md#getfilter) = require('./getfilter')
 
-*Defined in [server/actions/runaction/runfunction/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/index.js#L2)*
+*Defined in [server/actions/runaction/runfunction/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/index.js#L2)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Const` **ProcessResults**: [processResults](_server_actions_runaction_runfunction_processresults_.md#processresults) = require('./processresults')
 
-*Defined in [server/actions/runaction/runfunction/index.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/index.js#L4)*
+*Defined in [server/actions/runaction/runfunction/index.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/index.js#L4)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Const` **PwshFunction**: [pwshFunction](_server_util_pwshfunction_.md#pwshfunction) = require('../../../util/pwshfunction')
 
-*Defined in [server/actions/runaction/runfunction/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/index.js#L1)*
+*Defined in [server/actions/runaction/runfunction/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/index.js#L1)*
 
 ___
 
@@ -47,15 +47,15 @@ ___
 
 • `Const` **Result**: [result](_server_actions_runaction_runfunction_result_.md#result) = require('./result')
 
-*Defined in [server/actions/runaction/runfunction/index.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/index.js#L3)*
+*Defined in [server/actions/runaction/runfunction/index.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/index.js#L3)*
 
 ## Functions
 
 ### runFunction
 
-▸ `Const`**runFunction**(`action`: {}, `func`: string, `user`: { role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  }, `hostname`: string, `data`: undefined \| {}): object
+▸ `Const`**runFunction**(`action`: {}, `func`: string, `user`: [User](_packages_fantastic_utils_types_d_.md#user), `hostname`: string, `data`: undefined \| {}): object
 
-*Defined in [server/actions/runaction/runfunction/index.js:18](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/index.js#L18)*
+*Defined in [server/actions/runaction/runfunction/index.js:18](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/index.js#L18)*
 
 Run a function from an action on the specified host
 
@@ -65,7 +65,7 @@ Name | Type |
 ------ | ------ |
 `action` | {} |
 `func` | string |
-`user` | { role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  } |
+`user` | [User](_packages_fantastic_utils_types_d_.md#user) |
 `hostname` | string |
 `data` | undefined \| {} |
 

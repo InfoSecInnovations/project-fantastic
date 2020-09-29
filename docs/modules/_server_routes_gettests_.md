@@ -24,7 +24,7 @@
 
 • `Const` **Abort**: [abort](_server_routes_abort_.md#abort) = require('./abort')
 
-*Defined in [server/routes/gettests.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/gettests.js#L2)*
+*Defined in [server/routes/gettests.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/gettests.js#L2)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • `Const` **Auth**: [auth](_server_routes_auth_index_.md#auth) = require('./auth')
 
-*Defined in [server/routes/gettests.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/gettests.js#L3)*
+*Defined in [server/routes/gettests.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/gettests.js#L3)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • `Const` **GetAbsolutePath**: [getAbsoluteDataPath](_server_util_getabsolutedatapath_.md#getabsolutedatapath) = require('../util/getabsolutedatapath')
 
-*Defined in [server/routes/gettests.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/gettests.js#L5)*
+*Defined in [server/routes/gettests.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/gettests.js#L5)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • `Const` **GetPackagedData**: [getPackagedData](_server_util_getpackageddata_.md#getpackageddata) = require('../util/getpackageddata')
 
-*Defined in [server/routes/gettests.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/gettests.js#L1)*
+*Defined in [server/routes/gettests.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/gettests.js#L1)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • `Const` **HasRole**: [hasRole](_packages_fantastic_utils_hasrole_.md#hasrole) = require('fantastic-utils/hasrole')
 
-*Defined in [server/routes/gettests.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/gettests.js#L4)*
+*Defined in [server/routes/gettests.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/gettests.js#L4)*
 
 ## Functions
 
@@ -64,7 +64,7 @@ ___
 
 ▸ `Const`**getTests**(`res`: any, `req`: any, `tests`: any): void
 
-*Defined in [server/routes/gettests.js:7](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/gettests.js#L7)*
+*Defined in [server/routes/gettests.js:7](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/gettests.js#L7)*
 
 #### Parameters:
 

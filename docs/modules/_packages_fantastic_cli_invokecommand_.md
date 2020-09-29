@@ -20,7 +20,7 @@
 
 • `Const` **RunPowerShell**: [child](_packages_fantastic_cli_runpowershell_.md#child) = require('./runpowershell')
 
-*Defined in [packages/fantastic-cli/invokecommand.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/invokecommand.js#L1)*
+*Defined in [packages/fantastic-cli/invokecommand.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/invokecommand.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**invokeCommand**(`command`: string, `hostname`: string, `params`: Object, `log`: boolean): Promise\<string>
 
-*Defined in [packages/fantastic-cli/invokecommand.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/invokecommand.js#L11)*
+*Defined in [packages/fantastic-cli/invokecommand.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/invokecommand.js#L11)*
 
 Execute a PowerShell command using PowerShell's "Invoke-Command -ScriptBlock".
 

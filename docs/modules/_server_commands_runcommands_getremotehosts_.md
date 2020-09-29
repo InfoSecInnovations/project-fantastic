@@ -21,7 +21,7 @@
 
 • `Const` **DB**: object = require('../../db')
 
-*Defined in [server/commands/runcommands/getremotehosts.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getremotehosts.js#L1)*
+*Defined in [server/commands/runcommands/getremotehosts.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getremotehosts.js#L1)*
 
 #### Type declaration:
 
@@ -40,7 +40,7 @@ ___
 
 • `Const` **RunPowerShell**: [child](_packages_fantastic_cli_runpowershell_.md#child) = require('fantastic-cli/runpowershell')
 
-*Defined in [server/commands/runcommands/getremotehosts.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getremotehosts.js#L2)*
+*Defined in [server/commands/runcommands/getremotehosts.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getremotehosts.js#L2)*
 
 ## Functions
 
@@ -48,7 +48,7 @@ ___
 
 ▸ `Const`**getRemoteHosts**(`local`: number): Promise\<{ hostname: any ; id: any = node.node\_id }[]>
 
-*Defined in [server/commands/runcommands/getremotehosts.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getremotehosts.js#L8)*
+*Defined in [server/commands/runcommands/getremotehosts.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getremotehosts.js#L8)*
 
 Find hosts on our network we can remotely access using PowerShell
 

@@ -20,7 +20,7 @@
 
 • `Const` **RunPowerShell**: [child](_packages_fantastic_cli_runpowershell_.md#child) = require('./runpowershell')
 
-*Defined in [packages/fantastic-cli/cimsession.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/cimsession.js#L1)*
+*Defined in [packages/fantastic-cli/cimsession.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/cimsession.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**cimSession**(`command`: string, `hostname`: string, `params`: Object, `log`: boolean): Promise\<string>
 
-*Defined in [packages/fantastic-cli/cimsession.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/cimsession.js#L11)*
+*Defined in [packages/fantastic-cli/cimsession.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/cimsession.js#L11)*
 
 Execute a PowerShell cmdlet which can use a CimSession (see Microsoft documentation to check if the cmdlet has a CimSession parameter or not).
 

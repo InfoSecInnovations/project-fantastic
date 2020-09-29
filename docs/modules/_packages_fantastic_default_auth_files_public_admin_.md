@@ -25,7 +25,7 @@
 
 ▸ **GetUser**(`form`: any): boolean
 
-*Defined in [packages/fantastic-default_auth/files/public/admin.js:89](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/files/public/admin.js#L89)*
+*Defined in [packages/fantastic-default_auth/files/public/admin.js:89](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/files/public/admin.js#L89)*
 
 #### Parameters:
 
@@ -41,7 +41,7 @@ ___
 
 ▸ `Const`**create**(`tag`: any, `text`: any): any
 
-*Defined in [packages/fantastic-default_auth/files/public/admin.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/files/public/admin.js#L1)*
+*Defined in [packages/fantastic-default_auth/files/public/admin.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/files/public/admin.js#L1)*
 
 #### Parameters:
 
@@ -58,7 +58,7 @@ ___
 
 ▸ `Const`**create_button**(`text`: any, `onclick`: any): any
 
-*Defined in [packages/fantastic-default_auth/files/public/admin.js:14](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/files/public/admin.js#L14)*
+*Defined in [packages/fantastic-default_auth/files/public/admin.js:14](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/files/public/admin.js#L14)*
 
 #### Parameters:
 
@@ -75,7 +75,7 @@ ___
 
 ▸ `Const`**create_option**(`text`: any, `value`: any, `selected`: any): any
 
-*Defined in [packages/fantastic-default_auth/files/public/admin.js:7](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/files/public/admin.js#L7)*
+*Defined in [packages/fantastic-default_auth/files/public/admin.js:7](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/files/public/admin.js#L7)*
 
 #### Parameters:
 
@@ -93,7 +93,7 @@ ___
 
 ▸ `Const`**render**(`state`: any): void
 
-*Defined in [packages/fantastic-default_auth/files/public/admin.js:35](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/files/public/admin.js#L35)*
+*Defined in [packages/fantastic-default_auth/files/public/admin.js:35](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/files/public/admin.js#L35)*
 
 #### Parameters:
 
@@ -109,7 +109,7 @@ ___
 
 ▸ `Const`**update**(`func`: any): void
 
-*Defined in [packages/fantastic-default_auth/files/public/admin.js:23](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/files/public/admin.js#L23)*
+*Defined in [packages/fantastic-default_auth/files/public/admin.js:23](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/files/public/admin.js#L23)*
 
 #### Parameters:
 
@@ -125,7 +125,7 @@ Name | Type |
 
 ▪ `Let` **state**: object
 
-*Defined in [packages/fantastic-default_auth/files/public/admin.js:21](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/files/public/admin.js#L21)*
+*Defined in [packages/fantastic-default_auth/files/public/admin.js:21](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/files/public/admin.js#L21)*
 
 #### Properties:
 

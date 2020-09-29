@@ -25,7 +25,7 @@
 
 • `Const` **CreateCommands**: [createCommands](_server_commands_runcommands_createcommands_.md#createcommands) = require('./createcommands')
 
-*Defined in [server/commands/runcommands/index.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/index.js#L3)*
+*Defined in [server/commands/runcommands/index.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/index.js#L3)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 • `Const` **DB**: object = require('../../db')
 
-*Defined in [server/commands/runcommands/index.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/index.js#L5)*
+*Defined in [server/commands/runcommands/index.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/index.js#L5)*
 
 #### Type declaration:
 
@@ -52,7 +52,7 @@ ___
 
 • `Const` **FindHosts**: [findHosts](_server_commands_runcommands_findhosts_.md#findhosts) = require('./findhosts')
 
-*Defined in [server/commands/runcommands/index.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/index.js#L6)*
+*Defined in [server/commands/runcommands/index.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/index.js#L6)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • `Const` **GetNode**: [getNode](_server_commands_runcommands_getnode_.md#getnode) = require('./getnode')
 
-*Defined in [server/commands/runcommands/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/index.js#L1)*
+*Defined in [server/commands/runcommands/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/index.js#L1)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 • `Const` **GetRemoteHosts**: [getRemoteHosts](_server_commands_runcommands_getremotehosts_.md#getremotehosts) = require('./getremotehosts')
 
-*Defined in [server/commands/runcommands/index.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/index.js#L4)*
+*Defined in [server/commands/runcommands/index.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/index.js#L4)*
 
 ___
 
@@ -76,15 +76,15 @@ ___
 
 • `Const` **RunType**: [runType](_server_commands_runcommands_runtype_.md#runtype) = require('./runtype')
 
-*Defined in [server/commands/runcommands/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/index.js#L2)*
+*Defined in [server/commands/runcommands/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/index.js#L2)*
 
 ## Functions
 
 ### runCommands
 
-▸ `Const`**runCommands**(`get_commands`: () => Object): any
+▸ `Const`**runCommands**(`get_commands`: () => Object\<string, [CommandType](_server_commands_types_d_.md#commandtype)>): any
 
-*Defined in [server/commands/runcommands/index.js:12](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/index.js#L12)*
+*Defined in [server/commands/runcommands/index.js:12](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/index.js#L12)*
 
 continuously run commands to gather data about hosts
 
@@ -92,6 +92,6 @@ continuously run commands to gather data about hosts
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`get_commands` | () => Object | function which returns the commands and their status  |
+`get_commands` | () => Object\<string, [CommandType](_server_commands_types_d_.md#commandtype)> | function which returns the commands and their status  |
 
 **Returns:** any

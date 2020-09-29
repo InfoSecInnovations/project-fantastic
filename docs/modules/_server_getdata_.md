@@ -17,7 +17,7 @@
 
 • `Const` **RunCommands**: [runCommands](_server_commands_runcommands_index_.md#runcommands) = require('./commands/runcommands')
 
-*Defined in [server/getdata.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/getdata.js#L2)*
+*Defined in [server/getdata.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/getdata.js#L2)*
 
 ___
 
@@ -25,4 +25,4 @@ ___
 
 • `Let` **command\_data**: any
 
-*Defined in [server/getdata.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/getdata.js#L4)*
+*Defined in [server/getdata.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/getdata.js#L4)*

@@ -27,7 +27,7 @@
 
 • `Const` **FS**: "fs/promises" = require('fs').promises
 
-*Defined in [server/routes/serve.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/serve.js#L1)*
+*Defined in [server/routes/serve.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/serve.js#L1)*
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 • `Const` **MarkdownIt**: any = require('markdown-it')
 
-*Defined in [server/routes/serve.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/serve.js#L2)*
+*Defined in [server/routes/serve.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/serve.js#L2)*
 
 ___
 
@@ -43,7 +43,7 @@ ___
 
 • `Const` **SVGSon**: "svgson" = require('svgson')
 
-*Defined in [server/routes/serve.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/serve.js#L3)*
+*Defined in [server/routes/serve.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/serve.js#L3)*
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 • `Const` **md**: any = new MarkdownIt({ html: true })
 
-*Defined in [server/routes/serve.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/serve.js#L5)*
+*Defined in [server/routes/serve.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/serve.js#L5)*
 
 ## Functions
 
@@ -59,7 +59,7 @@ ___
 
 ▸ `Const`**getTitle**(`body`: any): any
 
-*Defined in [server/routes/serve.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/serve.js#L11)*
+*Defined in [server/routes/serve.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/serve.js#L11)*
 
 #### Parameters:
 
@@ -75,7 +75,7 @@ ___
 
 ▸ `Const`**insert**(`body`: any, `index`: any, `s`: any): string
 
-*Defined in [server/routes/serve.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/serve.js#L9)*
+*Defined in [server/routes/serve.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/serve.js#L9)*
 
 #### Parameters:
 
@@ -93,7 +93,7 @@ ___
 
 ▸ `Const`**markdown**(`file`: any): Promise\<Buffer>
 
-*Defined in [server/routes/serve.js:18](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/serve.js#L18)*
+*Defined in [server/routes/serve.js:18](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/serve.js#L18)*
 
 #### Parameters:
 
@@ -109,7 +109,7 @@ ___
 
 ▸ `Const`**serve**(`res`: any, `path`: any, `query`: any): void
 
-*Defined in [server/routes/serve.js:38](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/serve.js#L38)*
+*Defined in [server/routes/serve.js:38](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/serve.js#L38)*
 
 #### Parameters:
 
@@ -127,7 +127,7 @@ ___
 
 ▸ `Const`**svg**(`file`: any, `query`: any): Promise\<string>
 
-*Defined in [server/routes/serve.js:30](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/serve.js#L30)*
+*Defined in [server/routes/serve.js:30](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/serve.js#L30)*
 
 #### Parameters:
 

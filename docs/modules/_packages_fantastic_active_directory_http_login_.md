@@ -28,7 +28,7 @@
 
 • `Const` **ActiveDirectory**: [activeDirectory](_packages_fantastic_active_directory_activedirectory_.md#activedirectory) = require('../activedirectory')
 
-*Defined in [packages/fantastic-active_directory/http/login.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L3)*
+*Defined in [packages/fantastic-active_directory/http/login.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L3)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 • `Const` **Error**: [error](_packages_fantastic_active_directory_http_error_.md#error) = require('./error')
 
-*Defined in [packages/fantastic-active_directory/http/login.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L5)*
+*Defined in [packages/fantastic-active_directory/http/login.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L5)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • `Const` **GenerateID**: [generateId](_packages_fantastic_utils_generateid_.md#generateid) = require('fantastic-utils/generateid')
 
-*Defined in [packages/fantastic-active_directory/http/login.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L4)*
+*Defined in [packages/fantastic-active_directory/http/login.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L4)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • `Const` **GetHTTPData**: [getHttpData](_packages_fantastic_utils_gethttpdata_.md#gethttpdata) = require('fantastic-utils/gethttpdata')
 
-*Defined in [packages/fantastic-active_directory/http/login.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L1)*
+*Defined in [packages/fantastic-active_directory/http/login.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L1)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • `Const` **ParseQuery**: [parseQuery](_packages_fantastic_utils_parsequery_.md#parsequery) = require('fantastic-utils/parsequery')
 
-*Defined in [packages/fantastic-active_directory/http/login.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L2)*
+*Defined in [packages/fantastic-active_directory/http/login.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L2)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 • `Const` **error**: \"Invalid Active Directory login. If the problem persists please contact the server administrator.\" = "Invalid Active Directory login. If the problem persists please contact the server administrator."
 
-*Defined in [packages/fantastic-active_directory/http/login.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L8)*
+*Defined in [packages/fantastic-active_directory/http/login.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L8)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 •  **get**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined>
 
-*Defined in [packages/fantastic-active_directory/http/login.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L6)*
+*Defined in [packages/fantastic-active_directory/http/login.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L6)*
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 •  **insert**: (table: string,row: {}) => Promise\<number>
 
-*Defined in [packages/fantastic-active_directory/http/login.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L6)*
+*Defined in [packages/fantastic-active_directory/http/login.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L6)*
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 •  **update**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise
 
-*Defined in [packages/fantastic-active_directory/http/login.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L6)*
+*Defined in [packages/fantastic-active_directory/http/login.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L6)*
 
 ## Functions
 
@@ -100,7 +100,7 @@ ___
 
 ▸ `Const`**login**(`res`: any, `req`: any): void
 
-*Defined in [packages/fantastic-active_directory/http/login.js:10](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/login.js#L10)*
+*Defined in [packages/fantastic-active_directory/http/login.js:10](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/login.js#L10)*
 
 #### Parameters:
 

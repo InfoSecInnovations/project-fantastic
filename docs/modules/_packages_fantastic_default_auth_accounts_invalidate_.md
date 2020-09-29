@@ -20,7 +20,7 @@
 
 •  **update**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise
 
-*Defined in [packages/fantastic-default_auth/accounts/invalidate.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/invalidate.js#L1)*
+*Defined in [packages/fantastic-default_auth/accounts/invalidate.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/invalidate.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**invalidate**(`session_id`: any): any
 
-*Defined in [packages/fantastic-default_auth/accounts/invalidate.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/invalidate.js#L3)*
+*Defined in [packages/fantastic-default_auth/accounts/invalidate.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/invalidate.js#L3)*
 
 #### Parameters:
 

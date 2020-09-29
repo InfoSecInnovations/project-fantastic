@@ -21,7 +21,7 @@
 
 • `Const` **Serve**: [serve](_server_routes_serve_.md#serve) = require('./http/serve')
 
-*Defined in [packages/fantastic-active_directory/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/index.js#L1)*
+*Defined in [packages/fantastic-active_directory/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/index.js#L1)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 •  **init**: [init](_server_db_index_.md#init)
 
-*Defined in [packages/fantastic-active_directory/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/index.js#L2)*
+*Defined in [packages/fantastic-active_directory/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/index.js#L2)*
 
 ## Functions
 
@@ -37,7 +37,7 @@ ___
 
 ▸ `Const`**configure**(`app`: any): void
 
-*Defined in [packages/fantastic-active_directory/index.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/index.js#L6)*
+*Defined in [packages/fantastic-active_directory/index.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/index.js#L6)*
 
 #### Parameters:
 

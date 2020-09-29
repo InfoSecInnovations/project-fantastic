@@ -22,7 +22,7 @@
 
 • `Const` **BCrypt**: any = require('bcrypt')
 
-*Defined in [packages/fantastic-default_auth/accounts/setpassword.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/setpassword.js#L1)*
+*Defined in [packages/fantastic-default_auth/accounts/setpassword.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/setpassword.js#L1)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **GetConfig**: [getConfig](_server_util_getconfig_.md#getconfig) = require('../utils/getconfig')
 
-*Defined in [packages/fantastic-default_auth/accounts/setpassword.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/setpassword.js#L3)*
+*Defined in [packages/fantastic-default_auth/accounts/setpassword.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/setpassword.js#L3)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 •  **update**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise
 
-*Defined in [packages/fantastic-default_auth/accounts/setpassword.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/setpassword.js#L2)*
+*Defined in [packages/fantastic-default_auth/accounts/setpassword.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/setpassword.js#L2)*
 
 ## Functions
 
@@ -46,7 +46,7 @@ ___
 
 ▸ `Const`**setPassword**(`username`: any, `password`: any): Promise\<any>
 
-*Defined in [packages/fantastic-default_auth/accounts/setpassword.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/setpassword.js#L5)*
+*Defined in [packages/fantastic-default_auth/accounts/setpassword.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/setpassword.js#L5)*
 
 #### Parameters:
 

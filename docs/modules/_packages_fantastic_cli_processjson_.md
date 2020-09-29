@@ -16,7 +16,7 @@
 
 ▸ `Const`**processJson**(`input`: string): Object[]
 
-*Defined in [packages/fantastic-cli/processjson.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/processjson.js#L6)*
+*Defined in [packages/fantastic-cli/processjson.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/processjson.js#L6)*
 
 Attempt to parse JSON from a string and output as an array
 

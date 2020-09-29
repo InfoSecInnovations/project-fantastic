@@ -25,7 +25,7 @@
 
 • `Const` **DefaultIPs**: string[] = require('fantastic-utils/defaultips')
 
-*Defined in [server/commands/runcommands/getnode.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getnode.js#L3)*
+*Defined in [server/commands/runcommands/getnode.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getnode.js#L3)*
 
 ___
 
@@ -33,7 +33,7 @@ ___
 
 • `Const` **FlatUnique**: [flatUnique](_packages_fantastic_utils_flatunique_.md#flatunique) = require('fantastic-utils/flatunique')
 
-*Defined in [server/commands/runcommands/getnode.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getnode.js#L4)*
+*Defined in [server/commands/runcommands/getnode.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getnode.js#L4)*
 
 ___
 
@@ -41,7 +41,7 @@ ___
 
 • `Const` **RunCommand**: [runCommand](_server_commands_runcommands_runcommand_index_.md#runcommand) = require('./runcommand')
 
-*Defined in [server/commands/runcommands/getnode.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getnode.js#L1)*
+*Defined in [server/commands/runcommands/getnode.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getnode.js#L1)*
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • `Const` **RunType**: [runType](_server_commands_runcommands_runtype_.md#runtype) = require('./runtype')
 
-*Defined in [server/commands/runcommands/getnode.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getnode.js#L2)*
+*Defined in [server/commands/runcommands/getnode.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getnode.js#L2)*
 
 ## Functions
 
@@ -57,7 +57,7 @@ ___
 
 ▸ `Const`**getNode**(`commands`: Object, `computer_name`: undefined \| string): Promise\<{ hostname: any ; important: boolean = true; ips: any[] ; macs: any[] ; os: any  }>
 
-*Defined in [server/commands/runcommands/getnode.js:29](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getnode.js#L29)*
+*Defined in [server/commands/runcommands/getnode.js:29](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getnode.js#L29)*
 
 run all the relevant commands to get data about a host
 
@@ -76,7 +76,7 @@ ___
 
 ▸ `Const`**remove_line_breaks**(`s`: any): any
 
-*Defined in [server/commands/runcommands/getnode.js:22](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getnode.js#L22)*
+*Defined in [server/commands/runcommands/getnode.js:22](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getnode.js#L22)*
 
 #### Parameters:
 
@@ -90,9 +90,9 @@ ___
 
 ### run\_one\_of\_type
 
-▸ `Const`**run_one_of_type**(`commands`: Object, `result_type`: \"hosts\" \| \"connections\" \| \"ip\_addresses\" \| \"mac\_addresses\" \| \"os\" \| \"hostname\", `host`: \"local\" \| \"remote\" \| \"none\", `hostname`: string): Promise\<any>
+▸ `Const`**run_one_of_type**(`commands`: Object, `result_type`: [CommandType](_server_commands_types_d_.md#commandtype), `host`: [HostType](_server_commands_types_d_.md#hosttype), `hostname`: string): Promise\<any>
 
-*Defined in [server/commands/runcommands/getnode.js:13](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/getnode.js#L13)*
+*Defined in [server/commands/runcommands/getnode.js:13](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/getnode.js#L13)*
 
 run the first command of a certain type on the specified host
 
@@ -101,8 +101,8 @@ run the first command of a certain type on the specified host
 Name | Type | Description |
 ------ | ------ | ------ |
 `commands` | Object |  |
-`result_type` | \"hosts\" \| \"connections\" \| \"ip\_addresses\" \| \"mac\_addresses\" \| \"os\" \| \"hostname\" |  |
-`host` | \"local\" \| \"remote\" \| \"none\" |  |
+`result_type` | [CommandType](_server_commands_types_d_.md#commandtype) |  |
+`host` | [HostType](_server_commands_types_d_.md#hosttype) |  |
 `hostname` | string |   |
 
 **Returns:** Promise\<any>

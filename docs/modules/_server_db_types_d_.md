@@ -19,7 +19,7 @@
 
 Ƭ  **Connection**: { local_address: string ; local_port: number ; process: number ; remote_address: string ; remote_port: number ; state: string  }
 
-*Defined in [server/db/types.d.ts:24](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/types.d.ts#L24)*
+*Defined in [server/db/types.d.ts:24](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/types.d.ts#L24)*
 
 #### Type declaration:
 
@@ -38,7 +38,7 @@ ___
 
 Ƭ  **HostAccess**: \"local\" \| \"remote\" \| \"none\"
 
-*Defined in [server/db/types.d.ts:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/types.d.ts#L3)*
+*Defined in [server/db/types.d.ts:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/types.d.ts#L3)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 Ƭ  **Node**: { access: [HostAccess](_server_db_types_d_.md#hostaccess) ; hostname?: undefined \| string ; important: boolean ; ips?: string[] ; macs?: Array\<{ mac: string ; vendor: string  }> ; os?: undefined \| string  }
 
-*Defined in [server/db/types.d.ts:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/types.d.ts#L5)*
+*Defined in [server/db/types.d.ts:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/types.d.ts#L5)*
 
 #### Type declaration:
 
@@ -65,7 +65,7 @@ ___
 
 Ƭ  **NodeQuery**: { access?: [HostAccess](_server_db_types_d_.md#hostaccess)[] ; connection_state?: string[] ; connection_type?: \"different\_ip\" \| \"different\_host\" ; date?: undefined \| number ; max_date?: undefined \| number ; nodes?: number[] ; show_external?: undefined \| false \| true  }
 
-*Defined in [server/db/types.d.ts:14](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/types.d.ts#L14)*
+*Defined in [server/db/types.d.ts:14](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/types.d.ts#L14)*
 
 #### Type declaration:
 

@@ -22,7 +22,7 @@
 
 • `Const` **GetProcess**: [get_process](_server_db_addconnections_read_getprocess_.md#get_process) = require('./getprocess')
 
-*Defined in [server/db/addconnections/read/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/read/index.js#L2)*
+*Defined in [server/db/addconnections/read/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/read/index.js#L2)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 •  **OPEN\_READONLY**: any
 
-*Defined in [server/db/addconnections/read/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/read/index.js#L1)*
+*Defined in [server/db/addconnections/read/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/read/index.js#L1)*
 
 ___
 
@@ -38,15 +38,15 @@ ___
 
 •  **transaction**: (mode: number) => Promise\<[Operations](_packages_fantastic_utils_db_types_d_.md#operations)>
 
-*Defined in [server/db/addconnections/read/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/read/index.js#L1)*
+*Defined in [server/db/addconnections/read/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/read/index.js#L1)*
 
 ## Functions
 
 ### read
 
-▸ `Const`**read**(`node_id`: number, `connection`: { local_address: string ; local_port: number ; process: number ; remote_address: string ; remote_port: number ; state: string  }, `is_remote`: boolean, `processes`: Object): Promise\<{ existing: undefined \| {} ; local_ip_row: undefined \| {} ; process: undefined \| {} ; process_name: string ; remote_ip_row: undefined \| {}  }>
+▸ `Const`**read**(`node_id`: number, `connection`: [Connection](_server_db_types_d_.md#connection), `is_remote`: boolean, `processes`: Object): Promise\<{ existing: undefined \| {} ; local_ip_row: undefined \| {} ; process: undefined \| {} ; process_name: string ; remote_ip_row: undefined \| {}  }>
 
-*Defined in [server/db/addconnections/read/index.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/read/index.js#L11)*
+*Defined in [server/db/addconnections/read/index.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/read/index.js#L11)*
 
 Read the information required to handle adding connection data
 
@@ -55,7 +55,7 @@ Read the information required to handle adding connection data
 Name | Type | Description |
 ------ | ------ | ------ |
 `node_id` | number | ID of the host in the database |
-`connection` | { local_address: string ; local_port: number ; process: number ; remote_address: string ; remote_port: number ; state: string  } |  |
+`connection` | [Connection](_server_db_types_d_.md#connection) |  |
 `is_remote` | boolean | Is this host the server or a different host? |
 `processes` | Object | bookeeping for process names  |
 

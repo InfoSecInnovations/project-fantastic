@@ -20,7 +20,7 @@
 
 • `Const` **FS**: any = require('fs-extra')
 
-*Defined in [server/scripts/postinstall.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/scripts/postinstall.js#L1)*
+*Defined in [server/scripts/postinstall.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/scripts/postinstall.js#L1)*
 
 ## Functions
 
@@ -28,6 +28,6 @@
 
 ▸ `Const`**run**(): Promise\<void>
 
-*Defined in [server/scripts/postinstall.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/scripts/postinstall.js#L3)*
+*Defined in [server/scripts/postinstall.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/scripts/postinstall.js#L3)*
 
 **Returns:** Promise\<void>

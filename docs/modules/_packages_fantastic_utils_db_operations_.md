@@ -27,7 +27,7 @@
 
 ▸ `Const`**all**(`query`: any): (Anonymous function)
 
-*Defined in [packages/fantastic-utils/db/operations.js:129](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L129)*
+*Defined in [packages/fantastic-utils/db/operations.js:129](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L129)*
 
 #### Parameters:
 
@@ -43,7 +43,7 @@ ___
 
 ▸ `Const`**condition_entry**(`v`: any, `compare`: any): { text: string = \`${v[0]} IS NULL\` } \| { text: string = \`${v[0]} ${compare} ?\`; values: any = v[1] }
 
-*Defined in [packages/fantastic-utils/db/operations.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L5)*
+*Defined in [packages/fantastic-utils/db/operations.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L5)*
 
 #### Parameters:
 
@@ -60,7 +60,7 @@ ___
 
 ▸ `Const`**condition_group**(`group`: any): object
 
-*Defined in [packages/fantastic-utils/db/operations.js:14](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L14)*
+*Defined in [packages/fantastic-utils/db/operations.js:14](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L14)*
 
 #### Parameters:
 
@@ -81,7 +81,7 @@ ___
 
 ▸ `Const`**get**(`query`: any): (Anonymous function)
 
-*Defined in [packages/fantastic-utils/db/operations.js:114](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L114)*
+*Defined in [packages/fantastic-utils/db/operations.js:114](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L114)*
 
 #### Parameters:
 
@@ -97,7 +97,7 @@ ___
 
 ▸ `Const`**group**(`group_by`: any): string
 
-*Defined in [packages/fantastic-utils/db/operations.js:42](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L42)*
+*Defined in [packages/fantastic-utils/db/operations.js:42](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L42)*
 
 #### Parameters:
 
@@ -113,7 +113,7 @@ ___
 
 ▸ `Const`**insert**(`table`: any, `row`: any): (Anonymous function)
 
-*Defined in [packages/fantastic-utils/db/operations.js:47](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L47)*
+*Defined in [packages/fantastic-utils/db/operations.js:47](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L47)*
 
 #### Parameters:
 
@@ -130,7 +130,7 @@ ___
 
 ▸ `Const`**order**(`order_by`: any): string
 
-*Defined in [packages/fantastic-utils/db/operations.js:32](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L32)*
+*Defined in [packages/fantastic-utils/db/operations.js:32](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L32)*
 
 #### Parameters:
 
@@ -146,7 +146,7 @@ ___
 
 ▸ `Const`**remove**(`query`: any): (Anonymous function)
 
-*Defined in [packages/fantastic-utils/db/operations.js:144](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L144)*
+*Defined in [packages/fantastic-utils/db/operations.js:144](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L144)*
 
 #### Parameters:
 
@@ -162,7 +162,7 @@ ___
 
 ▸ `Const`**run**(`queries`: any): (Anonymous function)
 
-*Defined in [packages/fantastic-utils/db/operations.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L1)*
+*Defined in [packages/fantastic-utils/db/operations.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L1)*
 
 #### Parameters:
 
@@ -178,7 +178,7 @@ ___
 
 ▸ `Const`**select**(`query`: any): object
 
-*Defined in [packages/fantastic-utils/db/operations.js:87](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L87)*
+*Defined in [packages/fantastic-utils/db/operations.js:87](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L87)*
 
 #### Parameters:
 
@@ -199,7 +199,7 @@ ___
 
 ▸ `Const`**update**(`query`: any): (Anonymous function)
 
-*Defined in [packages/fantastic-utils/db/operations.js:66](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L66)*
+*Defined in [packages/fantastic-utils/db/operations.js:66](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L66)*
 
 #### Parameters:
 
@@ -215,7 +215,7 @@ ___
 
 ▸ `Const`**where**(`conditions`: any): object
 
-*Defined in [packages/fantastic-utils/db/operations.js:22](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/operations.js#L22)*
+*Defined in [packages/fantastic-utils/db/operations.js:22](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/operations.js#L22)*
 
 #### Parameters:
 

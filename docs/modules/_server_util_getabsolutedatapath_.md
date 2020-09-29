@@ -16,7 +16,7 @@
 
 ▸ `Const`**getAbsoluteDataPath**(`path`: string, `parent_path`: string): string
 
-*Defined in [server/util/getabsolutedatapath.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getabsolutedatapath.js#L6)*
+*Defined in [server/util/getabsolutedatapath.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getabsolutedatapath.js#L6)*
 
 If we're loading data relative to another module, join the parent path if needed
 

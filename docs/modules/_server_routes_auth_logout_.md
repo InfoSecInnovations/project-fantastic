@@ -24,7 +24,7 @@
 
 • `Const` **GetConfig**: [getConfig](_server_util_getconfig_.md#getconfig) = require('../../util/getconfig')
 
-*Defined in [server/routes/auth/logout.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/logout.js#L2)*
+*Defined in [server/routes/auth/logout.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/logout.js#L2)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • `Const` **GetCookie**: [getCookie](_packages_fantastic_utils_getcookie_.md#getcookie) = require('fantastic-utils/getcookie')
 
-*Defined in [server/routes/auth/logout.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/logout.js#L1)*
+*Defined in [server/routes/auth/logout.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/logout.js#L1)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • `Const` **GetPackage**: [getPackage](_server_util_getpackage_.md#getpackage) = require('../../util/getpackage')
 
-*Defined in [server/routes/auth/logout.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/logout.js#L3)*
+*Defined in [server/routes/auth/logout.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/logout.js#L3)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • `Const` **cookie\_name**: \"session\_id\" = "session\_id"
 
-*Defined in [server/routes/auth/logout.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/logout.js#L11)*
+*Defined in [server/routes/auth/logout.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/logout.js#L11)*
 
 ## Functions
 
@@ -56,7 +56,7 @@ ___
 
 ▸ `Const`**logOut**(`res`: any, `req`: any): Promise\<void>
 
-*Defined in [server/routes/auth/logout.js:12](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/logout.js#L12)*
+*Defined in [server/routes/auth/logout.js:12](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/logout.js#L12)*
 
 #### Parameters:
 
@@ -73,7 +73,7 @@ ___
 
 ▸ `Const`**redirect**(`res`: any): void
 
-*Defined in [server/routes/auth/logout.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/logout.js#L5)*
+*Defined in [server/routes/auth/logout.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/logout.js#L5)*
 
 #### Parameters:
 

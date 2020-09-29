@@ -23,7 +23,7 @@
 
 • `Const` **FS**: "fs/promises" = require('fs').promises
 
-*Defined in [server/commands/runcommands/runcommand/xml.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/runcommand/xml.js#L2)*
+*Defined in [server/commands/runcommands/runcommand/xml.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/runcommand/xml.js#L2)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Const` **ParseXML**: any = require('xml2js').parseStringPromise
 
-*Defined in [server/commands/runcommands/runcommand/xml.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/runcommand/xml.js#L1)*
+*Defined in [server/commands/runcommands/runcommand/xml.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/runcommand/xml.js#L1)*
 
 ## Functions
 
@@ -39,7 +39,7 @@ ___
 
 ▸ `Const`**get_object**(`root`: any, `obj`: any): any
 
-*Defined in [server/commands/runcommands/runcommand/xml.js:18](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/runcommand/xml.js#L18)*
+*Defined in [server/commands/runcommands/runcommand/xml.js:18](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/runcommand/xml.js#L18)*
 
 #### Parameters:
 
@@ -56,7 +56,7 @@ ___
 
 ▸ `Const`**traverse**(`root`: any, `path`: any): any
 
-*Defined in [server/commands/runcommands/runcommand/xml.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/runcommand/xml.js#L4)*
+*Defined in [server/commands/runcommands/runcommand/xml.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/runcommand/xml.js#L4)*
 
 #### Parameters:
 
@@ -71,9 +71,9 @@ ___
 
 ### xml
 
-▸ `Const`**xml**(`command`: { description?: undefined \| string ; hosts: [HostType](_server_commands_types_d_.md#hosttype)[] ; name: string ; result_type: [CommandType](_server_commands_types_d_.md#commandtype) ; run: { command: string ; json?: undefined \| false \| true ; method?: \"invoke\" \| \"cimsession\" ; read_xml?: undefined \| false \| true ; result: string \| {}  }  }): Promise\<any>
+▸ `Const`**xml**(`command`: [Command](_server_commands_types_d_.md#command)): Promise\<any>
 
-*Defined in [server/commands/runcommands/runcommand/xml.js:56](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/runcommand/xml.js#L56)*
+*Defined in [server/commands/runcommands/runcommand/xml.js:56](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/runcommand/xml.js#L56)*
 
 Get command value from XML
 
@@ -81,6 +81,6 @@ Get command value from XML
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`command` | { description?: undefined \| string ; hosts: [HostType](_server_commands_types_d_.md#hosttype)[] ; name: string ; result_type: [CommandType](_server_commands_types_d_.md#commandtype) ; run: { command: string ; json?: undefined \| false \| true ; method?: \"invoke\" \| \"cimsession\" ; read_xml?: undefined \| false \| true ; result: string \| {}  }  } |   |
+`command` | [Command](_server_commands_types_d_.md#command) |   |
 
 **Returns:** Promise\<any>

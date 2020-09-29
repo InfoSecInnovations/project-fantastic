@@ -20,7 +20,7 @@
 
 • `Const` **InvokeCommand**: [invokeCommand](_packages_fantastic_cli_invokecommand_.md#invokecommand) = require('fantastic-cli/invokecommand')
 
-*Defined in [server/db/addconnections/read/getprocess.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/read/getprocess.js#L1)*
+*Defined in [server/db/addconnections/read/getprocess.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/read/getprocess.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**get_process**(`id`: any, `hostname`: any): Promise\<string>
 
-*Defined in [server/db/addconnections/read/getprocess.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/read/getprocess.js#L3)*
+*Defined in [server/db/addconnections/read/getprocess.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/read/getprocess.js#L3)*
 
 #### Parameters:
 

@@ -1,0 +1,13 @@
+{
+  "name": "Kill Connection Process",
+  "description": "Stop the process that owns this connection",
+  "hosts": ["local", "remote"],
+  "role": "elevated",
+  "target": "connection",
+  "functions": {
+    "run": {
+      "command": "Stop-Process -ID $process -Force",
+      "method": "invoke"
+    }
+  }
+}

@@ -20,7 +20,7 @@
 
 •  **get**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined>
 
-*Defined in [packages/fantastic-default_auth/accounts/lastadmin.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/lastadmin.js#L1)*
+*Defined in [packages/fantastic-default_auth/accounts/lastadmin.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/lastadmin.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**lastAdmin**(`username`: any): Promise\<{}>
 
-*Defined in [packages/fantastic-default_auth/accounts/lastadmin.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/lastadmin.js#L3)*
+*Defined in [packages/fantastic-default_auth/accounts/lastadmin.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/lastadmin.js#L3)*
 
 #### Parameters:
 

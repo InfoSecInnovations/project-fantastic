@@ -21,7 +21,7 @@
 
 • `Const` **JSToPS**: [JStoPS](_packages_fantastic_utils_jstops_.md#jstops) = require('./jstops')
 
-*Defined in [packages/fantastic-utils/formatstring.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/formatstring.js#L1)*
+*Defined in [packages/fantastic-utils/formatstring.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/formatstring.js#L1)*
 
 ## Functions
 
@@ -29,7 +29,7 @@
 
 ▸ `Const`**formatString**(`string`: string, `parameters`: Object, `mode`: \"powershell\" \| \"js\"): string
 
-*Defined in [packages/fantastic-utils/formatstring.js:17](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/formatstring.js#L17)*
+*Defined in [packages/fantastic-utils/formatstring.js:17](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/formatstring.js#L17)*
 
 Replace placeholders in the '$key' format with corresponding values from the parameters object
 
@@ -49,7 +49,7 @@ ___
 
 ▸ `Const`**js_string**(`js`: any): undefined \| string
 
-*Defined in [packages/fantastic-utils/formatstring.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/formatstring.js#L3)*
+*Defined in [packages/fantastic-utils/formatstring.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/formatstring.js#L3)*
 
 #### Parameters:
 

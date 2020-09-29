@@ -24,7 +24,7 @@
 
 • `Const` **FS**: "fs" = require('fs')
 
-*Defined in [server/watchconfig.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/watchconfig.js#L2)*
+*Defined in [server/watchconfig.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/watchconfig.js#L2)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • `Const` **GetCommandData**: [getCommandData](_server_commands_getcommanddata_.md#getcommanddata) = require('./commands/getcommanddata')
 
-*Defined in [server/watchconfig.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/watchconfig.js#L1)*
+*Defined in [server/watchconfig.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/watchconfig.js#L1)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • `Const` **GetConfig**: [getConfig](_server_util_getconfig_.md#getconfig) = require('./util/getconfig')
 
-*Defined in [server/watchconfig.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/watchconfig.js#L4)*
+*Defined in [server/watchconfig.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/watchconfig.js#L4)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/watchconfig.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/watchconfig.js#L3)*
+*Defined in [server/watchconfig.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/watchconfig.js#L3)*
 
 ## Functions
 
@@ -56,7 +56,7 @@ ___
 
 ▸ `Const`**update_data**(`onchange`: any): Promise\<any>
 
-*Defined in [server/watchconfig.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/watchconfig.js#L6)*
+*Defined in [server/watchconfig.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/watchconfig.js#L6)*
 
 #### Parameters:
 
@@ -72,7 +72,7 @@ ___
 
 ▸ `Const`**watchConfig**(`onchange`: any): void
 
-*Defined in [server/watchconfig.js:12](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/watchconfig.js#L12)*
+*Defined in [server/watchconfig.js:12](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/watchconfig.js#L12)*
 
 #### Parameters:
 

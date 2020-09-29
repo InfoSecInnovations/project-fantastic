@@ -21,7 +21,7 @@
 
 • `Const` **DB**: object = require('../../db')
 
-*Defined in [server/commands/runcommands/findhosts.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/findhosts.js#L1)*
+*Defined in [server/commands/runcommands/findhosts.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/findhosts.js#L1)*
 
 #### Type declaration:
 
@@ -40,7 +40,7 @@ ___
 
 • `Const` **RunType**: [runType](_server_commands_runcommands_runtype_.md#runtype) = require('./runtype')
 
-*Defined in [server/commands/runcommands/findhosts.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/findhosts.js#L2)*
+*Defined in [server/commands/runcommands/findhosts.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/findhosts.js#L2)*
 
 ## Functions
 
@@ -48,7 +48,7 @@ ___
 
 ▸ `Const`**findHosts**(`commands`: Object, `local`: number): Promise\<void>
 
-*Defined in [server/commands/runcommands/findhosts.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/findhosts.js#L9)*
+*Defined in [server/commands/runcommands/findhosts.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/findhosts.js#L9)*
 
 Run commands to find hosts on the network and add them to the database
 

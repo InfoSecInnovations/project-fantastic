@@ -16,7 +16,7 @@
 
 ▸ `Const`**isValid**(`v`: any): any
 
-*Defined in [packages/fantastic-utils/isvalid.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/isvalid.js#L1)*
+*Defined in [packages/fantastic-utils/isvalid.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/isvalid.js#L1)*
 
 #### Parameters:
 

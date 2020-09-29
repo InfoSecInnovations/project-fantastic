@@ -22,7 +22,7 @@
 
 • `Const` **FS**: any = require('fs-extra')
 
-*Defined in [server/actions/runaction/runfunction/getfilter.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/getfilter.js#L1)*
+*Defined in [server/actions/runaction/runfunction/getfilter.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/getfilter.js#L1)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **GetConfigPath**: [getConfigPath](_server_util_getconfigpath_.md#getconfigpath) = require('../../../util/getconfigpath')
 
-*Defined in [server/actions/runaction/runfunction/getfilter.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/getfilter.js#L2)*
+*Defined in [server/actions/runaction/runfunction/getfilter.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/getfilter.js#L2)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/actions/runaction/runfunction/getfilter.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/getfilter.js#L3)*
+*Defined in [server/actions/runaction/runfunction/getfilter.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/getfilter.js#L3)*
 
 ## Functions
 
@@ -46,7 +46,7 @@ ___
 
 ▸ `Const`**getFilter**(`filter`: undefined \| {}): Promise\<any>
 
-*Defined in [server/actions/runaction/runfunction/getfilter.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/getfilter.js#L9)*
+*Defined in [server/actions/runaction/runfunction/getfilter.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/getfilter.js#L9)*
 
 #### Parameters:
 

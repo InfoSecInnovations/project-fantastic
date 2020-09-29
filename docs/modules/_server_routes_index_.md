@@ -16,7 +16,7 @@
 
 ▸ `Const`**routes**(`app`: any, `get_commands`: any, `get_actions`: any, `get_tests`: any, `update_commands`: any): void
 
-*Defined in [server/routes/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/index.js#L1)*
+*Defined in [server/routes/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/index.js#L1)*
 
 #### Parameters:
 

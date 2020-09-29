@@ -14,9 +14,9 @@
 
 ### getRemoteRowID
 
-▸ `Const`**getRemoteRowID**(`db`: { all: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<any[]> ; get: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined> ; insert: (table: string,row: {}) => Promise\<number> ; remove: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise ; run: (queries: string[]) => Promise ; update: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise  }, `node_id`: number, `date`: number, `ip`: string, `remote_ip_row`: undefined \| {}): Promise\<{ id: any = remote\_ip\_row.ip\_id; new_nodes: number = 0 }>
+▸ `Const`**getRemoteRowID**(`db`: [Operations](_packages_fantastic_utils_db_types_d_.md#operations), `node_id`: number, `date`: number, `ip`: string, `remote_ip_row`: undefined \| {}): Promise\<{ id: any = remote\_ip\_row.ip\_id; new_nodes: number = 0 }>
 
-*Defined in [server/db/addconnections/write/getremoterowid.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/write/getremoterowid.js#L9)*
+*Defined in [server/db/addconnections/write/getremoterowid.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/write/getremoterowid.js#L9)*
 
 Get the database ID for the remote IP, adding/updating entries for the IP and remote host if required.
 
@@ -24,7 +24,7 @@ Get the database ID for the remote IP, adding/updating entries for the IP and re
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`db` | { all: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<any[]> ; get: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined> ; insert: (table: string,row: {}) => Promise\<number> ; remove: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise ; run: (queries: string[]) => Promise ; update: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise  } | write transaction |
+`db` | [Operations](_packages_fantastic_utils_db_types_d_.md#operations) | write transaction |
 `node_id` | number | database ID of local host |
 `date` | number |  |
 `ip` | string | remote IP address |

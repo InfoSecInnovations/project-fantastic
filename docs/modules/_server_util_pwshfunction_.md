@@ -16,7 +16,7 @@
 
 ▸ `Const`**pwshFunction**(`func_data`: any): [cimSessionJson](_packages_fantastic_cli_cimsessionjson_.md#cimsessionjson)
 
-*Defined in [server/util/pwshfunction.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/pwshfunction.js#L1)*
+*Defined in [server/util/pwshfunction.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/pwshfunction.js#L1)*
 
 #### Parameters:
 

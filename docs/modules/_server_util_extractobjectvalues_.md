@@ -20,7 +20,7 @@
 
 • `Const` **ExtractValue**: [extractValue](_server_util_extractvalue_.md#extractvalue) = require('./extractvalue')
 
-*Defined in [server/util/extractobjectvalues.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/extractobjectvalues.js#L1)*
+*Defined in [server/util/extractobjectvalues.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/extractobjectvalues.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**extractObjectValues**(`mapping`: {}, `raw_data`: string \| {}): object
 
-*Defined in [server/util/extractobjectvalues.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/extractobjectvalues.js#L9)*
+*Defined in [server/util/extractobjectvalues.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/extractobjectvalues.js#L9)*
 
 Grab values from raw data using the methods specified in the mapping object.
 

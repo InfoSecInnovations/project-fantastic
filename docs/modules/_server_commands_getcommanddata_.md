@@ -21,7 +21,7 @@
 
 • `Const` **GetPackage**: [getPackage](_server_util_getpackage_.md#getpackage) = require('../util/getpackage')
 
-*Defined in [server/commands/getcommanddata.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/getcommanddata.js#L1)*
+*Defined in [server/commands/getcommanddata.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/getcommanddata.js#L1)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 •  **get**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined>
 
-*Defined in [server/commands/getcommanddata.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/getcommanddata.js#L2)*
+*Defined in [server/commands/getcommanddata.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/getcommanddata.js#L2)*
 
 ## Functions
 
@@ -37,7 +37,7 @@ ___
 
 ▸ `Const`**getCommandData**(`config`: {}): Object
 
-*Defined in [server/commands/getcommanddata.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/getcommanddata.js#L9)*
+*Defined in [server/commands/getcommanddata.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/getcommanddata.js#L9)*
 
 #### Parameters:
 

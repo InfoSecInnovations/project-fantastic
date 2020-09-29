@@ -20,7 +20,7 @@
 
 • `Const` **NodeColumns**: string[] = require('./nodecolumns')
 
-*Defined in [server/db/filtercolumns.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/filtercolumns.js#L1)*
+*Defined in [server/db/filtercolumns.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/filtercolumns.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**filterColumns**(`row`: {}, `overwrite`: boolean): string[]
 
-*Defined in [server/db/filtercolumns.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/filtercolumns.js#L8)*
+*Defined in [server/db/filtercolumns.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/filtercolumns.js#L8)*
 
 Select only columns which are empty unless we're overwriting
 

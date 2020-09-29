@@ -16,4 +16,4 @@
 
 • `Const` **path**: \"./data.db\" = "./data.db"
 
-*Defined in [server/db/path.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/path.js#L1)*
+*Defined in [server/db/path.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/path.js#L1)*

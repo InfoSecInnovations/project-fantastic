@@ -16,7 +16,7 @@
 
 ▸ `Const`**convertTime**(`time`: { d?: undefined \| number ; h?: undefined \| number ; m?: undefined \| number ; s?: undefined \| number  }): number
 
-*Defined in [packages/fantastic-utils/converttime.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/converttime.js#L5)*
+*Defined in [packages/fantastic-utils/converttime.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/converttime.js#L5)*
 
 Convert time in days, hours, minutes, seconds format to milliseconds
 

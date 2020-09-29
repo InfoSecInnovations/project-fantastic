@@ -20,7 +20,7 @@
 
 • `Const` **GetPackagedData**: [getPackagedData](_server_util_getpackageddata_.md#getpackageddata) = require('../../util/getpackageddata')
 
-*Defined in [server/commands/runcommands/createcommands.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/createcommands.js#L1)*
+*Defined in [server/commands/runcommands/createcommands.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/createcommands.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**createCommands**(`commands`: Object): Promise\<Object>
 
-*Defined in [server/commands/runcommands/createcommands.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/runcommands/createcommands.js#L8)*
+*Defined in [server/commands/runcommands/createcommands.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/runcommands/createcommands.js#L8)*
 
 Select enabled commands and load their data grouped by command type
 

@@ -108,7 +108,7 @@ This description should inform the user about the command.
 
 *Optional*
 
-Values can be `"elevated"` or `"admin"`, if no role is specified the action will be available to all users. This can be overridden by individual functions.
+Values can be `elevated` or `admin`, if no role is specified the action will be available to all users. This can be overridden by individual functions.
 
 ## hosts
 
@@ -117,6 +117,18 @@ The access levels required to run this command on a host. This is an array.
 - `local` : this command can run on the server machine
 - `remote` : this command can run on any machine with PowerShell remote access from the server.
 - `none` : this command can target any machine on the network (not supported yet)
+
+## target (WIP)
+
+*Optional*
+
+What entities this action targets.
+
+- `host` default value
+- `connection` this action targets a TCP connection between 2 hosts, it will receive the following parameters by default:
+  - `ip` IP address
+  - `port`
+  - `process` PID of the process owning the connection
 
 ## functions
 

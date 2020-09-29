@@ -22,7 +22,7 @@
 
 • `Const` **FormatString**: [formatString](_packages_fantastic_utils_formatstring_.md#formatstring) = require('fantastic-utils/formatstring')
 
-*Defined in [server/tests/checkresult.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/tests/checkresult.js#L1)*
+*Defined in [server/tests/checkresult.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/tests/checkresult.js#L1)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 •  **VM**: VM
 
-*Defined in [server/tests/checkresult.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/tests/checkresult.js#L2)*
+*Defined in [server/tests/checkresult.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/tests/checkresult.js#L2)*
 
 ## Functions
 
@@ -38,7 +38,7 @@ ___
 
 ▸ `Const`**checkResult**(`result`: any, `condition`: any, `parameters`: any): boolean
 
-*Defined in [server/tests/checkresult.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/tests/checkresult.js#L11)*
+*Defined in [server/tests/checkresult.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/tests/checkresult.js#L11)*
 
 #### Parameters:
 
@@ -56,7 +56,7 @@ ___
 
 ▸ `Const`**compare**(`value`: any, `condition`: any, `parameters`: any): any
 
-*Defined in [server/tests/checkresult.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/tests/checkresult.js#L4)*
+*Defined in [server/tests/checkresult.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/tests/checkresult.js#L4)*
 
 #### Parameters:
 

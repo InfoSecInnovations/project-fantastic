@@ -14,9 +14,9 @@
 
 ### connectionConditions
 
-▸ `Const`**connectionConditions**(`dir`: \"from\" \| \"to\", `ips`: { ip_id: number  }[], `query`: { access?: [HostAccess](_server_db_types_d_.md#hostaccess)[] ; connection_state?: string[] ; connection_type?: \"different\_ip\" \| \"different\_host\" ; date?: undefined \| number ; max_date?: undefined \| number ; nodes?: number[] ; show_external?: undefined \| false \| true  }): { columns: Object\<string, any> \| [][] ; combine?: \"AND\" \| \"OR\" ; compare?: \"=\" \| \"\<\" \| \"\<=\" \| \">\" \| \">=\" \| \"IN\"  }[]
+▸ `Const`**connectionConditions**(`dir`: \"from\" \| \"to\", `ips`: { ip_id: number  }[], `query`: [NodeQuery](_server_db_types_d_.md#nodequery)): [QueryCondition](_packages_fantastic_utils_db_types_d_.md#querycondition)[]
 
-*Defined in [server/db/getnodes/connectionconditions.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/getnodes/connectionconditions.js#L8)*
+*Defined in [server/db/getnodes/connectionconditions.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/getnodes/connectionconditions.js#L8)*
 
 #### Parameters:
 
@@ -24,6 +24,6 @@ Name | Type |
 ------ | ------ |
 `dir` | \"from\" \| \"to\" |
 `ips` | { ip_id: number  }[] |
-`query` | { access?: [HostAccess](_server_db_types_d_.md#hostaccess)[] ; connection_state?: string[] ; connection_type?: \"different\_ip\" \| \"different\_host\" ; date?: undefined \| number ; max_date?: undefined \| number ; nodes?: number[] ; show_external?: undefined \| false \| true  } |
+`query` | [NodeQuery](_server_db_types_d_.md#nodequery) |
 
-**Returns:** { columns: Object\<string, any> \| [][] ; combine?: \"AND\" \| \"OR\" ; compare?: \"=\" \| \"\<\" \| \"\<=\" \| \">\" \| \">=\" \| \"IN\"  }[]
+**Returns:** [QueryCondition](_packages_fantastic_utils_db_types_d_.md#querycondition)[]

@@ -22,7 +22,7 @@
 
 • `Const` **FS**: "fs/promises" = require('fs').promises
 
-*Defined in [server/util/getconfig.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getconfig.js#L3)*
+*Defined in [server/util/getconfig.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getconfig.js#L3)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **GetConfigPath**: [getConfigPath](_server_util_getconfigpath_.md#getconfigpath) = require('./getconfigpath')
 
-*Defined in [server/util/getconfig.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getconfig.js#L1)*
+*Defined in [server/util/getconfig.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getconfig.js#L1)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/util/getconfig.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getconfig.js#L2)*
+*Defined in [server/util/getconfig.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getconfig.js#L2)*
 
 ## Functions
 
@@ -46,7 +46,7 @@ ___
 
 ▸ `Const`**getConfig**(): Promise\<any>
 
-*Defined in [server/util/getconfig.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getconfig.js#L8)*
+*Defined in [server/util/getconfig.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getconfig.js#L8)*
 
 Load the config file
 

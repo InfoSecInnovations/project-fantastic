@@ -21,7 +21,7 @@
 
 • `Const` **GetConfig**: [getConfig](_server_util_getconfig_.md#getconfig) = require('../../util/getconfig')
 
-*Defined in [server/routes/auth/getbyid.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/getbyid.js#L1)*
+*Defined in [server/routes/auth/getbyid.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/getbyid.js#L1)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • `Const` **GetPackage**: [getPackage](_server_util_getpackage_.md#getpackage) = require('../../util/getpackage')
 
-*Defined in [server/routes/auth/getbyid.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/getbyid.js#L2)*
+*Defined in [server/routes/auth/getbyid.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/getbyid.js#L2)*
 
 ## Functions
 
@@ -37,7 +37,7 @@ ___
 
 ▸ `Const`**getById**(`id`: any): Promise\<any>
 
-*Defined in [server/routes/auth/getbyid.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/getbyid.js#L4)*
+*Defined in [server/routes/auth/getbyid.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/getbyid.js#L4)*
 
 #### Parameters:
 

@@ -24,7 +24,7 @@
 
 • `Const` **Abort**: [abort](_server_routes_abort_.md#abort) = require('./abort')
 
-*Defined in [server/routes/getuserhistory.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getuserhistory.js#L1)*
+*Defined in [server/routes/getuserhistory.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getuserhistory.js#L1)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • `Const` **Auth**: [auth](_server_routes_auth_index_.md#auth) = require('./auth')
 
-*Defined in [server/routes/getuserhistory.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getuserhistory.js#L4)*
+*Defined in [server/routes/getuserhistory.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getuserhistory.js#L4)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • `Const` **End**: [end](_server_routes_end_.md#end) = require('./end')
 
-*Defined in [server/routes/getuserhistory.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getuserhistory.js#L2)*
+*Defined in [server/routes/getuserhistory.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getuserhistory.js#L2)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • `Const` **GetUserHistory**: [getUserHistory](_server_db_getuserhistory_index_.md#getuserhistory) = require('../db/getuserhistory')
 
-*Defined in [server/routes/getuserhistory.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getuserhistory.js#L5)*
+*Defined in [server/routes/getuserhistory.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getuserhistory.js#L5)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 • `Const` **ParseQuery**: [parseQuery](_packages_fantastic_utils_parsequery_.md#parsequery) = require('fantastic-utils/parsequery')
 
-*Defined in [server/routes/getuserhistory.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getuserhistory.js#L3)*
+*Defined in [server/routes/getuserhistory.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getuserhistory.js#L3)*
 
 ## Functions
 
@@ -64,7 +64,7 @@ ___
 
 ▸ `Const`**getUserHistory**(`res`: any, `req`: any): Promise\<void>
 
-*Defined in [server/routes/getuserhistory.js:7](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getuserhistory.js#L7)*
+*Defined in [server/routes/getuserhistory.js:7](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getuserhistory.js#L7)*
 
 #### Parameters:
 

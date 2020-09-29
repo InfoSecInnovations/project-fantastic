@@ -23,7 +23,7 @@
 
 • `Const` **FS**: "fs/promises" = require('fs').promises
 
-*Defined in [server/util/getconfigpath.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getconfigpath.js#L1)*
+*Defined in [server/util/getconfigpath.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getconfigpath.js#L1)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/util/getconfigpath.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getconfigpath.js#L2)*
+*Defined in [server/util/getconfigpath.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getconfigpath.js#L2)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Const` **custom\_path**: string = Path.join(\_\_dirname, '../config')
 
-*Defined in [server/util/getconfigpath.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getconfigpath.js#L4)*
+*Defined in [server/util/getconfigpath.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getconfigpath.js#L4)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • `Const` **default\_path**: string = Path.join(\_\_dirname, '../default\_config')
 
-*Defined in [server/util/getconfigpath.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getconfigpath.js#L5)*
+*Defined in [server/util/getconfigpath.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getconfigpath.js#L5)*
 
 ## Functions
 
@@ -55,7 +55,7 @@ ___
 
 ▸ `Const`**getConfigPath**(): Promise\<string>
 
-*Defined in [server/util/getconfigpath.js:10](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getconfigpath.js#L10)*
+*Defined in [server/util/getconfigpath.js:10](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getconfigpath.js#L10)*
 
 Get the directory of the config package
 

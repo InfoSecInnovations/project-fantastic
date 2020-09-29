@@ -14,14 +14,14 @@
 
 ### processResults
 
-▸ `Const`**processResults**(`results`: { data?: undefined \| {} ; followups?: Object\<string, {}> ; label: string ; pass: boolean  }[]): { data?: undefined \| {} ; followups?: Object\<string, {}> ; label: string ; pass: boolean  }[]
+▸ `Const`**processResults**(`results`: [Result](_server_actions_runaction_runfunction_types_d_.md#result)[]): [Result](_server_actions_runaction_runfunction_types_d_.md#result)[]
 
-*Defined in [server/actions/runaction/runfunction/processresults.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/processresults.js#L5)*
+*Defined in [server/actions/runaction/runfunction/processresults.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/processresults.js#L5)*
 
 #### Parameters:
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`results` | { data?: undefined \| {} ; followups?: Object\<string, {}> ; label: string ; pass: boolean  }[] |   |
+`results` | [Result](_server_actions_runaction_runfunction_types_d_.md#result)[] |   |
 
-**Returns:** { data?: undefined \| {} ; followups?: Object\<string, {}> ; label: string ; pass: boolean  }[]
+**Returns:** [Result](_server_actions_runaction_runfunction_types_d_.md#result)[]

@@ -14,9 +14,9 @@
 
 ### writeConnection
 
-▸ `Const`**writeConnection**(`db`: { all: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<any[]> ; get: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined> ; insert: (table: string,row: {}) => Promise\<number> ; remove: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise ; run: (queries: string[]) => Promise ; update: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise  }, `connection`: { local_address: string ; local_port: number ; process: number ; remote_address: string ; remote_port: number ; state: string  }, `date`: number, `existing`: undefined \| {}, `process_id`: number, `local_ip_id`: number, `remote_ip_id`: number): Promise\<void>
+▸ `Const`**writeConnection**(`db`: [Operations](_packages_fantastic_utils_db_types_d_.md#operations), `connection`: [Connection](_server_db_types_d_.md#connection), `date`: number, `existing`: undefined \| {}, `process_id`: number, `local_ip_id`: number, `remote_ip_id`: number): Promise\<void>
 
-*Defined in [server/db/addconnections/write/writeconnection.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/write/writeconnection.js#L11)*
+*Defined in [server/db/addconnections/write/writeconnection.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/write/writeconnection.js#L11)*
 
 Write the connection data to the database
 
@@ -24,8 +24,8 @@ Write the connection data to the database
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`db` | { all: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<any[]> ; get: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined> ; insert: (table: string,row: {}) => Promise\<number> ; remove: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise ; run: (queries: string[]) => Promise ; update: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise  } |  |
-`connection` | { local_address: string ; local_port: number ; process: number ; remote_address: string ; remote_port: number ; state: string  } |  |
+`db` | [Operations](_packages_fantastic_utils_db_types_d_.md#operations) |  |
+`connection` | [Connection](_server_db_types_d_.md#connection) |  |
 `date` | number |  |
 `existing` | undefined \| {} | - |
 `process_id` | number | database ID of the process owning the connection |

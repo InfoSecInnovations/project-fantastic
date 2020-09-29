@@ -21,7 +21,7 @@
 
 • `Const` **GetRole**: [getRole](_packages_fantastic_active_directory_accounts_getrole_.md#getrole) = require('./getrole')
 
-*Defined in [packages/fantastic-active_directory/accounts/verify.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/accounts/verify.js#L2)*
+*Defined in [packages/fantastic-active_directory/accounts/verify.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/accounts/verify.js#L2)*
 
 ___
 
@@ -29,15 +29,15 @@ ___
 
 •  **get**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined>
 
-*Defined in [packages/fantastic-active_directory/accounts/verify.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/accounts/verify.js#L1)*
+*Defined in [packages/fantastic-active_directory/accounts/verify.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/accounts/verify.js#L1)*
 
 ## Functions
 
 ### verify
 
-▸ `Const`**verify**(`session_id`: string): Promise\<{ role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  }>
+▸ `Const`**verify**(`session_id`: string): Promise\<[User](_packages_fantastic_utils_types_d_.md#user)>
 
-*Defined in [packages/fantastic-active_directory/accounts/verify.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/accounts/verify.js#L9)*
+*Defined in [packages/fantastic-active_directory/accounts/verify.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/accounts/verify.js#L9)*
 
 Get user by session ID
 
@@ -47,4 +47,4 @@ Name | Type |
 ------ | ------ |
 `session_id` | string |
 
-**Returns:** Promise\<{ role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  }>
+**Returns:** Promise\<[User](_packages_fantastic_utils_types_d_.md#user)>

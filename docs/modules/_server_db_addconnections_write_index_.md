@@ -24,7 +24,7 @@
 
 • `Const` **GetLocalIPRowID**: [getLocalIpRowID](_server_db_addconnections_write_getlocaliprowid_.md#getlocaliprowid) = require('./getlocaliprowid')
 
-*Defined in [server/db/addconnections/write/index.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/write/index.js#L3)*
+*Defined in [server/db/addconnections/write/index.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/write/index.js#L3)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • `Const` **GetProcessDatabaseID**: [getProcessID](_server_db_addconnections_write_getprocessdbid_.md#getprocessid) = require('./getprocessdbid')
 
-*Defined in [server/db/addconnections/write/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/write/index.js#L2)*
+*Defined in [server/db/addconnections/write/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/write/index.js#L2)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 • `Const` **GetRemoteRowID**: [getRemoteRowID](_server_db_addconnections_write_getremoterowid_.md#getremoterowid) = require('./getremoterowid')
 
-*Defined in [server/db/addconnections/write/index.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/write/index.js#L4)*
+*Defined in [server/db/addconnections/write/index.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/write/index.js#L4)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 • `Const` **WriteConnection**: [writeConnection](_server_db_addconnections_write_writeconnection_.md#writeconnection) = require('./writeconnection')
 
-*Defined in [server/db/addconnections/write/index.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/write/index.js#L5)*
+*Defined in [server/db/addconnections/write/index.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/write/index.js#L5)*
 
 ___
 
@@ -56,15 +56,15 @@ ___
 
 •  **transaction**: (mode: number) => Promise\<[Operations](_packages_fantastic_utils_db_types_d_.md#operations)>
 
-*Defined in [server/db/addconnections/write/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/write/index.js#L1)*
+*Defined in [server/db/addconnections/write/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/write/index.js#L1)*
 
 ## Functions
 
 ### write
 
-▸ `Const`**write**(`node_id`: number, `connection`: { local_address: string ; local_port: number ; process: number ; remote_address: string ; remote_port: number ; state: string  }, `date`: number, `read_data`: { existing?: undefined \| {} ; local_ip_row?: undefined \| {} ; process?: undefined \| {} ; process_name?: undefined \| string ; remote_ip_row?: undefined \| {}  }): Promise\<number>
+▸ `Const`**write**(`node_id`: number, `connection`: [Connection](_server_db_types_d_.md#connection), `date`: number, `read_data`: { existing?: undefined \| {} ; local_ip_row?: undefined \| {} ; process?: undefined \| {} ; process_name?: undefined \| string ; remote_ip_row?: undefined \| {}  }): Promise\<number>
 
-*Defined in [server/db/addconnections/write/index.js:20](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addconnections/write/index.js#L20)*
+*Defined in [server/db/addconnections/write/index.js:20](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addconnections/write/index.js#L20)*
 
 Write connection data to database
 
@@ -73,7 +73,7 @@ Write connection data to database
 Name | Type | Description |
 ------ | ------ | ------ |
 `node_id` | number | ID of the host in the database |
-`connection` | { local_address: string ; local_port: number ; process: number ; remote_address: string ; remote_port: number ; state: string  } |  |
+`connection` | [Connection](_server_db_types_d_.md#connection) |  |
 `date` | number |  |
 `read_data` | { existing?: undefined \| {} ; local_ip_row?: undefined \| {} ; process?: undefined \| {} ; process_name?: undefined \| string ; remote_ip_row?: undefined \| {}  } | - |
 

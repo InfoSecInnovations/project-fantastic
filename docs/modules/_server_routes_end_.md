@@ -16,7 +16,7 @@
 
 ▸ `Const`**end**(`res`: any): any
 
-*Defined in [server/routes/end.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/end.js#L1)*
+*Defined in [server/routes/end.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/end.js#L1)*
 
 #### Parameters:
 

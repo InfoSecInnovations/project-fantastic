@@ -16,7 +16,7 @@
 
 ▸ **deleteButton**(`button`: any): void
 
-*Defined in [packages/fantastic-default_auth/files/public/account.js:13](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/files/public/account.js#L13)*
+*Defined in [packages/fantastic-default_auth/files/public/account.js:13](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/files/public/account.js#L13)*
 
 #### Parameters:
 

@@ -20,7 +20,7 @@
 
 • `Const` **Auth**: [auth](_server_routes_auth_index_.md#auth) = require('./auth')
 
-*Defined in [server/routes/getuser.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getuser.js#L1)*
+*Defined in [server/routes/getuser.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getuser.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**getUser**(`res`: any, `req`: any): void
 
-*Defined in [server/routes/getuser.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getuser.js#L3)*
+*Defined in [server/routes/getuser.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getuser.js#L3)*
 
 #### Parameters:
 

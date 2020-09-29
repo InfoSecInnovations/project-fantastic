@@ -16,7 +16,7 @@
 
 ▸ `Const`**abort**(`res`: any): void
 
-*Defined in [server/routes/abort.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/abort.js#L1)*
+*Defined in [server/routes/abort.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/abort.js#L1)*
 
 #### Parameters:
 

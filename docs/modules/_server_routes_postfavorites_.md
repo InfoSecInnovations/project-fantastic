@@ -28,7 +28,7 @@
 
 • `Const` **Abort**: [abort](_server_routes_abort_.md#abort) = require('./abort')
 
-*Defined in [server/routes/postfavorites.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L2)*
+*Defined in [server/routes/postfavorites.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L2)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 • `Const` **Auth**: [auth](_server_routes_auth_index_.md#auth) = require('./auth')
 
-*Defined in [server/routes/postfavorites.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L3)*
+*Defined in [server/routes/postfavorites.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L3)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • `Const` **CompareEvent**: [compareEvent](_packages_fantastic_utils_compareevent_.md#compareevent) = require('fantastic-utils/compareevent')
 
-*Defined in [server/routes/postfavorites.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L8)*
+*Defined in [server/routes/postfavorites.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L8)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • `Const` **End**: [end](_server_routes_end_.md#end) = require('./end')
 
-*Defined in [server/routes/postfavorites.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L4)*
+*Defined in [server/routes/postfavorites.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L4)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • `Const` **GetData**: [getData](_server_db_getuserhistory_getdata_.md#getdata) = require('../db/getuserhistory/getdata')
 
-*Defined in [server/routes/postfavorites.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L9)*
+*Defined in [server/routes/postfavorites.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L9)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 • `Const` **GetUserFavorites**: [getFavorites](_server_db_getuserhistory_getuserfavorites_.md#getfavorites) = require('../db/getuserhistory/getuserfavorites')
 
-*Defined in [server/routes/postfavorites.js:7](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L7)*
+*Defined in [server/routes/postfavorites.js:7](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L7)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 • `Const` **GetUserHistory**: [getUserHistory](_server_db_getuserhistory_index_.md#getuserhistory) = require('../db/getuserhistory')
 
-*Defined in [server/routes/postfavorites.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L6)*
+*Defined in [server/routes/postfavorites.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L6)*
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 • `Const` **ParseQuery**: [parseQuery](_packages_fantastic_utils_parsequery_.md#parsequery) = require('fantastic-utils/parsequery')
 
-*Defined in [server/routes/postfavorites.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L1)*
+*Defined in [server/routes/postfavorites.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L1)*
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 •  **transaction**: (mode: number) => Promise\<[Operations](_packages_fantastic_utils_db_types_d_.md#operations)>
 
-*Defined in [server/routes/postfavorites.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L5)*
+*Defined in [server/routes/postfavorites.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L5)*
 
 ## Functions
 
@@ -100,7 +100,7 @@ ___
 
 ▸ `Const`**postFavorites**(`res`: any, `req`: any): void
 
-*Defined in [server/routes/postfavorites.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/postfavorites.js#L11)*
+*Defined in [server/routes/postfavorites.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/postfavorites.js#L11)*
 
 #### Parameters:
 

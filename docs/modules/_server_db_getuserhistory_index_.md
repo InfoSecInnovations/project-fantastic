@@ -23,7 +23,7 @@
 
 • `Const` **GetData**: [getData](_server_db_getuserhistory_getdata_.md#getdata) = require('./getdata')
 
-*Defined in [server/db/getuserhistory/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/getuserhistory/index.js#L2)*
+*Defined in [server/db/getuserhistory/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/getuserhistory/index.js#L2)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Const` **GetFavorites**: [getFavorites](_server_db_getuserhistory_getuserfavorites_.md#getfavorites) = require('./getuserfavorites')
 
-*Defined in [server/db/getuserhistory/index.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/getuserhistory/index.js#L3)*
+*Defined in [server/db/getuserhistory/index.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/getuserhistory/index.js#L3)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 •  **OPEN\_READONLY**: any
 
-*Defined in [server/db/getuserhistory/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/getuserhistory/index.js#L1)*
+*Defined in [server/db/getuserhistory/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/getuserhistory/index.js#L1)*
 
 ___
 
@@ -47,21 +47,21 @@ ___
 
 •  **transaction**: (mode: number) => Promise\<[Operations](_packages_fantastic_utils_db_types_d_.md#operations)>
 
-*Defined in [server/db/getuserhistory/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/getuserhistory/index.js#L1)*
+*Defined in [server/db/getuserhistory/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/getuserhistory/index.js#L1)*
 
 ## Functions
 
 ### getUserHistory
 
-▸ `Const`**getUserHistory**(`user`: { role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  }, `options`: undefined \| { count?: undefined \| number ; page?: undefined \| number  }): Promise\<{ favorites: any[] ; is_last: boolean ; results: any[]  }>
+▸ `Const`**getUserHistory**(`user`: [User](_packages_fantastic_utils_types_d_.md#user), `options`: undefined \| { count?: undefined \| number ; page?: undefined \| number  }): Promise\<{ favorites: any[] ; is_last: boolean ; results: any[]  }>
 
-*Defined in [server/db/getuserhistory/index.js:10](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/getuserhistory/index.js#L10)*
+*Defined in [server/db/getuserhistory/index.js:10](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/getuserhistory/index.js#L10)*
 
 #### Parameters:
 
 Name | Type |
 ------ | ------ |
-`user` | { role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  } |
+`user` | [User](_packages_fantastic_utils_types_d_.md#user) |
 `options` | undefined \| { count?: undefined \| number ; page?: undefined \| number  } |
 
 **Returns:** Promise\<{ favorites: any[] ; is_last: boolean ; results: any[]  }>

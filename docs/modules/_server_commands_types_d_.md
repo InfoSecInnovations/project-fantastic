@@ -19,7 +19,7 @@
 
 Ƭ  **Command**: { description?: undefined \| string ; hosts: [HostType](_server_commands_types_d_.md#hosttype)[] ; name: string ; result_type: [CommandType](_server_commands_types_d_.md#commandtype) ; run: { command: string ; json?: undefined \| false \| true ; method?: \"invoke\" \| \"cimsession\" ; read_xml?: undefined \| false \| true ; result: string \| {}  }  }
 
-*Defined in [server/commands/types.d.ts:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/types.d.ts#L5)*
+*Defined in [server/commands/types.d.ts:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/types.d.ts#L5)*
 
 #### Type declaration:
 
@@ -37,7 +37,7 @@ ___
 
 Ƭ  **CommandMode**: \"disabled\" \| \"enabled\" \| \"force\"
 
-*Defined in [server/commands/types.d.ts:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/types.d.ts#L3)*
+*Defined in [server/commands/types.d.ts:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/types.d.ts#L3)*
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 Ƭ  **CommandType**: \"hosts\" \| \"connections\" \| \"ip\_addresses\" \| \"mac\_addresses\" \| \"os\" \| \"hostname\"
 
-*Defined in [server/commands/types.d.ts:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/types.d.ts#L1)*
+*Defined in [server/commands/types.d.ts:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/types.d.ts#L1)*
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 Ƭ  **HostType**: \"local\" \| \"remote\" \| \"none\"
 
-*Defined in [server/commands/types.d.ts:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/commands/types.d.ts#L2)*
+*Defined in [server/commands/types.d.ts:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/commands/types.d.ts#L2)*

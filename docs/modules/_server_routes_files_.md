@@ -20,7 +20,7 @@
 
 • `Const` **Serve**: [serve](_server_routes_serve_.md#serve) = require('./serve')
 
-*Defined in [server/routes/files.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/files.js#L1)*
+*Defined in [server/routes/files.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/files.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**files**(`res`: any, `req`: any): void
 
-*Defined in [server/routes/files.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/files.js#L3)*
+*Defined in [server/routes/files.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/files.js#L3)*
 
 #### Parameters:
 

@@ -19,6 +19,7 @@ const getActions = (res, req, actions) => {
           name: v.name, 
           description: v.description, 
           hosts: v.hosts, 
+          target: v.target || 'host',
           commands: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].command}), {}),
           names: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].name || v[0]}), {}),
           filters: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].result && v[1].result.filter}), {})

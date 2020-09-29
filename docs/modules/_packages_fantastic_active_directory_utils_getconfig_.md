@@ -21,7 +21,7 @@
 
 • `Const` **FS**: "fs/promises" = require('fs').promises
 
-*Defined in [packages/fantastic-active_directory/utils/getconfig.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/utils/getconfig.js#L1)*
+*Defined in [packages/fantastic-active_directory/utils/getconfig.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/utils/getconfig.js#L1)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [packages/fantastic-active_directory/utils/getconfig.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/utils/getconfig.js#L2)*
+*Defined in [packages/fantastic-active_directory/utils/getconfig.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/utils/getconfig.js#L2)*
 
 ## Functions
 
@@ -37,6 +37,6 @@ ___
 
 ▸ `Const`**getConfig**(): Promise\<any>
 
-*Defined in [packages/fantastic-active_directory/utils/getconfig.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/utils/getconfig.js#L4)*
+*Defined in [packages/fantastic-active_directory/utils/getconfig.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/utils/getconfig.js#L4)*
 
 **Returns:** Promise\<any>

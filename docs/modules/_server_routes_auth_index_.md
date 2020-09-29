@@ -23,7 +23,7 @@
 
 • `Const` **GetConfig**: [getConfig](_server_util_getconfig_.md#getconfig) = require('../../util/getconfig')
 
-*Defined in [server/routes/auth/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/index.js#L2)*
+*Defined in [server/routes/auth/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/index.js#L2)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Const` **GetCookie**: [getCookie](_packages_fantastic_utils_getcookie_.md#getcookie) = require('fantastic-utils/getcookie')
 
-*Defined in [server/routes/auth/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/index.js#L1)*
+*Defined in [server/routes/auth/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/index.js#L1)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Const` **GetPackage**: [getPackage](_server_util_getpackage_.md#getpackage) = require('../../util/getpackage')
 
-*Defined in [server/routes/auth/index.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/index.js#L3)*
+*Defined in [server/routes/auth/index.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/index.js#L3)*
 
 ___
 
@@ -47,15 +47,15 @@ ___
 
 • `Const` **cookie\_name**: \"session\_id\" = "session\_id"
 
-*Defined in [server/routes/auth/index.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/index.js#L5)*
+*Defined in [server/routes/auth/index.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/index.js#L5)*
 
 ## Functions
 
 ### auth
 
-▸ `Const`**auth**(`header`: string): Promise\<{ role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  }>
+▸ `Const`**auth**(`header`: string): Promise\<[User](_packages_fantastic_utils_types_d_.md#user)>
 
-*Defined in [server/routes/auth/index.js:12](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/index.js#L12)*
+*Defined in [server/routes/auth/index.js:12](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/index.js#L12)*
 
 Get the user data from the cookie HTTP header
 
@@ -65,4 +65,4 @@ Name | Type |
 ------ | ------ |
 `header` | string |
 
-**Returns:** Promise\<{ role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  }>
+**Returns:** Promise\<[User](_packages_fantastic_utils_types_d_.md#user)>

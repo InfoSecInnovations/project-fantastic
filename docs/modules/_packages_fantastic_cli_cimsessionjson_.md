@@ -21,7 +21,7 @@
 
 • `Const` **CimSession**: [cimSession](_packages_fantastic_cli_cimsession_.md#cimsession) = require('./cimsession')
 
-*Defined in [packages/fantastic-cli/cimsessionjson.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/cimsessionjson.js#L2)*
+*Defined in [packages/fantastic-cli/cimsessionjson.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/cimsessionjson.js#L2)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • `Const` **ProcessJSON**: [processJson](_packages_fantastic_cli_processjson_.md#processjson) = require('./processjson')
 
-*Defined in [packages/fantastic-cli/cimsessionjson.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/cimsessionjson.js#L1)*
+*Defined in [packages/fantastic-cli/cimsessionjson.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/cimsessionjson.js#L1)*
 
 ## Functions
 
@@ -37,7 +37,7 @@ ___
 
 ▸ `Const`**cimSessionJson**(`command`: string, `hostname`: string, `params`: Object, `log`: boolean): Promise\<Object>
 
-*Defined in [packages/fantastic-cli/cimsessionjson.js:12](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/cimsessionjson.js#L12)*
+*Defined in [packages/fantastic-cli/cimsessionjson.js:12](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/cimsessionjson.js#L12)*
 
 Execute a PowerShell cmdlet which can use a CimSession (see Microsoft documentation to check if the cmdlet has a CimSession parameter or not).
 

@@ -21,7 +21,7 @@
 
 • `Const` **Auth**: [auth](_server_routes_auth_index_.md#auth) = require('./index')
 
-*Defined in [server/routes/auth/validaterole.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/validaterole.js#L1)*
+*Defined in [server/routes/auth/validaterole.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/validaterole.js#L1)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • `Const` **HasRole**: [hasRole](_packages_fantastic_utils_hasrole_.md#hasrole) = require('fantastic-utils/hasrole')
 
-*Defined in [server/routes/auth/validaterole.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/validaterole.js#L2)*
+*Defined in [server/routes/auth/validaterole.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/validaterole.js#L2)*
 
 ## Functions
 
@@ -37,7 +37,7 @@ ___
 
 ▸ `Const`**validateRole**(`header`: any, `role`: any): Promise\<boolean>
 
-*Defined in [server/routes/auth/validaterole.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/auth/validaterole.js#L4)*
+*Defined in [server/routes/auth/validaterole.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/auth/validaterole.js#L4)*
 
 #### Parameters:
 

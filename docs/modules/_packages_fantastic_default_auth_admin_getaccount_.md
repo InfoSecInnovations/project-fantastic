@@ -22,7 +22,7 @@
 
 • `Const` **CheckAdmin**: [checkAdmin](_packages_fantastic_default_auth_admin_checkadmin_.md#checkadmin) = require('./checkadmin')
 
-*Defined in [packages/fantastic-default_auth/admin/getaccount.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/getaccount.js#L3)*
+*Defined in [packages/fantastic-default_auth/admin/getaccount.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/getaccount.js#L3)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **ParseQuery**: [parseQuery](_packages_fantastic_utils_parsequery_.md#parsequery) = require('fantastic-utils/parsequery')
 
-*Defined in [packages/fantastic-default_auth/admin/getaccount.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/getaccount.js#L2)*
+*Defined in [packages/fantastic-default_auth/admin/getaccount.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/getaccount.js#L2)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 •  **get**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined>
 
-*Defined in [packages/fantastic-default_auth/admin/getaccount.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/getaccount.js#L1)*
+*Defined in [packages/fantastic-default_auth/admin/getaccount.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/getaccount.js#L1)*
 
 ## Functions
 
@@ -46,7 +46,7 @@ ___
 
 ▸ `Const`**getAccount**(`res`: any, `req`: any): void
 
-*Defined in [packages/fantastic-default_auth/admin/getaccount.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/getaccount.js#L5)*
+*Defined in [packages/fantastic-default_auth/admin/getaccount.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/getaccount.js#L5)*
 
 #### Parameters:
 

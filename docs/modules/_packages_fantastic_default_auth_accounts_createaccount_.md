@@ -23,7 +23,7 @@
 
 • `Const` **BCrypt**: any = require('bcrypt')
 
-*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/createaccount.js#L1)*
+*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/createaccount.js#L1)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Const` **GenerateID**: [generateId](_packages_fantastic_utils_generateid_.md#generateid) = require('fantastic-utils/generateid')
 
-*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/createaccount.js#L2)*
+*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/createaccount.js#L2)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Const` **GetConfig**: [getConfig](_server_util_getconfig_.md#getconfig) = require('../utils/getconfig')
 
-*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/createaccount.js#L4)*
+*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/createaccount.js#L4)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 •  **insert**: (table: string,row: {}) => Promise\<number>
 
-*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/createaccount.js#L3)*
+*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/createaccount.js#L3)*
 
 ## Functions
 
@@ -55,7 +55,7 @@ ___
 
 ▸ `Const`**createAccount**(`username`: any, `password`: any, `role`: any): Promise\<any>
 
-*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/createaccount.js#L6)*
+*Defined in [packages/fantastic-default_auth/accounts/createaccount.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/createaccount.js#L6)*
 
 #### Parameters:
 

@@ -20,7 +20,7 @@
 
 • `Const` **GetPackage**: [getPackage](_server_util_getpackage_.md#getpackage) = require('../util/getpackage')
 
-*Defined in [server/quests/getquestdata.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/quests/getquestdata.js#L1)*
+*Defined in [server/quests/getquestdata.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/quests/getquestdata.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**getQuestData**(`config`: {}): Promise\<string[]>
 
-*Defined in [server/quests/getquestdata.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/quests/getquestdata.js#L8)*
+*Defined in [server/quests/getquestdata.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/quests/getquestdata.js#L8)*
 
 Get all quests available on the server
 

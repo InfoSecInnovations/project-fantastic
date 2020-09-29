@@ -24,7 +24,7 @@
 
 • `Const` **CheckAdmin**: [checkAdmin](_packages_fantastic_default_auth_admin_checkadmin_.md#checkadmin) = require('./checkadmin')
 
-*Defined in [packages/fantastic-default_auth/admin/changerole.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/changerole.js#L1)*
+*Defined in [packages/fantastic-default_auth/admin/changerole.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/changerole.js#L1)*
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 • `Const` **LastAdmin**: [lastAdmin](_packages_fantastic_default_auth_accounts_lastadmin_.md#lastadmin) = require('../accounts/lastadmin')
 
-*Defined in [packages/fantastic-default_auth/admin/changerole.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/changerole.js#L2)*
+*Defined in [packages/fantastic-default_auth/admin/changerole.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/changerole.js#L2)*
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 •  **all**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<any[]>
 
-*Defined in [packages/fantastic-default_auth/admin/changerole.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/changerole.js#L3)*
+*Defined in [packages/fantastic-default_auth/admin/changerole.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/changerole.js#L3)*
 
 ___
 
@@ -48,7 +48,7 @@ ___
 
 •  **get**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined>
 
-*Defined in [packages/fantastic-default_auth/admin/changerole.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/changerole.js#L3)*
+*Defined in [packages/fantastic-default_auth/admin/changerole.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/changerole.js#L3)*
 
 ___
 
@@ -56,7 +56,7 @@ ___
 
 •  **update**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise
 
-*Defined in [packages/fantastic-default_auth/admin/changerole.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/changerole.js#L3)*
+*Defined in [packages/fantastic-default_auth/admin/changerole.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/changerole.js#L3)*
 
 ## Functions
 
@@ -64,7 +64,7 @@ ___
 
 ▸ `Const`**changeRole**(`res`: any, `req`: any): void
 
-*Defined in [packages/fantastic-default_auth/admin/changerole.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/changerole.js#L5)*
+*Defined in [packages/fantastic-default_auth/admin/changerole.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/changerole.js#L5)*
 
 #### Parameters:
 

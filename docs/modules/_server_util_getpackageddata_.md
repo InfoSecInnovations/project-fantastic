@@ -23,7 +23,7 @@
 
 • `Const` **FS**: "fs/promises" = require('fs').promises
 
-*Defined in [server/util/getpackageddata.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getpackageddata.js#L2)*
+*Defined in [server/util/getpackageddata.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getpackageddata.js#L2)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Const` **GetConfigPath**: [getConfigPath](_server_util_getconfigpath_.md#getconfigpath) = require('./getconfigpath')
 
-*Defined in [server/util/getpackageddata.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getpackageddata.js#L4)*
+*Defined in [server/util/getpackageddata.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getpackageddata.js#L4)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Const` **GetPackage**: [getPackage](_server_util_getpackage_.md#getpackage) = require('./getpackage')
 
-*Defined in [server/util/getpackageddata.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getpackageddata.js#L1)*
+*Defined in [server/util/getpackageddata.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getpackageddata.js#L1)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/util/getpackageddata.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getpackageddata.js#L3)*
+*Defined in [server/util/getpackageddata.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getpackageddata.js#L3)*
 
 ## Functions
 
@@ -55,7 +55,7 @@ ___
 
 ▸ `Const`**getPackagedData**(`path`: string, `data_type`: \"actions\" \| \"commands\" \| \"tests\"): undefined \| {}
 
-*Defined in [server/util/getpackageddata.js:12](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/getpackageddata.js#L12)*
+*Defined in [server/util/getpackageddata.js:12](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/getpackageddata.js#L12)*
 
 Load a data object from a package installed in the config directory
 

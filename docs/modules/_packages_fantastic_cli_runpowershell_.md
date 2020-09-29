@@ -21,7 +21,7 @@
 
 • `Const` **FormatString**: [formatString](_packages_fantastic_utils_formatstring_.md#formatstring) = require('fantastic-utils/formatstring')
 
-*Defined in [packages/fantastic-cli/runpowershell.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/runpowershell.js#L2)*
+*Defined in [packages/fantastic-cli/runpowershell.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/runpowershell.js#L2)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 •  **spawn**: spawn
 
-*Defined in [packages/fantastic-cli/runpowershell.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/runpowershell.js#L1)*
+*Defined in [packages/fantastic-cli/runpowershell.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/runpowershell.js#L1)*
 
 ## Functions
 
@@ -37,7 +37,7 @@ ___
 
 ▸ `Const`**child**(`command`: string, `params`: Object, `log`: boolean): Promise\<string>
 
-*Defined in [packages/fantastic-cli/runpowershell.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-cli/runpowershell.js#L11)*
+*Defined in [packages/fantastic-cli/runpowershell.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-cli/runpowershell.js#L11)*
 
 Run a PowerShell command in a child process.
 

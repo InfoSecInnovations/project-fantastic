@@ -22,7 +22,7 @@
 
 • `Const` **FS**: "fs" = require('fs')
 
-*Defined in [server/createroutingserver.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/createroutingserver.js#L3)*
+*Defined in [server/createroutingserver.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/createroutingserver.js#L3)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **HTTPolyglot**: any = require('httpolyglot')
 
-*Defined in [server/createroutingserver.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/createroutingserver.js#L1)*
+*Defined in [server/createroutingserver.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/createroutingserver.js#L1)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/createroutingserver.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/createroutingserver.js#L2)*
+*Defined in [server/createroutingserver.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/createroutingserver.js#L2)*
 
 ## Functions
 
@@ -46,7 +46,7 @@ ___
 
 ▸ `Const`**createRoutingServer**(`port`: number, `cert_directory`: string): any
 
-*Defined in [server/createroutingserver.js:10](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/createroutingserver.js#L10)*
+*Defined in [server/createroutingserver.js:10](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/createroutingserver.js#L10)*
 
 Create a server that redirects http and https traffic on a port to https on that port +1
 

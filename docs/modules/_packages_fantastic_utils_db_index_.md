@@ -23,7 +23,7 @@
 
 • `Const` **Operations**: object = require('./operations')
 
-*Defined in [packages/fantastic-utils/db/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/index.js#L2)*
+*Defined in [packages/fantastic-utils/db/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/index.js#L2)*
 
 #### Type declaration:
 
@@ -38,7 +38,7 @@ ___
 
 • `Const` **SQLite3**: any = require('sqlite3')
 
-*Defined in [packages/fantastic-utils/db/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/index.js#L1)*
+*Defined in [packages/fantastic-utils/db/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/index.js#L1)*
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • `Const` **Transaction**: [transaction](_server_db_addconnections_read_index_.md#transaction) = require('./transaction')
 
-*Defined in [packages/fantastic-utils/db/index.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/index.js#L3)*
+*Defined in [packages/fantastic-utils/db/index.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/index.js#L3)*
 
 ## Functions
 
@@ -54,7 +54,7 @@ ___
 
 ▸ `Const`**execute**(`path`: any, `func`: any, `mode`: any): Promise\<any>
 
-*Defined in [packages/fantastic-utils/db/index.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/index.js#L5)*
+*Defined in [packages/fantastic-utils/db/index.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/index.js#L5)*
 
 #### Parameters:
 
@@ -70,9 +70,9 @@ ___
 
 ### init
 
-▸ `Const`**init**(`path`: string): { transaction: (mode: number) => Promise\<[Operations](_packages_fantastic_utils_db_index_.md#operations)>  } & { all: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<any[]> ; get: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined> ; insert: (table: string,row: {}) => Promise\<number> ; remove: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise ; run: (queries: string[]) => Promise ; update: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise  }
+▸ `Const`**init**(`path`: string): [DB](_packages_fantastic_utils_db_types_d_.md#db)
 
-*Defined in [packages/fantastic-utils/db/index.js:17](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/index.js#L17)*
+*Defined in [packages/fantastic-utils/db/index.js:17](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/index.js#L17)*
 
 Create a new database object to communicate with the database at the given path.
 
@@ -82,6 +82,6 @@ Name | Type |
 ------ | ------ |
 `path` | string |
 
-**Returns:** { transaction: (mode: number) => Promise\<[Operations](_packages_fantastic_utils_db_index_.md#operations)>  } & { all: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<any[]> ; get: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined> ; insert: (table: string,row: {}) => Promise\<number> ; remove: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise ; run: (queries: string[]) => Promise ; update: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise  }
+**Returns:** [DB](_packages_fantastic_utils_db_types_d_.md#db)
 
 database object

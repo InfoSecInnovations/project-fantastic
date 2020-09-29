@@ -16,4 +16,4 @@
 
 • `Const` **path**: \"./active\_directory.db\" = "./active\_directory.db"
 
-*Defined in [packages/fantastic-active_directory/db/path.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/db/path.js#L1)*
+*Defined in [packages/fantastic-active_directory/db/path.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/db/path.js#L1)*

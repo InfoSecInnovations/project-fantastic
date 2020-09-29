@@ -16,7 +16,7 @@
 
 ▸ `Const`**getCookie**(`header`: any, `key`: any): any
 
-*Defined in [packages/fantastic-utils/getcookie.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/getcookie.js#L1)*
+*Defined in [packages/fantastic-utils/getcookie.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/getcookie.js#L1)*
 
 #### Parameters:
 

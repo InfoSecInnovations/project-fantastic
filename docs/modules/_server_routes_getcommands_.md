@@ -22,7 +22,7 @@
 
 • `Const` **Abort**: [abort](_server_routes_abort_.md#abort) = require('./abort')
 
-*Defined in [server/routes/getcommands.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getcommands.js#L3)*
+*Defined in [server/routes/getcommands.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getcommands.js#L3)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **GetPackagedData**: [getPackagedData](_server_util_getpackageddata_.md#getpackageddata) = require('../util/getpackageddata')
 
-*Defined in [server/routes/getcommands.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getcommands.js#L1)*
+*Defined in [server/routes/getcommands.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getcommands.js#L1)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • `Const` **ValidateRole**: [validateRole](_server_routes_auth_validaterole_.md#validaterole) = require('./auth/validaterole')
 
-*Defined in [server/routes/getcommands.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getcommands.js#L2)*
+*Defined in [server/routes/getcommands.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getcommands.js#L2)*
 
 ## Functions
 
@@ -46,7 +46,7 @@ ___
 
 ▸ `Const`**getCommands**(`res`: any, `req`: any, `commands`: any): void
 
-*Defined in [server/routes/getcommands.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getcommands.js#L5)*
+*Defined in [server/routes/getcommands.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getcommands.js#L5)*
 
 #### Parameters:
 

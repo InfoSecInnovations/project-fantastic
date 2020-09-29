@@ -10,11 +10,13 @@
   "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
-    "outDir": "./build"
+    "outDir": "./build",
+    "module": "commonjs"
   },
   "typedocOptions": {
     "includeDeclarations": true,
     "excludeExternals": true,
-    "plugin": "typedoc-plugin-markdown"
+    "plugin": "typedoc-plugin-markdown",
+    "excludeNotExported": true
   }
 }

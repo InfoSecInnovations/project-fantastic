@@ -28,7 +28,7 @@
 
 • `Const` **Abort**: [abort](_server_routes_abort_.md#abort) = require('./abort')
 
-*Defined in [server/routes/getlogs.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L2)*
+*Defined in [server/routes/getlogs.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L2)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 • `Const` **End**: [end](_server_routes_end_.md#end) = require('./end')
 
-*Defined in [server/routes/getlogs.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L3)*
+*Defined in [server/routes/getlogs.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L3)*
 
 ___
 
@@ -44,7 +44,7 @@ ___
 
 • `Const` **GetByID**: [getById](_server_routes_auth_getbyid_.md#getbyid) = require('./auth/getbyid')
 
-*Defined in [server/routes/getlogs.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L6)*
+*Defined in [server/routes/getlogs.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L6)*
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • `Const` **GetByUsername**: [getByUsername](_server_routes_auth_getbyusername_.md#getbyusername) = require('./auth/getbyusername')
 
-*Defined in [server/routes/getlogs.js:7](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L7)*
+*Defined in [server/routes/getlogs.js:7](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L7)*
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 • `Const` **GetData**: [getData](_server_db_getuserhistory_getdata_.md#getdata) = require('../db/getuserhistory/getdata')
 
-*Defined in [server/routes/getlogs.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L8)*
+*Defined in [server/routes/getlogs.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L8)*
 
 ___
 
@@ -68,7 +68,7 @@ ___
 
 •  **OPEN\_READONLY**: any
 
-*Defined in [server/routes/getlogs.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L5)*
+*Defined in [server/routes/getlogs.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L5)*
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 • `Const` **ParseQuery**: [parseQuery](_packages_fantastic_utils_parsequery_.md#parsequery) = require('fantastic-utils/parsequery')
 
-*Defined in [server/routes/getlogs.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L4)*
+*Defined in [server/routes/getlogs.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L4)*
 
 ___
 
@@ -84,7 +84,7 @@ ___
 
 • `Const` **ValidateRole**: [validateRole](_server_routes_auth_validaterole_.md#validaterole) = require('./auth/validaterole')
 
-*Defined in [server/routes/getlogs.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L1)*
+*Defined in [server/routes/getlogs.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L1)*
 
 ___
 
@@ -92,7 +92,7 @@ ___
 
 •  **transaction**: (mode: number) => Promise\<[Operations](_packages_fantastic_utils_db_types_d_.md#operations)>
 
-*Defined in [server/routes/getlogs.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L5)*
+*Defined in [server/routes/getlogs.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L5)*
 
 ## Functions
 
@@ -100,7 +100,7 @@ ___
 
 ▸ `Const`**getLogs**(`res`: any, `req`: any): void
 
-*Defined in [server/routes/getlogs.js:10](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/routes/getlogs.js#L10)*
+*Defined in [server/routes/getlogs.js:10](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/routes/getlogs.js#L10)*
 
 #### Parameters:
 

@@ -34,7 +34,7 @@
 
 • `Const` **CreateRoutingServer**: [createRoutingServer](_server_createroutingserver_.md#createroutingserver) = require('./createroutingserver')
 
-*Defined in [server/index.js:15](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L15)*
+*Defined in [server/index.js:15](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L15)*
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 • `Const` **DB**: object = require('./db')
 
-*Defined in [server/index.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L2)*
+*Defined in [server/index.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L2)*
 
 #### Type declaration:
 
@@ -61,7 +61,7 @@ ___
 
 • `Const` **FS**: "fs" = require('fs')
 
-*Defined in [server/index.js:11](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L11)*
+*Defined in [server/index.js:11](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L11)*
 
 ___
 
@@ -69,7 +69,7 @@ ___
 
 • `Const` **GetActionData**: [getActionData](_server_actions_getactiondata_.md#getactiondata) = require('./actions/getactiondata')
 
-*Defined in [server/index.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L6)*
+*Defined in [server/index.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L6)*
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 • `Const` **GetCommandData**: [getCommandData](_server_commands_getcommanddata_.md#getcommanddata) = require('./commands/getcommanddata')
 
-*Defined in [server/index.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L4)*
+*Defined in [server/index.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L4)*
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 • `Const` **GetConfig**: [getConfig](_server_util_getconfig_.md#getconfig) = require('./util/getconfig')
 
-*Defined in [server/index.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L8)*
+*Defined in [server/index.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L8)*
 
 ___
 
@@ -93,7 +93,7 @@ ___
 
 • `Const` **GetPackage**: [getPackage](_server_util_getpackage_.md#getpackage) = require('./util/getpackage')
 
-*Defined in [server/index.js:10](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L10)*
+*Defined in [server/index.js:10](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L10)*
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 • `Const` **GetTestData**: [getTestData](_server_tests_gettestdata_.md#gettestdata) = require('./tests/gettestdata')
 
-*Defined in [server/index.js:7](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L7)*
+*Defined in [server/index.js:7](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L7)*
 
 ___
 
@@ -109,7 +109,7 @@ ___
 
 • `Const` **IsAdmin**: isAdmin = require('is-admin')
 
-*Defined in [server/index.js:13](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L13)*
+*Defined in [server/index.js:13](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L13)*
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/index.js:12](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L12)*
+*Defined in [server/index.js:12](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L12)*
 
 ___
 
@@ -125,7 +125,7 @@ ___
 
 • `Const` **Routes**: [routes](_server_routes_index_.md#routes) = require('./routes')
 
-*Defined in [server/index.js:14](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L14)*
+*Defined in [server/index.js:14](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L14)*
 
 ___
 
@@ -133,7 +133,7 @@ ___
 
 • `Const` **RunCommands**: [runCommands](_server_commands_runcommands_index_.md#runcommands) = require('./commands/runcommands')
 
-*Defined in [server/index.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L5)*
+*Defined in [server/index.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L5)*
 
 ___
 
@@ -141,7 +141,7 @@ ___
 
 • `Const` **UWS**: "F:/project-fantastic/server/node_modules/uWebSockets.js/index" = require('uWebSockets.js')
 
-*Defined in [server/index.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L1)*
+*Defined in [server/index.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L1)*
 
 ___
 
@@ -149,7 +149,7 @@ ___
 
 • `Const` **WatchConfig**: [watchConfig](_server_watchconfig_.md#watchconfig) = require('./watchconfig')
 
-*Defined in [server/index.js:9](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L9)*
+*Defined in [server/index.js:9](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L9)*
 
 ___
 
@@ -157,7 +157,7 @@ ___
 
 •  **fork**: fork
 
-*Defined in [server/index.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L3)*
+*Defined in [server/index.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L3)*
 
 ## Functions
 
@@ -165,7 +165,7 @@ ___
 
 ▸ `Const`**main**(): Promise\<void>
 
-*Defined in [server/index.js:20](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/index.js#L20)*
+*Defined in [server/index.js:20](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/index.js#L20)*
 
 Start the server
 

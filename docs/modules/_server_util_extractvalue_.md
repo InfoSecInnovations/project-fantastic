@@ -20,7 +20,7 @@
 
 • `Const` **IsValid**: [isValid](_packages_fantastic_utils_isvalid_.md#isvalid) = require('fantastic-utils/isvalid')
 
-*Defined in [server/util/extractvalue.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/extractvalue.js#L1)*
+*Defined in [server/util/extractvalue.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/extractvalue.js#L1)*
 
 ## Functions
 
@@ -28,7 +28,7 @@
 
 ▸ `Const`**extractValue**(`value_mapping`: undefined \| string \| {}, `raw_data`: string \| {}): any
 
-*Defined in [server/util/extractvalue.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/util/extractvalue.js#L8)*
+*Defined in [server/util/extractvalue.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/util/extractvalue.js#L8)*
 
 Get a value from raw data.
 

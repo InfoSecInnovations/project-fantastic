@@ -22,7 +22,7 @@
 
 • `Const` **GetCookie**: [getCookie](_packages_fantastic_utils_getcookie_.md#getcookie) = require('fantastic-utils/getcookie')
 
-*Defined in [packages/fantastic-active_directory/http/auth.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/auth.js#L2)*
+*Defined in [packages/fantastic-active_directory/http/auth.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/auth.js#L2)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **Serve**: [serve](_server_routes_serve_.md#serve) = require('./serve')
 
-*Defined in [packages/fantastic-active_directory/http/auth.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/auth.js#L1)*
+*Defined in [packages/fantastic-active_directory/http/auth.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/auth.js#L1)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 •  **get**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined>
 
-*Defined in [packages/fantastic-active_directory/http/auth.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/auth.js#L3)*
+*Defined in [packages/fantastic-active_directory/http/auth.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/auth.js#L3)*
 
 ## Functions
 
@@ -46,7 +46,7 @@ ___
 
 ▸ `Const`**auth**(`res`: any, `req`: any): void
 
-*Defined in [packages/fantastic-active_directory/http/auth.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-active_directory/http/auth.js#L5)*
+*Defined in [packages/fantastic-active_directory/http/auth.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-active_directory/http/auth.js#L5)*
 
 #### Parameters:
 

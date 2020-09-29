@@ -21,7 +21,7 @@
 
 • `Const` **Operations**: object = require('./operations')
 
-*Defined in [packages/fantastic-utils/db/transaction.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/transaction.js#L1)*
+*Defined in [packages/fantastic-utils/db/transaction.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/transaction.js#L1)*
 
 #### Type declaration:
 
@@ -36,7 +36,7 @@ ___
 
 • `Const` **SQLite3**: any = require('sqlite3')
 
-*Defined in [packages/fantastic-utils/db/transaction.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/transaction.js#L2)*
+*Defined in [packages/fantastic-utils/db/transaction.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/transaction.js#L2)*
 
 ## Functions
 
@@ -44,7 +44,7 @@ ___
 
 ▸ `Const`**transaction**(`path`: any, `mode`: any): Promise\<any>
 
-*Defined in [packages/fantastic-utils/db/transaction.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/db/transaction.js#L4)*
+*Defined in [packages/fantastic-utils/db/transaction.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/db/transaction.js#L4)*
 
 #### Parameters:
 

@@ -21,7 +21,7 @@
 
 • `Const` **CheckAdmin**: [checkAdmin](_packages_fantastic_default_auth_admin_checkadmin_.md#checkadmin) = require('./checkadmin')
 
-*Defined in [packages/fantastic-default_auth/admin/deleteaccount.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/deleteaccount.js#L1)*
+*Defined in [packages/fantastic-default_auth/admin/deleteaccount.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/deleteaccount.js#L1)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • `Const` **DeleteAccount**: [deleteAccount](_packages_fantastic_default_auth_accounts_deleteaccount_.md#deleteaccount) = require('../accounts/deleteaccount')
 
-*Defined in [packages/fantastic-default_auth/admin/deleteaccount.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/deleteaccount.js#L2)*
+*Defined in [packages/fantastic-default_auth/admin/deleteaccount.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/deleteaccount.js#L2)*
 
 ## Functions
 
@@ -37,7 +37,7 @@ ___
 
 ▸ `Const`**deleteAccount**(`res`: any, `req`: any): void
 
-*Defined in [packages/fantastic-default_auth/admin/deleteaccount.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/admin/deleteaccount.js#L4)*
+*Defined in [packages/fantastic-default_auth/admin/deleteaccount.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/admin/deleteaccount.js#L4)*
 
 #### Parameters:
 

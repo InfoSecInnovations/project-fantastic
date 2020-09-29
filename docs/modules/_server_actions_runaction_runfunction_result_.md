@@ -23,7 +23,7 @@
 
 • `Const` **ExtractObjectValues**: [extractObjectValues](_server_util_extractobjectvalues_.md#extractobjectvalues) = require('../../../util/extractobjectvalues')
 
-*Defined in [server/actions/runaction/runfunction/result.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/result.js#L2)*
+*Defined in [server/actions/runaction/runfunction/result.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/result.js#L2)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Const` **ExtractValue**: [extractValue](_server_util_extractvalue_.md#extractvalue) = require('../../../util/extractvalue')
 
-*Defined in [server/actions/runaction/runfunction/result.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/result.js#L1)*
+*Defined in [server/actions/runaction/runfunction/result.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/result.js#L1)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 • `Const` **HasRole**: [hasRole](_packages_fantastic_utils_hasrole_.md#hasrole) = require('fantastic-utils/hasrole')
 
-*Defined in [server/actions/runaction/runfunction/result.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/result.js#L3)*
+*Defined in [server/actions/runaction/runfunction/result.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/result.js#L3)*
 
 ___
 
@@ -47,15 +47,15 @@ ___
 
 • `Const` **IsValid**: [isValid](_packages_fantastic_utils_isvalid_.md#isvalid) = require('fantastic-utils/isvalid')
 
-*Defined in [server/actions/runaction/runfunction/result.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/result.js#L4)*
+*Defined in [server/actions/runaction/runfunction/result.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/result.js#L4)*
 
 ## Functions
 
 ### result
 
-▸ `Const`**result**(`result_data`: {}, `output`: string \| {}, `action`: {}, `user`: { role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  }, `filter`: boolean): any
+▸ `Const`**result**(`result_data`: {}, `output`: string \| {}, `action`: {}, `user`: [User](_packages_fantastic_utils_types_d_.md#user), `filter`: boolean): any
 
-*Defined in [server/actions/runaction/runfunction/result.js:15](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/actions/runaction/runfunction/result.js#L15)*
+*Defined in [server/actions/runaction/runfunction/result.js:15](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/actions/runaction/runfunction/result.js#L15)*
 
 #### Parameters:
 
@@ -64,7 +64,7 @@ Name | Type |
 `result_data` | {} |
 `output` | string \| {} |
 `action` | {} |
-`user` | { role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  } |
+`user` | [User](_packages_fantastic_utils_types_d_.md#user) |
 `filter` | boolean |
 
 **Returns:** any

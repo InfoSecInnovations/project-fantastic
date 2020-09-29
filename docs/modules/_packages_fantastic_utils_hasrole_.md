@@ -14,9 +14,9 @@
 
 ### hasRole
 
-▸ `Const`**hasRole**(`user`: { role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  }, `role`: \"user\" \| \"elevated\" \| \"admin\"): boolean
+▸ `Const`**hasRole**(`user`: [User](_packages_fantastic_utils_types_d_.md#user), `role`: [UserRole](_packages_fantastic_utils_types_d_.md#userrole)): boolean
 
-*Defined in [packages/fantastic-utils/hasrole.js:6](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/hasrole.js#L6)*
+*Defined in [packages/fantastic-utils/hasrole.js:6](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/hasrole.js#L6)*
 
 Check whether user has can perform actions requiring this role
 
@@ -24,7 +24,7 @@ Check whether user has can perform actions requiring this role
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`user` | { role: [UserRole](_packages_fantastic_utils_types_d_.md#userrole) ; user_id: string \| number ; username: string  } |  |
-`role` | \"user\" \| \"elevated\" \| \"admin\" |   |
+`user` | [User](_packages_fantastic_utils_types_d_.md#user) |  |
+`role` | [UserRole](_packages_fantastic_utils_types_d_.md#userrole) |   |
 
 **Returns:** boolean

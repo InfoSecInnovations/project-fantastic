@@ -22,7 +22,7 @@
 
 • `Const` **FS**: any = require('fs-extra')
 
-*Defined in [server/scripts/defaultconfig.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/scripts/defaultconfig.js#L1)*
+*Defined in [server/scripts/defaultconfig.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/scripts/defaultconfig.js#L1)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/scripts/defaultconfig.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/scripts/defaultconfig.js#L2)*
+*Defined in [server/scripts/defaultconfig.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/scripts/defaultconfig.js#L2)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • `Const` **server\_dir**: string = Path.join(\_\_dirname, '..')
 
-*Defined in [server/scripts/defaultconfig.js:4](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/scripts/defaultconfig.js#L4)*
+*Defined in [server/scripts/defaultconfig.js:4](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/scripts/defaultconfig.js#L4)*
 
 ## Functions
 
@@ -46,6 +46,6 @@ ___
 
 ▸ `Const`**defaultConfig**(): any
 
-*Defined in [server/scripts/defaultconfig.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/scripts/defaultconfig.js#L5)*
+*Defined in [server/scripts/defaultconfig.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/scripts/defaultconfig.js#L5)*
 
 **Returns:** any

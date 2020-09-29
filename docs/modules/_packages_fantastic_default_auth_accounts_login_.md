@@ -23,7 +23,7 @@
 
 • `Const` **BCrypt**: any = require('bcrypt')
 
-*Defined in [packages/fantastic-default_auth/accounts/login.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/login.js#L1)*
+*Defined in [packages/fantastic-default_auth/accounts/login.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/login.js#L1)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 • `Const` **GenerateID**: [generateId](_packages_fantastic_utils_generateid_.md#generateid) = require('fantastic-utils/generateid')
 
-*Defined in [packages/fantastic-default_auth/accounts/login.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/login.js#L2)*
+*Defined in [packages/fantastic-default_auth/accounts/login.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/login.js#L2)*
 
 ___
 
@@ -39,7 +39,7 @@ ___
 
 •  **get**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined>
 
-*Defined in [packages/fantastic-default_auth/accounts/login.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/login.js#L3)*
+*Defined in [packages/fantastic-default_auth/accounts/login.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/login.js#L3)*
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 •  **update**: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise
 
-*Defined in [packages/fantastic-default_auth/accounts/login.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/login.js#L3)*
+*Defined in [packages/fantastic-default_auth/accounts/login.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/login.js#L3)*
 
 ## Functions
 
@@ -55,7 +55,7 @@ ___
 
 ▸ `Const`**login**(`json`: any): Promise\<any>
 
-*Defined in [packages/fantastic-default_auth/accounts/login.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-default_auth/accounts/login.js#L5)*
+*Defined in [packages/fantastic-default_auth/accounts/login.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-default_auth/accounts/login.js#L5)*
 
 #### Parameters:
 

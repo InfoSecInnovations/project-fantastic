@@ -22,7 +22,7 @@
 
 • `Const` **GetConfigPath**: [getConfigPath](_server_util_getconfigpath_.md#getconfigpath) = require('../util/getconfigpath')
 
-*Defined in [server/tests/gettestdata.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/tests/gettestdata.js#L1)*
+*Defined in [server/tests/gettestdata.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/tests/gettestdata.js#L1)*
 
 ___
 
@@ -30,7 +30,7 @@ ___
 
 • `Const` **GetPackage**: [getPackage](_server_util_getpackage_.md#getpackage) = require('../util/getpackage')
 
-*Defined in [server/tests/gettestdata.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/tests/gettestdata.js#L3)*
+*Defined in [server/tests/gettestdata.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/tests/gettestdata.js#L3)*
 
 ___
 
@@ -38,7 +38,7 @@ ___
 
 • `Const` **Path**: PlatformPath = require('path')
 
-*Defined in [server/tests/gettestdata.js:2](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/tests/gettestdata.js#L2)*
+*Defined in [server/tests/gettestdata.js:2](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/tests/gettestdata.js#L2)*
 
 ## Functions
 
@@ -46,7 +46,7 @@ ___
 
 ▸ `Const`**getTestData**(`config`: any): Promise\<any[]>
 
-*Defined in [server/tests/gettestdata.js:5](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/tests/gettestdata.js#L5)*
+*Defined in [server/tests/gettestdata.js:5](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/tests/gettestdata.js#L5)*
 
 #### Parameters:
 

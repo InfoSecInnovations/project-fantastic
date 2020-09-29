@@ -20,7 +20,7 @@
 
 • `Const` **Crypto**: "crypto" = require('crypto')
 
-*Defined in [packages/fantastic-utils/generateid.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/generateid.js#L1)*
+*Defined in [packages/fantastic-utils/generateid.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/generateid.js#L1)*
 
 ## Functions
 
@@ -28,6 +28,6 @@
 
 ▸ `Const`**generateId**(): Promise\<any>
 
-*Defined in [packages/fantastic-utils/generateid.js:3](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/packages/fantastic-utils/generateid.js#L3)*
+*Defined in [packages/fantastic-utils/generateid.js:3](https://github.com/besimorhino/project-fantastic/blob/af5d0de/packages/fantastic-utils/generateid.js#L3)*
 
 **Returns:** Promise\<any>

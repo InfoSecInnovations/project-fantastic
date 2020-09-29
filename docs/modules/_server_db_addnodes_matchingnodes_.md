@@ -20,15 +20,15 @@
 
 • `Const` **DefaultIPs**: string[] = require('fantastic-utils/defaultips')
 
-*Defined in [server/db/addnodes/matchingnodes.js:1](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addnodes/matchingnodes.js#L1)*
+*Defined in [server/db/addnodes/matchingnodes.js:1](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addnodes/matchingnodes.js#L1)*
 
 ## Functions
 
 ### matchingNodes
 
-▸ `Const`**matchingNodes**(`db`: { all: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<any[]> ; get: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined> ; insert: (table: string,row: {}) => Promise\<number> ; remove: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise ; run: (queries: string[]) => Promise ; update: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise  }, `node`: { access: [HostAccess](_server_db_types_d_.md#hostaccess) ; hostname?: undefined \| string ; important: boolean ; ips?: string[] ; macs?: Array\<{ mac: string ; vendor: string  }> ; os?: undefined \| string  }): Promise\<any[]>
+▸ `Const`**matchingNodes**(`db`: [Operations](_packages_fantastic_utils_db_types_d_.md#operations), `node`: [Node](_server_db_types_d_.md#node)): Promise\<any[]>
 
-*Defined in [server/db/addnodes/matchingnodes.js:8](https://github.com/besimorhino/project-fantastic/blob/a9b4b41/server/db/addnodes/matchingnodes.js#L8)*
+*Defined in [server/db/addnodes/matchingnodes.js:8](https://github.com/besimorhino/project-fantastic/blob/af5d0de/server/db/addnodes/matchingnodes.js#L8)*
 
 Find nodes matching the one we're trying to add
 
@@ -36,7 +36,7 @@ Find nodes matching the one we're trying to add
 
 Name | Type | Description |
 ------ | ------ | ------ |
-`db` | { all: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<any[]> ; get: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise\<{} \| undefined> ; insert: (table: string,row: {}) => Promise\<number> ; remove: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise ; run: (queries: string[]) => Promise ; update: (query: [Query](_packages_fantastic_utils_db_types_d_.md#query)) => Promise  } |  |
-`node` | { access: [HostAccess](_server_db_types_d_.md#hostaccess) ; hostname?: undefined \| string ; important: boolean ; ips?: string[] ; macs?: Array\<{ mac: string ; vendor: string  }> ; os?: undefined \| string  } |   |
+`db` | [Operations](_packages_fantastic_utils_db_types_d_.md#operations) |  |
+`node` | [Node](_server_db_types_d_.md#node) |   |
 
 **Returns:** Promise\<any[]>
