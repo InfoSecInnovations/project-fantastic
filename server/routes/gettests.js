@@ -2,6 +2,7 @@ const GetPackagedData = require('../util/getpackageddata')
 const Abort = require('./abort')
 const Auth = require('./auth')
 const HasRole = require('fantastic-utils/hasrole')
+const GetAbsolutePath = require('../util/getabsolutedatapath')
 
 const getTests = (res, req, tests) => {
   Abort(res)
@@ -22,7 +23,7 @@ const getTests = (res, req, tests) => {
           hosts: v.hosts, 
           pass: v.pass, 
           parameters: v.parameters,
-          actions: v.actions.map(v => v.path)
+          actions: v.actions.map(a => GetAbsolutePath(a.path, v.key))
         }
       }), {})
     )

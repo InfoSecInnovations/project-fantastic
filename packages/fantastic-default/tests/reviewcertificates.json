@@ -4,7 +4,7 @@
   "hosts": ["local", "remote"],
   "actions": [
     {
-      "path": "fantastic-default/getCertificates"
+      "path": "getCertificates"
     }
   ],
   "pass": "review",

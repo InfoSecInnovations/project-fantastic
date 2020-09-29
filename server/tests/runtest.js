@@ -1,6 +1,7 @@
 const GetPackagedData = require('../util/getpackageddata')
 const RunAction = require('../actions/runaction')
 const CheckResult = require('./checkresult')
+const GetAbsolutePath = require('../util/getabsolutedatapath')
 
 const runTest = async (db, test, user, date, nodes, parameters, quest_id) => {
   const obj = await GetPackagedData(test, 'tests')
@@ -9,9 +10,10 @@ const runTest = async (db, test, user, date, nodes, parameters, quest_id) => {
   const results = []
   for (const action of obj.actions) {
     for (const row of rows) {
-      const result = (await RunAction(db, action.path, 'run', row.node_id, user, date, {test_id: event_id})).result
-      if (obj.pass === "review") results.push({node_id: row.node_id, result: result.results, filter: result.filter, action: action.path})
-      else results.push({node_id: row.node_id, result: CheckResult(result.results, action.search, parameters), action: action.path})
+      const action_path = GetAbsolutePath(action.path, test)
+      const result = (await RunAction(db, action_path, 'run', row.node_id, user, date, {test_id: event_id})).result
+      if (obj.pass === "review") results.push({node_id: row.node_id, result: result.results, filter: result.filter, action: action_path})
+      else results.push({node_id: row.node_id, result: CheckResult(result.results, action.search, parameters), action: action_path})
     }
   }
   await db.update({table: 'test_history', row: {results: JSON.stringify(results)}, conditions: {columns: {test_id: event_id}}})

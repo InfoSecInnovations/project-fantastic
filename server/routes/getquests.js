@@ -2,6 +2,7 @@ const GetPackagedData = require('../util/getpackageddata')
 const Auth = require('./auth')
 const HasRole = require('fantastic-utils/hasrole')
 const Abort = require('./abort')
+const GetAbsolutePath = require('../util/getabsolutedatapath')
 
 const getQuests = (res, req, tests) => { // TODO: this should get daily quests, instead of all of them.
   console.log('getQuests: received http request to get available quests...')
@@ -22,7 +23,7 @@ const getQuests = (res, req, tests) => { // TODO: this should get daily quests, 
           pass: v.pass, 
           parameters: v.quest.parameters,
           selection: v.quest.selection,
-          actions: v.actions.map(v => v.path)
+          actions: v.actions.map(a => GetAbsolutePath(a.path, v.key))
         }
       }
     }, {}))
