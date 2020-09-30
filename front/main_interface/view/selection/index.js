@@ -19,7 +19,7 @@ const get_tab = (state, send, nodes) => {
       const {from, to} = NodesFromEdge(state, state.selected.edge)
       if (state.selected.connection) return Actions(state, send, from, state.selected.connection)
       const connections = from.connections.filter(v => v.to_node === to.node_id)
-      if (connections.length === 1) return Actions(state, send, from, connections[0])
+      if (connections.length === 1) return Actions(state, send, from, {...connections[0], single: true})
       return SelectConnection(connections, send)
     }
     if (nodes.length > 1) return MultiActions(state, send)

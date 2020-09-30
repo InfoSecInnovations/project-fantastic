@@ -13,6 +13,7 @@ export default (state, send, node, connection) => {
   const actions = Object.entries(base_actions).filter(v => valid_host(v[1], node) && valid_target(v[1], connection))
   return h('div.scroll_container', [
     SearchBar(send, 'actions'),
+    connection && !connection.single ? h('div.button', {on: {click: [send, {type: 'connection', connection: undefined}]}}, 'Select a different connection') : undefined,
     h(
       'div.scroll spaced', 
       {
