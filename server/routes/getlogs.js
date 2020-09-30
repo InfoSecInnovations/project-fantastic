@@ -34,7 +34,7 @@ const getLogs = (res, req) => {
       pagination: {page_size: count, page: page + 1}
     }).then(rows => !rows.length)
     const results = await GetData(db, rows)
-    for (const row of rows) {
+    for (const row of results) {
       row.user = users[row.user_id] || (users[row.user_id] = await GetByID(row.user_id))
     }
     db.close()

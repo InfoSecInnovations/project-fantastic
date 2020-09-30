@@ -4,7 +4,8 @@ const fetch_followup = action => fetch(`/action_followup?${GenerateQuery({
   action: action.action, 
   function: action.followups[action.followups.length - 1].followup, 
   node_id: action.node_id, 
-  label: action.followups[action.followups.length - 1].label
+  label: action.followups[action.followups.length - 1].label,
+  connection: action.connection
 })}`, {method: 'POST'})
 
 export default (state, action, send) => {

@@ -6,6 +6,7 @@ const Auth = require('./auth')
 const GetPackagedData = require('../util/getpackageddata')
 const End = require('./end')
 const {transaction} = require('../db')
+const GetConnectionData = require('../util/getconnectiondata')
 
 const postActions = (res, req, actions) => {
   Abort(res)
@@ -19,7 +20,8 @@ const postActions = (res, req, actions) => {
     if (!HasRole(user, action.role)) return End(res)
     const date = Date.now()
     const db = await transaction()
-    const result = await RunAction(db, query.action, 'run', query.node_id, user, date)
+    const opts = query.connection && {data: await GetConnectionData(db, query.connection)}
+    const result = await RunAction(db, query.action, 'run', query.node_id, user, date, opts)
     await db.insert('all_history', {event_type: 'action', event_id: result.event_id, date, user_id: user.user_id})
     await db.close()
     if (res.aborted) return

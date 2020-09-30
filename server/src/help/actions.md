@@ -126,8 +126,10 @@ What entities this action targets.
 
 - `host` default value
 - `connection` this action targets a TCP connection between 2 hosts, it will receive the following parameters by default:
-  - `ip` IP address
-  - `port`
+  - `local_ip`
+  - `local_port`
+  - `remote_ip`
+  - `remote_port`
   - `process` PID of the process owning the connection
 
 ## functions
