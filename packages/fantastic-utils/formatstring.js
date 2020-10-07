@@ -3,7 +3,7 @@ const JSToPS = require('./jstops')
 const js_string = js => {
   if (typeof js == 'undefined') return 'undefined'
   if (typeof js == 'number') return `${js}`
-  if (typeof js == 'string') return `"${js}"`
+  if (typeof js == 'string') return `'${js}'`
   if (typeof js == 'boolean') return js ? 'true' : 'false'
 }
 

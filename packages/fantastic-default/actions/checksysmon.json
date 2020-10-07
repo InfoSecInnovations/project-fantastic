@@ -4,7 +4,7 @@
   "hosts": ["local", "remote"],
   "functions": {
     "run": {
-      "command": "if ((Get-CimInstance win32_service -Filter \"Description = 'System Monitor service' AND State = 'Running'\" | Measure-Object | Select-Object Count).count) {\"Sysmon is running\"} else {\"Sysmon not detected!\"}",
+      "command": "if ((Get-CimInstance win32_service -Filter \"Description = 'System Monitor service' AND State = 'Running'\" | Measure-Object | Select-Object Count).count) {'Sysmon is running'} else {'Sysmon not detected!'}",
       "method": "invoke",
       "result": {
         "label": {"text": true}

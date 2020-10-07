@@ -1,0 +1,13 @@
+{
+  "name": "IP Block Connection",
+  "description": "Create a firewall rule that blocks this connection's IP addresses. You may still see the connection after performing this action because the database contains historic information.",
+  "hosts": ["local", "remote"],
+  "role": "elevated",
+  "target": "connection",
+  "functions": {
+    "run": {
+      "command": "New-NetFirewallRule -DisplayName \"Fantastic - Block: $local_ip:$local_port - $remote_ip:$remote_port\" -LocalAddress $local_ip -LocalPort $local_port -RemoteAddress $remote_ip -RemotePort $remote_port -Protocol TCP -Direction Outbound -Action Block",
+      "method": "invoke"
+    }
+  }
+}

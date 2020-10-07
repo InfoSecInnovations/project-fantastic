@@ -10,7 +10,8 @@ module.exports = {
     installSysmon: "actions/installsysmon.json",
     checkSysmon: "actions/checksysmon.json",
     killConnectionProcess: "actions/killconnectionprocess.json",
-    firewallBlockApplication: "actions/firewallblockapplication.json"
+    firewallBlockApplication: "actions/firewallblockapplication.json",
+    firewallBlockIp: "actions/firewallblockip.json"
   },
   tests: {
     checkReboot: 'tests/checkreboot.json',
