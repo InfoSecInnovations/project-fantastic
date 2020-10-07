@@ -9,7 +9,8 @@ module.exports = {
     getCertificates: "actions/getcertificates.json",
     installSysmon: "actions/installsysmon.json",
     checkSysmon: "actions/checksysmon.json",
-    killConnectionProcess: "actions/killconnectionprocess.json"
+    killConnectionProcess: "actions/killconnectionprocess.json",
+    firewallBlockApplication: "actions/firewallblockapplication.json"
   },
   tests: {
     checkReboot: 'tests/checkreboot.json',

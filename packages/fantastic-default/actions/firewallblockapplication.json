@@ -1,0 +1,13 @@
+{
+  "name": "Block Application",
+  "description": "Create a firewall rule that prevents this application from connecting. You may still see the connection after performing this action because the database contains historic information.",
+  "hosts": ["local", "remote"],
+  "role": "elevated",
+  "target": "connection",
+  "functions": {
+    "run": {
+      "command": "New-NetFirewallRule -DisplayName (\"Fantastic - Block: \"+(Get-Process -ID $process).Name) -Program (Get-Process -ID $process | Select-Object -ExpandProperty Path) -Direction Outbound -Action Block",
+      "method": "invoke"
+    }
+  }
+}

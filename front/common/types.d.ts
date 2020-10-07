@@ -35,3 +35,7 @@ export type Node = {
   node_id: number,
   os: string
 }
+
+export type State = {
+  nodes: Node[]
+}
