@@ -1,6 +1,7 @@
 import {h} from 'snabbdom/h'
 import HostString from '../../../common/util/hoststring'
 import SearchBar from '../../../common/view/searchbar'
+import FilterSearchResults from '../../../common/util/filtersearchresults'
 const HasRole = require('fantastic-utils/hasrole')
 
 const enabled_button = (state, send, command, data) => {
@@ -16,7 +17,7 @@ const enabled_button = (state, send, command, data) => {
 }
 
 export default (state, send) => {
-  const commands = state.flex_search.commands.query && state.flex_search.commands.results ? state.flex_search.commands.results.reduce((r, v) => ({...r, [v]: state.commands[v]}), {}) : state.commands
+  const commands = FilterSearchResults(state, 'commands')
   return h('div.scroll_container', [
     h('h2.panel_title', 'Host Data Commands'),
     SearchBar(send, 'commands'),

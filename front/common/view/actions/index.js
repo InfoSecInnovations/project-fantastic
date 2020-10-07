@@ -3,13 +3,14 @@ import HostString from '../../util/hoststring'
 import Result from './result'
 import TimeAgo from '../../util/timeago'
 import SearchBar from '../searchbar'
+import FilterSearchResults from '../../util/filtersearchresults'
 
 const valid_host = (action, node) => action.hosts.includes('none') || action.hosts.includes(node.access)
 const valid_target = (action, connection) => action.target === (connection ? 'connection' : 'host')
 
 export default (state, send, node, connection) => {
   if (!state.actions) return
-  const base_actions = state.flex_search.actions.query && state.flex_search.actions.results ? state.flex_search.actions.results.reduce((r, v) => ({...r, [v]: state.actions[v]}), {}) : state.actions
+  const base_actions = FilterSearchResults(state, 'actions')
   const actions = Object.entries(base_actions).filter(v => valid_host(v[1], node) && valid_target(v[1], connection))
   return h('div.scroll_container', [
     SearchBar(send, 'actions'),

@@ -2,9 +2,10 @@ import {h} from 'snabbdom/h'
 import TestEntry from '../testentry'
 import Parameter from './parameter'
 import SearchBar from '../../../../common/view/searchbar'
+import FilterSearchResults from '../../../../common/util/filtersearchresults'
 
 export default (state, send) => {
-  const tests = state.flex_search.tests.query && state.flex_search.tests.results ? state.flex_search.tests.results.reduce((r, v) => ({...r, [v]: state.tests[v]}), {}) : state.tests
+  const tests = FilterSearchResults(state, 'tests')
   return h('div.scroll_container', [
     h('h2.panel_title', 'Tests'),
     SearchBar(send, 'tests'),
