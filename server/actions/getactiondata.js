@@ -1,8 +1,8 @@
-const GetPackage = require('../util/getpackage')
+const GetPackageScripts = require('../util/getpackagescripts')
 
 const getActionData = async config => {
   return await Promise.all(
-    config.assets.packages.map(v => GetPackage(v).then(res => res.actions ? Object.keys(res.actions).map(k => `${v}/${k}`) : []))
+    config.assets.packages.map(v => GetPackageScripts(v, 'actions').then(res => res.map(k => `${v}/${k}`)))
   ).then(res => res.flat())
 }
 

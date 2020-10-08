@@ -4,7 +4,7 @@
   "hosts": ["local", "remote"],
   "actions": [
     {
-      "path": "getCertificates"
+      "path": "getcertificates"
     }
   ],
   "pass": "review",

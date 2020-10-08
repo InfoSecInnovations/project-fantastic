@@ -1,4 +1,5 @@
-const GetPackage = require('../util/getpackage')
+const GetPackagedData = require('../util/getpackageddata')
+const GetPackageScripts = require('../util/getpackagescripts')
 
 /**
  * Get all quests available on the server
@@ -8,8 +9,9 @@ const GetPackage = require('../util/getpackage')
 const getQuestData = async config => {
   return await Promise.all(
     config.assets.packages.map(v => 
-      GetPackage(v)
-      .then(res => res.tests ? Object.entries(res.tests).filter(e => e[1].quest).map(e => `${v}/${e[0]}`) : [])
+      GetPackageScripts(v, 'tests')
+      .then(res => Promise.all(res.map(t => GetPackagedData(t, 'tests').then(res => ({key: t, value: res})))))
+      .then(res => res.filter(t => t.value.quest).map(t => `${v}/${t.key}`))
     )
   )
   .then(res => res.flat())

@@ -6,14 +6,14 @@
       "fantastic-default"
     ],
     "force_commands": [
-      "fantastic-default/getMacAddress",
-      "fantastic-default/getNetIpAddress",
-      "fantastic-default/getNetTcpConnection"
+      "fantastic-default/getmacaddress",
+      "fantastic-default/getnetipaddress",
+      "fantastic-default/getnettcpconnection"
     ],
     "default_enable_commands": [
-      "fantastic-default/getHostname",
-      "fantastic-default/getDnsClientCache",
-      "fantastic-default/getOs"
+      "fantastic-default/gethostname",
+      "fantastic-default/getdnsclientcache",
+      "fantastic-default/getos"
     ]
   },
   "authentication": "fantastic-default_auth"
