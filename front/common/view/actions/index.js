@@ -4,6 +4,7 @@ import Result from './result'
 import TimeAgo from '../../util/timeago'
 import SearchBar from '../searchbar'
 import FilterSearchResults from '../../util/filtersearchresults'
+const FormatString = require('fantastic-utils/formatstring')
 
 const valid_host = (action, node) => action.hosts.includes('none') || action.hosts.includes(node.access)
 const valid_target = (action, connection) => action.target === (connection ? 'connection' : 'host')
@@ -39,7 +40,13 @@ export default (state, send, node, connection) => {
               }, 
               loading ? 'Running...' : 'Run')
           ]),
-          h('pre', v[1].commands.run),
+          h('pre', connection ? FormatString(v[1].commands.run, {
+            process: connection.process.id, 
+            local_ip: connection.local_address, 
+            local_port: connection.local_port, 
+            remote_ip: connection.remote_address, 
+            remote_port: connection.remote_port
+          }) : v[1].commands.run),
           v[1].description ? v[1].description : undefined,
           h('div.targets', [h('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`]),
           result_data && result_data.result ? h('div.results', [
