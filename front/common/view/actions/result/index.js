@@ -1,17 +1,8 @@
 import {h} from 'snabbdom/h'
 import FollowupButtons from './followupbuttons'
 import FollowupResults from './followupresults'
-import TimeAgo from '../../../util/timeago'
 import ReviewIcon from '../../reviewicon'
-
-const format_value = value => {
-  if (value === null) return 'null'
-  if (typeof value === 'undefined') return 'undefined'
-  if (typeof value === 'object') {
-    if (value.date) return TimeAgo(value.date)
-  }
-  return `${value}`
-}
+import FormatValue from './formatvalue'
 
 const result = (state, action, action_result, node_id, host, loading, filter, send, followups = []) => h('div.result', [
   h('div.item', [
@@ -23,7 +14,7 @@ const result = (state, action, action_result, node_id, host, loading, filter, se
       state.actions[action].filters[followups.length ? followups[followups.length - 1].followup : 'run']
     )
   ]),
-  action_result.data ? h('div', action_result.data.map(v => h('div', format_value(v)))) : undefined,
+  action_result.data ? h('div', action_result.data.map(v => h('div', FormatValue(v)))) : undefined,
   ...FollowupButtons(state, action, action_result, node_id, host, loading, send, followups),
   ...FollowupResults(state, action, action_result, node_id, host, loading, send, followups, result)
 ])
