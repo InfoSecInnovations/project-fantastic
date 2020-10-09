@@ -92,6 +92,13 @@ a:hover,
 .section::-webkit-scrollbar-thumb {
   background-color: #f55100;
 }
+.connection_match {
+  display: flex;
+  flex-direction: column;
+}
+.connection_match .checkboxes {
+  padding: 1rem 0;
+}
 h1,
 h2,
 h3,

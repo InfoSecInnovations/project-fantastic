@@ -22,6 +22,7 @@ const patch = init([
 let state = {
   flex_search: {actions: {}, tests: {}, commands: {}},
   search: {date: 15, show_external: true, connection_type: 'all', connection_state: []}, 
+  connection_search: {},
   tab: 'info', 
   selected: {}, 
   hovered: Hovered(), 

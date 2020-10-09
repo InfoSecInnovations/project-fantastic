@@ -6,7 +6,7 @@ import NodesFromEdge from '../../util/nodesfromedge'
 export default (state, send) => {
   const {from, to, from_id, to_id} = NodesFromEdge(state, state.selected.edge)
   return h('div.scroll_container', [
-    ...Connections(from.connections.filter(v => v.to_node === to.node_id), [
+    ...Connections(state, send, from.connections.filter(v => v.to_node === to.node_id), [
       'Connections from ', 
       h('div.link', {
         on: {click: [

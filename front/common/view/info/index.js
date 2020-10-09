@@ -4,5 +4,5 @@ import Connections from '../connections'
 
 export default (state, send, node) => h('div.scroll_container', [
     NodeTop(node),
-    ...Connections(node.connections)
+    ...Connections(state, send, node.connections)
   ])
