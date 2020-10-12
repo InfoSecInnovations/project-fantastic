@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-import IPAddress from '../util/ipaddress'
+import NodesFromEdge from '../../../main_interface/util/nodesfromedge'
 
 const checkbox = (state, send, label, key) => h('div', [
   h('input', {
@@ -9,14 +9,10 @@ const checkbox = (state, send, label, key) => h('div', [
   h('label', {attrs: {for: `connection_match_${key}`}}, label)
 ])
 
-const connection_view = (state, send, connection) => {
+export default (state, send, connection) => {
   const expanded = state.connection_search.expanded_connection === connection.connection_id
-  return h('div.scroll_item', [
-    h('div.item', `Local address: ${IPAddress(connection.local_address, connection.local_port)}`),
-    h('div.item', `Remote address: ${IPAddress(connection.remote_address, connection.remote_port)}`),
-    h('div.item', `Process: ${connection.process.name}`),
-    h('div.item', `State: ${connection.state.replace('_', ' ')}`),
-    h('div.item', [ // TODO: hide this in node viewer
+  return h('div', [
+    h('div.item', [
       h('div', 'Find similar connections'), 
       h(`div.foldout fas fa-chevron-${expanded ? 'down' : 'right'} fa-fw`, {on: {click: [send, {type: 'expand_connection', connection: expanded ? undefined : connection.connection_id}]}})
     ]),
@@ -27,11 +23,14 @@ const connection_view = (state, send, connection) => {
         checkbox(state, send, 'Match process', 'process')
       ]),
       h('div.button', {}, 'Go')
-    ]) : undefined
+    ]) : undefined,
+    h('div.button', 
+      {on: {click: e => {
+        if (state.selected.edge) send({type: 'select', node: NodesFromEdge(state, state.selected.edge).from_id})
+        send({type: 'connection', connection})
+        send({type: 'tab', tab: 'actions'})
+      }}},
+      'View Connection Actions'
+    )
   ])
 }
-
-export default (state, send, connections, label) => [
-  h('h4', [label || 'Connections', ` (${connections.length}):`].flat()),
-  connections.length ? h('div.scroll', connections.map(v => connection_view(state, send, v))) : undefined
-]

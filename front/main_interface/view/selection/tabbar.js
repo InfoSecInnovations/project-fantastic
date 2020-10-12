@@ -9,7 +9,7 @@ const connection_title = state => {
 }
 
 export default (state, send, nodes) => h('div.tab_bar', [
-  h('div.tabs', [
+  nodes || state.selected.connection ? h('div.tabs', [
     h('div.tab', {
       on: {click: [send, {type: 'tab', tab: 'info'}]},
       class: {selected: state.tab === 'info'}
@@ -18,7 +18,7 @@ export default (state, send, nodes) => h('div.tab_bar', [
       on: {click: [send, {type: 'tab', tab: 'actions'}]},
       class: {selected: state.tab === 'actions'}
     }, 'Actions')
-  ]),
+  ]) : undefined,
   h('div.tabs_title', nodes ? [
     h('div.icon_button small', [
       h('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})
