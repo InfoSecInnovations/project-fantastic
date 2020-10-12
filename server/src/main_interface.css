@@ -453,13 +453,14 @@ input[type=password] {
 }
 #container #selection .tab_bar .tabs_title {
   display: flex;
-  align-items: center;
+  margin: 1rem 0 0 1rem;
   min-width: 0;
   font-weight: 600;
   font-size: 1.2rem;
   flex: 1;
 }
 #container #selection .tab_bar .tabs_title .text {
+  padding: 1rem;
   overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

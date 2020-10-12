@@ -1,6 +1,7 @@
 import {h} from 'snabbdom/h'
 import NodeName from '../../../common/util/nodename'
 import NodesFromEdge from '../../util/nodesfromedge'
+import CanShowActions from './canshowactions'
 
 const connection_title = state => {
   const {from, to} = NodesFromEdge(state, state.selected.edge)
@@ -9,7 +10,7 @@ const connection_title = state => {
 }
 
 export default (state, send, nodes) => h('div.tab_bar', [
-  nodes || state.selected.connection ? h('div.tabs', [
+  h('div.tabs', CanShowActions(state, nodes) ? [
     h('div.tab', {
       on: {click: [send, {type: 'tab', tab: 'info'}]},
       class: {selected: state.tab === 'info'}
@@ -18,7 +19,7 @@ export default (state, send, nodes) => h('div.tab_bar', [
       on: {click: [send, {type: 'tab', tab: 'actions'}]},
       class: {selected: state.tab === 'actions'}
     }, 'Actions')
-  ]) : undefined,
+  ] : undefined),
   h('div.tabs_title', nodes ? [
     h('div.icon_button small', [
       h('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})
