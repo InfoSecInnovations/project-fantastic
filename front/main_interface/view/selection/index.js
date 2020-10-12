@@ -15,7 +15,9 @@ const get_tab = (state, send, nodes) => {
   }
   if (state.tab == 'actions') {
     if (state.selected.connection) {
-      return Actions(state, send, state.nodes[nodes[0]], state.selected.connection)
+      if (nodes) return Actions(state, send, state.nodes[nodes[0]], state.selected.connection)
+      const {from} = NodesFromEdge(state, state.selected.edge)
+      return Actions(state, send, from, state.selected.connection)
     }
     if (nodes.length > 1) return MultiActions(state, send)
     return Actions(state, send, state.nodes[nodes[0]])

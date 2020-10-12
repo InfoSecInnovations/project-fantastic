@@ -1,5 +1,4 @@
 import {h} from 'snabbdom/h'
-import NodesFromEdge from '../../../main_interface/util/nodesfromedge'
 
 const checkbox = (state, send, label, key) => h('div', [
   h('input', {
@@ -26,7 +25,6 @@ export default (state, send, connection) => {
     ]) : undefined,
     h('div.button', 
       {on: {click: e => {
-        if (state.selected.edge) send({type: 'select', node: NodesFromEdge(state, state.selected.edge).from_id})
         send({type: 'connection', connection})
         send({type: 'tab', tab: 'actions'})
       }}},
