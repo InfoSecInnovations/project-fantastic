@@ -95,8 +95,7 @@ a:hover,
 .connection_match {
   display: flex;
   flex-direction: column;
-}
-.connection_match .checkboxes {
+  gap: 1rem;
   padding: 1rem 0;
 }
 h1,

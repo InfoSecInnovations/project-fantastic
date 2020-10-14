@@ -10,6 +10,7 @@ const checkbox = (state, send, label, key) => h('div', [
 
 export default (state, send, connection) => {
   const expanded = state.connection_search.expanded_connection === connection.connection_id
+  const valid = state.connection_search.local_ip || state.connection_search.remote_ip || typeof state.connection_search.process
   return h('div', [
     h('div.item', [
       h('div', 'Find similar connections'), 
@@ -21,7 +22,10 @@ export default (state, send, connection) => {
         checkbox(state, send, 'Match remote address', 'remote_ip'),
         checkbox(state, send, 'Match process', 'process')
       ]),
-      h('div.button', {}, 'Go')
+      h('div.button', {
+        class: {disabled: !valid}, 
+        on : valid ? {click: [send, {type: 'find_connections'}]} : {}
+      }, 'Go')
     ]) : undefined,
     h('div.button', 
       {on: {click: e => {

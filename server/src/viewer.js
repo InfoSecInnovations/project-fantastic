@@ -473,21 +473,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./common/view/connections/connectionsearch.js":
-/*!*****************************************************!*\
-  !*** ./common/view/connections/connectionsearch.js ***!
-  \*****************************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n\r\n\r\nconst checkbox = (state, send, label, key) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('input', {\r\n    attrs: {type: 'checkbox', id: `connection_match_${key}`}, \r\n    props: {checked: state.connection_search[key]}, \r\n    on: {change: e => send({type: 'connection_search', key, value: e.target.checked})}}),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('label', {attrs: {for: `connection_match_${key}`}}, label)\r\n])\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send, connection) => {\r\n  const expanded = state.connection_search.expanded_connection === connection.connection_id\r\n  return (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', [\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', 'Find similar connections'), \r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)(`div.foldout fas fa-chevron-${expanded ? 'down' : 'right'} fa-fw`, {on: {click: [send, {type: 'expand_connection', connection: expanded ? undefined : connection.connection_id}]}})\r\n    ]),\r\n    expanded ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.connection_match', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.checkboxes', [\r\n        checkbox(state, send, 'Match local address', 'local_ip'),\r\n        checkbox(state, send, 'Match remote address', 'remote_ip'),\r\n        checkbox(state, send, 'Match process', 'process')\r\n      ]),\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.button', {}, 'Go')\r\n    ]) : undefined,\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.button', \r\n      {on: {click: e => {\r\n        send({type: 'connection', connection})\r\n        send({type: 'tab', tab: 'actions'})\r\n      }}},\r\n      'View Connection Actions'\r\n    )\r\n  ])\r\n});\n\n//# sourceURL=webpack://front/./common/view/connections/connectionsearch.js?");
-
-/***/ }),
-
 /***/ "./common/view/connections/index.js":
 /*!******************************************!*\
   !*** ./common/view/connections/index.js ***!
@@ -499,7 +484,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _util_ipaddress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/ipaddress */ \"./common/util/ipaddress.js\");\n/* harmony import */ var _connectionsearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./connectionsearch */ \"./common/view/connections/connectionsearch.js\");\n\r\n\r\n\r\n\r\nconst connection_view = (state, send, connection) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll_item', [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Local address: ${(0,_util_ipaddress__WEBPACK_IMPORTED_MODULE_1__.default)(connection.local_address, connection.local_port)}`),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Remote address: ${(0,_util_ipaddress__WEBPACK_IMPORTED_MODULE_1__.default)(connection.remote_address, connection.remote_port)}`),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Process: ${connection.process.name}`),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `State: ${connection.state.replace('_', ' ')}`),\r\n  state.connection_search ? (0,_connectionsearch__WEBPACK_IMPORTED_MODULE_2__.default)(state, send, connection) : undefined\r\n])\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send, connections, label) => [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h4', [label || 'Connections', ` (${connections.length}):`].flat()),\r\n  connections.length ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll', connections.map(v => connection_view(state, send, v))) : undefined\r\n]);\n\n//# sourceURL=webpack://front/./common/view/connections/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _util_ipaddress__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../util/ipaddress */ \"./common/util/ipaddress.js\");\n/* harmony import */ var _main_interface_view_selection_connectionsearch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../main_interface/view/selection/connectionsearch */ \"./main_interface/view/selection/connectionsearch.js\");\n\r\n\r\n\r\n\r\nconst connection_view = (state, send, connection) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll_item', [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Local address: ${(0,_util_ipaddress__WEBPACK_IMPORTED_MODULE_1__.default)(connection.local_address, connection.local_port)}`),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Remote address: ${(0,_util_ipaddress__WEBPACK_IMPORTED_MODULE_1__.default)(connection.remote_address, connection.remote_port)}`),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `Process: ${connection.process.name}`),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', `State: ${connection.state.replace('_', ' ')}`),\r\n  state.connection_search ? (0,_main_interface_view_selection_connectionsearch__WEBPACK_IMPORTED_MODULE_2__.default)(state, send, connection) : undefined\r\n])\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send, connections, label) => [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('h4', [label || 'Connections', ` (${connections.length}):`].flat()),\r\n  connections.length ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.scroll', connections.map(v => connection_view(state, send, v))) : undefined\r\n]);\n\n//# sourceURL=webpack://front/./common/view/connections/index.js?");
 
 /***/ }),
 
@@ -560,6 +545,67 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./common/node_modules/snabbdom/build/package/h.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((send, search_type) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('input', {\r\n    attrs: {type: 'text'},\r\n    on: {input: e => send({type: 'search_input', query: e.target.value, search_type})}\r\n  }),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('label.fas fa-search fa-fw')\r\n]));\n\n//# sourceURL=webpack://front/./common/view/searchbar.js?");
+
+/***/ }),
+
+/***/ "./main_interface/node_modules/snabbdom/build/package/h.js":
+/*!*****************************************************************!*\
+  !*** ./main_interface/node_modules/snabbdom/build/package/h.js ***!
+  \*****************************************************************/
+/*! namespace exports */
+/*! export h [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"h\": () => /* binding */ h\n/* harmony export */ });\n/* harmony import */ var _vnode_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./vnode.js */ \"./main_interface/node_modules/snabbdom/build/package/vnode.js\");\n/* harmony import */ var _is_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./is.js */ \"./main_interface/node_modules/snabbdom/build/package/is.js\");\n\n\nfunction addNS(data, children, sel) {\n    data.ns = 'http://www.w3.org/2000/svg';\n    if (sel !== 'foreignObject' && children !== undefined) {\n        for (let i = 0; i < children.length; ++i) {\n            const childData = children[i].data;\n            if (childData !== undefined) {\n                addNS(childData, children[i].children, children[i].sel);\n            }\n        }\n    }\n}\nfunction h(sel, b, c) {\n    var data = {};\n    var children;\n    var text;\n    var i;\n    if (c !== undefined) {\n        if (b !== null) {\n            data = b;\n        }\n        if (_is_js__WEBPACK_IMPORTED_MODULE_1__.array(c)) {\n            children = c;\n        }\n        else if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(c)) {\n            text = c;\n        }\n        else if (c && c.sel) {\n            children = [c];\n        }\n    }\n    else if (b !== undefined && b !== null) {\n        if (_is_js__WEBPACK_IMPORTED_MODULE_1__.array(b)) {\n            children = b;\n        }\n        else if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(b)) {\n            text = b;\n        }\n        else if (b && b.sel) {\n            children = [b];\n        }\n        else {\n            data = b;\n        }\n    }\n    if (children !== undefined) {\n        for (i = 0; i < children.length; ++i) {\n            if (_is_js__WEBPACK_IMPORTED_MODULE_1__.primitive(children[i]))\n                children[i] = (0,_vnode_js__WEBPACK_IMPORTED_MODULE_0__.vnode)(undefined, undefined, undefined, children[i], undefined);\n        }\n    }\n    if (sel[0] === 's' && sel[1] === 'v' && sel[2] === 'g' &&\n        (sel.length === 3 || sel[3] === '.' || sel[3] === '#')) {\n        addNS(data, children, sel);\n    }\n    return (0,_vnode_js__WEBPACK_IMPORTED_MODULE_0__.vnode)(sel, data, children, text, undefined);\n}\n;\n//# sourceMappingURL=h.js.map\n\n//# sourceURL=webpack://front/./main_interface/node_modules/snabbdom/build/package/h.js?");
+
+/***/ }),
+
+/***/ "./main_interface/node_modules/snabbdom/build/package/is.js":
+/*!******************************************************************!*\
+  !*** ./main_interface/node_modules/snabbdom/build/package/is.js ***!
+  \******************************************************************/
+/*! namespace exports */
+/*! export array [provided] [no usage info] [missing usage info prevents renaming] */
+/*! export primitive [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"array\": () => /* binding */ array,\n/* harmony export */   \"primitive\": () => /* binding */ primitive\n/* harmony export */ });\nconst array = Array.isArray;\nfunction primitive(s) {\n    return typeof s === 'string' || typeof s === 'number';\n}\n//# sourceMappingURL=is.js.map\n\n//# sourceURL=webpack://front/./main_interface/node_modules/snabbdom/build/package/is.js?");
+
+/***/ }),
+
+/***/ "./main_interface/node_modules/snabbdom/build/package/vnode.js":
+/*!*********************************************************************!*\
+  !*** ./main_interface/node_modules/snabbdom/build/package/vnode.js ***!
+  \*********************************************************************/
+/*! namespace exports */
+/*! export vnode [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"vnode\": () => /* binding */ vnode\n/* harmony export */ });\nfunction vnode(sel, data, children, text, elm) {\n    const key = data === undefined ? undefined : data.key;\n    return { sel, data, children, text, elm, key };\n}\n//# sourceMappingURL=vnode.js.map\n\n//# sourceURL=webpack://front/./main_interface/node_modules/snabbdom/build/package/vnode.js?");
+
+/***/ }),
+
+/***/ "./main_interface/view/selection/connectionsearch.js":
+/*!***********************************************************!*\
+  !*** ./main_interface/view/selection/connectionsearch.js ***!
+  \***********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./main_interface/node_modules/snabbdom/build/package/h.js\");\n\r\n\r\nconst checkbox = (state, send, label, key) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('input', {\r\n    attrs: {type: 'checkbox', id: `connection_match_${key}`}, \r\n    props: {checked: state.connection_search[key]}, \r\n    on: {change: e => send({type: 'connection_search', key, value: e.target.checked})}}),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('label', {attrs: {for: `connection_match_${key}`}}, label)\r\n])\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send, connection) => {\r\n  const expanded = state.connection_search.expanded_connection === connection.connection_id\r\n  const valid = state.connection_search.local_ip || state.connection_search.remote_ip || typeof state.connection_search.process\r\n  return (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', [\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.item', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div', 'Find similar connections'), \r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)(`div.foldout fas fa-chevron-${expanded ? 'down' : 'right'} fa-fw`, {on: {click: [send, {type: 'expand_connection', connection: expanded ? undefined : connection.connection_id}]}})\r\n    ]),\r\n    expanded ? (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.connection_match', [\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.checkboxes', [\r\n        checkbox(state, send, 'Match local address', 'local_ip'),\r\n        checkbox(state, send, 'Match remote address', 'remote_ip'),\r\n        checkbox(state, send, 'Match process', 'process')\r\n      ]),\r\n      (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.button', {\r\n        class: {disabled: !valid}, \r\n        on : valid ? {click: [send, {type: 'find_connections'}]} : {}\r\n      }, 'Go')\r\n    ]) : undefined,\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.button', \r\n      {on: {click: e => {\r\n        send({type: 'connection', connection})\r\n        send({type: 'tab', tab: 'actions'})\r\n      }}},\r\n      'View Connection Actions'\r\n    )\r\n  ])\r\n});\n\n//# sourceURL=webpack://front/./main_interface/view/selection/connectionsearch.js?");
 
 /***/ }),
 

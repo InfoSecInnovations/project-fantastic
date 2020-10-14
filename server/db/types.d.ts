@@ -1,5 +1,3 @@
-import { type } from "os"
-
 export type HostAccess = 'local' | 'remote' | 'none'
 
 export type Node = {

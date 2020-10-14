@@ -8,6 +8,7 @@ import SearchQuery from './searchquery'
 import RefreshNodes from './refreshnodes'
 import Nodes from './nodes'
 import UserHistory from './userhistory'
+import NodesFromEdge from '../util/nodesfromedge'
 
 export default (state, action, send) => {
   Common(state, action, send)
@@ -20,6 +21,16 @@ export default (state, action, send) => {
     action.container.onmouseenter = e => send({type: 'hover_ui', value: false})
   }
   if (action.type == 'search' || action.type == 'graph_container') RefreshNodes(send, SearchQuery(state))
+  if (action.type == 'find_connections') {
+    const node = state.selected.edge ? NodesFromEdge(state, state.selected.edge).from : state.nodes[state.selected.node]
+    const connection = node.connections.find(v => v.connection_id == state.connection_search.expanded_connection)
+    RefreshNodes(send, {
+      ...SearchQuery(state),
+      connection_local_ip: state.connection_search.local_ip ? connection.local_address : undefined,
+      connection_remote_ip: state.connection_search.remote_ip ? connection.remote_address : undefined,
+      connection_process: state.connection_search.process ? connection.process.id : undefined
+    })
+  }
   if (action.type == 'enable_command') fetch(`/commands?${GenerateQuery({[action.command]: action.enabled})}`, {method: 'POST'})
     .then(() => fetch('/commands'))    
     .then(res => res.json())

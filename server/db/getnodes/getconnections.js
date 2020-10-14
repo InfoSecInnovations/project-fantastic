@@ -6,8 +6,9 @@ const ConnectionConditions = require('./connectionconditions')
  * @param {{ip_id: number}[]} ips 
  * @param {import('../types').NodeQuery} query 
  * @param {import('fantastic-utils/db/types').QueryCondition[]} date_conditions
+ * @param {import('./types').ConnectionFilter} connection_filter
  */
-const getConnections = (db, ips, query, date_conditions) => db.all({table: 'connections', conditions: {groups: [...date_conditions, ...ConnectionConditions('from', ips, query)]}})
+const getConnections = (db, ips, query, date_conditions, connection_filter) => db.all({table: 'connections', conditions: {groups: [...date_conditions, ...ConnectionConditions('from', ips, query, connection_filter)]}})
   .then(async res => {
     for (const c of res) {
       c.process = await db.get({table: 'processes', columns: ['name', 'pid'], conditions: {columns: {process_id: c.process_id}}}) // get process name and PID for each connection
