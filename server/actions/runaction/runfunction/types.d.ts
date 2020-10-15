@@ -1,5 +1,5 @@
 export type Result = {
-  pass: boolean,
+  pass?: boolean,
   label: string,
   data?: {},
   followups?: Object.<string, {}>

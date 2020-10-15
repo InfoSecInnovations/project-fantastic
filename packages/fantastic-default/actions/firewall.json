@@ -25,7 +25,20 @@
             }
           }
         ]
-      }
+      },
+      "static": [
+        {
+          "label": "Any",
+          "followups": [
+            {
+              "function": "get_rules",
+              "data": {
+                "profile": "Any"
+              }
+            }
+          ]
+        }
+      ]
     },
     "enable_profile": {
       "name": "Enable Profile",
@@ -60,6 +73,12 @@
               "state": {"bool": "Enabled", "inverse": true}
             },
             "enabled": {"bool": "Enabled"} 
+          },          
+          {
+            "function": "remove_rule",
+            "data": {
+              "name": "Name"
+            }
           }
         ]
       }
@@ -67,6 +86,11 @@
     "enable_rule": {
       "name": "Enable Rule",
       "command": "Set-NetFirewallRule -Name $name -Enabled $state",
+      "role": "elevated"
+    },
+    "remove_rule": {
+      "name": "Remove Rule",
+      "command": "Remove-NetFirewallRule -Name $name",
       "role": "elevated"
     }
   }
