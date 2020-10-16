@@ -19,6 +19,7 @@
     "markdown-it": "^10.0.0",
     "svgson": "^4.0.0",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries",
+    "vm2": "^3.9.2",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {}
