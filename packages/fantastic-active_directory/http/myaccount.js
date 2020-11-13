@@ -1,4 +1,4 @@
-const GetCookie = require('fantastic-utils/getcookie')
+const GetCookie = require('@infosecinnovations/fantastic-utils/getcookie')
 const GetRole = require('../accounts/getrole')
 const {get} = require('../db')
 const Error = require('./error')

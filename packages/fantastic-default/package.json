@@ -1,7 +1,7 @@
 {
-  "name": "fantastic-default",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@infosecinnovations/fantastic-default",
+  "version": "0.1.0",
+  "description": "The default content for Fantastic",
   "main": "index.js",
   "directories": {
     "test": "tests"
@@ -9,6 +9,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "InfoSec Innovations",
   "license": "ISC"
 }

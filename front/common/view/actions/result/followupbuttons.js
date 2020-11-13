@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-const FormatString = require('fantastic-utils/formatstring')
+const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
 
 export default (state, action, action_result, node_id, host, loading, send, followups) => action_result.followups ? Object.values(action_result.followups).map(v => {
   const followup_label = v.label || (typeof v.enabled == 'boolean' && (v.enabled ? 'Enabled' : 'Disabled')) || state.actions[action].names[v.function]

@@ -1,0 +1,14 @@
+{
+  "name": "@infosecinnovations/fantastic-db",
+  "version": "0.1.0",
+  "description": "Utility functions to access a SQLite database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "InfoSec Innovations",
+  "license": "ISC",
+  "dependencies": {
+    "sqlite3": "^4.2.0"
+  }
+}

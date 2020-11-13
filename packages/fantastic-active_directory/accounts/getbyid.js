@@ -4,7 +4,7 @@ const GetRole = require('./getrole')
 /**
  * Get user by database ID
  * @param {number | string} id 
- * @returns {Promise<import('fantastic-utils/types').User>}
+ * @returns {Promise<import('@infosecinnovations/fantastic-utils/types').User>}
  */
 const getByID = async id => {
   const row = await get({table: 'users', columns: ['username', 'user_id'], conditions: {columns: {user_id: id}}})

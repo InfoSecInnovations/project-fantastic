@@ -1,9 +1,9 @@
-const GetHTTPData = require('fantastic-utils/gethttpdata')
+const GetHTTPData = require('@infosecinnovations/fantastic-utils/gethttpdata')
 const SetPassword = require('../accounts/setpassword')
-const GetCookie = require('fantastic-utils/getcookie')
+const GetCookie = require('@infosecinnovations/fantastic-utils/getcookie')
 const {get} = require('../db')
-const GenerateID = require('fantastic-utils/generateid')
-const ParseQuery = require('fantastic-utils/parsequery')
+const GenerateID = require('@infosecinnovations/fantastic-utils/generateid')
+const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
 const Success = require('./success')
 const Error = require('./error')
 

@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
 import Search from './search'
-const HasRole = require('fantastic-utils/hasrole')
+const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 
 const link = (url, target, icon, label) => 
   h('div.icon_button', {

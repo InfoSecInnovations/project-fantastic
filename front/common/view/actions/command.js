@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-const FormatString = require('fantastic-utils/formatstring')
+const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
 
 export default (connection, command) => h('pre', connection ? FormatString(command, {
   process: connection.process.id, 

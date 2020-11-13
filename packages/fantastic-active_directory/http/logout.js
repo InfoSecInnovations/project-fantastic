@@ -1,5 +1,5 @@
 const Invalidate = require('../accounts/invalidate')
-const GetCookie = require('fantastic-utils/getcookie')
+const GetCookie = require('@infosecinnovations/fantastic-utils/getcookie')
 
 const logOut = (res, req) => {
   res.onAborted(() => res.aborted = true)

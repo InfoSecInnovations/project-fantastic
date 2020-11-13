@@ -1,7 +1,7 @@
-const GetHTTPData = require('fantastic-utils/gethttpdata')
-const ParseQuery = require('fantastic-utils/parsequery')
+const GetHTTPData = require('@infosecinnovations/fantastic-utils/gethttpdata')
+const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
 const ActiveDirectory = require('../activedirectory')
-const GenerateID = require('fantastic-utils/generateid')
+const GenerateID = require('@infosecinnovations/fantastic-utils/generateid')
 const Error = require('./error')
 const {get, update, insert} = require('../db')
 

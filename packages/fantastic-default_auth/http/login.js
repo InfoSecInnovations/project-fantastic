@@ -1,8 +1,8 @@
 const Login = require('../accounts/login')
-const ParseQuery = require('fantastic-utils/parsequery')
+const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
 const Success = require('./success')
 const Error = require('./error')
-const GetHTTPData = require('fantastic-utils/gethttpdata')
+const GetHTTPData = require('@infosecinnovations/fantastic-utils/gethttpdata')
 
 const auth = (res, req) => {
   res.onAborted(() => res.aborted = true)

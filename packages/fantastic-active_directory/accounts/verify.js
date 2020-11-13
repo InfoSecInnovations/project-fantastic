@@ -4,7 +4,7 @@ const GetRole = require('./getrole')
 /**
  * Get user by session ID
  * @param {string} session_id 
- * @returns {Promise<import('fantastic-utils/types').User>}
+ * @returns {Promise<import('@infosecinnovations/fantastic-utils/types').User>}
  */
 const verify = async session_id => {
   if (!session_id) return

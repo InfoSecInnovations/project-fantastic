@@ -1,4 +1,4 @@
-const GetCookie = require('fantastic-utils/getcookie')
+const GetCookie = require('@infosecinnovations/fantastic-utils/getcookie')
 const {get} = require('../db')
 
 const error = JSON.stringify({error: 'You must be logged in to do this!'})

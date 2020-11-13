@@ -1,7 +1,7 @@
 import {h} from 'snabbdom/h'
 const Alea = require('alea')
 import TestEntry from './testentry'
-const ConvertTime = require('fantastic-utils/converttime')
+const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
 
 const success_texts = [
   'Well done',

@@ -2,8 +2,8 @@ const Success = require('./success')
 const Error = require('./error')
 const {get} = require('../db')
 const CreateAccount = require('../accounts/createaccount')
-const GetHTTPData = require('fantastic-utils/gethttpdata')
-const ParseQuery = require('fantastic-utils/parsequery')
+const GetHTTPData = require('@infosecinnovations/fantastic-utils/gethttpdata')
+const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
 const GetConfig = require('../utils/getconfig')
 
 const register = (res, req) => {

@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-const CompareEvent = require('fantastic-utils/compareevent')
+const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 
 const headers = {
   action: 'Run Action',

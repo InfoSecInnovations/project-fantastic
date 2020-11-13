@@ -1,7 +1,7 @@
 import {h} from 'snabbdom/h'
 import HostString from '../../../common/util/hoststring'
 import TimeAgo from '../../../common/util/timeago'
-const FormatString = require('fantastic-utils/formatstring')
+const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
 
 const result = (send, name, data, pass, options, result_parameters, failed_nodes, results, is_quest) => {
   if (data.pass === 'review') return h('div.button', {on: {click: [send, {type: 'review', results, name, quest: is_quest}]}}, 'See results')

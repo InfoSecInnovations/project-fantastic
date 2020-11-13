@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "css": "stylus output -o ../../server/src -w -m"
+    "css": "stylus output -o ../../main/src -w -m"
   },
   "author": "",
   "license": "ISC",

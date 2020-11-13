@@ -1,5 +1,5 @@
 const { spawn } = require('child_process')
-const FormatString = require('fantastic-utils/formatstring')
+const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
 
 /**
  * Run a PowerShell command in a child process.

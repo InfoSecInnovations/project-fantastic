@@ -1,5 +1,5 @@
-const GetCookie = require('fantastic-utils/getcookie')
-const GetHTTPData = require('fantastic-utils/gethttpdata')
+const GetCookie = require('@infosecinnovations/fantastic-utils/getcookie')
+const GetHTTPData = require('@infosecinnovations/fantastic-utils/gethttpdata')
 const {get} = require('../db')
 
 const failed_login = 'you must be logged in as an administrator!'

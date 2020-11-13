@@ -1,6 +1,6 @@
 import Common from '../../common/effect'
 import FlexSearch from '../../common/effect/flexsearch'
-const FlatUnique = require('fantastic-utils/flatunique')
+const FlatUnique = require('@infosecinnovations/fantastic-utils/flatunique')
 import GenerateQuery from '../../common/effect/generatequery'
 import Init from './init'
 import OpenTabs from './opentabs'

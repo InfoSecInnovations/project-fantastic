@@ -1,6 +1,6 @@
 {
   "name": "fantastic-dev",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "The full source code of Fantastic, a tool for viewing and acting upon computer networks.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -21,6 +21,7 @@
   "devDependencies": {
     "@tsconfig/node12": "^1.0.7",
     "@types/node": "^14.11.2",
+    "lerna": "^3.22.1",
     "typedoc": "^0.19.2",
     "typedoc-plugin-markdown": "^3.0.3",
     "typescript": "^4.0.3"

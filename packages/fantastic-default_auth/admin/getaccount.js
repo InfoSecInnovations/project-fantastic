@@ -1,5 +1,5 @@
 const {get} = require('../db')
-const ParseQuery = require('fantastic-utils/parsequery')
+const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
 const CheckAdmin = require('./checkadmin')
 
 const getAccount = (res, req) => {

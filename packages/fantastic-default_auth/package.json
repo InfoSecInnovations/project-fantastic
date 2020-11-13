@@ -1,7 +1,7 @@
 {
-  "name": "fantastic-default_auth",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@infosecinnovations/fantastic-default_auth",
+  "version": "0.1.0",
+  "description": "A basic user logon system to use for Fantastic in a home environment",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^4.0.1",
-    "fantastic-utils": "file:../fantastic-utils"
+    "@infosecinnovations/fantastic-utils": "*",
+    "@infosecinnovations/fantastic-db": "*"
   }
 }

@@ -4,7 +4,7 @@ module.exports={
   mode:'development',
   entry: path.resolve(__dirname, 'main.js'),
   output:{
-    path: path.resolve(__dirname, '../../server/src'),
+    path: path.resolve(__dirname, '../../main/src'),
     filename:'main.js'
   }
 }

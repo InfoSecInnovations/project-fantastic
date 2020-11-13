@@ -1,5 +1,5 @@
 const BCrypt = require('bcrypt')
-const GenerateID = require('fantastic-utils/generateid')
+const GenerateID = require('@infosecinnovations/fantastic-utils/generateid')
 const {insert} = require('../db')
 const GetConfig = require('../utils/getconfig')
 

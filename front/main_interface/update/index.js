@@ -3,7 +3,7 @@ import FlexSearch from '../../common/update/flexsearch'
 import Hovered from '../defaults/hovered'
 import QuestResults from './questresults'
 import TestResults from './testresults'
-const CompareEvent = require('fantastic-utils/compareevent')
+const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 
 export default (state, action) => {
   if (action.type == 'nodes') state.nodes = action.nodes

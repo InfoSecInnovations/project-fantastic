@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-const DefaultIPs = require('fantastic-utils/defaultips')
+const DefaultIPs = require('@infosecinnovations/fantastic-utils/defaultips')
 
 const node_type = node => {
   if (!node.important) return 'Host outside my network'

@@ -1,5 +1,5 @@
 const Serve = require('./serve')
-const GetCookie = require('fantastic-utils/getcookie')
+const GetCookie = require('@infosecinnovations/fantastic-utils/getcookie')
 const {get} = require('../db')
 
 const auth = (res, req) => {

@@ -1,4 +1,4 @@
-const GetCookie = require('fantastic-utils/getcookie')
+const GetCookie = require('@infosecinnovations/fantastic-utils/getcookie')
 const Serve = require('./serve')
 const Verify = require('../accounts/verify')
 

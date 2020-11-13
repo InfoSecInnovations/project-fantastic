@@ -1,9 +1,9 @@
 const Login = require('../accounts/login')
 const Serve = require('../http/serve')
-const ParseQuery = require('fantastic-utils/parsequery')
-const GenerateID = require('fantastic-utils/generateid')
+const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
+const GenerateID = require('@infosecinnovations/fantastic-utils/generateid')
 const {get, update} = require('../db')
-const GetHTTPData = require('fantastic-utils/gethttpdata')
+const GetHTTPData = require('@infosecinnovations/fantastic-utils/gethttpdata')
 const Error = require('../http/error')
 
 const success = id => new Promise((resolve, reject) => {

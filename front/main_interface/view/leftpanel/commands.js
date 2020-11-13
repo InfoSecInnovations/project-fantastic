@@ -2,7 +2,7 @@ import {h} from 'snabbdom/h'
 import HostString from '../../../common/util/hoststring'
 import SearchBar from '../../../common/view/searchbar'
 import FilterSearchResults from '../../../common/util/filtersearchresults'
-const HasRole = require('fantastic-utils/hasrole')
+const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 
 const enabled_button = (state, send, command, data) => {
   if (data.mode == 'force') return h('div', 'This command must always be enabled')
