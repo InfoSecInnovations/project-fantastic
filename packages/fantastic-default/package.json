@@ -10,5 +10,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "InfoSec Innovations",
-  "license": "ISC"
+  "license": "ISC",
+  "gitHead": "8953f2722f64777e9c36b926334927ddb7e2e315",
+  "publishConfig": {
+    "access": "public"
+  }
 }

@@ -9,5 +9,9 @@
   "license": "ISC",
   "dependencies": {
     "@infosecinnovations/fantastic-utils": "^0.1.3"
+  },
+  "gitHead": "8953f2722f64777e9c36b926334927ddb7e2e315",
+  "publishConfig": {
+    "access": "public"
   }
 }
