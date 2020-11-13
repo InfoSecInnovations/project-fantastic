@@ -1,6 +1,6 @@
 {
   "name": "project-fantastic",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A GUI tool to visualize computer networks and perform security checks and improvements.",
   "main": "index.js",
   "author": "InfoSec Innovations",
@@ -11,10 +11,10 @@
     "postinstall": "node ./scripts/postinstall.js"
   },
   "dependencies": {
-    "@infosecinnovations/fantastic-cli": "^0.1.3",
-    "@infosecinnovations/fantastic-db": "^0.1.3",
-    "@infosecinnovations/fantastic-help": "^0.1.3",
-    "@infosecinnovations/fantastic-utils": "^0.1.3",
+    "@infosecinnovations/fantastic-cli": "^0.1.4",
+    "@infosecinnovations/fantastic-db": "^0.1.4",
+    "@infosecinnovations/fantastic-help": "^0.1.4",
+    "@infosecinnovations/fantastic-utils": "^0.1.4",
     "decache": "^4.6.0",
     "fs-extra": "^8.1.0",
     "httpolyglot": "^0.1.2",
