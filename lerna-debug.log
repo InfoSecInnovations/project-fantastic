@@ -1,0 +1,30 @@
+49 error Error: Command failed: git add -- packages/fantastic-default/package.json packages/fantastic-db/package.json packages/fantastic-db/package-lock.json packages/fantastic-utils/package.json packages/fantastic-utils/package-lock.json packages/fantastic-help/package.json packages/fantastic-cli/package.json packages/fantastic-default_auth/package.json packages/fantastic-default_auth/package-lock.json packages/fantastic-active_directory/package.json packages/fantastic-active_directory/package-lock.json main/package.json main/package-lock.json lerna.json
+49 error warning: LF will be replaced by CRLF in lerna.json.
+49 error The file will have its original line endings in your working directory.
+49 error warning: LF will be replaced by CRLF in main/package.json.
+49 error The file will have its original line endings in your working directory.
+49 error warning: LF will be replaced by CRLF in packages/fantastic-active_directory/package.json.
+49 error The file will have its original line endings in your working directory.
+49 error warning: LF will be replaced by CRLF in packages/fantastic-cli/package.json.
+49 error The file will have its original line endings in your working directory.
+49 error warning: LF will be replaced by CRLF in packages/fantastic-db/package.json.
+49 error The file will have its original line endings in your working directory.
+49 error warning: LF will be replaced by CRLF in packages/fantastic-default/package.json.
+49 error The file will have its original line endings in your working directory.
+49 error warning: LF will be replaced by CRLF in packages/fantastic-default_auth/package.json.
+49 error The file will have its original line endings in your working directory.
+49 error warning: LF will be replaced by CRLF in packages/fantastic-help/package.json.
+49 error The file will have its original line endings in your working directory.
+49 error warning: LF will be replaced by CRLF in packages/fantastic-utils/package.json.
+49 error The file will have its original line endings in your working directory.
+49 error The following paths are ignored by one of your .gitignore files:
+49 error main/package-lock.json
+49 error packages/fantastic-active_directory/package-lock.json
+49 error packages/fantastic-db/package-lock.json
+49 error packages/fantastic-default_auth/package-lock.json
+49 error packages/fantastic-utils/package-lock.json
+49 error Use -f if you really want to add them.
+49 error
+49 error     at makeError (F:\project-fantastic\node_modules\execa\index.js:174:9)
+49 error     at F:\project-fantastic\node_modules\execa\index.js:278:16
+49 error     at processTicksAndRejections (internal/process/task_queues.js:97:5)
