@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-cli",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Run PowerShell commands either locally or on a remote host",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -8,6 +8,6 @@
   "author": "InfoSec Innovations",
   "license": "ISC",
   "dependencies": {
-    "@infosecinnovations/fantastic-utils": "^0.1.1"
+    "@infosecinnovations/fantastic-utils": "^0.1.2"
   }
 }
