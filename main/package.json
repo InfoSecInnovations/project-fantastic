@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "InfoSec Innovations",
   "license": "ISC",
+  "private": true,
   "scripts": {
     "start": "node index.js",
     "postinstall": "node ./scripts/postinstall.js"
