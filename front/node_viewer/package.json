@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "author": "",
+  "private": true,
   "license": "ISC",
   "dependencies": {
     "snabbdom": "^1.0.1",

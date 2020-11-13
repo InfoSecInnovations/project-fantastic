@@ -9,13 +9,14 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 - We'll only be supporting Windows 10 for the forseeable future, but other platforms may be added if there's a demand for it.
 - If you don't have git cli installed you will need that first. You can install it using [Chocolatey](https://chocolatey.org/packages/git) or [GitHub Desktop](https://desktop.github.com/).
-- Clone the repository and run `npm i` inside the repository root. Please ignore the messages saying you should commit the lockfiles (see [Known Issues](#known-issues) below).
+- Clone the repository and run `npm i` inside the repository root.
+- Run `npx lerna bootstrap` to set up all the packages that make up the Fantastic development environment.
 
 ## Getting started
 
 If you just want to start the server, navigate to the `main` directory and run `npm start` as administrator. Closing the window will stop the server.
 
-Using the default configuration you will be able to see the client at http://localhost:5000 in your browser, and you can log in as `admin` using the password `changeme`. Please change this password or use a different authorization module (feature coming soon!) as accessing the tool as admin allows you to perform some actions which should be used responsibly.
+Using the default configuration you will be able to see the client at http://localhost:5000 in your browser, and you can log in as `admin` using the password `changeme`. Please change this password or use a different authorization module, as accessing the tool as admin allows you to perform some actions which should be used responsibly.
 
 Using the default self signed certificate bundled with the app will cause warnings in the browser, but you can safely ignore these. If you want to use your own certificate, just create the `main/cert` directory with files named `cert` and `key`, please don't put it anywhere else as that may result in you committing your private key to GitHub!
 
@@ -44,8 +45,6 @@ For more information on using the application itself:
 **PLEASE NOTE: a lot of the documentation is out of date because the project is still changing a lot, we're trying to keep this README relevant, but there's no guarantee regarding the other docs until the project is a bit more stable.**
 
 ## Known issues
-
-- Attempting to run `npm i` after the project has already been installed can result in errors. A workaround that seems to solve this is to delete all node_modules directories and all package-lock.json files from the project directory (just skip any that can't be deleted, this is due to symlinks). Alternatively, try deleting the whole repo and cloning it again.
 
 - Re-installing the project deletes the database and custom config as we haven't yet provided a way to gracefully upgrade.
 

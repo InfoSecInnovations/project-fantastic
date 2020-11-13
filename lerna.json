@@ -1,7 +1,9 @@
 {
   "packages": [
     "packages/*",
-    "main"
+    "main",
+    "front",
+    "front/*"
   ],
   "version": "0.1.4"
 }

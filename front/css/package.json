@@ -1,8 +1,9 @@
 {
-  "name": "css",
+  "name": "fantastic-css",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "css": "stylus output -o ../../main/src -w -m"
   },
