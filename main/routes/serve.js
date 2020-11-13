@@ -1,6 +1,7 @@
 const FS = require('fs').promises
 const MarkdownIt = require('markdown-it')
 const SVGSon = require('svgson')
+const Path = require('path')
 
 const md = new MarkdownIt({
   html: true
@@ -37,7 +38,10 @@ const svg = (file, query) => SVGSon.parse(file)
 
 const serve = (res, path, query) => {
   if (!path || path === '/') path = '/index.html'
-  FS.readFile(`src${path}`).then(file => {
+  path = path.startsWith('/help') ? 
+  Path.join(__dirname, '..', 'node_modules/@infosecinnovations/fantastic-help', path.replace('/help/', ''))
+  : Path.join(__dirname, '..', `src${path}`)
+  FS.readFile(path).then(file => {
     if (path.endsWith('.md')) return markdown(file.toString()).then(file => !res.aborted && res.end(file))
     if (path.endsWith('.svg')) {
       res.writeHeader('Content-Type', 'image/svg+xml')

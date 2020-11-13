@@ -1,0 +1,15 @@
+{
+  "name": "@infosecinnovations/fantastic-help",
+  "version": "0.1.0",
+  "description": "Help files for Fantastic",
+  "author": "InfoSec Innovations",
+  "homepage": "https://github.com/besimorhino/project-fantastic/",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/besimorhino/project-fantastic.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

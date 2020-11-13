@@ -2,7 +2,7 @@
 
 ## About
 
-![Fantastic UI](server/src/help/images/fantastic-ui.png)
+![Fantastic UI](packages/fantastic-help/images/fantastic-ui.png)
 Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infosecinnovations.com/) for exploring computer networks. It aims to provide a way for network security novices and professionals alike to find and fix security issues. If you don't know where to start, the quest system (work in progress!) will guide you, or you can ignore it and try out the various options by yourself.
 
 ## Installation
@@ -13,13 +13,13 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 ## Getting started
 
-If you just want to start the server, navigate to the `server` directory and run `npm start` as administrator. Closing the window will stop the server.
+If you just want to start the server, navigate to the `main` directory and run `npm start` as administrator. Closing the window will stop the server.
 
 Using the default configuration you will be able to see the client at http://localhost:5000 in your browser, and you can log in as `admin` using the password `changeme`. Please change this password or use a different authorization module (feature coming soon!) as accessing the tool as admin allows you to perform some actions which should be used responsibly.
 
-Using the default self signed certificate bundled with the app will cause warnings in the browser, but you can safely ignore these. If you want to use your own certificate, just create the `server/cert` directory with files named `cert` and `key`, please don't put it anywhere else as that may result in you committing your private key to GitHub!
+Using the default self signed certificate bundled with the app will cause warnings in the browser, but you can safely ignore these. If you want to use your own certificate, just create the `main/cert` directory with files named `cert` and `key`, please don't put it anywhere else as that may result in you committing your private key to GitHub!
 
-**You do not have to build the client**, there are 3 different pages which are built using webpack. These are already built and can be found in the `server/src` directory. However if you need to modify them, the source can be found in the `front` directory. The individual directories are: 
+**You do not have to build the client**, there are 3 different pages which are built using webpack. These are already built and can be found in the `main/src` directory. However if you need to modify them, the source can be found in the `front` directory. The individual directories are: 
   - `main_interface` - the app's main view. Builds to `main.js`.
   - `node_viewer` - the pop out view to inspect hosts. Builds to `viewer.js`.
   - `logs` - the logs screen viewable by admins. Builds to `logs.js`.
@@ -38,8 +38,8 @@ Currently unsupported browsers:
 Status of other browsers is unknown at this time.
 
 For more information on using the application itself:
-- [Getting Started With The Server](server/src/help/starting_server.md)
-- [Client Help](server/src/help/index.md)
+- [Getting Started With The Server](packages/fantastic-help/starting_server.md)
+- [Client Help](packages/fantastic-help/index.md)
 
 **PLEASE NOTE: a lot of the documentation is out of date because the project is still changing a lot, we're trying to keep this README relevant, but there's no guarantee regarding the other docs until the project is a bit more stable.**
 
