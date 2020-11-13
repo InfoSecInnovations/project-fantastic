@@ -8,6 +8,6 @@
   "author": "InfoSec Innovations",
   "license": "ISC",
   "dependencies": {
-    "@infosecinnovations/fantastic-utils": "*"
+    "@infosecinnovations/fantastic-utils": "0.1.0"
   }
 }

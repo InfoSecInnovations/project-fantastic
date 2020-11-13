@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@infosecinnovations/fantastic-default": "*",
-    "@infosecinnovations/fantastic-default_auth": "*"
+    "@infosecinnovations/fantastic-default": "0.1.0",
+    "@infosecinnovations/fantastic-default_auth": "0.1.0"
   }
 }

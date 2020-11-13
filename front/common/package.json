@@ -1,6 +1,6 @@
 {
   "name": "common",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@infosecinnovations/fantastic-utils": "*",
+    "@infosecinnovations/fantastic-utils": "0.1.0",
     "flexsearch": "^0.6.32",
     "snabbdom": "^1.0.1"
   }

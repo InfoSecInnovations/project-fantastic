@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "activedirectory2": "^2.0.0",
-    "@infosecinnovations/fantastic-utils": "*",
-    "@infosecinnovations/fantastic-db": "*"
+    "@infosecinnovations/fantastic-utils": "0.1.0",
+    "@infosecinnovations/fantastic-db": "0.1.0"
   }
 }

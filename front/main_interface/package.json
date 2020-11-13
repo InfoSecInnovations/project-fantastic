@@ -6,7 +6,7 @@
   "license": "ISC",
   "dependencies": {
     "alea": "^1.0.0",
-    "@infosecinnovations/fantastic-utils": "*",
+    "@infosecinnovations/fantastic-utils": "0.1.0",
     "vis-network": "^6.5.0",
     "snabbdom": "^1.0.1",
     "webpack": "^5.0.0-beta.22",
