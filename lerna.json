@@ -1,7 +1,6 @@
 {
   "packages": [
     "packages/*",
-    "main",
     "front",
     "front/*",
     "dev-test"

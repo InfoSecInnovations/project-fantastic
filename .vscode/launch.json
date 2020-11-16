@@ -11,8 +11,9 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}\\dev-test\\index.js",
       "cwd": "${workspaceFolder}\\dev-test",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start"],
       "autoAttachChildProcesses": true
     }
   ]
