@@ -4,6 +4,5 @@ node_modules
 *.db-journal
 *.db-shm
 *.db-wal
-config
 .current_version
 *.cpuprofile

@@ -5,7 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "css": "stylus output -o ../../main/src -w -m"
+    "css": "stylus output -o ../../packages/project-fantastic/src -w -m"
   },
   "author": "",
   "license": "ISC",

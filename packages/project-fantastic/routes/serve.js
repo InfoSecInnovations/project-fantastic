@@ -39,7 +39,7 @@ const svg = (file, query) => SVGSon.parse(file)
 const serve = (res, path, query) => {
   if (!path || path === '/') path = '/index.html'
   path = path.startsWith('/help') ? 
-  Path.join(__dirname, '..', 'node_modules/@infosecinnovations/fantastic-help', path.replace('/help/', ''))
+  require.resolve(path.replace('/help/', '@infosecinnovations/fantastic-help/'))
   : Path.join(__dirname, '..', `src${path}`)
   FS.readFile(path).then(file => {
     if (path.endsWith('.md')) return markdown(file.toString()).then(file => !res.aborted && res.end(file))
