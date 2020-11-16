@@ -1,4 +1,4 @@
-const RunPowerShell = require('@infosecinnovations/fantastic-cli/runpowershell')
+const RunPowerShell = require('@infosecinnovations/fantastic-powershell/runpowershell')
 const FS = require('fs').promises
 
 const states = [

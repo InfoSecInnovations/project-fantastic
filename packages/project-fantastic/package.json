@@ -6,7 +6,7 @@
   "author": "InfoSec Innovations",
   "license": "ISC",
   "dependencies": {
-    "@infosecinnovations/fantastic-cli": "^0.1.4",
+    "@infosecinnovations/fantastic-powershell": "^0.1.4",
     "@infosecinnovations/fantastic-db": "^0.1.4",
     "@infosecinnovations/fantastic-help": "^0.1.4",
     "@infosecinnovations/fantastic-utils": "^0.1.4",

@@ -1,5 +1,5 @@
 {
-  "name": "@infosecinnovations/fantastic-cli",
+  "name": "@infosecinnovations/fantastic-powershell",
   "version": "0.1.4",
   "description": "Run PowerShell commands either locally or on a remote host",
   "scripts": {

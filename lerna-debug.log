@@ -1,11 +1,11 @@
-49 error Error: Command failed: git add -- packages/fantastic-default/package.json packages/fantastic-db/package.json packages/fantastic-db/package-lock.json packages/fantastic-utils/package.json packages/fantastic-utils/package-lock.json packages/fantastic-help/package.json packages/fantastic-cli/package.json packages/fantastic-default_auth/package.json packages/fantastic-default_auth/package-lock.json packages/fantastic-active_directory/package.json packages/fantastic-active_directory/package-lock.json main/package.json main/package-lock.json lerna.json
+49 error Error: Command failed: git add -- packages/fantastic-default/package.json packages/fantastic-db/package.json packages/fantastic-db/package-lock.json packages/fantastic-utils/package.json packages/fantastic-utils/package-lock.json packages/fantastic-help/package.json packages/fantastic-powershell/package.json packages/fantastic-default_auth/package.json packages/fantastic-default_auth/package-lock.json packages/fantastic-active_directory/package.json packages/fantastic-active_directory/package-lock.json main/package.json main/package-lock.json lerna.json
 49 error warning: LF will be replaced by CRLF in lerna.json.
 49 error The file will have its original line endings in your working directory.
 49 error warning: LF will be replaced by CRLF in main/package.json.
 49 error The file will have its original line endings in your working directory.
 49 error warning: LF will be replaced by CRLF in packages/fantastic-active_directory/package.json.
 49 error The file will have its original line endings in your working directory.
-49 error warning: LF will be replaced by CRLF in packages/fantastic-cli/package.json.
+49 error warning: LF will be replaced by CRLF in packages/fantastic-powershell/package.json.
 49 error The file will have its original line endings in your working directory.
 49 error warning: LF will be replaced by CRLF in packages/fantastic-db/package.json.
 49 error The file will have its original line endings in your working directory.

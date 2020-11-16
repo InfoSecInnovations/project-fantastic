@@ -1,5 +1,5 @@
 const DB = require('../../db')
-const RunPowerShell = require('@infosecinnovations/fantastic-cli/runpowershell')
+const RunPowerShell = require('@infosecinnovations/fantastic-powershell/runpowershell')
 
 /**
  * Find hosts on our network we can remotely access using PowerShell
