@@ -11,8 +11,8 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "program": "${workspaceFolder}\\server\\index.js",
-      "cwd": "${workspaceFolder}\\server",
+      "program": "${workspaceFolder}\\dev-test\\index.js",
+      "cwd": "${workspaceFolder}\\dev-test",
       "autoAttachChildProcesses": true
     }
   ]

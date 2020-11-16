@@ -5,6 +5,5 @@ node_modules
 *.db-shm
 *.db-wal
 config
-cert
 .current_version
 *.cpuprofile

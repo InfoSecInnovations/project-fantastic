@@ -1,12 +1,8 @@
-const GetConfigPath = require('./getconfigpath')
-const Path = require('path')
-const FS = require('fs').promises
+const FS = require('fs-extra')
 
 /**
  * Load the config file
  */
-const getConfig = () => GetConfigPath()
-  .then(res => FS.readFile(Path.join(res, 'config.json')))
-  .then(res => JSON.parse(res))
+const getConfig = () => FS.readJSON('config.json')
 
 module.exports = getConfig

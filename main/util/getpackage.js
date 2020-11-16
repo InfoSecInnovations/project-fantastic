@@ -1,16 +1,14 @@
-const GetConfigPath = require('./getconfigpath')
-const Path = require('path')
 const Decache = require('decache')
+const Path = require('path')
 
 /**
- * get an npm module installed in the config directory by name
+ * get an npm module by name
  * @param {string} name 
  */
-const getPackage = name => GetConfigPath()
-  .then(res => {
-    const module_path = Path.join(res, 'node_modules', name)
-    Decache(module_path) // we use decache so that changed scripts will reload while the server is running
-    return require(module_path)
-  })
+const getPackage = name => {
+  const path = Path.join(process.cwd(), 'node_modules', name)
+  Decache(path) // we use decache so that changed scripts will reload while the server is running
+  return require(path)
+}
 
 module.exports = getPackage

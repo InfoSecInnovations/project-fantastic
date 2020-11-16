@@ -1,4 +1,3 @@
-const GetConfigPath = require('./getconfigpath')
 const Path = require('path')
 const FS = require('fs').promises
 
@@ -7,8 +6,7 @@ const FS = require('fs').promises
  * @param {string} name 
  * @param {'actions' | 'commands' | 'tests'} type
  */
-const getPackageScripts = (name, type) => GetConfigPath()
-  .then(res => FS.readdir(Path.join(res, 'node_modules', name, type)))
+const getPackageScripts = (name, type) => FS.readdir(Path.join('node_modules', name, type))
   .then(res => res.map(v => v.slice(0, v.lastIndexOf('.json'))))
   .catch(() => [])
 

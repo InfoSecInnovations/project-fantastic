@@ -14,7 +14,7 @@ const logOut = async (res, req) => {
   const header = req.getHeader('cookie')
   const config = await GetConfig()
   const session_id = GetCookie(header, cookie_name)
-  const auth_module = await GetPackage(config.authentication)
+  const auth_module = GetPackage(config.authentication)
   await auth_module.invalidate(session_id)
   return redirect(res)
 }

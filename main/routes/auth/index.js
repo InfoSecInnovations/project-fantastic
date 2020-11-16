@@ -13,7 +13,7 @@ const auth = async header => {
   const config = await GetConfig()
   const session_id = GetCookie(header, cookie_name)
   if (!session_id) return
-  const auth_module = await GetPackage(config.authentication)
+  const auth_module = GetPackage(config.authentication)
   return await auth_module.verify(session_id)
 }
 module.exports = auth

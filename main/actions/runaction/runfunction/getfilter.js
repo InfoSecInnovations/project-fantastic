@@ -1,13 +1,9 @@
 const FS = require('fs-extra')
-const GetConfigPath = require('../../../util/getconfigpath')
-const Path = require('path')
 
 /**
  * 
  * @param {{} | undefined} filter 
  */
-const getFilter = async filter => filter && GetConfigPath()
-  .then(res => FS.readJson(Path.join(res, filter.file), {throws: false}))
-  .catch(() => null)
+const getFilter = async filter => filter && FS.readJson(filter.file, {throws: false}).catch(() => null)
 
 module.exports = getFilter

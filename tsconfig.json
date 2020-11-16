@@ -1,7 +1,7 @@
 {
   "include": [
     "main/**/*",
-    "packages/**/*"
+    "packages/**/*", "dev-test"
   ],
   "exclude": [
     "node_modules",
