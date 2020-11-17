@@ -10,5 +10,6 @@
   "license": "ISC",
   "bin": {
     "init": "./index.js"
-  }
+  },
+  "gitHead": "964c580e20870e594383b07509bde13eb815df21"
 }
