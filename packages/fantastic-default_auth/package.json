@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-default_auth",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A basic user logon system to use for Fantastic in a home environment",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@infosecinnovations/fantastic-db": "^0.1.6",
-    "@infosecinnovations/fantastic-utils": "^0.1.6",
+    "@infosecinnovations/fantastic-db": "^0.1.7",
+    "@infosecinnovations/fantastic-utils": "^0.1.7",
     "bcrypt": "^4.0.1"
   },
   "gitHead": "b43d2284d9c984b26f3722e2c5c47a6a51f01d0c",
