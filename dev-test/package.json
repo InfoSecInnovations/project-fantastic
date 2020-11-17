@@ -1,7 +1,7 @@
 {
   "name": "dev-test",
   "private": true,
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Run this to test changes to the other packages",
   "author": "InfoSec Innovations",
   "license": "ISC",
@@ -14,8 +14,8 @@
     "start": "fantastic"
   },
   "dependencies": {
-    "@infosecinnovations/project-fantastic": "^0.1.4",
-    "@infosecinnovations/fantastic-default": "^0.1.4",
-    "@infosecinnovations/fantastic-default_auth": "^0.1.4"
+    "@infosecinnovations/fantastic-default": "^0.1.5",
+    "@infosecinnovations/fantastic-default_auth": "^0.1.5",
+    "@infosecinnovations/project-fantastic": "^0.1.5"
   }
 }

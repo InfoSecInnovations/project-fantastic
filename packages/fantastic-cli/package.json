@@ -1,0 +1,14 @@
+{
+  "name": "fantastic-cli",
+  "version": "0.1.5",
+  "description": "Command line tool to install the Fantastic network vizualisation and security app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "InfoSec Innovations",
+  "license": "ISC",
+  "bin": {
+    "init": "./index.js"
+  }
+}
