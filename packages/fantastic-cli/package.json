@@ -2,17 +2,20 @@
   "name": "fantastic-cli",
   "version": "0.1.7",
   "description": "Command line tool to install the Fantastic network vizualisation and security app",
-  "main": "index.js",
+  "main": "init.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "InfoSec Innovations",
   "license": "ISC",
   "bin": {
-    "init": "./index.js"
+    "init": "./init.js"
   },
   "gitHead": "b43d2284d9c984b26f3722e2c5c47a6a51f01d0c",
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "fs-extra": "^9.0.1"
   }
 }
