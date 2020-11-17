@@ -16,7 +16,7 @@ const getTitle = body => {
   return (body.substring(start_index + 4, end_index))
 }
 
-const markdown = file => FS.readFile('src/markdown_template.html')
+const markdown = file => FS.readFile(Path.join(__dirname, '..', `src/markdown_template.html`))
   .then(res => {
     const body = md.render(file)
     const title = getTitle(body)
