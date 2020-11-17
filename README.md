@@ -5,9 +5,15 @@
 ![Fantastic UI](packages/fantastic-help/images/fantastic-ui.png)
 Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infosecinnovations.com/) for exploring computer networks. It aims to provide a way for network security novices and professionals alike to find and fix security issues. If you don't know where to start, the quest system (work in progress!) will guide you, or you can ignore it and try out the various options by yourself.
 
+## Requirements
+
+- We'll only be supporting Windows 10 for the forseeable future, but other platforms may be added if there's a demand for it.
+- Node.js >= 12
+- If you don't have git cli installed you will need that first. You can install it using [Chocolatey](https://chocolatey.org/packages/git) or [GitHub Desktop](https://desktop.github.com/).
+
 ## Getting Started
 
-// TODO: instructions for CLI app
+To install Fantastic, simply create a directory where you want to run the server from and run `npx fantastic-cli init`.
 
 Once Fantastic has been installed, use `npm start` as administrator to run it. You can access the client at `localhost:5000` by default. If using the default authentication module, you can log in with the username `admin` and the password `changeme`. It is strongly advised to change this to a stronger password if other people have access to your network, as a Fantastic admin can perform important modifications to your machine's configuration!
 
@@ -27,8 +33,6 @@ For more information on using the application itself:
 
 ### Installation
 
-- We'll only be supporting Windows 10 for the forseeable future, but other platforms may be added if there's a demand for it.
-- If you don't have git cli installed you will need that first. You can install it using [Chocolatey](https://chocolatey.org/packages/git) or [GitHub Desktop](https://desktop.github.com/).
 - Clone the repository and run `npm i` inside the repository root.
 - Run `npx lerna bootstrap` to set up all the packages that make up the Fantastic development environment.
 
