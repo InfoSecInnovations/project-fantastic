@@ -4,6 +4,7 @@ const {spawn} = require('child_process')
 const FS = require('fs-extra')
 const DefaultConfig = require('./defaultconfig')
 const Scripts = require('./scripts')
+const Path = require('path')
 
 const cmd = process.platform === 'win32'? 'npm.cmd' : 'npm'
 const modules = [
@@ -20,8 +21,10 @@ init.on('close', code => {
     if (code !== 0) return console.error(`npm install failed with exit code ${code}`)
     Promise.all([
       FS.readJSON('package.json').then(json => FS.writeJSON('package.json', {...json, scripts: {...json.scripts, ...Scripts}})),
-      FS.writeJSON('config.json', DefaultConfig)
+      FS.writeJSON('config.json', DefaultConfig),
+      FS.copy(Path.join(__dirname, 'cert'), 'cert')
     ])
-    .then(() => console.log('Fantastic installed successfully'))  
+    .then(() => console.log('Fantastic installed successfully'))
+    .catch(err => console.error(`Fantastic initialization failed: ${err}`))
   })
 })
