@@ -7,7 +7,7 @@ const Scripts = require('./scripts')
 const Path = require('path')
 
 const npm_cmd = process.platform === 'win32'? 'npm.cmd' : 'npm'
-const npx_cmd = process.platform === 'npx'
+const npx_cmd = 'npx'
 const modules = [
   '@infosecinnovations/project-fantastic',
   '@infosecinnovations/fantastic-default',
