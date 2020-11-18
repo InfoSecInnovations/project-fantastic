@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "InfoSec Innovations",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bin": {
     "init": "./init.js"
   },
@@ -17,5 +17,11 @@
   },
   "dependencies": {
     "fs-extra": "^9.0.1"
+  },
+  "homepage": "https://github.com/besimorhino/project-fantastic",
+  "bugs": "https://github.com/besimorhino/project-fantastic/issues",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/besimorhino/project-fantastic.git"
   }
 }

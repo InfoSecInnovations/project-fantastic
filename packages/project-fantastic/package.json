@@ -4,7 +4,6 @@
   "description": "A GUI tool to visualize computer networks and perform security checks and improvements.",
   "main": "index.js",
   "author": "InfoSec Innovations",
-  "license": "ISC",
   "dependencies": {
     "@infosecinnovations/fantastic-db": "^0.1.7",
     "@infosecinnovations/fantastic-help": "^0.1.12",
@@ -27,5 +26,12 @@
   "gitHead": "b43d2284d9c984b26f3722e2c5c47a6a51f01d0c",
   "publishConfig": {
     "access": "public"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/besimorhino/project-fantastic",
+  "bugs": "https://github.com/besimorhino/project-fantastic/issues",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/besimorhino/project-fantastic.git"
   }
 }
