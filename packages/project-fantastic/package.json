@@ -1,14 +1,14 @@
 {
   "name": "@infosecinnovations/project-fantastic",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "A GUI tool to visualize computer networks and perform security checks and improvements.",
   "main": "index.js",
   "author": "InfoSec Innovations",
   "dependencies": {
-    "@infosecinnovations/fantastic-db": "^0.1.7",
-    "@infosecinnovations/fantastic-help": "^0.1.12",
-    "@infosecinnovations/fantastic-powershell": "^0.1.7",
-    "@infosecinnovations/fantastic-utils": "^0.1.7",
+    "@infosecinnovations/fantastic-db": "^0.1.13",
+    "@infosecinnovations/fantastic-help": "^0.1.13",
+    "@infosecinnovations/fantastic-powershell": "^0.1.13",
+    "@infosecinnovations/fantastic-utils": "^0.1.13",
     "decache": "^4.6.0",
     "fs-extra": "^8.1.0",
     "httpolyglot": "^0.1.2",
@@ -31,7 +31,7 @@
   "homepage": "https://github.com/besimorhino/project-fantastic",
   "bugs": "https://github.com/besimorhino/project-fantastic/issues",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/besimorhino/project-fantastic.git"
+    "type": "git",
+    "url": "https://github.com/besimorhino/project-fantastic.git"
   }
 }
