@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-default",
-  "version": "0.1.7",
+  "version": "0.1.13",
   "description": "The default content for Fantastic",
   "main": "index.js",
   "directories": {
@@ -18,7 +18,7 @@
   "homepage": "https://github.com/besimorhino/project-fantastic",
   "bugs": "https://github.com/besimorhino/project-fantastic/issues",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/besimorhino/project-fantastic.git"
+    "type": "git",
+    "url": "https://github.com/besimorhino/project-fantastic.git"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-utils",
-  "version": "0.1.7",
+  "version": "0.1.13",
   "description": "Utility functions for use with Fantastic",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +14,7 @@
   "homepage": "https://github.com/besimorhino/project-fantastic",
   "bugs": "https://github.com/besimorhino/project-fantastic/issues",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/besimorhino/project-fantastic.git"
+    "type": "git",
+    "url": "https://github.com/besimorhino/project-fantastic.git"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-active_directory",
-  "version": "0.1.7",
+  "version": "0.1.13",
   "description": "Active Directory authentication module for Fantastic",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,8 @@
   },
   "author": "InfoSec Innovations",
   "dependencies": {
-    "@infosecinnovations/fantastic-db": "^0.1.7",
-    "@infosecinnovations/fantastic-utils": "^0.1.7",
+    "@infosecinnovations/fantastic-db": "^0.1.13",
+    "@infosecinnovations/fantastic-utils": "^0.1.13",
     "activedirectory2": "^2.0.0"
   },
   "gitHead": "b43d2284d9c984b26f3722e2c5c47a6a51f01d0c",
@@ -20,7 +20,7 @@
   "homepage": "https://github.com/besimorhino/project-fantastic",
   "bugs": "https://github.com/besimorhino/project-fantastic/issues",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/besimorhino/project-fantastic.git"
+    "type": "git",
+    "url": "https://github.com/besimorhino/project-fantastic.git"
   }
 }
