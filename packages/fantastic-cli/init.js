@@ -52,7 +52,8 @@ const run = async () => {
       while (!username) username = await get_input('Please enter a valid username: ')
       let password = await get_input('Please enter admin password: ', true)
       while (!password) password = await get_input('Please enter a valid password: ')
-      await require(auth_module).setAdmin({username, password})
+      const auth = require(Path.join(process.cwd(), 'node_modules', auth_module))
+      await auth.setAdmin({username, password})
     }
     console.log('Fantastic installed successfully')
   }
