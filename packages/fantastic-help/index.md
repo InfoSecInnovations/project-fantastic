@@ -2,11 +2,13 @@
 
 Fantastic is a visual tool to explore a computer network, analyze security flaws, and help fix them.
 
+If you are the server administrator, you may want to check out [Administrating the Fantastic Server](server.md).
+
 ## Quick Start
 
 Once the server is up and running, connect to the server's address and port (the default is 5000) and you should be greeted by the application's interface.
 
-If you're using the supplied default authentication module you can simply enter a username and password and click register to create an account with basic access, or use the default admin account which has the username `admin` and the password `changeme`. We recommend changing the admin password if other people have access to the tool!
+If you're using the supplied default authentication module you can simply enter a username and password and click register to create an account with basic access, or use the admin account that was created during installation.
 
 Currently supported browsers:
   - Google Chrome
