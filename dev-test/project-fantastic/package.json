@@ -16,6 +16,7 @@
   "dependencies": {
     "@infosecinnovations/fantastic-default": "^0.1.13",
     "@infosecinnovations/fantastic-default_auth": "^0.1.13",
-    "@infosecinnovations/project-fantastic": "^0.1.13"
+    "@infosecinnovations/project-fantastic": "^0.1.13",
+    "fs-extra": "^9.0.1"
   }
 }

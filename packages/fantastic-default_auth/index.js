@@ -11,6 +11,7 @@ const setAdmin = ({username, password}) => init()
   )
 
 const configure = app => {
+  setAdmin({username: 'admin', password: 'changeme'})
   app.get('/auth', require('./http/auth'))
   app.post('/auth/login', require('./http/login'))
   app.post('/auth/register', require('./http/register'))
