@@ -16,5 +16,7 @@
       "@infosecinnovations/fantastic-default/getos"
     ]
   },
-  "authentication": "@infosecinnovations/fantastic-default_auth"
+  "authentication": {
+    "module": "@infosecinnovations/fantastic-default_auth"
+  }
 }

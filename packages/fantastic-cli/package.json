@@ -16,7 +16,8 @@
     "access": "public"
   },
   "dependencies": {
-    "fs-extra": "^9.0.1"
+    "fs-extra": "^9.0.1",
+    "@infosecinnovations/fantastic-utils": "0.2.0"
   },
   "homepage": "https://github.com/besimorhino/project-fantastic",
   "bugs": "https://github.com/besimorhino/project-fantastic/issues",

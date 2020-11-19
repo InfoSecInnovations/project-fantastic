@@ -9,6 +9,7 @@
     "@infosecinnovations/fantastic-help": "^0.2.0",
     "@infosecinnovations/fantastic-powershell": "^0.2.0",
     "@infosecinnovations/fantastic-utils": "^0.2.0",
+    "@infosecinnovations/fantastic-auth_factory": "^0.2.1",
     "decache": "^4.6.0",
     "fs-extra": "^8.1.0",
     "httpolyglot": "^0.1.2",

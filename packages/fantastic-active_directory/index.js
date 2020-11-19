@@ -3,7 +3,7 @@ const {init} = require('./db')
 
 init()
 
-const configure = app => {
+const initializeRoutes = app => {
   app.get('/auth', require('./http/auth'))
   app.get('/auth/myaccount', require('./http/myaccount'))
   app.post('/auth/login', require('./http/login'))
@@ -16,4 +16,4 @@ const configure = app => {
   })
 }
 
-module.exports = {configure, invalidate: require('./accounts/invalidate'), verify: require('./accounts/verify'), getByID: require('./accounts/getbyid'), getByUsername: require('./accounts/getbyusername')}
+module.exports = {initializeRoutes, invalidate: require('./accounts/invalidate'), verify: require('./accounts/verify'), getByID: require('./accounts/getbyid'), getByUsername: require('./accounts/getbyusername')}
