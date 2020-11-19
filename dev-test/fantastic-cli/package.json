@@ -1,7 +1,7 @@
 {
   "name": "fantastic-cli-test",
   "private": true,
-  "version": "0.1.13",
+  "version": "0.2.0",
   "description": "Run this to test fantastic-cli",
   "author": "InfoSec Innovations",
   "license": "ISC",
@@ -14,9 +14,9 @@
     "start": "node run.js"
   },
   "dependencies": {
-    "fantastic-cli": "^0.1.14",
-    "fs-extra": "^9.0.1",
-    "@infosecinnovations/fantastic-default_auth": "0.1.13"
+    "@infosecinnovations/fantastic-default_auth": "^0.2.0",
+    "fantastic-cli": "^0.2.0",
+    "fs-extra": "^9.0.1"
   },
   "bugs": {
     "url": "https://github.com/besimorhino/project-fantastic/issues"
@@ -26,6 +26,5 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
   "keywords": []
 }
