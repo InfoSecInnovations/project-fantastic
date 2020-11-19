@@ -11,7 +11,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "cwd": "${workspaceFolder}\\dev-test",
+      "cwd": "${workspaceFolder}\\dev-test\\project-fantastic",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["start"],
       "autoAttachChildProcesses": true

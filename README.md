@@ -38,7 +38,7 @@ For more information on using the application itself:
 
 ### Test environment
 
-There's a typical environment set up in the `dev-test` directory so you can test modifications to the source code easily. Just run `npm start` in the `dev-test` directory to start Fantastic, there is also a `launch.json` included for Visual Studio Code to run this command and debug.
+There's a typical environment set up in the `dev-test/project-fantastic` directory so you can test modifications to the source code easily. Just run `npm start` in the `dev-test/project-fantastic` directory to start Fantastic, there is also a `launch.json` included for Visual Studio Code to run this command and debug.
 
 ### Front-end
 
