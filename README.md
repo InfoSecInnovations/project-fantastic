@@ -9,7 +9,7 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 - We'll only be supporting Windows 10 for the forseeable future, but other platforms may be added if there's a demand for it.
 - Node.js >= 12
-- If you don't have git cli installed you will need that first. You can install it using [Chocolatey](https://chocolatey.org/packages/git) or [GitHub Desktop](https://desktop.github.com/).
+- If you don't have git cli installed you will need that first. You can install it using [Chocolatey](https://chocolatey.org/packages/git) or [Git for Windows](https://git-scm.com/download/win).
 
 ## Getting Started
 
@@ -57,6 +57,6 @@ The CSS is built using [Stylus](https://stylus-lang.com/). You can run the build
 
 ## Known issues
 
-- https://github.com/webpack/webpack/issues/12006 prevents the client from building in 'development' mode, so please stick with 'production' until this has been fixed (yes, this is annoying for debugging purposes).
+- https://github.com/webpack/webpack/issues/12006 prevents the client from building in 'development' mode, so please stick with 'production' mode in the webpack config until this has been fixed (yes, this is annoying for debugging purposes).
 
 Please contact [Mick](https://github.com/besimorhino) or [Sebastian](https://github.com/sebovzeoueb) if you need more information about the project.

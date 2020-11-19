@@ -2,15 +2,6 @@
 
 Actions allow you to interact with hosts on the network, they can simply provide you with information, or allow you to modify the host.
 
-To create your own actions, make an npm package which returns an object indicating the filenames of each action. Your `index.js` could look like this:
-
-```
-{
-  action1: 'action1.json',
-  action2: 'action2.json
-}
-```
-
 Each action is a json file something like this:
 
 ```
@@ -41,7 +32,20 @@ Each action is a json file something like this:
             }
           }
         ]
-      }
+      },
+      "static": [
+        {
+          "label": "Any",
+          "followups": [
+            {
+              "function": "get_rules",
+              "data": {
+                "profile": "Any"
+              }
+            }
+          ]
+        }
+      ]
     },
     "enable_profile": {
       "name": "Enable Profile",
@@ -159,6 +163,7 @@ There must always be a `run` function, this is the entrypoint for the action. Th
 - `method` : possible values are `invoke` and `cimsession`. `invoke` will wrap the command in a script block and invoke it on the host, `cimsession` should be used on commands which support the `-CimSession` parameter.
 - `json` : *Optional.* if true, `ConvertTo-Json` will be appended to the command and the output will be parsed as a JSON object instead of a string. Parsing of non-JSON output isn't well supported at the moment, so this should be enabled if the action returns a result. 
 - `result` : *Optional* how the output of the command will be processed into a result object. See below. If this isn't specified, the command will simply be run on the host, and nothing will be returned.
+- `static` : *Optional* a result object that will always be displayed along with the other results. In the above example this is used to display followup actions relating to the "Any" Firewall profile, which isn't a "real" profile, but is used by a lot of rules.
 
 ### Output mapping
 
