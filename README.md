@@ -13,9 +13,9 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 ## Getting Started
 
-To install Fantastic, simply create a directory where you want to run the server from and run `npx fantastic-cli init`.
+To install Fantastic, simply create a directory where you want to run the server from and run `npx fantastic-cli init`. Depending on the authentication system used, you may have to configure an admin account.
 
-Once Fantastic has been installed, use `npm start` as administrator to run it. You can access the client at `localhost:5000` by default. If using the default authentication module, you can log in with the username `admin` and the password `changeme`. It is strongly advised to change this to a stronger password if other people have access to your network, as a Fantastic admin can perform important modifications to your machine's configuration!
+Once Fantastic has been installed, use `npm start` as administrator to run it. You can access the client at `localhost:5000` by default.
 
 Currently supported browsers:
   - Google Chrome
@@ -38,7 +38,9 @@ For more information on using the application itself:
 
 ### Test environment
 
-There's a typical environment set up in the `dev-test/project-fantastic` directory so you can test modifications to the source code easily. Just run `npm start` in the `dev-test/project-fantastic` directory to start Fantastic, there is also a `launch.json` included for Visual Studio Code to run this command and debug.
+There's a typical environment set up in the `dev-test/project-fantastic` directory so you can test modifications to the source code easily. Just run `npm start` in the `dev-test/project-fantastic` directory to start Fantastic, there is also a `launch.json` included for Visual Studio Code to run this command and debug. The admin account will have the username 'admin' and the password 'changeme' by default. You should probably change it to something more secure as Fantastic is a powerful tool when you have admin access!
+
+There's also a test set up in `dev-test/fantastic-cli` to test out the CLI installer app. Note that the dependencies will be pulled from npm and not from the local repository, so only local changes to the fantastic-cli package itself will be reflected in the test. `npm start` will empty the test directory and run the installer inside it again.
 
 ### Front-end
 
@@ -52,5 +54,9 @@ The command to build them is `npm run js`. If you run this in the top level `fro
 The CSS is built using [Stylus](https://stylus-lang.com/). You can run the build by going to the `front/css` directory and running `npm run css`. The main files are in the `output` directory: each `.styl` file from this directory will be built to a corresponding `.css` file on the server.
 
 **PLEASE NOTE: a lot of the documentation is out of date because the project is still changing a lot, we're trying to keep this README relevant, but there's no guarantee regarding the other docs until the project is a bit more stable.**
+
+## Known issues
+
+- https://github.com/webpack/webpack/issues/12006 prevents the client from building in 'development' mode, so please stick with 'production' until this has been fixed (yes, this is annoying for debugging purposes).
 
 Please contact [Mick](https://github.com/besimorhino) or [Sebastian](https://github.com/sebovzeoueb) if you need more information about the project.
