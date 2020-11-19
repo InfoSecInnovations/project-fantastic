@@ -1,16 +1,14 @@
 const {get, init} = require('./db')
 const CreateAccount = require('./accounts/createaccount')
 const Serve = require('./http/serve')
-const GetConfig = require('./utils/getconfig')
 
-init()
-.then(() => GetConfig())
-.then(config => get({table: 'users', columns: ['user_id'], conditions: {columns: {username: config.admin_account.username, role: 'admin'}, combine: 'OR'}})
-  .then(row => {
-    if (!row) return CreateAccount(config.admin_account.username, config.admin_account.password, 'admin')
-  })
-)
-.catch(err => console.log(err.message))
+const setAdmin = ({username, password}) => init()
+  .then(() =>
+    get({table: 'users', columns: ['user_id'], conditions: {columns: {username: username, role: 'admin'}, combine: 'OR'}})
+    .then(row => {
+      if (!row) return CreateAccount(username, password, 'admin')
+    })
+  )
 
 const configure = app => {
   app.get('/auth', require('./http/auth'))
@@ -33,4 +31,4 @@ const configure = app => {
   })
 }
 
-module.exports = {configure, verify: require('./accounts/verify'), invalidate: require('./accounts/invalidate'), getByID: require('./accounts/getbyid'), getByUsername: require('./accounts/getbyusername')}
+module.exports = {configure, verify: require('./accounts/verify'), invalidate: require('./accounts/invalidate'), getByID: require('./accounts/getbyid'), getByUsername: require('./accounts/getbyusername'), setAdmin}

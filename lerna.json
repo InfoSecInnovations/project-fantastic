@@ -3,7 +3,7 @@
     "packages/*",
     "front",
     "front/*",
-    "dev-test"
+    "dev-test/*"
   ],
   "version": "0.1.14"
 }

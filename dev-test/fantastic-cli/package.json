@@ -1,0 +1,31 @@
+{
+  "name": "fantastic-cli-test",
+  "private": true,
+  "version": "0.1.13",
+  "description": "Run this to test fantastic-cli",
+  "author": "InfoSec Innovations",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/besimorhino/project-fantastic.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "start": "node run.js"
+  },
+  "dependencies": {
+    "fantastic-cli": "^0.1.14",
+    "fs-extra": "^9.0.1",
+    "@infosecinnovations/fantastic-default_auth": "0.1.13"
+  },
+  "bugs": {
+    "url": "https://github.com/besimorhino/project-fantastic/issues"
+  },
+  "homepage": "https://github.com/besimorhino/project-fantastic#readme",
+  "main": "run.js",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {},
+  "keywords": []
+}
