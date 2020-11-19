@@ -10,8 +10,7 @@ const setAdmin = ({username, password}) => init()
     })
   )
 
-const configure = app => {
-  setAdmin({username: 'admin', password: 'changeme'})
+const initializeRoutes = app => {
   app.get('/auth', require('./http/auth'))
   app.post('/auth/login', require('./http/login'))
   app.post('/auth/register', require('./http/register'))
@@ -32,4 +31,4 @@ const configure = app => {
   })
 }
 
-module.exports = {configure, verify: require('./accounts/verify'), invalidate: require('./accounts/invalidate'), getByID: require('./accounts/getbyid'), getByUsername: require('./accounts/getbyusername'), setAdmin}
+module.exports = {initializeRoutes, verify: require('./accounts/verify'), invalidate: require('./accounts/invalidate'), getByID: require('./accounts/getbyid'), getByUsername: require('./accounts/getbyusername'), configure: require('./configure')}

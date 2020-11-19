@@ -2,11 +2,11 @@ const { transaction } = require('../db')
 const Abort = require('./abort')
 const Auth = require('./auth')
 
-const getQuestHistory = (res, req) => {
+const getQuestHistory = (auth_module, res, req) => {
   Abort(res)
   const start = Date.now()
   console.log(`getQuestHistory: http request for quest history incoming...`)
-  Auth(req.getHeader('cookie'))
+  Auth(auth_module, req.getHeader('cookie'))
   .then(async user => {
     if (!user) return !res.aborted && res.end()
     const db = await transaction()

@@ -1,9 +1,10 @@
-const FS = require('fs').promises
+const FS = require('fs-extra')
 const Path = require('path')
+const base = require('../defaultconfig.js')
 
-const getConfig = () =>
-  FS.readFile(Path.join(__dirname, '../config.json'))
-  .catch(() => FS.readFile(Path.join(__dirname, '../default_config.json')))
-  .then(file => JSON.parse(file))
+const getConfig = async () => {
+  const custom = await FS.readJSON(Path.join(process.cwd(), 'config.json')).then(res => res.authentication.config || {}).catch(() => ({}))
+  return {...base, ...custom}
+}
 
 module.exports = getConfig
