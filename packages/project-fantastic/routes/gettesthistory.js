@@ -1,8 +1,7 @@
 const { transaction } = require('../db')
 
-const getQuestHistory = async (user, res, req) => {
+const getQuestHistory = async (user, res, req, query) => {
   const start = Date.now()
-
   console.log(`getTestHistory: http request for test history incoming...`)
   const db = await transaction()
   const rows = await db.all({

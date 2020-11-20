@@ -1,7 +1,7 @@
 const Serve = require('./serve')
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 
-const main = (user, res, req) => {
+const main = (user, res, req, query) => {
   if (!user) {
     res.writeStatus('302')
     res.writeHeader('Location', '/auth')

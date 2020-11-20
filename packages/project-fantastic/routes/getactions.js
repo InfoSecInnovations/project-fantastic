@@ -1,7 +1,7 @@
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 const GetPackagedData = require('../util/getpackageddata')
 
-const getActions = (user, res, req, actions) => {
+const getActions = (user, res, req, query, actions) => {
   console.log('getActions: received http request to get available actions...')
   if (!user) return !res.aborted && res.end()
   Promise.all(actions

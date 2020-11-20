@@ -1,9 +1,7 @@
 const { all } = require('../db')
-const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
 
-const getResults = (user, res, req) => {
+const getResults = (user, res, req, query) => {
   const start = Date.now()
-  const query = ParseQuery(req.getQuery())
   console.log(`getResults: http request for results from ${query.nodes.length} nodes incoming...`)
   all({
     table: 'action_history', 
