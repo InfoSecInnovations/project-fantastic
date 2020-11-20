@@ -1,12 +1,10 @@
 const DB = require('../db')
-const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 const End = require('./end')
 
-const getNodes = (user, res, req) => {
+const getNodes = (user, res, req, query) => {
   console.log('getNodes: http request for nodes incoming...')
   const start = Date.now()
-  const query = ParseQuery(req.getQuery())
   if (!HasRole(user, 'user')) return End(res)
   console.log(`getNodes: from ${Math.floor((Date.now() - query.date) / 1000 / 60)} minutes ago`)
   console.log(`getNodes: connection type: ${query.connection_type}`)

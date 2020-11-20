@@ -2,7 +2,7 @@ const GetPackagedData = require('../util/getpackageddata')
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 const GetAbsolutePath = require('../util/getabsolutedatapath')
 
-const getQuests = (user, res, req, tests) => { // TODO: this should get daily quests, instead of all of them.
+const getQuests = (user, res, req, query, tests) => { // TODO: this should get daily quests, instead of all of them.
   console.log('getQuests: received http request to get available quests...')
   Promise.all(tests.map(v => GetPackagedData(v, 'tests').then(a => ({...a, key: v}))))
   .then(tests => tests.filter(v => v.quest))

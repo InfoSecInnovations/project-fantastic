@@ -1,11 +1,9 @@
 const End = require('./end')
-const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
 const {transaction, OPEN_READONLY} = require('../db')
 const GetData = require('../db/getuserhistory/getdata')
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 
-const getLogs = async (user, res, req, auth_module) => {
-  const query = ParseQuery(req.getQuery())
+const getLogs = async (user, res, req, query, auth_module) => {
   if (!HasRole(user, 'admin')) return End(res)
   const db = await transaction(OPEN_READONLY)
   const page = (query && query.page) || 0

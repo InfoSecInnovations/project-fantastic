@@ -1,7 +1,7 @@
 const GetPackagedData = require('../util/getpackageddata')
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 
-const getCommands = (user, res, req, commands) => {
+const getCommands = (user, res, req, query, commands) => {
   console.log('getCommands: received http request to get command settings...')
   if (!HasRole(user, 'user')) return !res.aborted && res.end()
   Promise.all(Object.entries(commands)
