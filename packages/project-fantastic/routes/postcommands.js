@@ -21,7 +21,7 @@ const postCommands = async (user, res, req, query, commands) => {
     console.log(`postCommands: ${module.key} command ${commands[module.key] ? 'enabled' : 'disabled'}`)
   }
   await db.close()
-  res.end()
+  !res.aborted && res.end()
   return commands
 }
 

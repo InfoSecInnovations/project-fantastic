@@ -2,49 +2,50 @@ const Abort = require('./abort')
 const Auth = require('./auth')
 const End = require('./end')
 const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
+const GetHTTPData = require('@infosecinnovations/fantastic-utils/gethttpdata')
 
 const routes = (app, auth_module, get_commands, get_actions, get_tests, update_commands) => {
 
-  const createRoute = (method, route, func, arg, allow_no_user) => {
-    app[method](route, (res, req) => {
+  const createRoute = (method, route, func, {arg, allow_no_user, http_data, callback} = {}) => {
+    app[method](route, async (res, req) => {
       Abort(res)
       const header = req.getHeader('cookie')
       const query = ParseQuery(req.getQuery())
+      const data = http_data && await GetHTTPData(res)
       Auth(auth_module, header)
       .then(user => {
         if (!allow_no_user && !user) return End(res)
         if (typeof arg === 'function') arg = arg()
-        func.apply(null, [user, res, req, query, arg])
+        return func.apply(null, [user, res, req, query, arg, data])
       })
+      .then(result => callback && callback(result))
     })
   }
 
-  createRoute('get', '/', require('./main'), null, true)
-
-  app.get('/*', require('./files'))
-  app.get('/logout', require('./auth/logout'))
-
-  createRoute('get', '/actions', require('./getactions'), get_actions)
-  createRoute('get', '/commands', require('./getcommands'), get_commands)
-  createRoute('get', '/logs', require('./getlogs'), auth_module)
+  createRoute('get', '/', require('./main'), {allow_no_user: true})
+  createRoute('get', '/actions', require('./getactions'), {arg: get_actions})
+  createRoute('get', '/commands', require('./getcommands'), {arg: get_commands})
+  createRoute('get', '/logs', require('./getlogs'), {arg: auth_module})
   createRoute('get', '/nodes', require('./getnodes'))
   createRoute('get', '/results', require('./getresults'))
-  createRoute('get', '/quests', require('./getquests'), get_tests)
+  createRoute('get', '/quests', require('./getquests'), {arg: get_tests})
   createRoute('get', '/quest_history', require('./getquesthistory'))
-  createRoute('get', '/tests', require('./gettests'), get_tests)
+  createRoute('get', '/tests', require('./gettests'), {arg: get_tests})
   createRoute('get', '/test_history', require('./gettesthistory'))
   createRoute('get', '/user', require('./getuser'))
   createRoute('get', '/user_history', require('./getuserhistory'))
 
-  createRoute('post', '/commands', (...args) => require('./postcommands').apply(null, args).then(commands => update_commands(commands)), get_commands)
+  createRoute('post', '/commands', require('./postcommands'), {arg: get_commands, callback: commands => update_commands(commands)})
+  createRoute('post', '/actions', require('./postactions'), {arg: get_actions})
+  createRoute('post', '/action_followup', require('./postactionfollowup'), {arg: get_actions})
+  createRoute('post', '/tests', require('./posttests'), {arg: get_tests, http_data: true})
+  createRoute('post', '/quests', require('./postquests'), {arg: get_tests})
+  createRoute('post', '/review', require('./postreview'))
+  createRoute('post', '/swap_favorites', require('./postswapfavorites'))
+  createRoute('post', '/favorites', require('./postfavorites'))
 
-  app.post('/actions', (res, req) => require('./postactions')(res, req, get_actions()))
-  app.post('/action_followup', (res, req) => require('./postactionfollowup')(res, req, get_actions()))
-  app.post('/quests', (res, req) => require('./postquests')(res, req, get_tests()))
-  app.post('/tests', (res, req) => require('./posttests')(res, req, get_tests()))
-  app.post('/review', require('./postreview'))
-  app.post('/swap_favorites', require('./postswapfavorites'))
-  app.post('/favorites', require('./postfavorites'))
+  app.get('/logout', require('./auth/logout'))
+  app.get('/*', require('./files'))
 }
 
 module.exports = routes
