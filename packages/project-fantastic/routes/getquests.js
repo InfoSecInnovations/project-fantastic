@@ -22,6 +22,7 @@ const getQuests = (user, res, req, query, tests) => { // TODO: this should get d
         }
       }
     }, {})
+    if (res.aborted) return
     console.log(`getQuests: sent metadata for ${Object.keys(quest_data).length} quests.`)
     res.end(JSON.stringify(quest_data))
   })

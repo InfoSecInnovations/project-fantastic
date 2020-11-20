@@ -21,6 +21,7 @@ const getTests = (user, res, req, query, tests) => {
         actions: v.actions.map(a => GetAbsolutePath(a.path, v.key))
       }
     }), {})
+    if (res.aborted) return
     console.log(`getTests: sent metadata for ${Object.keys(test_data).length} tests.`)
     res.end(JSON.stringify(test_data))
   })

@@ -21,8 +21,9 @@ const getActions = (user, res, req, query, actions) => {
         filters: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].result && v[1].result.filter}), {})
       }
     }), {})
-    console.log(`getActions: sent metadata for ${Object.keys(action_data).length} actions.`)
+    if (res.aborted) return
     res.end(JSON.stringify(action_data))
+    console.log(`getActions: sent metadata for ${Object.keys(action_data).length} actions.`)
   })
 }
 
