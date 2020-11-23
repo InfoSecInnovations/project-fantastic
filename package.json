@@ -4,7 +4,8 @@
   "description": "The full source code of Fantastic, a tool for viewing and acting upon computer networks.",
   "license": "Apache-2.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "node postinstall.js"
   },
   "repository": {
     "type": "git",
