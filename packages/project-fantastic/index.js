@@ -37,7 +37,6 @@ const main = async () => {
     if (data_process) data_process.send({type: 'commands', commands})
     return commands
   }
-  let command_data = await GetCommandData(config)
   const cert_directory = 'cert'
   const app = UWS.SSLApp({
     key_file_name: Path.join(cert_directory, 'key'),
@@ -46,6 +45,7 @@ const main = async () => {
 
   await DB.init()
   await auth_module.initializeRoutes(app)
+  let command_data = await GetCommandData(config) // command data reads from the database so we have to call it after init
   Routes(
     app,
     auth_module, 

@@ -22,7 +22,7 @@ const configure = async () => {
   if (!authConfig.groups.admin) authConfig.groups.admin = await GetInput(`Enter Fantastic admin group name (${defaultGroups.admin}): `) || defaultGroups.admin
   if (!authConfig.groups.elevated) authConfig.groups.elevated = await GetInput(`Enter Fantastic elevated access group name (${defaultGroups.elevated}): `) || defaultGroups.elevated
   if (!authConfig.groups.user) authConfig.groups.user = await GetInput(`Enter Fantastic user group name (${defaultGroups.user}): `) || defaultGroups.user
-  await FS.writeJSON(Path.join(process.cwd(), 'config.json'), config)
+  await FS.writeJSON(Path.join(process.cwd(), 'config.json'), config, {spaces: '\t'})
 }
 
 module.exports = configure
