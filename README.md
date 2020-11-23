@@ -28,6 +28,7 @@ Status of other browsers is unknown at this time.
 
 For more information on using the application itself:
 - [Client Help](packages/fantastic-help/index.md)
+- [Administrating the Fantastic Server](packages/fantastic-help/server.md)
 
 ## Development setup
 

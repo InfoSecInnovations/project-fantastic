@@ -1,6 +1,6 @@
 {
   "name": "fantastic-cli",
-  "version": "0.2.2",
+  "version": "0.3.3",
   "description": "Command line tool to install the Fantastic network vizualisation and security app",
   "main": "init.js",
   "scripts": {
@@ -11,11 +11,12 @@
   "bin": {
     "init": "./init.js"
   },
-  "gitHead": "b43d2284d9c984b26f3722e2c5c47a6a51f01d0c",
+  "gitHead": "79633df1f1f99a92538cf23ce9b2540b141fc9f1",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
+    "@infosecinnovations/fantastic-utils": "^0.3.2",
     "fs-extra": "^9.0.1"
   },
   "homepage": "https://github.com/besimorhino/project-fantastic",

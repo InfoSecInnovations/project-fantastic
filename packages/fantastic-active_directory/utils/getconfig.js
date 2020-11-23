@@ -1,9 +1,6 @@
-const FS = require('fs').promises
+const FS = require('fs-extra')
 const Path = require('path')
 
-const getConfig = () =>
-  FS.readFile(Path.join(__dirname, '../config.json'))
-  .then(file => JSON.parse(file))
-  .catch(err => console.log(`Error loading config file: ${err}`))
+const getConfig = () => FS.readJSON(Path.join(process.cwd(), 'config.json')).then(res => res.authentication.config || {}).catch(() => ({}))
 
 module.exports = getConfig

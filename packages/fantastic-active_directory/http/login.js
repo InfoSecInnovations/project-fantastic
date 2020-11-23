@@ -7,12 +7,12 @@ const {get, update, insert} = require('../db')
 
 const error = 'Invalid Active Directory login. If the problem persists please contact the server administrator.'
 
-const login = (res, req) => {
+const login = (res, req, credentials) => {
   res.onAborted(() => res.aborted = true)
   GetHTTPData(res)
   .then(async data => {
     const json = ParseQuery(data)
-    const ad = await ActiveDirectory()
+    const ad = await ActiveDirectory(credentials.username, credentials.password)
     try {
       const auth = await ad.authenticate(json.username, json.password)
       if (auth) {
