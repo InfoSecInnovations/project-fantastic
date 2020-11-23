@@ -10,7 +10,7 @@ const defaultGroups = {
 }
 
 const configure = async () => {
-  init()
+  await init()
   const config = await FS.readJSON(Path.join(process.cwd(), 'config.json'))
   if (!config.authentication.config) config.authentication.config = {}
   const authConfig = config.authentication.config
