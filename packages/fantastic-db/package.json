@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-db",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Utility functions to access a SQLite database",
   "main": "index.js",
   "scripts": {
