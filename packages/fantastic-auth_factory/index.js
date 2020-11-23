@@ -1,9 +1,10 @@
 const getModule = base_module => {
+  // TODO: verify required fields on base module
   return {
     ...base_module,
     initializeRoutes: async app => {
       await base_module.configure()
-      base_module.initializeRoutes(app)
+      return base_module.initializeRoutes(app)
     }
   }
 }

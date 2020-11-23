@@ -1,8 +1,8 @@
 const GetConfig = require('../utils/getconfig')
 const ActiveDirectory = require('../activedirectory')
 
-const getRole = async username => {
-  const ad = await ActiveDirectory()
+const getRole = async (username, credentials) => {
+  const ad = await ActiveDirectory(credentials.username, credentials.password)
   const config = await GetConfig()
   // check in this order in case the user is in more than one group
   const admin = await ad.isUserMemberOf(username, config.groups.admin)
