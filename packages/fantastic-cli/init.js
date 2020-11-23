@@ -33,7 +33,8 @@ const run = async () => {
       FS.copy(Path.join(__dirname, 'cert'), 'cert')
     ])
     await RunProcess(npx_cmd, ['fantastic-upgrade'], 'npx fantastic-upgrade failed')
-    const auth = require(Path.join(process.cwd(), 'node_modules', auth_module))
+    const module_path = auth_module.replace(/.(@.+)/, (match, p1) => match.replace(p1, '')) // strip out version from module name if there is one
+    const auth = require(Path.join(process.cwd(), 'node_modules', module_path))
     if (auth.configure) await auth.configure()
     console.log('Fantastic installed successfully')
   }

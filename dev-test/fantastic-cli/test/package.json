@@ -1,12 +1,1 @@
-{
-  "name": "test",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
-}
+{"name":"test","version":"1.0.0","description":"","main":"index.js","scripts":{"test":"echo \"Error: no test specified\" && exit 1","start":"fantastic"},"keywords":[],"author":"","license":"ISC","dependencies":{"@infosecinnovations/fantastic-active_directory":"^0.3.2","@infosecinnovations/fantastic-default":"^0.2.0","@infosecinnovations/project-fantastic":"^0.2.2"}}
