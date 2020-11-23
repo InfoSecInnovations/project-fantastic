@@ -2,15 +2,19 @@ const Serve = require('./http/serve')
 const GetInput = require('@infosecinnovations/fantastic-utils/getinput')
 const ActiveDirectory = require('./activedirectory')
 
+let username
+let password
+
 const initializeRoutes = async app => {
+
   while(true) {
     try {
-      let username
       username = await GetInput('Enter ActiveDirectory admin username: ')
       while(!username) username = await GetInput('Please enter a valid username: ')
-      let password
       password = await GetInput('Enter ActiveDirectory admin password: ', true)
-      await ActiveDirectory(username, password)
+      console.log('Connecting...')
+      const auth = await ActiveDirectory(username, password).then(ad => ad.authenticate(username, password))
+      if (!auth) throw('Invalid Login!')
       break
     }
     catch(err) {
@@ -33,7 +37,7 @@ module.exports = {
   initializeRoutes, 
   configure: require('./configure'), 
   invalidate: require('./accounts/invalidate'), 
-  verify: require('./accounts/verify'), 
+  verify: session_id => require('./accounts/verify')(session_id, {username, password}), 
   getByID: require('./accounts/getbyid'), 
   getByUsername: require('./accounts/getbyusername')
 }
