@@ -19,7 +19,9 @@
       "@infosecinnovations/fantastic-default/getos"
     ]
   },
-  "authentication": "@infosecinnovations/fantastic-default_auth"
+  "authentication": {
+    "module": "@infosecinnovations/fantastic-default_auth"
+  }
 }
 ```
 
@@ -49,4 +51,12 @@ These host data commands will be enabled by default, but can be disabled
 
 ## authentication
 
+### module
+
 Package to use for user authentication.
+
+### config
+
+*Optional*
+
+If your authentication module can accept configuraiton options, specify them here

@@ -15,8 +15,7 @@ const defaultConfig = {
       "@infosecinnovations/fantastic-default/getdnsclientcache",
       "@infosecinnovations/fantastic-default/getos"
     ]
-  },
-  "authentication": "@infosecinnovations/fantastic-default_auth"
+  }
 }
 
 module.exports = defaultConfig
