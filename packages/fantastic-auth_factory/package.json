@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/besimorhino/project-fantastic/issues"
   },
-  "homepage": "https://github.com/besimorhino/project-fantastic#readme"
+  "homepage": "https://github.com/besimorhino/project-fantastic#readme",
+  "gitHead": "79633df1f1f99a92538cf23ce9b2540b141fc9f1",
+  "publishConfig": {
+    "access": "public"
+  }
 }
