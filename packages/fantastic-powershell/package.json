@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-powershell",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Run PowerShell commands either locally or on a remote host",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
