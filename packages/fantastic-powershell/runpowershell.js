@@ -10,7 +10,7 @@ const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
  */
 const child = (command, params, log = true) => new Promise((resolve, reject) => {
   if (params) command = FormatString(command, params)
-  const child_process = spawn('powershell.exe', [command])
+  const child_process = spawn('powershell.exe', ['-ExecutionPolicy', 'Bypass', command])
   let buffer
   child_process.stdout.on('data', d => {
     buffer = buffer ? Buffer.concat([buffer, d]) : Buffer.concat([d])
