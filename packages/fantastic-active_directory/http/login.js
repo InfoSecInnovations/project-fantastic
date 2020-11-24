@@ -7,6 +7,12 @@ const {get, update, insert} = require('../db')
 
 const error = 'Invalid Active Directory login. If the problem persists please contact the server administrator.'
 
+const process_username = username => {
+  if (username.includes('@')) return username.split('@')[0]
+  if (username.includes('\\')) return username.split('\\')[1]
+  return username
+}
+
 const login = (res, req, credentials) => {
   res.onAborted(() => res.aborted = true)
   GetHTTPData(res)
@@ -16,8 +22,7 @@ const login = (res, req, credentials) => {
     try {
       const auth = await ad.authenticate(json.username, json.password)
       if (auth) {
-        const split = json.username.split('\\')
-        const username = split[split.length - 1]
+        const username = process_username(json.username)
         const session_id = await GenerateID()
         const row = await get({table: 'users', columns: ['user_id'], conditions: {columns: {username}}})
         if (row) await update({table: 'users', row: {session_id}, conditions: {columns: {username}}})
