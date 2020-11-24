@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-active_directory",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "Active Directory authentication module for Fantastic",
   "main": "index.js",
   "scripts": {
