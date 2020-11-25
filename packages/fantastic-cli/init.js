@@ -6,6 +6,7 @@ const Scripts = require('./scripts')
 const Path = require('path')
 const RunProcess = require('@infosecinnovations/fantastic-utils/runprocess')
 const GetInput = require('@infosecinnovations/fantastic-utils/getinput')
+const AuthFactory = require('@infosecinnovations/fantastic-auth_factory')
 
 const npm_cmd = process.platform === 'win32'? 'npm.cmd' : 'npm'
 const npx_cmd = process.platform === 'win32'? 'npx.cmd' : 'npm'
@@ -34,7 +35,7 @@ const run = async () => {
     ])
     await RunProcess(npx_cmd, ['fantastic-upgrade'], 'npx fantastic-upgrade failed')
     const module_path = auth_module.replace(/.(@.+)/, (match, p1) => match.replace(p1, '')) // strip out version from module name if there is one
-    const auth = require(Path.join(process.cwd(), 'node_modules', module_path))
+    const auth = AuthFactory(require(Path.join(process.cwd(), 'node_modules', module_path)))
     if (auth.configure) await auth.configure()
     console.log('Fantastic installed successfully')
   }

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@infosecinnovations/fantastic-utils": "^0.3.4",
+    "@infosecinnovations/fantastic-auth_factory": "^0.3.4",
     "fs-extra": "^9.0.1"
   },
   "homepage": "https://github.com/besimorhino/project-fantastic",
