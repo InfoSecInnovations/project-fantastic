@@ -1,6 +1,6 @@
 {
   "name": "fantastic-cli",
-  "version": "0.3.4",
+  "version": "0.3.8",
   "description": "Command line tool to install the Fantastic network vizualisation and security app",
   "main": "init.js",
   "scripts": {
@@ -16,8 +16,8 @@
     "access": "public"
   },
   "dependencies": {
+    "@infosecinnovations/fantastic-auth_factory": "^0.3.8",
     "@infosecinnovations/fantastic-utils": "^0.3.4",
-    "@infosecinnovations/fantastic-auth_factory": "^0.3.4",
     "fs-extra": "^9.0.1"
   },
   "homepage": "https://github.com/besimorhino/project-fantastic",

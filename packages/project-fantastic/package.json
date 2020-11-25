@@ -1,11 +1,11 @@
 {
   "name": "@infosecinnovations/project-fantastic",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "A GUI tool to visualize computer networks and perform security checks and improvements.",
   "main": "index.js",
   "author": "InfoSec Innovations",
   "dependencies": {
-    "@infosecinnovations/fantastic-auth_factory": "^0.3.4",
+    "@infosecinnovations/fantastic-auth_factory": "^0.3.8",
     "@infosecinnovations/fantastic-db": "^0.3.4",
     "@infosecinnovations/fantastic-help": "^0.3.4",
     "@infosecinnovations/fantastic-powershell": "^0.3.5",
