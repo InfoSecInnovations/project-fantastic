@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+    NPM_TOKEN = credentials('NPM_TOKEN')
+  }
   stages {
     stage('build') {
       steps {
