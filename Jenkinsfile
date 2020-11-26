@@ -16,4 +16,7 @@ npx lerna publish patch --yes'''
       }
     }
   }
+  environment {
+    GH_TOKEN = 'credentials(\'GH_TOKEN\')'
+  }
 }
