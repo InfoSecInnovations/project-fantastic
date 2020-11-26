@@ -9,7 +9,7 @@ pipeline {
     stage('publish') {
       steps {
         sh '''git config --global user.email "sebyihi@yahoo.fr"
-git config --global user.name "Sebastian Boutin Blomfield"
+git config --global user.name "sebovzeoueb"
 
 npx lerna publish patch --yes'''
       }
