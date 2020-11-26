@@ -8,7 +8,10 @@ pipeline {
     }
     stage('publish') {
       steps {
-        sh 'npx lerna publish patch --yes'
+        sh '''git config --global user.email "sebyihi@yahoo.fr"
+git config --global user.name "Sebastian Boutin Blomfield"
+
+npx lerna publish patch --yes'''
       }
     }
   }
