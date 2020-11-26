@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/besimorhino/project-fantastic.git"
+    "url": "git+https://github.com/InfoSecInnovations/project-fantastic.git"
   },
   "author": "InfoSec Innovations",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/besimorhino/project-fantastic/issues"
+    "url": "https://github.com/InfoSecInnovations/project-fantastic/issues"
   },
-  "homepage": "https://github.com/besimorhino/project-fantastic#readme",
+  "homepage": "https://github.com/InfoSecInnovations/project-fantastic#readme",
   "gitHead": "79633df1f1f99a92538cf23ce9b2540b141fc9f1",
   "publishConfig": {
     "access": "public"

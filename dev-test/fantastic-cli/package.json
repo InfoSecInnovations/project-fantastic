@@ -7,7 +7,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/besimorhino/project-fantastic.git"
+    "url": "git+https://github.com/InfoSecInnovations/project-fantastic.git"
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
@@ -18,9 +18,9 @@
     "fs-extra": "^9.0.1"
   },
   "bugs": {
-    "url": "https://github.com/besimorhino/project-fantastic/issues"
+    "url": "https://github.com/InfoSecInnovations/project-fantastic/issues"
   },
-  "homepage": "https://github.com/besimorhino/project-fantastic#readme",
+  "homepage": "https://github.com/InfoSecInnovations/project-fantastic#readme",
   "main": "run.js",
   "directories": {
     "test": "test"

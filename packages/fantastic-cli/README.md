@@ -4,4 +4,4 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 This tool allows you to create an installation by simply running `npx fantastic-cli init` in the directory where you wish to install Fantastic. You will be asked if you want to use the Active Directory module to authenticate users, if not the default basic authentication module will be used. You may have some further setup options presented to you once the authentication module has been selected.
 
-[See the GitHub repository](https://github.com/besimorhino/project-fantastic) for more information on how to install and use Fantastic.
+[See the GitHub repository](https://github.com/InfoSecInnovations/project-fantastic) for more information on how to install and use Fantastic.

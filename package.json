@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/besimorhino/project-fantastic.git"
+    "url": "https://github.com/InfoSecInnovations/project-fantastic.git"
   },
   "author": "InfoSec Innovations",
   "bugs": {
-    "url": "https://github.com/besimorhino/project-fantastic/issues"
+    "url": "https://github.com/InfoSecInnovations/project-fantastic/issues"
   },
-  "homepage": "https://github.com/besimorhino/project-fantastic#readme",
+  "homepage": "https://github.com/InfoSecInnovations/project-fantastic#readme",
   "dependencies": {
     "fs-extra": "^9.0.1"
   },
@@ -23,6 +23,7 @@
     "@tsconfig/node12": "^1.0.7",
     "@types/node": "^14.11.2",
     "lerna": "^3.22.1",
+    "lerna-update-wizard": "^0.17.8",
     "typedoc": "^0.19.2",
     "typedoc-plugin-markdown": "^3.0.3",
     "typescript": "^4.0.3"

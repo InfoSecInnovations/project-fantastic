@@ -10,7 +10,7 @@
     "alea": "^1.0.0",
     "snabbdom": "^1.0.1",
     "vis-network": "^6.5.0",
-    "webpack": "^5.4.0",
+    "webpack": "^5.7.0",
     "webpack-cli": "^4.2.0"
   },
   "scripts": {
