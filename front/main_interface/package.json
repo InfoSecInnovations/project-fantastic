@@ -1,12 +1,12 @@
 {
   "name": "main-interface-front",
-  "version": "0.3.4",
+  "version": "0.3.9",
   "description": "",
   "author": "",
   "private": true,
   "license": "ISC",
   "dependencies": {
-    "@infosecinnovations/fantastic-utils": "^0.3.4",
+    "@infosecinnovations/fantastic-utils": "^0.3.9",
     "alea": "^1.0.0",
     "snabbdom": "^1.0.1",
     "vis-network": "^6.5.0",
