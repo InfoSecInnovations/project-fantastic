@@ -1,14 +1,13 @@
 pipeline {
-  agent {
-    node {
-      label 'Node'
-    }
-
-  }
+  agent any
   stages {
-    stage('publish') {
+    stage('build') {
       steps {
         sh 'npm i'
+      }
+    }
+    stage('publish') {
+      steps {
         sh 'npx lerna publish --yes'
       }
     }
