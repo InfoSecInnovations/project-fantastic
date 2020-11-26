@@ -8,7 +8,7 @@ pipeline {
     }
     stage('publish') {
       steps {
-        sh 'npx lerna publish --yes'
+        sh 'npx lerna publish patch --yes'
       }
     }
   }
