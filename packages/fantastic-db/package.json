@@ -15,10 +15,10 @@
     "access": "public"
   },
   "license": "Apache-2.0",
-  "homepage": "https://github.com/besimorhino/project-fantastic",
-  "bugs": "https://github.com/besimorhino/project-fantastic/issues",
+  "homepage": "https://github.com/InfoSecInnovations/project-fantastic",
+  "bugs": "https://github.com/InfoSecInnovations/project-fantastic/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/besimorhino/project-fantastic.git"
+    "url": "https://github.com/InfoSecInnovations/project-fantastic.git"
   }
 }

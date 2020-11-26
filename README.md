@@ -56,8 +56,4 @@ The CSS is built using [Stylus](https://stylus-lang.com/). You can run the build
 
 **PLEASE NOTE: a lot of the documentation is out of date because the project is still changing a lot, we're trying to keep this README relevant, but there's no guarantee regarding the other docs until the project is a bit more stable.**
 
-## Known issues
-
-- https://github.com/webpack/webpack/issues/12006 prevents the client from building in 'development' mode, so please stick with 'production' mode in the webpack config until this has been fixed (yes, this is annoying for debugging purposes).
-
 Please contact [Mick](https://github.com/besimorhino) or [Sebastian](https://github.com/sebovzeoueb) if you need more information about the project.
