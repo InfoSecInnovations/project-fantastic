@@ -17,7 +17,7 @@ pipeline {
           sh '''git config --global user.email "sebyihi@yahoo.fr"
 git config --global user.name "sebovzeoueb"
 git remote set-url origin https://sebovzeoueb:${GH_TOKEN}@github.com/InfoSecInnovations/project-fantastic.git
-
+npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
 npx lerna publish patch --yes'''
         }
 
