@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+    NPM_TOKEN = credentials('NPM_TOKEN')
+  }
   stages {
     stage('build') {
       steps {
@@ -9,8 +12,7 @@ pipeline {
     stage('publish') {
       steps {
         withCredentials(bindings: [
-          string(credentialsId: 'GH_TOKEN', variable: 'GH_TOKEN'),
-          string(credentialsId: 'NPM_TOKEN', variable: 'NPM_TOKEN')
+          string(credentialsId: 'GH_TOKEN', variable: 'GH_TOKEN')
         ]) {
           sh '''git config --global user.email "sebyihi@yahoo.fr"
 git config --global user.name "sebovzeoueb"
