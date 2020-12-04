@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  environment {
-    NPM_TOKEN = credentials('NPM_TOKEN')
-  }
   stages {
     stage('build') {
       steps {
@@ -11,7 +8,10 @@ pipeline {
     }
     stage('publish') {
       steps {
-        withCredentials(bindings: [string(credentialsId: 'GH_TOKEN', variable: 'GH_TOKEN')]) {
+        withCredentials(bindings: [
+          string(credentialsId: 'GH_TOKEN', variable: 'GH_TOKEN'),
+          string(credentialsId: 'NPM_TOKEN', variable: 'NPM_TOKEN')
+        ]) {
           sh '''git config --global user.email "sebyihi@yahoo.fr"
 git config --global user.name "sebovzeoueb"
 git remote set-url origin https://sebovzeoueb:${GH_TOKEN}@github.com/InfoSecInnovations/project-fantastic.git
