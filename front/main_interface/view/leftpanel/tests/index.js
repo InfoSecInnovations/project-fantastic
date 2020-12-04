@@ -1,8 +1,8 @@
 import {h} from 'snabbdom/h'
 import TestEntry from '../testentry'
 import Parameter from './parameter'
-import SearchBar from '../../../../common/view/searchbar'
-import FilterSearchResults from '../../../../common/util/filtersearchresults'
+import SearchBar from '@infosecinnovations/fantastic-front/view/searchbar'
+import FilterSearchResults from '@infosecinnovations/fantastic-front/util/filtersearchresults'
 
 export default (state, send) => {
   const tests = FilterSearchResults(state, 'tests')

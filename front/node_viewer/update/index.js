@@ -1,5 +1,5 @@
-import Common from '../../common/update'
-import FlexSearch from '../../common/update/flexsearch'
+import Common from '@infosecinnovations/fantastic-front/update'
+import FlexSearch from '@infosecinnovations/fantastic-front/update/flexsearch'
 
 export default (state, action) => {
   if (action.type == 'node_data') state.node_data = action.data

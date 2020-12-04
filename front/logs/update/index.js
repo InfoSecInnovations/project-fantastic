@@ -1,4 +1,4 @@
-import Common from '../../common/update'
+import Common from '@infosecinnovations/fantastic-front/update'
 
 export default (state, action) => {
   state = Common(state, action)

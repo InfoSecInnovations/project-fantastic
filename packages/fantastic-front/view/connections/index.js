@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
 import IPAddress from '../../util/ipaddress'
-import ConnectionSearch from '../../../main_interface/view/selection/connectionsearch'
+import ConnectionSearch from '../../../../front/main_interface/view/selection/connectionsearch'
 
 const connection_view = (state, send, connection) => h('div.scroll_item', [
   h('div.item', `Local address: ${IPAddress(connection.local_address, connection.local_port)}`),

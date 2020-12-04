@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-import Info from '../../common/view/info'
-import Actions from '../../common/view/actions'
+import Info from '@infosecinnovations/fantastic-front/view/info'
+import Actions from '@infosecinnovations/fantastic-front/view/actions'
 
 export default (state, send) => 
   h('body', h('div#container', state.node_data ? [

@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-import NodeName from '../../../common/util/nodename'
-import ReviewIcon from '../../../common/view/reviewicon'
+import NodeName from '@infosecinnovations/fantastic-front/util/nodename'
+import ReviewIcon from '@infosecinnovations/fantastic-front/view/reviewicon'
 
 export default (state, send) => {
   if (!state.review) return

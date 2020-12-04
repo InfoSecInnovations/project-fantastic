@@ -1,4 +1,4 @@
-import NodeName from '../../common/util/nodename'
+import NodeName from '@infosecinnovations/fantastic-front/util/nodename'
 import Vis from 'vis-network'
 
 const node_color = 'rgb(245, 81, 0)'

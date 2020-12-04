@@ -1,7 +1,7 @@
-import Common from '../../common/effect'
-import LoadNodeResults from '../../common/effect/loadnoderesults'
-import FetchScripts from '../../common/effect/fetchscripts'
-import FlexSearch from '../../common/effect/flexsearch'
+import Common from '@infosecinnovations/fantastic-front/effect'
+import LoadNodeResults from '@infosecinnovations/fantastic-front/effect/loadnoderesults'
+import FetchScripts from '@infosecinnovations/fantastic-front/effect/fetchscripts'
+import FlexSearch from '@infosecinnovations/fantastic-front/effect/flexsearch'
 
 export default (state, action, send) => {
   Common(state, action, send)

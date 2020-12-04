@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-import Connections from '../../../common/view/connections'
-import NodeName from '../../../common/util/nodename'
+import Connections from '@infosecinnovations/fantastic-front/view/connections'
+import NodeName from '@infosecinnovations/fantastic-front/util/nodename'
 import NodesFromEdge from '../../util/nodesfromedge'
 
 export default (state, send) => {

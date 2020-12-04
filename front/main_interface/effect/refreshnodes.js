@@ -1,4 +1,4 @@
-import GenerateQuery from '../../common/effect/generatequery'
+import GenerateQuery from '@infosecinnovations/fantastic-front/effect/generatequery'
 
 export default (send, node_parameters) => {
   send({type: 'loading', value: true})
