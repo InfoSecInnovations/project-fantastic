@@ -10,118 +10,6 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./common/effect/fetchscripts.js":
-/*!***************************************!*\
-  !*** ./common/effect/fetchscripts.js ***!
-  \***************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((send, type) => {\r\n  fetch(`/${type}`)\r\n  .then(res => res.json())\r\n  .then(res => send({type, [type]: res}))\r\n});\n\n//# sourceURL=webpack://front/./common/effect/fetchscripts.js?");
-
-/***/ }),
-
-/***/ "./common/effect/generatequery.js":
-/*!****************************************!*\
-  !*** ./common/effect/generatequery.js ***!
-  \****************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (obj => Object.entries(obj)\r\n  .filter(v => typeof v[1] != 'undefined')\r\n  .map(v => {\r\n    const value = Array.isArray(v[1]) ? `[${v[1]}]` : v[1]\r\n    return `${v[0]}=${value}`\r\n  })\r\n  .join('&'));\n\n//# sourceURL=webpack://front/./common/effect/generatequery.js?");
-
-/***/ }),
-
-/***/ "./common/update/actionfollowup.js":
-/*!*****************************************!*\
-  !*** ./common/update/actionfollowup.js ***!
-  \*****************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  let action_result = state.action_results[action.host][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.status = 'loading'\r\n  action_result.requests = (action_result.requests || 0) + 1 // track the number of requests we're waiting for relating to this followup\r\n});\n\n//# sourceURL=webpack://front/./common/update/actionfollowup.js?");
-
-/***/ }),
-
-/***/ "./common/update/actionresult.js":
-/*!***************************************!*\
-  !*** ./common/update/actionresult.js ***!
-  \***************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  if (!state.action_results[action.hostname]) {\r\n    state.action_results[action.hostname] = {}\r\n  }\r\n  if (!state.action_results[action.hostname][action.action]) {\r\n    state.action_results[action.hostname][action.action] = {}\r\n  }\r\n  const action_result = state.action_results[action.hostname][action.action]\r\n  if (action.followup) {\r\n    action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = action.result ? true : undefined\r\n  action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n  action_result.filter = action.filter\r\n});\n\n//# sourceURL=webpack://front/./common/update/actionresult.js?");
-
-/***/ }),
-
-/***/ "./common/update/followupfoldout.js":
-/*!******************************************!*\
-  !*** ./common/update/followupfoldout.js ***!
-  \******************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.foldout = action.value\r\n});\n\n//# sourceURL=webpack://front/./common/update/followupfoldout.js?");
-
-/***/ }),
-
-/***/ "./common/update/followupresult.js":
-/*!*****************************************!*\
-  !*** ./common/update/followupresult.js ***!
-  \*****************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  if (action.followup) {\r\n    if (action.result) action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = true\r\n  action_result.requests && action_result.requests-- // we may not have any requests if we're loading the result from the history so we have to check it\r\n  if (!action_result.requests) action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n  action_result.filter = action.filter\r\n});\n\n//# sourceURL=webpack://front/./common/update/followupresult.js?");
-
-/***/ }),
-
-/***/ "./common/update/index.js":
-/*!********************************!*\
-  !*** ./common/update/index.js ***!
-  \********************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _performaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./performaction */ \"./common/update/performaction.js\");\n/* harmony import */ var _actionresult__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actionresult */ \"./common/update/actionresult.js\");\n/* harmony import */ var _actionfollowup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actionfollowup */ \"./common/update/actionfollowup.js\");\n/* harmony import */ var _followupfoldout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./followupfoldout */ \"./common/update/followupfoldout.js\");\n/* harmony import */ var _followupresult__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./followupresult */ \"./common/update/followupresult.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (action.type == 'actions') state.actions = action.actions\r\n  if (action.type == 'commands') state.commands = action.commands\r\n  if (action.type == 'quests') state.quests = action.quests\r\n  if (action.type == 'tests') state.tests = action.tests\r\n  if (action.type == 'perform_action') (0,_performaction__WEBPACK_IMPORTED_MODULE_0__.default)(state, action)\r\n  if (action.type == 'action_result') (0,_actionresult__WEBPACK_IMPORTED_MODULE_1__.default)(state, action)\r\n  if (action.type == 'result_foldout') state.action_results[action.hostname][action.action].foldout = action.value\r\n  if (action.type == 'action_followup') (0,_actionfollowup__WEBPACK_IMPORTED_MODULE_2__.default)(state, action)\r\n  if (action.type == 'action_followup_result') (0,_followupresult__WEBPACK_IMPORTED_MODULE_4__.default)(state, action)\r\n  if (action.type == 'followup_foldout') (0,_followupfoldout__WEBPACK_IMPORTED_MODULE_3__.default)(state, action)\r\n\r\n  return state\r\n});\n\n//# sourceURL=webpack://front/./common/update/index.js?");
-
-/***/ }),
-
-/***/ "./common/update/performaction.js":
-/*!****************************************!*\
-  !*** ./common/update/performaction.js ***!
-  \****************************************/
-/*! namespace exports */
-/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
-/*! other exports [not provided] [no usage info] */
-/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (!state.action_results[action.host]) {\r\n    state.action_results[action.host] = {}\r\n  }\r\n  if (!state.action_results[action.host][action.action]) {\r\n    state.action_results[action.host][action.action] = {}\r\n  }\r\n  state.action_results[action.host][action.action].status = 'loading'\r\n});\n\n//# sourceURL=webpack://front/./common/update/performaction.js?");
-
-/***/ }),
-
 /***/ "./logs/effect/index.js":
 /*!******************************!*\
   !*** ./logs/effect/index.js ***!
@@ -132,7 +20,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _common_effect_fetchscripts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/effect/fetchscripts */ \"./common/effect/fetchscripts.js\");\n/* harmony import */ var _common_effect_generatequery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../common/effect/generatequery */ \"./common/effect/generatequery.js\");\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => {\r\n  if (action.type == 'init') {\r\n    ['actions', 'tests', 'quests', 'commands'].forEach(v => (0,_common_effect_fetchscripts__WEBPACK_IMPORTED_MODULE_0__.default)(send, v))\r\n    send({type: 'page', page: 0})\r\n  }\r\n  if (action.type == 'page') {\r\n    fetch(`/logs?${(0,_common_effect_generatequery__WEBPACK_IMPORTED_MODULE_1__.default)({\r\n      ...state.search, \r\n      event_types: Object.entries(state.search.event_types).filter(v => v[1]).map(v => v[0]), \r\n      ...(action.page && {page: action.page})})}`)\r\n    .then(res => res.json())\r\n    .then(res => {\r\n      send({type: 'logs', logs: res.results})\r\n      send({type: 'last_page', last_page: res.is_last})\r\n    })\r\n  }\r\n});\n\n//# sourceURL=webpack://front/./logs/effect/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _infosecinnovations_fantastic_front_effect_fetchscripts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @infosecinnovations/fantastic-front/effect/fetchscripts */ \"../packages/fantastic-front/effect/fetchscripts.js\");\n/* harmony import */ var _infosecinnovations_fantastic_front_effect_generatequery__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @infosecinnovations/fantastic-front/effect/generatequery */ \"../packages/fantastic-front/effect/generatequery.js\");\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action, send) => {\r\n  if (action.type == 'init') {\r\n    ['actions', 'tests', 'quests', 'commands'].forEach(v => (0,_infosecinnovations_fantastic_front_effect_fetchscripts__WEBPACK_IMPORTED_MODULE_0__.default)(send, v))\r\n    send({type: 'page', page: 0})\r\n  }\r\n  if (action.type == 'page') {\r\n    fetch(`/logs?${(0,_infosecinnovations_fantastic_front_effect_generatequery__WEBPACK_IMPORTED_MODULE_1__.default)({\r\n      ...state.search, \r\n      event_types: Object.entries(state.search.event_types).filter(v => v[1]).map(v => v[0]), \r\n      ...(action.page && {page: action.page})})}`)\r\n    .then(res => res.json())\r\n    .then(res => {\r\n      send({type: 'logs', logs: res.results})\r\n      send({type: 'last_page', last_page: res.is_last})\r\n    })\r\n  }\r\n});\n\n//# sourceURL=webpack://front/./logs/effect/index.js?");
 
 /***/ }),
 
@@ -300,7 +188,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _common_update__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/update */ \"./common/update/index.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  state = (0,_common_update__WEBPACK_IMPORTED_MODULE_0__.default)(state, action)\r\n  if (action.type == 'logs') state.logs = action.logs\r\n  if (action.type == 'page') state.page = action.page\r\n  if (action.type == 'last_page') state.last_page = action.last_page\r\n  if (action.type == 'enable_event_type') state.search.event_types[action.event_type] = action.enabled\r\n  if (action.type == 'username_search') state.search.username = action.username\r\n  return state\r\n});\n\n//# sourceURL=webpack://front/./logs/update/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _infosecinnovations_fantastic_front_update__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @infosecinnovations/fantastic-front/update */ \"../packages/fantastic-front/update/index.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  state = (0,_infosecinnovations_fantastic_front_update__WEBPACK_IMPORTED_MODULE_0__.default)(state, action)\r\n  if (action.type == 'logs') state.logs = action.logs\r\n  if (action.type == 'page') state.page = action.page\r\n  if (action.type == 'last_page') state.last_page = action.last_page\r\n  if (action.type == 'enable_event_type') state.search.event_types[action.event_type] = action.enabled\r\n  if (action.type == 'username_search') state.search.username = action.username\r\n  return state\r\n});\n\n//# sourceURL=webpack://front/./logs/update/index.js?");
 
 /***/ }),
 
@@ -371,6 +259,118 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var snabbdom_h__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! snabbdom/h */ \"./logs/node_modules/snabbdom/build/package/h.js\");\n/* harmony import */ var _controls__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controls */ \"./logs/view/search/controls.js\");\n\r\n\r\n\r\nconst event_checkbox = (send, event_type, label) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.checkbox', [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)(`input#${event_type}_check`, {\r\n    attrs: {type: 'checkbox'},\r\n    on: {click: e => send({type: 'enable_event_type', enabled: e.target.checked, event_type})} \r\n  }),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('label', {attrs: {for: `${event_type}_check`}}, label)\r\n])\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, send) => (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.search', [\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.text_search', [\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('label', {attrs: {for: 'username_search'}}, 'username'),\r\n    (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('input#username_search', {\r\n      attrs: {type: 'text'},\r\n      on: {input: e => send({type: 'username_search', username: e.target.value})}\r\n    })\r\n  ]),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.checkboxes', [\r\n    event_checkbox(send, 'action', 'Actions'),\r\n    event_checkbox(send, 'test', 'Tests'),\r\n    event_checkbox(send, 'quest', 'Quests'),\r\n    event_checkbox(send, 'command', 'Host Data Commands')\r\n  ]),\r\n  (0,snabbdom_h__WEBPACK_IMPORTED_MODULE_0__.h)('div.button', {\r\n    on: {click: [send, {type: 'page', page: 0}]}\r\n  }, 'Search'),\r\n  (0,_controls__WEBPACK_IMPORTED_MODULE_1__.default)(state, send)\r\n]));\n\n//# sourceURL=webpack://front/./logs/view/search/index.js?");
+
+/***/ }),
+
+/***/ "../packages/fantastic-front/effect/fetchscripts.js":
+/*!**********************************************************!*\
+  !*** ../packages/fantastic-front/effect/fetchscripts.js ***!
+  \**********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((send, type) => {\r\n  fetch(`/${type}`)\r\n  .then(res => res.json())\r\n  .then(res => send({type, [type]: res}))\r\n});\n\n//# sourceURL=webpack://front/../packages/fantastic-front/effect/fetchscripts.js?");
+
+/***/ }),
+
+/***/ "../packages/fantastic-front/effect/generatequery.js":
+/*!***********************************************************!*\
+  !*** ../packages/fantastic-front/effect/generatequery.js ***!
+  \***********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (obj => Object.entries(obj)\r\n  .filter(v => typeof v[1] != 'undefined')\r\n  .map(v => {\r\n    const value = Array.isArray(v[1]) ? `[${v[1]}]` : v[1]\r\n    return `${v[0]}=${value}`\r\n  })\r\n  .join('&'));\n\n//# sourceURL=webpack://front/../packages/fantastic-front/effect/generatequery.js?");
+
+/***/ }),
+
+/***/ "../packages/fantastic-front/update/actionfollowup.js":
+/*!************************************************************!*\
+  !*** ../packages/fantastic-front/update/actionfollowup.js ***!
+  \************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  let action_result = state.action_results[action.host][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.status = 'loading'\r\n  action_result.requests = (action_result.requests || 0) + 1 // track the number of requests we're waiting for relating to this followup\r\n});\n\n//# sourceURL=webpack://front/../packages/fantastic-front/update/actionfollowup.js?");
+
+/***/ }),
+
+/***/ "../packages/fantastic-front/update/actionresult.js":
+/*!**********************************************************!*\
+  !*** ../packages/fantastic-front/update/actionresult.js ***!
+  \**********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  if (!state.action_results[action.hostname]) {\r\n    state.action_results[action.hostname] = {}\r\n  }\r\n  if (!state.action_results[action.hostname][action.action]) {\r\n    state.action_results[action.hostname][action.action] = {}\r\n  }\r\n  const action_result = state.action_results[action.hostname][action.action]\r\n  if (action.followup) {\r\n    action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = action.result ? true : undefined\r\n  action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n  action_result.filter = action.filter\r\n});\n\n//# sourceURL=webpack://front/../packages/fantastic-front/update/actionresult.js?");
+
+/***/ }),
+
+/***/ "../packages/fantastic-front/update/followupfoldout.js":
+/*!*************************************************************!*\
+  !*** ../packages/fantastic-front/update/followupfoldout.js ***!
+  \*************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  action_result.foldout = action.value\r\n});\n\n//# sourceURL=webpack://front/../packages/fantastic-front/update/followupfoldout.js?");
+
+/***/ }),
+
+/***/ "../packages/fantastic-front/update/followupresult.js":
+/*!************************************************************!*\
+  !*** ../packages/fantastic-front/update/followupresult.js ***!
+  \************************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (Array.isArray(action.result) && !action.result.length) action.result = undefined\r\n  let action_result = state.action_results[action.hostname][action.action]\r\n  for (const key of action.followups) {\r\n    action_result = action_result.result.find(v => v.label === key.label).followups[key.followup]\r\n  }\r\n  if (action.followup) {\r\n    if (action.result) action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]\r\n  }\r\n  else action_result.result = action.result\r\n  action_result.foldout = true\r\n  action_result.requests && action_result.requests-- // we may not have any requests if we're loading the result from the history so we have to check it\r\n  if (!action_result.requests) action_result.status = 'loaded'\r\n  action_result.date = action.date\r\n  action_result.filter = action.filter\r\n});\n\n//# sourceURL=webpack://front/../packages/fantastic-front/update/followupresult.js?");
+
+/***/ }),
+
+/***/ "../packages/fantastic-front/update/index.js":
+/*!***************************************************!*\
+  !*** ../packages/fantastic-front/update/index.js ***!
+  \***************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_require__, __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _performaction__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./performaction */ \"../packages/fantastic-front/update/performaction.js\");\n/* harmony import */ var _actionresult__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./actionresult */ \"../packages/fantastic-front/update/actionresult.js\");\n/* harmony import */ var _actionfollowup__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./actionfollowup */ \"../packages/fantastic-front/update/actionfollowup.js\");\n/* harmony import */ var _followupfoldout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./followupfoldout */ \"../packages/fantastic-front/update/followupfoldout.js\");\n/* harmony import */ var _followupresult__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./followupresult */ \"../packages/fantastic-front/update/followupresult.js\");\n\r\n\r\n\r\n\r\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (action.type == 'actions') state.actions = action.actions\r\n  if (action.type == 'commands') state.commands = action.commands\r\n  if (action.type == 'quests') state.quests = action.quests\r\n  if (action.type == 'tests') state.tests = action.tests\r\n  if (action.type == 'perform_action') (0,_performaction__WEBPACK_IMPORTED_MODULE_0__.default)(state, action)\r\n  if (action.type == 'action_result') (0,_actionresult__WEBPACK_IMPORTED_MODULE_1__.default)(state, action)\r\n  if (action.type == 'result_foldout') state.action_results[action.hostname][action.action].foldout = action.value\r\n  if (action.type == 'action_followup') (0,_actionfollowup__WEBPACK_IMPORTED_MODULE_2__.default)(state, action)\r\n  if (action.type == 'action_followup_result') (0,_followupresult__WEBPACK_IMPORTED_MODULE_4__.default)(state, action)\r\n  if (action.type == 'followup_foldout') (0,_followupfoldout__WEBPACK_IMPORTED_MODULE_3__.default)(state, action)\r\n\r\n  return state\r\n});\n\n//# sourceURL=webpack://front/../packages/fantastic-front/update/index.js?");
+
+/***/ }),
+
+/***/ "../packages/fantastic-front/update/performaction.js":
+/*!***********************************************************!*\
+  !*** ../packages/fantastic-front/update/performaction.js ***!
+  \***********************************************************/
+/*! namespace exports */
+/*! export default [provided] [no usage info] [missing usage info prevents renaming] */
+/*! other exports [not provided] [no usage info] */
+/*! runtime requirements: __webpack_exports__, __webpack_require__.r, __webpack_require__.d, __webpack_require__.* */
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((state, action) => {\r\n  if (!state.action_results[action.host]) {\r\n    state.action_results[action.host] = {}\r\n  }\r\n  if (!state.action_results[action.host][action.action]) {\r\n    state.action_results[action.host][action.action] = {}\r\n  }\r\n  state.action_results[action.host][action.action].status = 'loading'\r\n});\n\n//# sourceURL=webpack://front/../packages/fantastic-front/update/performaction.js?");
 
 /***/ })
 

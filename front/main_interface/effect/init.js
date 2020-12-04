@@ -1,5 +1,5 @@
 import UserHistory from './userhistory'
-import FetchScripts from '../../common/effect/fetchscripts'
+import FetchScripts from '@infosecinnovations/fantastic-front/effect/fetchscripts'
 
 export default send => {
   window.onresize = e => send({type: 'render'})

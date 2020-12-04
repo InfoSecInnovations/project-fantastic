@@ -1,5 +1,5 @@
-import Common from '../../common/update'
-import FlexSearch from '../../common/update/flexsearch'
+import Common from '@infosecinnovations/fantastic-front/update'
+import FlexSearch from '@infosecinnovations/fantastic-front/update/flexsearch'
 import Hovered from '../defaults/hovered'
 import QuestResults from './questresults'
 import TestResults from './testresults'

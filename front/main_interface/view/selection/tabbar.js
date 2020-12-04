@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-import NodeName from '../../../common/util/nodename'
+import NodeName from '@infosecinnovations/fantastic-front/util/nodename'
 import NodesFromEdge from '../../util/nodesfromedge'
 import CanShowActions from './canshowactions'
 

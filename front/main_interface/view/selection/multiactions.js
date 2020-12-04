@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-import HostString from '../../../common/util/hoststring'
+import HostString from '@infosecinnovations/fantastic-front/util/hoststring'
 
 export default (state, send) => {
   if (!state.actions) return

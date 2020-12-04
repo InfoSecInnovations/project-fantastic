@@ -1,0 +1,26 @@
+{
+  "name": "@infosecinnovations/fantastic-front",
+  "version": "0.3.9",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "InfoSec Innovations",
+  "dependencies": {
+    "@infosecinnovations/fantastic-utils": "^0.3.9",
+    "flexsearch": "^0.6.32",
+    "snabbdom": "^1.0.1"
+  },
+  "gitHead": "964c580e20870e594383b07509bde13eb815df21",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/InfoSecInnovations/project-fantastic",
+  "bugs": "https://github.com/InfoSecInnovations/project-fantastic/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/InfoSecInnovations/project-fantastic.git"
+  }
+}

@@ -1,5 +1,5 @@
-import FetchScripts from '../../common/effect/fetchscripts'
-import GenerateQuery from '../../common/effect/generatequery'
+import FetchScripts from '@infosecinnovations/fantastic-front/effect/fetchscripts'
+import GenerateQuery from '@infosecinnovations/fantastic-front/effect/generatequery'
 
 export default (state, action, send) => {
   if (action.type == 'init') {

@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
 import NodesFromEdge from '../util/nodesfromedge'
-import NodeName from '../../common/util/nodename'
+import NodeName from '@infosecinnovations/fantastic-front/util/nodename'
 
 const style = pos => ({left: `${pos.x}px`, bottom: `calc(100% - ${pos.y - 16}px)`})
 

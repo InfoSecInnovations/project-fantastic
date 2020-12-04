@@ -1,7 +1,7 @@
 import {h} from 'snabbdom/h'
-import HostString from '../../../common/util/hoststring'
-import SearchBar from '../../../common/view/searchbar'
-import FilterSearchResults from '../../../common/util/filtersearchresults'
+import HostString from '@infosecinnovations/fantastic-front/util/hoststring'
+import SearchBar from '@infosecinnovations/fantastic-front/view/searchbar'
+import FilterSearchResults from '@infosecinnovations/fantastic-front/util/filtersearchresults'
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 
 const enabled_button = (state, send, command, data) => {
