@@ -1,21 +1,8 @@
 import {h} from 'snabbdom/h'
 import HostString from '../../util/hoststring'
 import TimeAgo from '../../util/timeago'
+import Result from './result'
 const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
-
-const result = (send, name, data, pass, options, result_parameters, failed_nodes, results, is_quest) => {
-  if (data.pass === 'review') return h('div.button', {on: {click: [send, {type: 'review', results, name, quest: is_quest}]}}, 'See results')
-  if (pass) return h('div', `${options.success_prefix ? `${options.success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`)
-  return h('div.link', 
-    {
-      on: {click: [
-        [send, {type: 'vis_select', nodes: failed_nodes}],
-        [send, {type: 'select', nodes: failed_nodes}]
-      ]}
-    }, 
-    `${failed_results.length} systems ${FormatString(data.pass.failure, result_parameters)}`
-  )
-}
 
 export default (state, send, name, data, parameters, result_data, result_date, result_parameters, result_approval, loading, play_action, options = {}) => {
   const results = result_date > Date.now() - 1000 * 60 * 60 * 24 && result_data // TODO: maybe we want to be able to define a custom maximum result age
@@ -49,7 +36,7 @@ export default (state, send, name, data, parameters, result_data, result_date, r
     [
       h('h4', `Results from ${TimeAgo(result_date)}`),
       parameters && parameters.result && parameters.result(),
-      result(send, name, data, pass, options, result_parameters, failed_nodes, results, options && options.is_quest)
+      Result(send, name, data, pass, options, result_parameters, failed_nodes, results, options && options.is_quest)
     ] : [])
   ])
 }
