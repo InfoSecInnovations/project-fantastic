@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-import HostString from '@infosecinnovations/fantastic-front/util/hoststring'
-import TimeAgo from '@infosecinnovations/fantastic-front/util/timeago'
+import HostString from '../../util/hoststring'
+import TimeAgo from '../../util/timeago'
 const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
 
 const result = (send, name, data, pass, options, result_parameters, failed_nodes, results, is_quest) => {
