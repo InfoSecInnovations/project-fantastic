@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-import TestEntry from '../testentry'
+import Test from '@infosecinnovations/fantastic-front/view/test'
 import Parameter from './parameter'
 import SearchBar from '@infosecinnovations/fantastic-front/view/searchbar'
 import FilterSearchResults from '@infosecinnovations/fantastic-front/util/filtersearchresults'
@@ -25,7 +25,7 @@ export default (state, send) => {
           h('ul', Object.entries(state.test_results.parameters[test]).map(v => h('li', `${v[0]}: ${v[1]}`)))
         ])
       }
-      return TestEntry(
+      return Test(
         state, 
         send, 
         test,

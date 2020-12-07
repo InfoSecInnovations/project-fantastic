@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
 const Alea = require('alea')
-import TestEntry from './testentry'
+import Test from '@infosecinnovations/fantastic-front/view/test'
 const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
 
 const success_texts = [
@@ -14,7 +14,7 @@ export default (state, send) => h('div.scroll_container', [
   h('div.scroll spaced', Object.entries(state.quests).map(v => {
     const quest = v[0]
     const date = state.quest_results.date[quest]
-    return TestEntry(
+    return Test(
       state, 
       send, 
       quest,
