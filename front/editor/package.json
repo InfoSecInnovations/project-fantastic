@@ -1,0 +1,19 @@
+{
+  "name": "editor-src",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nw",
+    "js": "webpack -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@infosecinnovations/fantastic-front": "^0.3.12",
+    "snabbdom": "^2.1.0"
+  }
+}
