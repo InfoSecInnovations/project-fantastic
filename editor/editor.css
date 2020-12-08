@@ -254,13 +254,70 @@ input[type=password] {
 .scroll_container .scroll .scroll_item.spaced {
   gap: 0.7rem;
 }
-body {
-  display: flex;
-  justify-content: center;
+#story-tree {
+  display: grid;
+  grid-template-columns: 200px auto 300px;
+  width: fit-content;
 }
-#container {
-  max-width: 1200px;
-  flex: 1;
-  padding: 4rem;
+#story-tree .graph {
+  width: 1280px;
+  height: 720px;
+  position: relative;
+  border: solid 2px #505151;
+}
+#story-tree #editor,
+#story-tree #module-menu {
+  grid-row: 1;
+  grid-column: 2;
+}
+#story-tree #module-menu {
+  z-index: 100;
+  display: flex;
+  padding: 10px;
+}
+#story-tree #sidebar {
+  padding: 10px;
+}
+#story-tree #sidebar h2 {
+  font-size: 1.5rem;
+}
+#story-tree #sidebar .sidebar-columns {
+  display: flex;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.node {
+  cursor: pointer;
+  font-size: 12px;
+  box-sizing: border-box;
+  padding: 5px;
+  background-color: #3c3d3d;
+  border: solid 2px #f55100;
+  user-select: none;
+  display: grid;
+  gap: 2px 0;
+  grid-template: 1fr 1fr/1fr auto;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  z-index: 10;
+  place-items: center;
+}
+.node .node-label {
+  grid-row: 1/3;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  margin: 10px;
+  padding: 0;
 }
 /*# sourceMappingURL=editor.css.map */

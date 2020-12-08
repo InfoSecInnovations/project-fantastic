@@ -16,7 +16,10 @@ const patch = init([
   eventListenersModule,
 ])
 
-let state = {}
+let state = {
+  editor: {},
+  modules: []
+}
 let vnode = document.body
 
 const send = action => {
@@ -24,6 +27,9 @@ const send = action => {
   vnode = patch(vnode, View(state, send))
   Effect(state,action,send) 
 }
+
+const win = nw.Window.get()
+win.maximize()
   
 send({type:'init'})
 
