@@ -6,5 +6,6 @@ module.exports={
   output:{
     path: path.resolve(__dirname, '../../editor'),
     filename:'main.js'
-  }
+  },
+  target: 'nwjs'
 }
