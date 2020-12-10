@@ -256,7 +256,7 @@ input[type=password] {
 }
 #story-tree {
   display: grid;
-  grid-template-columns: 200px auto 300px;
+  grid-template-columns: 300px auto 300px;
   width: fit-content;
 }
 #story-tree .graph {
@@ -282,7 +282,8 @@ input[type=password] {
   font-size: 1.5rem;
 }
 #story-tree #sidebar .sidebar-columns {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 .column {
   display: flex;
