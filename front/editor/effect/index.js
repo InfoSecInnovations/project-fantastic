@@ -18,4 +18,5 @@ export default (state, action, send) => {
     state.editor.jsplumb.makeSource(action.el, {filter: '.handle'})
     state.editor.jsplumb.makeTarget(action.el, {allowLoopback: false})
   }
+  if (action.type == 'editor_node_remove_el') state.editor.jsplumb.remove(action.id)
 }
