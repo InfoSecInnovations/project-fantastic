@@ -13,6 +13,7 @@ export default (state, action, send) => {
     const el = document.getElementById(action.id)
     el.style.left = `${action.x}px`
     el.style.top = `${action.y}px`
+    send({type: 'editor_select', id: action.id})
   }
   if (action.type == 'editor_node_el') {
     state.editor.jsplumb.makeSource(action.el, {filter: '.handle'})

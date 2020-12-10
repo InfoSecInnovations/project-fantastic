@@ -6,5 +6,7 @@ export default (state, action) => {
   if (action.type == 'add_module') state.modules.push(action.module)
   if (action.type == 'editor_node') state.editor.nodes[action.id] = action.node
   if (action.type == 'editor_node_remove') delete state.editor.nodes[action.id]
+  if (action.type == 'editor_select') state.editor.selected = action.id
+  if (action.type == 'set_custom_description') state.editor.nodes[action.id].customDescription = action.description
   return state
 }

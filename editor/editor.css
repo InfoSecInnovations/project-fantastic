@@ -256,7 +256,7 @@ input[type=password] {
 }
 #story-tree {
   display: grid;
-  grid-template-columns: 300px auto 300px;
+  grid-template-columns: 260px auto 300px;
   width: fit-content;
 }
 #story-tree .graph {
@@ -285,9 +285,15 @@ input[type=password] {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+#story-tree #info {
+  padding: 10px;
+  gap: 10px;
+}
 .column {
   display: flex;
   flex-direction: column;
+}
+.center {
   align-items: center;
 }
 .node {
@@ -325,6 +331,27 @@ input[type=password] {
   text-align: center;
   padding: 2px;
   box-sizing: border-box;
+}
+.jtk-connector {
+  z-index: 5;
+}
+.jtk-endpoint {
+  z-index: 6;
+}
+.completed {
+  color: #38d140;
+}
+.locked {
+  background-color: #3c3d3d;
+  color: #949494;
+}
+.highlight {
+  background-color: #505151;
+  border-color: #ffa666;
+}
+.label {
+  font-size: 12px;
+  color: #949494;
 }
 ul {
   margin: 0;
