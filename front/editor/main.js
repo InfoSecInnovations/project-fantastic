@@ -17,7 +17,9 @@ const patch = init([
 ])
 
 let state = {
-  editor: {},
+  editor: {
+    nodes: {}
+  },
   modules: []
 }
 let vnode = document.body

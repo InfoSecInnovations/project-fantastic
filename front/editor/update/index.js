@@ -4,5 +4,6 @@ export default (state, action) => {
   if (action.type == 'load_module_menu') state.module_menu = action.enabled
   if (action.type == 'module_names') state.available_modules = action.files
   if (action.type == 'add_module') state.modules.push(action.module)
+  if (action.type == 'editor_node') state.editor.nodes[action.id] = action.node
   return state
 }

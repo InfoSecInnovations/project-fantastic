@@ -312,6 +312,19 @@ input[type=password] {
   align-items: center;
   text-align: center;
 }
+.node .node-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  background-color: #f55100;
+  cursor: pointer;
+  text-align: center;
+  padding: 2px;
+  box-sizing: border-box;
+}
 ul {
   margin: 0;
   padding: 0;
