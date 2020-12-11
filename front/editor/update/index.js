@@ -2,7 +2,7 @@ export default (state, action) => {
   if (action.type == 'mode') state.mode = action.mode
   if (action.type == 'editor_jsplumb') state.editor.jsplumb = action.instance
   if (action.type == 'load_module_menu') state.module_menu = action.enabled
-  if (action.type == 'add_module') state.modules.push(action.module)
+  if (action.type == 'add_module') state.modules[action.module.name] = action.module
   if (action.type == 'editor_node') state.editor.nodes[action.id] = action.node
   if (action.type == 'editor_node_remove') delete state.editor.nodes[action.id]
   if (action.type == 'editor_select') state.editor.selected = action.id

@@ -20,7 +20,7 @@ let state = {
   editor: {
     nodes: {}
   },
-  modules: []
+  modules: {}
 }
 let vnode = document.body
 

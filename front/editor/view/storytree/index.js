@@ -18,7 +18,7 @@ export default (state, send) => h('div#story-tree', [
             const json = JSON.parse(data)
             const rect = e.target.getBoundingClientRect()
             const id = state.editor.jsplumb.uuid()
-            send({type: 'editor_node', x: e.clientX - rect.left, y: e.clientY - rect.top, node: json, id})
+            send({type: 'editor_node', node: {...json, position: {x: e.clientX - rect.left, y: e.clientY - rect.top}}, id})
           }
         },
         dragover: e => {
