@@ -1,0 +1,44 @@
+{
+	"25fa2f5e-05de-444e-ac1d-39c6fc190976": {
+		"key": "@infosecinnovations/fantastic-default/checkreboot",
+		"type": "tests",
+		"position": {
+			"x": 136,
+			"y": 177
+		},
+		"targets": [
+			"df452440-d20e-435f-941a-7155797d67b7"
+		]
+	},
+	"df452440-d20e-435f-941a-7155797d67b7": {
+		"key": "@infosecinnovations/fantastic-default/reviewusbdevices",
+		"type": "tests",
+		"position": {
+			"x": 372,
+			"y": 220
+		},
+		"targets": [
+			"3f790f42-87f5-4f36-af84-1463266762c6"
+		]
+	},
+	"3f790f42-87f5-4f36-af84-1463266762c6": {
+		"key": "@infosecinnovations/fantastic-default/reviewcertificates",
+		"type": "tests",
+		"position": {
+			"x": 696,
+			"y": 236
+		},
+		"targets": [
+			"1f53b42a-8240-42ad-ae29-661024c54c2f"
+		]
+	},
+	"1f53b42a-8240-42ad-ae29-661024c54c2f": {
+		"key": "@infosecinnovations/fantastic-default/checksysmon",
+		"type": "actions",
+		"position": {
+			"x": 884,
+			"y": 474
+		},
+		"targets": []
+	}
+}

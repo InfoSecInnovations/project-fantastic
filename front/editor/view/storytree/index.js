@@ -1,18 +1,13 @@
 import {h} from 'snabbdom/h'
 import Sidebar from './sidebar'
-import ModuleMenu from './modulemenu'
 import Editor from './editor'
 import Info from './info'
+import MenuBar from './menubar'
 
 export default (state, send) => h('div#story-tree', [
   h('div#sidebar.panel', Sidebar(state, send)),
   h('div.column', [
-    h('div#menu-bar.panel', [
-      h('div.button', {on: {click: e => send({type: 'load_module_menu', enabled: true})}}, 'Load module'),
-      h('div.button', {}, 'Load story tree'),
-      h('div.button', {}, 'Save')
-    ]),
-    state.module_menu ? h('div#module-menu.panel', ModuleMenu(state, send)) :
+    h('div#menu-bar.panel', MenuBar(state, send)),
     h('div#editor.graph', {
       hook: {create: (_, vnode) => setTimeout(() => send({type: 'editor_canvas', id: vnode.elm.getAttribute('id')}))},
       on: {

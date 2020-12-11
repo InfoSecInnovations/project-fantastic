@@ -6,8 +6,8 @@ const draggableNode = node => h('li.node', {
 }, h('div.node-label', node.data.name))
 
 const nodeList = (state, module, type) => Object.entries(module[type])
-  .filter(e => !Object.values(state.editor.nodes).find(node => node.type == type && node.key == e[0]))
-  .map(e => draggableNode({ key: e[0], data: e[1], type }))
+  .filter(e => !Object.values(state.editor.nodes).find(node => node.type == type && node.key == `${module.name}/${e[0]}`))
+  .map(e => draggableNode({ key: `${module.name}/${e[0]}`, data: e[1], type }))
 
 export default (state, send) => state.modules ? state.modules.map(module => [
     h('h2', module.name),
