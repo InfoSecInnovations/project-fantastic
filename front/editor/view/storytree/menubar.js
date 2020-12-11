@@ -16,7 +16,8 @@ export default (state, send) => [
     attrs: { 
       id: 'save-file-input',
       type: 'file',
-      nwsaveas: 'story.json'
+      nwsaveas: 'story.json',
+      accept: '.json'
     },
     on: { change: e => send({type: 'save', path: e.target.value}) },
     style: {display: 'none'}
