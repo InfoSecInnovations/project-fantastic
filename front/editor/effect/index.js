@@ -11,7 +11,7 @@ export default (state, action, send) => {
     state.editor.jsplumb.makeSource(action.el, {filter: '.handle'})
     state.editor.jsplumb.makeTarget(action.el, {allowLoopback: false})
   }
-  if (action.type == 'editor_node_remove_el') state.editor.jsplumb.remove(action.id)
+  if (action.type == 'editor_node_remove_el') state.editor.jsplumb.unmanage(action.id)
   if (action.type == 'save') Save(state, action, send)
   if (action.type == 'load_tree') LoadTree(state, action, send)
   if (action.type == 'editor_node_remove') send({type: 'editor_select', id: null})
