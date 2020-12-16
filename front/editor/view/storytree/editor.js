@@ -1,9 +1,10 @@
 import {h} from 'snabbdom/h'
+import ModuleFromKey from '../../util/modulefromkey'
 
 export default (state, send) => Object.entries(state.editor.nodes).map(node => {
   const sliceIndex = node[1].key.lastIndexOf('/')
   const key = node[1].key.slice(sliceIndex + 1)
-  const module = state.modules[node[1].key.slice(0, sliceIndex)]
+  const module = ModuleFromKey(state, node[1].key)
   if (!module) return
   const data = module[node[1].type][key]
   return h('div.node', {
@@ -24,7 +25,7 @@ export default (state, send) => Object.entries(state.editor.nodes).map(node => {
     },
     hook: {
       create: (_, vnode) => setTimeout(() => send({type: 'editor_node_el', el: vnode.elm})),
-      destroy: vnode => setTimeout(() => send({type: 'editor_node_remove_el', id: node[0]}))
+      destroy: vnode => state.editor.jsplumb.unmanage(vnode.elm)
     },
     key: node[0]
   }, [

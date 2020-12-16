@@ -1,5 +1,6 @@
 const FS = require('fs-extra')
 const Path = require('path')
+import ModuleFromKey from '../util/modulefromkey'
 
 export default (state, action, send) => {
   const {jsplumb: instance, nodes} = state.editor
@@ -15,7 +16,8 @@ export default (state, action, send) => {
     targets: instance.getConnections({source: e[0]}).map(c => c.targetId)
   }}), {})
   const pathData = Object.entries(elements).reduce((result, e) => {
-    const path = Path.relative(action.path, nodes[e[0]].path)
+    const module = ModuleFromKey(state, nodes[e[0]].key)
+    const path = Path.relative(action.path, module.path)
     if (!result.includes(path)) result.push(path)
     return result
   }, [])
