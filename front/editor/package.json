@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@infosecinnovations/fantastic-front": "^0.3.12",
-    "@jsplumb/community": "^4.0.0-RC25",
+    "@jsplumb/community": "^4.0.0-RC28",
     "fs-extra": "^8.1.0",
     "snabbdom": "^2.1.0",
     "webpack": "^5.10.0",

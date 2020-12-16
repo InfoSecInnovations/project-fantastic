@@ -3,34 +3,30 @@
 		".."
 	],
 	"nodeData": {
-		"8cb385a4-707a-464f-aa87-0a5e3b8fff8f": {
+		"76479d2e-1d6b-40ee-9e6f-924f85c9ea62": {
 			"key": "@infosecinnovations/fantastic-default/checkreboot",
 			"type": "tests",
 			"position": {
-				"x": 243,
-				"y": 178
+				"x": 160,
+				"y": 189
 			},
-			"targets": [
-				"7333e16b-6b16-43d1-8dd9-327db6dd7577"
-			]
+			"targets": []
 		},
-		"7333e16b-6b16-43d1-8dd9-327db6dd7577": {
+		"50583805-9f53-46a8-8510-f18f0c4ea721": {
 			"key": "@infosecinnovations/fantastic-default/reviewcertificates",
 			"type": "tests",
 			"position": {
-				"x": 591,
-				"y": 196
+				"x": 418,
+				"y": 213
 			},
-			"targets": [
-				"ec1ecc7c-e878-487f-90eb-b48b39bb9f68"
-			]
+			"targets": []
 		},
-		"ec1ecc7c-e878-487f-90eb-b48b39bb9f68": {
+		"0ea96029-f8d2-4174-a5a6-3b6e9827e8d6": {
 			"key": "@infosecinnovations/fantastic-default/reviewusbdevices",
 			"type": "tests",
 			"position": {
-				"x": 820,
-				"y": 296
+				"x": 624,
+				"y": 206
 			},
 			"targets": []
 		}
