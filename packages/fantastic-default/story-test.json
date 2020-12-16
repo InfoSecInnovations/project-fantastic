@@ -10,7 +10,9 @@
 				"x": 160,
 				"y": 189
 			},
-			"targets": []
+			"targets": [
+				"50583805-9f53-46a8-8510-f18f0c4ea721"
+			]
 		},
 		"50583805-9f53-46a8-8510-f18f0c4ea721": {
 			"key": "@infosecinnovations/fantastic-default/reviewcertificates",
@@ -19,7 +21,9 @@
 				"x": 418,
 				"y": 213
 			},
-			"targets": []
+			"targets": [
+				"0ea96029-f8d2-4174-a5a6-3b6e9827e8d6"
+			]
 		},
 		"0ea96029-f8d2-4174-a5a6-3b6e9827e8d6": {
 			"key": "@infosecinnovations/fantastic-default/reviewusbdevices",
