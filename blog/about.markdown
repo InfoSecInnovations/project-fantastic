@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Fantastic is a visual tool being developed by [InfoSecInnovations](https://www.infosecinnovations.com/)
+Fantastic is a visual tool being developed by [InfoSec Innovations](https://www.infosecinnovations.com/)
 
 It aims to facilitate analyzing and fixing security issues on a computer network using the following features:
 - Graph showing all the hosts on the network
