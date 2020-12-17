@@ -12,7 +12,10 @@
 			},
 			"targets": [
 				"50583805-9f53-46a8-8510-f18f0c4ea721"
-			]
+			],
+			"parameters": {
+				"days": 3
+			}
 		},
 		"50583805-9f53-46a8-8510-f18f0c4ea721": {
 			"key": "@infosecinnovations/fantastic-default/reviewcertificates",

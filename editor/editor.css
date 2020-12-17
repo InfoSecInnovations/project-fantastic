@@ -257,6 +257,26 @@ input[type=password] {
 .scroll_container .scroll .scroll_item.spaced {
   gap: 0.7rem;
 }
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.center {
+  align-items: center;
+}
+.label {
+  font-size: 12px;
+  color: #949494;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  margin: 0;
+  padding: 0;
+}
 #story-tree {
   display: grid;
   grid-template-columns: 260px auto 300px;
@@ -291,16 +311,16 @@ input[type=password] {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+#story-tree #sidebar .sidebar-columns li {
+  margin: 10px;
+}
 #story-tree #info {
   padding: 10px;
   gap: 10px;
 }
-.column {
+#story-tree #info .parameter {
   display: flex;
-  flex-direction: column;
-}
-.center {
-  align-items: center;
+  gap: 10px;
 }
 .node {
   cursor: pointer;
@@ -354,17 +374,5 @@ input[type=password] {
 .highlight {
   background-color: #505151;
   border-color: #ffa666;
-}
-.label {
-  font-size: 12px;
-  color: #949494;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-li {
-  margin: 10px;
-  padding: 0;
 }
 /*# sourceMappingURL=editor.css.map */
