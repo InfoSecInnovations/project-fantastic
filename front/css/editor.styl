@@ -1,5 +1,25 @@
 @require 'common/base.styl'
 
+.column
+  display: flex
+  flex-direction: column
+  gap: 5px
+
+.center
+  align-items: center
+
+.label
+  font-size: 12px
+  color: disabled_color
+
+ul
+  margin: 0
+  padding: 0
+
+li
+  margin: 0
+  padding: 0
+
 #story-tree
   display: grid
   grid-template-columns: 260px auto 300px
@@ -27,16 +47,14 @@
     .sidebar-columns
       display: grid
       grid-template-columns: 1fr 1fr
+      li
+        margin: 10px
   #info
     padding: 10px
     gap: 10px
-
-.column
-  display: flex
-  flex-direction: column
-
-.center
-  align-items: center
+    .parameter
+      display: flex
+      gap: 10px
 
 .node
   cursor: pointer
@@ -88,15 +106,3 @@
 .highlight
   background-color: button_hover_color
   border-color: alt_background_color
-
-.label
-  font-size: 12px
-  color: disabled_color
-
-ul
-  margin: 0
-  padding: 0
-
-li
-  margin: 10px
-  padding: 0

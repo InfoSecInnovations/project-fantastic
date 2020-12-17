@@ -13,7 +13,8 @@ export default (state, action, send) => {
       x: parseInt(e[1].el.style.left.replace('px', '')),
       y: parseInt(e[1].el.style.top.replace('px', ''))
     },
-    targets: instance.getConnections({source: e[0]}).map(c => c.targetId)
+    targets: instance.getConnections({source: e[0]}).map(c => c.targetId),
+    parameters: nodes[e[0]].parameters
   }}), {})
   const pathData = Object.entries(elements).reduce((result, e) => {
     const module = ModuleFromKey(state, nodes[e[0]].key)

@@ -7,6 +7,7 @@ import { eventListenersModule } from 'snabbdom/modules/eventlisteners'
 import View from './view'
 import Update from './update'
 import Effect from './effect'
+import QuestConfig from './defaults/questconfig'
 
 const patch = init([
   classModule,
@@ -18,7 +19,8 @@ const patch = init([
 
 let state = {
   editor: {
-    nodes: {}
+    nodes: {},
+    config: QuestConfig()
   },
   modules: {}
 }
