@@ -17,6 +17,7 @@
     "includeDeclarations": true,
     "excludeExternals": true,
     "plugin": "typedoc-plugin-markdown",
-    "excludeNotExported": true
+    "excludeNotExported": true,
+    "out": "generated-documentation"
   }
 }
