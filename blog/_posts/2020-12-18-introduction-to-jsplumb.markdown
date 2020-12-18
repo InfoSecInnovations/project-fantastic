@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "An Introduction to jsPlumb"
-date:   2020-12-17 15:50:30 +0100
+date:   2020-12-18 17:45:00 +0100
 author: "Sebastian Boutin Blomfield"
 ---
 
