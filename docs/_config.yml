@@ -29,7 +29,7 @@ twitter_username: ISInnovations
 github_username:  InfoSecInnovations
 
 # Build settings
-theme: jekyll-theme-minimal
+theme: jekyll-theme-slate
 plugins:
   - jekyll-feed
 
