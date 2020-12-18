@@ -23,8 +23,8 @@ email: info@infosecinnovations.com
 description: >- # this means to ignore newlines until "baseurl:"
   Devblog for the network visualization and security tool Fantastic. 
   Fantastic guides you through the process of detecting and fixing problems using quests and a visual representation of what's going on.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://infosecinnovations.github.io/project-fantastic" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/project-fantastic" # the subpath of your site, e.g. /blog
+url: "https://infosecinnovations.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ISInnovations
 github_username:  InfoSecInnovations
 
