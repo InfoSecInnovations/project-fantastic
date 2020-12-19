@@ -31,7 +31,7 @@ export default (state, send) => [
     attrs: { 
       id: 'save-file-input',
       type: 'file',
-      nwsaveas: 'story.json',
+      nwsaveas: state.editor.saveFile || 'story.json',
       accept: '.json'
     },
     on: { change: e => {

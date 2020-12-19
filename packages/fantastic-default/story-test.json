@@ -15,21 +15,21 @@
 				"9734a652-016c-49e9-b1a9-77620653a108"
 			]
 		},
-		"9734a652-016c-49e9-b1a9-77620653a108": {
-			"key": "@infosecinnovations/fantastic-default/reviewcertificates",
-			"type": "tests",
-			"position": {
-				"x": 608,
-				"y": 125
-			},
-			"targets": []
-		},
 		"386d39f6-efce-4289-acba-512957aa0b8c": {
 			"key": "@infosecinnovations/fantastic-default/reviewusbdevices",
 			"type": "tests",
 			"position": {
 				"x": 380,
 				"y": 333
+			},
+			"targets": []
+		},
+		"9734a652-016c-49e9-b1a9-77620653a108": {
+			"key": "@infosecinnovations/fantastic-default/reviewcertificates",
+			"type": "tests",
+			"position": {
+				"x": 608,
+				"y": 125
 			},
 			"targets": []
 		}

@@ -23,4 +23,5 @@ export default (state, action, send) => {
     return result
   }, [])
   FS.writeJSON(action.path, {pathData, nodeData, questConfig: state.editor.config}, {spaces: '\t'})
+  send({type: 'save_file', name: Path.parse(action.path).base})
 }
