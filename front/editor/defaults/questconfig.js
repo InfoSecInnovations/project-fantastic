@@ -1,4 +1,6 @@
 export default () => ({
-  selection: {},
+  selection: {
+    age: {}
+  },
   hosts: []
 })

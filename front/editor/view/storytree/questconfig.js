@@ -17,7 +17,8 @@ export default (state, send) => [
     ...hosts.map(host => h('span', [
       h('input', {
         attrs: {type: 'checkbox', id: `host-type-${host}`},
-        on: {input: e => send({type: 'enable_quest_host_type', value: e.target.value, type: host})}
+        props: {checked: state.editor.config.hosts.includes(host)},
+        on: {input: e => send({type: 'enable_quest_host_type', enabled: e.target.checked, host})}
       }),
       h('label', {attrs: {for: `host-type-${host}`}}, host)
     ]))
@@ -26,17 +27,19 @@ export default (state, send) => [
     h('div.label', 'Host Selection'),
     h('span', [
       h('input', {
-        attrs: {type: 'checkbox', id: 'quest-selection-time'},
-        on: {input: e => send({type: 'enable_quest_selection-time', value: e.target.value})}
+        attrs: {type: 'checkbox', id: 'quest-selection-age'},
+        props: {checked: state.editor.config.selection.age.enabled},
+        on: {input: e => send({type: 'enable_quest_age', enabled: e.target.checked})}
       }),
-      h('label', {attrs: {for: 'quest-selection-time'}}, 'Maximum Age')
+      h('label', {attrs: {for: 'quest-selection-age'}}, 'Maximum Age')
     ]),
-    ...timeUnits.map(unit => h('span', [
+    ...(state.editor.config.selection.age.enabled ? timeUnits.map(unit => h('span', [
       h('input', {
-        attrs: {type: 'number', id: `quest-selection-time-${unit}`},
-        on: {input: e => send({type: 'set_quest_time', value: e.target.value, unit})}
+        attrs: {type: 'number', id: `quest-selection-age-${unit}`},
+        props: {value: state.editor.config.selection.age[unit]},
+        on: {input: e => send({type: 'set_quest_age', value: e.target.value, unit})}
       }),
-      h('label', {attrs: {for: `quest-selection-time-${unit}`}}, unit)
-    ]))
+      h('label', {attrs: {for: `quest-selection-age-${unit}`}}, unit)
+    ])) : [])
   ])
 ]

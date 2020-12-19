@@ -11,5 +11,14 @@ export default (state, action) => {
     if (!state.editor.nodes[action.id].parameters) state.editor.nodes[action.id].parameters = {}
     state.editor.nodes[action.id].parameters[action.key] = action.value
   }
+  if (action.type == 'enable_quest_age') state.editor.config.selection.age.enabled = action.enabled
+  if (action.type == 'set_quest_age') state.editor.config.selection.age[action.unit] = action.value
+  if (action.type == 'enable_quest_host_type') {
+    if (action.enabled && !state.editor.config.hosts.includes(action.host)) state.editor.config.hosts.push(action.host)
+    else {
+      const index = state.editor.config.hosts.findIndex(host => host == action.host)
+      if (index) state.editor.config.hosts.splice(index, 1)
+    }
+  }
   return state
 }

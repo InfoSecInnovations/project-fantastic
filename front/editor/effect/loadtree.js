@@ -1,6 +1,7 @@
 const FS = require('fs-extra')
 const Path = require('path')
 import LoadModule from './loadmodule'
+import QuestConfig from '../defaults/questconfig'
 
 export default (state, action, send) => FS.readJSON(action.path)
   .then(async json => {
@@ -11,4 +12,5 @@ export default (state, action, send) => FS.readJSON(action.path)
     Object.entries(json.nodeData).forEach(e => { // establish connections
       e[1].targets.forEach(target => state.editor.jsplumb.connect({source: e[0], target}))
     })
+    state.editor.config = {...QuestConfig(), ...json.questConfig}
   })
