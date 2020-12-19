@@ -2,5 +2,5 @@ export default () => ({
   selection: {
     age: {}
   },
-  hosts: []
+  hosts: ['local', 'remote']
 })
