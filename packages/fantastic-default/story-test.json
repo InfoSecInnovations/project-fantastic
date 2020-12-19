@@ -3,39 +3,47 @@
 		".."
 	],
 	"nodeData": {
-		"76479d2e-1d6b-40ee-9e6f-924f85c9ea62": {
+		"cb7ec3a8-d38d-4ae7-9513-c1a4f23b6aba": {
 			"key": "@infosecinnovations/fantastic-default/checkreboot",
 			"type": "tests",
 			"position": {
-				"x": 160,
-				"y": 189
+				"x": 199,
+				"y": 119
 			},
 			"targets": [
-				"50583805-9f53-46a8-8510-f18f0c4ea721"
-			],
-			"parameters": {
-				"days": 3
-			}
+				"386d39f6-efce-4289-acba-512957aa0b8c",
+				"9734a652-016c-49e9-b1a9-77620653a108"
+			]
 		},
-		"50583805-9f53-46a8-8510-f18f0c4ea721": {
+		"9734a652-016c-49e9-b1a9-77620653a108": {
 			"key": "@infosecinnovations/fantastic-default/reviewcertificates",
 			"type": "tests",
 			"position": {
-				"x": 418,
-				"y": 213
+				"x": 608,
+				"y": 125
 			},
-			"targets": [
-				"0ea96029-f8d2-4174-a5a6-3b6e9827e8d6"
-			]
+			"targets": []
 		},
-		"0ea96029-f8d2-4174-a5a6-3b6e9827e8d6": {
+		"386d39f6-efce-4289-acba-512957aa0b8c": {
 			"key": "@infosecinnovations/fantastic-default/reviewusbdevices",
 			"type": "tests",
 			"position": {
-				"x": 624,
-				"y": 206
+				"x": 380,
+				"y": 333
 			},
 			"targets": []
 		}
+	},
+	"questConfig": {
+		"selection": {
+			"age": {
+				"enabled": true,
+				"h": "5"
+			}
+		},
+		"hosts": [
+			"local",
+			"remote"
+		]
 	}
 }

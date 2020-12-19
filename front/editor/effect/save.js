@@ -22,5 +22,5 @@ export default (state, action, send) => {
     if (!result.includes(path)) result.push(path)
     return result
   }, [])
-  FS.writeJSON(action.path, {pathData, nodeData}, {spaces: '\t'})
+  FS.writeJSON(action.path, {pathData, nodeData, questConfig: state.editor.config}, {spaces: '\t'})
 }
