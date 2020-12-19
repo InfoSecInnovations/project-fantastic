@@ -185,6 +185,8 @@ const save = () => {
 
 ### Prevent duplicate connections
 
+In a lot of cases it doesn't really make sense to have more than one connection with the same source and target. The `beforeDrop` event allows you to return false to prevent a connection from being made.
+
 {% highlight javascript %}
 {% raw %}
 instance.bind('beforeDrop', info => !instance.select({source: info.sourceId, target: info.targetId}).length)
