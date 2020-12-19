@@ -20,5 +20,6 @@ export default (state, action) => {
       if (index) state.editor.config.hosts.splice(index, 1)
     }
   }
+  if (action.type == 'save_file') state.editor.saveFile = action.name
   return state
 }

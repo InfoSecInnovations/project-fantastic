@@ -13,4 +13,5 @@ export default (state, action, send) => FS.readJSON(action.path)
       e[1].targets.forEach(target => state.editor.jsplumb.connect({source: e[0], target}))
     })
     state.editor.config = {...QuestConfig(), ...json.questConfig}
+    send({type: 'save_file', name: Path.parse(action.path).base})
   })
