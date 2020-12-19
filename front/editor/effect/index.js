@@ -6,7 +6,6 @@ import Save from './save'
 export default (state, action, send) => {
   if (action.type == 'editor_canvas') EditorCanvas(state, action, send)
   if (action.type == 'load_module') LoadModule(state, action, send)
-  if (action.type == 'editor_node') send({type: 'editor_select', id: action.id})
   if (action.type == 'editor_node_el') {
     state.editor.jsplumb.makeSource(action.el, {filter: '.handle'})
     state.editor.jsplumb.makeTarget(action.el, {allowLoopback: false})

@@ -21,5 +21,6 @@ export default (state, action) => {
     }
   }
   if (action.type == 'save_file') state.editor.saveFile = action.name
+  if (action.type == 'load_tree') state.editor.nodes = {}
   return state
 }
