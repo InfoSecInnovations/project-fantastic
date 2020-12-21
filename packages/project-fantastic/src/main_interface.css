@@ -359,11 +359,18 @@ input[type=password] {
   background-color: #242424;
   z-index: 10;
   position: relative;
+  display: grid;
+  place-items: stretch;
 }
-#container #story_viewer #story_container {
+#container #story_viewer #story_container_wrapper {
+  min-width: 0;
+  min-height: 0;
+}
+#container #story_viewer #story_container_wrapper #story_container {
   width: 1280px;
   height: 720px;
   position: relative;
+  transform-origin: top left;
 }
 #container #story_viewer .close {
   position: absolute;
@@ -428,12 +435,16 @@ input[type=password] {
   color: #38d140;
 }
 #container #story_viewer .locked {
+  cursor: auto;
   background-color: #3c3d3d;
   color: #949494;
 }
 #container #story_viewer .highlight {
   background-color: #505151;
   border-color: #ffa666;
+}
+#container #story_viewer.hidden {
+  display: none;
 }
 #container #review {
   grid-column: 1/4;
@@ -628,5 +639,8 @@ input[type=password] {
 }
 .pending {
   color: #ffe159;
+}
+.hidden {
+  display: none;
 }
 /*# sourceMappingURL=main_interface.css.map */

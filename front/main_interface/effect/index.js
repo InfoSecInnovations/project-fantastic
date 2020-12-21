@@ -10,11 +10,12 @@ import Nodes from './nodes'
 import UserHistory from './userhistory'
 import NodesFromEdge from '../util/nodesfromedge'
 import JsPlumb from './jsplumb'
+import ResizeStory from './resizestory'
 
 export default (state, action, send) => {
   Common(state, action, send)
   FlexSearch(state, action, send)
-  if (action.type == 'init') Init(send)
+  if (action.type == 'init') Init(state, send)
   if (action.type == 'nodes') Nodes(state, send)
   if (action.type == 'story_container') JsPlumb(state, action, send)
   if (action.type == 'get_nodes') RefreshNodes(send, {nodes: action.nodes, date: action.date, max_date: action.max_date})
@@ -102,6 +103,7 @@ export default (state, action, send) => {
           target => state.story.jsplumb.connect({source: node[0], target})
         )
       )
+      ResizeStory(state, send)
     }
   }
 }

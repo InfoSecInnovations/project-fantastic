@@ -18,15 +18,23 @@
     background-color: background_color
     z-index: 10
     position: relative
-    #story_container
-      width: 1280px
-      height: 720px
-      position: relative
+    display: grid
+    place-items: stretch
+    #story_container_wrapper
+      min-width: 0
+      min-height: 0
+      #story_container
+        width: 1280px
+        height: 720px
+        position: relative
+        transform-origin: top left
     .close
       position: absolute
       top: 1rem
       right: 1rem
     @require '../story'
+    &.hidden
+      display: none
 
   @require '../main_interface/review.styl'
   #loading
@@ -69,3 +77,6 @@
 
 .pending
   color: pending_color
+
+.hidden
+  display: none
