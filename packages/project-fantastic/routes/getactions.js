@@ -3,7 +3,6 @@ const GetPackagedData = require('../util/getpackageddata')
 
 const getActions = (user, res, req, query, actions) => {
   console.log('getActions: received http request to get available actions...')
-  if (!user) return !res.aborted && res.end()
   Promise.all(actions
     .map(v => GetPackagedData(v, 'actions').then(a => ({...a, key: v})))
   )
