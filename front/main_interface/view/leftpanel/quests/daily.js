@@ -9,8 +9,8 @@ const success_texts = [
   'Good job'
 ]
 
-export default (state, send) => h('div.scroll_container', [
-  h('h2.panel_title', 'Quests'),
+export default (state, send) => [
+  h('h2.panel_title', 'Daily Quests'),
   h('div.scroll spaced', Object.entries(state.quests).map(v => {
     const quest = v[0]
     const date = state.quest_results.date[quest]
@@ -36,4 +36,4 @@ export default (state, send) => h('div.scroll_container', [
       date && {success_prefix: `${success_texts[Math.floor(success_texts.length * new Alea(date)())]}!`, is_quest: true}
     )
   }))
-])
+]

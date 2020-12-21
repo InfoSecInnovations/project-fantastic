@@ -89,6 +89,9 @@ export default (state, action) => {
   if (action.type == 'connection') state.selected.connection = action.connection
   if (action.type == 'expand_connection') state.connection_search.expanded_connection = action.connection
   if (action.type == 'connection_search') state.connection_search[action.key] = action.value
+  if (action.type == 'jsplumb') state.story.jsplumb = action.instance
+  if (action.type == 'select_story') state.story.selected = action.story
+  if (action.type == 'select_story_node') state.story.selected_node = action.node
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

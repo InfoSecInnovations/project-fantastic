@@ -8,6 +8,7 @@
   "dependencies": {
     "@infosecinnovations/fantastic-front": "^0.3.12",
     "@infosecinnovations/fantastic-utils": "^0.3.9",
+    "@jsplumb/community": "^4.0.0-RC28",
     "alea": "^1.0.0",
     "snabbdom": "^1.0.1",
     "vis-network": "^6.5.0",
