@@ -17,6 +17,7 @@ const Routes = require('./routes')
 const CreateRoutingServer = require('./createroutingserver')
 const version = require('./version')
 const AuthFactory = require('@infosecinnovations/fantastic-auth_factory')
+const GetStoryData = require('./stories/getstorydata')
 
 /**
  * Start the server
@@ -32,6 +33,7 @@ const main = async () => {
   let data_process
   let actions = await GetActionData(config)
   let tests = await GetTestData(config)
+  let stories = await GetStoryData(config)
   const auth_module = AuthFactory(GetPackage(config.authentication.module))
   const update_commands = commands => {
     if (data_process) data_process.send({type: 'commands', commands})
@@ -51,8 +53,9 @@ const main = async () => {
     auth_module, 
     () => command_data, 
     () => actions, 
-    () => tests, 
-    commands => command_data = update_commands(commands),
+    () => tests,
+    () => stories,
+    commands => command_data = update_commands(commands)
   )
   if (config.use_child_process) {
     data_process = fork(Path.join(__dirname, './getdata.js'), [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
