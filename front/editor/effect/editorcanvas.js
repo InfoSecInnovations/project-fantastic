@@ -1,4 +1,4 @@
-import jsPlumbDefaults from './jsplumbdefaults'
+import jsPlumbDefaults from '@infosecinnovations/fantastic-front/effect/jsplumbdefaults'
 const jsPlumb = require('@jsplumb/community')
 
 export default (state, action, send) => jsPlumb.ready(() => {

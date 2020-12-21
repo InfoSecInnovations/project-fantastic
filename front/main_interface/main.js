@@ -32,7 +32,8 @@ let state = {
   test_parameters: {},
   keys: {},
   child_tabs: [],
-  command_status: {}
+  command_status: {},
+  story: {}
 }
 let vnode = document.body
 

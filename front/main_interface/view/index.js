@@ -4,6 +4,7 @@ import Selection from './selection'
 import Tooltip from './tooltip'
 import Top from './top'
 import Review from './review'
+import StoryPanel from './storypanel'
 
 export default (state, send) => 
   h('body', [
@@ -11,8 +12,9 @@ export default (state, send) =>
       Top(state, send),
       h('div#graph_container', {
         hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))},
-        style: {display: state.loading ? 'none' : 'block'}
+        class: {hidden: state.loading}
       }),
+      StoryPanel(state, send),
       state.loading ? h('div#loading', 'Loading...') : undefined,
       LeftPanel(state, send),
       Selection(state, send),

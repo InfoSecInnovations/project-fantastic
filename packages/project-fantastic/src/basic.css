@@ -24,7 +24,8 @@ body {
   flex-grow: 1;
   flex-basis: 0;
 }
-.fas {
+.fas,
+.far {
   font-size: 1.5rem;
   flex-grow: 0;
   color: #f55100;
@@ -100,6 +101,17 @@ a:hover,
   flex-direction: column;
   gap: 1rem;
   padding: 1rem 0;
+}
+.hidden {
+  display: none;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.center {
+  align-items: center;
 }
 h1,
 h2,
@@ -201,7 +213,8 @@ input[type=password] {
   align-items: center;
   flex-grow: 1;
 }
-.icon_button:hover .fas {
+.icon_button:hover .fas,
+.icon_button:hover .far {
   color: #ffa666;
 }
 .foldout {

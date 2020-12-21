@@ -9,12 +9,14 @@ import RefreshNodes from './refreshnodes'
 import Nodes from './nodes'
 import UserHistory from './userhistory'
 import NodesFromEdge from '../util/nodesfromedge'
+import JsPlumb from './jsplumb'
 
 export default (state, action, send) => {
   Common(state, action, send)
   FlexSearch(state, action, send)
   if (action.type == 'init') Init(send)
   if (action.type == 'nodes') Nodes(state, send)
+  if (action.type == 'story_container') JsPlumb(state, action, send)
   if (action.type == 'get_nodes') RefreshNodes(send, {nodes: action.nodes, date: action.date, max_date: action.max_date})
   if (action.type == 'graph_container') {
     action.container.onmouseleave = e => send({type: 'hover_ui', value: true})
@@ -92,4 +94,14 @@ export default (state, action, send) => {
       send({...action, type: 'review_approval', approved: res.approved})
       send({type: 'review', results: undefined})
     })
+  if (action.type == 'select_story') {
+    if (action.story) {
+      const storyData = state.stories[action.story]
+      Object.entries(storyData.nodeData).forEach(
+        node => node[1].targets.forEach(
+          target => state.story.jsplumb.connect({source: node[0], target})
+        )
+      )
+    }
+  }
 }

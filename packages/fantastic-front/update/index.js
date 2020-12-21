@@ -9,6 +9,7 @@ export default (state, action) => {
   if (action.type == 'commands') state.commands = action.commands
   if (action.type == 'quests') state.quests = action.quests
   if (action.type == 'tests') state.tests = action.tests
+  if (action.type == 'stories') state.stories = action.stories
   if (action.type == 'perform_action') PerformAction(state, action)
   if (action.type == 'action_result') ActionResult(state, action)
   if (action.type == 'result_foldout') state.action_results[action.hostname][action.action].foldout = action.value

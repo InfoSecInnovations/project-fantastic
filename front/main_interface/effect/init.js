@@ -3,7 +3,7 @@ import FetchScripts from '@infosecinnovations/fantastic-front/effect/fetchscript
 
 export default send => {
   window.onresize = e => send({type: 'render'})
-  ;['actions', 'tests', 'quests', 'commands'].forEach(v => FetchScripts(send, v)) // automatic semicolon insertion doesn't work on this line
+  ;['actions', 'tests', 'quests', 'commands', 'stories'].forEach(v => FetchScripts(send, v)) // automatic semicolon insertion doesn't work on this line
   fetch('/user')
   .then(res => res.json())
   .then(res => send({type: 'user', user: res}))
