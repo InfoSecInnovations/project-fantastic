@@ -5,10 +5,19 @@ export default (state, send) => {
   const storyData = state.stories[state.story.selected]
   return Object.entries(storyData.nodeData).map(node => {
     const data = state[node[1].type][node[1].key]
+    const locked = Object.values(storyData.nodeData).find(other => other.targets.includes(node[0])) // TODO: make available based on completion
     return h('div.node', {
+      on: {
+        click: e => {
+          if (locked) return
+          send({type: 'select_story_node', node: node[0]})
+          e.stopPropagation()
+        }
+      },
       attrs: { id: node[0] },
       class: {
-        highlight: state.story.selected_node == node[0]
+        highlight: state.story.selected_node == node[0],
+        locked
       },
       style: {
         position: 'absolute',

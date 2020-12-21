@@ -92,6 +92,8 @@ export default (state, action) => {
   if (action.type == 'jsplumb') state.story.jsplumb = action.instance
   if (action.type == 'select_story') state.story.selected = action.story
   if (action.type == 'select_story_node') state.story.selected_node = action.node
+  if (action.type == 'story_container') state.story.container = action.elm
+  if (action.type == 'story_container_scale') state.story.scale = action.scale
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

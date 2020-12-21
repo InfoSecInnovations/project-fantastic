@@ -1,7 +1,8 @@
 import UserHistory from './userhistory'
 import FetchScripts from '@infosecinnovations/fantastic-front/effect/fetchscripts'
+import ResizeStory from './resizestory'
 
-export default send => {
+export default (state, send) => {
   window.onresize = e => send({type: 'render'})
   ;['actions', 'tests', 'quests', 'commands', 'stories'].forEach(v => FetchScripts(send, v)) // automatic semicolon insertion doesn't work on this line
   fetch('/user')
@@ -14,4 +15,5 @@ export default send => {
   window.onkeyup = e => {
     if (e.key === 'Shift') send({type: 'key', key: 'shift', value: false})
   }
+  window.onresize = e => ResizeStory(state, send)
 }
