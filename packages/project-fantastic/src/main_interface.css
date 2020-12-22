@@ -236,8 +236,7 @@ input[type=password] {
 .scroll_container {
   min-height: 0;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 1rem;
   padding: 1rem;
 }
