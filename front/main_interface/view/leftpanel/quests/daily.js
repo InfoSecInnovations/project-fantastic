@@ -28,7 +28,7 @@ export default (state, send) => [
       state.quest_results.approval[quest],
       state.quest_results.status[quest] === 'loading',
       {type: 'run_quest', quest},
-      date && {success_prefix: `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(date)())]}!`, is_quest: true}
+      date && {success_prefix: `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(date)())]}!`, type: 'quests'}
     )
   }))
 ]
