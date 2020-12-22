@@ -4,7 +4,7 @@ const postReview = async (user, res, req, query) => {
 console.log(`postReview: received http request to review ${query.test} results...`)
   const db = await transaction()
   let test_id
-  if (query.quest) {
+  if (query.type === 'quests') {
     const quest_result = await db.get({      
       table: 'quest_history',
       columns: ['MAX(date) AS date', 'quest_id'], 
