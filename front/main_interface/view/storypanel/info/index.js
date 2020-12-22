@@ -34,7 +34,7 @@ export default (state, send) => {
         data.parameters,
         state.quest_results.approval[quest],
         state.quest_results.status[quest] === 'loading',
-        {type: 'run_story_node', story: state.story.selected, quest},
+        {type: 'run_story_node', story: state.story.selected, node: state.story.selected_node},
         date && {success_prefix: `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(date)())]}!`, type: 'quests'}
       ))
     } 

@@ -69,11 +69,15 @@ const schema = [
     node_id INTEGER,
     user_id TEXT,
     test_id INTEGER,
+    story_id INTEGER,
     FOREIGN KEY (node_id)
       REFERENCES nodes (node_id)
       ON DELETE CASCADE,
     FOREIGN KEY (test_id)
       REFERENCES test_history (test_id)
+      ON DELETE CASCADE,
+    FOREIGN KEY (story_id)
+      REFERENCES story_history (story_id)
       ON DELETE CASCADE
   )`,
   `CREATE TABLE IF NOT EXISTS quest_history(
@@ -91,8 +95,12 @@ const schema = [
     date INTEGER,
     user_id TEXT,
     quest_id INTEGER,
+    story_id INTEGER,
     FOREIGN KEY (quest_id)
       REFERENCES quest_history (quest_id)
+      ON DELETE CASCADE,
+    FOREIGN KEY (story_id)
+      REFERENCES story_history (story_id)
       ON DELETE CASCADE
   )`,
   `CREATE TABLE IF NOT EXISTS command_history(
@@ -109,6 +117,14 @@ const schema = [
     FOREIGN KEY (test_id)
       REFERENCES test_history (test_id)
       ON DELETE CASCADE
+  )`,
+  `CREATE TABLE IF NOT EXISTS story_history(
+    story_id INTEGER PRIMARY KEY,
+    story TEXT,
+    story_node_id TEXT,
+    rows TEXT,
+    date INTEGER,
+    user_id TEXT
   )`,
   `CREATE TABLE IF NOT EXISTS all_history(
     history_id INTEGER PRIMARY KEY,
