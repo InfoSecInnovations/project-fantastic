@@ -1,6 +1,6 @@
 {
 	"pathData": [
-		".."
+		"..\\.."
 	],
 	"nodeData": {
 		"cb7ec3a8-d38d-4ae7-9513-c1a4f23b6aba": {
@@ -14,7 +14,10 @@
 				"9734a652-016c-49e9-b1a9-77620653a108",
 				"7334906f-a711-4746-ac28-1a1f6838f06d",
 				"190da7ca-1fe7-4e63-bdb2-0ab79f6a5684"
-			]
+			],
+			"parameters": {
+				"days": 25
+			}
 		},
 		"9734a652-016c-49e9-b1a9-77620653a108": {
 			"key": "@infosecinnovations/fantastic-default/reviewcertificates",
@@ -50,6 +53,30 @@
 				"91c31474-9265-456d-b384-576343b0d52f"
 			]
 		},
+		"194d183a-5b28-4f97-adf8-82fa1689ece6": {
+			"key": "@infosecinnovations/fantastic-default/lastboot",
+			"type": "actions",
+			"position": {
+				"x": 866,
+				"y": 104
+			},
+			"targets": [
+				"b9bc4fdc-eb4e-407c-854d-9443f62c2e44",
+				"f1878efe-2c69-4a2c-a7cd-4d66ceeaf12d"
+			]
+		},
+		"d9513ca6-8ecd-479e-81d3-fed9b9e1a49b": {
+			"key": "@infosecinnovations/fantastic-default/getinstalledsoftware",
+			"type": "actions",
+			"position": {
+				"x": 232,
+				"y": 197
+			},
+			"targets": [
+				"4b046726-6f63-47cf-87dc-198aee962032",
+				"a5aac6fd-8283-4cb5-b4c2-50526cf3ec51"
+			]
+		},
 		"109873cf-8d5f-4721-86c5-1b6d38a325d0": {
 			"key": "@infosecinnovations/fantastic-default/firewallblockip",
 			"type": "actions",
@@ -70,17 +97,25 @@
 			},
 			"targets": []
 		},
-		"d9513ca6-8ecd-479e-81d3-fed9b9e1a49b": {
-			"key": "@infosecinnovations/fantastic-default/getinstalledsoftware",
+		"4a4f359b-ae62-45fc-96cc-7f4c5d362e9f": {
+			"key": "@infosecinnovations/fantastic-default/loggedinusers",
 			"type": "actions",
 			"position": {
-				"x": 232,
-				"y": 197
+				"x": 422,
+				"y": 580
 			},
 			"targets": [
-				"4b046726-6f63-47cf-87dc-198aee962032",
-				"a5aac6fd-8283-4cb5-b4c2-50526cf3ec51"
+				"7dae5892-2d69-4eee-ae1f-cfcbb041dffd"
 			]
+		},
+		"4b046726-6f63-47cf-87dc-198aee962032": {
+			"key": "@infosecinnovations/fantastic-default/installsysmon",
+			"type": "actions",
+			"position": {
+				"x": 101,
+				"y": 110
+			},
+			"targets": []
 		},
 		"a5aac6fd-8283-4cb5-b4c2-50526cf3ec51": {
 			"key": "@infosecinnovations/fantastic-default/getusbdevices",
@@ -93,25 +128,15 @@
 				"923ff7a7-6a68-40c8-b1ea-64561e484a91"
 			]
 		},
-		"4b046726-6f63-47cf-87dc-198aee962032": {
-			"key": "@infosecinnovations/fantastic-default/installsysmon",
+		"923ff7a7-6a68-40c8-b1ea-64561e484a91": {
+			"key": "@infosecinnovations/fantastic-default/checksysmon",
 			"type": "actions",
 			"position": {
-				"x": 101,
-				"y": 110
-			},
-			"targets": []
-		},
-		"194d183a-5b28-4f97-adf8-82fa1689ece6": {
-			"key": "@infosecinnovations/fantastic-default/lastboot",
-			"type": "actions",
-			"position": {
-				"x": 866,
-				"y": 104
+				"x": 152,
+				"y": 479
 			},
 			"targets": [
-				"b9bc4fdc-eb4e-407c-854d-9443f62c2e44",
-				"f1878efe-2c69-4a2c-a7cd-4d66ceeaf12d"
+				"7dae5892-2d69-4eee-ae1f-cfcbb041dffd"
 			]
 		},
 		"b9bc4fdc-eb4e-407c-854d-9443f62c2e44": {
@@ -132,17 +157,6 @@
 			},
 			"targets": []
 		},
-		"4a4f359b-ae62-45fc-96cc-7f4c5d362e9f": {
-			"key": "@infosecinnovations/fantastic-default/loggedinusers",
-			"type": "actions",
-			"position": {
-				"x": 422,
-				"y": 580
-			},
-			"targets": [
-				"7dae5892-2d69-4eee-ae1f-cfcbb041dffd"
-			]
-		},
 		"7dae5892-2d69-4eee-ae1f-cfcbb041dffd": {
 			"key": "@infosecinnovations/fantastic-default/killconnectionprocess",
 			"type": "actions",
@@ -151,17 +165,6 @@
 				"y": 418
 			},
 			"targets": []
-		},
-		"923ff7a7-6a68-40c8-b1ea-64561e484a91": {
-			"key": "@infosecinnovations/fantastic-default/checksysmon",
-			"type": "actions",
-			"position": {
-				"x": 152,
-				"y": 479
-			},
-			"targets": [
-				"7dae5892-2d69-4eee-ae1f-cfcbb041dffd"
-			]
 		}
 	},
 	"questConfig": {
@@ -175,5 +178,7 @@
 			"local",
 			"remote"
 		]
-	}
+	},
+	"description": "Test story plz ignore.\n\nSome more text here because the description can be long.\n\nLorem ipsum dolor sic amet.",
+	"name": "Test Story"
 }

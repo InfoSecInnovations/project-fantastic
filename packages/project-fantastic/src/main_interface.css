@@ -227,6 +227,12 @@ input[type=password] {
   color: #949494;
   cursor: auto;
 }
+.play {
+  align-self: flex-start;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
 .scroll_container {
   min-height: 0;
   min-width: 0;
@@ -360,6 +366,7 @@ input[type=password] {
   z-index: 10;
   position: relative;
   display: grid;
+  grid-template-columns: min(400px, 40%) 1fr;
   place-items: stretch;
 }
 #container #story_viewer #story_container_wrapper {
@@ -376,18 +383,6 @@ input[type=password] {
   position: absolute;
   top: 1rem;
   right: 1rem;
-}
-#container #story_viewer .label {
-  font-size: 12px;
-  color: #949494;
-}
-#container #story_viewer ul {
-  margin: 0;
-  padding: 0;
-}
-#container #story_viewer li {
-  margin: 0;
-  padding: 0;
 }
 #container #story_viewer .node {
   cursor: pointer;
@@ -525,12 +520,6 @@ input[type=password] {
 }
 #container #left_panel .history_title .history_controls .favorited:hover {
   color: #fff;
-}
-#container #left_panel .play {
-  align-self: flex-start;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
 }
 #container #selection {
   grid-row: 2;

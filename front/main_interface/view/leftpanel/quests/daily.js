@@ -2,12 +2,7 @@ import {h} from 'snabbdom/h'
 const Alea = require('alea')
 import Test from '@infosecinnovations/fantastic-front/view/test'
 const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
-
-const success_texts = [
-  'Well done',
-  'Congratulations',
-  'Good job'
-]
+import SuccessTexts from '@infosecinnovations/fantastic-front/view/successtexts'
 
 export default (state, send) => [
   h('h2.panel_title', 'Daily Quests'),
@@ -33,7 +28,7 @@ export default (state, send) => [
       state.quest_results.approval[quest],
       state.quest_results.status[quest] === 'loading',
       {type: 'run_quest', quest},
-      date && {success_prefix: `${success_texts[Math.floor(success_texts.length * new Alea(date)())]}!`, is_quest: true}
+      date && {success_prefix: `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(date)())]}!`, is_quest: true}
     )
   }))
 ]

@@ -20,6 +20,8 @@ export default (state, action) => {
       if (index) state.editor.config.hosts.splice(index, 1)
     }
   }
+  if (action.type == 'set_quest_description') state.editor.description = action.description
+  if (action.type == 'set_quest_name') state.editor.name = action.name
   if (action.type == 'save_file') state.editor.saveFile = action.name
   if (action.type == 'load_tree') state.editor.nodes = {}
   return state
