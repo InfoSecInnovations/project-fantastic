@@ -22,6 +22,12 @@ export default (state, action, send) => {
     if (!result.includes(path)) result.push(path)
     return result
   }, [])
-  FS.writeJSON(action.path, {pathData, nodeData, questConfig: state.editor.config}, {spaces: '\t'})
+  FS.writeJSON(action.path, {
+    pathData, 
+    nodeData, 
+    questConfig: state.editor.config, 
+    description: state.editor.description, 
+    name: state.editor.name
+  }, {spaces: '\t'})
   send({type: 'save_file', name: Path.parse(action.path).base})
 }

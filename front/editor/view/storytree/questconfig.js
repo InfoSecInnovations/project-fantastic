@@ -6,6 +6,12 @@ const timeUnits = ['d', 'h', 'm']
 export default (state, send) => [
   h('h2', 'Quest Settings'),
   h('div.column', [
+    h('label.label', {attrs: {for: 'quest-name-editor'}}, 'Name'),
+    h('input#quest-name-editor', {
+      on: {input: e => send({type: 'set_quest_name', name: e.target.value})}
+    }, state.editor.name || '')
+  ]),
+  h('div.column', [
     h('label.label', {attrs: {for: 'quest-description-editor'}}, 'Description'),
     h('textarea#quest-description-editor', {
       attrs: {rows: 7},

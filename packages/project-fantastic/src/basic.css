@@ -227,6 +227,12 @@ input[type=password] {
   color: #949494;
   cursor: auto;
 }
+.play {
+  align-self: flex-start;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
 .scroll_container {
   min-height: 0;
   min-width: 0;
