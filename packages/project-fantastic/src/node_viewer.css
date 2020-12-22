@@ -249,7 +249,6 @@ input[type=password] {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  flex-grow: 1;
   scrollbar-width: thin;
   scrollbar-color: #f55100 #ffa666;
 }
