@@ -44,6 +44,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_tests, get_stor
   createRoute('post', '/review', require('./postreview'))
   createRoute('post', '/swap_favorites', require('./postswapfavorites'))
   createRoute('post', '/favorites', require('./postfavorites'))
+  createRoute('post', '/story_node', require('./poststorynode'), {arg: get_stories})
 
   app.get('/logout', (res, req) => require('./auth/logout')(res, req, auth_module))
   app.get('/*', require('./files'))

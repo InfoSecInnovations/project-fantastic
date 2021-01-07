@@ -106,4 +106,5 @@ export default (state, action, send) => {
       ResizeStory(state, send)
     }
   }
+  if (action.type == 'run_story_node') fetch(`/story_node?${GenerateQuery({story: action.story, node: action.node})}`, {method: 'POST'})
 }
