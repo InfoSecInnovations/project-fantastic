@@ -11,11 +11,19 @@ const GetAbsolutePath = require('../util/getabsolutedatapath')
  * @param {number} date 
  * @param {number[]} nodes database IDs of nodes we're running the test on
  * @param {Object.<string, *>} parameters 
- * @param {number} [quest_id] database ID of quest event that called this test run 
+ * @param {number} [parent_event_id] database ID of parent event that called this test run 
+ * @param {string} [parent_event_type] type of parent event that called this test run 
  */
-const runTest = async (db, test, user, date, nodes, parameters, quest_id) => {
+const runTest = async (db, test, user, date, nodes, parameters, parent_event_id, parent_event_type = 'quest') => {
   const obj = await GetPackagedData(test, 'tests')
-  const event_id = await db.insert('test_history', {test, date, parameters: JSON.stringify(parameters), user_id: user.user_id, quest_id})
+  const event_id = await db.insert('test_history', {
+    test, 
+    date, 
+    parameters: JSON.stringify(parameters), 
+    user_id: user.user_id, 
+    quest_id: parent_event_type == 'quest' ? parent_event_id : undefined, 
+    story_id: parent_event_type == 'story' ? parent_event_id : undefined
+  })
   const rows = await db.all({table: 'nodes', conditions: {groups: [{columns: {access: obj.hosts}, compare: 'IN'}, {columns: {node_id: nodes}, compare: 'IN'}]}})
   const results = []
   for (const action of obj.actions) {

@@ -41,7 +41,9 @@ const runAction = async (db, action, func, node_id, user, date, options) => {
     node_id, 
     label: options && options.label, 
     user_id: user.user_id, 
-    test_id: options && options.test_id})
+    test_id: options && options.test_id,
+    story_id: options && options.story_id
+  })
   return {result, event_id}
 }
 
