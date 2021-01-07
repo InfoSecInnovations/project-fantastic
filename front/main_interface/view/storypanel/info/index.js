@@ -13,6 +13,7 @@ export default (state, send) => {
     if (selectedNode.type == 'tests') {
       const quest = selectedNode.key
       const data = state.tests[quest]
+      // TODO: implement story_results
       const date = state.quest_results.date[quest]
       const parameters = data.parameters && {
         initial: data.parameters.reduce((result, p) => ({...result, [p.name]: p.default}), {}),
