@@ -5,7 +5,8 @@ export default (state, send) => {
   const storyData = state.stories[state.story.selected]
   return Object.entries(storyData.nodeData).map(node => {
     const data = state[node[1].type][node[1].key]
-    const locked = Object.values(storyData.nodeData).find(other => other.targets.includes(node[0])) // TODO: make available based on completion
+    const parentNodes = Object.entries(storyData.nodeData).filter(other => other[1].targets.includes(node[0])) // find nodes leading to this one
+    const locked = parentNodes.length && !parentNodes.some(node => state.story.completed[state.story.selected] && state.story.completed[state.story.selected][node[0]]) // check if we have completed any
     return h('div.node', {
       on: {
         click: e => {
@@ -18,7 +19,7 @@ export default (state, send) => {
       class: {
         highlight: state.story.selected_node == node[0],
         locked,
-        completed: state.story.completion[state.story.selected] && state.story.completion[state.story.selected][node[0]]
+        completed: state.story.completed[state.story.selected] && state.story.completed[state.story.selected][node[0]]
       },
       style: {
         position: 'absolute',

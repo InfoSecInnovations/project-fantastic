@@ -34,7 +34,7 @@ let state = {
   child_tabs: [],
   command_status: {},
   story: {
-    completion: {}
+    completed: {}
   }
 }
 let vnode = document.body

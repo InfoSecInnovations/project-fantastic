@@ -4,6 +4,7 @@ const Alea = require('alea')
 import Test from '@infosecinnovations/fantastic-front/view/test'
 const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
 import SuccessTexts from '@infosecinnovations/fantastic-front/view/successtexts'
+import MultiAction from '@infosecinnovations/fantastic-front/view/actions/multiaction'
 
 export default (state, send) => {
   const storyData = state.stories && state.stories[state.story.selected]
@@ -38,7 +39,12 @@ export default (state, send) => {
         {type: 'run_story_node', story: state.story.selected, node: state.story.selected_node},
         date && {success_prefix: `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(date)())]}!`, type: 'quests'}
       ))
-    } 
+    }
+    return h('div.scroll', MultiAction(
+      state, 
+      selectedNode.key, 
+      e => send({type: 'run_story_node', story: state.story.selected, node: state.story.selected_node})
+    ))
   }
   return [
     h('h2', storyData.name),
