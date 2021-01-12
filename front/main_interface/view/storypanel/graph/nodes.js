@@ -17,7 +17,8 @@ export default (state, send) => {
       attrs: { id: node[0] },
       class: {
         highlight: state.story.selected_node == node[0],
-        locked
+        locked,
+        completed: state.story.completion[state.story.selected] && state.story.completion[state.story.selected][node[0]]
       },
       style: {
         position: 'absolute',

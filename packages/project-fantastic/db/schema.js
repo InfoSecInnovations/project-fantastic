@@ -149,6 +149,13 @@ const schema = [
     label TEXT,
     data TEXT,
     user_id TEXT
+  )`,
+  `CREATE TABLE IF NOT EXISTS completed_story_nodes(
+    completed_node_id INTEGER PRIMARY KEY,
+    story TEXT,
+    story_node_id TEXT,
+    user_id TEXT,
+    date INTEGER
   )`
 ]
 
