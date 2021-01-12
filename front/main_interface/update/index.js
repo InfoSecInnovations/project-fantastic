@@ -94,6 +94,10 @@ export default (state, action) => {
   if (action.type == 'select_story_node') state.story.selected_node = action.node
   if (action.type == 'story_container') state.story.container = action.elm
   if (action.type == 'story_container_scale') state.story.scale = action.scale
+  if (action.type == 'completed_story_node') {
+    const story = state.story.completion[action.story] || (state.story.completion[action.story] = {})
+    story[action.node] = true
+  }
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

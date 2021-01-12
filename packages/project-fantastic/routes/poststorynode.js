@@ -6,13 +6,13 @@ const postStoryNode = async (user, res, req, query, stories) => {
   const date = Date.now()
   const db = await transaction()
   // TODO: validate query
+  // TODO: check if we completed previous node or current
   const result = await RunStoryNode(db, query.story, query.node, user, date)
   await db.insert('all_history', {event_type: 'story', event_id: result.event_id, date, user_id: user.user_id})
   await db.close()
-  // TODO: check if we completed previous node
   if (res.aborted) return
-  res.end(JSON.stringify({result: result.results, rows: result.rows, date}))
-  console.log(`postStoryNode: completed node ${query.node} from story ${query.story}, queried ${result.rows.length} nodes`)
+  res.end(JSON.stringify({result: result.results, rows: result.rows, date, success: result.success}))
+  console.log(`postStoryNode: ran node ${query.node} from story ${query.story}, queried ${result.rows.length} nodes`)
 }
 
 module.exports = postStoryNode

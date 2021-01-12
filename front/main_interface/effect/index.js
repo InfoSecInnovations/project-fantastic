@@ -107,4 +107,9 @@ export default (state, action, send) => {
     }
   }
   if (action.type == 'run_story_node') fetch(`/story_node?${GenerateQuery({story: action.story, node: action.node})}`, {method: 'POST'})
+    .then(res => res.json())
+    .then(res => {
+      // TODO: test result
+      if (res.success) send({...action, type: 'completed_story_node'})
+    })
 }
