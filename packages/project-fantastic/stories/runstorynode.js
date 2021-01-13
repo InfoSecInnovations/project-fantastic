@@ -14,7 +14,8 @@ const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
  */
 const runStoryNode = async (db, story, story_node_id, user, date) => {
   const story_obj = await GetPackagedData(story, 'stories')
-  const rows = await getNodes({date: Date.now() - ConvertTime(story_obj.questConfig.selection.age), access: story_obj.questConfig.hosts})
+  const age = ConvertTime(story_obj.questConfig.selection.age)
+  const rows = await getNodes({date: age && Date.now() - age, access: story_obj.questConfig.hosts})
   const row_ids = rows.map(v => v.node_id)
   const event_id = await db.insert('story_history', {story, story_node_id, date, user_id: user.user_id, rows: JSON.stringify(row_ids)})
   const node = story_obj.nodeData[story_node_id]
