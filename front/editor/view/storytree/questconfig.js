@@ -34,8 +34,8 @@ export default (state, send) => [
   h('div.column', [
     h('label.label', {attrs: {for: 'quest-role-editor'}}, 'Role'),
     h('select#quest-role-editor', {
-      on: {input: e => send({type: 'set_quest_role', role})}
-    }, roles.map(role => h('option', {attrs: {value: role}}, role)))
+      on: { input: e => send({type: 'set_quest_role', role}) }
+    }, roles.map((role, i) => h('option', { attrs: { value: role, selected: state.editor.config.role == role || (!state.editor.config.role && i == 0) }}, role)))
   ]),
   h('div.column', [
     h('div.label', 'Host Selection'),
