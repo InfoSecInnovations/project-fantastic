@@ -16,5 +16,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/InfoSecInnovations/project-fantastic.git"
+  },
+  "dependencies": {
+    "uuid": "^8.3.1"
   }
 }

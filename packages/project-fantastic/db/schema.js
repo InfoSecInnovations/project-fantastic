@@ -67,7 +67,7 @@ const schema = [
     date INTEGER,
     filter INTEGER,
     node_id INTEGER,
-    user_id TEXT,
+    user_id BLOB,
     test_id INTEGER,
     story_id INTEGER,
     FOREIGN KEY (node_id)
@@ -85,7 +85,7 @@ const schema = [
     quest TEXT,
     rows TEXT,
     date INTEGER,
-    user_id TEXT
+    user_id BLOB
   )`,
   `CREATE TABLE IF NOT EXISTS test_history(
     test_id INTEGER PRIMARY KEY,
@@ -93,7 +93,7 @@ const schema = [
     results TEXT,
     parameters TEXT,
     date INTEGER,
-    user_id TEXT,
+    user_id BLOB,
     quest_id INTEGER,
     story_id INTEGER,
     FOREIGN KEY (quest_id)
@@ -113,7 +113,7 @@ const schema = [
     approval_id INTEGER PRIMARY KEY,
     test_id INTEGER,
     approved INTEGER,
-    user_id TEXT,
+    user_id BLOB,
     FOREIGN KEY (test_id)
       REFERENCES test_history (test_id)
       ON DELETE CASCADE
@@ -131,12 +131,12 @@ const schema = [
     event_type TEXT,
     event_id INTEGER,
     date INTEGER,
-    user_id TEXT
+    user_id BLOB
   )`,
   `CREATE TABLE IF NOT EXISTS favorites(
     favorite_id INTEGER PRIMARY KEY,
     history_id INTEGER,
-    user_id TEXT,
+    user_id BLOB,
     sorting INTEGER,
     FOREIGN KEY (history_id)
       REFERENCES all_history (history_id)
@@ -154,8 +154,8 @@ const schema = [
     completed_node_id INTEGER PRIMARY KEY,
     story TEXT,
     story_node_id TEXT,
-    user_id TEXT,
     date INTEGER
+    user_id BLOB
   )`
 ]
 
