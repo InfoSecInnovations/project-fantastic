@@ -14,6 +14,7 @@ const getStories = (user, res, req, query, stories) => {
         name: v.name, 
         description: v.description, 
         hosts: v.questConfig.hosts,
+        role: v.questConfig.role,
         nodeData: v.nodeData
       }
     }), {})

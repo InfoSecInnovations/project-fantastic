@@ -2,14 +2,16 @@ import {h} from 'snabbdom/h'
 
 const hosts = ['local', 'remote']
 const timeUnits = ['d', 'h', 'm']
+const roles = ['user', 'elevated', 'admin']
 
 export default (state, send) => [
   h('h2', 'Quest Settings'),
   h('div.column', [
     h('label.label', {attrs: {for: 'quest-name-editor'}}, 'Name'),
     h('input#quest-name-editor', {
+      attrs: {value: state.editor.name || ''},
       on: {input: e => send({type: 'set_quest_name', name: e.target.value})}
-    }, state.editor.name || '')
+    })
   ]),
   h('div.column', [
     h('label.label', {attrs: {for: 'quest-description-editor'}}, 'Description'),
@@ -28,6 +30,12 @@ export default (state, send) => [
       }),
       h('label', {attrs: {for: `host-type-${host}`}}, host)
     ]))
+  ]),
+  h('div.column', [
+    h('label.label', {attrs: {for: 'quest-role-editor'}}, 'Role'),
+    h('select#quest-role-editor', {
+      on: {input: e => send({type: 'set_quest_role', role})}
+    }, roles.map(role => h('option', {attrs: {value: role}}, role)))
   ]),
   h('div.column', [
     h('div.label', 'Host Selection'),
