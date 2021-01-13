@@ -2,6 +2,7 @@ const FS = require('fs-extra')
 const Path = require('path')
 import LoadModule from './loadmodule'
 import QuestConfig from '../defaults/questconfig'
+import GenerateID from '@infosecinnovations/fantastic-utils/generateid'
 
 export default (state, action, send) => FS.readJSON(action.path)
   .then(async json => {
@@ -15,5 +16,6 @@ export default (state, action, send) => FS.readJSON(action.path)
     state.editor.config = {...QuestConfig(), ...json.questConfig}
     state.editor.name = json.name
     state.editor.description = json.description
+    state.editor.questId = json.id || GenerateID()
     send({type: 'save_file', name: Path.parse(action.path).base})
   })

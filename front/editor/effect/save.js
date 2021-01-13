@@ -27,7 +27,8 @@ export default (state, action, send) => {
     nodeData, 
     questConfig: state.editor.config, 
     description: state.editor.description, 
-    name: state.editor.name
+    name: state.editor.name,
+    id: state.editor.questId
   }, {spaces: '\t'})
   send({type: 'save_file', name: Path.parse(action.path).base})
 }
