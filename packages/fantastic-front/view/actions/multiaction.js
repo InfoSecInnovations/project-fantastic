@@ -9,6 +9,6 @@ export default (state, action, click) => {
       h('div.button', { on: {click}}, 'Run')
     ]),
     data.description ? h('div.item', data.description) : undefined,
-    h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`]),
+    h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`])
   ])
 }
