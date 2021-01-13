@@ -5,11 +5,13 @@ import Test from '@infosecinnovations/fantastic-front/view/test'
 const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
 import SuccessTexts from '@infosecinnovations/fantastic-front/view/successtexts'
 import MultiAction from '@infosecinnovations/fantastic-front/view/actions/multiaction'
+import StatusIcon from '@infosecinnovations/fantastic-front/view/statusicon'
 
 export default (state, send) => {
   const storyData = state.stories && state.stories[state.story.selected]
   if (!storyData) return
   if (state.story.selected_node) {
+    const completed = state.story.completed[state.story.selected] && state.story.completed[state.story.selected][state.story.selected_node]
     const selectedNode = storyData.nodeData[state.story.selected_node]
     if (selectedNode.type == 'tests') {
       const quest = selectedNode.key
@@ -40,6 +42,13 @@ export default (state, send) => {
         date && {success_prefix: `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(date)())]}!`, type: 'quests'}
       ))
     }
+    if (completed) return h('div.scroll', [
+      h('div.item', [
+        h('h3', state.actions[selectedNode.key].name),
+        StatusIcon('success'),
+      ]),
+      h('div.item', 'Mission accomplished!')
+    ])
     return h('div.scroll', MultiAction(
       state, 
       selectedNode.key, 
