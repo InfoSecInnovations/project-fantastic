@@ -30,5 +30,5 @@ export default (state, send) => h('div#story-tree', [
       }
     }, Editor(state, send))
   ]),
-  h('div#info.panel column', {key: state.editor.selected || 'info'}, Info(state, send)), // setting a key prevents input from carrying over when changing selection
+  h('div#info.panel column', {key: state.editor.selected || state.editor.questId }, Info(state, send)), // setting a key prevents input from carrying over when changing selection
 ])
