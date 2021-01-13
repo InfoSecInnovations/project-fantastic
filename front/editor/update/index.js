@@ -22,6 +22,7 @@ export default (state, action) => {
   }
   if (action.type == 'set_quest_description') state.editor.description = action.description
   if (action.type == 'set_quest_name') state.editor.name = action.name
+  if (action.type == 'set_quest_role') state.editor.config.role = action.role
   if (action.type == 'save_file') state.editor.saveFile = action.name
   if (action.type == 'load_tree') state.editor.nodes = {}
   return state

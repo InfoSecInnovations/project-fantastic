@@ -16,7 +16,7 @@ export default async (state, action, send) => {
   .catch(() => ({}))
   .then(actions => 
     Object.entries(actions)
-    .filter(action => (!action[1].target || action[1].target == 'host') && !action[1].functions.run.result) //filter for host actions with no result
+    .filter(action => (!action[1].target || action[1].target == 'host') && !action[1].functions.run.result) // filter for host actions with no result
     .reduce((result, action) => ({...result, [action[0]]: action[1]}), {})
   )
   const tests = await loadDir(Path.join(action.module, 'tests')).catch(() => ({}))

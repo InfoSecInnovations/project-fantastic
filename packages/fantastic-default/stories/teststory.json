@@ -1,0 +1,59 @@
+{
+	"pathData": [
+		"..\\.."
+	],
+	"nodeData": {
+		"50b705e2-4a62-408f-8b01-86eb4499efc6": {
+			"key": "@infosecinnovations/fantastic-default/installsysmon",
+			"type": "actions",
+			"position": {
+				"x": 242,
+				"y": 188
+			},
+			"targets": [
+				"0224442c-3228-44f3-b1c1-8f4778dac188"
+			]
+		},
+		"0224442c-3228-44f3-b1c1-8f4778dac188": {
+			"key": "@infosecinnovations/fantastic-default/checkreboot",
+			"type": "tests",
+			"position": {
+				"x": 415,
+				"y": 190
+			},
+			"targets": [
+				"d141f609-4a2a-4f2c-9e4e-9e6a8093d686",
+				"76dc8ad7-bfc4-440e-8feb-e27e52c1add9"
+			]
+		},
+		"d141f609-4a2a-4f2c-9e4e-9e6a8093d686": {
+			"key": "@infosecinnovations/fantastic-default/reviewusbdevices",
+			"type": "tests",
+			"position": {
+				"x": 573,
+				"y": 272
+			},
+			"targets": []
+		},
+		"76dc8ad7-bfc4-440e-8feb-e27e52c1add9": {
+			"key": "@infosecinnovations/fantastic-default/reviewcertificates",
+			"type": "tests",
+			"position": {
+				"x": 569,
+				"y": 102
+			},
+			"targets": []
+		}
+	},
+	"questConfig": {
+		"selection": {
+			"age": {}
+		},
+		"hosts": [
+			"local",
+			"remote"
+		]
+	},
+	"description": "This isn't actually a real quest, but we need more actions and tests to make a proper one, so instead you just get this pointless description.",
+	"name": "Test Quest Pls Ignore"
+}
