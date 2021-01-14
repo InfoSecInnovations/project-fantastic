@@ -84,7 +84,7 @@ export default (state, action) => {
   if (action.type == 'review_approval') {
     if (action.data_type == 'quests') state.quest_results.approval[action.data_key] = action.approved
     if (action.data_type == 'quests' || action.data_type == 'tests') state.test_results.approval[action.data_key] = action.approved
-    if (action.data_type == 'story') {
+    if (action.data_type == 'stories') {
       const approval_store = state.story_results.approval[action.data_key] || (state.story_results.approval[action.data_key] = {})
       approval_store[action.story_node] = action.approved
       state.test_results.approval[state.stories[action.data_key].nodeData[action.story_node]] = action.approved
