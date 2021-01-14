@@ -4,7 +4,8 @@ import ReviewIcon from '@infosecinnovations/fantastic-front/view/reviewicon'
 
 export default (state, send) => {
   if (!state.review) return
-  const {type, filter, name: test} = state.review
+  const {type: data_type, name: data_key, filter} = state.review
+  const test = data_type == 'stories' ? state.stories[data_key].nodeData[state.review.story_node].key : data_key
   return h('div#review', h('div.panel', h('div.scroll_container', [
     h('h2', `Please check results from ${state.tests[test].name}`),
     filter !== 'none' ? h(
@@ -42,11 +43,11 @@ export default (state, send) => {
     h('div.buttons', [
       h('div.button', {
         class: {disabled: state.review.loading},
-        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: true, test, data_type: type}]}
+        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: true, data_key, data_type}]}
       }, 'Everything looks OK'),
       h('div.button', {
         class: {disabled: state.review.loading},
-        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: false, test, data_type: type}]}
+        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: false, data_key, data_type}]}
       }, "Something's not right")
     ])
   ])))

@@ -13,7 +13,7 @@ const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultpa
  */
 const runQuest = async (db, quest, user, date) => {
   const test_obj = await GetPackagedData(quest, 'tests')
-  const age = ConvertTime(test_obj.quest.selection.age)
+  const age = ConvertTime(test_obj.questConfig.selection.age)
   const rows = await getNodes({date: age && Date.now() - age, access: test_obj.hosts})
   const row_ids = rows.map(v => v.node_id)
   const event_id = await db.insert('quest_history', {quest, date, user_id: user.user_id, rows: JSON.stringify(row_ids)})

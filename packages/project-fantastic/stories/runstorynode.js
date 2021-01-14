@@ -16,7 +16,7 @@ const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultpa
 const runStoryNode = async (db, story, story_node_id, user, date) => {
   const story_obj = await GetPackagedData(story, 'stories')
   const age = ConvertTime(story_obj.questConfig.selection.age)
-  const rows = await getNodes({date: age && Date.now() - age, access: story_obj.questConfig.hosts})
+  const rows = await getNodes({date: age && Date.now() - age, access: story_obj.hosts})
   const row_ids = rows.map(v => v.node_id)
   const event_id = await db.insert('story_history', {story, story_node_id, date, user_id: user.user_id, rows: JSON.stringify(row_ids)})
   const node = story_obj.nodeData[story_node_id]

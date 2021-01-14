@@ -9,10 +9,10 @@ export default (state, send) => {
     h('div.scroll spaced', 
       !actions.length ? 
       h('div.scroll_item', 'No actions compatible with these hosts') : 
-      actions.map(v => MultiAction(state, v, e => {
+      actions.map(v => MultiAction(state, v, {on: {click: e => {
         send({type: 'open_viewer', nodes: state.selected.nodes})
         nodes.forEach(n => send({type: 'perform_action', action: v[0], node_id: n.node_id, host: n.hostname}))
-      }))
+      }}}))
     )
   )
 }

@@ -90,7 +90,7 @@ export default (state, action, send) => {
       send({type: 'user_history', history: res})
       send({type: 'favorites_ordered'})
     })
-  if (action.type == 'post_review') fetch(`/review?${GenerateQuery({approved: action.approved, test: action.test, quest: action.quest})}`, {method: 'POST'})
+  if (action.type == 'post_review') fetch(`/review?${GenerateQuery({approved: action.approved, data_key: action.data_key, type: action.data_type, story_node: action.story_node})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => {
       send({...action, type: 'review_approval', approved: res.approved})

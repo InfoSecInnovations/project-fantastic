@@ -16,6 +16,7 @@ export default (state, send) => {
   if (state.story.selected_node) {
     const completed = state.story.completed[state.story.selected] && state.story.completed[state.story.selected][state.story.selected_node]
     const selectedNode = storyData.nodeData[state.story.selected_node]
+    const loading = state.story_results.status[state.story.selected] && state.story_results.status[state.story.selected][state.story.selected_node] == 'loading'
     if (selectedNode.type == 'tests') {
       const test = selectedNode.key
       const data = state.tests[test]
@@ -34,11 +35,12 @@ export default (state, send) => {
           status
         ),
         ...(completed ? [successText()] : PlayButton(
+          loading ? 'loading' :
           {on: {click: () => send({type: 'run_story_node', story: state.story.selected, node: state.story.selected_node})}}
         )),
         ...(results ? Result(
           send,
-          NodeLink(send, result_nodes, result_date, data.selection),
+          NodeLink(send, result_nodes, result_date, storyData.selection),
           {
             review_type: 'stories',
             review_name: state.story.selected,
@@ -64,8 +66,9 @@ export default (state, send) => {
     ])
     return h('div.scroll', MultiAction(
       state, 
-      selectedNode.key, 
-      () => send({type: 'run_story_node', story: state.story.selected, node: state.story.selected_node})
+      selectedNode.key,
+      loading ? 'loading' :
+      { on: {click: () => send({type: 'run_story_node', story: state.story.selected, node: state.story.selected_node})}}   
     ))
   }
   return [
