@@ -43,11 +43,11 @@ export default (state, send) => {
     h('div.buttons', [
       h('div.button', {
         class: {disabled: state.review.loading},
-        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: true, data_key, data_type}]}
+        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: true, data_key, data_type, story_node: state.review.story_node}]}
       }, 'Everything looks OK'),
       h('div.button', {
         class: {disabled: state.review.loading},
-        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: false, data_key, data_type}]}
+        on: state.review.loading ? {} : {click: [send, {type: 'post_review', approved: false, data_key, data_type, story_node: state.review.story_node}]}
       }, "Something's not right")
     ])
   ])))

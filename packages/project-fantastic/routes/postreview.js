@@ -17,7 +17,7 @@ console.log(`postReview: received http request to review ${query.data_key} resul
       conditions: {columns: {quest_id: quest_result.quest_id}}
     })).test_id
   }
-  else if (query.type === 'quests') {
+  else if (query.type === 'stories') {
     const story_result = await db.get({      
       table: 'story_history',
       columns: ['MAX(date) AS date', 'story_id'], 
