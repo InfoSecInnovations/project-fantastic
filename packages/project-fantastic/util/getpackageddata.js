@@ -5,7 +5,7 @@ const Path = require('path')
  * Load a data object from an installed package
  * @param {string} path package_name/object_name
  * @param {'actions' | 'commands' | 'tests'} data_type 
- * @returns {{} | undefined}
+ * @returns {Promise<{} | undefined>}
  */
 const getPackagedData = async (path, data_type) => {
   const splitIndex = path.lastIndexOf('/')

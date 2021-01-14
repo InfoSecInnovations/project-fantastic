@@ -1,5 +1,9 @@
 import {h} from 'snabbdom/h'
 
+/**
+ * @param {{} | string} button_data
+ * @param {{}} [editor]
+ */
 export default (button_data, editor) => button_data == 'loading' ?
   [h('div.play button disabled', 'Gathering results...')] :
   [

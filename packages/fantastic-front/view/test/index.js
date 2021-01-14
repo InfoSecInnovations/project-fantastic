@@ -19,16 +19,18 @@ export default (state, send, name, data, parameters, result_data, result_date, r
     ...(results ? 
       Result(
         send, 
-        parameters && parameters.result && parameters.result(), 
-        name, 
+        parameters && parameters.result && parameters.result(),
+        {
+          review_type: type,
+          review_name: name
+        }, 
         data,
         result_date,
         pass, 
         success_prefix, 
         result_parameters, 
         failed_nodes, 
-        results,
-        type)
+        results)
     : [])
   ])
 }

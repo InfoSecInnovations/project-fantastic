@@ -2,6 +2,7 @@ import Common from '@infosecinnovations/fantastic-front/update'
 import FlexSearch from '@infosecinnovations/fantastic-front/update/flexsearch'
 import Hovered from '../defaults/hovered'
 import QuestResults from './questresults'
+import StoryResults from './storyresults'
 import TestResults from './testresults'
 const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 
@@ -74,7 +75,7 @@ export default (state, action) => {
   if (action.type == 'review') {
     if (!action.results) state.review = undefined
     else {
-      state.review = {results: action.results, name: action.name, foldouts: {}, type: action.data_type, filter: action.results.some(v => v.filter) ? 'fail' : 'none'}
+      state.review = {results: action.results, name: action.name, foldouts: {}, type: action.data_type, story_node: action.node, filter: action.results.some(v => v.filter) ? 'fail' : 'none'}
     }
   }
   if (action.type == 'review_foldout') {
@@ -97,6 +98,15 @@ export default (state, action) => {
   if (action.type == 'completed_story_node') {
     const story = state.story.completed[action.story] || (state.story.completed[action.story] = {})
     story[action.node] = true
+  }
+  if (action.type == 'run_story_node') {
+    const status_store = state.story_results.status[action.story] || (state.story_results.status[action.story] = {})
+    status_store[action.node] = 'loading'
+  }
+  if (action.type == 'story_results') StoryResults(state, action)
+  if (action.type == 'story_nodes') {
+    const node_store = state.story_results.nodes[action.story] || (state.story_results.nodes[action.story] = {})
+    node_store[action.node] = action.nodes
   }
   state = Common(state, action)
   state = FlexSearch(state, action)

@@ -11,6 +11,7 @@ import UserHistory from './userhistory'
 import NodesFromEdge from '../util/nodesfromedge'
 import JsPlumb from './jsplumb'
 import ResizeStory from './resizestory'
+const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultparameters')
 
 export default (state, action, send) => {
   Common(state, action, send)
@@ -109,7 +110,24 @@ export default (state, action, send) => {
   if (action.type == 'run_story_node') fetch(`/story_node?${GenerateQuery({story: action.story, node: action.node})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => {
-      // TODO: test result
+      const story_node = state.stories[action.story].nodeData[action.node]
+      if (story_node.type == 'tests') {
+        const test = state.tests[story_node.key]
+        send({...action, type: 'story_results', results: res.result, date: res.date, select: true, nodes: res.rows})
+        send({
+          ...action, 
+          type: 'test_results', 
+          results: res.result, 
+          date: res.date, 
+          parameters: {...DefaultParameters(test), ...story_node.parameters}, 
+          test: story_node.key}) // quest results are the same as the test run by the quest
+        // TODO: approval popup
+      }
+      UserHistory(send)
       if (res.success) send({...action, type: 'completed_story_node'})
     })
+  if (action.type == 'story_results'){
+    //if (action.select) send({type: 'nodes', nodes: action.nodes || []})
+    send({type: 'story_nodes', story: action.story, node: action.node, nodes: action.nodes ? action.nodes.map(v => v.node_id) : []})
+  }
 }

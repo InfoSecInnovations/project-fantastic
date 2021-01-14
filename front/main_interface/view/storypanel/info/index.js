@@ -1,11 +1,14 @@
 import {h} from 'snabbdom/h'
 import HostString from '@infosecinnovations/fantastic-front/util/hoststring'
-const Alea = require('alea')
-import Test from '@infosecinnovations/fantastic-front/view/test'
-const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
-import SuccessTexts from '@infosecinnovations/fantastic-front/view/successtexts'
 import MultiAction from '@infosecinnovations/fantastic-front/view/actions/multiaction'
 import StatusIcon from '@infosecinnovations/fantastic-front/view/statusicon'
+import Info from '@infosecinnovations/fantastic-front/view/test/info'
+import PlayButton from '@infosecinnovations/fantastic-front/view/test/playbutton'
+import Result from '@infosecinnovations/fantastic-front/view/test/result'
+import NodeLink from '@infosecinnovations/fantastic-front/view/test/nodelink'
+const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultparameters')
+
+const successText = () => h('div.item success', 'Mission accomplished!')
 
 export default (state, send) => {
   const storyData = state.stories && state.stories[state.story.selected]
@@ -14,45 +17,55 @@ export default (state, send) => {
     const completed = state.story.completed[state.story.selected] && state.story.completed[state.story.selected][state.story.selected_node]
     const selectedNode = storyData.nodeData[state.story.selected_node]
     if (selectedNode.type == 'tests') {
-      const quest = selectedNode.key
-      const data = state.tests[quest]
-      // TODO: implement story_results
-      const date = state.quest_results.date[quest]
-      const parameters = data.parameters && {
-        initial: data.parameters.reduce((result, p) => ({...result, [p.name]: p.default}), {}),
-        get: () => ({...parameters.initial, ...selectedNode.parameters}),
-        result: () => state.quest_results.nodes[quest] && h('div.link', {
-          on: {click: e => {
-            send({type: 'get_nodes', nodes: state.quest_results.nodes[quest], date: state.quest_results.date[quest] - ConvertTime(state.quests[quest].selection.age), max_date: state.quest_results.date[quest]})
-          }}
-        }, `${state.quest_results.nodes[quest].length} hosts scanned`)
-      }
-      return h('div.scroll', Test(
-        state, 
-        send, 
-        quest, 
-        data, 
-        parameters,
-        state.quest_results.data[quest],
-        date,
-        data.parameters,
-        state.quest_results.approval[quest],
-        state.quest_results.status[quest] === 'loading',
-        {type: 'run_story_node', story: state.story.selected, node: state.story.selected_node},
-        date && {success_prefix: `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(date)())]}!`, type: 'quests'}
-      ))
+      const test = selectedNode.key
+      const data = state.tests[test]
+      const results = state.story_results.data[state.story.selected] && state.story_results.data[state.story.selected][state.story.selected_node]
+      const result_nodes = state.story_results.nodes[state.story.selected] && state.story_results.nodes[state.story.selected][state.story.selected_node]
+      const result_date = state.story_results.date[state.story.selected] && state.story_results.date[state.story.selected][state.story.selected_node]
+      const failed_results = results && data.pass !== 'review' ? results.filter(r => r.result != data.pass.condition) : []
+      const failed_nodes = failed_results.map(v => state.nodes.findIndex(n => n.node_id === v.node_id))
+      const status = completed ? 'success' : results && !completed ? 'failure' : 'pending'
+      const result_parameters = data.parameters && {...DefaultParameters(data), ...selectedNode.parameters}
+      return h('div.scroll', h('div.scroll_item spaced', [
+        ...Info(
+          state, 
+          data, 
+          result_parameters,
+          status
+        ),
+        ...(completed ? [successText()] : PlayButton(
+          {on: {click: () => send({type: 'run_story_node', story: state.story.selected, node: state.story.selected_node})}}
+        )),
+        ...(results ? Result(
+          send,
+          NodeLink(send, result_nodes, result_date, data.selection),
+          {
+            review_type: 'stories',
+            review_name: state.story.selected,
+            review_node: state.story.selected_node
+          },
+          data,
+          result_date,
+          completed,
+          'Mission accomplished!',
+          result_parameters,
+          failed_nodes,
+          results
+        ) : [])
+
+      ]))
     }
     if (completed) return h('div.scroll', [
       h('div.item', [
         h('h3', state.actions[selectedNode.key].name),
         StatusIcon('success'),
       ]),
-      h('div.item', 'Mission accomplished!')
+      successText()
     ])
     return h('div.scroll', MultiAction(
       state, 
       selectedNode.key, 
-      e => send({type: 'run_story_node', story: state.story.selected, node: state.story.selected_node})
+      () => send({type: 'run_story_node', story: state.story.selected, node: state.story.selected_node})
     ))
   }
   return [
