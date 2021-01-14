@@ -3,6 +3,7 @@ const RunTest = require('../tests/runtest')
 const RunAction = require('../actions/runaction')
 const {getNodes} = require('../db')
 const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
+const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultparameters')
 
 /**
  * Run a quest
@@ -19,7 +20,17 @@ const runStoryNode = async (db, story, story_node_id, user, date) => {
   const row_ids = rows.map(v => v.node_id)
   const event_id = await db.insert('story_history', {story, story_node_id, date, user_id: user.user_id, rows: JSON.stringify(row_ids)})
   const node = story_obj.nodeData[story_node_id]
-  const results = node.type == 'tests' ? (await RunTest(db, node.key, user, date, row_ids, node.parameters, event_id, 'story')).results :
+  const results = node.type == 'tests' ? 
+  (await RunTest(
+    db, 
+    node.key, 
+    user, 
+    date, 
+    row_ids, 
+    {...DefaultParameters(await GetPackagedData(node.key, 'tests')), ...node.parameters}, 
+    event_id, 
+    'story'
+  )).results :
   await Promise.all(row_ids.map(node_id => RunAction(db, node.key, 'run', node_id, user, date))).then(() => true)
   let success = true
   if (node.type == 'tests') {

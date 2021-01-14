@@ -2,6 +2,7 @@ const GetPackagedData = require('../util/getpackageddata')
 const RunTest = require('../tests/runtest')
 const {getNodes} = require('../db')
 const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
+const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultparameters')
 
 /**
  * Run a quest
@@ -16,7 +17,7 @@ const runQuest = async (db, quest, user, date) => {
   const rows = await getNodes({date: age && Date.now() - age, access: test_obj.hosts})
   const row_ids = rows.map(v => v.node_id)
   const event_id = await db.insert('quest_history', {quest, date, user_id: user.user_id, rows: JSON.stringify(row_ids)})
-  const results = (await RunTest(db, quest, user, date, row_ids, test_obj.quest.parameters, event_id)).results
+  const results = (await RunTest(db, quest, user, date, row_ids, {...DefaultParameters(test_obj),  ...test_obj.quest.parameters}, event_id)).results
   return {results, rows, event_id}
 }
 

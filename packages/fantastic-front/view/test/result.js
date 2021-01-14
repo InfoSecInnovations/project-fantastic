@@ -2,8 +2,8 @@ import {h} from 'snabbdom/h'
 const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
 import TimeAgo from '../../util/timeago'
 
-const result = (send, name, data, pass, success_prefix, result_parameters, failed_nodes, results, type) => {
-  if (data.pass === 'review') return h('div.button', {on: {click: [send, {type: 'review', results, name, data_type: type}]}}, 'See results')
+const result = (send, {review_type, review_name, review_node = undefined}, data, pass, success_prefix, result_parameters, failed_nodes, results) => {
+  if (data.pass === 'review') return h('div.button', {on: {click: [send, {type: 'review', results, name: review_name, data_type: review_type, story_node: review_node}]}}, 'See results')
   if (pass) return h('div', `${success_prefix ? `${success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`)
   return h('div.link', 
     {
@@ -12,15 +12,14 @@ const result = (send, name, data, pass, success_prefix, result_parameters, faile
         [send, {type: 'select', nodes: failed_nodes}]
       ]}
     }, 
-    `${failed_results.length} systems ${FormatString(data.pass.failure, result_parameters)}`
+    `${failed_nodes.length} systems ${FormatString(data.pass.failure, result_parameters)}`
   )
 }
 
-export default (send, result_info, name, data, date, pass, success_prefix, result_parameters, failed_nodes, results, type) => {
+export default (send, result_info, review_info, data, date, pass, success_prefix, result_parameters, failed_nodes, results) => {
   return [
     h('h4', `Results from ${TimeAgo(date)}`),
     result_info,
-    // TODO: is_quest looks like a bool here, but the expected parameter is a string?
-    result(send, name, data, pass, success_prefix, result_parameters, failed_nodes, results, type)
+    result(send, review_info, data, pass, success_prefix, result_parameters, failed_nodes, results)
   ]
 }
