@@ -7,10 +7,11 @@ const result = (send, {review_type, review_name, review_node = undefined}, data,
   if (pass) return h('div', `${success_prefix ? `${success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`)
   return h('div.link', 
     {
-      on: {click: [
-        [send, {type: 'vis_select', nodes: failed_nodes}],
-        [send, {type: 'select', nodes: failed_nodes}]
-      ]}
+      on: {click: e => {
+        send({type: 'vis_select', nodes: failed_nodes})
+        send({type: 'select', nodes: failed_nodes})
+        send({type: 'select_story', story: null})
+      }}
     }, 
     `${failed_nodes.length} systems ${FormatString(data.pass.failure, result_parameters)}`
   )

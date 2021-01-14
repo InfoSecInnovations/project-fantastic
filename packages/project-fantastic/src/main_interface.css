@@ -445,7 +445,7 @@ input[type=password] {
   display: flex;
   justify-content: center;
   align-items: stretch;
-  z-index: 5;
+  z-index: 20;
   background-color: rgba(36,36,36,0.8);
   padding: 0 4rem;
 }

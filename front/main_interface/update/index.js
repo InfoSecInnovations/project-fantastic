@@ -75,15 +75,21 @@ export default (state, action) => {
   if (action.type == 'review') {
     if (!action.results) state.review = undefined
     else {
-      state.review = {results: action.results, name: action.name, foldouts: {}, type: action.data_type, story_node: action.node, filter: action.results.some(v => v.filter) ? 'fail' : 'none'}
+      state.review = {results: action.results, name: action.name, foldouts: {}, type: action.data_type, story_node: action.story_node, filter: action.results.some(v => v.filter) ? 'fail' : 'none'}
     }
   }
   if (action.type == 'review_foldout') {
     if (state.review) state.review.foldouts[action.node_id] = action.value
   }
   if (action.type == 'review_approval') {
-    if (action.quest) state.quest_results.approval[action.test] = action.approved
-    if (!action.quest || state.quest_results.date[action.test] === state.test_results[action.test]) state.test_results.approval[action.test] = action.approved // if the current test results have the same date as the quest results then it's assumed to be the same result set
+    if (action.data_type == 'quests') state.quest_results.approval[action.data_key] = action.approved
+    if (action.data_type == 'quests' || action.data_type == 'tests') state.test_results.approval[action.data_key] = action.approved
+    if (action.data_type == 'story') {
+      const approval_store = state.story_results.approval[action.data_key] || (state.story_results.approval[action.data_key] = {})
+      approval_store[action.story_node] = action.approved
+      state.test_results.approval[state.stories[action.data_key].nodeData[action.story_node]] = action.approved
+      if (action.approved) state.story.completed[action.data_key][action.story_node] = true // if we approved the result of a story node, we also completed it
+    }
   }
   if (action.type == 'post_review') state.review.loading = true
   if (action.type == 'review_filter') state.review.filter = action.mode

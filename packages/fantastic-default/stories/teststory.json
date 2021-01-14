@@ -17,12 +17,15 @@
 			"type": "tests",
 			"position": {
 				"x": 329,
-				"y": 181
+				"y": 180
 			},
 			"targets": [
 				"76dc8ad7-bfc4-440e-8feb-e27e52c1add9",
 				"d141f609-4a2a-4f2c-9e4e-9e6a8093d686"
-			]
+			],
+			"parameters": {
+				"days": 30
+			}
 		},
 		"d141f609-4a2a-4f2c-9e4e-9e6a8093d686": {
 			"key": "@infosecinnovations/fantastic-default/reviewusbdevices",
