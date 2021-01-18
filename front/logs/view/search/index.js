@@ -21,7 +21,8 @@ export default (state, send) => h('div.search', [
     event_checkbox(send, 'action', 'Actions'),
     event_checkbox(send, 'test', 'Tests'),
     event_checkbox(send, 'quest', 'Quests'),
-    event_checkbox(send, 'command', 'Host Data Commands')
+    event_checkbox(send, 'command', 'Host Data Commands'),
+    event_checkbox(send, 'story', 'Story Nodes')
   ]),
   h('div.button', {
     on: {click: [send, {type: 'page', page: 0}]}

@@ -1,19 +1,6 @@
 import {h} from 'snabbdom/h'
 const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
-
-const headers = {
-  action: 'Run Action',
-  test: 'Run Test',
-  quest: 'Run Quest',
-  command: 'Set Host Data Command'
-}
-
-const log_name = (state, log) => {
-  if (log.event_type == 'action') return state.actions[log.action].name
-  if (log.event_type == 'test') return state.tests[log.test].name
-  if (log.event_type == 'quest') return state.quests[log.quest].name
-  if (log.event_type == 'command') return state.commands[log.command].name
-}
+import LogHeader from '@infosecinnovations/fantastic-front/view/history/logheader'
 
 const log_content = (state, log) => {
   if (log.event_type == 'test' && log.parameters) {
@@ -82,7 +69,7 @@ const favorites = (state, send) => {
       }, [
         h('div.history_title', [
           history_item_controls(state, send, v),
-          h('h4', `${headers[v.event_type]}: ${log_name(state, v)}`)
+          h('h4', LogHeader(state, v))
         ]),
         ...log_content(state, v)
       ]))
@@ -99,7 +86,7 @@ const history = (state, send) => {
     h('div.scroll', state.history.results.map(v => h('div.scroll_item', [
       h('div.history_title', [
         history_item_controls(state, send, v),
-        h('h4', `${headers[v.event_type]}: ${log_name(state, v)}`)
+        h('h4', LogHeader(state, v))
       ]),
       ...log_content(state, v)
     ])))
