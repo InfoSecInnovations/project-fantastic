@@ -3,7 +3,7 @@ const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
 import TimeAgo from '../../util/timeago'
 
 const result = (send, {review_type, review_name, review_node = undefined}, data, pass, success_prefix, result_parameters, failed_nodes, results) => {
-  if (data.pass === 'review') return h('div.button', {on: {click: [send, {type: 'review', results, name: review_name, data_type: review_type, story_node: review_node}]}}, 'See results')
+  if (data.pass === 'review') return h('div.button', {on: {click: e => send({type: 'review', results, data_key: review_name, data_type: review_type, story_node: review_node})}}, 'See results')
   if (pass) return h('div', `${success_prefix ? `${success_prefix} ` : ''}${FormatString(data.pass.success, result_parameters)}`)
   return h('div.link', 
     {

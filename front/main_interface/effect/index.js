@@ -65,7 +65,7 @@ export default (state, action, send) => {
       send({...action, type: 'quest_results', results: res.result, date: res.date, select: true, nodes: res.rows})
       send({...action, type: 'test_results', results: res.result, date: res.date, parameters: state.quests[action.quest].parameters, test: action.quest}) // quest results are the same as the test run by the quest
       UserHistory(send)
-      if (state.quests[action.quest].pass === 'review') send({type: 'review', results: res.result, name: action.quest, quest: true})
+      if (state.quests[action.quest].pass === 'review') send({type: 'review', results: res.result, data_key: action.quest, data_type: 'quests'})
     })
   if (action.type == 'quest_results'){
     if (action.select) send({type: 'nodes', nodes: action.nodes || []})
@@ -76,7 +76,7 @@ export default (state, action, send) => {
     .then(res => {
       send({...action, type: 'test_results', results: res.result, date: res.date, select: true, parameters: action.parameters})
       UserHistory(send)
-      if (state.tests[action.test].pass === 'review') send({type: 'review', results: res.result, name: action.test})
+      if (state.tests[action.test].pass === 'review') send({type: 'review', results: res.result, data_key: action.test, data_type: 'tests'})
     })
   if (action.type == 'favorite') fetch(`/favorites?${GenerateQuery({history_id: action.history_id, remove: action.remove})}`, {method: 'POST'})
     .then(res => res.json())
@@ -121,7 +121,7 @@ export default (state, action, send) => {
           date: res.date, 
           parameters: {...DefaultParameters(test), ...story_node.parameters}, 
           test: story_node.key}) // quest results are the same as the test run by the quest
-        // TODO: approval popup
+        if (test.pass == 'review') send({type: 'review', results: res.result, data_key: action.story, data_type: 'stories', story_node: action.node})
       }
       UserHistory(send)
       if (res.success) send({...action, type: 'completed_story_node'})
