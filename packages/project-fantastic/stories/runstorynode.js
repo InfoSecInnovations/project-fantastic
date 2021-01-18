@@ -39,6 +39,7 @@ const runStoryNode = async (db, story, story_node_id, user, date) => {
     else success = results.every(r => r.result == test.pass.condition)
   }
   if (success) await db.insert('completed_story_nodes', {story, story_node_id, user_id: user.user_id, date})
+  await db.update({table: 'story_history', row: {success}, conditions: {columns: {story_id: event_id}}})
   return {results, rows, event_id, success}
 }
 

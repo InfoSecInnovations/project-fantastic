@@ -124,6 +124,7 @@ const schema = [
     story_node_id TEXT,
     rows TEXT,
     date INTEGER,
+    success INTEGER,
     user_id BLOB
   )`,
   `CREATE TABLE IF NOT EXISTS all_history(
