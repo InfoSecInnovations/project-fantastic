@@ -367,6 +367,11 @@ input[type=password] {
   grid-template-columns: min(400px, 40%) 1fr;
   place-items: stretch;
 }
+#container #story_viewer .progress {
+  font-size: 1.2rem;
+  color: #f55100;
+  font-weight: bold;
+}
 #container #story_viewer #story_container_wrapper {
   min-width: 0;
   min-height: 0;

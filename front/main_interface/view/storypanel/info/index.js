@@ -74,6 +74,7 @@ export default (state, send) => {
   return [
     h('h2', storyData.name),
     h('div.scroll', [
+      h('div.progress', `${Object.keys(storyData.nodeData).filter(key => state.story.completed[state.story.selected] && state.story.completed[state.story.selected][key]).length}/${Object.keys(storyData.nodeData).length}`),
       h('div', storyData.description || ''),
       h('div.targets', [h('b', 'Valid targets:'), ` ${storyData.hosts.map(HostString).join(', ')}.`])
     ]) 
