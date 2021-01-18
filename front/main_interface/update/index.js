@@ -75,7 +75,7 @@ export default (state, action) => {
   if (action.type == 'review') {
     if (!action.results) state.review = undefined
     else {
-      state.review = {results: action.results, name: action.name, foldouts: {}, type: action.data_type, story_node: action.story_node, filter: action.results.some(v => v.filter) ? 'fail' : 'none'}
+      state.review = {results: action.results, name: action.data_key, foldouts: {}, type: action.data_type, story_node: action.story_node, filter: action.results.some(v => v.filter) ? 'fail' : 'none'}
     }
   }
   if (action.type == 'review_foldout') {
@@ -83,7 +83,7 @@ export default (state, action) => {
   }
   if (action.type == 'review_approval') {
     if (action.data_type == 'quests') state.quest_results.approval[action.data_key] = action.approved
-    if (action.data_type == 'quests' || action.data_type == 'tests') state.test_results.approval[action.data_key] = action.approved
+    if (action.data_type == 'quests' || action.data_type == 'tests' || !action.data_type) state.test_results.approval[action.data_key] = action.approved
     if (action.data_type == 'stories') {
       const approval_store = state.story_results.approval[action.data_key] || (state.story_results.approval[action.data_key] = {})
       approval_store[action.story_node] = action.approved
