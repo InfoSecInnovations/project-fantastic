@@ -6,6 +6,6 @@ export default (state, send) => {
   send({type: 'clear_selection'})
   send({type: 'loading', value: false})
   LoadNodeResults(state.nodes, send)
-  LoadHistory(send)
+  LoadHistory(state, send)
   Vis(state, send)
 }

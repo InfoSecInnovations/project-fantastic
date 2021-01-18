@@ -88,7 +88,10 @@ export default (state, action) => {
       const approval_store = state.story_results.approval[action.data_key] || (state.story_results.approval[action.data_key] = {})
       approval_store[action.story_node] = action.approved
       state.test_results.approval[state.stories[action.data_key].nodeData[action.story_node]] = action.approved
-      if (action.approved) state.story.completed[action.data_key][action.story_node] = true // if we approved the result of a story node, we also completed it
+      if (action.approved) {
+        const completed_store = state.story.completed[action.data_key] || (state.story.completed[action.data_key] = {})
+        completed_store[action.story_node] = true // if we approved the result of a story node, we also completed it
+      }
     }
   }
   if (action.type == 'post_review') state.review.loading = true
