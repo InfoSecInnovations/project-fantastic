@@ -13,7 +13,7 @@ const getStoryHistory = async (user, res, req, query) => {
   })
   .then(async rows => {
     for (const row of rows) {
-      const story = GetPackagedData(row.story, 'stories')
+      const story = await GetPackagedData(row.story, 'stories')
       const node = story.nodeData[row.story_node_id]
       if (node.type == 'tests') {
         const results = await db.get({

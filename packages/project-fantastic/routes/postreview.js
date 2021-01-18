@@ -4,6 +4,7 @@ const postReview = async (user, res, req, query) => {
 console.log(`postReview: received http request to review ${query.data_key} results...`)
   const db = await transaction()
   let test_id
+  const approved = query.approved === 'true' ? 1 : 0
   if (query.type === 'quests') {
     const quest_result = await db.get({      
       table: 'quest_history',
@@ -21,7 +22,11 @@ console.log(`postReview: received http request to review ${query.data_key} resul
     const story_result = await db.get({      
       table: 'story_history',
       columns: ['MAX(date) AS date', 'story_id'], 
-      conditions: {columns: {story: query.data_key, story_node_id: query.story_node, user_id: user.user_id}},
+      conditions: {columns: {
+        story: query.data_key, 
+        story_node_id: query.story_node, 
+        user_id: user.user_id
+      }},
       group_by: ['story', 'story_node_id']
     })
     if (story_result) test_id = (await db.get({
@@ -29,7 +34,14 @@ console.log(`postReview: received http request to review ${query.data_key} resul
       columns: ['test_id'],
       conditions: {columns: {story_id: story_result.story_id}}
     })).test_id
-    // TODO: if approval was positive, complete the story node
+    if (approved) {
+      await db.insert('completed_story_nodes', {
+        story: query.data_key,
+        story_node_id: query.story_node,
+        date: Date.now(),
+        user_id: user.user_id
+      })
+    }
   }
   else {
     const test_result =  await db.get({      
@@ -41,7 +53,6 @@ console.log(`postReview: received http request to review ${query.data_key} resul
     if (test_result) test_id = test_result.test_id
   }
   if (test_id) {
-    const approved = query.approved === 'true' ? 1 : 0
     await db.insert('approval_history', {test_id, approved, user_id: user.user_id})
     await db.close()
     console.log(`postReview: updated approval status for ${query.data_key}.`)

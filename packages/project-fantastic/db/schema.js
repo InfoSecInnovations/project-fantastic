@@ -124,7 +124,7 @@ const schema = [
     story_node_id TEXT,
     rows TEXT,
     date INTEGER,
-    user_id TEXT
+    user_id BLOB
   )`,
   `CREATE TABLE IF NOT EXISTS all_history(
     history_id INTEGER PRIMARY KEY,
@@ -148,13 +148,13 @@ const schema = [
     function TEXT,
     label TEXT,
     data TEXT,
-    user_id TEXT
+    user_id BLOB
   )`,
   `CREATE TABLE IF NOT EXISTS completed_story_nodes(
     completed_node_id INTEGER PRIMARY KEY,
     story TEXT,
     story_node_id TEXT,
-    date INTEGER
+    date INTEGER,
     user_id BLOB
   )`
 ]
