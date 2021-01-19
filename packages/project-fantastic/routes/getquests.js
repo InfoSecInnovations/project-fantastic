@@ -12,6 +12,7 @@ const getQuests = (user, res, req, query, tests) => { // TODO: this should get d
       return { 
         ...result, 
         [v.key]: {
+          key: v.key,
           name: v.name, 
           description: `${v.description} ${v.quest.explanation}`, 
           hosts: v.hosts, 
