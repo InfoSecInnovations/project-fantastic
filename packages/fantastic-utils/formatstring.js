@@ -5,6 +5,7 @@ const js_string = js => {
   if (typeof js == 'number') return `${js}`
   if (typeof js == 'string') return `'${js}'`
   if (typeof js == 'boolean') return js ? 'true' : 'false'
+  if (Array.isArray(js)) return `[${js.map(js => js_string(js)).join()}]`
 }
 
 /**

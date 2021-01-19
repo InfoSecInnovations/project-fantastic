@@ -45,10 +45,6 @@ export default (state, send) => {
             result_date,
             pass,
             state.test_results.parameters[test],
-            data.parameters && h('div.parameters', [
-              'Parameters used:',
-              h('ul', Object.entries(state.test_results.parameters[test]).map(v => h('li', `${v[0]}: ${v[1]}`)))
-            ]),
             failed_nodes,
             {
               review_type: 'tests',

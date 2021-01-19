@@ -6,7 +6,12 @@
   "actions": [
     {
       "path": "lastboot",  
-      "search": {"Last Boot Up Time": {"date": "< Date.now() - 30 * 1000 * 60 * 60 * $days"}}
+      "search": [
+        {
+          "label": "Last Boot Up Time",
+          "filter": {"date": "< Date.now() - 30 * 1000 * 60 * 60 * $days"}
+        }
+      ]
     }
   ],
   "pass": {
