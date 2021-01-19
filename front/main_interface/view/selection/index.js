@@ -7,8 +7,10 @@ import MultiActions from './multiactions'
 import NodesFromEdge from '../../util/nodesfromedge'
 import TabBar from './tabbar'
 import CanShowActions from './canshowactions'
+import TestResolve from './testresolve'
 
 const get_tab = (state, send, nodes) => {
+  if (state.test_resolve) return TestResolve(state, send)
   if (state.tab == 'info' || !CanShowActions(state, nodes)) {
     if (state.selected.edge) return ConnectionInfo(state, send)
     if (nodes.length > 1) return Multi(state, send)

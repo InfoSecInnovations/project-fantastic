@@ -11,6 +11,7 @@ const getActions = (user, res, req, query, actions) => {
     .reduce((result, v) => ({ 
       ...result, 
       [v.key]: {
+        key: v.key,
         name: v.name, 
         description: v.description, 
         hosts: v.hosts, 

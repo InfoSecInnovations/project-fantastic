@@ -12,7 +12,7 @@ const validateResult = (result_entry, condition, parameters) => {
   if (result_entry == undefined) return false
   if (condition.followup) {
     const followup_entry = Object.entries(result_entry.followups).find(f => f[0] == condition.followup)
-    if (!followup_entry) return true
+    if (!followup_entry) return true // if this result doesn't have the desired followup, it's not relevant
     const followup = followup_entry[1]
     if (typeof condition.filter.enabled == 'boolean' && condition.filter.enabled != followup.enabled) return false
   }

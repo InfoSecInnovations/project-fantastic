@@ -11,6 +11,9 @@ const result = (send, data, pass, result_parameters, failed_nodes, {review_type,
         send({type: 'vis_select', nodes: failed_nodes})
         send({type: 'select', nodes: failed_nodes})
         send({type: 'select_story', story: null})
+        if (data.pass.failure.action) {
+          send({type: 'test_resolve',  test: data.key})
+        }
       }}
     }, 
     `${failed_nodes.length} systems ${FormatString(typeof data.pass.failure == "string" ? data.pass.failure : data.pass.failure.text, result_parameters)}`

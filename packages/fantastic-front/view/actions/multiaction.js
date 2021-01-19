@@ -8,6 +8,7 @@ export default (state, action, button_data) => {
       h('h3', data.name),
       button_data == 'loading' ? h('div.button disabled', 'Running...') : h('div.button', button_data, 'Run')
     ]),
+    h('pre', state.actions[action].commands[v.function]),
     data.description ? h('div.item', data.description) : undefined,
     h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`])
   ])

@@ -9,23 +9,32 @@ const connection_title = state => {
   return `${connections.length} Connection${connections.length > 1 ? 's' : ''}`
 }
 
-export default (state, send, nodes) => h('div.tab_bar', [
-  CanShowActions(state, nodes) ? h('div.tabs', [
+const base_tabs = (state, send, nodes, selected) => [
     h('div.tab', {
       on: {click: [send, {type: 'tab', tab: 'info'}]},
-      class: {selected: state.tab === 'info'}
+      class: {selected: selected === 'info'}
     }, 'Info'),
     h('div.tab', {
       on: {click: [send, {type: 'tab', tab: 'actions'}]},
-      class: {selected: state.tab === 'actions'}
+      class: {selected: selected === 'actions'}
     }, 'Actions')
-  ]) : undefined,
-  h('div.tabs_title', nodes ? [
-    h('div.icon_button small', [
-      h('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})
-    ]), 
-    h('div.text', nodes.map(v => NodeName(state.nodes[v])).join(', '))
-  ] : [
-    h('div.text', connection_title(state))
+  ]
+
+export default (state, send, nodes) => {
+  const selected = state.test_resolve ? 'issues' : state.tab
+
+  return h('div.tab_bar',[
+    CanShowActions(state, nodes) ? h('div.tabs', [
+      ...base_tabs(state, send, nodes, selected),
+      state.test_resolve ? h('div.tab', {class: {selected: true}}, 'Fix Issues') : undefined
+    ]) : undefined,
+    h('div.tabs_title', nodes ? [
+      h('div.icon_button small', [
+        h('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})
+      ]), 
+      h('div.text', nodes.map(v => NodeName(state.nodes[v])).join(', '))
+    ] : [
+      h('div.text', connection_title(state))
+    ])
   ])
-])
+} 

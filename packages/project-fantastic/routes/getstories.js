@@ -11,6 +11,7 @@ const getStories = (user, res, req, query, stories) => {
     .reduce((result, v) => ({ 
       ...result, 
       [v.key]: {
+        key: v.key,
         name: v.name, 
         description: v.description, 
         hosts: v.questConfig.hosts,
