@@ -8,17 +8,38 @@ const compare = (value, condition, parameters) => { // TODO: we might have to ma
   return result
 }
 
-const checkResult = (result, condition, parameters) => {
-  for (const c of Object.entries(condition)) {
-    const result_entry = result.find(r => r.label == c[0])
-    if (result_entry == undefined) return false
-    if (typeof c[1] == 'object') {
-      if (!result_entry.data.find(
-          v => Object.keys(c[1]).every(
-            k => Object.keys(v).includes(k) && compare(v[k], c[1][k], parameters))) // the value needs to have all the keys we're searching for and pass all the comparisons on each of those
-        ) return false
+const validateResult = (result_entry, condition, parameters) => {
+  if (result_entry == undefined) return false
+  if (condition.followup) {
+    const followup_entry = Object.entries(result_entry.followups).find(f => f[0] == condition.followup)
+    if (!followup_entry) return true
+    const followup = followup_entry[1]
+    if (typeof condition.filter.enabled == 'boolean' && condition.filter.enabled != followup.enabled) return false
+  }
+  else {
+    const data = [...(result_entry.data || [])]
+    if (typeof condition.filter == 'object') {
+      if (!data.find(
+          v => Object.keys(condition.filter).every(
+            k => Object.keys(v).includes(k) && compare(v[k], condition.filter[k], parameters))) // the value needs to have all the keys we're searching for and pass all the comparisons on each of those
+      ) return false
     }
-    else if (!result_entry.data.find(v => compare(v, c[1], parameters))) return false
+    else if (!data.find(v => compare(v, condition.filter, parameters))) return false
+  }
+  return true
+}
+
+const checkResult = (result, conditions, parameters) => {
+  for (const c of conditions) {
+    if (c.label) {
+      const result_entry = result.find(r => r.label == c.label)
+      if (!validateResult(result_entry, c, parameters)) return false
+    }
+    else {
+      for (const r of result) {
+        if (!validateResult(r, c, parameters)) return false
+      }
+    }
   }
 
   return true

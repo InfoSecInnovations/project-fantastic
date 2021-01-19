@@ -13,7 +13,7 @@ const result = (send, data, pass, result_parameters, failed_nodes, {review_type,
         send({type: 'select_story', story: null})
       }}
     }, 
-    `${failed_nodes.length} systems ${FormatString(data.pass.failure, result_parameters)}`
+    `${failed_nodes.length} systems ${FormatString(typeof data.pass.failure == "string" ? data.pass.failure : data.pass.failure.text, result_parameters)}`
   )
 }
 

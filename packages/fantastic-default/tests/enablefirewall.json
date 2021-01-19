@@ -1,0 +1,37 @@
+{
+  "name": "Check Windows Firewall",
+  "description": "Find systems on which Windows Firewall is disabled.",
+  "hosts": ["local", "remote"],
+  "actions": [
+    {
+      "path": "firewall",  
+      "search": [
+        {
+          "filter": {"enabled": true},
+          "followup": "enable_profile"
+        }
+      ]
+    }
+  ],
+  "pass": {
+    "condition": true,
+    "success": "All tested systems have Windows Firewall enabled.",
+    "failure": {
+      "text": "need Windows Firewall to be enabled.",
+      "action": {
+        "path": "firewall",
+        "function": "enable_profile",
+        "data": {
+          "profile": ["Public", "Private", "Domain"],
+          "state": true
+        }
+      }
+    }
+  },
+  "quest": {
+    "explanation": "These machines have at least one Windows Firewall profile disabled and are thus vulnerable to attacks.",
+    "selection": {
+      "age": {"h": 1}
+    }
+  }
+}
