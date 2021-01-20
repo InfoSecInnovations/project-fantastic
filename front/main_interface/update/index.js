@@ -117,7 +117,15 @@ export default (state, action) => {
     const node_store = state.story_results.nodes[action.story] || (state.story_results.nodes[action.story] = {})
     node_store[action.node] = action.nodes
   }
-  if (action.type == 'test_resolve') state.test_resolve = action.test
+  if (action.type == 'test_resolve') {
+    if (!action.test) state.test_resolve = null
+    else {
+      state.test_resolve = {
+        test: action.test,
+        test_id: action.test_id
+      }
+    }
+  } 
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

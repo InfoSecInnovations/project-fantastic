@@ -63,7 +63,7 @@ export default (state, action, send) => {
     .then(res => res.json())
     .then(res => {
       send({...action, type: 'quest_results', results: res.result, date: res.date, select: true, nodes: res.rows})
-      send({...action, type: 'test_results', results: res.result, date: res.date, parameters: state.quests[action.quest].parameters, test: action.quest}) // quest results are the same as the test run by the quest
+      send({...action, type: 'test_results', results: res.result, test_id: res.test_id, date: res.date, parameters: state.quests[action.quest].parameters, test: action.quest}) // quest results are the same as the test run by the quest
       UserHistory(send)
       if (state.quests[action.quest].pass === 'review') send({type: 'review', results: res.result, data_key: action.quest, data_type: 'quests'})
     })
@@ -74,7 +74,7 @@ export default (state, action, send) => {
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
     .then(res => {
-      send({...action, type: 'test_results', results: res.result, date: res.date, select: true, parameters: action.parameters})
+      send({...action, type: 'test_results', results: res.result, test_id: res.test_id, date: res.date, select: true, parameters: action.parameters})
       UserHistory(send)
       if (state.tests[action.test].pass === 'review') send({type: 'review', results: res.result, data_key: action.test, data_type: 'tests'})
     })
@@ -117,6 +117,7 @@ export default (state, action, send) => {
         send({
           ...action, 
           type: 'test_results', 
+          test_id: res.test_id,
           results: res.result, 
           date: res.date, 
           parameters: {...DefaultParameters(test), ...story_node.parameters}, 
@@ -139,4 +140,5 @@ export default (state, action, send) => {
       send({type: 'tab', tab: 'info'})
     }
   } 
+  if (action.type == 'run_test_resolve') fetch(`/test_resolve?${GenerateQuery({test_id: action.test_id})}`, {method: 'POST'})
 }

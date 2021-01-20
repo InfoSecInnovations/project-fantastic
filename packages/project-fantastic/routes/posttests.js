@@ -19,7 +19,7 @@ const postTests = async (user, res, req, query, tests, data) => {
     await db.close()
     if (res.aborted) return
     console.log(`postTests: completed ${query.test} test, queried ${result.results.length} nodes`)
-    res.end(JSON.stringify({result: result.results, date}))
+    res.end(JSON.stringify({result: result.results, test_id: result.event_id, date}))
   }
   catch(err) {
     return End(res)

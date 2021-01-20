@@ -3,5 +3,6 @@ export default () => ({
   status: {},
   date: {},
   parameters: {},
-  approval: {}
+  approval: {},
+  test_ids: {}
 })

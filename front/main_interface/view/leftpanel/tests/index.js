@@ -53,7 +53,8 @@ export default (state, send) => {
               result_info: data.parameters && h('div.parameters', [
                 'Parameters used:',
                 h('ul', Object.entries(state.test_results.parameters[test]).map(v => h('li', `${v[0]}: ${v[1]}`)))
-              ])
+              ]),
+              test_id: state.test_results.test_ids[test]
             }
           )
         : [])

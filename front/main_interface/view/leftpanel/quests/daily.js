@@ -42,7 +42,8 @@ export default (state, send) => [
             review_type: 'quests',
             review_results: results,
             result_info: NodeLink(send, state.quest_results.nodes[quest], result_date, data.selection),
-            success_prefix: result_date && `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(result_date)())]}!`
+            success_prefix: result_date && `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(result_date)())]}!`,
+            test_id: state.quest_results.test_ids[quest]
           })
       : [])
     ])

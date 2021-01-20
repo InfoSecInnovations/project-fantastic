@@ -17,8 +17,8 @@ const runQuest = async (db, quest, user, date) => {
   const rows = await getNodes({date: age && Date.now() - age, access: test_obj.hosts})
   const row_ids = rows.map(v => v.node_id)
   const event_id = await db.insert('quest_history', {quest, date, user_id: user.user_id, rows: JSON.stringify(row_ids)})
-  const results = (await RunTest(db, quest, user, date, row_ids, {...DefaultParameters(test_obj),  ...test_obj.quest.parameters}, event_id)).results
-  return {results, rows, event_id}
+  const {results, event_id: test_id} = await RunTest(db, quest, user, date, row_ids, {...DefaultParameters(test_obj),  ...test_obj.quest.parameters}, event_id)
+  return {results, test_id, rows, event_id}
 }
 
 module.exports = runQuest
