@@ -11,7 +11,9 @@ import UserHistory from './userhistory'
 import NodesFromEdge from '../util/nodesfromedge'
 import JsPlumb from './jsplumb'
 import ResizeStory from './resizestory'
-const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultparameters')
+import StoryNode from './storynode'
+import Quest from './quest'
+import Test from './test'
 
 export default (state, action, send) => {
   Common(state, action, send)
@@ -61,23 +63,14 @@ export default (state, action, send) => {
   if (action.type == 'action_result' || action.type == 'action_followup_result') state.child_tabs.forEach(v => v.send(action))
   if (action.type == 'run_quest') fetch(`/quests?${GenerateQuery({quest: action.quest})}`, {method: 'POST'})
     .then(res => res.json())
-    .then(res => {
-      send({...action, type: 'quest_results', results: res.result, date: res.date, select: true, nodes: res.rows})
-      send({...action, type: 'test_results', results: res.result, test_id: res.test_id, date: res.date, parameters: state.quests[action.quest].parameters, test: action.quest}) // quest results are the same as the test run by the quest
-      UserHistory(send)
-      if (state.quests[action.quest].pass === 'review') send({type: 'review', results: res.result, data_key: action.quest, data_type: 'quests'})
-    })
+    .then(res => Quest(state, send, action.quest, res))
   if (action.type == 'quest_results'){
     if (action.select) send({type: 'nodes', nodes: action.nodes || []})
     send({type: 'quest_nodes', quest: action.quest, nodes: action.nodes ? action.nodes.map(v => v.node_id) : []})
   }
   if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
-    .then(res => {
-      send({...action, type: 'test_results', results: res.result, test_id: res.test_id, date: res.date, select: true, parameters: action.parameters})
-      UserHistory(send)
-      if (state.tests[action.test].pass === 'review') send({type: 'review', results: res.result, data_key: action.test, data_type: 'tests'})
-    })
+    .then(res => Test(state, send, action.test, action.parameters, res))
   if (action.type == 'favorite') fetch(`/favorites?${GenerateQuery({history_id: action.history_id, remove: action.remove})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => {
@@ -109,26 +102,9 @@ export default (state, action, send) => {
   }
   if (action.type == 'run_story_node') fetch(`/story_node?${GenerateQuery({story: action.story, node: action.node})}`, {method: 'POST'})
     .then(res => res.json())
-    .then(res => {
-      const story_node = state.stories[action.story].nodeData[action.node]
-      if (story_node.type == 'tests') {
-        const test = state.tests[story_node.key]
-        send({...action, type: 'story_results', results: res.result, date: res.date, select: true, nodes: res.rows})
-        send({
-          ...action, 
-          type: 'test_results', 
-          test_id: res.test_id,
-          results: res.result, 
-          date: res.date, 
-          parameters: {...DefaultParameters(test), ...story_node.parameters}, 
-          test: story_node.key}) // quest results are the same as the test run by the quest
-        if (test.pass == 'review') send({type: 'review', results: res.result, data_key: action.story, data_type: 'stories', story_node: action.node})
-      }
-      UserHistory(send)
-      if (res.success) send({...action, type: 'completed_story_node'})
-    })
+    .then(res => StoryNode(state, send, action.story, action.node, res))
   if (action.type == 'story_results'){
-    //if (action.select) send({type: 'nodes', nodes: action.nodes || []})
+    if (action.select) send({type: 'nodes', nodes: action.nodes || []})
     send({type: 'story_nodes', story: action.story, node: action.node, nodes: action.nodes ? action.nodes.map(v => v.node_id) : []})
   }
   if (action.type == 'test_resolve') {
@@ -141,4 +117,11 @@ export default (state, action, send) => {
     }
   } 
   if (action.type == 'run_test_resolve') fetch(`/test_resolve?${GenerateQuery({test_id: action.test_id})}`, {method: 'POST'})
+    .then(res => res.json())
+    .then(res => {
+      if (res.data_type == 'quests') Quest(state, send, res.data_key, res)
+      if (res.data_type == 'stories') StoryNode(state, send, res.data_key, res.story_node, res)
+      else Test(state, send, res.data_key, JSON.parse(res.parameters), res)
+    })
+
 }
