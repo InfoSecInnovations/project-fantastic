@@ -51,7 +51,8 @@ export default (state, send) => {
             review_node: state.story.selected_node,
             review_results: results,
             result_info: NodeLink(send, result_nodes, result_date, storyData.selection),
-            success_prefix: 'Mission accomplished!'
+            success_prefix: 'Mission accomplished!',
+            test_id: state.story_results.test_ids[state.story.selected] && state.story_results.test_ids[state.story.selected][state.story.selected_node]
           }
         ) : [])
 
