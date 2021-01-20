@@ -10,6 +10,7 @@ export default (state, send) => {
       h('h3', action_obj.name),
       h('div.button', {on: {click: e => send({type: 'run_test_resolve', test: state.test_resolve})}}, 'Run')
     ]),
+    // TODO: show function name
     h('pre', FormatString(action_obj.commands[action_data.function || 'run'], action_data.data)),
     action_obj.description ? h('div.item', action_obj.description) : undefined,
   ]))

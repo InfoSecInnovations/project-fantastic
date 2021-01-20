@@ -41,6 +41,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_tests, get_stor
   createRoute('post', '/actions', require('./postactions'), {arg: get_actions})
   createRoute('post', '/action_followup', require('./postactionfollowup'), {arg: get_actions})
   createRoute('post', '/tests', require('./posttests'), {arg: get_tests, http_data: true})
+  createRoute('post', '/test_resolve', require('./posttestresolve'), {arg: get_tests})
   createRoute('post', '/quests', require('./postquests'), {arg: get_tests})
   createRoute('post', '/review', require('./postreview'))
   createRoute('post', '/swap_favorites', require('./postswapfavorites'))

@@ -22,6 +22,7 @@ const getStoryHistory = async (user, res, req, query) => {
           conditions: {columns: {story_id: row.story_id}}
         })
         row.results = results.results
+        row.test_id = results.test_id
         const approval = await db.get({
           table: 'approval_history',
           columns: ['approved'],
