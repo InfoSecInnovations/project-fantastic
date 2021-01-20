@@ -18,6 +18,7 @@ const getQuestHistory = async (user, res, req, query) => {
         conditions: {columns: {quest_id: row.quest_id}}
       })
       row.results = results.results
+      row.test_id = results.test_id
       const approval = await db.get({
         table: 'approval_history',
         columns: ['approved'],
