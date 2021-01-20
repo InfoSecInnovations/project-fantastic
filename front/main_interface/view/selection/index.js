@@ -10,7 +10,6 @@ import CanShowActions from './canshowactions'
 import TestResolve from './testresolve'
 
 const get_tab = (state, send, nodes) => {
-  if (state.test_resolve) return TestResolve(state, send)
   if (state.tab == 'info' || !CanShowActions(state, nodes)) {
     if (state.selected.edge) return ConnectionInfo(state, send)
     if (nodes.length > 1) return Multi(state, send)
@@ -26,6 +25,7 @@ const get_tab = (state, send, nodes) => {
     if (nodes.length > 1) return MultiActions(state, send)
     return Actions(state, send, state.nodes[nodes[0]])
   }
+  if (state.tab == 'issues' && state.test_resolve) return TestResolve(state, send)
 }
 
 export default (state, send) => {

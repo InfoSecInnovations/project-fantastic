@@ -130,4 +130,13 @@ export default (state, action, send) => {
     //if (action.select) send({type: 'nodes', nodes: action.nodes || []})
     send({type: 'story_nodes', story: action.story, node: action.node, nodes: action.nodes ? action.nodes.map(v => v.node_id) : []})
   }
+  if (action.type == 'test_resolve') {
+    if (action.test) send({type: 'tab', tab: 'issues'})
+  }
+  if (action.type == 'select'){
+    if (state.test_resolve) {
+      send({type: 'test_resolve', test: null})
+      send({type: 'tab', tab: 'info'})
+    }
+  } 
 }
