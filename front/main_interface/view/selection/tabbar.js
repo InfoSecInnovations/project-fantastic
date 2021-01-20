@@ -9,24 +9,25 @@ const connection_title = state => {
   return `${connections.length} Connection${connections.length > 1 ? 's' : ''}`
 }
 
-const base_tabs = (state, send, nodes, selected) => [
+const base_tabs = (state, send) => [
     h('div.tab', {
       on: {click: [send, {type: 'tab', tab: 'info'}]},
-      class: {selected: selected === 'info'}
+      class: {selected: state.tab === 'info'}
     }, 'Info'),
     h('div.tab', {
       on: {click: [send, {type: 'tab', tab: 'actions'}]},
-      class: {selected: selected === 'actions'}
+      class: {selected: state.tab === 'actions'}
     }, 'Actions')
   ]
 
 export default (state, send, nodes) => {
-  const selected = state.test_resolve ? 'issues' : state.tab
-
   return h('div.tab_bar',[
     CanShowActions(state, nodes) ? h('div.tabs', [
-      ...base_tabs(state, send, nodes, selected),
-      state.test_resolve ? h('div.tab', {class: {selected: true}}, 'Fix Issues') : undefined
+      ...base_tabs(state, send),
+      state.test_resolve ? h('div.tab', {
+        on: {click: [send, {type: 'tab', tab: 'issues'}]},
+        class: {selected: state.tab === 'issues'}
+      }, 'Fix Issues') : undefined
     ]) : undefined,
     h('div.tabs_title', nodes ? [
       h('div.icon_button small', [

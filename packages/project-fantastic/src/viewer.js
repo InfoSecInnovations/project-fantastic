@@ -391,6 +391,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, top-level-this-exports */
+/*! CommonJS bailout: this is used directly at 42:257-261 */
+/*! CommonJS bailout: module.exports is used directly at 8:144-158 */
 /***/ (function(module) {
 
 "use strict";
@@ -825,6 +827,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 8:0-14 */
 /***/ ((module) => {
 
 eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/defaultips.js?");
@@ -850,6 +853,7 @@ eval("const JSToPS = __webpack_require__(/*! ./jstops */ \"../packages/fantastic
   \*********************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 14:0-14 */
 /***/ ((module) => {
 
 eval("/**\r\n * Convert a JavaScript value to a PowerShell variable\r\n * @param {*} js \r\n * @returns {string}\r\n */\r\nconst JStoPS = js => {\r\n  if (typeof js == 'undefined') return '$null'\r\n  if (typeof js == 'number') return `${js}`\r\n  if (typeof js == 'string') return `'${js}'`\r\n  if (typeof js == 'boolean') return js ? 'True' : 'False'\r\n  if (Array.isArray(js)) return js.map(js => JStoPS(js)).join()\r\n}\r\n\r\nmodule.exports = JStoPS\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/jstops.js?");
