@@ -5,7 +5,8 @@ const version = require('../version')
 const DB = require('../db')
 
 const run = async () => {
-  const currentVersion = parseInt(await FS.readFile('.current_version').catch(''))
+  await FS.ensureFile('.current_version')
+  const currentVersion = parseInt(await FS.readFile('.current_version'))
   if (!currentVersion) {
     console.log('No current version was found, initializing database...')
     await DB.init()
