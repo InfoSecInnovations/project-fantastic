@@ -52,9 +52,9 @@ export default (state, action) => {
   if (action.type == 'remove_child_tab') state.child_tabs.splice(state.child_tabs.findIndex(v => v === action.tab), 1)
   if (action.type == 'quest_results') QuestResults(state, action)
   if (action.type == 'quest_nodes') state.quest_results.nodes[action.quest] = action.nodes
-  if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading'
+  if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading' // TODO: set corresponding test to loading
   if (action.type == 'test_results') TestResults(state, action)
-  if (action.type == 'run_test') state.test_results.status[action.test] = 'loading'
+  if (action.type == 'run_test') state.test_results.status[action.test] = 'loading' 
   if (action.type == 'test_parameter') {
     if (!state.test_parameters[action.test]) state.test_parameters[action.test] = {}
     state.test_parameters[action.test][action.key] = action.value
@@ -109,6 +109,7 @@ export default (state, action) => {
     story[action.node] = true
   }
   if (action.type == 'run_story_node') {
+    // TODO: set corresponding test to loading
     const status_store = state.story_results.status[action.story] || (state.story_results.status[action.story] = {})
     status_store[action.node] = 'loading'
   }
@@ -126,6 +127,7 @@ export default (state, action) => {
       }
     }
   } 
+  if (action.type == 'run_test_resolve') state.test_results.status[action.test] = 'loading'
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

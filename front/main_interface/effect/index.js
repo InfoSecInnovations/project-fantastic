@@ -123,6 +123,7 @@ export default (state, action, send) => {
       else if (res.data_type == 'stories') StoryNode(state, send, res.data_key, res.story_node, res)
       else Test(state, send, res.data_key, JSON.parse(res.parameters), res)
       send({type: 'test_resolve', test: null})
+      send({type: 'tab', tab: 'info'})
     })
 
 }
