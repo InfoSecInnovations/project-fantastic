@@ -1,7 +1,7 @@
 {
   "name": "fantastic-cli-test",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Run this to test fantastic-cli",
   "author": "InfoSec Innovations",
   "license": "ISC",
