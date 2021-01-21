@@ -7,11 +7,12 @@ export default (state, send) => {
   const action_obj = state.actions[action_data.path]
   return h('div.scroll_container', h('div.scroll spaced', [
     h('div.item', [
-      h('h3', action_obj.name),
-      h('div.button', {on: {click: e => send({type: 'run_test_resolve', test_id: state.test_resolve.test_id})}}, 'Run')
+      h('h3', `${action_obj.name}${action_data.function ? `: ${action_obj.names[action_data.function]}` : ''}`),
+      state.test_results.status[state.test_resolve.test] == 'loading' ? h('div.button disabled', 'Running...') :
+      h('div.button', {on: {click: e => send({type: 'run_test_resolve', test_id: state.test_resolve.test_id, test: state.test_resolve.test})}}, 'Run')
     ]),
-    // TODO: show function name
     h('pre', FormatString(action_obj.commands[action_data.function || 'run'], action_data.data)),
-    action_obj.description ? h('div.item', action_obj.description) : undefined,
+    h('div', `Run this to resolve issues found by ${test_obj.name}`)
+    // TODO: show which quest/story we're resolving
   ]))
 }
