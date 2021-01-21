@@ -7,7 +7,7 @@ const valid_host = (action, node) => action.hosts.includes('none') || action.hos
 const valid_target = (action, connection) => action.target === (connection ? 'connection' : 'host')
 
 export default (state, send, node, connection) => {
-  if (!state.actions) return
+  if (!state.actions || !node) return
   const base_actions = FilterSearchResults(state, 'actions')
   const actions = Object.entries(base_actions).filter(v => valid_host(v[1], node) && valid_target(v[1], connection))
   return h('div.scroll_container', [

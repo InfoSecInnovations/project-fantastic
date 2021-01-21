@@ -25,7 +25,7 @@ export default (state, send, nodes) => {
     CanShowActions(state, nodes) ? h('div.tabs', [
       ...base_tabs(state, send),
       state.test_resolve ? h('div.tab', {
-        on: {click: [send, {type: 'tab', tab: 'issues'}]},
+        on: {click: e => send({type: 'tab', tab: 'issues'})},
         class: {selected: state.tab === 'issues'}
       }, 'Fix Issues') : undefined
     ]) : undefined,

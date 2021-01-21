@@ -1,0 +1,12 @@
+{
+  "name": "Reboot",
+  "description": "Reboot this machine. Make sure you don't interrupt anyone's work!",
+  "hosts": ["local", "remote"],
+  "role": "elevated",
+  "functions": {
+    "run": {
+      "command": "Restart-Computer",
+      "method": "invoke"
+    }
+  }
+}

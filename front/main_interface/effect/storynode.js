@@ -10,6 +10,7 @@ export default (state, send, story, node, data) => {
       test_id: data.test_id,
       story,
       node,
+      nodes: data.rows,
       results: data.result, 
       date: data.date, 
       select: true
@@ -24,5 +25,5 @@ export default (state, send, story, node, data) => {
     if (test.pass == 'review') send({type: 'review', results: data.result, data_key: story, data_type: 'stories', story_node: node})
   }
   UserHistory(send)
-  if (res.success) send({...action, type: 'completed_story_node'})
+  if (data.success) send({type: 'completed_story_node', story, node})
 }
