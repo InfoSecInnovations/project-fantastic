@@ -1,0 +1,31 @@
+{
+  "name": "Check Windows Defender Status",
+  "description": "Find systems on which Windows Defender antivirus or antispyware are disabled.",
+  "hosts": ["local", "remote"],
+  "actions": [
+    {
+      "path": "getmpcomputerstatus",  
+      "search": [
+        {
+          "filter": {"enabled": true},
+          "followup": "enable_antivirus"
+        },
+        {
+          "filter": {"enabled": true},
+          "followup": "enable_antispyware"
+        }
+      ]
+    }
+  ],
+  "pass": {
+    "condition": true,
+    "success": "All tested systems have Windows Defender antivirus and antispyware enabled.",
+    "failure": "need Windows Defender antivirus and/or antispyware to be enabled."
+  },
+  "quest": {
+    "explanation": "Having Windows Defender antivirus or antispyware disabled makes these machines vulnerable to attacks.",
+    "selection": {
+      "age": {"h": 1}
+    }
+  }
+}

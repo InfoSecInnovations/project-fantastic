@@ -16,7 +16,7 @@ const validateResult = (result_entry, condition, parameters) => {
     const followup = followup_entry[1]
     if (typeof condition.filter.enabled == 'boolean' && condition.filter.enabled != followup.enabled) return false
   }
-  else {
+  else if (condition.filter) {
     const data = [...(result_entry.data || [])]
     if (typeof condition.filter == 'object') {
       if (!data.find(
