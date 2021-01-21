@@ -1,0 +1,26 @@
+{
+  "name": "Check Windows patch version",
+  "description": "Find systems missing the latest Windows patch.",
+  "hosts": ["local", "remote"],
+  "actions": [
+    {
+      "path": "checkpatchversion",  
+      "search": [
+        {
+          "label": "KB4577266"
+        }
+      ]
+    }
+  ],
+  "pass": {
+    "condition": true,
+    "success": "All tested systems have the required patch version.",
+    "failure": "are missing hotfix KB4577266"
+  },
+  "quest": {
+    "explanation": "Missing hotfixes can be a potential attack vector.",
+    "selection": {
+      "age": {"h": 1}
+    }
+  }
+}

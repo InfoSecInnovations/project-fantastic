@@ -1,0 +1,18 @@
+{
+  "name": "Check Windows Patches",
+  "description": "List Windows patches installed on this machine",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "gwmi Win32_QuickFixEngineering | select Description, Hotfixid",
+      "method": "invoke",
+      "json": true,
+      "result": {
+        "label": "Hotfixid",
+        "data": [
+          "Description"
+        ] 
+      }
+    }
+  }
+}
