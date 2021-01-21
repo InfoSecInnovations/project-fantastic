@@ -18,7 +18,7 @@ export default (state, send) => {
       state.test_results.status[state.test_resolve.test] == 'loading' ? h('div.button disabled', 'Running...') :
       h('div.button', {on: {click: e => send({type: 'run_test_resolve', test_id: state.test_resolve.test_id, test: state.test_resolve.test})}}, 'Run')
     ]),
-    ...(Array.isArray(action_data) ? action_data.map(data => action_view(state, data)) : [action_view(state, action_data)])
+    ...(Array.isArray(action_data) ? action_data.map(data => action_view(state, data)).flat() : action_view(state, action_data))
     // TODO: show which quest/story we're resolving
   ]))
 }

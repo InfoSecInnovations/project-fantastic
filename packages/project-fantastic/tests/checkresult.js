@@ -32,7 +32,7 @@ const validateResult = (result_entry, condition, parameters) => {
 const checkResult = (result, conditions, parameters) => {
   for (const c of conditions) {
     if (c.label) {
-      const result_entry = result.find(r => r.label == c.label)
+      const result_entry = result.find(r => r.label.trim() == c.label)
       if (!validateResult(result_entry, c, parameters)) return false
     }
     else {
