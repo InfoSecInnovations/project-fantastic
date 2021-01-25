@@ -34,7 +34,7 @@ For more information on using the application itself:
 
 The Fantastic Editor is very much a work in progress. The objective is to be able to edit and create most types of content without having to write any code or JSON directly. For the moment you can only use it to create story quests, in fact, the Forgotten Systems story was made with it.
 
-We haven't implemented the standalone build for it, so if you want to try it out you'll need to clone the repository, and open up the editor directory in the command line and use the `npm start` command to run it.
+We haven't implemented the standalone build for it, so if you want to try it out you'll need to clone the repository, and open up the `editor` directory in the command line and use the `npm start` command to run it.
 
 ## Development setup
 
