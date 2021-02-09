@@ -5,7 +5,7 @@ const getData = async (db, rows) => {
     if (result) {
       if (row.event_type === 'quest') {
         row.results = (await db.get({
-          table: 'test_history',
+          table: 'scan_history',
           columns: ['results'],
           conditions: {columns: {quest_id: result.quest_id}}
         })).results

@@ -10,13 +10,13 @@ const action_view = (state, data) =>  {
 }
 
 export default (state, send) => {
-  const test_obj = state.tests[state.test_resolve.test]
-  const action_data = test_obj.pass.failure.action
+  const scan_obj = state.scans[state.scan_resolve.scan]
+  const action_data = scan_obj.pass.failure.action
   return h('div.scroll_container', h('div.scroll spaced', [
     h('div.item', [
-      h('h3', `Resolve issues found by ${test_obj.name}`),
-      state.test_results.status[state.test_resolve.test] == 'loading' ? h('div.button disabled', 'Running...') :
-      h('div.button', {on: {click: e => send({type: 'run_test_resolve', test_id: state.test_resolve.test_id, test: state.test_resolve.test})}}, 'Run')
+      h('h3', `Resolve issues found by ${scan_obj.name}`),
+      state.scan_results.status[state.scan_resolve.scan] == 'loading' ? h('div.button disabled', 'Running...') :
+      h('div.button', {on: {click: e => send({type: 'run_scan_resolve', scan_id: state.scan_resolve.scan_id, scan: state.scan_resolve.scan})}}, 'Run')
     ]),
     ...(Array.isArray(action_data) ? action_data.map(data => action_view(state, data)).flat() : action_view(state, action_data))
     // TODO: show which quest/story we're resolving

@@ -6,7 +6,7 @@ const {fork} = require('child_process')
 const GetCommandData = require('./commands/getcommanddata')
 const RunCommands = require('./commands/runcommands')
 const GetActionData = require('./actions/getactiondata')
-const GetTestData = require('./tests/gettestdata')
+const GetScanData = require('./scans/getscandata')
 const GetConfig = require('./util/getconfig')
 const WatchConfig = require('./watchconfig')
 const GetPackage = require('./util/getpackage')
@@ -32,7 +32,7 @@ const main = async () => {
   let config = await GetConfig()
   let data_process
   let actions = await GetActionData(config)
-  let tests = await GetTestData(config)
+  let scans = await GetScanData(config)
   let stories = await GetStoryData(config)
   const auth_module = AuthFactory(GetPackage(config.authentication.module))
   const update_commands = commands => {
@@ -53,7 +53,7 @@ const main = async () => {
     auth_module, 
     () => command_data, 
     () => actions, 
-    () => tests,
+    () => scans,
     () => stories,
     commands => command_data = update_commands(commands)
   )
@@ -75,7 +75,7 @@ const main = async () => {
   WatchConfig(data => {
     config = data.config
     command_data = update_commands(data.command_data)
-    // TODO update quest, actions, tests
+    // TODO update quest, actions, scans
     console.log('config.json changed, got new data')
   })
 

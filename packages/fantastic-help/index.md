@@ -44,7 +44,7 @@ A visual representation of the network. Each node represents a host, and the arr
 
 ## Network Menu
 
-In the bottom left of the interface there are buttons to open the Host Data Commands, Tests, Quests and History panels
+In the bottom left of the interface there are buttons to open the Host Data Commands, Scans, Quests and History panels
 
 ### Host Data Commands
 
@@ -52,17 +52,17 @@ In the bottom left of the interface there are buttons to open the Host Data Comm
 
 Here you can see all the available commands for getting data, and you can enable or disable them if permitted. Enabled commands will run constantly on the server and update the database. These settings affect all users, so use with care!
 
-### Tests
+### Scans
 
-![Tests](images/tests.png)
+![Scans](images/scans.png)
 
-Tests run some actions and allow you to analyse the results according to the parameters you set. Tests, unlike quests, operate on the hosts currently visible on the network graph. Upon completing the test, if any hosts didn't pass, they will be selected.
+Scans run some actions and allow you to analyse the results according to the parameters you set. Scans, unlike quests, operate on the hosts currently visible on the network graph. Upon completing the scan, if any hosts didn't pass, they will be selected.
 
 ### Quests
 
 ![Quests](images/quests.png)
 
-You will be assigned daily quests which show you some tests you can run with specific parameters, and explain why you should run them. We currently only have one quest available, but more are on their way soon. All hosts on the network must pass the test to succeed the quest. Quests select their targets from all the available data, not your current search query, so when the quest completes the graph updates to show the hosts that were scanned.
+You will be assigned daily quests which show you some scans you can run with specific parameters, and explain why you should run them. We currently only have one quest available, but more are on their way soon. All hosts on the network must pass the scan to succeed the quest. Quests select their targets from all the available data, not your current search query, so when the quest completes the graph updates to show the hosts that were scanned.
 
 ### History
 

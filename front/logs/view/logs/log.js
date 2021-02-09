@@ -1,7 +1,7 @@
 import {h} from 'snabbdom/h'
 import LogHeader from '@infosecinnovations/fantastic-front/view/history/logheader'
 
-const test_results = (data, results) => {
+const scan_results = (data, results) => {
   return {
     pass: results.every(v => v.result == data.pass.condition),
     failed: results.filter(v => v.result != data.pass.condition)
@@ -31,15 +31,15 @@ const log_details = (state, log) => {
       parameters(log.data)
     ]
   }
-  if (log.event_type == 'test') {
-    const results = test_results(state.tests[log.test], JSON.parse(log.results))
+  if (log.event_type == 'scan') {
+    const results = scan_results(state.scans[log.scan], JSON.parse(log.results))
     return [
       h('div.log_details', results.pass ? 'All nodes passed' : `${results.failed.length} nodes failed`),
       parameters(log.parameters)
     ]
   }
   if (log.event_type == 'quest') {
-    const results = test_results(state.quests[log.quest], JSON.parse(log.results))
+    const results = scan_results(state.quests[log.quest], JSON.parse(log.results))
     return [h('div.log_details', results.pass ? 'All nodes passed' : `${results.failed.length} nodes failed`)]
   }
   if (log.event_type == 'command') {

@@ -3,7 +3,7 @@ import FlexSearch from '@infosecinnovations/fantastic-front/update/flexsearch'
 import Hovered from '../defaults/hovered'
 import QuestResults from './questresults'
 import StoryResults from './storyresults'
-import TestResults from './testresults'
+import ScanResults from './scanresults'
 const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 
 export default (state, action) => {
@@ -52,12 +52,12 @@ export default (state, action) => {
   if (action.type == 'remove_child_tab') state.child_tabs.splice(state.child_tabs.findIndex(v => v === action.tab), 1)
   if (action.type == 'quest_results') QuestResults(state, action)
   if (action.type == 'quest_nodes') state.quest_results.nodes[action.quest] = action.nodes
-  if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading' // TODO: set corresponding test to loading
-  if (action.type == 'test_results') TestResults(state, action)
-  if (action.type == 'run_test') state.test_results.status[action.test] = 'loading' 
-  if (action.type == 'test_parameter') {
-    if (!state.test_parameters[action.test]) state.test_parameters[action.test] = {}
-    state.test_parameters[action.test][action.key] = action.value
+  if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading' // TODO: set corresponding scan to loading
+  if (action.type == 'scan_results') ScanResults(state, action)
+  if (action.type == 'run_scan') state.scan_results.status[action.scan] = 'loading' 
+  if (action.type == 'scan_parameter') {
+    if (!state.scan_parameters[action.scan]) state.scan_parameters[action.scan] = {}
+    state.scan_parameters[action.scan][action.key] = action.value
   }
   if (action.type == 'user') state.user = action.user
   if (action.type == 'user_history') state.history = {...action.history, waiting: state.history ? state.history.waiting : []}
@@ -83,11 +83,11 @@ export default (state, action) => {
   }
   if (action.type == 'review_approval') {
     if (action.data_type == 'quests') state.quest_results.approval[action.data_key] = action.approved
-    if (action.data_type == 'quests' || action.data_type == 'tests' || !action.data_type) state.test_results.approval[action.data_key] = action.approved
+    if (action.data_type == 'quests' || action.data_type == 'scans' || !action.data_type) state.scan_results.approval[action.data_key] = action.approved
     if (action.data_type == 'stories') {
       const approval_store = state.story_results.approval[action.data_key] || (state.story_results.approval[action.data_key] = {})
       approval_store[action.story_node] = action.approved
-      state.test_results.approval[state.stories[action.data_key].nodeData[action.story_node]] = action.approved
+      state.scan_results.approval[state.stories[action.data_key].nodeData[action.story_node]] = action.approved
       if (action.approved) {
         const completed_store = state.story.completed[action.data_key] || (state.story.completed[action.data_key] = {})
         completed_store[action.story_node] = true // if we approved the result of a story node, we also completed it
@@ -109,7 +109,7 @@ export default (state, action) => {
     story[action.node] = true
   }
   if (action.type == 'run_story_node') {
-    // TODO: set corresponding test to loading
+    // TODO: set corresponding scan to loading
     const status_store = state.story_results.status[action.story] || (state.story_results.status[action.story] = {})
     status_store[action.node] = 'loading'
   }
@@ -118,16 +118,16 @@ export default (state, action) => {
     const node_store = state.story_results.nodes[action.story] || (state.story_results.nodes[action.story] = {})
     node_store[action.node] = action.nodes
   }
-  if (action.type == 'test_resolve') {
-    if (!action.test) state.test_resolve = null
+  if (action.type == 'scan_resolve') {
+    if (!action.scan) state.scan_resolve = null
     else {
-      state.test_resolve = {
-        test: action.test,
-        test_id: action.test_id
+      state.scan_resolve = {
+        scan: action.scan,
+        scan_id: action.scan_id
       }
     }
   } 
-  if (action.type == 'run_test_resolve') state.test_results.status[action.test] = 'loading'
+  if (action.type == 'run_scan_resolve') state.scan_results.status[action.scan] = 'loading'
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

@@ -5,9 +5,9 @@ import ReviewIcon from '@infosecinnovations/fantastic-front/view/reviewicon'
 export default (state, send) => {
   if (!state.review) return
   const {type: data_type, name: data_key, filter} = state.review
-  const test = data_type == 'stories' ? state.stories[data_key].nodeData[state.review.story_node].key : data_key
+  const scan = data_type == 'stories' ? state.stories[data_key].nodeData[state.review.story_node].key : data_key
   return h('div#review', h('div.panel', h('div.scroll_container', [
-    h('h2', `Please check results from ${state.tests[test].name}`),
+    h('h2', `Please check results from ${state.scans[scan].name}`),
     filter !== 'none' ? h(
       'div.button', 
       {on: {click: [send, {type: 'review_filter', mode: filter === 'fail' ? 'all' : 'fail'}]}}, 

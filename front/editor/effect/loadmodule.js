@@ -19,7 +19,7 @@ export default async (state, action, send) => {
     .filter(action => (!action[1].target || action[1].target == 'host') && !action[1].functions.run.result) // filter for host actions with no result
     .reduce((result, action) => ({...result, [action[0]]: action[1]}), {})
   )
-  const tests = await loadDir(Path.join(action.module, 'tests')).catch(() => ({}))
+  const scans = await loadDir(Path.join(action.module, 'scans')).catch(() => ({}))
   const name = packageJSON.name
-  send({type: 'add_module', module: {name, path: action.module, actions, tests}})
+  send({type: 'add_module', module: {name, path: action.module, actions, scans}})
 }
