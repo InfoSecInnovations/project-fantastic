@@ -1,4 +1,4 @@
-import {h} from '../../../../../packages/fantastic-front/view/scan/node_modules/snabbdom/h'
+import {h} from 'snabbdom/h'
 const Alea = require('alea')
 import SuccessTexts from '@infosecinnovations/fantastic-front/view/successtexts'
 import NodeLink from '@infosecinnovations/fantastic-front/view/scan/nodelink'

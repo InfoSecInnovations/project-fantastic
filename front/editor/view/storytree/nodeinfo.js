@@ -1,4 +1,4 @@
-import {h} from '../../../../packages/fantastic-front/view/scan/node_modules/snabbdom/h'
+import {h} from 'snabbdom/h'
 const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
 import ParameterInput from '@infosecinnovations/fantastic-front/view/scan/parameterinput'
 import ParameterValue from '@infosecinnovations/fantastic-front/view/scan/parametervalue'

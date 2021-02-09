@@ -1,7 +1,7 @@
 import {h} from 'snabbdom/h'
 import Commands from './commands'
 import Quests from './quests'
-import Scans from './tests'
+import Scans from './scans'
 import History from './history'
 
 const panel_button = (state, send, panel_state, icon, label) => 

@@ -1,4 +1,4 @@
-import {h} from '../../../../../packages/fantastic-front/view/scan/node_modules/snabbdom/h'
+import {h} from 'snabbdom/h'
 import Parameter from './parameter'
 import SearchBar from '@infosecinnovations/fantastic-front/view/searchbar'
 import FilterSearchResults from '@infosecinnovations/fantastic-front/util/filtersearchresults'
@@ -11,7 +11,7 @@ import DefaultParameters from '@infosecinnovations/fantastic-utils/defaultparame
 export default (state, send) => {
   const scans = FilterSearchResults(state, 'scans')
   return h('div.scroll_container', [
-    h('h2.panel_title', 'scans'),
+    h('h2.panel_title', 'Scans'),
     SearchBar(send, 'scans'),
     h('div.scroll spaced', Object.entries(scans).map(v => {
       const scan = v[0]
