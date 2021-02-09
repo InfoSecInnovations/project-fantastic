@@ -4,7 +4,7 @@ import ResizeStory from './resizestory'
 
 export default (state, send) => {
   window.onresize = e => send({type: 'render'})
-  ;['actions', 'tests', 'quests', 'commands', 'stories'].forEach(v => FetchScripts(send, v)) // automatic semicolon insertion doesn't work on this line
+  ;['actions', 'scans', 'quests', 'commands', 'stories'].forEach(v => FetchScripts(send, v)) // automatic semicolon insertion doesn't work on this line
   fetch('/user')
   .then(res => res.json())
   .then(res => send({type: 'user', user: res}))

@@ -14,7 +14,7 @@
   ],
   "pass": {
     "condition": true,
-    "success": "All tested systems have the required patch version.",
+    "success": "All scanned systems have the required patch version.",
     "failure": "are missing hotfix KB4577266"
   },
   "quest": {

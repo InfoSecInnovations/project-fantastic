@@ -7,7 +7,7 @@ import MultiActions from './multiactions'
 import NodesFromEdge from '../../util/nodesfromedge'
 import TabBar from './tabbar'
 import CanShowActions from './canshowactions'
-import TestResolve from './testresolve'
+import ScanResolve from './scanresolve'
 
 const get_tab = (state, send, nodes) => {
   if (state.tab == 'info' || !CanShowActions(state, nodes)) {
@@ -25,7 +25,7 @@ const get_tab = (state, send, nodes) => {
     if (nodes.length > 1) return MultiActions(state, send)
     return Actions(state, send, state.nodes[nodes[0]])
   }
-  if (state.tab == 'issues' && state.test_resolve) return TestResolve(state, send)
+  if (state.tab == 'issues' && state.scan_resolve) return ScanResolve(state, send)
 }
 
 export default (state, send) => {

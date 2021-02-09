@@ -3,7 +3,7 @@ const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 import LogHeader from '@infosecinnovations/fantastic-front/view/history/logheader'
 
 const log_content = (state, log) => {
-  if (log.event_type == 'test' && log.parameters) {
+  if (log.event_type == 'scan' && log.parameters) {
     const parameters = JSON.parse(log.parameters)
     return [
       'Parameters used:',
@@ -31,9 +31,9 @@ const history_item_controls = (state, send, item) => {
       class: {favorited: status == 'favorited'}
     }),
     h('span.fas fa-redo-alt fa-fw history_control', {on: {click: () => {
-      if (item.event_type == 'test') {
-        send({type: 'run_test', test: item.test, parameters: JSON.parse(item.parameters)})
-        send({type: 'left_panel_state', state: 'tests'})
+      if (item.event_type == 'scan') {
+        send({type: 'run_scan', scan: item.scan, parameters: JSON.parse(item.parameters)})
+        send({type: 'left_panel_state', state: 'scans'})
       }
       if (item.event_type == 'quest') {
         send({type: 'run_quest', quest: item.quest})
@@ -79,7 +79,7 @@ const favorites = (state, send) => {
 
 const history = (state, send) => {
   if (!state.history.results.length) return [
-    h('h3.panel_title', 'Run tests, complete quests or toggle host data commands to see something here!')
+    h('h3.panel_title', 'Run scans, complete quests or toggle host data commands to see something here!')
   ]
   return [
     h('h2.panel_title', 'History'),

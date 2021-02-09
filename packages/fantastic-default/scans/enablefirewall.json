@@ -15,7 +15,7 @@
   ],
   "pass": {
     "condition": true,
-    "success": "All tested systems have Windows Firewall enabled.",
+    "success": "All scanned systems have Windows Firewall enabled.",
     "failure": {
       "text": "need Windows Firewall to be enabled.",
       "action": {

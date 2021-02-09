@@ -16,7 +16,7 @@
   ],
   "pass": {
     "condition": false,
-    "success": "All tested systems have been rebooted within the last $days days.",
+    "success": "All scanned systems have been rebooted within the last $days days.",
     "failure": "need to be rebooted."
   },
   "quest": {

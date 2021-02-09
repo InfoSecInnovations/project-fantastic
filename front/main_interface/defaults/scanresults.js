@@ -4,5 +4,5 @@ export default () => ({
   date: {},
   parameters: {},
   approval: {},
-  test_ids: {}
+  scan_ids: {}
 })

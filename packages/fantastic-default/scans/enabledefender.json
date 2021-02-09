@@ -19,7 +19,7 @@
   ],
   "pass": {
     "condition": true,
-    "success": "All tested systems have Windows Defender antivirus and antispyware enabled.",
+    "success": "All scanned systems have Windows Defender antivirus and antispyware enabled.",
     "failure": "need Windows Defender antivirus and/or antispyware to be enabled."
   },
   "quest": {

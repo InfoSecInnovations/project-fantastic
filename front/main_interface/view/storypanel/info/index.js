@@ -17,9 +17,9 @@ export default (state, send) => {
     const completed = state.story.completed[state.story.selected] && state.story.completed[state.story.selected][state.story.selected_node]
     const selectedNode = storyData.nodeData[state.story.selected_node]
     const loading = state.story_results.status[state.story.selected] && state.story_results.status[state.story.selected][state.story.selected_node] == 'loading'
-    if (selectedNode.type == 'tests') {
-      const test = selectedNode.key
-      const data = state.tests[test]
+    if (selectedNode.type == 'scans') {
+      const scan = selectedNode.key
+      const data = state.scans[scan]
       const results = state.story_results.data[state.story.selected] && state.story_results.data[state.story.selected][state.story.selected_node]
       const result_nodes = state.story_results.nodes[state.story.selected] && state.story_results.nodes[state.story.selected][state.story.selected_node]
       const result_date = state.story_results.date[state.story.selected] && state.story_results.date[state.story.selected][state.story.selected_node]
@@ -52,7 +52,7 @@ export default (state, send) => {
             review_results: results,
             result_info: NodeLink(send, result_nodes, result_date, storyData.selection),
             success_prefix: 'Mission accomplished!',
-            test_id: state.story_results.test_ids[state.story.selected] && state.story_results.test_ids[state.story.selected][state.story.selected_node]
+            scan_id: state.story_results.scan_ids[state.story.selected] && state.story_results.scan_ids[state.story.selected][state.story.selected_node]
           }
         ) : [])
 
