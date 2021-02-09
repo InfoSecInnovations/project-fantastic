@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-import ParameterInput from '@infosecinnovations/fantastic-front/view/test/parameterinput'
-import ParameterValue from '@infosecinnovations/fantastic-front/view/test/parametervalue'
+import ParameterInput from '@infosecinnovations/fantastic-front/view/scan/parameterinput'
+import ParameterValue from '@infosecinnovations/fantastic-front/view/scan/parametervalue'
 
 export default (parameter_data, scan, send, param) => {
   const value = parameter_data !== undefined ? parameter_data : param.default

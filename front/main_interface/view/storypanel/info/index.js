@@ -2,10 +2,10 @@ import {h} from 'snabbdom/h'
 import HostString from '@infosecinnovations/fantastic-front/util/hoststring'
 import MultiAction from '@infosecinnovations/fantastic-front/view/actions/multiaction'
 import StatusIcon from '@infosecinnovations/fantastic-front/view/statusicon'
-import Info from '@infosecinnovations/fantastic-front/view/test/info'
-import PlayButton from '@infosecinnovations/fantastic-front/view/test/playbutton'
-import Result from '@infosecinnovations/fantastic-front/view/test/result'
-import NodeLink from '@infosecinnovations/fantastic-front/view/test/nodelink'
+import Info from '@infosecinnovations/fantastic-front/view/scan/info'
+import PlayButton from '@infosecinnovations/fantastic-front/view/scan/playbutton'
+import Result from '@infosecinnovations/fantastic-front/view/scan/result'
+import NodeLink from '@infosecinnovations/fantastic-front/view/scan/nodelink'
 const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultparameters')
 
 const successText = () => h('div.item success', 'Mission accomplished!')
