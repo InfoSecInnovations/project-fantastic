@@ -15,18 +15,18 @@ const getStoryHistory = async (user, res, req, query) => {
     for (const row of rows) {
       const story = await GetPackagedData(row.story, 'stories')
       const node = story.nodeData[row.story_node_id]
-      if (node.type == 'tests') {
+      if (node.type == 'scans') {
         const results = await db.get({
-          table: 'test_history',
-          columns: ['results', 'test_id'],
+          table: 'scan_history',
+          columns: ['results', 'scan_id'],
           conditions: {columns: {story_id: row.story_id}}
         })
         row.results = results.results
-        row.test_id = results.test_id
+        row.scan_id = results.scan_id
         const approval = await db.get({
           table: 'approval_history',
           columns: ['approved'],
-          conditions: {columns: {test_id: results.test_id}}
+          conditions: {columns: {scan_id: results.scan_id}}
         })
         row.approved = approval && approval.approved
       }

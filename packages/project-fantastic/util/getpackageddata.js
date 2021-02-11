@@ -4,7 +4,7 @@ const Path = require('path')
 /**
  * Load a data object from an installed package
  * @param {string} path package_name/object_name
- * @param {'actions' | 'commands' | 'tests'} data_type 
+ * @param {'actions' | 'commands' | 'scans' | 'stories'} data_type 
  * @returns {Promise<{} | undefined>}
  */
 const getPackagedData = async (path, data_type) => {

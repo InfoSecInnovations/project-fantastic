@@ -2,6 +2,8 @@
 
 Actions allow you to interact with hosts on the network, they can simply provide you with information, or allow you to modify the host.
 
+They are based around a PowerShell command with optional followup actions using the data from the first command.
+
 Each action is a json file something like this:
 
 ```
@@ -94,7 +96,9 @@ Each action is a json file something like this:
 }
 ```
 
-here's a breakdown of what the fields mean:
+This may seem intimidating, but it's not actually that difficult once you've figured out how we map data from the command output to Fantastic's action output.
+
+Here's a breakdown of what the fields mean:
 
 ## name
 
@@ -122,7 +126,7 @@ The access levels required to run this command on a host. This is an array.
 - `remote` : this command can run on any machine with PowerShell remote access from the server.
 - `none` : this command can target any machine on the network (not supported yet)
 
-## target (WIP)
+## target
 
 *Optional*
 
@@ -142,7 +146,7 @@ Data about the commands and parsing the results of said commands.
 
 There must always be a `run` function, this is the entrypoint for the action. The other functions can be called as followups to this one.
 
-- `name` : the display name for this function, only applies to followup functions. This will be used on buttons to run this function that don't specify another labelling method.
+- `name` : the display name for this function, only applies to followup functions. This will be used on buttons to run this function that don't specify another labelling method, as well as followup actions used by scans.
 - `command` : the PowerShell command used to perform the action. If this is a followup function PowerShell variables will be created from the data that was passed into it.
 
   data:

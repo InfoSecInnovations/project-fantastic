@@ -17,8 +17,8 @@ export default (state, send) => Object.values(state.modules).map(module => [
         h('ul', nodeList(state, module, 'actions'))
       ]),
       h('div.column center', [
-        h('h3', 'Tests'),
-        h('ul', nodeList(state, module, 'tests'))
+        h('h3', 'Scans'),
+        h('ul', nodeList(state, module, 'scans'))
       ])
     ])
   ]).flat()

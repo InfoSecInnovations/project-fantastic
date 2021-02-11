@@ -12,7 +12,7 @@ const RunFunction = require('./runfunction')
  * @param {{
  *  data?: {},
  *  label?: string,
- *  test_id?: number
+ *  scan_id?: number
  * }} [options]
  */
 const runAction = async (db, action, func, node_id, user, date, options) => {
@@ -41,7 +41,7 @@ const runAction = async (db, action, func, node_id, user, date, options) => {
     node_id, 
     label: options && options.label, 
     user_id: user.user_id, 
-    test_id: options && options.test_id,
+    scan_id: options && options.scan_id,
     story_id: options && options.story_id
   })
   return {result, event_id}

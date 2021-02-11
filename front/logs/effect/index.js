@@ -3,7 +3,7 @@ import GenerateQuery from '@infosecinnovations/fantastic-front/effect/generatequ
 
 export default (state, action, send) => {
   if (action.type == 'init') {
-    ['actions', 'tests', 'quests', 'commands', 'stories'].forEach(v => FetchScripts(send, v))
+    ['actions', 'scans', 'quests', 'commands', 'stories'].forEach(v => FetchScripts(send, v))
     send({type: 'page', page: 0})
   }
   if (action.type == 'page') {

@@ -8,7 +8,7 @@ import View from './view'
 import Update from './update'
 import Effect from './effect'
 import QuestResults from './defaults/questresults'
-import TestResults from './defaults/testresults'
+import ScanResults from './defaults/scanresults'
 import Hovered from './defaults/hovered'
 
 const patch = init([
@@ -20,7 +20,7 @@ const patch = init([
 ])
 
 let state = {
-  flex_search: {actions: {}, tests: {}, commands: {}},
+  flex_search: {actions: {}, scans: {}, commands: {}},
   search: {date: 15, show_external: true, connection_type: 'all', connection_state: []}, 
   connection_search: {},
   tab: 'info', 
@@ -28,9 +28,9 @@ let state = {
   hovered: Hovered(), 
   action_results: {},
   quest_results: QuestResults(),
-  test_results: TestResults(),
+  scan_results: ScanResults(),
   story_results: QuestResults(),
-  test_parameters: {},
+  scan_parameters: {},
   keys: {},
   child_tabs: [],
   command_status: {},

@@ -1,7 +1,7 @@
 import {h} from 'snabbdom/h'
 const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
-import ParameterInput from '@infosecinnovations/fantastic-front/view/test/parameterinput'
-import ParameterValue from '@infosecinnovations/fantastic-front/view/test/parametervalue'
+import ParameterInput from '@infosecinnovations/fantastic-front/view/scan/parameterinput'
+import ParameterValue from '@infosecinnovations/fantastic-front/view/scan/parametervalue'
 
 const getParameterValue = (data, node, parameter) => (node.parameters && node.parameters[parameter.name]) || (data.quest && data.quest.parameters && data.quest.parameters[parameter.name]) || parameter.default
 

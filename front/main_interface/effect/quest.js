@@ -8,16 +8,16 @@ export default (state, send, quest, data) => {
     date: data.date, 
     select: true, 
     nodes: data.rows,
-    test_id: data.test_id
+    scan_id: data.scan_id
   }),
   send({
-    type: 'test_results',
+    type: 'scan_results',
     results: data.result, 
-    test_id: data.test_id, 
+    scan_id: data.scan_id, 
     date: data.date, 
     parameters: state.quests[quest].parameters, 
-    test: quest
-  }) // quest results are the same as the test run by the quest
+    scan: quest
+  }) // quest results are the same as the scan run by the quest
   UserHistory(send)
   if (state.quests[quest].pass === 'review') send({type: 'review', results: data.result, data_key: quest, data_type: 'quests'})
 }

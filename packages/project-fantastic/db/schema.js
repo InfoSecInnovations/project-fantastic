@@ -68,13 +68,13 @@ const schema = [
     filter INTEGER,
     node_id INTEGER,
     user_id BLOB,
-    test_id INTEGER,
+    scan_id INTEGER,
     story_id INTEGER,
     FOREIGN KEY (node_id)
       REFERENCES nodes (node_id)
       ON DELETE CASCADE,
-    FOREIGN KEY (test_id)
-      REFERENCES test_history (test_id)
+    FOREIGN KEY (scan_id)
+      REFERENCES scan_history (scan_id)
       ON DELETE CASCADE,
     FOREIGN KEY (story_id)
       REFERENCES story_history (story_id)
@@ -87,9 +87,9 @@ const schema = [
     date INTEGER,
     user_id BLOB
   )`,
-  `CREATE TABLE IF NOT EXISTS test_history(
-    test_id INTEGER PRIMARY KEY,
-    test TEXT,
+  `CREATE TABLE IF NOT EXISTS scan_history(
+    scan_id INTEGER PRIMARY KEY,
+    scan TEXT,
     results TEXT,
     parameters TEXT,
     date INTEGER,
@@ -111,11 +111,11 @@ const schema = [
   )`,
   `CREATE TABLE IF NOT EXISTS approval_history(
     approval_id INTEGER PRIMARY KEY,
-    test_id INTEGER,
+    scan_id INTEGER,
     approved INTEGER,
     user_id BLOB,
-    FOREIGN KEY (test_id)
-      REFERENCES test_history (test_id)
+    FOREIGN KEY (scan_id)
+      REFERENCES scan_history (scan_id)
       ON DELETE CASCADE
   )`,
   `CREATE TABLE IF NOT EXISTS story_history(

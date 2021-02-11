@@ -30,7 +30,43 @@ For more information on using the application itself:
 - [Client Help](packages/fantastic-help/index.md)
 - [Administrating the Fantastic Server](packages/fantastic-help/server.md)
 
-# Visual Editor
+## Creating your own content
+
+If you already know some PowerShell commands, creating modules for Fantastic should be pretty straightforward for you. All of the assets are stored as JSON, one day you'll be able to edit them with the Fantastic Editor, but for now you have to work with the JSON directly, which is a still a fairly human-readable format.
+
+### Initialization
+
+We use npm as the installation method for modules, so you'll want to start by running `npm init` in an empty directory to create the default `package.json` file, you can use the `-y` flag to skip the setup as you won't need to change much. You'll want the following structure:
+
+```
+my-awesome-module
+|-- package.json
+|-- actions
+|   |-- action1.json
+|   |-- action2.json
+|   |-- ...
+|-- commands
+|   |-- command1.json
+|   |-- command2.json
+|   |-- ...
+|-- stories
+|   |-- story1.json
+|   |-- story2.json
+|   |-- ...
+|-- scans
+|   |-- scan1.json
+|   |-- scan2.json
+|   |-- ...
+```
+
+See the relevant help sections for how to implement each data type:
+
+- [Actions](packages/fantastic-help/actions.md)
+- [Host Data Commands](packages/fantastic-help/commands.md)
+- [Scans](packages/fantastic-help/scans.md)
+- [Story Quests](packages/fantastic-help/stories.md)
+
+### Fantastic Editor
 
 The Fantastic Editor is very much a work in progress. The objective is to be able to edit and create most types of content without having to write any code or JSON directly. For the moment you can only use it to create story quests, in fact, the Forgotten Systems story was made with it.
 

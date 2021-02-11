@@ -5,7 +5,7 @@
 	"nodeData": {
 		"48543f61-99ff-4281-8626-96a35a83c78f": {
 			"key": "@infosecinnovations/fantastic-default/checkpatchversion",
-			"type": "tests",
+			"type": "scans",
 			"position": {
 				"x": 418,
 				"y": 278
@@ -16,7 +16,7 @@
 		},
 		"f5303f7a-ddd5-4405-8099-a9ff57ab1851": {
 			"key": "@infosecinnovations/fantastic-default/checksysmon",
-			"type": "tests",
+			"type": "scans",
 			"position": {
 				"x": 699,
 				"y": 361
@@ -27,7 +27,7 @@
 		},
 		"88af116a-c7ec-455f-b1e8-f30d85604710": {
 			"key": "@infosecinnovations/fantastic-default/enablefirewall",
-			"type": "tests",
+			"type": "scans",
 			"position": {
 				"x": 401,
 				"y": 70
@@ -38,7 +38,7 @@
 		},
 		"6cdc892b-a1cc-4a6b-88ff-0fe40a797a0a": {
 			"key": "@infosecinnovations/fantastic-default/enabledefender",
-			"type": "tests",
+			"type": "scans",
 			"position": {
 				"x": 694,
 				"y": 149
@@ -49,7 +49,7 @@
 		},
 		"8b62546a-7d83-4d30-a533-a2a816d41c93": {
 			"key": "@infosecinnovations/fantastic-default/checkreboot",
-			"type": "tests",
+			"type": "scans",
 			"position": {
 				"x": 426,
 				"y": 498

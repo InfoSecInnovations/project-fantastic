@@ -1,11 +1,11 @@
 import {h} from 'snabbdom/h'
 const Alea = require('alea')
 import SuccessTexts from '@infosecinnovations/fantastic-front/view/successtexts'
-import NodeLink from '@infosecinnovations/fantastic-front/view/test/nodelink'
-import Info from '@infosecinnovations/fantastic-front/view/test/info'
-import PlayButton from '@infosecinnovations/fantastic-front/view/test/playbutton'
-import Result from '@infosecinnovations/fantastic-front/view/test/result'
-import ProcessResults from '@infosecinnovations/fantastic-front/view/test/processresults'
+import NodeLink from '@infosecinnovations/fantastic-front/view/scan/nodelink'
+import Info from '@infosecinnovations/fantastic-front/view/scan/info'
+import PlayButton from '@infosecinnovations/fantastic-front/view/scan/playbutton'
+import Result from '@infosecinnovations/fantastic-front/view/scan/result'
+import ProcessResults from '@infosecinnovations/fantastic-front/view/scan/processresults'
 
 export default (state, send) => [
   h('h2.panel_title', 'Daily Quests'),
@@ -43,7 +43,7 @@ export default (state, send) => [
             review_results: results,
             result_info: NodeLink(send, state.quest_results.nodes[quest], result_date, data.selection),
             success_prefix: result_date && `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(result_date)())]}!`,
-            test_id: state.quest_results.test_ids[quest]
+            scan_id: state.quest_results.scan_ids[quest]
           })
       : [])
     ])
