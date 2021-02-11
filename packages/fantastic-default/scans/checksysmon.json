@@ -14,7 +14,7 @@
   ],
   "pass": {
     "condition": true,
-    "success": "All tested systems are running Sysmon.",
+    "success": "All scanned systems are running Sysmon.",
     "failure": {
       "action": {"path": "installsysmon" },
       "text": "do not have the Sysmon service running"

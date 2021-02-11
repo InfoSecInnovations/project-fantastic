@@ -13,7 +13,7 @@ import JsPlumb from './jsplumb'
 import ResizeStory from './resizestory'
 import StoryNode from './storynode'
 import Quest from './quest'
-import Test from './test'
+import Scan from './scan'
 
 export default (state, action, send) => {
   Common(state, action, send)
@@ -68,9 +68,9 @@ export default (state, action, send) => {
     if (action.select) send({type: 'nodes', nodes: action.nodes || []})
     send({type: 'quest_nodes', quest: action.quest, nodes: action.nodes ? action.nodes.map(v => v.node_id) : []})
   }
-  if (action.type == 'run_test') fetch(`/tests?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), test: action.test})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
+  if (action.type == 'run_scan') fetch(`/scans?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), scan: action.scan})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
-    .then(res => Test(state, send, action.test, action.parameters, res))
+    .then(res => Scan(state, send, action.scan, action.parameters, res))
   if (action.type == 'favorite') fetch(`/favorites?${GenerateQuery({history_id: action.history_id, remove: action.remove})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => {
@@ -107,22 +107,22 @@ export default (state, action, send) => {
     if (action.select) send({type: 'nodes', nodes: action.nodes || []})
     send({type: 'story_nodes', story: action.story, node: action.node, nodes: action.nodes ? action.nodes.map(v => v.node_id) : []})
   }
-  if (action.type == 'test_resolve') {
-    if (action.test) send({type: 'tab', tab: 'issues'})
+  if (action.type == 'scan_resolve') {
+    if (action.scan) send({type: 'tab', tab: 'issues'})
   }
   if (action.type == 'select'){
-    if (state.test_resolve) {
-      send({type: 'test_resolve', test: null})
+    if (state.scan_resolve) {
+      send({type: 'scan_resolve', scan: null})
       send({type: 'tab', tab: 'info'})
     }
   } 
-  if (action.type == 'run_test_resolve') fetch(`/test_resolve?${GenerateQuery({test_id: action.test_id})}`, {method: 'POST'})
+  if (action.type == 'run_scan_resolve') fetch(`/scan_resolve?${GenerateQuery({scan_id: action.scan_id})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => {
       if (res.data_type == 'quests') Quest(state, send, res.data_key, res)
       else if (res.data_type == 'stories') StoryNode(state, send, res.data_key, res.story_node, res)
-      else Test(state, send, res.data_key, JSON.parse(res.parameters), res)
-      send({type: 'test_resolve', test: null})
+      else Scan(state, send, res.data_key, JSON.parse(res.parameters), res)
+      send({type: 'scan_resolve', scan: null})
       send({type: 'tab', tab: 'info'})
     })
 

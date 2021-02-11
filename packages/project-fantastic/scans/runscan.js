@@ -6,18 +6,18 @@ const GetAbsolutePath = require('../util/getabsolutedatapath')
 /**
  * 
  * @param {import('@infosecinnovations/fantastic-db/types').Operations} db 
- * @param {string} test 
+ * @param {string} scan 
  * @param {import('@infosecinnovations/fantastic-utils/types').User user 
  * @param {number} date 
- * @param {number[]} nodes database IDs of nodes we're running the test on
+ * @param {number[]} nodes database IDs of nodes we're running the scan on
  * @param {Object.<string, *>} parameters 
- * @param {number} [parent_event_id] database ID of parent event that called this test run 
- * @param {string} [parent_event_type] type of parent event that called this test run 
+ * @param {number} [parent_event_id] database ID of parent event that called this scan run 
+ * @param {string} [parent_event_type] type of parent event that called this scan run 
  */
-const runTest = async (db, test, user, date, nodes, parameters, parent_event_id, parent_event_type = 'quest') => {
-  const obj = await GetPackagedData(test, 'tests')
-  const event_id = await db.insert('test_history', {
-    test, 
+const runScan = async (db, scan, user, date, nodes, parameters, parent_event_id, parent_event_type = 'quest') => {
+  const obj = await GetPackagedData(scan, 'scans')
+  const event_id = await db.insert('scan_history', {
+    scan, 
     date, 
     parameters: JSON.stringify(parameters), 
     user_id: user.user_id, 
@@ -28,14 +28,14 @@ const runTest = async (db, test, user, date, nodes, parameters, parent_event_id,
   const results = []
   for (const action of obj.actions) {
     for (const row of rows) {
-      const action_path = GetAbsolutePath(action.path, test)
-      const result = (await RunAction(db, action_path, 'run', row.node_id, user, date, {test_id: event_id})).result
+      const action_path = GetAbsolutePath(action.path, scan)
+      const result = (await RunAction(db, action_path, 'run', row.node_id, user, date, {scan_id: event_id})).result
       if (obj.pass === "review") results.push({node_id: row.node_id, result: result.results, filter: result.filter, action: action_path})
       else results.push({node_id: row.node_id, result: CheckResult(result.results, action.search, parameters), action: action_path})
     }
   }
-  await db.update({table: 'test_history', row: {results: JSON.stringify(results)}, conditions: {columns: {test_id: event_id}}})
+  await db.update({table: 'scan_history', row: {results: JSON.stringify(results)}, conditions: {columns: {scan_id: event_id}}})
   return {results, event_id}
 }
 
-module.exports = runTest
+module.exports = runScan

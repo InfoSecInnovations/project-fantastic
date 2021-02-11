@@ -1,13 +1,13 @@
 import {h} from 'snabbdom/h'
-import ParameterInput from '@infosecinnovations/fantastic-front/view/test/parameterinput'
-import ParameterValue from '@infosecinnovations/fantastic-front/view/test/parametervalue'
+import ParameterInput from '@infosecinnovations/fantastic-front/view/scan/parameterinput'
+import ParameterValue from '@infosecinnovations/fantastic-front/view/scan/parametervalue'
 
-export default (parameter_data, test, send, param) => {
+export default (parameter_data, scan, send, param) => {
   const value = parameter_data !== undefined ? parameter_data : param.default
   return h('div.item', [
     h('label', {attrs: {for: `param_${param.name}`}}, param.name), 
     h(`input#param_${param.name}`, {
-      on: {input: e => send({type: 'test_parameter', key: param.name, value: ParameterValue(param.type, e.target.value), test})},
+      on: {input: e => send({type: 'scan_parameter', key: param.name, value: ParameterValue(param.type, e.target.value), scan})},
       attrs: {
         type: ParameterInput(param.type),
         value

@@ -13,7 +13,7 @@ const getUserHistory = async (user, options) => {
   const count = (options && options.count) || 25
   const conditions = {groups: [
     {columns: {user_id: user.user_id}},
-    {columns: {event_type: ['quest', 'test', 'command', 'story']}, compare: 'IN'}
+    {columns: {event_type: ['quest', 'scan', 'command', 'story']}, compare: 'IN'}
   ]}
   const rows = await db.all({
     table: 'all_history',
