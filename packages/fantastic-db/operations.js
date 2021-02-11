@@ -12,10 +12,12 @@ const condition_entry = (v, compare) => {
 }
 
 const condition_group = group => {
-  const groups = Array.isArray(group.columns) ? group.columns.map(v => condition_entry(v, group.compare)) : Object.entries(group.columns).map(v => condition_entry(v, group.compare))
+  const conditions = group.groups ? group.groups.map(group => condition_group(group)) :
+    Array.isArray(group.columns) ? group.columns.map(v => condition_entry(v, group.compare)) : 
+    Object.entries(group.columns).map(v => condition_entry(v, group.compare))
   return {
-    text: groups.map(v => v.text).join(` ${group.combine || 'AND'} `),
-    values: groups.filter(v => typeof v.values !== 'undefined' && v.values !== null).map(v => v.values).flat()
+    text: `(${conditions.map(v => v.text).join(` ${group.combine || 'AND'} `)})`,
+    values: conditions.filter(v => typeof v.values !== 'undefined' && v.values !== null).map(v => v.values).flat()
   }
 }
 

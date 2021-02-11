@@ -157,6 +157,12 @@ const schema = [
     story_node_id TEXT,
     date INTEGER,
     user_id BLOB
+  )`,
+  `CREATE TABLE IF NOT EXISTS daily_quests(
+    daily_quest_id INTEGER PRIMARY KEY,
+    user_id BLOB,
+    quest TEXT,
+    date_completed INTEGER
   )`
 ]
 
