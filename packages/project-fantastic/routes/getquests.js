@@ -3,14 +3,6 @@ const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 const GetAbsolutePath = require('../util/getabsolutedatapath')
 const { transaction } = require('../db')
 
-<<<<<<< Updated upstream
-const getQuests = (user, res, req, query, tests) => { // TODO: this should get daily quests, instead of all of them.
-  console.log('getQuests: received http request to get available quests...')
-  Promise.all(tests.map(v => GetPackagedData(v, 'tests').then(a => ({...a, key: v}))))
-  .then(tests => tests.filter(v => v.quest))
-  .then(tests => {
-    const quest_data = tests.reduce((result, v) => {
-=======
 const getQuests = async (user, res, req, query, scans) => { // TODO: this should get daily quests, instead of all of them.
   console.log('getQuests: received http request to get available quests...')
   const db = await transaction()
@@ -26,7 +18,6 @@ const getQuests = async (user, res, req, query, scans) => { // TODO: this should
   const questData = await Promise.all(scans.map(v => GetPackagedData(v, 'scans').then(a => ({...a, key: v})))) // get data for all quests
   .then(scans => scans.filter(v => v.quest))
   .then(scans => scans.reduce((result, v) => {
->>>>>>> Stashed changes
       if (!HasRole(user, v.role)) return result
       return { 
         ...result, 
