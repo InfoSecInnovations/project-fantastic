@@ -31,7 +31,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stor
   createRoute('get', '/quests', require('./getquests'), {arg: get_scans})
   createRoute('get', '/quest_history', require('./getquesthistory'))
   createRoute('get', '/scans', require('./getscans'), {arg: get_scans})
-  createRoute('get', '/scab_history', require('./getscanhistory'))
+  createRoute('get', '/scan_history', require('./getscanhistory'))
   createRoute('get', '/user', require('./getuser'))
   createRoute('get', '/user_history', require('./getuserhistory'))
   createRoute('get', '/stories', require('./getstories'), {arg: get_stories})

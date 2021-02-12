@@ -7,12 +7,12 @@ const getQuests = async (user, res, req, query, scans) => { // TODO: this should
   console.log('getQuests: received http request to get available quests...')
   const db = await transaction()
   const now = new Date()
-  const changeTime = new Date(now.getFullYear(), now.getMonth(), now.getDay()) // change time is midnight
+  const changeTime = new Date(now.getFullYear(), now.getMonth(), now.getDate()) // change time is midnight
   const active = await db.all({table: 'daily_quests', columns: ['date_completed', 'quest', 'daily_quest_id'], conditions: {groups: [ // get quests we haven't completed, or that were completed today
-    {columns: {user_id: user.id}},
+    {columns: {user_id: user.user_id}},
     {groups: [
       {columns: {date_completed: changeTime.getMilliseconds()}, compare: '>='},
-      {columns: {date_completed: 0}}
+      {columns: {date_completed: null}}
     ], combine: 'OR'}
   ]}})
   const questData = await Promise.all(scans.map(v => GetPackagedData(v, 'scans').then(a => ({...a, key: v})))) // get data for all quests
@@ -41,11 +41,11 @@ const getQuests = async (user, res, req, query, scans) => { // TODO: this should
       const potentialQuests = Object.keys(questData).filter(quest => !active.find(current => current.quest == quest))
       if (potentialQuests.length == 0) break
       const newQuest = potentialQuests[Math.floor(Math.random() * potentialQuests.length)]
-      await db.insert('daily_quests', {user_id: user.id, quest: newQuest})
+      await db.insert('daily_quests', {user_id: user.user_id, quest: newQuest})
       active.push({quest: newQuest})
     }
   }
-
+  await db.close()
   if (res.aborted) return
   console.log(`getQuests: sent metadata for daily quests.`)
   res.end(JSON.stringify(
