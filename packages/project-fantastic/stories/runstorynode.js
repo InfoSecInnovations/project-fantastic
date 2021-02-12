@@ -21,7 +21,7 @@ const runStoryNode = async (db, story, story_node_id, user, date) => {
   const event_id = await db.insert('story_history', {story, story_node_id, date, user_id: user.user_id, rows: JSON.stringify(row_ids)})
   const node = story_obj.nodeData[story_node_id]
   if (node.type == 'scans') {
-    const {results, event_id: scan_id} = await RunScan(
+    const {results, event_id: scan_id, success} = await RunScan(
       db, 
       node.key, 
       user, 
@@ -31,8 +31,6 @@ const runStoryNode = async (db, story, story_node_id, user, date) => {
       event_id, 
       'story'
     )
-    const scan = await GetPackagedData(node.key, 'scans')
-    const success = scan.pass == 'review' ? false : results.every(r => r.result == scan.pass.condition)
     if (success) await db.insert('completed_story_nodes', {story, story_node_id, user_id: user.user_id, date})
     await db.update({table: 'story_history', row: {success}, conditions: {columns: {story_id: event_id}}})
     return {results, rows, event_id, scan_id, success}
