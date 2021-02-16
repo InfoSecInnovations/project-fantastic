@@ -128,6 +128,7 @@ export default (state, action) => {
     }
   } 
   if (action.type == 'run_scan_resolve') state.scan_results.status[action.scan] = 'loading'
+  if (action.type == 'quest_complete') state.quests[action.quest].date_completed = action.date
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

@@ -20,4 +20,5 @@ export default (state, send, quest, data) => {
   }) // quest results are the same as the scan run by the quest
   UserHistory(send)
   if (state.quests[quest].pass === 'review') send({type: 'review', results: data.result, data_key: quest, data_type: 'quests'})
+  if (data.success) send({type: 'quest_complete', date: data.date, quest})
 }

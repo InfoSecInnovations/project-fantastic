@@ -19,7 +19,7 @@ const runQuest = async (db, quest, user, date) => {
   const event_id = await db.insert('quest_history', {quest, date, user_id: user.user_id, rows: JSON.stringify(row_ids)})
   const {results, event_id: scan_id, success} = await RunScan(db, quest, user, date, row_ids, {...DefaultParameters(scan_obj),  ...scan_obj.quest.parameters}, event_id)
   if (success) await db.update({table: 'daily_quests', row: {date_completed: date}, conditions: {columns: {user_id: user.user_id, quest}}})
-  return {results, scan_id, rows, event_id}
+  return {results, scan_id, rows, event_id, success}
 }
 
 module.exports = runQuest
