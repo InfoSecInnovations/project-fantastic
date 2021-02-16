@@ -24,11 +24,13 @@ export default (state, send) => [
         data.parameters || {},
         status
       ),
-      ...(PlayButton(
-        state.quest_results.status[quest] === 'loading' ?
-        'loading' :
-        {on: {click: () => send({type: 'run_quest', quest})}}
-      )),
+      ...(data.date_completed ? 'Mission accomplished!' : 
+        PlayButton(
+          state.quest_results.status[quest] === 'loading' ?
+          'loading' :
+          {on: {click: () => send({type: 'run_quest', quest})}}
+        )
+      ),
       ...(results ? 
         Result(
           send, 

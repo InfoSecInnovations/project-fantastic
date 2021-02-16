@@ -15,7 +15,7 @@ const postQuests = async (user, res, req, query, scans) => {
   await db.insert('all_history', {event_type: 'quest', event_id: result.event_id, date, user_id: user.user_id})
   await db.close()
   if (res.aborted) return
-  res.end(JSON.stringify({result: result.results, scan_id: result.scan_id, rows: result.rows, date}))
+  res.end(JSON.stringify({result: result.results, scan_id: result.scan_id, rows: result.rows, date, success: result.success}))
   console.log(`postQuests: completed quest ${query.quest}, queried ${result.rows.length} nodes`)
 }
 
