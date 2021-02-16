@@ -19,8 +19,7 @@ const runFunction = async (action, func, user, hostname, data) => {
   const func_data = action.functions[func]
   const output = await PwshFunction(func_data)(func_data.command, hostname, data)
   if (!func_data.result) return {results: []}
-  // TODO: handle result arrays with filters
-  const filter = Array.isArray(func_data.result) ? undefined : await GetFilter(func_data.result.filter)
+  const filter = await GetFilter(func_data.result.filter)
   let results = func_data.json ? 
   ProcessResults(output.map(o => Result(func_data.result, o, action, user, filter))) :
   ProcessResults([Result(func_data.result, output, action, user)]) // TODO: better handling of non JSON output

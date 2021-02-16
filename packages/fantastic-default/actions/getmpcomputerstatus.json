@@ -6,32 +6,34 @@
       "command": "Get-MpComputerStatus",
       "method": "cimsession",
       "json": true,
-      "result": [
-        {
-        "label": {"static": "Antivirus"},
-          "followups": [
-            {
-              "function": "enable_antivirus",
-              "data": {
-                "state": {"bool": "AntivirusEnabled", "inverse": true}
-              },
-              "enabled": {"bool": "AntivirusEnabled"}
-            }
-          ]
-        },
-        {
-          "label": {"static": "Antispyware"},
+      "result": {
+        "array": [
+          {
+          "label": {"static": "Antivirus"},
             "followups": [
               {
-                "function": "enable_antispyware",
+                "function": "enable_antivirus",
                 "data": {
-                  "state": {"bool": "AntispywareEnabled", "inverse": true}
+                  "state": {"bool": "AntivirusEnabled", "inverse": true}
                 },
-                "enabled": {"bool": "AntispywareEnabled"}
+                "enabled": {"bool": "AntivirusEnabled"}
               }
             ]
-          }
-      ]
+          },
+          {
+            "label": {"static": "Antispyware"},
+              "followups": [
+                {
+                  "function": "enable_antispyware",
+                  "data": {
+                    "state": {"bool": "AntispywareEnabled", "inverse": true}
+                  },
+                  "enabled": {"bool": "AntispywareEnabled"}
+                }
+              ]
+            }
+        ] 
+      } 
     },
     "enable_antivirus": {
       "name": "Enable Antivirus",
