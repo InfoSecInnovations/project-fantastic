@@ -2,19 +2,12 @@ const GetPackagedData = require('../util/getpackageddata')
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 const GetAbsolutePath = require('../util/getabsolutedatapath')
 const { transaction } = require('../db')
+const GetActiveQuests = require('../db/getactivequests')
 
 const getQuests = async (user, res, req, query, scans) => { // TODO: this should get daily quests, instead of all of them.
   console.log('getQuests: received http request to get available quests...')
   const db = await transaction()
-  const now = new Date()
-  const changeTime = new Date(now.getFullYear(), now.getMonth(), now.getDate()) // change time is midnight
-  const active = await db.all({table: 'daily_quests', columns: ['date_completed', 'quest', 'daily_quest_id'], conditions: {groups: [ // get quests we haven't completed, or that were completed today
-    {columns: {user_id: user.user_id}},
-    {groups: [
-      {columns: {date_completed: changeTime.getTime()}, compare: '>='},
-      {columns: {date_completed: null}}
-    ], combine: 'OR'}
-  ]}})
+  const active = await GetActiveQuests(db, user)
   const questData = await Promise.all(scans.map(v => GetPackagedData(v, 'scans').then(a => ({...a, key: v})))) // get data for all quests
   .then(scans => scans.filter(v => v.quest))
   .then(scans => scans.reduce((result, v) => {
