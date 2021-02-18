@@ -2,6 +2,7 @@ const { transaction } = require('../db')
 
 const postReview = async (user, res, req, query) => {
 console.log(`postReview: received http request to review ${query.data_key} results...`)
+  const date = Date.now()
   const db = await transaction()
   let scan_id
   const approved = query.approved === 'true' ? 1 : 0
@@ -17,6 +18,9 @@ console.log(`postReview: received http request to review ${query.data_key} resul
       columns: ['scan_id'],
       conditions: {columns: {quest_id: quest_result.quest_id}}
     })).scan_id
+    if (quest_result && approved) {
+      await db.update({table: 'daily_quests', row: {date_completed: date}, conditions: {columns: {user_id: user.user_id, quest: query.data_key}}})
+    }
   }
   else if (query.type === 'stories') {
     const story_result = await db.get({      
@@ -38,7 +42,7 @@ console.log(`postReview: received http request to review ${query.data_key} resul
       await db.insert('completed_story_nodes', {
         story: query.data_key,
         story_node_id: query.story_node,
-        date: Date.now(),
+        date,
         user_id: user.user_id
       })
     }
@@ -56,12 +60,12 @@ console.log(`postReview: received http request to review ${query.data_key} resul
     await db.insert('approval_history', {scan_id, approved, user_id: user.user_id})
     await db.close()
     console.log(`postReview: updated approval status for ${query.data_key}.`)
-    return res.end(JSON.stringify({approved}))
+    return res.end(JSON.stringify({approved, date}))
   }
   await db.close()
   if (res.aborted) return
   console.log(`postReview: unable to update approval status for ${query.data_key}.`)
-  return res.end(JSON.stringify({approved: false}))
+  return res.end(JSON.stringify({approved: false, date}))
 }
 
 module.exports = postReview
