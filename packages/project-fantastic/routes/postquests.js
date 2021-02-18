@@ -14,7 +14,7 @@ const postQuests = async (user, res, req, query, scans) => {
   // TODO: check we have this quest active
   const active = await GetActiveQuests(db, user)
   const match = active.find(active => active.quest == query.quest)
-  if (match && match.date_completed) return End(res)
+  if (!match || match.date_completed) return End(res)
   const date = Date.now()
   const result = await RunQuest(db, query.quest, user, date)
   await db.insert('all_history', {event_type: 'quest', event_id: result.event_id, date, user_id: user.user_id})

@@ -86,7 +86,7 @@ export default (state, action, send) => {
   if (action.type == 'post_review') fetch(`/review?${GenerateQuery({approved: action.approved, data_key: action.data_key, type: action.data_type, story_node: action.story_node})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => {
-      send({...action, type: 'review_approval', approved: res.approved})
+      send({...action, type: 'review_approval', approved: res.approved, date: res.date})
       send({type: 'review', results: undefined})
     })
   if (action.type == 'select_story') {

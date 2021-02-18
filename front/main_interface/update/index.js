@@ -82,7 +82,10 @@ export default (state, action) => {
     if (state.review) state.review.foldouts[action.node_id] = action.value
   }
   if (action.type == 'review_approval') {
-    if (action.data_type == 'quests') state.quest_results.approval[action.data_key] = action.approved
+    if (action.data_type == 'quests') {
+      state.quest_results.approval[action.data_key] = action.approved
+      if (action.approved && typeof action.date == 'number') state.quests[action.data_key].date_completed = action.date
+    } 
     if (action.data_type == 'quests' || action.data_type == 'scans' || !action.data_type) state.scan_results.approval[action.data_key] = action.approved
     if (action.data_type == 'stories') {
       const approval_store = state.story_results.approval[action.data_key] || (state.story_results.approval[action.data_key] = {})
