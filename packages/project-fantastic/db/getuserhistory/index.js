@@ -1,6 +1,6 @@
 const {transaction, OPEN_READONLY} = require('../operations')
 const GetData = require('./getdata')
-const GetFavorites = require('./getuserfavorites')
+const GetSaved = require('./getusersaved')
 
 /**
  * 
@@ -29,9 +29,9 @@ const getUserHistory = async (user, options) => {
     pagination: {page_size: count, page: page + 1}
   }).then(rows => !rows.length)
   const results = await GetData(db, rows)
-  const favorites = await GetFavorites(db, user)
+  const saved = await GetSaved(db, user)
   await db.close()
-  return {results, is_last, favorites}
+  return {results, is_last, saved}
 }
 
 module.exports = getUserHistory
