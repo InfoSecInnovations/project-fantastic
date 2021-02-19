@@ -61,17 +61,17 @@ export default (state, action) => {
   }
   if (action.type == 'user') state.user = action.user
   if (action.type == 'user_history') state.history = {...action.history, waiting: state.history ? state.history.waiting : []}
-  if (action.type == 'favorite') state.history.waiting.push(action.history_id)
-  if (action.type == 'favorite_result') {
-    const history_item = state.history.favorites.find(v => v.history_id == action.history_id) || state.history.results.find(v => v.history_id == action.history_id) // if we're removing an item from favorites it might not be in the history anymore, so we need to check both arrays
+  if (action.type == 'save') state.history.waiting.push(action.history_id)
+  if (action.type == 'save_result') {
+    const history_item = state.history.saved.find(v => v.history_id == action.history_id) || state.history.results.find(v => v.history_id == action.history_id) // if we're removing an item from saved it might not be in the history anymore, so we need to check both arrays
     let event = -1
     do {
-      event = state.history.waiting.findIndex(v => CompareEvent(state.history.favorites.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), history_item)) // we should remove all matching elements because you can only favorite one identical one at a time
+      event = state.history.waiting.findIndex(v => CompareEvent(state.history.saved.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), history_item)) // we should remove all matching elements because you can only save one identical one at a time
       if (event >= 0) state.history.waiting.splice(event, 1)
     } while(event >= 0 && history_item)
   }
-  if (action.type == 'order_favorites') state.history.ordering = true
-  if (action.type == 'favorites_ordered') state.history.ordering = false
+  if (action.type == 'order_saved') state.history.ordering = true
+  if (action.type == 'saved_ordered') state.history.ordering = false
   if (action.type == 'review') {
     if (!action.results) state.review = undefined
     else {

@@ -17,8 +17,8 @@ const log_content = (state, log) => {
 }
 
 const get_status = (state, item) => {
-  if (state.history.waiting.some(v => CompareEvent(state.history.favorites.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), item))) return 'waiting'
-  if (state.history.favorites.some(v => CompareEvent(v, item))) return 'favorited'
+  if (state.history.waiting.some(v => CompareEvent(state.history.saved.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), item))) return 'waiting'
+  if (state.history.saved.some(v => CompareEvent(v, item))) return 'saved'
 }
 
 const history_item_controls = (state, send, item) => {
@@ -27,8 +27,8 @@ const history_item_controls = (state, send, item) => {
     status == 'waiting' ? 
     h('span.fas fa-ellipsis-h fa-fw history_control waiting') :
     h('span.fas fa-star fa-fw history_control', {
-      on: {click: () => send({type: 'favorite', remove: status == 'favorited', history_id: item.history_id})},
-      class: {favorited: status == 'favorited'}
+      on: {click: () => send({type: 'save', remove: status == 'saved', history_id: item.history_id})},
+      class: {favorited: status == 'saved'}
     }),
     h('span.fas fa-redo-alt fa-fw history_control', {on: {click: () => {
       if (item.event_type == 'scan') {
@@ -47,19 +47,19 @@ const history_item_controls = (state, send, item) => {
   ])
 }
 
-const favorites = (state, send) => {
-  if (!state.history.favorites.length) return []
+const saved = (state, send) => {
+  if (!state.history.saved.length) return []
   return [ 
-    h('h2.panel_title', 'Favorites'),
+    h('h2.panel_title', 'Saved Workflows'),
     h('div.scroll', state.history.ordering ?
       h('h3.scroll_item waiting', 'Please wait...') :
-      state.history.favorites.map((v, i) => h('div.scroll_item', {
+      state.history.saved.map((v, i) => h('div.scroll_item', {
         attrs: {draggable: 'true'}, // draggable won't work unless it's a string with the value "true"
         on: {
           dragstart: e => e.dataTransfer.setData('text/plain', i),
           drop: e => {
             e.preventDefault() // preventDefault stops other events interfering with drag and drop
-            send({type: 'order_favorites', a: v.favorite_id, b: state.history.favorites[parseInt(e.dataTransfer.getData('text/plain'))].favorite_id})
+            send({type: 'order_saved', a: v.saved_id, b: state.history.saved[parseInt(e.dataTransfer.getData('text/plain'))].saved_id})
           },
           dragover: e => {
             e.preventDefault()
@@ -94,6 +94,6 @@ const history = (state, send) => {
 }
 
 export default (state, send) => h('div.scroll_container', [
-  ...favorites(state, send),
+  ...saved(state, send),
   ...history(state, send)
 ])

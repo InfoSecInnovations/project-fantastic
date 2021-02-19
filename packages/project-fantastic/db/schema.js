@@ -136,6 +136,13 @@ const schema = [
   )`,
   `CREATE TABLE IF NOT EXISTS favorites(
     favorite_id INTEGER PRIMARY KEY,
+    data_type TEXT,
+    data_key TEXT,
+    user_id BLOB,
+    sorting INTEGER
+  )`,
+  `CREATE TABLE IF NOT EXISTS saved(
+    saved_id INTEGER PRIMARY KEY,
     history_id INTEGER,
     user_id BLOB,
     sorting INTEGER,
