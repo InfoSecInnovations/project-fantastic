@@ -36,6 +36,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stor
   createRoute('get', '/user_history', require('./getuserhistory'))
   createRoute('get', '/stories', require('./getstories'), {arg: get_stories})
   createRoute('get', '/story_history', require('./getstoryhistory'))
+  createRoute('get', '/favorites', require('./getfavorites'))
 
   createRoute('post', '/commands', require('./postcommands'), {arg: get_commands, callback: commands => update_commands(commands)})
   createRoute('post', '/actions', require('./postactions'), {arg: get_actions})
@@ -47,6 +48,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stor
   createRoute('post', '/swap_saved', require('./postswapsaved'))
   createRoute('post', '/save', require('./postsave'))
   createRoute('post', '/story_node', require('./poststorynode'), {arg: get_stories})
+  createRoute('post', '/favorite', require('./postfavorite'))
 
   app.get('/logout', (res, req) => require('./auth/logout')(res, req, auth_module))
   app.get('/*', require('./files'))

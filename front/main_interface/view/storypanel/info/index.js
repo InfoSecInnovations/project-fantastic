@@ -30,6 +30,7 @@ export default (state, send) => {
       return h('div.scroll', h('div.scroll_item spaced', [
         ...Info(
           state, 
+          send,
           data, 
           result_parameters,
           status

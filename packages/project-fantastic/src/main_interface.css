@@ -233,6 +233,19 @@ input[type=password] {
   gap: 1rem;
   align-items: center;
 }
+.history_control {
+  font-size: 1rem;
+  cursor: pointer;
+}
+.history_control:hover {
+  color: #ffa666;
+}
+.favorited {
+  color: #ffe159;
+}
+.favorited:hover {
+  color: #fff;
+}
 .scroll_container {
   min-height: 0;
   min-width: 0;
@@ -510,19 +523,6 @@ input[type=password] {
 }
 #container #left_panel .history_title .history_controls {
   display: flex;
-}
-#container #left_panel .history_title .history_controls .history_control {
-  font-size: 1rem;
-  cursor: pointer;
-}
-#container #left_panel .history_title .history_controls .history_control:hover {
-  color: #ffa666;
-}
-#container #left_panel .history_title .history_controls .favorited {
-  color: #ffe159;
-}
-#container #left_panel .history_title .history_controls .favorited:hover {
-  color: #fff;
 }
 #container #selection {
   grid-row: 2;

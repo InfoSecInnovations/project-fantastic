@@ -233,6 +233,19 @@ input[type=password] {
   gap: 1rem;
   align-items: center;
 }
+.history_control {
+  font-size: 1rem;
+  cursor: pointer;
+}
+.history_control:hover {
+  color: #ffa666;
+}
+.favorited {
+  color: #ffe159;
+}
+.favorited:hover {
+  color: #fff;
+}
 .scroll_container {
   min-height: 0;
   min-width: 0;

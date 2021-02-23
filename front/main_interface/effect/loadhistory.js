@@ -26,4 +26,7 @@ export default (state, send) => {
     })
     res.completed_nodes.forEach(v => send({type: 'completed_story_node', story: v.story, node: v.story_node_id}))
   })
+  fetch('/favorites')
+  .then(res => res.json())
+  .then(res => res.forEach(v => send({type: 'toggle_favorite', data_key: v.data_key, data_type: v.data_type})))
 }
