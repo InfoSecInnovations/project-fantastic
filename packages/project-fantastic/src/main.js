@@ -1743,7 +1743,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /*! CommonJS bailout: module.exports is used directly at 15:0-14 */
 /***/ ((module) => {
 
-eval("const compareEvent = (a, b) => {\r\n  if (!a || !b) return false\r\n  if (a.event_type != b.event_type) return false\r\n  if (a.event_type == 'quest') return a.quest === b.quest\r\n  if (a.event_type == 'scan') {\r\n    if (a.scan !== b.scan) return false\r\n    const a_parameters = JSON.parse(a.parameters)\r\n    const b_parameters = JSON.parse(b.parameters)\r\n    return (a_parameters == null && b_parameters == null) || Object.entries(a_parameters).every(v => b_parameters[v[0]] === v[1])\r\n  }\r\n  if (a.event_type == 'command') return a.command === b.command && a.status === b.status\r\n  return false\r\n}\r\n\r\nmodule.exports = compareEvent\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/compareevent.js?");
+eval("const compareEvent = (a, b) => {\r\n  if (!a || !b) return false\r\n  if (a.event_type != b.event_type) return false\r\n  if (a.event_type == 'quest') return a.quest === b.quest\r\n  if (a.event_type == 'scan') {\r\n    if (a.scan !== b.scan) return false\r\n    const a_parameters = JSON.parse(a.parameters)\r\n    const b_parameters = JSON.parse(b.parameters)\r\n    return a_parameters == b_parameters || Object.entries(a_parameters).every(v => b_parameters[v[0]] === v[1])\r\n  }\r\n  if (a.event_type == 'command') return a.command === b.command && a.status === b.status\r\n  return false\r\n}\r\n\r\nmodule.exports = compareEvent\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/compareevent.js?");
 
 /***/ }),
 
