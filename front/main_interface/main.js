@@ -36,7 +36,8 @@ let state = {
   command_status: {},
   story: {
     completed: {}
-  }
+  },
+  favorites: {}
 }
 let vnode = document.body
 

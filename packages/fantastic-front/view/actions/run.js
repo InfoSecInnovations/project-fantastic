@@ -1,6 +1,8 @@
 import {h} from 'snabbdom/h'
+import FavoriteButton from '../favoritebutton'
 
-export default (send, node, connection, action, title, loading) => h('div.item', [
+export default (state, send, node, connection, action, title, loading) => h('div.item', [
+  FavoriteButton(state, send, 'actions', action),
   h('h3', title),
   h('div.button', 
     { 

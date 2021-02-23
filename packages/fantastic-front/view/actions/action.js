@@ -9,7 +9,7 @@ export default (state, send, node, connection, action, action_data) => {
   const result_data = state.action_results[node.hostname] && state.action_results[node.hostname][action]
   const loading = result_data && result_data.status === 'loading'
   return h('div.scroll_item spaced', [
-    Run(send, node, connection, action, action_data.name, loading),
+    Run(state, send, node, connection, action, action_data.name, loading),
     Command(connection, action_data.commands.run),
     action_data.description ? action_data.description : undefined,
     h('div.targets', [h('b', 'Valid targets:'), ` ${action_data.hosts.map(HostString).join(', ')}.`]),

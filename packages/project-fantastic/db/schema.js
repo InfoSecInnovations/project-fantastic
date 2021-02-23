@@ -138,8 +138,7 @@ const schema = [
     favorite_id INTEGER PRIMARY KEY,
     data_type TEXT,
     data_key TEXT,
-    user_id BLOB,
-    sorting INTEGER
+    user_id BLOB
   )`,
   `CREATE TABLE IF NOT EXISTS saved(
     saved_id INTEGER PRIMARY KEY,

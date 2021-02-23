@@ -17,7 +17,10 @@ export default (state, send, node, connection) => {
       'div.scroll spaced', { on: {scroll: e => e.target.style.setProperty("--actions-scroll-height", `calc(-${e.target.scrollTop}px - 6rem)`)}}, // there doesn't seem to be a good CSS solution to make a tooltip follow the scrollable area but display over it, so we need to set this variable
       !actions.length ? 
       h('div.scroll_item', 'No actions compatible with this host') : 
-      actions.map(v => Action(state, send, node, connection, v[0], v[1]))
+      [
+        ...actions.filter(v => state.favorites.actions && state.favorites.actions[v[0]]).map(v => Action(state, send, node, connection, v[0], v[1])),
+        ...actions.filter(v => !state.favorites.actions || !state.favorites.actions[v[0]]).map(v => Action(state, send, node, connection, v[0], v[1]))
+      ]
     )
   ])
 }
