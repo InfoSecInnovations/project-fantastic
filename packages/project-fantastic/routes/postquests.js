@@ -11,7 +11,6 @@ const postQuests = async (user, res, req, query, scans) => {
   const scan = await GetPackagedData(query.quest, 'scans')
   if (!HasRole(user, scan.role)) return End(res)
   const db = await transaction()
-  // TODO: check we have this quest active
   const active = await GetActiveQuests(db, user)
   const match = active.find(active => active.quest == query.quest)
   if (!match || match.date_completed) return End(res)

@@ -2,6 +2,7 @@ import {h} from 'snabbdom/h'
 import HostString from '@infosecinnovations/fantastic-front/util/hoststring'
 import SearchBar from '@infosecinnovations/fantastic-front/view/searchbar'
 import FilterSearchResults from '@infosecinnovations/fantastic-front/util/filtersearchresults'
+import FavoriteButton from '@infosecinnovations/fantastic-front/view/favoritebutton'
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 
 const enabled_button = (state, send, command, data) => {
@@ -16,19 +17,25 @@ const enabled_button = (state, send, command, data) => {
   return h('div', `${data.mode == 'enabled' ? 'Enabled' : 'Disabled'} (requires ${data.role} role to change)`)
 }
 
+const commandItem = (state, send, command, data) => h('div.scroll_item spaced', [
+  h('div.item command_title', [
+    FavoriteButton(state, send, 'commands', command),
+    h('h3', data.name),
+    enabled_button(state, send, command, data),
+  ]),
+  h('pre', data.command),
+  data.description ? h('div.item', data.description) : undefined,
+  h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`])
+])
+
 export default (state, send) => {
-  const commands = FilterSearchResults(state, 'commands')
+  const commands = Object.entries(FilterSearchResults(state, 'commands'))
   return h('div.scroll_container', [
     h('h2.panel_title', 'Host Data Commands'),
     SearchBar(send, 'commands'),
-    h('div.scroll spaced', Object.entries(commands).map(v => h('div.scroll_item spaced', [
-      h('div.item command_title', [
-        h('h3', v[1].name),
-        enabled_button(state, send, v[0], v[1]),
-      ]),
-      h('pre', v[1].command),
-      v[1].description ? h('div.item', v[1].description) : undefined,
-      h('div.targets', [h('b', 'Valid targets:'), ` ${v[1].hosts.map(HostString).join(', ')}.`])
-    ])))
+    h('div.scroll spaced', [
+      ...commands.filter(v => state.favorites.commands && state.favorites.commands[v[0]]).map(v => commandItem(state, send, v[0], v[1])),
+      ...commands.filter(v => !state.favorites.commands || !state.favorites.commands[v[0]]).map(v => commandItem(state, send, v[0], v[1]))
+    ])
   ])
 }
