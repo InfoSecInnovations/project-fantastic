@@ -31,7 +31,7 @@ const postStoryNode = async (user, res, req, query, stories) => {
   await db.insert('all_history', {event_type: 'story', event_id: result.event_id, date, user_id: user.user_id})
   await db.close()
   if (res.aborted) return
-  res.end(JSON.stringify({result: result.results, rows: result.rows, date, success: result.success}))
+  res.end(JSON.stringify({result: result.results, rows: result.rows, date, success: result.success, parameters: result.parameters}))
   console.log(`postStoryNode: ran node ${query.node} from story ${query.story}, queried ${result.rows.length} nodes`)
 }
 

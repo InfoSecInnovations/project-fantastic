@@ -15,7 +15,7 @@ export default (state, send, quest, data) => {
     results: data.result, 
     scan_id: data.scan_id, 
     date: data.date, 
-    parameters: state.quests[quest].parameters, 
+    parameters: data.parameters, 
     scan: quest
   }) // quest results are the same as the scan run by the quest
   UserHistory(send)
