@@ -18,7 +18,7 @@ const getStoryHistory = async (user, res, req, query) => {
       if (node.type == 'scans') {
         const results = await db.get({
           table: 'scan_history',
-          columns: ['results', 'scan_id'],
+          columns: ['results', 'scan_id', 'parameters'],
           conditions: {columns: {story_id: row.story_id}}
         })
         row.results = results.results

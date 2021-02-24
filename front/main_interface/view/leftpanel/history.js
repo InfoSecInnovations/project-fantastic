@@ -5,6 +5,7 @@ import LogHeader from '@infosecinnovations/fantastic-front/view/history/logheade
 const log_content = (state, log) => {
   if (log.event_type == 'scan' && log.parameters) {
     const parameters = JSON.parse(log.parameters)
+    if (!Object.keys(parameters).length) return []
     return [
       'Parameters used:',
       h('ul', Object.entries(parameters).map(v => h('li', `${v[0]}: ${v[1]}`)))
@@ -26,18 +27,18 @@ const history_item_controls = (state, send, item) => {
   return h('div.history_controls', [
     status == 'waiting' ? 
     h('span.fas fa-ellipsis-h fa-fw history_control waiting') :
-    h('span.fas fa-star fa-fw history_control', {
+    h('span.fas fa-save fa-fw history_control', {
       on: {click: () => send({type: 'save', remove: status == 'saved', history_id: item.history_id})},
       class: {favorited: status == 'saved'}
     }),
     h('span.fas fa-redo-alt fa-fw history_control', {on: {click: () => {
       if (item.event_type == 'scan') {
-        send({type: 'run_scan', scan: item.scan, parameters: JSON.parse(item.parameters)})
+        send({type: 'run_scan', scan: item.scan, parameters: item.parameters && JSON.parse(item.parameters)})
         send({type: 'left_panel_state', state: 'scans'})
       }
       if (item.event_type == 'quest') {
-        send({type: 'run_quest', quest: item.quest})
-        send({type: 'left_panel_state', state: 'quests'})
+        send({type: 'run_scan', scan: item.quest, parameters: item.parameters && JSON.parse(item.parameters)})
+        send({type: 'left_panel_state', state: 'scans'})
       }
       if (item.event_type == 'command') {
         send({type: 'enable_command', command: item.command, enabled: item.status ? true : false})
@@ -53,26 +54,30 @@ const saved = (state, send) => {
     h('h2.panel_title', 'Saved Workflows'),
     h('div.scroll', state.history.ordering ?
       h('h3.scroll_item waiting', 'Please wait...') :
-      state.history.saved.map((v, i) => h('div.scroll_item', {
-        attrs: {draggable: 'true'}, // draggable won't work unless it's a string with the value "true"
-        on: {
-          dragstart: e => e.dataTransfer.setData('text/plain', i),
-          drop: e => {
-            e.preventDefault() // preventDefault stops other events interfering with drag and drop
-            send({type: 'order_saved', a: v.saved_id, b: state.history.saved[parseInt(e.dataTransfer.getData('text/plain'))].saved_id})
-          },
-          dragover: e => {
-            e.preventDefault()
-            e.dataTransfer.dropEffect = 'move'
+      state.history.saved.map((v, i) => {
+        // we want to show the scan from the saved quest
+        const item = v.event_type == 'quest' ? {...v, event_type: 'scan', scan: v.quest} : v
+        return h('div.scroll_item', {
+          attrs: {draggable: 'true'}, // draggable won't work unless it's a string with the value "true"
+          on: {
+            dragstart: e => e.dataTransfer.setData('text/plain', i),
+            drop: e => {
+              e.preventDefault() // preventDefault stops other events interfering with drag and drop
+              send({type: 'order_saved', a: v.saved_id, b: state.history.saved[parseInt(e.dataTransfer.getData('text/plain'))].saved_id})
+            },
+            dragover: e => {
+              e.preventDefault()
+              e.dataTransfer.dropEffect = 'move'
+            }
           }
-        }
-      }, [
-        h('div.history_title', [
-          history_item_controls(state, send, v),
-          h('h4', LogHeader(state, v))
-        ]),
-        ...log_content(state, v)
-      ]))
+        }, [
+          h('div.history_title', [
+            history_item_controls(state, send, v),
+            h('h4', LogHeader(state, item))
+          ]),
+          ...log_content(state, item)
+        ])
+      })
     )
   ]
 }

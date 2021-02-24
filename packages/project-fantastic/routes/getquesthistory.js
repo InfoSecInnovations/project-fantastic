@@ -14,7 +14,7 @@ const getQuestHistory = async (user, res, req, query) => {
     for (const row of rows) {
       const results = await db.get({
         table: 'scan_history',
-        columns: ['results', 'scan_id'],
+        columns: ['results', 'scan_id', 'parameters'],
         conditions: {columns: {quest_id: row.quest_id}}
       })
       row.results = results.results

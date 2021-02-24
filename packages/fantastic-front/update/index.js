@@ -16,9 +16,13 @@ export default (state, action) => {
   if (action.type == 'action_followup') ActionFollowup(state, action)
   if (action.type == 'action_followup_result') FollowupResult(state, action)
   if (action.type == 'followup_foldout') FollowupFoldout(state, action)
+  if (action.type == 'favorite') {
+    const obj = state.favorites[action.data_type] || (state.favorites[action.data_type] = {})
+    obj[action.data_key] = 'waiting'
+  }
   if (action.type == 'toggle_favorite') {
     const obj = state.favorites[action.data_type] || (state.favorites[action.data_type] = {})
-    obj[action.data_key] = action.remove ? false : true
+    obj[action.data_key] = action.remove ? null : 'favorited'
   }
 
   return state
