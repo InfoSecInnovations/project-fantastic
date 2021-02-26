@@ -100,7 +100,10 @@ const select = query => {
       ${group(query.group_by)}
       ${order(query.order_by)}
       LIMIT ${query.pagination.page_size}`,
-      values: where_query.values.concat(where_query.values)
+      values: [
+        ...where_query.values,
+        ...where_query.values
+      ]
     }
   }
   return { 

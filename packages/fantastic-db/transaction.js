@@ -11,6 +11,7 @@ const transaction = (path, mode) => new Promise((resolve, reject) => {
       ...Object.entries(Operations.write)
       .concat(Object.entries(Operations.read))
       .reduce((result, v) => ({...result, [v[0]]: (...args) => v[1].apply(null, args)(db)}), {}),
+      sqlite: func => func(db),
       close: () => new Promise((resolve, reject) => {
         db.run('COMMIT;', err => {
           if (err) return reject(err)

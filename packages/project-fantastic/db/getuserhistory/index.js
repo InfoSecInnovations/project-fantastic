@@ -11,23 +11,57 @@ const getUserHistory = async (user, options) => {
   const db = await transaction(OPEN_READONLY)
   const page = (options && options.page) || 0
   const count = (options && options.count) || 25
-  const conditions = {groups: [
-    {columns: {user_id: user.user_id}},
-    {columns: {event_type: ['quest', 'scan', 'command', 'story']}, compare: 'IN'}
-  ]}
-  const rows = await db.all({
-    table: 'all_history',
-    order_by: {date: 'DESC'},
-    conditions,
-    pagination: {page_size: count, page}
-  })
-  const is_last = rows.length < count || await db.all({
-    table: 'all_history',
-    columns: ['history_id'],
-    order_by: {date: 'DESC'},
-    conditions,
-    pagination: {page_size: count, page: page + 1}
-  }).then(rows => !rows.length)
+  const where_query = `
+  WHERE user_id = ? AND event_type IN (?, ?, ?, ?, ?) AND (
+    event_type != "action" OR (SELECT COUNT(*) FROM action_history WHERE action_id == event_id AND function == "run") > 0
+  )
+  `
+  const where_data = [
+    user.user_id,
+    'quest', 
+    'scan', 
+    'command', 
+    'story', 
+    'action'
+  ]
+  const rows = await db.sqlite(db => new Promise((resolve, reject) => {
+    db.all(`
+      SELECT * from all_history
+      ${where_query} AND oid NOT IN (
+        SELECT oid FROM all_history
+        ${where_query}
+        ORDER BY date DESC
+        LIMIT ${count * page}
+      )
+      ORDER BY date DESC
+      LIMIT ${count}
+    `, [
+      ...where_data,
+      ...where_data
+    ], (err, rows) => {
+      if (err) reject(err)
+      else resolve(rows)
+    })
+  }))
+  const is_last = await db.sqlite(db => new Promise((resolve, reject) => {
+    db.all(`
+      SELECT history_id from all_history
+      ${where_query} AND oid NOT IN (
+        SELECT oid FROM all_history
+        ${where_query}
+        ORDER BY date DESC
+        LIMIT ${count * page + 1}
+      )
+      ORDER BY date DESC
+      LIMIT ${count}
+    `, [
+      ...where_data,
+      ...where_data
+    ], (err, rows) => {
+      if (err) reject(err)
+      else resolve(rows)
+    })
+  })).then(rows => !rows.length)
   const results = await GetData(db, rows)
   const saved = await GetSaved(db, user)
   await db.close()

@@ -20,7 +20,8 @@ const init = path => ({
   transaction: mode => Transaction(path, mode),
   OPEN_READONLY: SQLite3.OPEN_READONLY,
   OPEN_READWRITE: SQLite3.OPEN_READWRITE,
-  OPEN_CREATE: SQLite3.OPEN_CREATE
+  OPEN_CREATE: SQLite3.OPEN_CREATE,
+  sqlite: (func, mode) => execute(path, func, mode)
 })
 
 module.exports = init
