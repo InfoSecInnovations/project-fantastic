@@ -29,6 +29,12 @@ const compareEvent = (stories, a, b) => {
     if (itemA.story != itemB.story) return false
     return (itemA.story_node_id == itemB.story_node_id)
   }
+  if (itemA.event_type == 'action') {
+    if (itemA.action != itemB.action) return false
+    if (itemA.function != itemB.function) return false
+    if (itemA.node_id != itemB.node_id) return false
+    return true
+  }
   return false
 }
 

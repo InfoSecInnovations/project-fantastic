@@ -1,3 +1,5 @@
+import SQLite3 from 'sqlite3'
+
 export type QueryCondition = {
   columns: Object.<string, *>|[string, *][], 
   combine?: 'AND'|'OR', 
@@ -23,5 +25,8 @@ export type Operations = {
 }
 
 export type DB = {
-  transaction: (mode: number) => Promise<Operations>
+  transaction: (mode: number) => Promise<{
+    sqlite: (func: (db: SQLite3.Database) => Promise) => Promise
+  } & Operations>,
+  sqlite: (func: (db: SQLite3.Database, mode: number) => Promise) => Promise
 } & Operations

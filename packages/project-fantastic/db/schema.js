@@ -72,7 +72,7 @@ const schema = [
     story_id INTEGER,
     FOREIGN KEY (node_id)
       REFERENCES nodes (node_id)
-      ON DELETE CASCADE,
+      ON DELETE SET NULL,
     FOREIGN KEY (scan_id)
       REFERENCES scan_history (scan_id)
       ON DELETE CASCADE,

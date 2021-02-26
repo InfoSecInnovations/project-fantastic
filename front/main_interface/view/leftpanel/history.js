@@ -93,7 +93,7 @@ const saved = (state, send) => {
 }
 
 const context = (state, item) => {
-  if (item.event_type == 'scan') return
+  if (item.event_type == 'scan' || item.event_type == 'action') return
   return h('div', `Invoked by ${LogHeader(state, item)}`)
 }
 
