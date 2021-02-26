@@ -46,7 +46,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stor
   createRoute('post', '/quests', require('./postquests'), {arg: get_scans})
   createRoute('post', '/review', require('./postreview'))
   createRoute('post', '/swap_saved', require('./postswapsaved'))
-  createRoute('post', '/save', require('./postsave'))
+  createRoute('post', '/save', require('./postsave'), {arg: get_stories})
   createRoute('post', '/story_node', require('./poststorynode'), {arg: get_stories})
   createRoute('post', '/favorite', require('./postfavorite'))
 

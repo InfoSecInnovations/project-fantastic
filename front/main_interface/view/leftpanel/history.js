@@ -18,8 +18,8 @@ const log_content = (state, log) => {
 }
 
 const get_status = (state, item) => {
-  if (state.history.waiting.some(v => CompareEvent(state.history.saved.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), item))) return 'waiting'
-  if (state.history.saved.some(v => CompareEvent(v, item))) return 'saved'
+  if (state.history.waiting.some(v => CompareEvent(state.stories, state.history.saved.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), item))) return 'waiting'
+  if (state.history.saved.some(v => CompareEvent(state.stories, v, item))) return 'saved'
 }
 
 const history_item_controls = (state, send, item) => {
@@ -44,8 +44,18 @@ const history_item_controls = (state, send, item) => {
         send({type: 'enable_command', command: item.command, enabled: item.status ? true : false})
         send({type: 'left_panel_state', state: 'host_data'})
       }
+      if (item.event_type == 'story') {
+        send({type: 'run_scan', scan: state.stories[item.story].nodeData[item.story_node_id].key, parameters: item.parameters && JSON.parse(item.parameters)})
+        send({type: 'left_panel_state', state: 'scans'})
+      }
     }}})
   ])
+}
+
+const getScanItem = (state, item) => {
+  if (item.event_type == 'quest') return {...item, event_type: 'scan', scan: item.quest}
+  if (item.event_type == 'story') return {...item, event_type: 'scan', scan: state.stories[item.story].nodeData[item.story_node_id].key}
+  return item
 }
 
 const saved = (state, send) => {
@@ -56,7 +66,7 @@ const saved = (state, send) => {
       h('h3.scroll_item waiting', 'Please wait...') :
       state.history.saved.map((v, i) => {
         // we want to show the scan from the saved quest
-        const item = v.event_type == 'quest' ? {...v, event_type: 'scan', scan: v.quest} : v
+        const item = getScanItem(state, v)
         return h('div.scroll_item', {
           attrs: {draggable: 'true'}, // draggable won't work unless it's a string with the value "true"
           on: {
@@ -82,19 +92,28 @@ const saved = (state, send) => {
   ]
 }
 
+const context = (state, item) => {
+  if (item.event_type == 'scan') return
+  return h('div', `Invoked by ${LogHeader(state, item)}`)
+}
+
 const history = (state, send) => {
   if (!state.history.results.length) return [
     h('h3.panel_title', 'Run scans, complete quests or toggle host data commands to see something here!')
   ]
   return [
     h('h2.panel_title', 'History'),
-    h('div.scroll', state.history.results.map(v => h('div.scroll_item', [
-      h('div.history_title', [
-        history_item_controls(state, send, v),
-        h('h4', LogHeader(state, v))
-      ]),
-      ...log_content(state, v)
-    ])))
+    h('div.scroll', state.history.results.map(v => {
+      const item = getScanItem(state, v)
+      return h('div.scroll_item', [
+        h('div.history_title', [
+          history_item_controls(state, send, v),
+          h('h4', LogHeader(state, item))
+        ]),
+        context(state, v),
+        ...log_content(state, item)
+      ])
+    }))
   ]
 }
 

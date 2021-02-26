@@ -4,8 +4,9 @@ const GetUserHistory = require('../db/getuserhistory')
 const GetUserSaved = require('../db/getuserhistory/getusersaved')
 const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 const GetData = require('../db/getuserhistory/getdata')
+const GetPackagedData = require('../util/getpackageddata')
 
-const postSave = async (user, res, req, query) => {
+const postSave = async (user, res, req, query, stories) => {
   const remove = query.remove == 'true' // query entries are always strings!
   console.log(`postSave: received http request to ${remove ? 'remove' : 'save'} history item ${query.history_id}...`)
   const db = await transaction()
@@ -19,7 +20,11 @@ const postSave = async (user, res, req, query) => {
     await db.close()
     return End(res)
   }
-  const existing = saved.find(v => CompareEvent(v, selected))
+  const story_data = await Promise.all(stories
+    .map(v => GetPackagedData(v, 'stories').then(s => ({...s, key: v})))
+  )
+  .then(stories => stories.reduce((result, v) => ({...result, [v.key]: v}), {}))
+  const existing = saved.find(v => CompareEvent(story_data, v, selected))
   if (remove) {
     if (existing) await db.remove({table: 'saved', conditions: {columns: {user_id: user.user_id, history_id: existing.history_id}}})
   }
