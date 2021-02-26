@@ -1,9 +1,9 @@
 const headers = {
-  action: 'Run Action',
-  scan: 'Run Scan',
-  quest: 'Run Quest',
+  action: 'Action',
+  scan: 'Scan',
+  quest: 'Daily Quest',
   command: 'Set Host Data Command',
-  story: 'Run Story Node'
+  story: 'Story Node'
 }
 
 const log_name = (state, log) => {

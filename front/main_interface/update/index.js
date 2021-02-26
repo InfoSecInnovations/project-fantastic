@@ -66,7 +66,7 @@ export default (state, action) => {
     const history_item = state.history.saved.find(v => v.history_id == action.history_id) || state.history.results.find(v => v.history_id == action.history_id) // if we're removing an item from saved it might not be in the history anymore, so we need to check both arrays
     let event = -1
     do {
-      event = state.history.waiting.findIndex(v => CompareEvent(state.history.saved.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), history_item)) // we should remove all matching elements because you can only save one identical one at a time
+      event = state.history.waiting.findIndex(v => CompareEvent(state.stories, state.history.saved.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), history_item)) // we should remove all matching elements because you can only save one identical one at a time
       if (event >= 0) state.history.waiting.splice(event, 1)
     } while(event >= 0 && history_item)
   }
