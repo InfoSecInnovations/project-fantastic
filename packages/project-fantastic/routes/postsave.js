@@ -13,8 +13,7 @@ const postSave = async (user, res, req, query, stories) => {
   // we need to compare the saved event using the compare function otherwise the user could save 2 functionally identical events with different IDs
   const saved = await GetUserSaved(db, user)
   const selected = await db.get({table: 'all_history', conditions: {columns: {user_id: user.user_id, history_id: query.history_id}}})
-  .then(row => GetData(db, [row]))
-  .then(rows => rows[0])
+  .then(row => GetData(db, row))
   .catch(() => {})
   if (!selected) { // if we couldn't get this event from the history it's likely to be a bad request
     await db.close()

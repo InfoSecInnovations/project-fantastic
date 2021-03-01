@@ -25,7 +25,7 @@ const getLogs = async (user, res, req, query, auth_module) => {
     conditions,
     pagination: {page_size: count, page: page + 1}
   }).then(rows => !rows.length)
-  const results = await GetData(db, rows)
+  const results = await Promise.all(rows.map(row => GetData(db, rows)))
   for (const row of results) {
     row.user = users[row.user_id] || (users[row.user_id] = await auth_module.getByID(row.user_id))
   }

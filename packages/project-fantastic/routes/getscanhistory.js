@@ -7,7 +7,7 @@ const getQuestHistory = async (user, res, req, query) => {
   const db = await transaction()
   const rows = await db.all({
     table: 'scan_history', 
-    columns: ['MAX(date) AS date', 'scan', 'results', 'parameters', 'scan_id'],
+    columns: ['MAX(date) AS date', 'scan', 'results', 'parameters', 'scan_id', 'quest_id', 'story_id'],
     conditions: {columns: {user_id: user.user_id}},
     group_by: ['scan']
   })
