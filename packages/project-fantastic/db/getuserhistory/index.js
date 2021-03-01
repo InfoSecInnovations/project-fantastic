@@ -62,7 +62,7 @@ const getUserHistory = async (user, options) => {
       else resolve(rows)
     })
   })).then(rows => !rows.length)
-  const results = await GetData(db, rows)
+  const results = await Promise.all(rows.map(row => GetData(db, row)))
   const saved = await GetSaved(db, user)
   await db.close()
   return {results, is_last, saved}
