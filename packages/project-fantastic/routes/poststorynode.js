@@ -29,6 +29,7 @@ const postStoryNode = async (user, res, req, query, stories) => {
   })) return end()
   const result = await RunStoryNode(db, query.story, query.node, user, date)
   await db.insert('all_history', {event_type: 'story', event_id: result.event_id, date, user_id: user.user_id})
+  // TODO: GetData to generate history item
   await db.close()
   if (res.aborted) return
   res.end(JSON.stringify({result: result.results, rows: result.rows, date, success: result.success, parameters: result.parameters}))
