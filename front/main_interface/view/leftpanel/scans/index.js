@@ -34,6 +34,7 @@ const scanItem = (state, send, scan, data) => {
     ),
     ...(results ? 
       Result(
+        state,
         send, 
         data,
         result_date,
@@ -41,9 +42,10 @@ const scanItem = (state, send, scan, data) => {
         state.scan_results.parameters[scan],
         failed_nodes,
         {
-          review_type: 'scans',
+          event_type: 'scans',
+          history_item: state.scan_results.history_items[scan],
           review_name: scan,
-          review_results: results,
+          result_data: results,
           result_info: data.parameters && h('div.parameters', [
             'Parameters used:',
             h('ul', Object.entries(state.scan_results.parameters[scan]).map(v => h('li', `${v[0]}: ${v[1]}`)))

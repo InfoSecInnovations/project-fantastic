@@ -1,4 +1,5 @@
 const { transaction } = require('../db')
+const GetHistoryItem = require('../db/gethistoryitem')
 
 const getQuestHistory = async (user, res, req, query) => {
   const start = Date.now()
@@ -12,6 +13,7 @@ const getQuestHistory = async (user, res, req, query) => {
   })
   .then(async rows => {
     for (const row of rows) {
+      row.history_item = await GetHistoryItem(db, user, row)
       const approval = await db.get({
         table: 'approval_history',
         columns: ['approved'],

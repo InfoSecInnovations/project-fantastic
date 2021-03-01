@@ -1,4 +1,5 @@
 const { transaction } = require('../db')
+const GetHistoryItem = require('../db/gethistoryitem')
 const GetPackagedData = require('../util/getpackageddata')
 
 const getStoryHistory = async (user, res, req, query) => {
@@ -13,6 +14,7 @@ const getStoryHistory = async (user, res, req, query) => {
   })
   .then(async rows => {
     for (const row of rows) {
+      row.history_item = await GetHistoryItem(db, user, row)
       const story = await GetPackagedData(row.story, 'stories')
       const node = story.nodeData[row.story_node_id]
       if (node.type == 'scans') {
