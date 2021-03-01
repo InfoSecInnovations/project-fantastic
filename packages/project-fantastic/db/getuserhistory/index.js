@@ -26,7 +26,7 @@ const getUserHistory = async (user, options) => {
   ]
   const rows = await db.sqlite(db => new Promise((resolve, reject) => {
     db.all(`
-      SELECT * from all_history
+      SELECT history_id, event_type, event_id, date FROM all_history
       ${where_query} AND oid NOT IN (
         SELECT oid FROM all_history
         ${where_query}
@@ -45,7 +45,7 @@ const getUserHistory = async (user, options) => {
   }))
   const is_last = await db.sqlite(db => new Promise((resolve, reject) => {
     db.all(`
-      SELECT history_id from all_history
+      SELECT history_id FROM all_history
       ${where_query} AND oid NOT IN (
         SELECT oid FROM all_history
         ${where_query}

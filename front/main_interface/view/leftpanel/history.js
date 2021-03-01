@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 import LogHeader from '@infosecinnovations/fantastic-front/view/history/logheader'
+import SaveButton from '@infosecinnovations/fantastic-front/view/savebutton'
 
 const log_content = (state, log) => {
   if (log.event_type == 'scan' && log.parameters) {
@@ -17,40 +17,27 @@ const log_content = (state, log) => {
   return []
 }
 
-const get_status = (state, item) => {
-  if (state.history.waiting.some(v => CompareEvent(state.stories, state.history.saved.find(h => h.history_id == v) || state.history.results.find(h => h.history_id == v), item))) return 'waiting'
-  if (state.history.saved.some(v => CompareEvent(state.stories, v, item))) return 'saved'
-}
-
-const history_item_controls = (state, send, item) => {
-  const status = get_status(state, item)
-  return h('div.history_controls', [
-    status == 'waiting' ? 
-    h('span.fas fa-ellipsis-h fa-fw history_control waiting') :
-    h('span.fas fa-save fa-fw history_control', {
-      on: {click: () => send({type: 'save', remove: status == 'saved', history_id: item.history_id})},
-      class: {favorited: status == 'saved'}
-    }),
-    h('span.fas fa-redo-alt fa-fw history_control', {on: {click: () => {
-      if (item.event_type == 'scan') {
-        send({type: 'run_scan', scan: item.scan, parameters: item.parameters && JSON.parse(item.parameters)})
-        send({type: 'left_panel_state', state: 'scans'})
-      }
-      if (item.event_type == 'quest') {
-        send({type: 'run_scan', scan: item.quest, parameters: item.parameters && JSON.parse(item.parameters)})
-        send({type: 'left_panel_state', state: 'scans'})
-      }
-      if (item.event_type == 'command') {
-        send({type: 'enable_command', command: item.command, enabled: item.status ? true : false})
-        send({type: 'left_panel_state', state: 'host_data'})
-      }
-      if (item.event_type == 'story') {
-        send({type: 'run_scan', scan: state.stories[item.story].nodeData[item.story_node_id].key, parameters: item.parameters && JSON.parse(item.parameters)})
-        send({type: 'left_panel_state', state: 'scans'})
-      }
-    }}})
-  ])
-}
+const history_item_controls = (state, send, item) => h('div.history_controls', [
+  SaveButton(state, send, item),
+  h('span.fas fa-redo-alt fa-fw history_control', {on: {click: () => {
+    if (item.event_type == 'scan') {
+      send({type: 'run_scan', scan: item.scan, parameters: item.parameters && JSON.parse(item.parameters)})
+      send({type: 'left_panel_state', state: 'scans'})
+    }
+    if (item.event_type == 'quest') {
+      send({type: 'run_scan', scan: item.quest, parameters: item.parameters && JSON.parse(item.parameters)})
+      send({type: 'left_panel_state', state: 'scans'})
+    }
+    if (item.event_type == 'command') {
+      send({type: 'enable_command', command: item.command, enabled: item.status ? true : false})
+      send({type: 'left_panel_state', state: 'host_data'})
+    }
+    if (item.event_type == 'story') {
+      send({type: 'run_scan', scan: state.stories[item.story].nodeData[item.story_node_id].key, parameters: item.parameters && JSON.parse(item.parameters)})
+      send({type: 'left_panel_state', state: 'scans'})
+    }
+  }}})
+])
 
 const getScanItem = (state, item) => {
   if (item.event_type == 'quest') return {...item, event_type: 'scan', scan: item.quest}

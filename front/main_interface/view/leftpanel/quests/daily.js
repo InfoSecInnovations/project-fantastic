@@ -34,6 +34,7 @@ export default (state, send) => [
       ),
       ...(results ? 
         Result(
+          state,
           send, 
           data,
           result_date,
@@ -42,8 +43,9 @@ export default (state, send) => [
           failed_nodes, 
           {
             review_name: quest,
-            review_type: 'quests',
-            review_results: results,
+            event_type: 'quests',
+            history_item: state.quest_results.history_items[quest],
+            result_data: results,
             result_info: NodeLink(send, state.quest_results.nodes[quest], result_date, data.selection),
             success_prefix: result_date && `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(result_date)())]}!`,
             scan_id: state.quest_results.scan_ids[quest]

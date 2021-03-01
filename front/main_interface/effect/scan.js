@@ -5,7 +5,8 @@ export default (state, send, scan, parameters, data) => {
     type: 'scan_results', 
     scan,
     results: data.result, 
-    scan_id: data.scan_id, 
+    scan_id: data.scan_id,
+    history_item: data.history_item, 
     date: data.date, 
     select: true, 
     parameters

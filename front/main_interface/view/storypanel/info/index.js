@@ -23,6 +23,7 @@ export default (state, send) => {
       const results = state.story_results.data[state.story.selected] && state.story_results.data[state.story.selected][state.story.selected_node]
       const result_nodes = state.story_results.nodes[state.story.selected] && state.story_results.nodes[state.story.selected][state.story.selected_node]
       const result_date = state.story_results.date[state.story.selected] && state.story_results.date[state.story.selected][state.story.selected_node]
+      const history_item = state.story_results.history_items[state.story.selected] && state.story_results.history_items[state.story.selected][state.story.selected_node]
       const failed_results = results && data.pass !== 'review' ? results.filter(r => r.result != data.pass.condition) : []
       const failed_nodes = failed_results.map(v => state.nodes.findIndex(n => n.node_id === v.node_id))
       const status = completed ? 'success' : results && !completed ? 'failure' : 'pending'
@@ -40,6 +41,7 @@ export default (state, send) => {
           {on: {click: () => send({type: 'run_story_node', story: state.story.selected, node: state.story.selected_node})}}
         )),
         ...(results ? Result(
+          state,
           send,
           data,
           result_date,
@@ -47,10 +49,11 @@ export default (state, send) => {
           result_parameters,
           failed_nodes,
           {
-            review_type: 'stories',
+            event_type: 'stories',
             review_name: state.story.selected,
+            history_item,
             review_node: state.story.selected_node,
-            review_results: results,
+            result_data: results,
             result_info: NodeLink(send, result_nodes, result_date, storyData.selection),
             success_prefix: 'Mission accomplished!',
             scan_id: state.story_results.scan_ids[state.story.selected] && state.story_results.scan_ids[state.story.selected][state.story.selected_node]
