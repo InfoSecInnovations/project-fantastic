@@ -2,6 +2,7 @@ const RunStoryNode = require('../stories/runstorynode')
 const {transaction} = require('../db')
 const GetPackagedData = require('../util/getpackageddata')
 const End = require('./end')
+const getData = require('../db/getuserhistory/getdata')
 
 const postStoryNode = async (user, res, req, query, stories) => {
   console.log(`postStoryNode: Received http request to run node ${query.node} from story ${query.story}`)
@@ -28,11 +29,12 @@ const postStoryNode = async (user, res, req, query, stories) => {
     }
   })) return end()
   const result = await RunStoryNode(db, query.story, query.node, user, date)
-  await db.insert('all_history', {event_type: 'story', event_id: result.event_id, date, user_id: user.user_id})
+  const history_id = await db.insert('all_history', {event_type: 'story', event_id: result.event_id, date, user_id: user.user_id})
+  const history_item = await getData(db, {history_id, event_type: 'story', event_id: result.event_id, date, user_id: user.user_id})
   // TODO: GetData to generate history item
   await db.close()
   if (res.aborted) return
-  res.end(JSON.stringify({result: result.results, rows: result.rows, date, success: result.success, parameters: result.parameters}))
+  res.end(JSON.stringify({result: result.results, rows: result.rows, date, success: result.success, parameters: result.parameters, history_item}))
   console.log(`postStoryNode: ran node ${query.node} from story ${query.story}, queried ${result.rows.length} nodes`)
 }
 

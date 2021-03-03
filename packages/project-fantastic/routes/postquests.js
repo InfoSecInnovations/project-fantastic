@@ -4,6 +4,7 @@ const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 const End = require('./end')
 const {transaction} = require('../db')
 const GetActiveQuests = require('../db/getactivequests')
+const GetData = require('../db/getuserhistory/getdata')
 
 const postQuests = async (user, res, req, query, scans) => {
   console.log(`postQuests: received http request to start ${query.quest}...`)
@@ -16,11 +17,11 @@ const postQuests = async (user, res, req, query, scans) => {
   if (!match || match.date_completed) return End(res)
   const date = Date.now()
   const result = await RunQuest(db, query.quest, user, date)
-  await db.insert('all_history', {event_type: 'quest', event_id: result.event_id, date, user_id: user.user_id})
-  //TODO: GetData to generate history item
+  const history_id = await db.insert('all_history', {event_type: 'quest', event_id: result.event_id, date, user_id: user.user_id})
+  const history_item = await GetData(db, {history_id, event_type: 'quest', event_id: result.event_id, date, user_id: user.user_id})
   await db.close()
   if (res.aborted) return
-  res.end(JSON.stringify({result: result.results, parameters: result.parameters, scan_id: result.scan_id, rows: result.rows, date, success: result.success}))
+  res.end(JSON.stringify({result: result.results, parameters: result.parameters, scan_id: result.scan_id, rows: result.rows, date, success: result.success, history_item}))
   console.log(`postQuests: completed quest ${query.quest}, queried ${result.rows.length} nodes`)
 }
 

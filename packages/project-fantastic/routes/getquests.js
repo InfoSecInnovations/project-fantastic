@@ -41,14 +41,17 @@ const getQuests = async (user, res, req, query, scans) => { // TODO: this should
   await db.close()
   if (res.aborted) return
   console.log(`getQuests: sent metadata for daily quests.`)
-  res.end(JSON.stringify(
-    active.reduce((result, quest) => ({
+  res.end(JSON.stringify({
+    ...questData,
+    ...active.reduce((result, quest) => ({
       ...result, 
       [quest.quest] : {
         ...questData[quest.quest], 
-        date_completed: quest.date_completed}
+        date_completed: quest.date_completed,
+        active: true
+      }
     }), {})
-  ))
+  }))
 }
 
 module.exports = getQuests
