@@ -1,6 +1,7 @@
 import {h} from 'snabbdom/h'
 import LogHeader from '@infosecinnovations/fantastic-front/view/history/logheader'
 import SaveButton from '@infosecinnovations/fantastic-front/view/savebutton'
+import NodeName from '@infosecinnovations/fantastic-front/util/nodename'
 
 const log_content = (state, log) => {
   if (log.event_type == 'scan' && log.parameters) {
@@ -13,6 +14,11 @@ const log_content = (state, log) => {
   }
   if (log.event_type == 'command') {
     return log.status ? ['Enabled'] : ['Disabled']
+  }
+  if (log.event_type == 'action') {
+    const node = state.nodes.find(v => v.node_id == log.node_id)
+    if (node) return [`Target: ${NodeName(node)}`]
+    return `Target: Node ${log.node_id}`
   }
   return []
 }
@@ -37,6 +43,16 @@ const history_item_controls = (state, send, item) => h('div.history_controls', [
       send({type: 'run_scan', scan, parameters: item.parameters && JSON.parse(item.parameters)})
       send({type: 'left_panel_state', state: 'scans', scan, parameters: item.parameters && JSON.parse(item.parameters)})
     }
+    if (item.event_type == 'action') {
+      const node_id = state.nodes.findIndex(v => v.node_id == item.node_id)
+      if (node_id != -1) {
+        const node = state.nodes[node_id]
+        send({type: 'perform_action', action: item.action, node_id: node.node_id, host: node.hostname})
+        send({type: 'select', node: node_id})
+        send({type: 'vis_select', node: node_id})
+        send({type: 'select_item', item: item.action, panel: 'actions'})
+      }
+    }
   }}})
 ])
 
@@ -52,6 +68,14 @@ const log_header = (state, send, item) => h('h4.link', {on: {click: e => {
       Object.entries(JSON.parse(item.parameters)).forEach(v => send({type: 'scan_parameter', scan: item.scan, key: v[0], value: v[1]}))
     }
     send({type: 'select_item', item: item.scan, panel: 'scans'})
+  }
+  if (item.event_type == 'action') {
+    const node = state.nodes.findIndex(v => v.node_id == item.node_id)
+    if (node != -1) {
+      send({type: 'select', node})
+      send({type: 'vis_select', node})
+      send({type: 'select_item', item: item.action, panel: 'actions'})
+    }
   }
 }}}, LogHeader(state, item))
 

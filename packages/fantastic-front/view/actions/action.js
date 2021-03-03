@@ -8,7 +8,22 @@ import Command from './command'
 export default (state, send, node, connection, action, action_data) => {
   const result_data = state.action_results[node.hostname] && state.action_results[node.hostname][action]
   const loading = result_data && result_data.status === 'loading'
-  return h('div.scroll_item spaced', [
+  return h('div.scroll_item spaced', {
+    hook: {
+      insert: vnode => {
+        if (action == state.selected_item) {
+          vnode.elm.scrollIntoView()
+          setTimeout(e => send({type: 'select_item', item: null}))
+        } 
+      },
+      postpatch: vnode => {
+        if (action == state.selected_item) {
+          vnode.elm.scrollIntoView()
+          setTimeout(e => send({type: 'select_item', item: null}))
+        } 
+      }
+    }
+  }, [
     Run(state, send, node, connection, action, action_data.name, loading),
     Command(connection, action_data.commands.run),
     action_data.description ? action_data.description : undefined,
