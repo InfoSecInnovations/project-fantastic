@@ -17,10 +17,11 @@ const postScans = async (user, res, req, query, scans, data) => {
     const db = await transaction()
     const result = await RunScan(db, query.scan, user, date, query.nodes, json)
     const history_id = await db.insert('all_history', {event_type: 'scan', event_id: result.event_id, user_id: user.user_id, date})
+    const history_item = await GetData(db, {history_id, event_type: 'scan', event_id: result.event_id, date, user})
     await db.close()
     if (res.aborted) return
     console.log(`postScans: completed ${query.scan} scan, queried ${result.results.length} nodes`)
-    const history_item = await GetData({history_id, event_type: 'scan', event_id: result.event_id, date, user})
+
     res.end(JSON.stringify({result: result.results, scan_id: result.event_id, date, history_item}))
   }
   catch(err) {

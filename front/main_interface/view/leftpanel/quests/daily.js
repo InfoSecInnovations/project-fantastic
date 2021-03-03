@@ -9,7 +9,7 @@ import ProcessResults from '@infosecinnovations/fantastic-front/view/scan/proces
 
 export default (state, send) => [
   h('h2.panel_title', 'Daily Quests'),
-  h('div.scroll spaced', Object.entries(state.quests).map(v => {
+  h('div.scroll spaced', Object.entries(state.quests).filter(v => v[1].active).map(v => {
     const quest = v[0]
     const data = v[1]
     const result_date = state.quest_results.date[quest]

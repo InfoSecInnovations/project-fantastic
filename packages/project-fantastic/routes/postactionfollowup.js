@@ -22,7 +22,6 @@ const postActionFollowup = async (user, res, req, query, actions) => {
     const data = {...json, ...connection_data}
     const result = await RunAction(db, query.action, query.function, query.node_id, user, date, {label: query.label, data})
     await db.insert('all_history', {event_type: 'action', event_id: result.event_id, date, user_id: user.user_id})
-    // TODO: GetData to generate history item
     await db.close()
     if (res.aborted) return
     console.log(`postActionFollowup: ${query.function} function from ${query.action} executed on node ${query.node_id}.`)
