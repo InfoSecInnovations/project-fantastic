@@ -22,19 +22,20 @@ const history_item_controls = (state, send, item) => h('div.history_controls', [
   h('span.fas fa-redo-alt fa-fw history_control', {on: {click: () => {
     if (item.event_type == 'scan') {
       send({type: 'run_scan', scan: item.scan, parameters: item.parameters && JSON.parse(item.parameters)})
-      send({type: 'left_panel_state', state: 'scans'})
+      send({type: 'select_item', item: item.scan, panel: 'scans', parameters: item.parameters && JSON.parse(item.parameters)})
     }
     if (item.event_type == 'quest') {
       send({type: 'run_scan', scan: item.quest, parameters: item.parameters && JSON.parse(item.parameters)})
-      send({type: 'left_panel_state', state: 'scans'})
+      send({type: 'select_item', item: item.quest, panel: 'scans', parameters: item.parameters && JSON.parse(item.parameters)})
     }
     if (item.event_type == 'command') {
       send({type: 'enable_command', command: item.command, enabled: item.status ? true : false})
-      send({type: 'left_panel_state', state: 'host_data'})
+      send({type: 'select_item', item: item.command, panel: 'host_data'})
     }
     if (item.event_type == 'story') {
-      send({type: 'run_scan', scan: state.stories[item.story].nodeData[item.story_node_id].key, parameters: item.parameters && JSON.parse(item.parameters)})
-      send({type: 'left_panel_state', state: 'scans'})
+      const scan = state.stories[item.story].nodeData[item.story_node_id].key
+      send({type: 'run_scan', scan, parameters: item.parameters && JSON.parse(item.parameters)})
+      send({type: 'left_panel_state', state: 'scans', scan, parameters: item.parameters && JSON.parse(item.parameters)})
     }
   }}})
 ])
