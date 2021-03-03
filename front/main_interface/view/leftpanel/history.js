@@ -45,6 +45,15 @@ const getScanItem = (state, item) => {
   return item
 }
 
+const log_header = (state, send, item) => h('h4.link', {on: {click: e => {
+  if (item.event_type == 'scan') {
+    if (item.parameters) {
+      Object.entries(JSON.parse(item.parameters)).forEach(v => send({type: 'scan_parameter', scan: item.scan, key: v[0], value: v[1]}))
+    }
+    send({type: 'select_item', item: item.scan, panel: 'scans'})
+  }
+}}}, LogHeader(state, item))
+
 const saved = (state, send) => {
   if (!state.history.saved.length) return []
   return [ 
@@ -70,14 +79,7 @@ const saved = (state, send) => {
         }, [
           h('div.history_title', [
             history_item_controls(state, send, v),
-            h('h4', {on: {click: e => {
-              if (item.event_type == 'scan') {
-                if (item.parameters) {
-                  Object.entries(JSON.parse(item.parameters)).forEach(v => send({type: 'scan_parameter', scan: item.scan, key: v[0], value: v[1]}))
-                }
-                send({type: 'select_item', item: item.scan, panel: 'scans'})
-              }
-            }}}, LogHeader(state, item))
+            log_header(state, send, item)
           ]),
           ...log_content(state, item)
         ])
@@ -102,7 +104,7 @@ const history = (state, send) => {
       return h('div.scroll_item', [
         h('div.history_title', [
           history_item_controls(state, send, v),
-          h('h4', LogHeader(state, item))
+          log_header(state, send, item)
         ]),
         context(state, v),
         ...log_content(state, item)

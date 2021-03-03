@@ -3,7 +3,7 @@ select
 
 .button, input[type=button], input[type=submit], input[type=reset]
   cursor: pointer
-  padding: 0.8rem
+  padding: 0.4rem 0.8rem
   background-color: button_background_color
   color: button_font_color
   font-family: main_font
@@ -17,6 +17,9 @@ select
   max-width: max-content
   min-width: 5rem
   highlight_border()
+  .fa-fw
+    font-size: 1.1rem
+    height: auto
   &:hover
     background-color: button_hover_color
     hover_border()
