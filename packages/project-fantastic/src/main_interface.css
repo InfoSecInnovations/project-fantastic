@@ -156,7 +156,7 @@ input[type=button],
 input[type=submit],
 input[type=reset] {
   cursor: pointer;
-  padding: 0.8rem;
+  padding: 0.4rem 0.8rem;
   background-color: #3c3d3d;
   color: #fff;
   font-family: 'Exo 2', sans-serif;
@@ -171,6 +171,13 @@ input[type=reset] {
   min-width: 5rem;
   border-radius: 1rem;
   border: 2px solid #f55100;
+}
+.button .fa-fw,
+input[type=button] .fa-fw,
+input[type=submit] .fa-fw,
+input[type=reset] .fa-fw {
+  font-size: 1.1rem;
+  height: auto;
 }
 .button:hover,
 input[type=button]:hover,

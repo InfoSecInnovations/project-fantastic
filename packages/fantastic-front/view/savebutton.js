@@ -23,7 +23,7 @@ export default (state, send, item, text) => {
       on: {click: click_event(send, item, status)},
       class: {disabled: status == 'waiting'}
     }, [
-      text,
+      status == 'saved' ? 'Workflow saved' : 'Save this workflow',
       button(send, item, status)
     ]) :
     button(send, item, status, true)
