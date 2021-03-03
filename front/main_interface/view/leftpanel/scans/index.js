@@ -16,7 +16,16 @@ const scanItem = (state, send, scan, data) => {
   const {pass, failed_nodes, status} = ProcessResults(state, data, results, result_approval)
   const parameters = data.parameters && {...DefaultParameters(data), ...state.scan_parameters[scan]}
   const valid_parameters = !parameters || Object.values(parameters).every(v => (typeof v === 'number' && !isNaN(v) && isFinite(v)) || typeof v === 'boolean' || v)
-  return h('div.scroll_item spaced', [
+  return h('div.scroll_item spaced', {
+    hook: {
+      insert: (vnode) => {
+        if (scan == state.selected_item) {
+          vnode.elm.scrollIntoView()
+          setTimeout(e => send({type: 'select_item', item: null}))
+        } 
+      }
+    }
+  }, [
     ...Info(
       state, 
       send,
