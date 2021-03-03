@@ -69,6 +69,7 @@ const log_header = (state, send, item) => h('h4.link', {on: {click: e => {
     }
     send({type: 'select_item', item: item.scan, panel: 'scans'})
   }
+  if (item.event_type == 'command') send({type: 'select_item', item: item.command, panel: 'host_data'})
   if (item.event_type == 'action') {
     const node = state.nodes.findIndex(v => v.node_id == item.node_id)
     if (node != -1) {

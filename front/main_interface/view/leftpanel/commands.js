@@ -18,7 +18,16 @@ const enabled_button = (state, send, command, data) => {
 }
 
 const commandItem = (state, send, command, data) => h('div.scroll_item spaced', [
-  h('div.item command_title', [
+  h('div.item command_title', {
+    hook: {
+      insert: (vnode) => {
+        if (command == state.selected_item) {
+          vnode.elm.scrollIntoView()
+          setTimeout(e => send({type: 'select_item', item: null}))
+        } 
+      }
+    }
+  }, [
     FavoriteButton(state, send, 'commands', command),
     h('h3', data.name),
     enabled_button(state, send, command, data),
