@@ -2,7 +2,7 @@ import Search from '../defaults/search'
 
 export default (state, action) => {
   state.search = Search()
-  state.search.show_external = action.search.show_external
+  state.search.show_external = action.search.show_external ? true : false
   state.search.date = action.search.min_date
   state.search.connection_type = action.search.connection_type
   if (action.search.connection_state_listen) state.search.connection_state.push('listen')
