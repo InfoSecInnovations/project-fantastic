@@ -253,6 +253,11 @@ input[type=password] {
 .favorited:hover {
   color: #fff;
 }
+.dialog_buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
 .scroll_container {
   min-height: 0;
   min-width: 0;

@@ -4,6 +4,7 @@ import Hovered from '../defaults/hovered'
 import QuestResults from './questresults'
 import StoryResults from './storyresults'
 import ScanResults from './scanresults'
+import LoadSearch from './loadsearch'
 const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 
 export default (state, action) => {
@@ -139,6 +140,10 @@ export default (state, action) => {
       else state.left_panel_state = action.panel
     } 
   }
+  if (action.type == 'save_search') state.save_search_dialog = 'waiting'
+  if (action.type == 'load_search') LoadSearch(state, action)
+  if (action.type == 'save_search_dialog') state.save_search_dialog = action.state
+  if (action.type == 'search_label') state.search.label = action.label
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

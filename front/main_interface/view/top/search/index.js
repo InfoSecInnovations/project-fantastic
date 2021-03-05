@@ -10,6 +10,10 @@ export default (state, send) => {
     ShowNodes(state, send),
     ConnectionType(state, send),
     ConnectionState(state, send),
-    h('div.button', {on: {click: [send, {type: 'search'}]}}, 'Search')
+    h('div.search_buttons', [
+      h('div.button', {on: {click: e => send({type: 'search'})}}, 'Search'),
+      h('div.button', {on: {click: e => send({type: 'save_search_dialog', state: 'enabled'})}}, 'Save Filters')
+    ])
+
   ])
 }

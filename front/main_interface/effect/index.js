@@ -4,7 +4,6 @@ const FlatUnique = require('@infosecinnovations/fantastic-utils/flatunique')
 import GenerateQuery from '@infosecinnovations/fantastic-front/effect/generatequery'
 import Init from './init'
 import OpenTabs from './opentabs'
-import SearchQuery from './searchquery'
 import RefreshNodes from './refreshnodes'
 import Nodes from './nodes'
 import UserHistory from './userhistory'
@@ -26,12 +25,18 @@ export default (state, action, send) => {
     action.container.onmouseleave = e => send({type: 'hover_ui', value: true})
     action.container.onmouseenter = e => send({type: 'hover_ui', value: false})
   }
-  if (action.type == 'search' || action.type == 'graph_container') RefreshNodes(send, SearchQuery(state))
+  if (action.type == 'search' || action.type == 'graph_container') RefreshNodes(send, state.search)
+  if (action.type == 'save_search') fetch(`/save_search?${GenerateQuery(state.search)}`, {method: 'POST'})
+  .then(res => res.json())
+  .then(res => {
+    send({type: 'save_search_dialog', state: 'disabled'})
+    UserHistory(send)
+  })
   if (action.type == 'find_connections') {
     const node = state.selected.edge ? NodesFromEdge(state, state.selected.edge).from : state.nodes[state.selected.node]
     const connection = node.connections.find(v => v.connection_id == state.connection_search.expanded_connection)
     RefreshNodes(send, {
-      ...SearchQuery(state),
+      ...state.search,
       connection_local_ip: state.connection_search.local_ip ? connection.local_address : undefined,
       connection_remote_ip: state.connection_search.remote_ip ? connection.remote_address : undefined,
       connection_process: state.connection_search.process ? connection.process.id : undefined
