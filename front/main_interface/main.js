@@ -10,6 +10,7 @@ import Effect from './effect'
 import QuestResults from './defaults/questresults'
 import ScanResults from './defaults/scanresults'
 import Hovered from './defaults/hovered'
+import Search from './defaults/search'
 
 const patch = init([
   classModule,
@@ -21,7 +22,7 @@ const patch = init([
 
 let state = {
   flex_search: {actions: {}, scans: {}, commands: {}},
-  search: {date: 15, show_external: true, connection_type: 'all', connection_state: []}, 
+  search: Search(), 
   connection_search: {},
   tab: 'info', 
   selected: {}, 

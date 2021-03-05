@@ -5,6 +5,7 @@ import Tooltip from './tooltip'
 import Top from './top'
 import Review from './review'
 import StoryPanel from './storypanel'
+import SaveSearch from './savesearch'
 
 export default (state, send) => 
   h('body', [
@@ -14,6 +15,7 @@ export default (state, send) =>
         hook: {create: (_, vnode) => setTimeout(() => send({type: 'graph_container', container: vnode.elm}))},
         class: {hidden: state.loading}
       }),
+      SaveSearch(state, send),
       StoryPanel(state, send),
       state.loading ? h('div#loading', 'Loading...') : undefined,
       LeftPanel(state, send),

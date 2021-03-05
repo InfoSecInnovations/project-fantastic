@@ -53,6 +53,10 @@ const history_item_controls = (state, send, item) => h('div.history_controls', [
         send({type: 'select_item', item: item.action, panel: 'actions'})
       }
     }
+    if (item.event_type == 'selection') {
+      send({type: 'load_search', search: item})
+      send({type: 'search'})
+    } 
   }}})
 ])
 
@@ -78,6 +82,7 @@ const log_header = (state, send, item) => h('h4.link', {on: {click: e => {
       send({type: 'select_item', item: item.action, panel: 'actions'})
     }
   }
+  if (item.event_type == 'selection') send({type: 'load_search', search: item})
 }}}, LogHeader(state, item))
 
 const saved = (state, send) => {
@@ -115,7 +120,7 @@ const saved = (state, send) => {
 }
 
 const context = (state, item) => {
-  if (item.event_type == 'scan' || item.event_type == 'action') return
+  if (item.event_type == 'scan' || item.event_type == 'action' || item.event_type == 'selection') return
   return h('div', `Invoked by ${LogHeader(state, item)}`)
 }
 

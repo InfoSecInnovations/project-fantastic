@@ -12,7 +12,7 @@ const getUserHistory = async (user, options) => {
   const page = (options && options.page) || 0
   const count = (options && options.count) || 25
   const where_query = `
-  WHERE user_id = ? AND event_type IN (?, ?, ?, ?, ?) AND (
+  WHERE user_id = ? AND event_type IN (?, ?, ?, ?, ?, ?) AND (
     event_type != "action" OR (SELECT COUNT(*) FROM action_history WHERE action_id == event_id AND function == "run") > 0
   )
   `
@@ -22,7 +22,8 @@ const getUserHistory = async (user, options) => {
     'scan', 
     'command', 
     'story', 
-    'action'
+    'action',
+    'selection'
   ]
   const rows = await db.sqlite(db => new Promise((resolve, reject) => {
     db.all(`

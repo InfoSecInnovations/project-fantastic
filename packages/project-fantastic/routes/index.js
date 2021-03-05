@@ -49,6 +49,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stor
   createRoute('post', '/save', require('./postsave'), {arg: get_stories})
   createRoute('post', '/story_node', require('./poststorynode'), {arg: get_stories})
   createRoute('post', '/favorite', require('./postfavorite'))
+  createRoute('post', '/save_search', require('./postsavesearch'))
 
   app.get('/logout', (res, req) => require('./auth/logout')(res, req, auth_module))
   app.get('/*', require('./files'))

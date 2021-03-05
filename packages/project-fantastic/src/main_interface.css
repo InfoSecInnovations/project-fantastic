@@ -253,6 +253,11 @@ input[type=password] {
 .favorited:hover {
   color: #fff;
 }
+.dialog_buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
 .scroll_container {
   min-height: 0;
   min-width: 0;
@@ -361,6 +366,15 @@ input[type=password] {
 }
 #container #top #search .checkboxes option {
   display: none;
+}
+#container #top #search .search_buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+#container #top #search .search_buttons .button {
+  align-self: stretch;
+  max-width: none;
 }
 #container #top .buttons {
   display: flex;
@@ -648,5 +662,21 @@ input[type=password] {
 .scan_actions ul li {
   list-style: none;
   padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+}
+.blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(36,36,36,0.8);
+  display: grid;
+  place-items: center;
+  z-index: 200;
+}
+#save_dialog {
+  display: flex;
+  flex-direction: column;
+  background-color: #2e2f30;
+  padding: 1rem;
+  gap: 1rem;
 }
 /*# sourceMappingURL=main_interface.css.map */
