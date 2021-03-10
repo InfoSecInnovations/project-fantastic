@@ -8,7 +8,7 @@
   },
   "author": "InfoSec Innovations",
   "dependencies": {
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^5.0.2"
   },
   "gitHead": "79633df1f1f99a92538cf23ce9b2540b141fc9f1",
   "publishConfig": {
