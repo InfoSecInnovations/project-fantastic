@@ -18,5 +18,8 @@
   },
   "authentication": {
     "module": "@infosecinnovations/fantastic-default_auth"
+  },
+	"client": {
+    "nodeCountWarning": 500
   }
 }

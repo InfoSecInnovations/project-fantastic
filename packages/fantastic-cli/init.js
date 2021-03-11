@@ -30,7 +30,7 @@ const run = async () => {
     await RunProcess(npm_cmd, ['i', ...modules, auth_module], 'npm install failed')
     await Promise.all([
       FS.readJSON('package.json').then(json => FS.writeJSON('package.json', {...json, scripts: {...json.scripts, ...Scripts}})),
-      FS.writeJSON('config.json', {...DefaultConfig, authentication: {module: auth_module}}),
+      FS.writeJSON('config.json', {...DefaultConfig, authentication: {module: auth_module}}, {spaces: '\t'}),
       FS.copy(Path.join(__dirname, 'cert'), 'cert')
     ])
     await RunProcess(npx_cmd, ['fantastic-upgrade'], 'npx fantastic-upgrade failed')

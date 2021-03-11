@@ -8,6 +8,7 @@ import LoadSearch from './loadsearch'
 const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 
 export default (state, action) => {
+  if (action.type == 'init_complete') state.initialized = true
   if (action.type == 'nodes') state.nodes = action.nodes
   if (action.type == 'graph_container') state.graph_container = action.container
   if (action.type == 'select') {
@@ -144,6 +145,8 @@ export default (state, action) => {
   if (action.type == 'load_search') LoadSearch(state, action)
   if (action.type == 'save_search_dialog') state.save_search_dialog = action.state
   if (action.type == 'search_label') state.search.label = action.label
+  if (action.type == 'config') state.config = action.config
+  if (action.type == 'node_warning') state.node_warning = action.nodes
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

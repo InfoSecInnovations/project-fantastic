@@ -6,6 +6,7 @@ import Top from './top'
 import Review from './review'
 import StoryPanel from './storypanel'
 import SaveSearch from './savesearch'
+import NodeWarning from './nodewarning'
 
 export default (state, send) => 
   h('body', [
@@ -16,6 +17,7 @@ export default (state, send) =>
         class: {hidden: state.loading}
       }),
       SaveSearch(state, send),
+      NodeWarning(state, send),
       StoryPanel(state, send),
       state.loading ? h('div#loading', 'Loading...') : undefined,
       LeftPanel(state, send),

@@ -1,8 +1,8 @@
 import {h} from 'snabbdom/h'
 
 const inner = (state, send) => {
-  if (state.save_search_dialog == 'waiting') return h('div#save_dialog', 'Saving...')
-  return h('div#save_dialog', [
+  if (state.save_search_dialog == 'waiting') return h('div.dialog', 'Saving...')
+  return h('div.dialog', [
     h('div.item', [
       h('label', {attrs: {for: 'search_label_input'}}, 'Filter name'),
       h('input#search_label_input', {

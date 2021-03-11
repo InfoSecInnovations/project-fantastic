@@ -15,6 +15,9 @@ const defaultConfig = {
       "@infosecinnovations/fantastic-default/getdnsclientcache",
       "@infosecinnovations/fantastic-default/getos"
     ]
+  },
+  "client": {
+    "nodeCountWarning": 500
   }
 }
 
