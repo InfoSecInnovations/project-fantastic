@@ -20,12 +20,12 @@ export default (state, action, send) => {
   if (action.type == 'init') Init(state, send)
   if (action.type == 'nodes') Nodes(state, send)
   if (action.type == 'story_container') JsPlumb(state, action, send)
-  if (action.type == 'get_nodes') RefreshNodes(send, {nodes: action.nodes, date: action.date, max_date: action.max_date})
+  if (action.type == 'get_nodes') RefreshNodes(state, send, {nodes: action.nodes, date: action.date, max_date: action.max_date})
   if (action.type == 'graph_container') {
     action.container.onmouseleave = e => send({type: 'hover_ui', value: true})
     action.container.onmouseenter = e => send({type: 'hover_ui', value: false})
   }
-  if (action.type == 'search' || action.type == 'graph_container') RefreshNodes(send, state.search)
+  if (action.type == 'search' || action.type == 'init_complete') RefreshNodes(state, send, state.search)
   if (action.type == 'save_search') fetch(`/save_search?${GenerateQuery(state.search)}`, {method: 'POST'})
   .then(res => res.json())
   .then(res => {
@@ -35,7 +35,7 @@ export default (state, action, send) => {
   if (action.type == 'find_connections') {
     const node = state.selected.edge ? NodesFromEdge(state, state.selected.edge).from : state.nodes[state.selected.node]
     const connection = node.connections.find(v => v.connection_id == state.connection_search.expanded_connection)
-    RefreshNodes(send, {
+    RefreshNodes(state, send, {
       ...state.search,
       connection_local_ip: state.connection_search.local_ip ? connection.local_address : undefined,
       connection_remote_ip: state.connection_search.remote_ip ? connection.remote_address : undefined,
