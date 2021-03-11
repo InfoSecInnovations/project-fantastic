@@ -19,6 +19,7 @@ export default (state, action) => {
     state.connection_search.expanded_connection = undefined
   }
   if (action.type == 'date') state.search.date = action.date
+  if (action.type == 'connection_limit') state.search.connection_limit = action.limit
   if (action.type == 'connection_type') state.search.connection_type = action.connection_type
   if (action.type == 'connection_state') {
     if (action.value && !state.search.connection_state.includes(action.state)) state.search.connection_state.push(action.state)
