@@ -3,11 +3,13 @@ import DateSelect from './dateselect'
 import ShowNodes from './shownodes'
 import ConnectionType from './connectiontype'
 import ConnectionState from './connectionstate'
+import ConnectionLimit from './connectionlimit'
 
 export default (state, send) => {
   return h('div#search', [
     DateSelect(state, send),
     ShowNodes(state, send),
+    ConnectionLimit(state, send),
     ConnectionType(state, send),
     ConnectionState(state, send),
     h('div.search_buttons', [

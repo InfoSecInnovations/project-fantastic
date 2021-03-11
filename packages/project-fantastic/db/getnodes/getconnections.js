@@ -1,4 +1,5 @@
 const ConnectionConditions = require('./connectionconditions')
+const connectionPagination = require('./connectionpagination')
 
 /**
  * Get connections from the database originating from these IP addresses
@@ -8,7 +9,12 @@ const ConnectionConditions = require('./connectionconditions')
  * @param {import('@infosecinnovations/fantastic-db/types').QueryCondition[]} date_conditions
  * @param {import('./types').ConnectionFilter} connection_filter
  */
-const getConnections = (db, ips, query, date_conditions, connection_filter) => db.all({table: 'connections', conditions: {groups: [...date_conditions, ...ConnectionConditions('from', ips, query, connection_filter)]}})
+const getConnections = (db, ips, query, date_conditions, connection_filter) => db.all({
+    table: 'connections', 
+    conditions: {groups: [...date_conditions, ...ConnectionConditions('from', ips, query, connection_filter)]},
+    pagination: connectionPagination(query.connection_limit),
+    order_by: {date: 'DESC'}
+  })
   .then(async res => {
     for (const c of res) {
       c.process = await db.get({table: 'processes', columns: ['name', 'pid'], conditions: {columns: {process_id: c.process_id}}}) // get process name and PID for each connection

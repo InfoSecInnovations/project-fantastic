@@ -29,10 +29,10 @@ const schema = [
     date INTEGER,
     first_date INTEGER,
     FOREIGN KEY (from_id)
-      REFERENCES nodes (node_id)
+      REFERENCES ips (ip_id)
       ON DELETE CASCADE,
     FOREIGN KEY (to_id)
-      REFERENCES nodes (node_id)
+      REFERENCES ips (ip_id)
       ON DELETE CASCADE,
     FOREIGN KEY (process_id)
       REFERENCES processes (process_id)
