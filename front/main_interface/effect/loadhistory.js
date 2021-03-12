@@ -17,7 +17,9 @@ export default (state, send) => {
   .then(res => {
     res.result_rows.forEach(v => {
       const story = state.stories[v.story]
+      if (!story) return
       const story_node = story.nodeData[v.story_node_id]
+      if (!story_node) return
       if (story_node.type == 'scans') {
         send({type: 'story_results', story: v.story, node: v.story_node_id, date: v.date, scan_id: v.scan_id, history_item: v.history_item, results: JSON.parse(v.results), select: false})
         send({type: 'story_nodes', story: v.story, node: v.story_node_id, nodes: JSON.parse(v.rows)})

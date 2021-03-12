@@ -85,6 +85,18 @@ const log_header = (state, send, item) => h('h4.link', {on: {click: e => {
   if (item.event_type == 'selection') send({type: 'load_search', search: item})
 }}}, LogHeader(state, item))
 
+const invalid_item = (state, item) => {
+  if (item.event_type == 'story') {
+    if (!state.stories[item.story]) return `Story: ${item.story}, Node: ${item.story_node_id}`
+    if (!state.stories[item.story][item.story_node_id]) return `Story: ${state.stories[item.story].name}, Node: ${item.story_node_id}`
+  }
+  if (item.event_type == 'scan' && !state.scans[item.scan]) return `Scan: ${item.scan}`
+  if (item.event_type == 'quest' && !state.quests[item.quest]) return `Quest: ${item.quest}`
+  if (item.event_type == 'action') {
+    if (!state.actions[item.action]) return `Action: ${item.action}`
+  }
+}
+
 const saved = (state, send) => {
   if (!state.history.saved.length) return []
   return [ 
@@ -92,6 +104,8 @@ const saved = (state, send) => {
     h('div.scroll', state.history.ordering ?
       h('h3.scroll_item waiting', 'Please wait...') :
       state.history.saved.map((v, i) => {
+
+        if (invalid_item(state, v)) return
         // we want to show the scan from the saved quest
         const item = getScanItem(state, v)
         return h('div.scroll_item', {
@@ -131,6 +145,11 @@ const history = (state, send) => {
   return [
     h('h2.panel_title', 'History'),
     h('div.scroll', state.history.results.map(v => {
+      const invalid = invalid_item(state, v)
+      if (invalid) return  h('div.scroll_item', [
+        h('h4', 'Item no longer available'),
+        h('div', invalid)
+      ])
       const item = getScanItem(state, v)
       return h('div.scroll_item', [
         h('div.history_title', [
