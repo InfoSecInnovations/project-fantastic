@@ -14,11 +14,11 @@ const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultpa
 const runQuest = async (db, quest, user, date) => {
   const scan_obj = await GetPackagedData(quest, 'scans')
   const age = ConvertTime(scan_obj.quest.selection.age)
-  const rows = await getNodes({date: age && Date.now() - age, access: scan_obj.hosts})
+  const rows = await getNodes({date: age && date - age, access: scan_obj.hosts})
   const row_ids = rows.map(v => v.node_id)
   const event_id = await db.insert('quest_history', {quest, date, user_id: user.user_id, rows: JSON.stringify(row_ids)})
   const parameters = {...DefaultParameters(scan_obj),  ...scan_obj.quest.parameters}
-  const {results, event_id: scan_id, success} = await RunScan(db, quest, user, date, row_ids, parameters, event_id)
+  const {results, event_id: scan_id, success} = await RunScan(db, quest, user, date, row_ids, parameters, age || 0, event_id)
   if (success) await db.update({table: 'daily_quests', row: {date_completed: date}, conditions: {columns: {user_id: user.user_id, quest}}})
   return {results, scan_id, rows, event_id, success, parameters}
 }

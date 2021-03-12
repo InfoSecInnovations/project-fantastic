@@ -96,6 +96,7 @@ const schema = [
     user_id BLOB,
     quest_id INTEGER,
     story_id INTEGER,
+    age INTEGER,
     FOREIGN KEY (quest_id)
       REFERENCES quest_history (quest_id)
       ON DELETE CASCADE,

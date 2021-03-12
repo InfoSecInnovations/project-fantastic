@@ -14,11 +14,12 @@ const GetAbsolutePath = require('../util/getabsolutedatapath')
  * @param {number} [parent_event_id] database ID of parent event that called this scan run 
  * @param {string} [parent_event_type] type of parent event that called this scan run 
  */
-const runScan = async (db, scan, user, date, nodes, parameters, parent_event_id, parent_event_type = 'quest') => {
+const runScan = async (db, scan, user, date, nodes, parameters, age, parent_event_id, parent_event_type = 'quest') => {
   const data = await GetPackagedData(scan, 'scans')
   const event_id = await db.insert('scan_history', {
     scan, 
     date, 
+    age,
     parameters: JSON.stringify(parameters), 
     user_id: user.user_id, 
     quest_id: parent_event_type == 'quest' ? parent_event_id : undefined, 

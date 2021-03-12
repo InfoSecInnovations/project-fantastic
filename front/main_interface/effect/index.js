@@ -73,7 +73,7 @@ export default (state, action, send) => {
     if (action.select) send({type: 'nodes', nodes: action.nodes || []})
     send({type: 'quest_nodes', quest: action.quest, nodes: action.nodes ? action.nodes.map(v => v.node_id) : []})
   }
-  if (action.type == 'run_scan') fetch(`/scans?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), scan: action.scan})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
+  if (action.type == 'run_scan') fetch(`/scans?${GenerateQuery({nodes: state.nodes.map(v => v.node_id), scan: action.scan, age: state.current_selection.date * 60 * 1000})}`, {method: 'POST', body: JSON.stringify(action.parameters)})
     .then(res => res.json())
     .then(res => Scan(state, send, action.scan, action.parameters, res))
   if (action.type == 'save') fetch(`/save?${GenerateQuery({history_id: action.history_id, remove: action.remove})}`, {method: 'POST'})

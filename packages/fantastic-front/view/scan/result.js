@@ -27,5 +27,5 @@ export default (state, send, data, date, pass, result_parameters, failed_nodes, 
     result_info,
     result(send, data, pass, result_parameters, failed_nodes, {review_type: event_type, review_name, review_results: result_data, review_node, success_prefix, scan_id}),
     SaveButton(state, send, history_item, true)
-  ]
+  ].flat()
 }

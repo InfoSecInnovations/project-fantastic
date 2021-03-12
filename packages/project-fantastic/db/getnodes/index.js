@@ -1,5 +1,4 @@
 const {transaction, OPEN_READONLY} = require('../operations')
-const ConnectionConditions = require('./connectionconditions')
 const GetConnections = require('./getconnections')
 
 /**

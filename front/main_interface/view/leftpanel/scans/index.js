@@ -7,6 +7,7 @@ import PlayButton from '@infosecinnovations/fantastic-front/view/scan/playbutton
 import Result from '@infosecinnovations/fantastic-front/view/scan/result'
 import ProcessResults from '@infosecinnovations/fantastic-front/view/scan/processresults'
 import DefaultParameters from '@infosecinnovations/fantastic-utils/defaultparameters'
+import NodeLink from '@infosecinnovations/fantastic-front/view/scan/nodelink'
 
 const scanItem = (state, send, scan, data) => {
   const result_date = state.scan_results.date[scan]
@@ -55,10 +56,13 @@ const scanItem = (state, send, scan, data) => {
           history_item: state.scan_results.history_items[scan],
           review_name: scan,
           result_data: results,
-          result_info: data.parameters && h('div.parameters', [
-            'Parameters used:',
-            h('ul', Object.entries(state.scan_results.parameters[scan]).map(v => h('li', `${v[0]}: ${v[1]}`)))
-          ]),
+          result_info: [
+            data.parameters && h('div.parameters', [
+              'Parameters used:',
+              h('ul', Object.entries(state.scan_results.parameters[scan]).map(v => h('li', `${v[0]}: ${v[1]}`)))
+            ]),
+            NodeLink(send, state.scan_results.data[scan].map(v => v.node_id), result_date, state.scan_results.age[scan])
+          ],
           scan_id: state.scan_results.scan_ids[scan]
         }
       )
