@@ -5,6 +5,7 @@ import QuestResults from './questresults'
 import StoryResults from './storyresults'
 import ScanResults from './scanresults'
 import LoadSearch from './loadsearch'
+const Clone = require('@infosecinnovations/fantastic-utils/clone')
 const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 
 export default (state, action) => {
@@ -148,6 +149,7 @@ export default (state, action) => {
   if (action.type == 'search_label') state.search.label = action.label
   if (action.type == 'config') state.config = action.config
   if (action.type == 'node_warning') state.node_warning = action.nodes
+  if (action.type == 'search' || action.type == 'init_complete') state.current_selection = Clone(state.search)
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

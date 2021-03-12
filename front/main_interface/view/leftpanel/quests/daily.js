@@ -6,6 +6,7 @@ import Info from '@infosecinnovations/fantastic-front/view/scan/info'
 import PlayButton from '@infosecinnovations/fantastic-front/view/scan/playbutton'
 import Result from '@infosecinnovations/fantastic-front/view/scan/result'
 import ProcessResults from '@infosecinnovations/fantastic-front/view/scan/processresults'
+const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
 
 export default (state, send) => [
   h('h2.panel_title', 'Daily Quests'),
@@ -46,7 +47,7 @@ export default (state, send) => [
             event_type: 'quests',
             history_item: state.quest_results.history_items[quest],
             result_data: results,
-            result_info: NodeLink(send, state.quest_results.nodes[quest], result_date, data.selection),
+            result_info: NodeLink(send, state.quest_results.nodes[quest], result_date, (data.selection && data.selection.age && ConvertTime(data.selection.age)) || 0),
             success_prefix: result_date && `${SuccessTexts[Math.floor(SuccessTexts.length * new Alea(result_date)())]}!`,
             scan_id: state.quest_results.scan_ids[quest]
           })

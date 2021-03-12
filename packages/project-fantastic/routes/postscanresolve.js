@@ -13,7 +13,7 @@ const postScanResolve = async (user, res, req, query) => {
   const date = Date.now()
   try {
     const db = await transaction()
-    const currentResult = await db.get({table: 'scan_history', columns: ['results', 'parameters', 'scan', 'quest_id', 'story_id'], conditions: {columns: {scan_id: query.scan_id}}})
+    const currentResult = await db.get({table: 'scan_history', columns: ['results', 'parameters', 'scan', 'quest_id', 'story_id', 'age'], conditions: {columns: {scan_id: query.scan_id}}})
     const scan = currentResult.scan
     const scan_obj = await GetPackagedData(scan, 'scans')
     const results = JSON.parse(currentResult.results)
@@ -73,9 +73,9 @@ const postScanResolve = async (user, res, req, query) => {
       })
     }
     // TODO: role check
-    const result = await RunScan(db, scan, user, date, results.map(row => row.node_id), JSON.parse(currentResult.parameters))
+    const result = await RunScan(db, scan, user, date, results.map(row => row.node_id), JSON.parse(currentResult.parameters), currentResult.age)
     await db.insert('all_history', {event_type: 'scan', event_id: result.event_id, user_id: user.user_id, date})
-    return complete({result: result.results, date, data_type: 'scans', data_key: scan, scan_id: result.scan_id, parameters: currentResult.parameters})
+    return complete({result: result.results, date, data_type: 'scans', data_key: scan, scan_id: result.scan_id, parameters: currentResult.parameters, age: currentResult.age})
   }
   catch(err) {
     return End(res)

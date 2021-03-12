@@ -5,5 +5,6 @@ export default () => ({
   parameters: {},
   approval: {},
   scan_ids: {},
-  history_items: {}
+  history_items: {},
+  age: {}
 })

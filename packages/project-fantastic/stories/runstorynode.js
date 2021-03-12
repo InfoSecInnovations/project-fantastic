@@ -28,7 +28,8 @@ const runStoryNode = async (db, story, story_node_id, user, date) => {
       user, 
       date, 
       row_ids, 
-      parameters, 
+      parameters,
+      age || 0,
       event_id, 
       'story'
     )

@@ -6,4 +6,5 @@ export default (state, action) => {
   state.scan_results.parameters[action.scan] = action.parameters
   state.scan_results.scan_ids[action.scan] = action.scan_id
   state.scan_results.history_items[action.scan] = action.history_item
+  state.scan_results.age[action.scan] = action.age
 }
