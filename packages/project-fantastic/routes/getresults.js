@@ -1,5 +1,5 @@
 const { transaction } = require('../db')
-const getHistoryItem = require('../db/gethistoryitem')
+const GetHistoryItem = require('../db/gethistoryitem')
 
 const getResults = async (user, res, req, query) => {
   const start = Date.now()
@@ -14,7 +14,7 @@ const getResults = async (user, res, req, query) => {
     }
   )
   for (const row of rows) {
-    row.history_item = await getHistoryItem(db, user, row)
+    row.history_item = await GetHistoryItem(db, user, row)
   }
   await db.close()
   if (res.aborted) return

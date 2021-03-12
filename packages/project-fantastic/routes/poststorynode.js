@@ -6,10 +6,12 @@ const getData = require('../db/getuserhistory/getdata')
 
 const postStoryNode = async (user, res, req, query, stories) => {
   console.log(`postStoryNode: Received http request to run node ${query.node} from story ${query.story}`)
+  if (!stories.includes(query.story)) return End(res)
+  const storyData = await GetPackagedData(query.story, 'stories')
+  if (!storyData.nodeData[query.node]) return End(res)
+  const storyNodes = Object.entries(storyData.nodeData)
   const date = Date.now()
   const db = await transaction()
-  // TODO: validate query
-  const storyNodes = await GetPackagedData(query.story, 'stories').then(data => Object.entries(data.nodeData))
   const end = async () => {
     await db.close()
     End(res)
