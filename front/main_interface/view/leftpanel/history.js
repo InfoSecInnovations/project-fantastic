@@ -88,7 +88,7 @@ const log_header = (state, send, item) => h('h4.link', {on: {click: e => {
 const invalid_item = (state, item) => {
   if (item.event_type == 'story') {
     if (!state.stories[item.story]) return `Story: ${item.story}, Node: ${item.story_node_id}`
-    if (!state.stories[item.story][item.story_node_id]) return `Story: ${state.stories[item.story].name}, Node: ${item.story_node_id}`
+    if (!state.stories[item.story].nodeData[item.story_node_id]) return `Story: ${state.stories[item.story].name}, Node: ${item.story_node_id}`
   }
   if (item.event_type == 'scan' && !state.scans[item.scan]) return `Scan: ${item.scan}`
   if (item.event_type == 'quest' && !state.quests[item.quest]) return `Quest: ${item.quest}`
