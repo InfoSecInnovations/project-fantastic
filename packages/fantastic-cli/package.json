@@ -1,6 +1,6 @@
 {
   "name": "fantastic-cli",
-  "version": "0.5.1-alpha.0",
+  "version": "0.5.2-alpha.0",
   "description": "Command line tool to install the Fantastic network vizualisation and security app",
   "main": "init.js",
   "scripts": {
