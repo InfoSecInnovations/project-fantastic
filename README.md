@@ -10,6 +10,7 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 - We'll only be supporting Windows 10 for the forseeable future, but other platforms may be added if there's a demand for it.
 - [Node.js](https://nodejs.org/en/download/) >= 12 (latest is recommended). You'll need to check "Automatically install the necessary tools" during the install process.
 - If you don't have git cli installed you will need that first. You can install it using [Chocolatey](https://chocolatey.org/packages/git) or [Git for Windows](https://git-scm.com/download/win).
+- You should install [nmap](https://nmap.org/) if using the default module.
 
 ## Getting Started
 
