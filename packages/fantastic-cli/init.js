@@ -21,7 +21,7 @@ const auth_modules = [
 
 const run = async () => {
   try {
-    const args = process.argv.slice(2, process.argv.length)
+    const args = process.argv.slice(3, process.argv.length)
     let tag = args[0] || '@latest'
     if (!tag.startsWith('@')) tag = `@${tag}`
     console.log(`Installing Fantastic from ${tag} tag`)
