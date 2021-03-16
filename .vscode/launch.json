@@ -15,6 +15,18 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["start"],
       "autoAttachChildProcesses": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Installer",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "cwd": "${workspaceFolder}\\dev-test\\fantastic-cli",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start", "next"],
+      "autoAttachChildProcesses": true
     }
   ]
 }
