@@ -99,4 +99,4 @@ The CSS is built using [Stylus](https://stylus-lang.com/). You can run the build
 
 **PLEASE NOTE: a lot of the documentation is out of date because the project is still changing a lot, we're trying to keep this README relevant, but there's no guarantee regarding the other docs until the project is a bit more stable.**
 
-Please contact [Mick](https://github.com/besimorhino) or [Sebastian](https://github.com/sebovzeoueb) if you need more information about the project.
+Please join our [Discord](https://discord.gg/JBVQF6tjzc) to discuss this project and provide feedback!
