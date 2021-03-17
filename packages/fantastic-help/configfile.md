@@ -21,7 +21,10 @@
   },
   "authentication": {
     "module": "@infosecinnovations/fantastic-default_auth"
-  }
+  },
+  "client": {
+		"nodeCountWarning": 500
+	}
 }
 ```
 
@@ -60,3 +63,11 @@ Package to use for user authentication.
 *Optional*
 
 If your authentication module can accept configuraiton options, specify them here
+
+## client
+
+This data gets sent to the client.
+
+### nodeCountWarning
+
+The number of hosts for which to display a warning when the user is trying to view a large amount of data.

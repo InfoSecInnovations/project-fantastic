@@ -68,7 +68,7 @@ You will be assigned daily quests which show you some scans you can run with spe
 
 ![History](images/history.png)
 
-View the last actions you took, save them to your favorites and run them again.
+View the last actions you took, save them and run them again. Here is also where you'll find saved search filters and workflows you saved from Scan results.
 
 ## Selection Panel
 
