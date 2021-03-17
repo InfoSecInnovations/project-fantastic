@@ -14,7 +14,7 @@ export default (state, send, node, connection) => {
     SearchBar(send, 'actions'),
     connection && typeof state.selected.node !== 'undefined' ? h('div.button', {on: {click: [send, {type: 'connection', connection: null}]}}, 'View host actions') : undefined,
     h(
-      'div.scroll spaced', { on: {scroll: e => e.target.style.setProperty("--actions-scroll-height", `calc(-${e.target.scrollTop}px - 6rem)`)}}, // there doesn't seem to be a good CSS solution to make a tooltip follow the scrollable area but display over it, so we need to set this variable
+      'div.scroll', { on: {scroll: e => e.target.style.setProperty("--actions-scroll-height", `calc(-${e.target.scrollTop}px - 6rem)`)}}, // there doesn't seem to be a good CSS solution to make a tooltip follow the scrollable area but display over it, so we need to set this variable
       !actions.length ? 
       h('div.scroll_item', 'No actions compatible with this host') : 
       [

@@ -234,6 +234,18 @@ input[type=password] {
   color: #949494;
   cursor: auto;
 }
+.auto_foldout {
+  display: none;
+}
+.auto_foldout ~ .foldout_child {
+  display: none;
+}
+.auto_foldout:checked ~ .foldout_child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 2rem;
+}
 .play {
   align-self: flex-start;
   display: flex;

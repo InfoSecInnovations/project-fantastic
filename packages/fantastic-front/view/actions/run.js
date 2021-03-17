@@ -3,7 +3,7 @@ import FavoriteButton from '../favoritebutton'
 
 export default (state, send, node, connection, action, title, loading) => h('div.item', [
   FavoriteButton(state, send, 'actions', action),
-  h('h3', title),
+  h('label', {attrs: {for: action}}, h('h3', title)),
   h('div.button', 
     { 
       on: loading ? undefined : {click: e => send({
