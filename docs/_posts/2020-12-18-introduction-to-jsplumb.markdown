@@ -11,7 +11,7 @@ We've known for a while that one of the important features of [Fantastic](https:
 
 Fantastic uses JavaScript throughout the codebase, so I had a look around to see if any existing libraries might make this task easier, and I came across [jsPlumb](https://jsplumbtoolkit.com/community) which has some very convincing live demos on the website, so I decided to use it. I found it to be pretty powerful and flexible, however the documentation doesn't really ease you into things, so I thought I would publish a sort of "Getting Started" guide here to help people who are interested in using this library, but struggling to get it to work. The final version will use [NW.js](https://nwjs.io/) for the editor, as this gives us access to Node.js functionality in addition to the full browser stack, and of course the client will be integrated into the Fantastic front-end. However I started off with a simple HTML prototype to find my way around jsPlumb.
 
-## About jsPlumb ##
+## About jsPlumb
 
 jsPlumb is a JavaScript framework for drawing diagrams in which the elements are connected up such as flowcharts and state machines. It differs from some other options out there by using standard HTML Elements to display the nodes, and SVG to render the connections between them. I like this because you get all the usual styling options and event listeners you have with HTML.
 
@@ -22,13 +22,13 @@ Useful links:
 - [jsPlumb 4.x README](https://github.com/jsplumb/jsplumb/blob/dev/4.x/README.md)
 - [jsPlumb 4.x doc directory](https://github.com/jsplumb/jsplumb/tree/dev/4.x/doc) (the changelog is in here)
 
-## Setup ##
+## Setup
 
 The simplest way to get the 4.x version is to install it from npm like this: `npm i @jsplumb/community`. Of course, you will need Node.js installed first.
 
 If you want to use it directly in a script tag set the source to `node_modules/@jsplumb/community/js/jsplumb.dom.umd.js`, if you're using something like webpack to transpile your code, just do `require('@jsplumb/community')`.
 
-## Initialization ##
+## Initialization
 
 You'll need an HTML Element to serve as a container. Technically it doesn't have to have a size as you can drag elements outside of the container, but I would recommend setting one, I'll show you further down how to constrain to the container bounds. The most important thing is to specify `position: relative` in the element's styling. You must also set an ID on this element.
 
@@ -85,7 +85,7 @@ jsPlumb.ready(() => {
 
 ![My test project]({{'assets/quest_tree.png' | relative_url}})
 
-## Adding and removing elements ##
+## Adding and removing elements
 
 So, we have a configured instance of jsPlumb. Now we need to add some nodes to the graph. There are quite a few different ways to do this, as any of the functions that interact with node elements will add them to the diagram. These functions are members of that instance created above.
 

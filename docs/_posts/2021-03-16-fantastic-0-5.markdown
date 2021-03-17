@@ -7,7 +7,7 @@ author: "Sebastian Boutin Blomfield"
 
 Fantastic has so far been in a very experimental phase, and while that's still the case, we feel like it's starting to reach a point where we can get members of the public involved. To this end I'm going to start focussing on preparing proper releases with accompanying blog posts for the more important ones.
 
-## How do I get started? ##
+## How do I get started?
 
 How to install and use Fantastic are explained in more detail in the [README](https://github.com/InfoSecInnovations/project-fantastic/blob/master/README.md), however, here's the short version:
 - We only support Windows 10 currently, but if there's a demand we'll look into making it more cross platform in the future.
@@ -18,9 +18,9 @@ How to install and use Fantastic are explained in more detail in the [README](ht
 - When installation is complete, do `npm start` in the directory where Fantastic is installed.
 - Open up `http://localhost:5000` to view the client. You can either log in with the admin account configured during install, or create a user account, but by default this won't have access to as much content.
 
-## What's new in this release? ##
+## What's new in this release?
 
-### Daily Quests ###
+### Daily Quests
 
 ![Daily Quest Panel]({{'assets/daily-quests.png' | relative_url}})
 
@@ -28,7 +28,7 @@ Following on from our implementation of Story Quests in the last release, this r
 
 If you go into the Quests panel of the client, you'll be presented with 3 Quests that will guide you through verifying and fixing security issues on your network. Much like in many video games these days, completed quests will get switched out for fresh ones every day. This system is intended to remind you of some routine tasks you may want to perform from time to time on your network to make sure everything is running smoothly. In the future you can expect a lot more content to get added here, as both Story and Daily Quests are cornerstones of the Fantastic experience.
 
-### Saving and Favorites ###
+### Saving and Favorites
 
 ![History Panel]({{'assets/saved-history.png' | relative_url}})
 
@@ -40,19 +40,19 @@ You can also save your host search filters using the button below the Search but
 
 The star icon that appears next to items in the interface allows you to favorite Actions, Scans and Host Data Commands and will display them at the top of their panels for easy access.
 
-### Dealing with large numbers of connections ###
+### Dealing with large numbers of connections
 
 ![A whole lot of connections]({{'assets/lots-of-connections.png' | relative_url}})
 
 One issue I've been aware of is that the graph visualization tends to break down when showing a huge amount of nodes, and often you don't need to display this much data at the same time. To this end I've added an option to limit the number of connections per host and defaulted it to 50. This will grab the 50 most recently scanned connections for each host on the local network. You can also play with filters such as the connection state and not showing connections that originate from and end at the same host to get a more useful dataset. The client will show a warning if you're trying to display an insane number of nodes, do so at your own risk! The limit can be tweaked in the server's config file under the `client` section, the default is 500. I also updated SQLite to the latest version which can handle a lot more variables in queries.
 
-### Other stuff ###
+### Other stuff
 
 - Tests were renamed to Scans as this is a less ambiguous more accurate description of what they do.
 - The SQLite database will be wiped if you're updating an existing install of Fantastic (if anyone is actually doing this, please let me know if it went smoothly!).
 - Ongoing work to make the program more robust in situations such as deleted assets.
 
-## What's coming next? ##
+## What's coming next?
 
 Here are some items we've got planned for future updates, we might not do all of these immediately, but they're on our list. Let us know which ones you would use, and what else you think we should do.
 
@@ -62,7 +62,7 @@ Here are some items we've got planned for future updates, we might not do all of
 - A lot more workflow improvements and usability tweaks, including making a lot more stuff collapsible!
 - More meaningful Scans and Actions with the user result review option (such as the one that checks connected USB devices).
 
-## How can I help? ##
+## How can I help?
 
 - Join our [Discord](https://discord.gg/JBVQF6tjzc) to discuss Fantastic and provide feedback.
 - Try to create your own modules following the instructions in the README and the existing examples.
