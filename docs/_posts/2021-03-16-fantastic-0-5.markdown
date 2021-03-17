@@ -10,19 +10,19 @@ Fantastic has so far been in a very experimental phase, and while that's still t
 ## How do I get started? ##
 
 How to install and use Fantastic are explained in more detail in the [README](https://github.com/InfoSecInnovations/project-fantastic/blob/master/README.md), however, here's the short version:
-- We only support Windows 10 currently, but if there's a demand we'll look into making it more cross platform in the future
-- Make sure you have Node.js/npm, Git and nmap (optional but highly recommended) installed
-- Create an empty directory where you want to install Fantastic
-- Open a PowerShell prompt there and do `npx fantastic-cli init`
-- Follow the instructions to set up authentication (Active Directory is not recommended yet, you probably want to use the default auth module)
-- When installation is complete, do `npm start` in the directory where Fantastic is installed
+- We only support Windows 10 currently, but if there's a demand we'll look into making it more cross platform in the future.
+- Make sure you have Node.js/npm, Git and nmap (optional but highly recommended) installed.
+- Create an empty directory where you want to install Fantastic.
+- Open a PowerShell prompt there and do `npx fantastic-cli init`.
+- Follow the instructions to set up authentication (Active Directory is not recommended yet, you probably want to use the default auth module).
+- When installation is complete, do `npm start` in the directory where Fantastic is installed.
 - Open up `http://localhost:5000` to view the client. You can either log in with the admin account configured during install, or create a user account, but by default this won't have access to as much content.
 
 ## What's new in this release? ##
 
 ### Daily Quests ###
 
-INSERT SCREENSHOT
+![Daily Quest Panel]({{'assets/daily-quests.png' | relative_url}})
 
 Following on from our implementation of Story Quests in the last release, this release brings a proper implementation of the Daily Quest system which until now was a placeholder.
 
@@ -30,7 +30,7 @@ If you go into the Quests panel of the client, you'll be presented with 3 Quests
 
 ### Saving and Favorites ###
 
-INSERT SCREENSHOT
+![History Panel]({{'assets/saved-history.png' | relative_url}})
 
 The History panel has also been significantly revamped to offer you more ways to remember processes you've been through, as well as the displays for various items throughout the client. What were previously referred to as "Favorites" are now known as "Saved Workflows", and their functionality has been refined, "Favorites" now refer to specific items you want to be readily available.
 
@@ -38,28 +38,33 @@ When you run a Scan or an Action or toggle a Host Data Command it will appear in
 
 You can also save your host search filters using the button below the Search button and retrieve them in the Saved Workflows interface.
 
+The star icon that appears next to items in the interface allows you to favorite Actions, Scans and Host Data Commands and will display them at the top of their panels for easy access.
+
 ### Dealing with large numbers of connections ###
 
-INSERT SCREENSHOT OF INSANE NUMBER OF CONNECTIONS
+![A whole lot of connections]({{'assets/lots-of-connections.png' | relative_url}})
 
 One issue I've been aware of is that the graph visualization tends to break down when showing a huge amount of nodes, and often you don't need to display this much data at the same time. To this end I've added an option to limit the number of connections per host and defaulted it to 50. This will grab the 50 most recently scanned connections for each host on the local network. You can also play with filters such as the connection state and not showing connections that originate from and end at the same host to get a more useful dataset. The client will show a warning if you're trying to display an insane number of nodes, do so at your own risk! The limit can be tweaked in the server's config file under the `client` section, the default is 500. I also updated SQLite to the latest version which can handle a lot more variables in queries.
 
 ### Other stuff ###
 
-- Tests were renamed to Scans as this is a less ambiguous more accurate description of what they do
-- The SQLite database will be wiped if you're updating an existing install of Fantastic (if anyone is actually doing this, please let me know if it went smoothly!)
+- Tests were renamed to Scans as this is a less ambiguous more accurate description of what they do.
+- The SQLite database will be wiped if you're updating an existing install of Fantastic (if anyone is actually doing this, please let me know if it went smoothly!).
 - Ongoing work to make the program more robust in situations such as deleted assets.
 
 ## What's coming next? ##
 
+Here are some items we've got planned for future updates, we might not do all of these immediately, but they're on our list. Let us know which ones you would use, and what else you think we should do.
+
 - We would really like to get our Active Directory integration working properly, and release a module for scanning and fixing Active Directory domain issues.
 - We're aware that it isn't that easy to contribute to the project yet, so we plan to make some video and text tutorials on how to get started with making your own modules.
 - Implementing the Fantastic Editor is an ongoing task throughout Fantastic's development which aims to take out a lot of the JSON file editing in favor of a graphical interface, not to worry though, the output will still be editable JSON files if you prefer working that way! As well as making it able to edit more types of item, we need to figure out the best format to build and distribute it, as it currently can only be run in the development environment.
-- A lot more workflow improvements and usability tweaks!
+- A lot more workflow improvements and usability tweaks, including making a lot more stuff collapsible!
+- More meaningful Scans and Actions with the user result review option (such as the one that checks connected USB devices).
 
 ## How can I help? ##
 
-- Join our Discord INSERT DISCORD LINK to discuss Fantastic and provide feedback
-- Try to create your own modules following the instructions in the README and the existing examples
+- Join our [Discord](https://discord.gg/JBVQF6tjzc) to discuss Fantastic and provide feedback.
+- Try to create your own modules following the instructions in the README and the existing examples.
 - Get involved with code contributions, the project is open source, so if you want to have at it, please feel free! If we like your work we may accept a Pull Request!
 - Spread the word!

@@ -5,7 +5,7 @@ date:   2020-12-18 17:45:00 +0100
 author: "Sebastian Boutin Blomfield"
 ---
 
-![jsPlumb]({{site.url}}/assets/jsplumb.svg)
+![jsPlumb]({{'assets/jsplumb.svg' | relative_url}})
 
 We've known for a while that one of the important features of [Fantastic](https://github.com/InfoSecInnovations/project-fantastic) is a quest system, but we had some other key features to get working before we could turn our attention to how we present quests. The time has finally come to start thinking about this and come up with a solution. I drew upon my game development background for inspiration and decided we should make something ressembling a skill tree, where you start at one point and have branching paths to guide you in the right direction while presenting some choices. Another requirement of this feature is that we must provide an editor to allow ourselves and others to create these tree layouts, and of course a client to present them to the user in a non-editable form.
 
@@ -83,7 +83,7 @@ jsPlumb.ready(() => {
 {% endraw %}
 {% endhighlight %}
 
-![My test project]({{site.url}}/assets/quest_tree.png)
+![My test project]({{'assets/quest_tree.png' | relative_url}})
 
 ## Adding and removing elements ##
 
