@@ -19,7 +19,8 @@ const patch = init([
 let state = { 
   action_results: {},
   flex_search: {actions: {}},
-  favorites: {}
+  favorites: {},
+  foldout_checkboxes: {}
 }
 let vnode = document.body
 

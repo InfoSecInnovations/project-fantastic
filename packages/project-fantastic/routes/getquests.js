@@ -22,7 +22,8 @@ const getQuests = async (user, res, req, query, scans) => { // TODO: this should
           pass: v.pass, 
           parameters: v.quest.parameters,
           selection: v.quest.selection,
-          actions: v.actions.map(a => GetAbsolutePath(a.path, v.key))
+          actions: v.actions.map(a => GetAbsolutePath(a.path, v.key)),
+          module: v.module
         }
       }
     }, {})

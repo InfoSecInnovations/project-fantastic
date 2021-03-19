@@ -24,7 +24,7 @@ export default (state, send, node, connection, action, action_data) => {
         } 
       }
     },
-    key: `${action}-item`
+    key: id
   }, [
     h('input.auto_foldout', {
       attrs: {type: 'checkbox', id, checked: state.foldout_checkboxes[id]},

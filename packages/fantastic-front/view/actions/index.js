@@ -17,7 +17,7 @@ export default (state, send, node, connection) => {
       'div.scroll', { on: {scroll: e => e.target.style.setProperty("--actions-scroll-height", `calc(-${e.target.scrollTop}px - 6rem)`)}}, // there doesn't seem to be a good CSS solution to make a tooltip follow the scrollable area but display over it, so we need to set this variable
       !actions.length ? 
       h('div.scroll_item', 'No actions compatible with this host') : 
-      Object.entries(state.module_info).map(v => {
+      Object.entries(state.module_info).filter(v => actions.find(a => a[1].module == v[0])).map(v => {
         const id = `${v[0]}-actions-foldout`
         return h('div', [
           h('input.auto_foldout', {

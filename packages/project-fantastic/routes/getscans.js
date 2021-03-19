@@ -21,7 +21,8 @@ const getScans = (user, res, req, query, scans) => {
           hosts: v.hosts, 
           pass: v.pass, 
           parameters: v.parameters,
-          actions: v.actions.map(a => GetAbsolutePath(a.path, v.key))
+          actions: v.actions.map(a => GetAbsolutePath(a.path, v.key)),
+          module: v.module
         }
       }
     }, {})
