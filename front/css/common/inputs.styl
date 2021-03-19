@@ -65,12 +65,25 @@ input[type=text], input[type=password]
   display: none
   & ~ .foldout_child
     display: none
+  & ~ * > label
+    display: flex
+    justify-content: space-between
+    align-items: center
+    cursor: pointer
+    font-size: icon_size
+    &:after
+      content: '\f054'
+      font-family: 'Font Awesome 5 Free'
+      font-weight: 900
+      color: highlight_color
   &:checked 
     & ~ .foldout_child
       display: flex
       flex-direction: column
       gap: 0.7rem
       margin-bottom: 2rem
+    & ~ * > label:after
+      content: '\f078'
 
 .play
   align-self: flex-start

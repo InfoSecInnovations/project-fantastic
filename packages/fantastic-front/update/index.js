@@ -24,6 +24,7 @@ export default (state, action) => {
     const obj = state.favorites[action.data_type] || (state.favorites[action.data_type] = {})
     obj[action.data_key] = action.remove ? null : 'favorited'
   }
+  if (action.type == 'module_info') state.module_info = action.info
 
   return state
 }

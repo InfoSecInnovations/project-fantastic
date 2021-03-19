@@ -240,11 +240,27 @@ input[type=password] {
 .auto_foldout ~ .foldout_child {
   display: none;
 }
+.auto_foldout ~ * > label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+.auto_foldout ~ * > label:after {
+  content: '\f054';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #f55100;
+}
 .auto_foldout:checked ~ .foldout_child {
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
   margin-bottom: 2rem;
+}
+.auto_foldout:checked ~ * > label:after {
+  content: '\f078';
 }
 .play {
   align-self: flex-start;
