@@ -1,9 +1,9 @@
 import {h} from 'snabbdom/h'
 import FavoriteButton from '../favoritebutton'
 
-export default (state, send, node, connection, action, title, loading) => h('div.item', [
+export default (state, send, node, connection, action, title, id, loading) => h('div.item', [
   FavoriteButton(state, send, 'actions', action),
-  h('label', {attrs: {for: `${action}-foldout`}}, h('h3', title)),
+  h('label', {attrs: {for: id}}, h('h3', title)),
   h('div.button', 
     { 
       on: loading ? undefined : {click: e => send({

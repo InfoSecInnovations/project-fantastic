@@ -17,10 +17,22 @@ export default (state, send, node, connection) => {
       'div.scroll', { on: {scroll: e => e.target.style.setProperty("--actions-scroll-height", `calc(-${e.target.scrollTop}px - 6rem)`)}}, // there doesn't seem to be a good CSS solution to make a tooltip follow the scrollable area but display over it, so we need to set this variable
       !actions.length ? 
       h('div.scroll_item', 'No actions compatible with this host') : 
-      [
-        ...actions.filter(v => state.favorites.actions && state.favorites.actions[v[0]]).map(v => Action(state, send, node, connection, v[0], v[1])),
-        ...actions.filter(v => !state.favorites.actions || !state.favorites.actions[v[0]]).map(v => Action(state, send, node, connection, v[0], v[1]))
-      ]
+      Object.entries(state.module_info).map(v => {
+        const id = `${v[0]}-actions-foldout`
+        return h('div', [
+          h('input.auto_foldout', {
+            attrs: {checked: state.foldout_checkboxes[id], type: 'checkbox', id},
+            on: {input: e => send({type: 'foldout_checkbox', id, value: e.target.checked})}
+          }),
+          h('div.item', [
+            h('label', {attrs: {for: id}}, h('div.module_header', v[1].name))
+          ]),
+          h('div.foldout_child', [
+            ...actions.filter(a => a[1].module == v[0] && state.favorites.actions && state.favorites.actions[a[0]]).map(a => Action(state, send, node, connection, a[0], a[1])),
+            ...actions.filter(a => a[1].module == v[0] && (!state.favorites.actions || !state.favorites.actions[a[0]])).map(a => Action(state, send, node, connection, a[0], a[1]))
+          ])
+        ])
+      })
     )
   ])
 }
