@@ -24,7 +24,7 @@ export default (state, send, node, connection, action, action_data) => {
       }
     }
   }, [
-    h('input.auto_foldout', {attrs: {type: 'checkbox', id: action}}),
+    h('input.auto_foldout', {attrs: {type: 'checkbox', id: `${action}-foldout`}}),
     Run(state, send, node, connection, action, action_data.name, loading),
     h('div.foldout_child', [
       Command(connection, action_data.commands.run),
