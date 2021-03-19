@@ -38,7 +38,8 @@ let state = {
   story: {
     completed: {}
   },
-  favorites: {}
+  favorites: {},
+  foldout_checkboxes: {}
 }
 let vnode = document.body
 

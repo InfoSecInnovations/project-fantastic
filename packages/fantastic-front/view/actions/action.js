@@ -8,6 +8,7 @@ import Command from './command'
 export default (state, send, node, connection, action, action_data) => {
   const result_data = state.action_results[node.hostname] && state.action_results[node.hostname][action]
   const loading = result_data && result_data.status === 'loading'
+  const id = `${action}-foldout`
   return h('div.scroll_item spaced', {
     hook: {
       insert: vnode => {
@@ -22,10 +23,14 @@ export default (state, send, node, connection, action, action_data) => {
           setTimeout(e => send({type: 'select_item', item: null}))
         } 
       }
-    }
+    },
+    key: `${action}-item`
   }, [
-    h('input.auto_foldout', {attrs: {type: 'checkbox', id: `${action}-foldout`}}),
-    Run(state, send, node, connection, action, action_data.name, loading),
+    h('input.auto_foldout', {
+      attrs: {type: 'checkbox', id, checked: state.foldout_checkboxes[id]},
+      on: {input: e => send({type: 'foldout_checkbox', id, value: e.target.checked})}
+    }),
+    Run(state, send, node, connection, action, action_data.name, id, loading),
     h('div.foldout_child', [
       Command(connection, action_data.commands.run),
       action_data.description ? action_data.description : undefined,

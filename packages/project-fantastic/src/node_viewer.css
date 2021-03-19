@@ -113,6 +113,11 @@ a:hover,
 .center {
   align-items: center;
 }
+.module_header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
 h1,
 h2,
 h3,
