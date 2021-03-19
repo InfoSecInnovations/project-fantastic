@@ -11,7 +11,16 @@ const getCommands = (user, res, req, query, commands) => {
   .then(commands => {
     const command_data = commands.reduce((result, v) => ({ 
       ...result, 
-      [v.key]: {key: v.key, name: v.name, description: v.description, hosts: v.hosts, mode: v.mode, role: v.role, command: v.run.command}
+      [v.key]: {
+        key: v.key, 
+        name: v.name, 
+        description: v.description, 
+        hosts: v.hosts, 
+        mode: v.mode, 
+        role: v.role, 
+        command: v.run.command,
+        module: v.module
+      }
     }), {})
     if (res.aborted) return
     console.log(`getCommands: sent metadata for ${Object.keys(command_data).length} commands.`)

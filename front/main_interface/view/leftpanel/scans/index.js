@@ -10,6 +10,7 @@ import DefaultParameters from '@infosecinnovations/fantastic-utils/defaultparame
 import NodeLink from '@infosecinnovations/fantastic-front/view/scan/nodelink'
 
 const scanItem = (state, send, scan, data) => {
+  const id = `${scan}-foldout`
   const result_date = state.scan_results.date[scan]
   const result_data = state.scan_results.data[scan]
   const result_approval = state.scan_results.approval[scan]
@@ -25,48 +26,56 @@ const scanItem = (state, send, scan, data) => {
           setTimeout(e => send({type: 'select_item', item: null}))
         } 
       }
-    }
+    },
+    key: id
   }, [
+    h('input.auto_foldout', {
+      attrs: {type: 'checkbox', id, checked: state.foldout_checkboxes[id]},
+      on: {input: e => send({type: 'foldout_checkbox', id, value: e.target.checked})}
+    }),
     ...Info(
       state, 
       send,
       data, 
       parameters,
-      status
+      status,
+      id
     ),
-    ...PlayButton(
-      state.scan_results.status[scan] === 'loading' ? 'loading' : valid_parameters ? {on: {click: e => send({type: 'run_scan', scan, parameters})}} : {class: {waiting: true}}, 
-      data.parameters && h('div.parameters', [
-        h('h4', 'Parameters'), 
-        ...data.parameters
-        .map(p => Parameter(state.scan_parameters[scan] && state.scan_parameters[scan][p.name], scan, send, p))
-      ])
-    ),
-    ...(results ? 
-      Result(
-        state,
-        send, 
-        data,
-        result_date,
-        pass,
-        state.scan_results.parameters[scan],
-        failed_nodes,
-        {
-          event_type: 'scans',
-          history_item: state.scan_results.history_items[scan],
-          review_name: scan,
-          result_data: results,
-          result_info: [
-            data.parameters && h('div.parameters', [
-              'Parameters used:',
-              h('ul', Object.entries(state.scan_results.parameters[scan]).map(v => h('li', `${v[0]}: ${v[1]}`)))
-            ]),
-            NodeLink(send, state.scan_results.data[scan].map(v => v.node_id), result_date, state.scan_results.age[scan])
-          ],
-          scan_id: state.scan_results.scan_ids[scan]
-        }
-      )
-    : [])
+    h('div.foldout_child', [
+      ...PlayButton(
+        state.scan_results.status[scan] === 'loading' ? 'loading' : valid_parameters ? {on: {click: e => send({type: 'run_scan', scan, parameters})}} : {class: {waiting: true}}, 
+        data.parameters && h('div.parameters', [
+          h('h4', 'Parameters'), 
+          ...data.parameters
+          .map(p => Parameter(state.scan_parameters[scan] && state.scan_parameters[scan][p.name], scan, send, p))
+        ])
+      ),
+      ...(results ? 
+        Result(
+          state,
+          send, 
+          data,
+          result_date,
+          pass,
+          state.scan_results.parameters[scan],
+          failed_nodes,
+          {
+            event_type: 'scans',
+            history_item: state.scan_results.history_items[scan],
+            review_name: scan,
+            result_data: results,
+            result_info: [
+              data.parameters && h('div.parameters', [
+                'Parameters used:',
+                h('ul', Object.entries(state.scan_results.parameters[scan]).map(v => h('li', `${v[0]}: ${v[1]}`)))
+              ]),
+              NodeLink(send, state.scan_results.data[scan].map(v => v.node_id), result_date, state.scan_results.age[scan])
+            ],
+            scan_id: state.scan_results.scan_ids[scan]
+          }
+        )
+      : [])
+    ])
   ])
 }
 
@@ -75,9 +84,23 @@ export default (state, send) => {
   return h('div.scroll_container', [
     h('h2.panel_title', 'Scans'),
     SearchBar(send, 'scans'),
-    h('div.scroll spaced', [
-      ...scans.filter(v => state.favorites.scans && state.favorites.scans[v[0]]).map(v => scanItem(state, send, v[0], v[1])),
-      ...scans.filter(v => !state.favorites.scans || !state.favorites.scans[v[0]]).map(v => scanItem(state, send, v[0], v[1]))
-    ])
+    h('div.scroll spaced',
+      Object.entries(state.module_info).filter(v => scans.find(s => s[1].module == v[0])).map(v => {
+        const id = `${v[0]}-scans-foldout`
+        return h('div', [
+          h('input.auto_foldout', {
+            attrs: {checked: state.foldout_checkboxes[id], type: 'checkbox', id},
+            on: {input: e => send({type: 'foldout_checkbox', id, value: e.target.checked})}
+          }),
+          h('div.item', [
+            h('label', {attrs: {for: id}}, h('div.module_header', v[1].name))
+          ]),
+          h('div.foldout_child', [
+            ...scans.filter(s => s[1].module == v[0] && state.favorites.scans && state.favorites.scans[s[0]]).map(s => scanItem(state, send, s[0], s[1])),
+            ...scans.filter(s => s[1].module == v[0] && (!state.favorites.scans || !state.favorites.scans[s[0]])).map(s => scanItem(state, send, s[0], s[1]))
+          ])
+        ])
+      })
+    )
   ])
 }
