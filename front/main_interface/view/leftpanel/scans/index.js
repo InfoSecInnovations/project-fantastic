@@ -32,7 +32,7 @@ const scanItem = (state, send, scan, data) => {
       send,
       data, 
       parameters,
-      status
+      status == 'pending' ? null : status // we don't want to show the pending icon on scans
     ),
     ...PlayButton(
       state.scan_results.status[scan] === 'loading' ? 'loading' : valid_parameters ? {on: {click: e => send({type: 'run_scan', scan, parameters})}} : {class: {waiting: true}}, 

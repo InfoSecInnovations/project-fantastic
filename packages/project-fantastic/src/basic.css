@@ -105,6 +105,9 @@ a:hover,
 .hidden {
   display: none;
 }
+.invisible {
+  opacity: 0;
+}
 .column {
   display: flex;
   flex-direction: column;
