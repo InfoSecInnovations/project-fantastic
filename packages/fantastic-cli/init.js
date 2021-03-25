@@ -25,6 +25,7 @@ const run = async () => {
     let tag = args[0] || '@latest'
     if (!tag.startsWith('@')) tag = `@${tag}`
     console.log(`Installing Fantastic from ${tag} tag`)
+    await GetInput(`Fantastic will not work properly if you don't have git-cli installed! Press ENTER to acknowledge this warning.`)
     await RunProcess(npm_cmd, ['init', '-y'], 'npm init failed')
     // we want to display 1 based indices in the command line but use 0 based to access the array
     const custom = auth_modules.length + 1
