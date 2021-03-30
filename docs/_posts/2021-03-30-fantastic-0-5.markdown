@@ -26,7 +26,7 @@ How to install and use Fantastic are explained in more detail in the [README](ht
 
 Following on from our implementation of Story Quests in the last release, this release brings a proper implementation of the Daily Quest system which until now was a placeholder.
 
-If you go into the Quests panel of the client, you'll be presented with 3 Quests that will guide you through verifying and fixing security issues on your network. Much like in many video games these days, completed quests will get switched out for fresh ones every day. This system is intended to remind you of some routine tasks you may want to perform from time to time on your network to make sure everything is running smoothly. In the future you can expect a lot more content to get added here, as both Story and Daily Quests are cornerstones of the Fantastic experience.
+If you go into the Quests panel of the client, you'll be presented with 3 Quests that will guide you through verifying and fixing security issues on your network. Just like in some of your favourite video games, completed quests will get switched out for fresh ones every day. This system is intended to remind you of some routine tasks you may want to perform from time to time on your network to make sure everything is running smoothly. In the future you can expect a lot more content to get added here, as both Story and Daily Quests are cornerstones of the Fantastic experience.
 
 ### Saving and Favorites
 
@@ -34,7 +34,7 @@ If you go into the Quests panel of the client, you'll be presented with 3 Quests
 
 The History panel has also been significantly revamped to offer you more ways to remember processes you've been through, as well as the displays for various items throughout the client. What were previously referred to as "Favorites" are now known as "Saved Workflows", and their functionality has been refined, "Favorites" now refer to specific items you want to be readily available.
 
-When you run a Scan or an Action or toggle a Host Data Command it will appear in the History panel, and Scan results also have a save button to save the run you just did. Saved workflows appear at the top of the History panel, and you can re-order them by dragging. Click on them to open up the relevant item, or simply click the rerun button to directly execute your saved items. Story and Daily Quests also run Scans and Actions for you, and you can see this in the History and in the Quest result panels. If you want to be able to repeat something that was done for you by a Quest, just save the workflow after running it.
+When you run a Scan or an Action or toggle a Host Data Command, it will appear in the History panel, and Scan results also have a save button to save the run you just did. Saved workflows appear at the top of the History panel, and you can re-order them by dragging. Click on them to open up the relevant item, or simply click the rerun button to directly execute your saved items. Story and Daily Quests also run Scans and Actions for you, and you can see this in the History and in the Quest result panels. If you want to be able to repeat something that was done for you by a Quest, just save the workflow after running it.
 
 You can also save your host search filters using the button below the Search button and retrieve them in the Saved Workflows interface.
 
@@ -46,17 +46,21 @@ The star icon that appears next to items in the interface allows you to favorite
 
 One issue I've been aware of is that the graph visualization tends to break down when showing a huge amount of nodes, and often you don't need to display this much data at the same time. To this end I've added an option to limit the number of connections per host and defaulted it to 50. This will grab the 50 most recently scanned connections for each host on the local network. You can also play with filters such as the connection state and not showing connections that originate from and end at the same host to get a more useful dataset. The client will show a warning if you're trying to display an insane number of nodes, do so at your own risk! The limit can be tweaked in the server's config file under the `client` section, the default is 500. I also updated SQLite to the latest version which can handle a lot more variables in queries.
 
+### Documentation
+
+The documentation now contains more instructions on how to make your own modules. See the [README](https://github.com/InfoSecInnovations/project-fantastic/blob/master/README.md) for more information on how to get started with this.
+
 ### Other stuff
 
 - Tests were renamed to Scans as this is a less ambiguous more accurate description of what they do.
-- The SQLite database will be wiped if you're updating an existing install of Fantastic (if anyone is actually doing this, please let me know if it went smoothly!).
-- Ongoing work to make the program more robust in situations such as deleted assets.
+- The SQLite database will be wiped if you're updating an existing install of Fantastic (if anyone is actually doing this, please let me know if it went smoothly, I haven't done much to support this yet!).
+- Ongoing work to make the program more robust in various situations such as deleted assets.
 
 ## What's coming next?
 
 Here are some items we've got planned for future updates, we might not do all of these immediately, but they're on our list. Let us know which ones you would use, and what else you think we should do.
 
-- We would really like to get our Active Directory integration working properly, and release a module for scanning and fixing Active Directory domain issues.
+- We would really like to get our Active Directory integration working properly, and release a module for scanning and fixing Active Directory domain issues. We're currently setting up a test environment for this.
 - We're aware that it isn't that easy to contribute to the project yet, so we plan to make some video and text tutorials on how to get started with making your own modules.
 - Implementing the Fantastic Editor is an ongoing task throughout Fantastic's development which aims to take out a lot of the JSON file editing in favor of a graphical interface, not to worry though, the output will still be editable JSON files if you prefer working that way! As well as making it able to edit more types of item, we need to figure out the best format to build and distribute it, as it currently can only be run in the development environment.
 - A lot more workflow improvements and usability tweaks, including making a lot more stuff collapsible!
@@ -66,5 +70,5 @@ Here are some items we've got planned for future updates, we might not do all of
 
 - Join our [Discord](https://discord.gg/JBVQF6tjzc) to discuss Fantastic and provide feedback.
 - Try to create your own modules following the instructions in the README and the existing examples.
-- Get involved with code contributions, the project is open source, so if you want to have at it, please feel free! If we like your work we may accept a Pull Request!
+- Get involved with code contributions (or just fixing typos in the documentation!), the project is open source, so if you want to have at it, please feel free! If we like your work we may accept a Pull Request!
 - Spread the word!
