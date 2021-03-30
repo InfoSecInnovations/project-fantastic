@@ -64,7 +64,7 @@ Here are some items we've got planned for future updates, we might not do all of
 - We're aware that it isn't that easy to contribute to the project yet, so we plan to make some video and text tutorials on how to get started with making your own modules.
 - Implementing the Fantastic Editor is an ongoing task throughout Fantastic's development which aims to take out a lot of the JSON file editing in favor of a graphical interface, not to worry though, the output will still be editable JSON files if you prefer working that way! As well as making it able to edit more types of item, we need to figure out the best format to build and distribute it, as it currently can only be run in the development environment.
 - A lot more workflow improvements and usability tweaks, including making a lot more stuff collapsible!
-- More meaningful Scans and Actions with the user result review option (such as the one that checks connected USB devices).
+- More meaningful Scans and Actions with the user result review option (such as the one that checks connected USB devices). The current reviewing system is still a bit of a placeholder and definitely needs more work to be useful.
 
 ## How can I help?
 
