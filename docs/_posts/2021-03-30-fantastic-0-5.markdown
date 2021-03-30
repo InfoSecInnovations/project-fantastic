@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Fantastic 0.5 is here!"
-date:   2021-03-16 17:45:00 +0100
+date:   2021-03-30 13:00:00 +0100
 author: "Sebastian Boutin Blomfield"
 ---
 
@@ -11,7 +11,7 @@ Fantastic has so far been in a very experimental phase, and while that's still t
 
 How to install and use Fantastic are explained in more detail in the [README](https://github.com/InfoSecInnovations/project-fantastic/blob/master/README.md), however, here's the short version:
 - We only support Windows 10 currently, but if there's a demand we'll look into making it more cross platform in the future.
-- Make sure you have Node.js/npm, Git and nmap (optional but highly recommended) installed.
+- Make sure you have Node.js/npm, git-cli and nmap (optional but highly recommended) installed.
 - Create an empty directory where you want to install Fantastic.
 - Open a PowerShell prompt there and do `npx fantastic-cli init`.
 - Follow the instructions to set up authentication (Active Directory is not recommended yet, you probably want to use the default auth module).
