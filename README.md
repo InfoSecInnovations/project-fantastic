@@ -14,7 +14,7 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 ## Getting Started
 
-To install Fantastic, simply create a directory where you want to run the server from and run `npx fantastic-cli init`. Depending on the authentication system used, you may have to configure an admin account. The Active Directory auth module is currently experimental and there is a high chance of it not working!
+To install Fantastic, simply create an empty directory where you want to run the server from and run `npx fantastic-cli init`. Depending on the authentication system used, you may have to configure an admin account. The Active Directory auth module is currently experimental and there is a high chance of it not working!
 
 Once Fantastic has been installed, use `npm start` as administrator to run it. You can access the client at `localhost:5000` by default.
 
@@ -64,8 +64,10 @@ See the relevant help sections for how to implement each data type:
 
 - [Actions](packages/fantastic-help/actions.md)
 - [Host Data Commands](packages/fantastic-help/commands.md)
-- [Scans](packages/fantastic-help/scans.md)
+- [Scans](packages/fantastic-help/scans.md) (Daily Quests are just Scans with the quest field enabled)
 - [Story Quests](packages/fantastic-help/stories.md)
+
+To try out your module locally you can simply go to your Fantastic install directory and do `npm i path/to/your/awesome/module` and then add the package name to the config file. If you want it to be available online, just publish it to the npm registry or GitHub and follow the standard npm installation process.
 
 ### Fantastic Editor
 
