@@ -8,6 +8,7 @@ import Result from '@infosecinnovations/fantastic-front/view/scan/result'
 import ProcessResults from '@infosecinnovations/fantastic-front/view/scan/processresults'
 import DefaultParameters from '@infosecinnovations/fantastic-utils/defaultparameters'
 import NodeLink from '@infosecinnovations/fantastic-front/view/scan/nodelink'
+import TopLevelFoldout from '@infosecinnovations/fantastic-front/view/toplevelfoldout'
 
 const scanItem = (state, send, scan, data) => {
   const id = `${scan}-foldout`
@@ -87,18 +88,9 @@ export default (state, send) => {
     h('div.scroll spaced',
       Object.entries(state.module_info).filter(v => scans.find(s => s[1].module == v[0])).map(v => {
         const id = `${v[0]}-scans-foldout`
-        return h('div', [
-          h('input.auto_foldout', {
-            attrs: {checked: state.foldout_checkboxes[id], type: 'checkbox', id},
-            on: {input: e => send({type: 'foldout_checkbox', id, value: e.target.checked})}
-          }),
-          h('div.item', [
-            h('label', {attrs: {for: id}}, h('div.module_header', v[1].name))
-          ]),
-          h('div.foldout_child', [
-            ...scans.filter(s => s[1].module == v[0] && state.favorites.scans && state.favorites.scans[s[0]]).map(s => scanItem(state, send, s[0], s[1])),
-            ...scans.filter(s => s[1].module == v[0] && (!state.favorites.scans || !state.favorites.scans[s[0]])).map(s => scanItem(state, send, s[0], s[1]))
-          ])
+        return TopLevelFoldout(state, send, id, h('div.module_header', v[1].name), [
+          ...scans.filter(s => s[1].module == v[0] && state.favorites.scans && state.favorites.scans[s[0]]).map(s => scanItem(state, send, s[0], s[1])),
+          ...scans.filter(s => s[1].module == v[0] && (!state.favorites.scans || !state.favorites.scans[s[0]])).map(s => scanItem(state, send, s[0], s[1]))
         ])
       })
     )

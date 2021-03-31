@@ -3,6 +3,7 @@ import HostString from '@infosecinnovations/fantastic-front/util/hoststring'
 import SearchBar from '@infosecinnovations/fantastic-front/view/searchbar'
 import FilterSearchResults from '@infosecinnovations/fantastic-front/util/filtersearchresults'
 import FavoriteButton from '@infosecinnovations/fantastic-front/view/favoritebutton'
+import TopLevelFoldout from '@infosecinnovations/fantastic-front/view/toplevelfoldout'
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 
 const enabled_button = (state, send, command, data) => {
@@ -56,18 +57,9 @@ export default (state, send) => {
     h('div.scroll spaced',
       Object.entries(state.module_info).filter(v => commands.find(c => c[1].module == v[0])).map(v => {
         const id = `${v[0]}-commands-foldout`
-        return h('div', [
-          h('input.auto_foldout', {
-            attrs: {checked: state.foldout_checkboxes[id], type: 'checkbox', id},
-            on: {input: e => send({type: 'foldout_checkbox', id, value: e.target.checked})}
-          }),
-          h('div.item', [
-            h('label', {attrs: {for: id}}, h('div.module_header', v[1].name))
-          ]),
-          h('div.foldout_child', [
-            ...commands.filter(c => c[1].module == v[0] && state.favorites.commands && state.favorites.commands[c[0]]).map(c => commandItem(state, send, c[0], c[1])),
-            ...commands.filter(c => c[1].module == v[0] && (!state.favorites.commands || !state.favorites.commands[c[0]])).map(c => commandItem(state, send, c[0], c[1]))
-          ])
+        return TopLevelFoldout(state, send, id, h('div.module_header', v[1].name), [
+          ...commands.filter(c => c[1].module == v[0] && state.favorites.commands && state.favorites.commands[c[0]]).map(c => commandItem(state, send, c[0], c[1])),
+          ...commands.filter(c => c[1].module == v[0] && (!state.favorites.commands || !state.favorites.commands[c[0]])).map(c => commandItem(state, send, c[0], c[1]))
         ])
       })
     )

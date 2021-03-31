@@ -2,6 +2,7 @@ import {h} from 'snabbdom/h'
 import SearchBar from '../searchbar'
 import FilterSearchResults from '../../util/filtersearchresults'
 import Action from './action'
+import TopLevelFoldout from '../toplevelfoldout'
 
 const valid_host = (action, node) => action.hosts.includes('none') || action.hosts.includes(node.access)
 const valid_target = (action, connection) => action.target === (connection ? 'connection' : 'host')
@@ -19,18 +20,9 @@ export default (state, send, node, connection) => {
       h('div.scroll_item', 'No actions compatible with this host') : 
       Object.entries(state.module_info).filter(v => actions.find(a => a[1].module == v[0])).map(v => {
         const id = `${v[0]}-actions-foldout`
-        return h('div', [
-          h('input.auto_foldout', {
-            attrs: {checked: state.foldout_checkboxes[id], type: 'checkbox', id},
-            on: {input: e => send({type: 'foldout_checkbox', id, value: e.target.checked})}
-          }),
-          h('div.item', [
-            h('label', {attrs: {for: id}}, h('div.module_header', v[1].name))
-          ]),
-          h('div.foldout_child', [
-            ...actions.filter(a => a[1].module == v[0] && state.favorites.actions && state.favorites.actions[a[0]]).map(a => Action(state, send, node, connection, a[0], a[1])),
-            ...actions.filter(a => a[1].module == v[0] && (!state.favorites.actions || !state.favorites.actions[a[0]])).map(a => Action(state, send, node, connection, a[0], a[1]))
-          ])
+        return TopLevelFoldout(state, send, id, h('div.module_header', v[1].name), [
+          ...actions.filter(a => a[1].module == v[0] && state.favorites.actions && state.favorites.actions[a[0]]).map(a => Action(state, send, node, connection, a[0], a[1])),
+          ...actions.filter(a => a[1].module == v[0] && (!state.favorites.actions || !state.favorites.actions[a[0]])).map(a => Action(state, send, node, connection, a[0], a[1]))
         ])
       })
     )
