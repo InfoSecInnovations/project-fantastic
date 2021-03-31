@@ -39,7 +39,7 @@ const scanItem = (state, send, scan, data) => {
       send,
       data, 
       parameters,
-      status,
+      status == 'pending' ? null : status,
       id
     ),
     h('div.foldout_child', [

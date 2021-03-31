@@ -10,7 +10,7 @@ const auth = (res, req) => {
   .then(data => {
     const json = ParseQuery(data)
     Login(json)
-    .then(id => Success(res, id, '/auth'))
+    .then(id => Success(res, id))
     .catch(() => Error(res, 'username or password was invalid!'))
   })
 }
