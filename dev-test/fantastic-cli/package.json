@@ -14,7 +14,8 @@
     "init": "node init.js",
     "update-empty": "node updateempty.js",
     "update-no-fantastic": "node updatenofantastic.js",
-    "update-no-config": "node updatenoconfig.js"
+    "update-no-config": "node updatenoconfig.js",
+    "update-existing": "node installandupdate.js"
   },
   "dependencies": {
     "fantastic-cli": "^0.5.4",
