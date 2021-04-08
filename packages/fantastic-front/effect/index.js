@@ -11,4 +11,7 @@ export default (state, action, send) => {
       if (checkbox) checkbox.checked = true
     })
   if (action.type == 'action_followup') ActionFollowup(state, action, send)
+  if (action.type == 'favorite') fetch(`/favorite?${GenerateQuery({data_type: action.data_type, data_key: action.data_key, remove: action.remove})}`, {method: 'POST'})
+    .then(res => res.json())
+    .then(res => send({type: 'toggle_favorite', data_type: res.data_type, data_key: res.data_key, remove: res.remove}))
 }
