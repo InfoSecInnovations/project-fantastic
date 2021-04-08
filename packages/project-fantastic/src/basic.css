@@ -274,6 +274,9 @@ input[type=password] {
 .auto_foldout:checked ~ * > label:after {
   content: '\f078';
 }
+.auto_foldout:hover ~ * > label:after {
+  color: #ffa666;
+}
 .play {
   align-self: flex-start;
   display: flex;
