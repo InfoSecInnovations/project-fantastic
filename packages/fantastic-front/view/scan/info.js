@@ -8,8 +8,10 @@ export default (state, send, data, parameters, status, id) => {
   return [
     h('div.item', [
       FavoriteButton(state, send, 'scans', data.key),
-      h('label', {attrs: {for: id}}, h('h3', data.name)),
-      StatusIcon(status),
+      h('label', {attrs: {for: id}}, h('div.item', [
+        h('h3', data.name),
+        StatusIcon(status)
+      ])),
     ]),
     h('div.foldout_child', [
       data.description ? h('div.item', FormatString(data.description, parameters)) : undefined,

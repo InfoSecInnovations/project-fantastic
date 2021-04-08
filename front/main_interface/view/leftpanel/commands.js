@@ -12,7 +12,13 @@ const enabled_button = (state, send, command, data) => {
   h('div.button disabled', 'Updating status...') :
   h('div.button', 
     {
-      on: {click: [send, {type: 'enable_command', command, enabled: data.mode != 'enabled'}]}
+      on: {
+        click: e => {
+          e.preventDefault()
+          e.stopPropagation()
+          send({type: 'enable_command', command, enabled: data.mode != 'enabled'})
+        }
+      }
     }, 
     data.mode == 'enabled' ? 'Enabled' : 'Disabled')
   return h('div', `${data.mode == 'enabled' ? 'Enabled' : 'Disabled'} (requires ${data.role} role to change)`)
@@ -38,8 +44,10 @@ const commandItem = (state, send, command, data) => {
       }
     }, [
       FavoriteButton(state, send, 'commands', command),
-      h('label', {attrs: {for: id}}, h('h3', data.name)),
-      enabled_button(state, send, command, data),
+      h('label', {attrs: {for: id}}, h('div.item', [
+        h('h3', data.name),
+        enabled_button(state, send, command, data)
+      ])),
     ]),
     h('div.foldout_child', [
       h('pre', data.command),

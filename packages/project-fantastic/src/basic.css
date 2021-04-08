@@ -253,13 +253,17 @@ input[type=password] {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  font-size: 1.5rem;
+}
+.auto_foldout ~ * > label .item {
+  flex-grow: 1;
 }
 .auto_foldout ~ * > label:after {
+  font-size: 1.5rem;
   content: '\f054';
   font-family: 'Font Awesome 5 Free';
   font-weight: 900;
   color: #f55100;
+  margin-left: 0.5rem;
 }
 .auto_foldout:checked ~ .foldout_child {
   display: flex;
