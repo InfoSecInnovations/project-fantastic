@@ -12,6 +12,7 @@ export default (state, action, send) => {
     last_window = viewer_tab
     viewer_tab.onload = () => {
       viewer_tab.send({type: 'node_data', data: state.nodes[v]})
+      viewer_tab.send({type: 'parent_tab', tab: window})
       send({type: 'add_child_tab', tab: viewer_tab})
     }
     viewer_tab.onclose = () => {
