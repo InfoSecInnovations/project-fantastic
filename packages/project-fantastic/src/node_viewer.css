@@ -274,6 +274,9 @@ input[type=password] {
 .auto_foldout:checked ~ * > label:after {
   content: '\f078';
 }
+.auto_foldout:hover ~ * > label:after {
+  color: #ffa666;
+}
 .play {
   align-self: flex-start;
   display: flex;
@@ -364,6 +367,10 @@ input[type=password] {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
+}
+.column .results .followup:hover .foldout {
+  color: #ffa666;
 }
 .column .results .result {
   min-width: 0;

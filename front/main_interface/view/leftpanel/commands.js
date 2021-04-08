@@ -4,6 +4,7 @@ import SearchBar from '@infosecinnovations/fantastic-front/view/searchbar'
 import FilterSearchResults from '@infosecinnovations/fantastic-front/util/filtersearchresults'
 import FavoriteButton from '@infosecinnovations/fantastic-front/view/favoritebutton'
 import TopLevelFoldout from '@infosecinnovations/fantastic-front/view/toplevelfoldout'
+import InnerFoldout from '@infosecinnovations/fantastic-front/view/innerfoldout'
 const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
 
 const enabled_button = (state, send, command, data) => {
@@ -28,33 +29,26 @@ const commandItem = (state, send, command, data) => {
   const id = `${command}-foldout`
   return h('div.scroll_item spaced', {
     key: id
-  }, [
-    h('input.auto_foldout', {
-      attrs: {type: 'checkbox', id, checked: state.foldout_checkboxes[id]},
-      on: {input: e => send({type: 'foldout_checkbox', id, value: e.target.checked})}
-    }),
-    h('div.item command_title', {
-      hook: {
-        insert: (vnode) => {
-          if (command == state.selected_item) {
-            vnode.elm.scrollIntoView()
-            setTimeout(e => send({type: 'select_item', item: null}))
-          } 
-        }
+  }, InnerFoldout(state, send, id, h('div.item command_title', {
+    hook: {
+      insert: (vnode) => {
+        if (command == state.selected_item) {
+          vnode.elm.scrollIntoView()
+          setTimeout(e => send({type: 'select_item', item: null}))
+        } 
       }
-    }, [
-      FavoriteButton(state, send, 'commands', command),
-      h('label', {attrs: {for: id}}, h('div.item', [
-        h('h3', data.name),
-        enabled_button(state, send, command, data)
-      ])),
-    ]),
-    h('div.foldout_child', [
-      h('pre', data.command),
-      data.description ? h('div.item', data.description) : undefined,
-      h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`])
-    ])
-  ])
+    }
+  }, [
+    FavoriteButton(state, send, 'commands', command),
+    h('label', {attrs: {for: id}}, h('div.item', [
+      h('h3', data.name),
+      enabled_button(state, send, command, data)
+    ])),
+  ]), [
+    h('pre', data.command),
+    data.description ? h('div.item', data.description) : undefined,
+    h('div.targets', [h('b', 'Valid targets:'), ` ${data.hosts.map(HostString).join(', ')}.`])
+  ]))
 } 
 
 export default (state, send) => {
