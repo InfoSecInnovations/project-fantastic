@@ -69,13 +69,16 @@ input[type=text], input[type=password]
     display: flex
     justify-content: space-between
     align-items: center
-    cursor: pointer
-    font-size: icon_size
+    cursor: pointer 
+    .item
+      flex-grow: 1 
     &:after
+      font-size: icon_size
       content: '\f054'
       font-family: 'Font Awesome 5 Free'
       font-weight: 900
       color: highlight_color
+      margin-left: 0.5rem
   &:checked 
     & ~ .foldout_child
       display: flex
