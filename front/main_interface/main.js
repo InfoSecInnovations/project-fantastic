@@ -52,3 +52,4 @@ const send = action => {
 send({type:'init'})
 
 window.state = state
+window.send = action => send({...action, from_other: true})
