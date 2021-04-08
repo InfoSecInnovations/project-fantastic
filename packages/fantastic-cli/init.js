@@ -29,10 +29,9 @@ const run = async () => {
       await RunProcess('git', ['--version'])
     }
     catch (err) {
-      console.log('git-cli install not detected!')
+      console.log('git install not detected! Please install Git for Windows.')
       return
     }
-    await GetInput(`Fantastic will not work properly if you don't have git-cli installed! Press ENTER to acknowledge this warning.`)
     await RunProcess(npm_cmd, ['init', '-y'], 'npm init failed')
     // we want to display 1 based indices in the command line but use 0 based to access the array
     const custom = auth_modules.length + 1

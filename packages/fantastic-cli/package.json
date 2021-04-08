@@ -10,7 +10,8 @@
   "license": "Apache-2.0",
   "bin": {
     "init": "./init.js",
-    "update": "./update.js"
+    "update": "./update.js",
+    "install": "./install.js"
   },
   "gitHead": "79633df1f1f99a92538cf23ce9b2540b141fc9f1",
   "publishConfig": {

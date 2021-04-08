@@ -1,0 +1,10 @@
+{
+  "name": "Test Action pls ignore",
+  "description": "This isn't a real action",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "hostname"
+    }
+  }
+}
