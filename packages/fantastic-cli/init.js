@@ -7,6 +7,7 @@ const Path = require('path')
 const RunProcess = require('@infosecinnovations/fantastic-utils/runprocess')
 const GetInput = require('@infosecinnovations/fantastic-utils/getinput')
 const AuthFactory = require('@infosecinnovations/fantastic-auth_factory')
+const GetPackageName = require('./getpackagename')
 
 const npm_cmd = process.platform === 'win32'? 'npm.cmd' : 'npm'
 const npx_cmd = process.platform === 'win32'? 'npx.cmd' : 'npm'
@@ -39,7 +40,7 @@ const run = async () => {
     while (!use_auth || isNaN(parseInt(use_auth)) || parseInt(use_auth) > custom) use_auth = await GetInput('Please enter a valid choice!')
     const auth_module = parseInt(use_auth) != custom ? `${auth_modules[parseInt(use_auth) - 1]}${tag}` : await GetInput('Enter module name: ')
     await RunProcess(npm_cmd, ['i', ...modules.map(m => `${m}${tag}`), auth_module], 'npm install failed')
-    const module_path = auth_module.replace(/.(@.+)/, (match, p1) => match.replace(p1, '')) // strip out version from module name if there is one
+    const module_path = await GetPackageName(auth_module)
     await Promise.all([
       FS.readJSON('package.json').then(json => FS.writeJSON('package.json', {...json, scripts: {...json.scripts, ...Scripts}}, {spaces: '\t'})),
       FS.writeJSON('config.json', {...DefaultConfig, authentication: {module: module_path}}, {spaces: '\t'}),

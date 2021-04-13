@@ -13,7 +13,7 @@ const modules = [
 ]
 
 const run = async () => {
-  console.log('this script will install Fantastic, and then attempt to install the specified module and then uninstall it.')
+  console.log('this script will install Fantastic, and then attempt to uninstall the specified module (please test with @infosecinnovations/fantastic-default).')
   await FS.emptyDir('test')
   process.chdir('test')
   await RunProcess(npm_cmd, ['init', '-y'], 'npm init failed')
@@ -24,7 +24,7 @@ const run = async () => {
     FS.copy(Path.join(__dirname, 'cert'), 'cert')
   ])
   await RunProcess(npx_cmd, ['fantastic-upgrade'], 'npx fantastic-upgrade failed')
-  require('fantastic-cli/install')
+  require('fantastic-cli/uninstall')
 }
 
 run()

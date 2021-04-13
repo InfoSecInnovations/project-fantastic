@@ -11,7 +11,8 @@
   "bin": {
     "init": "./init.js",
     "update": "./update.js",
-    "install": "./install.js"
+    "install": "./install.js",
+    "uninstall": "./uninstall.js"
   },
   "gitHead": "79633df1f1f99a92538cf23ce9b2540b141fc9f1",
   "publishConfig": {
@@ -20,6 +21,7 @@
   "dependencies": {
     "@infosecinnovations/fantastic-auth_factory": "^0.5.4",
     "@infosecinnovations/fantastic-utils": "^0.5.4",
+    "@npmcli/name-from-folder": "^1.0.1",
     "fs-extra": "^9.0.1",
     "is-installed": "^2.0.1"
   },
