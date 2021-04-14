@@ -30,6 +30,7 @@ Status of other browsers is unknown at this time.
 For more information on using the application itself:
 - [Client Help](packages/fantastic-help/index.md)
 - [Administrating the Fantastic Server](packages/fantastic-help/server.md)
+- [Fantastic CLI](packages/fantastic-cli/README.md)
 
 ## Creating your own content
 
@@ -42,6 +43,7 @@ We use npm as the installation method for modules, so you'll want to start by ru
 ```
 my-awesome-module
 |-- package.json
+|-- info.json
 |-- actions
 |   |-- action1.json
 |   |-- action2.json
@@ -66,6 +68,8 @@ See the relevant help sections for how to implement each data type:
 - [Host Data Commands](packages/fantastic-help/commands.md)
 - [Scans](packages/fantastic-help/scans.md) (Daily Quests are just Scans with the quest field enabled)
 - [Story Quests](packages/fantastic-help/stories.md)
+
+`info.json` is an optional file that currently just contains a `name` property which allows you to give a display name to your module
 
 To try out your module locally you can simply go to your Fantastic install directory and do `npm i path/to/your/awesome/module` and then add the package name to the config file. If you want it to be available online, just publish it to the npm registry or GitHub and follow the standard npm installation process.
 

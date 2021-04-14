@@ -1,0 +1,28 @@
+---
+layout: post
+title:  "Fantastic 0.5.5 patch"
+date:   2021-04-15 13:00:00 +0100
+author: "Sebastian Boutin Blomfield"
+---
+
+A small update focussing around the fantastic-cli module and some quality of life tweaks to the UI.
+
+## fantastic-cli
+
+New commands:
+
+- `npx fantastic-cli update [@version]` will update an existing installation to the specified version, or `@latest` by default.
+- `npx fantastic-cli install <package>[@version]` will install and enable npm packages containing content modules, you can install multiple modules at a time, just like `npm install`. This should work for local paths too, if you're working on your own content modules.
+- `npx fantastic-cli uninstall <package>` uninstall content modules.
+
+fantastic-cli will also alert you if you don't have Git installed, and offer to install it for you. Git is required to install some of the dependencies which are from GitHub instead of the npm registry.
+
+## Collapsible categories
+
+![Collapsible UI Items]({{'assets/collapsibles.png' | relative_url}})
+
+As we add more content to Fantastic, it's becoming clear that the current interface isn't compact enough to support many more items, but we're very far from the amount of stuff we'd like to include, and that's not counting 3rd party content! To this end, I've implemented some foldouts to hide away the details of each item, and also groupings by module, which should become more useful when there are more modules. We'd love to know what you think of this new layout!
+
+## Fantastic editor
+
+I haven't made any changes to the editor itself, but I have set up the build process to provide a Windows executable so you don't have to download the source code and run it in development mode! The built files will be uploaded to the GitHub releases.
