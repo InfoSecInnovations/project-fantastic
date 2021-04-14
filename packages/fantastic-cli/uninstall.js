@@ -16,10 +16,9 @@ const run = async () => {
     .then(json => FS.writeJSON('config.json', {
       ...json, 
       assets: {
-        ...json.assets,
-        packages: json.assets.packages.filter(m => !args.includes(m))
-        // TODO: remove force_commands from module
-        // TODO: remove default_enable_commands from module
+        packages: json.assets.packages.filter(m => !args.includes(m)),
+        force_commands: json.assets.force_commands.filter(c => !args.find(m => c.startsWith(`${m}/`))), // remove any always on commands from the uninstalled modules
+        default_enable_commands: json.assets.default_enable_commands.filter(c => !args.find(m => c.startsWith(`${m}/`))) // remove any default enabled commands from the uninstalled modules
       }
     }, 
     {spaces: '\t'}))
