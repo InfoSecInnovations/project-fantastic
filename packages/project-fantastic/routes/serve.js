@@ -42,6 +42,7 @@ const serve = (res, path, query) => {
   require.resolve(path.replace('/help/', '@infosecinnovations/fantastic-help/'))
   : Path.join(__dirname, '..', `src${path}`)
   FS.readFile(path).then(file => {
+    if (res.aborted) return
     if (path.endsWith('.md')) return markdown(file.toString()).then(file => !res.aborted && res.end(file))
     if (path.endsWith('.svg')) {
       res.writeHeader('Content-Type', 'image/svg+xml')

@@ -25,7 +25,7 @@
       ],
       "cwd": "${workspaceFolder}\\dev-test\\fantastic-cli",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["start", "init", "next"],
+      "runtimeArgs": ["run", "init", "next"],
       "autoAttachChildProcesses": true
     }
   ]

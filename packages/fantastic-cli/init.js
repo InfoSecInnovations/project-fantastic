@@ -7,6 +7,8 @@ const Path = require('path')
 const RunProcess = require('@infosecinnovations/fantastic-utils/runprocess')
 const GetInput = require('@infosecinnovations/fantastic-utils/getinput')
 const AuthFactory = require('@infosecinnovations/fantastic-auth_factory')
+const GetPackageName = require('./getpackagename')
+const RunPowershell = require('@infosecinnovations/fantastic-powershell/runpowershell')
 
 const npm_cmd = process.platform === 'win32'? 'npm.cmd' : 'npm'
 const npx_cmd = process.platform === 'win32'? 'npx.cmd' : 'npm'
@@ -25,7 +27,16 @@ const run = async () => {
     let tag = args[0] || '@latest'
     if (!tag.startsWith('@')) tag = `@${tag}`
     console.log(`Installing Fantastic from ${tag} tag`)
-    await GetInput(`Fantastic will not work properly if you don't have git-cli installed! Press ENTER to acknowledge this warning.`)
+    try {
+      await RunProcess('git', ['--version'])
+    }
+    catch (err) {
+      console.log('installing Git...')
+      await RunPowershell(Path.join(__dirname, 'installers', 'git-installer.ps1'))
+      console.log('Git installed, refreshing environment...')
+      await RunPowershell('$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")')
+      console.log('Git install complete, proceeding with Fantastic installation...')
+    }
     await RunProcess(npm_cmd, ['init', '-y'], 'npm init failed')
     // we want to display 1 based indices in the command line but use 0 based to access the array
     const custom = auth_modules.length + 1
@@ -33,7 +44,7 @@ const run = async () => {
     while (!use_auth || isNaN(parseInt(use_auth)) || parseInt(use_auth) > custom) use_auth = await GetInput('Please enter a valid choice!')
     const auth_module = parseInt(use_auth) != custom ? `${auth_modules[parseInt(use_auth) - 1]}${tag}` : await GetInput('Enter module name: ')
     await RunProcess(npm_cmd, ['i', ...modules.map(m => `${m}${tag}`), auth_module], 'npm install failed')
-    const module_path = auth_module.replace(/.(@.+)/, (match, p1) => match.replace(p1, '')) // strip out version from module name if there is one
+    const module_path = await GetPackageName(auth_module)
     await Promise.all([
       FS.readJSON('package.json').then(json => FS.writeJSON('package.json', {...json, scripts: {...json.scripts, ...Scripts}}, {spaces: '\t'})),
       FS.writeJSON('config.json', {...DefaultConfig, authentication: {module: module_path}}, {spaces: '\t'}),

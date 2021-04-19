@@ -1,6 +1,6 @@
 {
   "name": "logs-front",
-  "version": "0.5.4-alpha.0",
+  "version": "0.5.4",
   "description": "",
   "main": "index.js",
   "private": true,
@@ -10,7 +10,7 @@
     "js": "webpack -w"
   },
   "dependencies": {
-    "@infosecinnovations/fantastic-front": "^0.5.4-alpha.0",
+    "@infosecinnovations/fantastic-front": "^0.5.4",
     "snabbdom": "^1.0.1",
     "webpack": "^5.7.0",
     "webpack-cli": "^4.2.0"

@@ -14,6 +14,12 @@ import StoryNode from './storynode'
 import Quest from './quest'
 import Scan from './scan'
 
+const child_actions = [
+  'action_result',
+  'action_followup_result',
+  'toggle favorite'
+]
+
 export default (state, action, send) => {
   Common(state, action, send)
   FlexSearch(state, action, send)
@@ -65,7 +71,6 @@ export default (state, action, send) => {
     }
     else send({...action, type: 'select'})
   }
-  if (action.type == 'action_result' || action.type == 'action_followup_result') state.child_tabs.forEach(v => v.send(action))
   if (action.type == 'run_quest') fetch(`/quests?${GenerateQuery({quest: action.quest})}`, {method: 'POST'})
     .then(res => res.json())
     .then(res => Quest(state, send, action.quest, res))
@@ -130,8 +135,6 @@ export default (state, action, send) => {
       send({type: 'scan_resolve', scan: null})
       send({type: 'tab', tab: 'info'})
     })
-  if (action.type == 'favorite') fetch(`/favorite?${GenerateQuery({data_type: action.data_type, data_key: action.data_key, remove: action.remove})}`, {method: 'POST'})
-    .then(res => res.json())
-    .then(res => send({type: 'toggle_favorite', data_type: res.data_type, data_key: res.data_key, remove: res.remove}))
 
+  if (child_actions.includes(action.type) && !action.from_other) state.child_tabs.forEach(v => v.send(action))
 }

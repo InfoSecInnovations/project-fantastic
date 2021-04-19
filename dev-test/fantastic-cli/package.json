@@ -1,7 +1,7 @@
 {
   "name": "fantastic-cli-test",
   "private": true,
-  "version": "0.5.4-alpha.0",
+  "version": "0.5.4",
   "description": "Run this to test fantastic-cli",
   "author": "InfoSec Innovations",
   "license": "ISC",
@@ -11,11 +11,18 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "start": "node run.js"
+    "init": "node init.js",
+    "update-empty": "node updateempty.js",
+    "update-no-fantastic": "node updatenofantastic.js",
+    "update-no-config": "node updatenoconfig.js",
+    "update-existing": "node installandupdate.js",
+    "test-install": "node installcommand.js blank",
+    "test-uninstall": "node uninstallcommand.js blank"
   },
   "dependencies": {
-    "fantastic-cli": "^0.5.4-alpha.0",
-    "fs-extra": "^9.0.1"
+    "fantastic-cli": "^0.5.4",
+    "fs-extra": "^9.0.1",
+    "@infosecinnovations/fantastic-utils": "^0.5.4"
   },
   "bugs": {
     "url": "https://github.com/InfoSecInnovations/project-fantastic/issues"

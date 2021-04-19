@@ -17,7 +17,8 @@ const getStories = (user, res, req, query, stories) => {
         hosts: v.questConfig.hosts,
         role: v.questConfig.role,
         nodeData: v.nodeData,
-        selection: v.questConfig.selection
+        selection: v.questConfig.selection,
+        module: v.module
       }
     }), {})
     if (res.aborted) return

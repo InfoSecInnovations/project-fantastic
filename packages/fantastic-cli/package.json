@@ -1,6 +1,6 @@
 {
   "name": "fantastic-cli",
-  "version": "0.5.4-alpha.0",
+  "version": "0.5.4",
   "description": "Command line tool to install the Fantastic network vizualisation and security app",
   "main": "init.js",
   "scripts": {
@@ -9,16 +9,22 @@
   "author": "InfoSec Innovations",
   "license": "Apache-2.0",
   "bin": {
-    "init": "./init.js"
+    "init": "./init.js",
+    "update": "./update.js",
+    "install": "./install.js",
+    "uninstall": "./uninstall.js"
   },
   "gitHead": "79633df1f1f99a92538cf23ce9b2540b141fc9f1",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@infosecinnovations/fantastic-auth_factory": "^0.4.0",
-    "@infosecinnovations/fantastic-utils": "^0.5.0-alpha.0",
-    "fs-extra": "^9.0.1"
+    "@infosecinnovations/fantastic-auth_factory": "^0.5.4",
+    "@infosecinnovations/fantastic-utils": "^0.5.4",
+    "@infosecinnovations/fantastic-powershell": "0.5.4",
+    "@npmcli/name-from-folder": "^1.0.1",
+    "fs-extra": "^9.0.1",
+    "is-installed": "^2.0.1"
   },
   "homepage": "https://github.com/InfoSecInnovations/project-fantastic",
   "bugs": "https://github.com/InfoSecInnovations/project-fantastic/issues",
