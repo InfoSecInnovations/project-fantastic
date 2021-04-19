@@ -1,13 +1,13 @@
 {
   "name": "@infosecinnovations/fantastic-powershell",
-  "version": "0.5.4",
+  "version": "0.5.5-alpha.0",
   "description": "Run PowerShell commands either locally or on a remote host",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "InfoSec Innovations",
   "dependencies": {
-    "@infosecinnovations/fantastic-utils": "^0.5.4"
+    "@infosecinnovations/fantastic-utils": "^0.5.5-alpha.0"
   },
   "gitHead": "79633df1f1f99a92538cf23ce9b2540b141fc9f1",
   "publishConfig": {

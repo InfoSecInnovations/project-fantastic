@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-default",
-  "version": "0.5.4",
+  "version": "0.5.5-alpha.0",
   "description": "The default content for Fantastic",
   "main": "index.js",
   "directories": {

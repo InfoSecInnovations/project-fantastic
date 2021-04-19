@@ -1,6 +1,6 @@
 {
   "name": "editor",
-  "version": "0.5.4",
+  "version": "0.5.5-alpha.0",
   "description": "",
   "main": "index.html",
   "private": true,
@@ -21,6 +21,8 @@
   },
   "build": {
     "nwVersion": "stable",
-    "targets": ["zip"]
+    "targets": [
+      "zip"
+    ]
   }
 }
