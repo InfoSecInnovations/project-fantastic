@@ -1,5 +1,6 @@
 {
   "name": "dummy-module",
+  "private": true,
   "version": "0.5.5-alpha.0",
   "description": "",
   "main": "index.js",
@@ -8,5 +9,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "gitHead": "4237d95421882936bf16972a812378cef1948e57"
 }

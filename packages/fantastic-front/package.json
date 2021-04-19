@@ -12,7 +12,7 @@
     "flexsearch": "^0.6.32",
     "snabbdom": "^1.0.1"
   },
-  "gitHead": "964c580e20870e594383b07509bde13eb815df21",
+  "gitHead": "4237d95421882936bf16972a812378cef1948e57",
   "publishConfig": {
     "access": "public"
   },
