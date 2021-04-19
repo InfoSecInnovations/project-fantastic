@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-auth_factory",
-  "version": "0.5.5-alpha.0",
+  "version": "0.5.5-alpha.1",
   "description": "Basic framework to generate a Fantastic authentication module",
   "main": "index.js",
   "scripts": {
