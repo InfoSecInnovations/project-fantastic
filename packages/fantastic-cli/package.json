@@ -21,6 +21,7 @@
   "dependencies": {
     "@infosecinnovations/fantastic-auth_factory": "^0.5.4",
     "@infosecinnovations/fantastic-utils": "^0.5.4",
+    "@infosecinnovations/fantastic-powershell": "0.5.4",
     "@npmcli/name-from-folder": "^1.0.1",
     "fs-extra": "^9.0.1",
     "is-installed": "^2.0.1"

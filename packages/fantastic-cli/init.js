@@ -8,6 +8,7 @@ const RunProcess = require('@infosecinnovations/fantastic-utils/runprocess')
 const GetInput = require('@infosecinnovations/fantastic-utils/getinput')
 const AuthFactory = require('@infosecinnovations/fantastic-auth_factory')
 const GetPackageName = require('./getpackagename')
+const RunPowershell = require('@infosecinnovations/fantastic-powershell/runpowershell')
 
 const npm_cmd = process.platform === 'win32'? 'npm.cmd' : 'npm'
 const npx_cmd = process.platform === 'win32'? 'npx.cmd' : 'npm'
@@ -30,8 +31,11 @@ const run = async () => {
       await RunProcess('git', ['--version'])
     }
     catch (err) {
-      console.log('git install not detected! Please install Git for Windows.')
-      return
+      console.log('installing Git...')
+      await RunPowershell(Path.join(__dirname, 'installers', 'git-installer.ps1'))
+      console.log('Git installed, refreshing environment...')
+      await RunPowershell('$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")')
+      console.log('Git install complete, proceeding with Fantastic installation...')
     }
     await RunProcess(npm_cmd, ['init', '-y'], 'npm init failed')
     // we want to display 1 based indices in the command line but use 0 based to access the array

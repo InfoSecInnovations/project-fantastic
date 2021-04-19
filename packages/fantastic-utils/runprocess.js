@@ -12,6 +12,7 @@ const runProcess = (cmd, args, error_message) => new Promise((resolve, reject) =
     if (code !== 0) return reject(`${error_message || 'Closed'} with exit code ${code}`)
     resolve()
   })
+  spawned.on('error', error => reject(error))
 })
 
 module.exports = runProcess
