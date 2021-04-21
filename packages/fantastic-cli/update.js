@@ -14,10 +14,8 @@ const isiModules = [
   '@infosecinnovations/fantastic-active_directory'
 ]
 
-const run = async () => {
+const update = async tag => {
   try {
-    const args = process.argv.slice(3, process.argv.length)
-    let tag = args[0] || '@latest'
     if (!tag.startsWith('@')) tag = `@${tag}`
     console.log(`Updating Fantastic to ${tag} tag...`)
     const is_module = await FS.pathExists('package.json')
@@ -40,4 +38,4 @@ const run = async () => {
   }
 }
 
-run()
+module.exports = update

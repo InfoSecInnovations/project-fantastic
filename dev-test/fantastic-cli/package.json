@@ -10,14 +10,7 @@
     "url": "git+https://github.com/InfoSecInnovations/project-fantastic.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1",
-    "init": "node init.js",
-    "update-empty": "node updateempty.js",
-    "update-no-fantastic": "node updatenofantastic.js",
-    "update-no-config": "node updatenoconfig.js",
-    "update-existing": "node installandupdate.js",
-    "test-install": "node installcommand.js blank",
-    "test-uninstall": "node uninstallcommand.js blank"
+    "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
     "@infosecinnovations/fantastic-utils": "^0.5.5-alpha.1",
@@ -32,5 +25,6 @@
   "directories": {
     "test": "test"
   },
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {}
 }

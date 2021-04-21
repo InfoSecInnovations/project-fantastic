@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const FS = require('fs-extra')
 const DefaultConfig = require('./defaultconfig')
 const Scripts = require('./scripts')
@@ -21,10 +19,8 @@ const auth_modules = [
   '@infosecinnovations/fantastic-active_directory'
 ]
 
-const run = async () => {
+const init = async tag => {
   try {
-    const args = process.argv.slice(3, process.argv.length)
-    let tag = args[0] || '@latest'
     if (!tag.startsWith('@')) tag = `@${tag}`
     console.log(`Installing Fantastic from ${tag} tag`)
     try {
@@ -61,4 +57,4 @@ const run = async () => {
   }
 }
 
-run()
+module.exports = init
