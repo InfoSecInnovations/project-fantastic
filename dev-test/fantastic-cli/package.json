@@ -10,7 +10,8 @@
     "url": "git+https://github.com/InfoSecInnovations/project-fantastic.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "init": "node ./init.js"
   },
   "dependencies": {
     "@infosecinnovations/fantastic-utils": "^0.5.5-alpha.1",
@@ -25,5 +26,6 @@
   "directories": {
     "test": "test"
   },
-  "keywords": []
+  "keywords": [],
+  "devDependencies": {}
 }

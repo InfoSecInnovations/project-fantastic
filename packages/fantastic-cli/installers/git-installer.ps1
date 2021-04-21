@@ -1,14 +1,14 @@
 
 ### get latest version info (download path and filename for 64 bit version)
 $githubLatestReleases = "https://api.github.com/repos/git-for-windows/git/releases/latest"   
-$JSONResponse = (Invoke-WebRequest $gitHubLatestReleases)
+$JSONResponse = (Invoke-WebRequest $gitHubLatestReleases -UseBasicParsing)
 [string]$URI = (($JSONResponse | ConvertFrom-Json).assets.browser_download_url | Select-String "-64-bit.exe")
 [string]$Filename = (($JSONResponse | ConvertFrom-Json).assets.name | Select-String "-64-bit.exe")
 
 
 ### download the file
 $DownloadFile = $env:TEMP + '\' + $Filename
-Invoke-WebRequest -Uri $URI -OutFile $DownloadFile
+Invoke-WebRequest -Uri $URI -OutFile $DownloadFile -UseBasicParsing
 
 
 ### Install Git
