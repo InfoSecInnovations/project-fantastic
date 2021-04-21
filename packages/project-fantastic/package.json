@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/project-fantastic",
-  "version": "0.5.5-alpha.3",
+  "version": "0.5.5-alpha.4",
   "description": "A GUI tool to visualize computer networks and perform security checks and improvements.",
   "main": "index.js",
   "author": "InfoSec Innovations",
