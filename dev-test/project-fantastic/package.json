@@ -1,7 +1,7 @@
 {
   "name": "fantastic-dev-test",
   "private": true,
-  "version": "0.5.5-alpha.2",
+  "version": "0.5.5-alpha.3",
   "description": "Run this to test changes to the other packages",
   "author": "InfoSec Innovations",
   "license": "ISC",
@@ -17,7 +17,7 @@
     "@infosecinnovations/fantastic-active_directory": "^0.5.5-alpha.1",
     "@infosecinnovations/fantastic-default": "^0.5.5-alpha.1",
     "@infosecinnovations/fantastic-default_auth": "^0.5.5-alpha.1",
-    "@infosecinnovations/project-fantastic": "^0.5.5-alpha.2",
+    "@infosecinnovations/project-fantastic": "^0.5.5-alpha.3",
     "fs-extra": "^9.0.1"
   }
 }
