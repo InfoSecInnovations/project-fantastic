@@ -6,9 +6,8 @@ const RunProcess = require('@infosecinnovations/fantastic-utils/runprocess')
 const GetInput = require('@infosecinnovations/fantastic-utils/getinput')
 const AuthFactory = require('@infosecinnovations/fantastic-auth_factory')
 const GetPackageName = require('./getpackagename')
-const RunPowershell = require('@infosecinnovations/fantastic-powershell/runpowershell')
+const { spawn } = require('child_process')
 
-const npm_cmd = process.platform === 'win32'? 'npm.cmd' : 'npm'
 const npx_cmd = process.platform === 'win32'? 'npx.cmd' : 'npm'
 const modules = [
   '@infosecinnovations/project-fantastic',
@@ -22,29 +21,30 @@ const auth_modules = [
 const init = async tag => {
   if (!tag.startsWith('@')) tag = `@${tag}`
   console.log(`Installing Fantastic from ${tag} tag`)
-  try {
-    await RunProcess('git', ['--version'])
-  }
-  catch (err) {
-    console.log('installing Git...')
-    await RunPowershell(Path.join(__dirname, 'installers', 'git-installer.ps1'))
-    console.log('Git installed, refreshing environment...')
-    await RunPowershell('$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")')
-    try {
-      await RunProcess('git', ['--version'])
-    }
-    catch(err) {
-      throw 'something went wrong with the Git installation, please try re-running this installer or installing Git for Windows'
-    }
-    console.log('Git install complete, proceeding with Fantastic installation...')
-  }
-  await RunProcess(npm_cmd, ['init', '-y'], 'npm init failed')
   // we want to display 1 based indices in the command line but use 0 based to access the array
   const custom = auth_modules.length + 1
   let use_auth = await GetInput(`Select authentication module:\n${auth_modules.map((m, i) => `${i+1} - ${m}`).join('\n')}\n${custom} - Custom\n`)
   while (!use_auth || isNaN(parseInt(use_auth)) || parseInt(use_auth) > custom) use_auth = await GetInput('Please enter a valid choice!')
   const auth_module = parseInt(use_auth) != custom ? `${auth_modules[parseInt(use_auth) - 1]}${tag}` : await GetInput('Enter module name: ')
-  await RunProcess(npm_cmd, ['i', ...modules.map(m => `${m}${tag}`), auth_module], 'npm install failed')
+  // the fantastic installer installs git if needed, then the required npm modules
+  await new Promise((resolve, reject) => {
+    const child = spawn('powershell.exe', [
+      '-ExecutionPolicy',
+      'Bypass',
+      Path.join(__dirname, 'installers', 'fantastic-installer.ps1'),
+      ...modules.map(m => `${m}${tag}`),
+      auth_module
+    ], {
+      stdio: 'inherit',
+      detached: false
+    })
+    child.on('close', code => {
+      if (code !== 0) return reject(`Exit code ${code}`)
+      resolve()
+    })
+    child.on('error', error => reject(error))
+  })
+  await RunProcess('powershell.exe', ['-ExecutionPolicy', 'Bypass', Path.join(__dirname, 'installers', 'fantastic-installer.ps1'), ...modules.map(m => `${m}${tag}`), auth_module])
   const module_path = await GetPackageName(auth_module)
   await Promise.all([
     FS.readJSON('package.json').then(json => FS.writeJSON('package.json', {...json, scripts: {...json.scripts, ...Scripts}}, {spaces: '\t'})),
