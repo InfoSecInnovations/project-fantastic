@@ -5,7 +5,7 @@ date:   2021-05-21 13:00:00 +0100
 author: "Sebastian Boutin Blomfield"
 ---
 
-A small update focussing around the fantastic-cli module and some quality of life tweaks to the UI.
+A small update focussing around the fantastic-cli module and some quality of life tweaks to the UI. This has been taking a while because I've been shifting some focus over towards [What2Log](https://what2log.com/) which is another very interesting InfoSec Innovations project. However, development on Fantastic is very much still ongoing, we have plenty of cool new features and content to add in the future, so please keep an eye on it.
 
 ## fantastic-cli
 
