@@ -23,7 +23,8 @@
   "bin": {
     "fantastic": "./index.js",
     "fantastic-upgrade": "./bin/upgrade.js",
-    "fantastic-service": "./bin/service.js"
+    "fantastic-service": "./bin/service.js",
+    "fantastic-rm-service": "./bin/uninstallservice.js"
   },
   "gitHead": "4237d95421882936bf16972a812378cef1948e57",
   "publishConfig": {
