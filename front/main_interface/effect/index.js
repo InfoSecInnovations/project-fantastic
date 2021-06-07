@@ -31,7 +31,7 @@ export default (state, action, send) => {
     action.container.onmouseleave = e => send({type: 'hover_ui', value: true})
     action.container.onmouseenter = e => send({type: 'hover_ui', value: false})
   }
-  if (action.type == 'search' || action.type == 'init_complete') RefreshNodes(state, send, state.search)
+  if (action.type == 'search' || action.type == 'init_complete') RefreshNodes(state, send, {...state.search, date: Date.now() - state.search.date * 1000 * 60})
   if (action.type == 'save_search') fetch(`/save_search?${GenerateQuery(state.search)}`, {method: 'POST'})
   .then(res => res.json())
   .then(res => {
@@ -43,6 +43,7 @@ export default (state, action, send) => {
     const connection = node.connections.find(v => v.connection_id == state.connection_search.expanded_connection)
     RefreshNodes(state, send, {
       ...state.search,
+      date: Date.now() - state.search.date * 1000 * 60,
       connection_local_ip: state.connection_search.local_ip ? connection.local_address : undefined,
       connection_remote_ip: state.connection_search.remote_ip ? connection.remote_address : undefined,
       connection_process: state.connection_search.process ? connection.process.id : undefined
