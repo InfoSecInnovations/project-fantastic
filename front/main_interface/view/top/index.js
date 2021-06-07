@@ -11,7 +11,7 @@ const link = (url, target, icon, label) =>
   ])
 
 export default (state, send) => h('div#top.panel', [
-  h('h1', "Fantastic"),
+   h('h1', "Fantastic"),
   Search(state, send),
    h('div.buttons', [
     state.user ? h('div.user_info', [
@@ -21,6 +21,10 @@ export default (state, send) => h('div#top.panel', [
     state.user && HasRole(state.user, 'admin') ? link('/logs.html', '_blank', 'bars', 'Logs') : undefined,
     link('/auth', '_self', 'user-circle', 'Account'),
     link('/logout', '_self', 'sign-out-alt', 'Log Out'),
-    link('/help/index.md', '_blank', 'question-circle', 'Help')
+    link('/help/index.md', '_blank', 'question-circle', 'Help'),
+    h('a.icon_button', {attrs: {href: 'https://discord.gg/JBVQF6tjzc', target: '_blank'}}, [
+      h('img', {attrs: {src: '/discord-small.svg'}}),
+      h('div.label', 'Discord')
+    ])
   ])
 ])

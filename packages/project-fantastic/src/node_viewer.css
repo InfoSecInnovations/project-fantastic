@@ -227,10 +227,17 @@ input[type=password] {
   display: flex;
   align-items: center;
   flex-grow: 1;
+  color: #fff;
+  font-weight: normal;
 }
 .icon_button:hover .fas,
 .icon_button:hover .far {
   color: #ffa666;
+}
+.icon_button img {
+  width: 1.875rem;
+  height: 1.875rem;
+  object-fit: contain;
 }
 .foldout {
   cursor: pointer;
