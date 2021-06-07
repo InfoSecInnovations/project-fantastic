@@ -88,7 +88,7 @@ We haven't implemented the standalone build for it, so if you want to try it out
 
 ### Test environment
 
-There's a typical environment set up in the `dev-test/project-fantastic` directory so you can test modifications to the source code easily. Just run `npm start` in the `dev-test/project-fantastic` directory to start Fantastic, there is also a `launch.json` included for Visual Studio Code to run this command and debug. The admin account will have the username 'admin' and the password 'changeme' by default. You should probably change it to something more secure as Fantastic is a powerful tool when you have admin access!
+There's a typical environment set up in the `dev-test/project-fantastic` directory so you can test modifications to the source code easily. Just run `npm start` in the `dev-test/project-fantastic` directory to start Fantastic, there is also a `launch.json` included for Visual Studio Code to run this command and debug. Just run the upgrade command and enter the admin credentials you wish to use when prompted.
 
 There's also a test set up in `dev-test/fantastic-cli` to test out the CLI installer app. Note that the dependencies will be pulled from npm and not from the local repository, so only local changes to the fantastic-cli package itself will be reflected in the test. `npm start` will empty the test directory and run the installer inside it again.
 
