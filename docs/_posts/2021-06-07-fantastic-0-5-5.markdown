@@ -28,3 +28,5 @@ As we add more content to Fantastic, it's becoming clear that the current interf
 I haven't made any changes to the editor itself, but I have set up the build process to provide a Windows executable so you don't have to download the source code and run it in development mode! The built files will be uploaded to the GitHub releases.
 
 Please let us know on [Discord](https://discord.gg/JBVQF6tjzc) what you think of the new changes, and how you're enjoying Fantastic so far!
+
+**EDIT** 0.5.6 just adds a Discord link inside the client for your convenience!
