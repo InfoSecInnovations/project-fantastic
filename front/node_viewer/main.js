@@ -19,11 +19,12 @@ const patch = init([
 let state = { 
   action_results: {},
   flex_search: {actions: {}},
-  favorites: {}
+  favorites: {},
+  foldout_checkboxes: {}
 }
 let vnode = document.body
 
-const send = action=> {
+const send = action => {
   state = Update(state, action)
   vnode = patch(vnode, View(state, send))
   Effect(state,action,send) 
@@ -32,4 +33,4 @@ const send = action=> {
 send({type:'init'})
 
 window.state = state
-window.send = send
+window.send = action => send({...action, from_other: true})

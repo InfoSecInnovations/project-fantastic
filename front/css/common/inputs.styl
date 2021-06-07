@@ -61,6 +61,36 @@ input[type=text], input[type=password]
     color: disabled_color
     cursor: auto
 
+.auto_foldout
+  display: none
+  & ~ .foldout_child
+    display: none
+  & ~ * > label
+    display: flex
+    justify-content: space-between
+    align-items: center
+    cursor: pointer 
+    .item
+      flex-grow: 1 
+    &:after
+      font-size: icon_size
+      content: '\f054'
+      font-family: 'Font Awesome 5 Free'
+      font-weight: 900
+      color: highlight_color
+      margin-left: 0.5rem
+  &:checked 
+    & ~ .foldout_child
+      display: flex
+      flex-direction: column
+      gap: 0.7rem
+      margin-bottom: 2rem
+    & ~ * > label:after
+      content: '\f078'
+  &:hover
+    & ~ * > label:after
+      color: alt_background_color
+
 .play
   align-self: flex-start
   display: flex

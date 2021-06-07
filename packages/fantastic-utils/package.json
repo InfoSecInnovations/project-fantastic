@@ -1,12 +1,12 @@
 {
   "name": "@infosecinnovations/fantastic-utils",
-  "version": "0.5.4",
+  "version": "0.5.5-alpha.1",
   "description": "Utility functions for use with Fantastic",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "InfoSec Innovations",
-  "gitHead": "79633df1f1f99a92538cf23ce9b2540b141fc9f1",
+  "gitHead": "4237d95421882936bf16972a812378cef1948e57",
   "publishConfig": {
     "access": "public"
   },

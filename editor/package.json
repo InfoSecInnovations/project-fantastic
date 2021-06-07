@@ -1,12 +1,13 @@
 {
   "name": "editor",
-  "version": "0.5.4",
+  "version": "0.5.5-alpha.0",
   "description": "",
   "main": "index.html",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nw"
+    "start": "nw",
+    "dist": "build --tasks win-x64 --mirror https://dl.nwjs.io/ ."
   },
   "keywords": [],
   "author": "",
@@ -14,5 +15,14 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "nw": "^0.50.2"
+  },
+  "devDependencies": {
+    "nwjs-builder-phoenix": "^1.15.0"
+  },
+  "build": {
+    "nwVersion": "stable",
+    "targets": [
+      "zip"
+    ]
   }
 }

@@ -38,7 +38,8 @@ let state = {
   story: {
     completed: {}
   },
-  favorites: {}
+  favorites: {},
+  foldout_checkboxes: {}
 }
 let vnode = document.body
 
@@ -51,3 +52,4 @@ const send = action => {
 send({type:'init'})
 
 window.state = state
+window.send = action => send({...action, from_other: true})

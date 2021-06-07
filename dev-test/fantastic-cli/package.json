@@ -1,7 +1,7 @@
 {
   "name": "fantastic-cli-test",
   "private": true,
-  "version": "0.5.4",
+  "version": "0.5.5-alpha.5",
   "description": "Run this to test fantastic-cli",
   "author": "InfoSec Innovations",
   "license": "ISC",
@@ -11,10 +11,17 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "start": "node run.js"
+    "test-init": "node ./init.js",
+    "test-update": "node ./update.js",
+    "test-install": "node ./install.js",
+    "test-uninstall": "node ./uninstall.js",
+    "test-install-empty": "node ./installempty.js",
+    "test-update-empty": "node ./updateempty.js",
+    "test-all": "node ./all.js"
   },
   "dependencies": {
-    "fantastic-cli": "^0.5.4",
+    "@infosecinnovations/fantastic-utils": "^0.5.5-alpha.1",
+    "fantastic-cli": "^0.5.5-alpha.5",
     "fs-extra": "^9.0.1"
   },
   "bugs": {

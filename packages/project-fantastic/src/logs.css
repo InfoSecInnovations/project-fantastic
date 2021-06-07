@@ -116,6 +116,11 @@ a:hover,
 .center {
   align-items: center;
 }
+.module_header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
 h1,
 h2,
 h3,
@@ -236,6 +241,41 @@ input[type=password] {
 .foldout.disabled {
   color: #949494;
   cursor: auto;
+}
+.auto_foldout {
+  display: none;
+}
+.auto_foldout ~ .foldout_child {
+  display: none;
+}
+.auto_foldout ~ * > label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.auto_foldout ~ * > label .item {
+  flex-grow: 1;
+}
+.auto_foldout ~ * > label:after {
+  font-size: 1.5rem;
+  content: '\f054';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #f55100;
+  margin-left: 0.5rem;
+}
+.auto_foldout:checked ~ .foldout_child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 2rem;
+}
+.auto_foldout:checked ~ * > label:after {
+  content: '\f078';
+}
+.auto_foldout:hover ~ * > label:after {
+  color: #ffa666;
 }
 .play {
   align-self: flex-start;

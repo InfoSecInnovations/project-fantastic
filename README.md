@@ -14,7 +14,7 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 ## Getting Started
 
-To install Fantastic, simply create an empty directory where you want to run the server from and run `npx fantastic-cli init`. Depending on the authentication system used, you may have to configure an admin account. The Active Directory auth module is currently experimental and there is a high chance of it not working!
+To install Fantastic, simply create an empty directory where you want to run the server from and run `npx fantastic-cli init`. Depending on the authentication system used, you may have to configure an admin account. The Active Directory auth module is currently experimental and there is a high chance of it not working! Try using `npm cache verify` to clean up the npm cache if the install command isn't working.
 
 Once Fantastic has been installed, use `npm start` as administrator to run it. You can access the client at `localhost:5000` by default.
 
@@ -30,6 +30,7 @@ Status of other browsers is unknown at this time.
 For more information on using the application itself:
 - [Client Help](packages/fantastic-help/index.md)
 - [Administrating the Fantastic Server](packages/fantastic-help/server.md)
+- [Fantastic CLI](packages/fantastic-cli/README.md)
 
 ## Creating your own content
 
@@ -42,6 +43,7 @@ We use npm as the installation method for modules, so you'll want to start by ru
 ```
 my-awesome-module
 |-- package.json
+|-- info.json
 |-- actions
 |   |-- action1.json
 |   |-- action2.json
@@ -67,6 +69,8 @@ See the relevant help sections for how to implement each data type:
 - [Scans](packages/fantastic-help/scans.md) (Daily Quests are just Scans with the quest field enabled)
 - [Story Quests](packages/fantastic-help/stories.md)
 
+`info.json` is an optional file that currently just contains a `name` property which allows you to give a display name to your module
+
 To try out your module locally you can simply go to your Fantastic install directory and do `npm i path/to/your/awesome/module` and then add the package name to the config file. If you want it to be available online, just publish it to the npm registry or GitHub and follow the standard npm installation process.
 
 ### Fantastic Editor
@@ -84,7 +88,7 @@ We haven't implemented the standalone build for it, so if you want to try it out
 
 ### Test environment
 
-There's a typical environment set up in the `dev-test/project-fantastic` directory so you can test modifications to the source code easily. Just run `npm start` in the `dev-test/project-fantastic` directory to start Fantastic, there is also a `launch.json` included for Visual Studio Code to run this command and debug. The admin account will have the username 'admin' and the password 'changeme' by default. You should probably change it to something more secure as Fantastic is a powerful tool when you have admin access!
+There's a typical environment set up in the `dev-test/project-fantastic` directory so you can test modifications to the source code easily. Just run `npm start` in the `dev-test/project-fantastic` directory to start Fantastic, there is also a `launch.json` included for Visual Studio Code to run this command and debug. Just run the upgrade command and enter the admin credentials you wish to use when prompted.
 
 There's also a test set up in `dev-test/fantastic-cli` to test out the CLI installer app. Note that the dependencies will be pulled from npm and not from the local repository, so only local changes to the fantastic-cli package itself will be reflected in the test. `npm start` will empty the test directory and run the installer inside it again.
 

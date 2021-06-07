@@ -56,7 +56,10 @@ export default (state, action) => {
   if (action.type == 'remove_child_tab') state.child_tabs.splice(state.child_tabs.findIndex(v => v === action.tab), 1)
   if (action.type == 'quest_results') QuestResults(state, action)
   if (action.type == 'quest_nodes') state.quest_results.nodes[action.quest] = action.nodes
-  if (action.type == 'run_quest') state.quest_results.status[action.quest] = 'loading' // TODO: set corresponding scan to loading
+  if (action.type == 'run_quest') {
+    state.quest_results.status[action.quest] = 'loading'
+    state.scan_results.status[action.quest] = 'loading'
+  } 
   if (action.type == 'scan_results') ScanResults(state, action)
   if (action.type == 'run_scan') state.scan_results.status[action.scan] = 'loading' 
   if (action.type == 'scan_parameter') {
@@ -116,7 +119,8 @@ export default (state, action) => {
     story[action.node] = true
   }
   if (action.type == 'run_story_node') {
-    // TODO: set corresponding scan to loading
+    const node = state.stories[action.story].nodeData[action.node]
+    if (node.type == 'scans') state.scan_results.status[node.data_key] = 'loading'
     const status_store = state.story_results.status[action.story] || (state.story_results.status[action.story] = {})
     status_store[action.node] = 'loading'
   }
@@ -150,6 +154,7 @@ export default (state, action) => {
   if (action.type == 'config') state.config = action.config
   if (action.type == 'node_warning') state.node_warning = action.nodes
   if (action.type == 'search' || action.type == 'init_complete') state.current_selection = Clone(state.search)
+  if (action.type == 'foldout_checkbox') state.foldout_checkboxes[action.id] = action.value
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

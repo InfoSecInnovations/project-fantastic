@@ -1,9 +1,10 @@
+const init = require('fantastic-cli/init')
 const FS = require('fs-extra')
 
 const run = async () => {
   await FS.emptyDir('test')
   process.chdir('test')
-  require('fantastic-cli/init')
+  await init('@next')
 }
 
 run()
