@@ -1,25 +1,36 @@
 const Serve = require('./http/serve')
 const GetInput = require('@infosecinnovations/fantastic-utils/getinput')
 const ActiveDirectory = require('./activedirectory')
+const DPAPI = require('win-dpapi')
+const FS = require('fs-extra')
 
 let username
 let password
 
 const initializeRoutes = async app => {
 
-  // TODO: get credentials from DPAPI if present
-  while(true) {
-    try {
-      username = await GetInput('Enter ActiveDirectory admin username: ')
-      while(!username) username = await GetInput('Please enter a valid username: ')
-      password = await GetInput('Enter ActiveDirectory admin password: ', true)
-      console.log('Connecting...')
-      const auth = await ActiveDirectory(username, password).then(ad => ad.authenticate(username, password))
-      if (!auth) throw('Invalid Login!')
-      break
-    }
-    catch(err) {
-      console.error(err)
+  // if the credentials file from running the service exists then we should use that
+  const file = await FS.pathExists('ad-auth.cred').then(exists => exists ? FS.readFile('ad-auth.cred') : null)
+  if (file) {
+    const data = DPAPI.unprotectData(file, null, 'LocalMachine').toString().split(/\r?\n/)
+    username = data[0]
+    password = data[1]
+  }
+  // if not ask the user until they supply a valid login
+  else {
+    while(true) {
+      try {
+        username = await GetInput('Enter ActiveDirectory admin username: ')
+        while(!username) username = await GetInput('Please enter a valid username: ')
+        password = await GetInput('Enter ActiveDirectory admin password: ', true)
+        console.log('Connecting...')
+        const auth = await ActiveDirectory(username, password).then(ad => ad.authenticate(username, password))
+        if (!auth) throw('Invalid Login!')
+        break
+      }
+      catch(err) {
+        console.error(err)
+      }
     }
   }
   app.get('/auth', require('./http/auth'))
