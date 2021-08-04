@@ -7,6 +7,7 @@ let password
 
 const initializeRoutes = async app => {
 
+  // TODO: get credentials from DPAPI if present
   while(true) {
     try {
       username = await GetInput('Enter ActiveDirectory admin username: ')
@@ -39,5 +40,6 @@ module.exports = {
   invalidate: require('./accounts/invalidate'), 
   verify: session_id => require('./accounts/verify')(session_id, {username, password}), 
   getByID: require('./accounts/getbyid'), 
-  getByUsername: require('./accounts/getbyusername')
+  getByUsername: require('./accounts/getbyusername'),
+  serviceInit: require('./serviceinit')
 }
