@@ -11,7 +11,7 @@ You will need:
 
 During installation, or when first launching Fantastic if you manually installed the module, you will be prompted to input the domain controller URL and base DN as well group names of the groups you created above. 
 
-Every time you start the Fantastic server it will ask you to input the credentials of the account used to check the user's group. You must enter the username in the exact format expected by the domain, in our case it's `username\domain.local` some domains might use `username@domain.local`, otherwise login will fail.
+Every time you start the Fantastic server it will ask you to input the credentials of the account used to check the user's group. You must enter the username in the exact format expected by the domain, in our case it's `domain\username` some domains might use `username@domain.com`, otherwise login will fail.
 
 You or someone with the necessary privileges must add any AD users who are allowed to use Fantastic to the relevant groups, note that the account used by Fantastic will not work as a user account unless also added to a group.
 
