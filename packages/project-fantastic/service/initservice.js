@@ -7,7 +7,7 @@ const svc = () => {
     description: 'pls ignore',
     script: path.join(__dirname, '..', 'index.js')
   })
-  // TODO: can we supply credentials for the service account here?
+
   return srv
 }
 
