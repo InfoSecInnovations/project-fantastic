@@ -1,13 +1,13 @@
 {
   "name": "main-interface-front",
-  "version": "0.5.6",
+  "version": "0.6.0",
   "description": "",
   "author": "",
   "private": true,
   "license": "ISC",
   "dependencies": {
-    "@infosecinnovations/fantastic-front": "^0.5.5",
-    "@infosecinnovations/fantastic-utils": "^0.5.5",
+    "@infosecinnovations/fantastic-front": "^0.6.0",
+    "@infosecinnovations/fantastic-utils": "^0.6.0",
     "@jsplumb/community": "^4.0.0-RC28",
     "alea": "^1.0.0",
     "snabbdom": "^1.0.1",

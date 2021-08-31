@@ -1,7 +1,7 @@
 {
   "name": "fantastic-cli-test",
   "private": true,
-  "version": "0.6.0-alpha.0",
+  "version": "0.6.0",
   "description": "Run this to test fantastic-cli",
   "author": "InfoSec Innovations",
   "license": "ISC",
@@ -20,8 +20,8 @@
     "test-all": "node ./all.js"
   },
   "dependencies": {
-    "@infosecinnovations/fantastic-utils": "^0.5.5",
-    "fantastic-cli": "^0.6.0-alpha.0",
+    "@infosecinnovations/fantastic-utils": "^0.6.0",
+    "fantastic-cli": "^0.6.0",
     "fs-extra": "^9.0.1"
   },
   "bugs": {

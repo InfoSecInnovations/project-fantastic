@@ -1,6 +1,6 @@
 {
   "name": "@infosecinnovations/fantastic-active_directory",
-  "version": "0.6.0-alpha.0",
+  "version": "0.6.0",
   "description": "Active Directory authentication module for Fantastic",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,8 @@
   },
   "author": "InfoSec Innovations",
   "dependencies": {
-    "@infosecinnovations/fantastic-db": "^0.5.5",
-    "@infosecinnovations/fantastic-utils": "^0.5.5",
+    "@infosecinnovations/fantastic-db": "^0.6.0",
+    "@infosecinnovations/fantastic-utils": "^0.6.0",
     "activedirectory2": "^2.0.0",
     "fs-extra": "^9.0.1",
     "win-dpapi": "^1.1.0"

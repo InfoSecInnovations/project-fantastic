@@ -1,6 +1,6 @@
 {
   "name": "editor-src",
-  "version": "0.5.5",
+  "version": "0.6.0",
   "description": "",
   "main": "index.html",
   "private": true,
@@ -13,8 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@infosecinnovations/fantastic-front": "^0.5.5",
-    "@infosecinnovations/fantastic-utils": "^0.5.5",
+    "@infosecinnovations/fantastic-front": "^0.6.0",
+    "@infosecinnovations/fantastic-utils": "^0.6.0",
     "@jsplumb/community": "^4.0.0-RC28",
     "fs-extra": "^8.1.0",
     "snabbdom": "^2.1.0",
