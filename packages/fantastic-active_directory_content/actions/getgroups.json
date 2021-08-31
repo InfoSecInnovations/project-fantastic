@@ -1,0 +1,32 @@
+{
+  "name": "Get ActiveDirectory Groups",
+  "description": "List all groups in the Security category",
+  "hosts": ["local"],
+  "functions": {
+    "run": {
+      "command": "Get-ADGroup -Filter 'GroupCategory -eq \"Security\"'",
+      "method": "invoke",
+      "json": true,
+      "result": {
+        "label": "Name",
+        "followups": [
+          {
+            "function": "get_users",
+            "data": {
+              "identity": "Name"
+            }
+          }
+        ]
+      }
+    },
+    "get_users": {
+      "name": "Get Users",
+      "command": "Get-ADGroupMember -Identity $identity -Recursive | where objectClass -eq user",
+      "method": "invoke",
+      "json": true,
+      "result": {
+        "label": "Name"
+      }
+    }
+  }
+}

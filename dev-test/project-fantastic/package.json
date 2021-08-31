@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@infosecinnovations/fantastic-active_directory": "^0.6.0",
+    "@infosecinnovations/fantastic-active_directory_content": "^0.6.0",
     "@infosecinnovations/fantastic-default": "^0.6.0",
     "@infosecinnovations/fantastic-default_auth": "^0.6.0",
     "@infosecinnovations/project-fantastic": "^0.6.0",
