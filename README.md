@@ -15,18 +15,15 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 
 ## Getting Started
 
-To install Fantastic, simply create an empty directory where you want to run the server from and run `npx fantastic-cli init`. Depending on the authentication system used, you may have to configure an admin account. The Active Directory auth module is currently experimental and there is a high chance of it not working! Try using `npm cache verify` to clean up the npm cache if the install command isn't working.
+To install Fantastic, simply create an empty directory where you want to run the server from and run `npx fantastic-cli init`. Depending on the authentication system used, you may have to configure an admin account. Try using `npm cache verify` to clean up the npm cache if the install command isn't working.
 
 Once Fantastic has been installed, use `npm start` as administrator to run it. You can access the client at `localhost:5000` by default.
 
 If you want to have it running all the time, you can now [install it as a service](./service.md) instead (but make sure you stop the app before doing this to avoid conflicts).
 
 Currently supported browsers:
-  - Google Chrome
+  - Google Chrome and probably other Chromium browsers
   - Mozilla Firefox
-
-Currently unsupported browsers:
-  - Microsoft Edge
 
 Status of other browsers is unknown at this time.
 
