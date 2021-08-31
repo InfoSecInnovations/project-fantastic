@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "Fantastic 0.6 is here!"
+date:   2021-08-31 15:30:00 +0100
+author: "Sebastian Boutin Blomfield"
+---
+We've finally got round to releasing Fantastic 0.6!
+
+The main focus has been on checking the ActiveDirectory authentication module and making it possible to run Fantastic as a service.
+
+## ActiveDirectory authentication
+
+ActiveDirectory authentication did appear to be mostly working already, and I've been using that in our test environment successfully. See the documentation [here](https://github.com/InfoSecInnovations/project-fantastic/blob/master/packages/fantastic-active_directory/README.md) on how to use it. One of the main changes has been to store the required credentials using DPAPI when running as a service.
+
+## Running Fantastic as a service
+
+As Fantastic gets closer to becoming a tool you might want to run all the time, we figured that being able to run it as a service would be a good way to achieve this.
+
+I first explored [node-windows](https://www.npmjs.com/package/node-windows), which was working, but we wanted to support [Group Managed Service Accounts](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) as these provide a more secure way to run services, and this wasn't playing nicely with node-windows, so I did some more digging around and found that you can run node.js scripts as a service using [NSSM - the Non Sucking Service Manager](https://nssm.cc/), which also has a good name. It's a very cool utility that allows you to run pretty much anything as a service, and with plenty of options. What's more, it features a GUI to edit the settings, and all of the features are also exposed to the command line. It was simple for me to try stuff out with the GUI and then write a PowerShell script that automatically handles the setup based on the user's input.
+
+Find out how to get started [here](https://github.com/InfoSecInnovations/project-fantastic/blob/master/service.md)
+
+## What's next?
+
+- Mick has an interesting project that we're going to integrate with Fantastic, more info on that when it gets closer to completion!
+- Now we have a working ActiveDirectory test environment, we can work on developing an AD content module. This will consist of various checks to verify your AD environment is set up in a secure manner.

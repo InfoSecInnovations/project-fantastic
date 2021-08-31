@@ -14,7 +14,7 @@ if (-not $isInstalled) {
   Set-Alias -Name nssm -Value ("C:\Program Files\" + $nssmVersion + "\win64\nssm.exe")
 }
 
-$serviceName = "Fantastic Test Service"
+$serviceName = "Fantastic"
 
 nssm stop $serviceName
 nssm remove $serviceName confirm

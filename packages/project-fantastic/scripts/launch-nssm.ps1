@@ -28,7 +28,7 @@ if (-not $isInstalled) {
 }
 
 ### create service
-$serviceName = "Fantastic Test Service"
+$serviceName = "Fantastic"
 $nodePath = "C:\Program Files\nodejs\node.exe"
 $serviceDir = Get-Location
 nssm install $serviceName $nodePath .\node_modules\@infosecinnovations\project-fantastic\index.js
