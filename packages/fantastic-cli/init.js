@@ -24,7 +24,7 @@ const init = async tag => {
   // we want to display 1 based indices in the command line but use 0 based to access the array
   const custom = auth_modules.length + 1
   let use_auth = await GetInput(`Select authentication module:\n${auth_modules.map((m, i) => `${i+1} - ${m}`).join('\n')}\n${custom} - Custom\n`)
-  while (!use_auth || isNaN(parseInt(use_auth)) || parseInt(use_auth) > custom) use_auth = await GetInput('Please enter a valid choice!')
+  while (!use_auth || isNaN(parseInt(use_auth)) || parseInt(use_auth) > custom || parseInt(use_auth) < 1) use_auth = await GetInput('Please enter a valid choice!')
   const auth_module = parseInt(use_auth) != custom ? `${auth_modules[parseInt(use_auth) - 1]}${tag}` : await GetInput('Enter module name: ')
   // the fantastic installer installs git if needed, then the required npm modules
   await new Promise((resolve, reject) => {
@@ -44,7 +44,6 @@ const init = async tag => {
     })
     child.on('error', error => reject(error))
   })
-  await RunProcess('powershell.exe', ['-ExecutionPolicy', 'Bypass', Path.join(__dirname, 'installers', 'fantastic-installer.ps1'), ...modules.map(m => `${m}${tag}`), auth_module])
   const module_path = await GetPackageName(auth_module)
   await Promise.all([
     FS.readJSON('package.json').then(json => FS.writeJSON('package.json', {...json, scripts: {...json.scripts, ...Scripts}}, {spaces: '\t'})),

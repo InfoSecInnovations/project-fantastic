@@ -27,6 +27,30 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "init", "next"],
       "autoAttachChildProcesses": true
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Start Service",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "cwd": "${workspaceFolder}\\dev-test\\project-fantastic",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start-service"],
+      "autoAttachChildProcesses": true
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Stop Service",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "cwd": "${workspaceFolder}\\dev-test\\project-fantastic",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "stop-service"],
+      "autoAttachChildProcesses": true
+    },
   ]
 }

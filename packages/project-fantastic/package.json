@@ -15,6 +15,7 @@
     "httpolyglot": "^0.1.2",
     "is-admin": "^3.0.0",
     "markdown-it": "^10.0.0",
+    "node-windows": "^1.0.0-beta.5",
     "svgson": "^4.0.0",
     "uWebSockets.js": "github:uNetworking/uWebSockets.js#binaries",
     "vm2": "^3.9.2",
@@ -22,7 +23,9 @@
   },
   "bin": {
     "fantastic": "./index.js",
-    "fantastic-upgrade": "./bin/upgrade.js"
+    "fantastic-upgrade": "./bin/upgrade.js",
+    "fantastic-service": "./bin/servicenssm.js",
+    "fantastic-rm-service": "./bin/uninstallservicenssm.js"
   },
   "gitHead": "4237d95421882936bf16972a812378cef1948e57",
   "publishConfig": {
