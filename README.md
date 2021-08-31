@@ -11,12 +11,15 @@ Fantastic is a visualizing tool made by [InfoSec Innovations](https://www.infose
 - [Node.js](https://nodejs.org/en/download/) >= 12 (latest is recommended). You'll need to check "Automatically install the necessary tools" during the install process.
 - If you don't have git cli installed you will need that first. You can install it using [Chocolatey](https://chocolatey.org/packages/git) or [Git for Windows](https://git-scm.com/download/win).
 - You should install [nmap](https://nmap.org/) if using the default module.
+- If you're having trouble with the installation, please try installing [windows-build-tools](https://www.npmjs.com/package/windows-build-tools) and let us know so we can confirm that this is a dependency.
 
 ## Getting Started
 
 To install Fantastic, simply create an empty directory where you want to run the server from and run `npx fantastic-cli init`. Depending on the authentication system used, you may have to configure an admin account. The Active Directory auth module is currently experimental and there is a high chance of it not working! Try using `npm cache verify` to clean up the npm cache if the install command isn't working.
 
 Once Fantastic has been installed, use `npm start` as administrator to run it. You can access the client at `localhost:5000` by default.
+
+If you want to have it running all the time, you can now [install it as a service](./service.md) instead (but make sure you stop the app before doing this to avoid conflicts).
 
 Currently supported browsers:
   - Google Chrome
@@ -31,6 +34,7 @@ For more information on using the application itself:
 - [Client Help](packages/fantastic-help/index.md)
 - [Administrating the Fantastic Server](packages/fantastic-help/server.md)
 - [Fantastic CLI](packages/fantastic-cli/README.md)
+- [ActiveDirectory authentication](packages/fantastic-active_directory/README.md)
 
 ## Creating your own content
 
