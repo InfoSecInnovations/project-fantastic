@@ -12,7 +12,8 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "start": "fantastic",
-    "start-service": "fantastic-service"
+    "start-service": "fantastic-service",
+    "stop-service": "fantastic-rm-service"
   },
   "dependencies": {
     "@infosecinnovations/fantastic-active_directory": "^0.5.5-alpha.1",

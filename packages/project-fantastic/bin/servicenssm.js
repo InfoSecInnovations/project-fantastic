@@ -7,23 +7,6 @@ const Path = require('path')
 
 const run = async () => {
   console.log('Fantastic Windows Service setup...\n')
-  /*let option = await GetInput(`Which account will run the service?
-1 - Currently logged in user
-2 - Enter account credentials
-3 - Managed service account
-`)
-  let domain, account, password
-  while (!option || isNaN(parseInt(option)) || parseInt(option) < 1 || parseInt(option) > 3) option = await GetInput('Please select a valid option!\n')
-  option = parseInt(option)
-  if (option == 2 || option == 3) {
-    domain = await GetInput('Please enter domain or leave blank for local computer: ')
-    account = await GetInput('Please enter account name: ')
-  }
-  if (option == 2) password = await GetInput('Please enter password for account: ', true)
-  if (option == 3) {
-    password = 'blah'
-    if (!account.endsWith('$')) account = `${account}$`
-  }*/
   const config = await GetConfig()
   const auth = AuthFactory(GetPackage(config.authentication.module))
   console.log('\nAuthentication setup...\n')
