@@ -17,7 +17,8 @@ const required_methods = [
  *  verify: (session_id: string) => Promise<import('@infosecinnovations/fantastic-utils/types').User>,
  *  getByID: (user_id: any) => Promise<import('@infosecinnovations/fantastic-utils/types').User>,
  *  getByUsername: (username: string) => Promise<import('@infosecinnovations/fantastic-utils/types').User>,
- *  serviceInit: (() => Promise<void>) | undefined
+ *  serviceInit: (() => Promise<void>) | undefined,
+ *  serviceRemove: (() => Promise<void>) | undefined
  * }}
  */
 const getModule = base_module => {

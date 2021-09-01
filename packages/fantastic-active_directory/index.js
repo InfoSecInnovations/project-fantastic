@@ -52,5 +52,6 @@ module.exports = {
   verify: session_id => require('./accounts/verify')(session_id, {username, password}), 
   getByID: require('./accounts/getbyid'), 
   getByUsername: require('./accounts/getbyusername'),
-  serviceInit: require('./serviceinit')
+  serviceInit: require('./serviceinit'),
+  serviceRemove: require('./serviceremove')
 }

@@ -25,8 +25,21 @@
       "method": "invoke",
       "json": true,
       "result": {
-        "label": "Name"
+        "label": "Name",
+        "followups": [
+          {
+            "function": "reset_password",
+            "data": {
+              "identity": "Name"
+            }
+          }
+        ]
       }
+    },
+    "reset_password": {
+      "name": "Reset Password",
+      "command": "Set-ADUser -Identity $identity -ChangePasswordAtLogon $true",
+      "method": "invoke"
     }
   }
 }
