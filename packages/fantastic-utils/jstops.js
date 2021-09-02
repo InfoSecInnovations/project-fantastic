@@ -1,3 +1,6 @@
+// TODO: better escaping
+const sanitize = s => s.replace(/'/g, `''`)
+
 /**
  * Convert a JavaScript value to a PowerShell variable
  * @param {*} js 
@@ -6,7 +9,7 @@
 const JStoPS = js => {
   if (typeof js == 'undefined') return '$null'
   if (typeof js == 'number') return `${js}`
-  if (typeof js == 'string') return `'${js}'`
+  if (typeof js == 'string') return `'${sanitize(js)}'`
   if (typeof js == 'boolean') return js ? '1' : '0'
   if (Array.isArray(js)) return js.map(js => JStoPS(js)).join()
 }
