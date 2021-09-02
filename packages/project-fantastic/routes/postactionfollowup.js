@@ -5,7 +5,7 @@ const End = require('./end')
 const {transaction} = require('../db')
 const getConnectionData = require('../util/getconnectiondata')
 
-const postActionFollowup = async (user, res, req, query, actions) => {
+const postActionFollowup = async (user, res, req, query, actions, http_data) => {
   console.log(`postActionFollowup: received http request to execute ${query.function} function from ${query.action} on node ${query.node_id}...`)
   if (!actions.includes(query.action)) return End(res)
   const action = await GetPackagedData(query.action, 'actions')
@@ -19,7 +19,8 @@ const postActionFollowup = async (user, res, req, query, actions) => {
     const action_data = await db.get({table: 'action_data', conditions: {columns: {action: query.action, user_id: user.user_id, label: query.label, function: query.function}}})
     const json = action_data ? JSON.parse(action_data.data) : {}
     const connection_data = query.connection ? await getConnectionData(db, query.connection) : {}
-    const data = {...json, ...connection_data}
+    const input = (func.input && http_data) ? JSON.parse(http_data) : {}
+    const data = {...connection_data, ...json, ...input }
     const result = await RunAction(db, query.action, query.function, query.node_id, user, date, {label: query.label, data})
     await db.insert('all_history', {event_type: 'action', event_id: result.event_id, date, user_id: user.user_id})
     await db.close()

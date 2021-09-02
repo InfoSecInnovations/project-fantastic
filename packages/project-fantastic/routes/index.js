@@ -41,8 +41,8 @@ const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stor
   createRoute('get', '/module_info', require('./getmoduleinfo'), {arg: get_config})
 
   createRoute('post', '/commands', require('./postcommands'), {arg: get_commands, callback: commands => update_commands(commands)})
-  createRoute('post', '/actions', require('./postactions'), {arg: get_actions})
-  createRoute('post', '/action_followup', require('./postactionfollowup'), {arg: get_actions})
+  createRoute('post', '/actions', require('./postactions'), {arg: get_actions, http_data: true})
+  createRoute('post', '/action_followup', require('./postactionfollowup'), {arg: get_actions, http_data: true})
   createRoute('post', '/scans', require('./postscans'), {arg: get_scans, http_data: true})
   createRoute('post', '/scan_resolve', require('./postscanresolve'))
   createRoute('post', '/quests', require('./postquests'), {arg: get_scans})

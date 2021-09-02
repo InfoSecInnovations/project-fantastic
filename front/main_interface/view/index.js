@@ -7,6 +7,7 @@ import Review from './review'
 import StoryPanel from './storypanel'
 import SaveSearch from './savesearch'
 import NodeWarning from './nodewarning'
+import ActionInput from '@infosecinnovations/fantastic-front/view/actions/actioninput'
 
 export default (state, send) => 
   h('body', [
@@ -18,6 +19,7 @@ export default (state, send) =>
       }),
       SaveSearch(state, send),
       NodeWarning(state, send),
+      ActionInput(state, send),
       StoryPanel(state, send),
       state.loading ? h('div#loading', 'Loading...') : undefined,
       LeftPanel(state, send),

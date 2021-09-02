@@ -25,6 +25,9 @@ export default (state, action) => {
     obj[action.data_key] = action.remove ? null : 'favorited'
   }
   if (action.type == 'module_info') state.module_info = action.info
+  if (action.type == 'action_input') state.action_input = {...action, values: {}}
+  if (action.type == 'input_value') state.action_input.values[action.field] = action.value
+  if (action.type == 'clear_action_input') state.action_input = undefined
 
   return state
 }

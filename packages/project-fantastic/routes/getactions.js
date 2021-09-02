@@ -19,6 +19,7 @@ const getActions = (user, res, req, query, actions) => {
         commands: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].command}), {}),
         names: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].name || v[0]}), {}),
         filters: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].result && v[1].result.filter}), {}),
+        inputs: Object.entries(v.functions).reduce((result, v) => ({...result, [v[0]]: v[1].inputs}), {}),
         module: v.module
       }
     }), {})

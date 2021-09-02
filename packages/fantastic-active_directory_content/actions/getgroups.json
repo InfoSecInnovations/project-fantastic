@@ -21,7 +21,7 @@
     },
     "get_users": {
       "name": "Get Users",
-      "command": "Get-ADGroupMember -Identity $identity -Recursive | where objectClass -eq user",
+      "command": "Get-ADGroupMember -Identity $identity -Recursive | where objectClass -eq user | Get-ADUser",
       "method": "invoke",
       "json": true,
       "result": {
@@ -32,6 +32,14 @@
             "data": {
               "identity": "Name"
             }
+          },
+          {
+            "function": "enable_user",
+            "data": {
+              "identity": "Name",
+              "state": {"bool": "Enabled", "inverse": true}
+            },
+            "enabled": {"bool": "Enabled"}
           }
         ]
       }
@@ -39,6 +47,11 @@
     "reset_password": {
       "name": "Reset Password",
       "command": "Set-ADUser -Identity $identity -ChangePasswordAtLogon $true",
+      "method": "invoke"
+    },
+    "enable_user": {
+      "name": "Enable User",
+      "command": "Set-ADUser -Identity $identity -Enabled $state",
       "method": "invoke"
     }
   }

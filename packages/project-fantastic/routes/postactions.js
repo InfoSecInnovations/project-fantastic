@@ -6,14 +6,16 @@ const {transaction} = require('../db')
 const GetConnectionData = require('../util/getconnectiondata')
 const getData = require('../db/getuserhistory/getdata')
 
-const postActions = async (user, res, req, query, actions) => {
+const postActions = async (user, res, req, query, actions, data) => {
   console.log(`postActions: received http request to execute ${query.action} on node ${query.node_id}...`)
   if (!actions.includes(query.action)) return End(res)
   const action = await GetPackagedData(query.action, 'actions')
   if (!HasRole(user, action.role)) return End(res)
   const date = Date.now()
   const db = await transaction()
-  const opts = query.connection && {data: await GetConnectionData(db, query.connection)}
+  // TODO: sanitize input data
+  // TODO: somewhere here we're not getting the input data properly
+  const opts = {data: {...(query.connection && await GetConnectionData(db, query.connection)), ...(action.functions.run.input && data && JSON.parse(data))}}
   const result = await RunAction(db, query.action, 'run', query.node_id, user, date, opts)
   const history_id = await db.insert('all_history', {event_type: 'action', date, user_id: user.user_id, event_id: result.event_id})
   const history_item = await getData(db, {history_id, event_type: 'action', date, user_id: user.user_id, event_id: result.event_id})

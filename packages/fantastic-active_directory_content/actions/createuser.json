@@ -1,0 +1,23 @@
+{
+  "name": "Add User",
+  "description": "Create a new ActiveDirectory user account",
+  "hosts": ["local"],
+  "functions": {
+    "run": {
+      "command": "New-ADUser -Name $username -AccountPassword (ConvertTo-SecureString $password -AsPlainText -Force)",
+      "method": "invoke",
+      "inputs": [
+        {
+          "variable": "username",
+          "name": "Username",
+          "type": "string"
+        },
+        {
+          "variable": "password",
+          "name": "Password",
+          "type": "password"
+        }
+      ]
+    }
+  }
+}
