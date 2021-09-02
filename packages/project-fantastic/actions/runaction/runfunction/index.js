@@ -13,11 +13,12 @@ const ProcessResults = require('./processresults')
  * @returns {{
  *  results: import('./types').Result[],
  *  filter?: boolean
- * }}
+ * } | {error: string}}
  */
 const runFunction = async (action, func, user, hostname, data) => {
   const func_data = action.functions[func]
-  const output = await PwshFunction(func_data)(func_data.command, hostname, data)
+  const output = await PwshFunction(func_data)(func_data.command, hostname, data).catch(rej => ({error: rej}))
+  if (output.error) return output
   if (!func_data.result) return {results: []}
   const filter = await GetFilter(func_data.result.filter)
   let results = func_data.json ? 

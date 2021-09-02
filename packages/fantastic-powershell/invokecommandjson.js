@@ -6,9 +6,8 @@ const ProcessJSON = require('./processjson')
  * @param {string} command 
  * @param {string} hostname 
  * @param {Object} params 
- * @param {boolean} log Enable error logging.
  * @returns {Promise<Object>} The output from the PowerShell command converted to JSON.
  */
-const invokeCommandJson = (command, hostname, params, log) => InvokeCommand(`${command} | ConvertTo-Json`, hostname, params, log).then(ProcessJSON)
+const invokeCommandJson = (command, hostname, params) => InvokeCommand(`${command} | ConvertTo-Json`, hostname, params).then(ProcessJSON)
 
 module.exports = invokeCommandJson

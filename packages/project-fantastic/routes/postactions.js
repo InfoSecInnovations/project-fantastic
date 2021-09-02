@@ -19,7 +19,7 @@ const postActions = async (user, res, req, query, actions, data) => {
   const history_item = await getData(db, {history_id, event_type: 'action', date, user_id: user.user_id, event_id: result.event_id})
   await db.close()
   if (res.aborted) return
-  res.end(JSON.stringify({result: result.result.results, filter: result.result.filter, date, history_item}))
+  res.end(JSON.stringify({...(result.result.error ? {result: result.result} : result.result), date, history_item}))
   console.log(`postActions: ${query.action} executed on node ${query.node_id}`)
 }
 

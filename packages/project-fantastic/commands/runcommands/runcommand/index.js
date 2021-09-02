@@ -8,7 +8,7 @@ const XML = require('./xml')
  * @param {string} hostname 
  */
 const runCommand = async (command, hostname) => {
-  const output = await PwshFunction(command.run)(command.run.command, hostname, undefined, false) // TODO: do we always want logging set to false?
+  const output = await PwshFunction(command.run)(command.run.command, hostname).catch(rej => undefined) // TODO: do we want to warn if something failed?
   if (!output) return
   if (command.run.json) return JSONOutput(command.run.result, output)
   if (command.run.read_xml) return await XML(command)

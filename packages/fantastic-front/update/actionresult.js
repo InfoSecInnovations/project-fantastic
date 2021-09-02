@@ -7,6 +7,7 @@ export default (state, action) => {
     state.action_results[action.hostname][action.action] = {}
   }
   const action_result = state.action_results[action.hostname][action.action]
+  // if this is a parent action being refreshed after a followup 
   if (action.followup) {
     action_result.result.find(v => v.label === action.followup.label).followups[action.followup.followup] = action.result.find(v => v.label === action.followup.label).followups[action.followup.followup]
   }

@@ -8,7 +8,7 @@ const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
  * @param {boolean} log Enable error logging.
  * @returns {Promise<string>} The result of running the command.
  */
-const child = (command, params, log = true) => new Promise((resolve, reject) => {
+const child = (command, params) => new Promise((resolve, reject) => {
   if (params) command = FormatString(command, params)
   const child_process = spawn('powershell.exe', ['-ExecutionPolicy', 'Bypass', command], {env: process.env})
   let buffer
@@ -16,10 +16,10 @@ const child = (command, params, log = true) => new Promise((resolve, reject) => 
     buffer = buffer ? Buffer.concat([buffer, d]) : Buffer.concat([d])
   })
   child_process.stderr.on('data', d => {
-    if (log) console.log(`PowerShell command failed: ${d}`)
-    resolve('')
+    reject(d.toString())
   })
-  child_process.on('exit', () => {
+  child_process.on('exit', code => {
+    if (code !== 0) return reject(`Exited with code ${code}`)
     const s = buffer ? buffer.toString() : ''
     resolve(s)
   })

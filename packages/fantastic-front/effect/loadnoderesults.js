@@ -20,7 +20,7 @@ const load_followup = (action, send, node, results, followups) => {
     followups,
     value: false
   })
-  result.forEach((r, i) => {
+  if (!result.error) result.forEach((r, i) => {
     if (!r.followups) return
     Object.values(r.followups).forEach(f => load_followup(action, send, node, results, [...followups, {label: r.label, followup: f.function}], ))
   })
@@ -48,7 +48,7 @@ export default (nodes, send) => {
         hostname: node.hostname,
         value: false
       })
-      result.forEach((r, i) => {
+      if (!result.error) result.forEach((r, i) => {
         if (!r.followups) return
         Object.values(r.followups).forEach(f => load_followup(v.action, send, node, res, [{label: r.label, followup: f.function}]))
       })

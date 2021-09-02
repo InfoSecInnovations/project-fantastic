@@ -6,9 +6,8 @@ const CimSession = require('./cimsession')
  * @param {string} command 
  * @param {string} hostname 
  * @param {Object} params 
- * @param {boolean} log Enable error logging.
  * @returns {Promise<Object>} The output from the PowerShell command converted to JSON.
  */
-const cimSessionJson = (command, hostname, params, log) => CimSession(`${command} | ConvertTo-Json`, hostname, params, log).then(ProcessJSON)
+const cimSessionJson = (command, hostname, params) => CimSession(`${command} | ConvertTo-Json`, hostname, params).then(ProcessJSON)
 
 module.exports = cimSessionJson
