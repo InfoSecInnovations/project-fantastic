@@ -121,6 +121,9 @@ a:hover,
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
+.error {
+  color: #ff3224;
+}
 h1,
 h2,
 h3,

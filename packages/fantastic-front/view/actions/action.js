@@ -10,6 +10,12 @@ export default (state, send, node, connection, action, action_data) => {
   const result_data = state.action_results[node.hostname] && state.action_results[node.hostname][action]
   const loading = result_data && result_data.status === 'loading'
   const id = `${action}-foldout`
+  const result_view = () => {
+    if (!result_data.foldout) return []
+    if (result_data.result.error) return [h('div.result', h('div.error', result_data.result.error))]
+    return result_data.result
+    .map(r => Result(state, action, r, node.node_id, node.hostname, loading, result_data.filter, send))
+  }
   return h('div.scroll_item spaced', {
     hook: {
       insert: vnode => {
@@ -37,8 +43,7 @@ export default (state, send, node, connection, action, action_data) => {
         `Results from ${TimeAgo(result_data.date)}`, 
         h(`div.foldout fas fa-${result_data.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`)
       ]),
-      ...(result_data.foldout ? result_data.result
-        .map(r => Result(state, action, r, node.node_id, node.hostname, loading, result_data.filter, send)) : [])
+      ...(result_view())
     ]) : undefined
   ]))
 }

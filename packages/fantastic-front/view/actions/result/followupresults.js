@@ -1,9 +1,17 @@
 import {h} from 'snabbdom/h'
 import TimeAgo from '../../../util/timeago'
 
-export default (state, action, action_result, node_id, host, loading, send, followups, result_func) => action_result.followups ? Object.values(action_result.followups)
+export default (state, action, action_result, node_id, host, loading, send, followups, result_func) => {
+  if (!action_result.followups) return []
+  return Object.values(action_result.followups)
   .filter(v => v.result)
   .map(v => {
+    const result_view = () => {
+      if (!v.foldout) return []
+      if (v.result.error) return [h('div.result', h('div.error', v.result.error))]
+      return v.result
+      .map(r => result_func(state, action, r, node_id, host, loading || v.status === 'loading', v.filter, send, [...followups, {followup: v.function, label: action_result.label}]))
+    }
     return h('div', [
       h('div.result_time followup', {
         on: {click: e => send({
@@ -21,8 +29,7 @@ export default (state, action, action_result, node_id, host, loading, send, foll
           h(`div.foldout fas fa-${v.foldout ? 'chevron-down' : 'chevron-right'} fa-fw`)
         ])
       ]),
-      ...(v.foldout ? v.result.map(r => 
-        result_func(state, action, r, node_id, host, loading || v.status === 'loading', v.filter, send, [...followups, {followup: v.function, label: action_result.label}])
-      ) : [])
+      ...(result_view())
     ])
-  }).flat() : []
+  }).flat()
+}

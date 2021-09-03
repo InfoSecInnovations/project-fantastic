@@ -26,7 +26,7 @@ const postActionFollowup = async (user, res, req, query, actions, http_data) => 
     await db.close()
     if (res.aborted) return
     console.log(`postActionFollowup: ${query.function} function from ${query.action} executed on node ${query.node_id}.`)
-    res.end(JSON.stringify({...(result.result.error ? {result: result.result} : result.result), date}))
+    res.end(JSON.stringify({result: result.result.error ? result.result : result.result.results, filter: result.result.filter, date}))
   }
   catch (err) {
     return End(res)
