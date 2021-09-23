@@ -1,4 +1,6 @@
 const { transaction } = require('../db')
+const EventLogger = require('../eventlogger')
+const EventCodes = require('../eventcodes')
 
 const postReview = async (user, res, req, query) => {
 console.log(`postReview: received http request to review ${query.data_key} results...`)
@@ -60,6 +62,7 @@ console.log(`postReview: received http request to review ${query.data_key} resul
     await db.insert('approval_history', {scan_id, approved, user_id: user.user_id})
     await db.close()
     console.log(`postReview: updated approval status for ${query.data_key}.`)
+    EventLogger.info(`${user.username} reviewed results for ${query.data_key} (${query.type}). They ${approved ? 'approved' : 'rejected'} the results.`, EventCodes.REVIEW_RESULTS)
     return res.end(JSON.stringify({approved, date}))
   }
   await db.close()

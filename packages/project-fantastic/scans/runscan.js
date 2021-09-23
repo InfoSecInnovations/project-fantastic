@@ -42,7 +42,7 @@ const runScan = async (db, scan, user, date, nodes, parameters, age, parent_even
   const result_text = data.pass == 'review' ? 'This result requires manual review by the user' :
     success ? `All nodes scanned passed` : 
     `Some nodes failed`
-  EventLogger.info(`${user.username} ran scan ${scan}. ${result_text}`)
+  EventLogger.info(`${user.username} ran scan ${scan}. ${result_text}`, EventCodes.RUN_SCAN)
   return {results, event_id, success}
 }
 

@@ -6,7 +6,8 @@ const codes = {
   GATHER_HOST_DATA: 4,
   RUN_QUEST: 5,
   RUN_SCAN: 6,
-  RUN_STORY_NODE: 7
+  RUN_STORY_NODE: 7,
+  REVIEW_RESULTS: 8
 }
 
 module.exports = codes
