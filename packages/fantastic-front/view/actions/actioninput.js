@@ -32,7 +32,10 @@ export default (state, send) => {
           })  
           send({type: 'clear_action_input'}) 
         }}
-      }, 'OK')
+      }, 'OK'),
+      h('div.button', {
+        on: { click: e => send({type: 'clear_action_input'}) }
+      }, 'Cancel')
     ])
   ]))
 } 
