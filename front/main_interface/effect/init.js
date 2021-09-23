@@ -15,11 +15,5 @@ export default (state, send) => {
   ])
   .then(() => send({type: 'init_complete'}))
   UserHistory(send)
-  window.onkeydown = e => {
-    if (e.key === 'Shift') send({type: 'key', key: 'shift', value: true})
-  }
-  window.onkeyup = e => {
-    if (e.key === 'Shift') send({type: 'key', key: 'shift', value: false})
-  }
   window.onresize = e => ResizeStory(state, send)
 }

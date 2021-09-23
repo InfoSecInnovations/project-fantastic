@@ -11,7 +11,7 @@ const input = (send, v) => {
   const type = typeMappings[v.type]
   return h('div.item', [
     h('label', {attrs: {for: id}}, v.name),
-    h('input', {attrs: {id, type}, on: {change: e => send({type: 'input_value', field: v.variable, value: e.target.value})}})
+    h('input', {attrs: {id, type}, on: {input: e => send({type: 'input_value', field: v.variable, value: e.target.value})}})
   ])
 }
 
