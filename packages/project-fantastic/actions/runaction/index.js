@@ -1,5 +1,7 @@
 const GetPackagedData = require('../../util/getpackageddata')
 const RunFunction = require('./runfunction')
+const EventLogger = require('../../eventlogger')
+const EventCodes = require('../../eventcodes')
 
 /**
  * Run a function from an action and record it in the database
@@ -46,6 +48,7 @@ const runAction = async (db, action, func, node_id, user, date, options) => {
     scan_id: options && options.scan_id,
     story_id: options && options.story_id
   })
+  EventLogger.info(`${user.username} ran function ${func} from action ${action}`, EventCodes.RUN_ACTION)
   return {result, event_id}
 }
 

@@ -18,6 +18,8 @@ const CreateRoutingServer = require('./createroutingserver')
 const version = require('./version')
 const AuthFactory = require('@infosecinnovations/fantastic-auth_factory')
 const GetStoryData = require('./stories/getstorydata')
+const EventLogger = require('./eventlogger')
+const EventCodes = require('./eventcodes')
 
 /**
  * Start the server
@@ -25,7 +27,10 @@ const GetStoryData = require('./stories/getstorydata')
 const main = async () => {
 
   const is_admin = await IsAdmin()
-  if (!is_admin) return console.log('ADMINISTRATOR ACCESS REQUIRED: Please run as administrator!')
+  if (!is_admin) {
+    EventLogger.error('ADMINISTRATOR ACCESS REQUIRED: Please run as administrator!', EventCodes.ADMINISTRATOR_REQUIRED)
+    return console.log('ADMINISTRATOR ACCESS REQUIRED: Please run as administrator!')
+  } 
   const current_version = await FS.readFile('.current_version').then(res => parseInt(res)).catch(() => '')
   if (current_version !== version) return console.log("Version mismatch, please run 'npx fantastic-upgrade' to upgrade!")
 
@@ -69,7 +74,10 @@ const main = async () => {
   process.on('exit', () => {
     if (data_process) data_process.kill()
   })
-  app.listen(config.port + 1, () => console.log(`Fantastic Server running on port ${config.port + 1}!`))
+  app.listen(config.port + 1, () => {
+    console.log(`Fantastic Server running on port ${config.port + 1}!`)
+    EventLogger.info(`Fantastic Server running on port ${config.port + 1}`, EventCodes.SERVER_START)
+  })
   CreateRoutingServer(config.port, cert_directory)
 
   // reload config and update changed data

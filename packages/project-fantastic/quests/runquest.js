@@ -3,6 +3,8 @@ const RunScan = require('../scans/runscan')
 const {getNodes} = require('../db')
 const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
 const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultparameters')
+const EventLogger = require('../eventlogger')
+const EventCodes = require('../eventcodes')
 
 /**
  * Run a quest
@@ -20,6 +22,7 @@ const runQuest = async (db, quest, user, date) => {
   const parameters = {...DefaultParameters(scan_obj),  ...scan_obj.quest.parameters}
   const {results, event_id: scan_id, success} = await RunScan(db, quest, user, date, row_ids, parameters, age || 0, event_id)
   if (success) await db.update({table: 'daily_quests', row: {date_completed: date}, conditions: {columns: {user_id: user.user_id, quest}}})
+  EventLogger.info(`${user.username} ran quest ${quest}`, EventCodes.RUN_QUEST)
   return {results, scan_id, rows, event_id, success, parameters}
 }
 

@@ -4,6 +4,8 @@ const RunAction = require('../actions/runaction')
 const {getNodes} = require('../db')
 const ConvertTime = require('@infosecinnovations/fantastic-utils/converttime')
 const DefaultParameters = require('@infosecinnovations/fantastic-utils/defaultparameters')
+const EventLogger = require('../eventlogger')
+const EventCodes = require('../eventcodes')
 
 /**
  * Run a quest
@@ -35,12 +37,14 @@ const runStoryNode = async (db, story, story_node_id, user, date) => {
     )
     if (success) await db.insert('completed_story_nodes', {story, story_node_id, user_id: user.user_id, date})
     await db.update({table: 'story_history', row: {success}, conditions: {columns: {story_id: event_id}}})
+    EventLogger.info(`${user.username} ran node ${node.key} (scan) from story ${story}`, EventCodes.RUN_STORY_NODE)
     return {results, rows, event_id, scan_id, success, parameters}
   }
   else {
     const results = await Promise.all(row_ids.map(node_id => RunAction(db, node.key, 'run', node_id, user, date))).then(() => true)
     await db.insert('completed_story_nodes', {story, story_node_id, user_id: user.user_id, date})
     await db.update({table: 'story_history', row: {success: true}, conditions: {columns: {story_id: event_id}}})
+    EventLogger.info(`${user.username} ran node ${node.key} (${node.type}) from story ${story}`, EventCodes.RUN_STORY_NODE)
     return {results, rows, event_id, success: true}
   }
 

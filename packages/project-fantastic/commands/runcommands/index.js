@@ -4,6 +4,8 @@ const CreateCommands = require('./createcommands')
 const GetRemoteHosts = require('./getremotehosts')
 const DB = require('../../db')
 const FindHosts = require('./findhosts')
+const EventLogger = require('../../eventlogger')
+const EventCodes = require('../../eventcodes')
 
 /**
  * continuously run commands to gather data about hosts
@@ -17,6 +19,7 @@ const runCommands = async get_commands => {
   }
   console.log('-----gathering initial local host data...-----')
   const local = (await GetNode(commands).then(res => DB.addNodes([{...res, access: 'local'}], true)))[0] // create/update the initial node belonging to the local host and get its database ID
+  EventLogger.info('gathered initial local host data', EventCodes.GATHER_HOST_DATA)
   const loop = async () => {
     console.log('-----starting host data loop...-----')
     const commands = await CreateCommands(get_commands())
@@ -28,6 +31,7 @@ const runCommands = async get_commands => {
       await RunType(commands, 'connections', 'remote', node.hostname).then(res => DB.addConnections(node.id, res, true))
       await GetNode(commands, node.hostname).then(res => DB.updateNode(node.id, res, DB, true))
     }
+    EventLogger.info('gathered data about all known hosts on network', EventCodes.GATHER_HOST_DATA)
     loop ()
   }
   loop()

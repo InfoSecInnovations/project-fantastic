@@ -2,6 +2,8 @@ const GetPackagedData = require('../util/getpackageddata')
 const RunAction = require('../actions/runaction')
 const CheckResult = require('./checkresult')
 const GetAbsolutePath = require('../util/getabsolutedatapath')
+const EventLogger = require('../eventlogger')
+const EventCodes = require('../eventcodes')
 
 /**
  * 
@@ -37,6 +39,10 @@ const runScan = async (db, scan, user, date, nodes, parameters, age, parent_even
   }
   await db.update({table: 'scan_history', row: {results: JSON.stringify(results)}, conditions: {columns: {scan_id: event_id}}})
   const success = data.pass == 'review' ? false : results.every(r => r.result == data.pass.condition)
+  const result_text = data.pass == 'review' ? 'This result requires manual review by the user' :
+    success ? `All nodes scanned passed` : 
+    `Some nodes failed`
+  EventLogger.info(`${user.username} ran scan ${scan}. ${result_text}`)
   return {results, event_id, success}
 }
 
