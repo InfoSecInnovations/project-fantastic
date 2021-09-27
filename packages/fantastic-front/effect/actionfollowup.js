@@ -13,7 +13,7 @@ export default (state, action, send) => {
   .then(res => res.json())
   .then(res => {
     send({...action, type: 'action_followup_result', result: res.result, hostname: action.host, date: res.date, filter: res.filter})
-    if (action.followups && action.refresh && !res.result.length) { // TODO: maybe 0 results isn't always a good indication of needing to refresh?
+    if (action.followups && action.refresh && ((Array.isArray(res.result) && !res.result.length) || !res.result)) { // TODO: maybe 0 results isn't always a good indication of needing to refresh?
       if (action.followups.length === 1) {
         send({
           ...action,

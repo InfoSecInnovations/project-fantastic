@@ -1049,7 +1049,7 @@ eval("const uuid4 = __webpack_require__(/*! uuid */ \"../packages/fantastic-util
 /*! CommonJS bailout: module.exports is used directly at 17:0-14 */
 /***/ ((module) => {
 
-eval("// TODO: better escaping\r\nconst sanitize = s => s.replace(/'/g, `''`)\r\n\r\n/**\r\n * Convert a JavaScript value to a PowerShell variable\r\n * @param {*} js \r\n * @returns {string}\r\n */\r\nconst JStoPS = js => {\r\n  if (typeof js == 'undefined') return '$null'\r\n  if (typeof js == 'number') return `${js}`\r\n  if (typeof js == 'string') return `'${sanitize(js)}'`\r\n  if (typeof js == 'boolean') return js ? '1' : '0'\r\n  if (Array.isArray(js)) return js.map(js => JStoPS(js)).join()\r\n}\r\n\r\nmodule.exports = JStoPS\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/jstops.js?");
+eval("// TODO: better escaping\r\nconst sanitize = s => s.replace(/'/g, `''`)\r\n\r\n/**\r\n * Convert a JavaScript value to a PowerShell variable\r\n * @param {*} js \r\n * @returns {string}\r\n */\r\nconst JStoPS = js => {\r\n  if (typeof js == 'undefined') return '$null'\r\n  if (typeof js == 'number') return `${js}`\r\n  if (typeof js == 'string') return `'${sanitize(js)}'`\r\n  if (typeof js == 'boolean') return js ? '$true' : '$false'\r\n  if (Array.isArray(js)) return js.map(js => JStoPS(js)).join()\r\n}\r\n\r\nmodule.exports = JStoPS\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/jstops.js?");
 
 /***/ }),
 

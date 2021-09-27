@@ -10,10 +10,10 @@ const ProcessResults = require('./processresults')
  * @param {import('@infosecinnovations/fantastic-utils/types').User} user 
  * @param {string} hostname 
  * @param {{}} [data]
- * @returns {{
+ * @returns {Promise<{
  *  results: import('./types').Result[],
  *  filter?: boolean
- * } | {error: string}}
+ * } | {error: string}>}
  */
 const runFunction = async (action, func, user, hostname, data) => {
   const func_data = action.functions[func]

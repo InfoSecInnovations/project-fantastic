@@ -9,6 +9,7 @@ const FormatString = require('@infosecinnovations/fantastic-utils/formatstring')
  * @returns {Promise<string>} The result of running the command.
  */
 const child = (command, params) => new Promise((resolve, reject) => {
+  if (!command.trim()) return reject('Empty command!')
   if (params) command = FormatString(command, params)
   const child_process = spawn('powershell.exe', ['-ExecutionPolicy', 'Bypass', command], {env: process.env})
   let buffer

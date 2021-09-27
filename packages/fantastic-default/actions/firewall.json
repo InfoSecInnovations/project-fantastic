@@ -14,7 +14,13 @@
             "function": "enable_profile",
             "data": {
               "profile": "name",
-              "state": {"bool": "Enabled", "inverse": true}
+              "state": {
+                "map": {
+                  "0": "True",
+                  "1": "False"
+                },
+                "key": "Enabled"
+              }
             },
             "enabled": {"bool": "Enabled"}
           },
@@ -70,7 +76,13 @@
             "function": "enable_rule",
             "data": {
               "name": "Name",
-              "state": {"bool": "Enabled", "inverse": true}
+              "state": {
+                "map": {
+                  "0": "True",
+                  "1": "False"
+                },
+                "key": "Enabled"
+              }
             },
             "enabled": {"bool": "Enabled"} 
           },          
