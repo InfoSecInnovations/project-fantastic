@@ -3,19 +3,6 @@ import {h} from 'snabbdom/h'
 export default (state, send) => [
   h('input', {
     attrs: { 
-      id: 'load-module-file-input',
-      type: 'file',
-      nwdirectory: true
-    },
-    on: { change: e => {
-      send({type: 'load_module', module: e.target.value})
-      e.target.value = ''
-    }},
-    style: {display: 'none'}
-  }),
-  h('label.button', {attrs: {for: 'load-module-file-input'}}, 'Load Module'),
-  h('input', {
-    attrs: { 
       id: 'load-file-input',
       type: 'file',
       accept: '.json'

@@ -4,9 +4,9 @@ import Editor from './editor'
 import Info from './info'
 import MenuBar from './menubar'
 
-export default (state, send) => h('div#story-tree', [
+export default (state, send) => h('div#story-tree.content', [
   h('div#sidebar.panel', Sidebar(state, send)),
-  h('div.column', [
+  h('div#central-column', [
     h('div#menu-bar.panel', MenuBar(state, send)),
     h('div#editor.graph', {
       hook: {create: (_, vnode) => setTimeout(() => send({type: 'editor_canvas', id: vnode.elm.getAttribute('id')}))},

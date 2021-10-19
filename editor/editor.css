@@ -24,7 +24,8 @@ body {
   flex-grow: 1;
   flex-basis: 0;
 }
-.fas {
+.fas,
+.far {
   font-size: 1.5rem;
   flex-grow: 0;
   color: #f55100;
@@ -101,6 +102,28 @@ a:hover,
   gap: 1rem;
   padding: 1rem 0;
 }
+.hidden {
+  display: none;
+}
+.invisible {
+  opacity: 0;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.center {
+  align-items: center;
+}
+.module_header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.error {
+  color: #ff3224;
+}
 h1,
 h2,
 h3,
@@ -144,7 +167,7 @@ input[type=button],
 input[type=submit],
 input[type=reset] {
   cursor: pointer;
-  padding: 0.8rem;
+  padding: 0.4rem 0.8rem;
   background-color: #3c3d3d;
   color: #fff;
   font-family: 'Exo 2', sans-serif;
@@ -159,6 +182,13 @@ input[type=reset] {
   min-width: 5rem;
   border-radius: 1rem;
   border: 2px solid #f55100;
+}
+.button .fa-fw,
+input[type=button] .fa-fw,
+input[type=submit] .fa-fw,
+input[type=reset] .fa-fw {
+  font-size: 1.1rem;
+  height: auto;
 }
 .button:hover,
 input[type=button]:hover,
@@ -200,9 +230,17 @@ input[type=password] {
   display: flex;
   align-items: center;
   flex-grow: 1;
+  color: #fff;
+  font-weight: normal;
 }
-.icon_button:hover .fas {
+.icon_button:hover .fas,
+.icon_button:hover .far {
   color: #ffa666;
+}
+.icon_button img {
+  width: 1.875rem;
+  height: 1.875rem;
+  object-fit: contain;
 }
 .foldout {
   cursor: pointer;
@@ -214,11 +252,69 @@ input[type=password] {
   color: #949494;
   cursor: auto;
 }
+.auto_foldout {
+  display: none;
+}
+.auto_foldout ~ .foldout_child {
+  display: none;
+}
+.auto_foldout ~ * > label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.auto_foldout ~ * > label .item {
+  flex-grow: 1;
+}
+.auto_foldout ~ * > label:after {
+  font-size: 1.5rem;
+  content: '\f054';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #f55100;
+  margin-left: 0.5rem;
+}
+.auto_foldout:checked ~ .foldout_child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-bottom: 2rem;
+}
+.auto_foldout:checked ~ * > label:after {
+  content: '\f078';
+}
+.auto_foldout:hover ~ * > label:after {
+  color: #ffa666;
+}
+.play {
+  align-self: flex-start;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.history_control {
+  font-size: 1rem;
+  cursor: pointer;
+}
+.history_control:hover {
+  color: #ffa666;
+}
+.favorited {
+  color: #ffe159;
+}
+.favorited:hover {
+  color: #fff;
+}
+.dialog_buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
 .scroll_container {
   min-height: 0;
   min-width: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: 1rem;
   padding: 1rem;
 }
@@ -230,7 +326,6 @@ input[type=password] {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  flex: 1;
   scrollbar-width: thin;
   scrollbar-color: #f55100 #ffa666;
 }
@@ -256,71 +351,6 @@ input[type=password] {
 }
 .scroll_container .scroll .scroll_item.spaced {
   gap: 0.7rem;
-}
-.column {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.center {
-  align-items: center;
-}
-.label {
-  font-size: 12px;
-  color: #949494;
-}
-ul {
-  margin: 0;
-  padding: 0;
-}
-li {
-  margin: 0;
-  padding: 0;
-}
-#story-tree {
-  display: grid;
-  grid-template-columns: 260px auto 300px;
-  width: fit-content;
-}
-#story-tree .graph {
-  width: 1280px;
-  height: 720px;
-  position: relative;
-  border: solid 2px #505151;
-  box-sizing: content-box;
-}
-#story-tree #menu-bar {
-  width: 1284px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  padding: 10px;
-}
-#story-tree #module-menu {
-  z-index: 100;
-  display: flex;
-  padding: 10px;
-}
-#story-tree #sidebar {
-  padding: 10px;
-}
-#story-tree #sidebar h2 {
-  font-size: 1.5rem;
-}
-#story-tree #sidebar .sidebar-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-}
-#story-tree #sidebar .sidebar-columns li {
-  margin: 10px;
-}
-#story-tree #info {
-  padding: 10px;
-  gap: 10px;
-}
-#story-tree #info .parameter {
-  display: flex;
-  gap: 10px;
 }
 .node {
   cursor: pointer;
@@ -368,11 +398,107 @@ li {
   color: #38d140;
 }
 .locked {
+  cursor: auto;
   background-color: #3c3d3d;
   color: #949494;
 }
 .highlight {
   background-color: #505151;
   border-color: #ffa666;
+}
+.label {
+  font-size: 12px;
+  color: #949494;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+li {
+  margin: 0;
+  padding: 0;
+}
+#main-container {
+  display: flex;
+}
+#main-container #modules {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+  flex: 1;
+  max-width: 300px;
+}
+#main-container #modules .button {
+  width: 80%;
+  max-width: unset;
+}
+#main-container #modules .module {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+}
+#main-container #modules .module .module-button {
+  display: grid;
+  place-items: center;
+  font-size: 15px;
+  background-color: #f55100;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  cursor: pointer;
+}
+#main-container .content {
+  flex: 1;
+}
+#main-container #story-tree {
+  display: grid;
+  grid-template-columns: 1fr auto 1.4fr;
+}
+#main-container #story-tree .graph {
+  width: 1280px;
+  height: 720px;
+  position: relative;
+  border: solid 2px #505151;
+  box-sizing: content-box;
+}
+#main-container #story-tree #menu-bar {
+  width: 1284px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+#main-container #story-tree #module-menu {
+  z-index: 100;
+  display: flex;
+  padding: 10px;
+}
+#main-container #story-tree #sidebar {
+  padding: 10px;
+}
+#main-container #story-tree #sidebar h2 {
+  font-size: 1.5rem;
+}
+#main-container #story-tree #sidebar .sidebar-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+#main-container #story-tree #sidebar .sidebar-columns li {
+  margin: 10px;
+}
+#main-container #story-tree #central-column {
+  display: flex;
+  flex-direction: column;
+}
+#main-container #story-tree #info {
+  padding: 10px;
+  gap: 10px;
+}
+#main-container #story-tree #info .parameter {
+  display: flex;
+  gap: 10px;
 }
 /*# sourceMappingURL=editor.css.map */
