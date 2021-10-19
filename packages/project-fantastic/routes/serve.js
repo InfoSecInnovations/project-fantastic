@@ -50,7 +50,7 @@ const serve = (res, path, query) => {
     }
     if (path.endsWith('.js')) res.writeHeader('Content-Type', 'text/javascript')
     return !res.aborted && res.end(file)
-  }, rej => res.end(''))
+  }, rej => res.end('Not found!'))
 }
 
 module.exports = serve
