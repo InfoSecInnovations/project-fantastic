@@ -11,6 +11,7 @@ const extractValue = (value_mapping, raw_data) => {
     if (value_mapping.text) return raw_data
   }
   if (typeof value_mapping !== 'object') return raw_data[value_mapping]
+  if (Array.isArray(value_mapping)) return value_mapping.map(m => extractValue(m, raw_data))
   if (value_mapping.map) return `${value_mapping.labelled ? `${value_mapping.key}: ` : ''}${value_mapping.map[raw_data[value_mapping.key]]}`
   if (value_mapping.labelled) return IsValid(raw_data[value_mapping.labelled]) ? `${value_mapping.labelled}: ${raw_data[value_mapping.labelled]}` : undefined
   if (value_mapping.static) return value_mapping.static

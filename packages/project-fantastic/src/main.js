@@ -307,6 +307,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, top-level-this-exports */
+/*! CommonJS bailout: this is used directly at 9:2-6 */
+/*! CommonJS bailout: module.exports is used directly at 3:6-20 */
 /***/ (function(module) {
 
 eval("(function (root, factory) {\n  if (true) {\n      module.exports = factory();\n  } else {}\n}(this, function () {\n\n  'use strict';\n\n  // From http://baagoe.com/en/RandomMusings/javascript/\n\n  // importState to sync generator states\n  Alea.importState = function(i){\n    var random = new Alea();\n    random.importState(i);\n    return random;\n  };\n\n  return Alea;\n\n  function Alea() {\n    return (function(args) {\n      // Johannes Baagøe <baagoe@baagoe.com>, 2010\n      var s0 = 0;\n      var s1 = 0;\n      var s2 = 0;\n      var c = 1;\n\n      if (args.length == 0) {\n        args = [+new Date];\n      }\n      var mash = Mash();\n      s0 = mash(' ');\n      s1 = mash(' ');\n      s2 = mash(' ');\n\n      for (var i = 0; i < args.length; i++) {\n        s0 -= mash(args[i]);\n        if (s0 < 0) {\n          s0 += 1;\n        }\n        s1 -= mash(args[i]);\n        if (s1 < 0) {\n          s1 += 1;\n        }\n        s2 -= mash(args[i]);\n        if (s2 < 0) {\n          s2 += 1;\n        }\n      }\n      mash = null;\n\n      var random = function() {\n        var t = 2091639 * s0 + c * 2.3283064365386963e-10; // 2^-32\n        s0 = s1;\n        s1 = s2;\n        return s2 = t - (c = t | 0);\n      };\n      random.uint32 = function() {\n        return random() * 0x100000000; // 2^32\n      };\n      random.fract53 = function() {\n        return random() + \n          (random() * 0x200000 | 0) * 1.1102230246251565e-16; // 2^-53\n      };\n      random.version = 'Alea 0.9';\n      random.args = args;\n\n      // my own additions to sync state between two generators\n      random.exportState = function(){\n        return [s0, s1, s2, c];\n      };\n      random.importState = function(i){\n        s0 = +i[0] || 0;\n        s1 = +i[1] || 0;\n        s2 = +i[2] || 0;\n        c = +i[3] || 0;\n      };\n \n      return random;\n\n    } (Array.prototype.slice.call(arguments)));\n  }\n\n  function Mash() {\n    var n = 0xefc8249d;\n\n    var mash = function(data) {\n      data = data.toString();\n      for (var i = 0; i < data.length; i++) {\n        n += data.charCodeAt(i);\n        var h = 0.02519603282416938 * n;\n        n = h >>> 0;\n        h -= n;\n        h *= n;\n        n = h >>> 0;\n        h -= n;\n        n += h * 0x100000000; // 2^32\n      }\n      return (n >>> 0) * 2.3283064365386963e-10; // 2^-32\n    };\n\n    mash.version = 'Mash 0.9';\n    return mash;\n  }\n}));\n\n\n//# sourceURL=webpack://front/./main_interface/node_modules/alea/alea.js?");
@@ -1201,6 +1203,8 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, top-level-this-exports */
+/*! CommonJS bailout: this is used directly at 42:257-261 */
+/*! CommonJS bailout: module.exports is used directly at 8:144-158 */
 /***/ (function(module) {
 
 "use strict";
@@ -1890,6 +1894,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \********************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 7:0-14 */
 /***/ ((module) => {
 
 eval("const clone = obj => {\r\n  if (typeof obj != 'object' || !obj) return obj\r\n  if (Array.isArray(obj)) return [...obj.map(clone)]\r\n  return Object.entries(obj).reduce((result, e) => ({...result, [e[0]]: clone(e[1])}), {})\r\n}\r\n\r\nmodule.exports = clone\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/clone.js?");
@@ -1902,6 +1907,7 @@ eval("const clone = obj => {\r\n  if (typeof obj != 'object' || !obj) return obj
   \***************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 42:0-14 */
 /***/ ((module) => {
 
 eval("const getScanItem = (stories, item) => {\r\n  if (item.event_type == 'quest') return {...item, event_type: 'scan', scan: item.quest}\r\n  if (item.event_type == 'story') return {...item, event_type: 'scan', scan: stories[item.story].nodeData[item.story_node_id].key}\r\n  return item\r\n}\r\n\r\nconst validObject = obj => {\r\n  if (!obj) return false\r\n  if (typeof obj != 'object') return false\r\n  return Object.keys(obj).length\r\n}\r\n\r\nconst compareEvent = (stories, a, b) => {\r\n  if (!a || !b) return false\r\n  const itemA = getScanItem(stories, a)\r\n  const itemB = getScanItem(stories, b)\r\n  if (itemA.event_type != itemB.event_type) return false\r\n  if (itemA.event_type == 'quest') return itemA.quest === itemB.quest\r\n  if (itemA.event_type == 'scan') {\r\n    if (itemA.scan !== itemB.scan) return false\r\n    const a_parameters = itemA.parameters && JSON.parse(itemA.parameters)\r\n    const b_parameters = itemB.parameters && JSON.parse(itemB.parameters)\r\n    if (!validObject(a_parameters) && !validObject(b_parameters)) return true\r\n    if (!validObject(a_parameters) || !validObject(b_parameters)) return false\r\n    return a_parameters == b_parameters || Object.entries(a_parameters).every(v => b_parameters[v[0]] === v[1])\r\n  }\r\n  if (itemA.event_type == 'command') return itemA.command === itemB.command && itemA.status === itemB.status\r\n  if (itemA.event_type == 'story') {\r\n    if (itemA.story != itemB.story) return false\r\n    return (itemA.story_node_id == itemB.story_node_id)\r\n  }\r\n  if (itemA.event_type == 'action') {\r\n    if (itemA.action != itemB.action) return false\r\n    if (itemA.function != itemB.function) return false\r\n    if (itemA.node_id != itemB.node_id) return false\r\n    return true\r\n  }\r\n  if (itemA.event_type == 'selection') return itemA.event_id == itemB.event_id\r\n  return false\r\n}\r\n\r\nmodule.exports = compareEvent\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/compareevent.js?");
@@ -1914,6 +1920,7 @@ eval("const getScanItem = (stories, item) => {\r\n  if (item.event_type == 'ques
   \**************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 7:0-14 */
 /***/ ((module) => {
 
 eval("/**\r\n * Convert time in days, hours, minutes, seconds format to milliseconds\r\n * @param {{d?: number, h?: number, m?: number, s?: number}} time \r\n */\r\nconst convertTime = time => (time && (time.d || 0) * 1000 * 60 * 60 * 24 + (time.h || 0) * 1000 * 60 * 60 + (time.m || 0) * 1000 * 60 + (time.s ||0) * 1000) || 0\r\n\r\nmodule.exports = convertTime\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/converttime.js?");
@@ -1926,6 +1933,7 @@ eval("/**\r\n * Convert time in days, hours, minutes, seconds format to millisec
   \*************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 8:0-14 */
 /***/ ((module) => {
 
 eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/defaultips.js?");
@@ -1938,6 +1946,7 @@ eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  ':
   \********************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 7:0-14 */
 /***/ ((module) => {
 
 eval("/**\r\n * Get the default set of parameters from scan data\r\n * @param {{}} data \r\n */\r\nconst defaultParameters = data => (data.parameters && data.parameters.reduce((result, p) => ({...result, [p.name]: p.default}), {})) || {}\r\n\r\nmodule.exports = defaultParameters\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/defaultparameters.js?");
@@ -1950,6 +1959,7 @@ eval("/**\r\n * Get the default set of parameters from scan data\r\n * @param {{
   \*************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 3:0-14 */
 /***/ ((module) => {
 
 eval("const flatUnique = arr => [...new Set(arr.flat().filter(v => typeof v !== 'undefined'))]\r\n\r\nmodule.exports = flatUnique\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/flatunique.js?");
@@ -1962,6 +1972,7 @@ eval("const flatUnique = arr => [...new Set(arr.flat().filter(v => typeof v !== 
   \***************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
+/*! CommonJS bailout: module.exports is used directly at 29:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 eval("const JSToPS = __webpack_require__(/*! ./jstops */ \"../packages/fantastic-utils/jstops.js\")\r\n\r\nconst js_string = js => {\r\n  if (typeof js == 'undefined') return 'undefined'\r\n  if (typeof js == 'number') return `${js}`\r\n  if (typeof js == 'string') return `'${js}'`\r\n  if (typeof js == 'boolean') return js ? 'true' : 'false'\r\n  if (Array.isArray(js)) return `[${js.map(js => js_string(js)).join()}]`\r\n}\r\n\r\n/**\r\n * Replace placeholders in the '$key' format with corresponding values from the parameters object\r\n * @param {string} string \r\n * @param {Object} parameters \r\n * @param {('powershell'|'js')} mode\r\n * @returns {string}\r\n */\r\nconst formatString = (string, parameters, mode = 'powershell') => {\r\n  if (!parameters) return string\r\n  Object.entries(parameters).forEach(v => {\r\n     // regex escape magic I found to preserve special characters when searching and replacing the key\r\n     // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions\r\n    const key_regex = new RegExp(`$${v[0]}`.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&', 'g'), 'g')\r\n    string = string.replace(key_regex, mode == 'powershell' ? JSToPS(v[1]) : js_string(v[1]))\r\n  }) \r\n  return string\r\n}\r\n\r\nmodule.exports = formatString\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/formatstring.js?");
@@ -1974,6 +1985,7 @@ eval("const JSToPS = __webpack_require__(/*! ./jstops */ \"../packages/fantastic
   \**********************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 13:0-14 */
 /***/ ((module) => {
 
 eval("/**\r\n * Check whether user has can perform actions requiring this role\r\n * @param {import('./types').User} user \r\n * @param {import('./types').UserRole} role \r\n */\r\nconst hasRole = (user, role) => {\r\n  if (!user) return false\r\n  if (user.role === 'admin') return true\r\n  if (user.role === 'elevated' && role !== 'admin') return true \r\n  return user.role === (role || 'user')\r\n}\r\n\r\nmodule.exports = hasRole\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/hasrole.js?");
@@ -1986,6 +1998,7 @@ eval("/**\r\n * Check whether user has can perform actions requiring this role\r
   \*********************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
+/*! CommonJS bailout: module.exports is used directly at 17:0-14 */
 /***/ ((module) => {
 
 eval("// TODO: better escaping\r\nconst sanitize = s => s.replace(/'/g, `''`)\r\n\r\n/**\r\n * Convert a JavaScript value to a PowerShell variable\r\n * @param {*} js \r\n * @returns {string}\r\n */\r\nconst JStoPS = js => {\r\n  if (typeof js == 'undefined') return '$null'\r\n  if (typeof js == 'number') return `${js}`\r\n  if (typeof js == 'string') return `'${sanitize(js)}'`\r\n  if (typeof js == 'boolean') return js ? '$true' : '$false'\r\n  if (Array.isArray(js)) return js.map(js => JStoPS(js)).join()\r\n}\r\n\r\nmodule.exports = JStoPS\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/jstops.js?");

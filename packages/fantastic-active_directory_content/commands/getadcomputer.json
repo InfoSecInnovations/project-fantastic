@@ -1,0 +1,19 @@
+{
+  "name": "Get-ADComputer",
+  "description": "Query the list of machines present on the ActiveDirectory network.",
+  "hosts": ["local"],
+  "result_type": "hosts",
+  "run": {
+    "command": "Get-ADComputer -Filter * -Properties IPv4Address, IPv6Address",
+    "method": "invoke",
+    "json": true,
+    "result": {
+      "hostname": "DNSHostName",
+      "ips": [
+        "IPv4Address",
+        "IPv6Address"
+      ],
+      "important": {"static": true}
+    }
+  }
+}
