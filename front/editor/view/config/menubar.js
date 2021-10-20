@@ -1,7 +1,7 @@
 import {h} from 'snabbdom/h'
 
 export default (state, send) => [
-  h('h2', 'Story Tree Editor'),
+  h('h2', 'Config Editor'),
   h('div.item', [
     h('input', {
       attrs: { 
@@ -10,25 +10,25 @@ export default (state, send) => [
         accept: '.json'
       },
       on: { change: e => {
-        send({type: 'load_tree', path: e.target.value}) 
+        send({type: 'load_config', path: e.target.value}) 
         e.target.value = ''
       }},
       style: {display: 'none'}
     }),
-    h('label.button', {attrs: {for: 'load-file-input'}}, 'Load story tree'),
+    h('label.button', {attrs: {for: 'load-file-input'}}, 'Load config file'),
     h('input', {
       attrs: { 
         id: 'save-file-input',
         type: 'file',
-        nwsaveas: state.storyTree.saveFile || 'story.json',
+        nwsaveas: state.storyTree.saveFile || 'config.json',
         accept: '.json'
       },
       on: { change: e => {
-        send({type: 'save', path: e.target.value}) 
+        send({type: 'save_config', path: e.target.value}) 
         e.target.value = ''
       }},
       style: {display: 'none'}
     }),
-    h('label.button', {attrs: {for: 'save-file-input'}}, 'Save story tree')
+    h('label.button', {attrs: {for: 'save-file-input'}}, 'Save config file')
   ])
 ]

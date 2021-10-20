@@ -11,11 +11,11 @@ export default (state, action, send) => FS.readJSON(action.path)
       send({type: 'editor_node', id: e[0], node: e[1]})
     })
     Object.entries(json.nodeData).forEach(e => { // establish connections
-      e[1].targets.forEach(target => state.editor.jsplumb.connect({source: e[0], target}))
+      e[1].targets.forEach(target => state.storyTree.jsplumb.connect({source: e[0], target}))
     })
-    state.editor.config = {...QuestConfig(), ...json.questConfig}
-    state.editor.name = json.name
-    state.editor.description = json.description
-    state.editor.questId = json.id || GenerateID()
+    state.storyTree.config = {...QuestConfig(), ...json.questConfig}
+    state.storyTree.name = json.name
+    state.storyTree.description = json.description
+    state.storyTree.questId = json.id || GenerateID()
     send({type: 'save_file', name: Path.parse(action.path).base})
   })

@@ -1,13 +1,19 @@
 import {h} from 'snabbdom/h'
 import StoryTree from './storytree'
+import Config from './config'
 
-const content = (state, send) => {
-  if (!state.mode || state.mode == 'menu') return h('div#menu.column center content', [
+const content = (state, send) => [
+  h('div#menu.column center content', {class: {hidden: state.mode && state.mode != 'menu'}}, [
     h('h1', 'Fantastic Editor'),
+    h('div.button', {on: {click: e => send({type: 'mode', mode: 'config'})}}, 'Config Editor'),
+    h('div.button', {on: {click: e => send({type: 'mode', mode: 'action'})}}, 'Action Editor'),
+    h('div.button', {on: {click: e => send({type: 'mode', mode: 'scan'})}}, 'Scan Editor'),
+    h('div.button', {on: {click: e => send({type: 'mode', mode: 'command'})}}, 'Host Data Command Editor'),
     h('div.button', {on: {click: e => send({type: 'mode', mode: 'storytree'})}}, 'Story Tree Editor')
-  ])
-  if (state.mode == 'storytree') return StoryTree(state, send)
-}
+  ]),
+  StoryTree(state, send),
+  Config(state, send)
+]
 
 const body = (state, send) => h('div#main-container', [
   h('div#modules', [
@@ -32,7 +38,7 @@ const body = (state, send) => h('div#main-container', [
       }, 'X')
     ]))
   ]),
-  content(state, send)
+  ...content(state, send)
 ])
 
 export default (state, send) => h('body', body(state, send))

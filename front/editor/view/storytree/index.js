@@ -4,7 +4,7 @@ import Editor from './editor'
 import Info from './info'
 import MenuBar from './menubar'
 
-export default (state, send) => h('div#story-tree.content', [
+export default (state, send) => h('div#story-tree.content', {class: {hidden: state.mode != 'storytree'}}, [
   h('div#sidebar.panel', Sidebar(state, send)),
   h('div#central-column', [
     h('div#menu-bar.panel', MenuBar(state, send)),
@@ -17,7 +17,7 @@ export default (state, send) => h('div#story-tree.content', [
           if (data) {
             const json = JSON.parse(data)
             const rect = e.target.getBoundingClientRect()
-            const id = state.editor.jsplumb.uuid()
+            const id = state.storyTree.jsplumb.uuid()
             send({type: 'editor_node', node: {...json, position: {x: e.clientX - rect.left, y: e.clientY - rect.top}}, id})
             send({type: 'editor_select', id})
           }
@@ -30,5 +30,5 @@ export default (state, send) => h('div#story-tree.content', [
       }
     }, Editor(state, send))
   ]),
-  h('div#info.panel column', {key: state.editor.selected || state.editor.questId }, Info(state, send)), // setting a key prevents input from carrying over when changing selection
+  h('div#info.panel column', {key: state.storyTree.selected || state.storyTree.questId }, Info(state, send)), // setting a key prevents input from carrying over when changing selection
 ])

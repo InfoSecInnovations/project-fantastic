@@ -7,8 +7,8 @@ export default (state, action, send) => {
   if (action.type == 'editor_canvas') EditorCanvas(state, action, send)
   if (action.type == 'load_module') LoadModule(state, action, send)
   if (action.type == 'editor_node_el') {
-    state.editor.jsplumb.makeSource(action.el, {filter: '.handle'})
-    state.editor.jsplumb.makeTarget(action.el, {allowLoopback: false})
+    state.storyTree.jsplumb.makeSource(action.el, {filter: '.handle'})
+    state.storyTree.jsplumb.makeTarget(action.el, {allowLoopback: false})
   }
   if (action.type == 'save') Save(state, action, send)
   if (action.type == 'load_tree') LoadTree(state, action, send)

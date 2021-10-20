@@ -15,6 +15,7 @@ li
 
 #main-container
   display: flex
+  min-height: 100vh
   #modules
     display: flex
     flex-direction: column
@@ -42,6 +43,11 @@ li
         cursor: pointer
   .content
     flex: 1
+  #menu-bar
+    display: flex
+    justify-content: space-between
+    gap: 10px
+    padding: 10px
   #story-tree
     display: grid
     grid-template-columns: 1fr auto 1.4fr
@@ -51,21 +57,14 @@ li
       height: 720px
       position: relative
       border: solid 2px button_hover_color
+      background-color: background_color
       box-sizing: content-box
-    #menu-bar
-      width: 1284px
-      display: flex
-      justify-content: center
-      gap: 10px
-      padding: 10px
     #module-menu
       z-index: 100
       display: flex
       padding: 10px
     #sidebar
       padding: 10px
-      h2
-        font-size: 1.5rem
       .sidebar-columns
         display: grid
         grid-template-columns: 1fr 1fr
@@ -74,6 +73,7 @@ li
     #central-column
       display: flex
       flex-direction: column
+      background-color: panel_color
     #info
       padding: 10px
       gap: 10px

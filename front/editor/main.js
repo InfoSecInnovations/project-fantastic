@@ -7,8 +7,7 @@ import { eventListenersModule } from 'snabbdom/modules/eventlisteners'
 import View from './view'
 import Update from './update'
 import Effect from './effect'
-import QuestConfig from './defaults/questconfig'
-const GenerateID = require('@infosecinnovations/fantastic-utils/generateid')
+import StoryTree from './defaults/storytree'
 
 const patch = init([
   classModule,
@@ -19,10 +18,9 @@ const patch = init([
 ])
 
 let state = {
-  editor: {
-    nodes: {},
-    config: QuestConfig(),
-    questId: GenerateID()
+  storyTree: StoryTree(),
+  config: {
+
   },
   modules: {}
 }

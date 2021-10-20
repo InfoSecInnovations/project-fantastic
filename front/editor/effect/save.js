@@ -3,7 +3,7 @@ const Path = require('path')
 import ModuleFromKey from '../util/modulefromkey'
 
 export default (state, action, send) => {
-  const {jsplumb: instance, nodes} = state.editor
+  const {jsplumb: instance, nodes} = state.storyTree
   const elements = instance.getManagedElements()
   const nodeData = Object.entries(elements).reduce((result, e) => ({...result, [e[0]]: {
     key: nodes[e[0]].key,
@@ -25,10 +25,10 @@ export default (state, action, send) => {
   FS.writeJSON(action.path, {
     pathData, 
     nodeData, 
-    questConfig: state.editor.config, 
-    description: state.editor.description, 
-    name: state.editor.name,
-    id: state.editor.questId
+    questConfig: state.storyTree.config, 
+    description: state.storyTree.description, 
+    name: state.storyTree.name,
+    id: state.storyTree.questId
   }, {spaces: '\t'})
   send({type: 'save_file', name: Path.parse(action.path).base})
 }
