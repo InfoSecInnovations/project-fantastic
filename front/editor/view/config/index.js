@@ -28,7 +28,7 @@ export default (state, send) => h('div#config.content', {class: {hidden: state.m
             attrs: {type: 'number' }, 
             props: {value: state.config.json.port},
             on: {
-              input: e => send({type: 'port', value: e.target.value})
+              input: e => send({type: 'config_port', value: parseInt(e.target.value)})
             }
           })
         ]),
@@ -38,7 +38,7 @@ export default (state, send) => h('div#config.content', {class: {hidden: state.m
             attrs: {type: 'checkbox', id: 'child-process-checkbox'}, 
             props: {checked: state.config.json.use_child_process},
             on: {
-              input: e => send({type: 'use_child_process', value: e.target.value})
+              input: e => send({type: 'config_use_child_process', value: e.target.checked})
             }
           })
         ])
@@ -50,7 +50,7 @@ export default (state, send) => h('div#config.content', {class: {hidden: state.m
           attrs: {type: 'number'}, 
           props: {value: state.config.json.client.nodeCountWarning},
           on: {
-            input: e => send({type: 'node_count_warning', value: e.target.value})
+            input: e => send({type: 'config_node_count_warning', value: parseInt(e.target.value)})
           }
         })
       ])

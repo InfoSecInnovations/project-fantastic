@@ -18,7 +18,7 @@ export default (state, action, send) => {
     FS.readJSON(action.path).then(json => send({type: 'set_config', config: json}))
   }
   if (action.type == 'save_config') {
-    FS.writeJSON(action.path, state.config)
+    FS.writeJSON(action.path, state.config.json, {spaces: '\t'})
     send({type: 'config_save_file', name: Path.parse(action.path).base})
   }
 }

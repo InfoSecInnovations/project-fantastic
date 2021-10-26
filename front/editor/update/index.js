@@ -31,5 +31,8 @@ export default (state, action) => {
   if (action.type == 'new_tree') state.storyTree = {...StoryTree(), jsplumb: state.storyTree.jsplumb}
   if (action.type == 'set_config') state.config.json = action.config
   if (action.type == 'config_save_file') state.config.saveFile = action.name
+  if (action.type == 'config_port') state.config.json.port = action.value
+  if (action.type == 'config_use_child_process') state.config.json.use_child_process = action.value
+  if (action.type == 'config_node_count_warning') state.config.json.client.nodeCountWarning = action.value
   return state
 }

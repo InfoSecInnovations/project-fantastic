@@ -5,7 +5,7 @@ export default (state, send) => [
   h('div.item', [
     h('input', {
       attrs: { 
-        id: 'load-file-input',
+        id: 'load-config-file-input',
         type: 'file',
         accept: '.json'
       },
@@ -15,10 +15,10 @@ export default (state, send) => [
       }},
       style: {display: 'none'}
     }),
-    h('label.button', {attrs: {for: 'load-file-input'}}, 'Load config file'),
+    h('label.button', {attrs: {for: 'load-config-file-input'}}, 'Load config file'),
     h('input', {
       attrs: { 
-        id: 'save-file-input',
+        id: 'save-config-file-input',
         type: 'file',
         nwsaveas: state.config.saveFile || 'config.json',
         accept: '.json'
@@ -29,6 +29,6 @@ export default (state, send) => [
       }},
       style: {display: 'none'}
     }),
-    h('label.button', {attrs: {for: 'save-file-input'}}, 'Save config file')
+    h('label.button', {attrs: {for: 'save-config-file-input'}}, 'Save config file')
   ])
 ]
