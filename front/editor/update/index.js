@@ -34,5 +34,6 @@ export default (state, action) => {
   if (action.type == 'config_port') state.config.json.port = action.value
   if (action.type == 'config_use_child_process') state.config.json.use_child_process = action.value
   if (action.type == 'config_node_count_warning') state.config.json.client.nodeCountWarning = action.value
+  if (action.type == 'select_module') state.selectedModule = action.module
   return state
 }

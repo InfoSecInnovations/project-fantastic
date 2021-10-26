@@ -1,18 +1,19 @@
 import {h} from 'snabbdom/h'
 import StoryTree from './storytree'
 import Config from './config'
+import Module from './module'
 
 const content = (state, send) => [
   h('div#menu.column center content', {class: {hidden: state.mode && state.mode != 'menu'}}, [
-    h('h1', 'Fantastic Editor'),
+    h('h1', 'Fantastic Tools'),
+    h('div.button', {on: {click: e => send({type: 'mode', mode: 'install'})}}, 'Installation Manager'),
     h('div.button', {on: {click: e => send({type: 'mode', mode: 'config'})}}, 'Config Editor'),
-    h('div.button', {on: {click: e => send({type: 'mode', mode: 'action'})}}, 'Action Editor'),
-    h('div.button', {on: {click: e => send({type: 'mode', mode: 'scan'})}}, 'Scan Editor'),
-    h('div.button', {on: {click: e => send({type: 'mode', mode: 'command'})}}, 'Host Data Command Editor'),
-    h('div.button', {on: {click: e => send({type: 'mode', mode: 'storytree'})}}, 'Story Tree Editor')
+    h('div.button', {on: {click: e => send({type: 'mode', mode: 'storytree'})}}, 'Story Tree Editor'),
+    h('div', Object.values(state.modules).length == 0 ? 'Load or create a module on the left to get started with content creation.' : 'Select a module on the left to edit its content.')
   ]),
   StoryTree(state, send),
-  Config(state, send)
+  Config(state, send),
+  Module(state, send)
 ]
 
 const body = (state, send) => h('div#main-container', [
@@ -32,7 +33,12 @@ const body = (state, send) => h('div#main-container', [
     }),
     h('label.button', {attrs: {for: 'load-module-file-input'}}, 'Load Module'),
     ...Object.values(state.modules).map(module => h('div.module', [
-      h('div', module.name),
+      h('div.module-link', {
+        on: { click: e => {
+          send({type: 'mode', mode: 'module'})
+          send({type: 'select_module', module: module.name})
+        }}
+      }, module.name),
       h('div.mini-button', {
         on: {click: e => send({type: 'unload_module', module: module.name})}
       }, 'X')

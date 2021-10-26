@@ -15,7 +15,9 @@ export default (state, action, send) => {
   if (action.type == 'load_tree') LoadTree(state, action, send)
   if (action.type == 'editor_node_remove') send({type: 'editor_select', id: null})
   if (action.type == 'load_config') {
-    FS.readJSON(action.path).then(json => send({type: 'set_config', config: json}))
+    FS.readJSON(action.path).then(json => {
+      send({type: 'set_config', config: json})
+    })
   }
   if (action.type == 'save_config') {
     FS.writeJSON(action.path, state.config.json, {spaces: '\t'})

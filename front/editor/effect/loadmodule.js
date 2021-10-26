@@ -12,14 +12,10 @@ const loadDir = path => FS.readdir(path)
 export default async (state, action, send) => {
   const packageJSON = await FS.readJSON(Path.join(action.module, 'package.json')).catch(() => undefined)
   if (!packageJSON) return alert('This directory is not a valid package. Use npm init to create a package.json file.')
-  const actions = await loadDir(Path.join(action.module, 'actions'))
-  .catch(() => ({}))
-  .then(actions => 
-    Object.entries(actions)
-    .filter(action => (!action[1].target || action[1].target == 'host') && !action[1].functions.run.result) // filter for host actions with no result
-    .reduce((result, action) => ({...result, [action[0]]: action[1]}), {})
-  )
+  const actions = await loadDir(Path.join(action.module, 'actions')).catch(() => ({}))
   const scans = await loadDir(Path.join(action.module, 'scans')).catch(() => ({}))
+  const stories = await loadDir(Path.join(action.module, 'stories')).catch(() => ({}))
+  const commands = await loadDir(Path.join(action.module, 'commands')).catch(() => ({}))
   const name = packageJSON.name
-  send({type: 'add_module', module: {name, path: action.module, actions, scans}})
+  send({type: 'add_module', module: {name, path: action.module, actions, scans, stories, commands}})
 }

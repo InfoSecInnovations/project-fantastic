@@ -6,7 +6,10 @@ const draggableNode = node => h('li.node', {
 }, h('div.node-label', node.name))
 
 const nodeList = (state, module, type) => Object.entries(module[type])
-  .filter(e => !Object.values(state.storyTree.nodes).find(node => node.type == type && node.key == `${module.name}/${e[0]}`))
+  .filter(e => 
+    !Object.values(state.storyTree.nodes).find(node => node.type == type && node.key == `${module.name}/${e[0]}`) &&
+    (type != 'actions' || ((!e[1].target || e[1].target == 'host') && !e[1].functions.run.result)) // filter for host actions with no result
+  )
   .map(e => draggableNode({ key: `${module.name}/${e[0]}`, name: e[1].name, type, path: module.path }))
 
 export default (state, send) => Object.values(state.modules).map(module => [
