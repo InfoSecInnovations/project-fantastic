@@ -1,0 +1,24 @@
+export default () => ({
+	"client": {
+		"nodeCountWarning": 500
+	},
+	"use_child_process": true,
+	"port": 5000,
+	"assets": {
+		"packages": [
+			"@infosecinnovations/fantastic-default"
+		],
+		"force_commands": [
+			"@infosecinnovations/fantastic-default/getmacaddress",
+			"@infosecinnovations/fantastic-default/getnetipaddress",
+			"@infosecinnovations/fantastic-default/getnettcpconnection"
+		],
+		"default_enable_commands": [
+			"@infosecinnovations/fantastic-default/gethostname",
+			"@infosecinnovations/fantastic-default/getos"
+		]
+	},
+	"authentication": {
+		"module": "@infosecinnovations/fantastic-default_auth"
+	}
+})

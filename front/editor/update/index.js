@@ -29,5 +29,7 @@ export default (state, action) => {
   if (action.type == 'save_file') state.storyTree.saveFile = action.name
   if (action.type == 'load_tree') state.storyTree.nodes = {}
   if (action.type == 'new_tree') state.storyTree = {...StoryTree(), jsplumb: state.storyTree.jsplumb}
+  if (action.type == 'set_config') state.config.json = action.config
+  if (action.type == 'config_save_file') state.config.saveFile = action.name
   return state
 }

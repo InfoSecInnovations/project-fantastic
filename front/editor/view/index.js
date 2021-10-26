@@ -33,7 +33,7 @@ const body = (state, send) => h('div#main-container', [
     h('label.button', {attrs: {for: 'load-module-file-input'}}, 'Load Module'),
     ...Object.values(state.modules).map(module => h('div.module', [
       h('div', module.name),
-      h('div.module-button', {
+      h('div.mini-button', {
         on: {click: e => send({type: 'unload_module', module: module.name})}
       }, 'X')
     ]))

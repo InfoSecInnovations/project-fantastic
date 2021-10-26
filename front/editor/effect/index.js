@@ -2,6 +2,7 @@ import EditorCanvas from './editorcanvas'
 import LoadModule from './loadmodule'
 import LoadTree from './loadtree'
 import Save from './save'
+const FS = require('fs-extra')
 
 export default (state, action, send) => {
   if (action.type == 'editor_canvas') EditorCanvas(state, action, send)
@@ -13,4 +14,11 @@ export default (state, action, send) => {
   if (action.type == 'save') Save(state, action, send)
   if (action.type == 'load_tree') LoadTree(state, action, send)
   if (action.type == 'editor_node_remove') send({type: 'editor_select', id: null})
+  if (action.type == 'load_config') {
+    FS.readJSON(action.path).then(json => send({type: 'set_config', config: json}))
+  }
+  if (action.type == 'save_config') {
+    FS.writeJSON(action.path, state.config)
+    send({type: 'config_save_file', name: Path.parse(action.path).base})
+  }
 }

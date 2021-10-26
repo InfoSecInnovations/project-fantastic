@@ -20,7 +20,7 @@ export default (state, send) => [
       attrs: { 
         id: 'save-file-input',
         type: 'file',
-        nwsaveas: state.storyTree.saveFile || 'config.json',
+        nwsaveas: state.config.saveFile || 'config.json',
         accept: '.json'
       },
       on: { change: e => {

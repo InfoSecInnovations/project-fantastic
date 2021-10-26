@@ -8,6 +8,7 @@ import View from './view'
 import Update from './update'
 import Effect from './effect'
 import StoryTree from './defaults/storytree'
+import Config from './defaults/config'
 
 const patch = init([
   classModule,
@@ -20,7 +21,7 @@ const patch = init([
 let state = {
   storyTree: StoryTree(),
   config: {
-
+    json: Config()
   },
   modules: {}
 }
