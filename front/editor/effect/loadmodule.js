@@ -16,6 +16,7 @@ export default async (state, action, send) => {
   const scans = await loadDir(Path.join(action.module, 'scans')).catch(() => ({}))
   const stories = await loadDir(Path.join(action.module, 'stories')).catch(() => ({}))
   const commands = await loadDir(Path.join(action.module, 'commands')).catch(() => ({}))
+  const info = await FS.readJSON(Path.join(action.module, 'info.json')).catch(() => undefined)
   const name = packageJSON.name
-  send({type: 'add_module', module: {name, path: action.module, actions, scans, stories, commands}})
+  send({type: 'add_module', module: {name, path: action.module, actions, scans, stories, commands, info}})
 }

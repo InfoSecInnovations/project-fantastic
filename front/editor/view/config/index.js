@@ -8,33 +8,45 @@ export default (state, send) => h('div#config.content', {class: {hidden: state.m
       h('h3', 'Content packages'),
       h('div.column', [
         h('div.item', [h('h4', 'Installed'), h('div.mini-button', {}, '+')]),
-        ...state.config.json.assets.packages.map(p => h('div.item', [
-          h('div', p), 
-          ...(state.modules[p] ? [] : [
-            h('input', {
-              attrs: { 
-                id: `load-module-file-input-${p}`,
-                type: 'file',
-                nwdirectory: true
-              },
-              on: { change: e => {
-                send({type: 'load_module', module: e.target.value})
-                e.target.value = ''
-              }},
-              style: {display: 'none'}
-            }),
-            h('label.mini-button', {attrs: {title: 'Please locate missing module', for: `load-module-file-input-${p}`}}, '!')
-          ]),
-          h('div.mini-button', {}, 'X')
-        ]))
+        ...state.config.json.assets.packages.map(p => {
+          const data = state.modules[p]
+          return h('div.item', [
+            h('div', (data && data.info && data.info.name) || p), 
+            ...(data ? [] : [
+              h('input', {
+                attrs: { 
+                  id: `load-module-file-input-${p}`,
+                  type: 'file',
+                  nwdirectory: true
+                },
+                on: { change: e => {
+                  send({type: 'load_module', module: e.target.value})
+                  e.target.value = ''
+                }},
+                style: {display: 'none'}
+              }),
+              h('label.mini-button', {attrs: {title: 'Please locate missing module', for: `load-module-file-input-${p}`}}, '!')
+            ]),
+            h('div.mini-button', {
+              attrs: {title: 'Remove'},
+              on: {click: e => send({type: 'config_remove_module', module: p})}
+            }, 'X')
+          ])
+        })
       ] ),
       h('div.column', [
         h('div.item', [h('h4', 'Always enabled'), h('div.mini-button', {}, '+')]),
-        ...state.config.json.assets.force_commands.map(p => h('div.item', [h('div', p), h('div.mini-button', {}, 'X')]))
+        ...state.config.json.assets.force_commands.map(p => h('div.item', [h('div', p), h('div.mini-button', {
+          attrs: {title: 'Remove'},
+          on: {click: e => send({type: 'config_remove_always_enabled', item: p})}
+        }, 'X')]))
       ]),
       h('div.column', [
         h('div.item', [h('h4', 'Enabled by default'), h('div.mini-button', {}, '+')]),
-        ...state.config.json.assets.default_enable_commands.map(p => h('div.item', [h('div', p), h('div.mini-button', {}, 'X')]))
+        ...state.config.json.assets.default_enable_commands.map(p => h('div.item', [h('div', p), h('div.mini-button', {
+          attrs: {title: 'Remove'},
+          on: {click: e => send({type: 'config_remove_default_enabled', item: p})}
+        }, 'X')]))
       ])
     ]),
     h('div.column spaced', [

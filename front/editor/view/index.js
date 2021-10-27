@@ -38,7 +38,7 @@ const body = (state, send) => h('div#main-container', [
           send({type: 'mode', mode: 'module'})
           send({type: 'select_module', module: module.name})
         }}
-      }, module.name),
+      }, (module.info && module.info.name) || module.name),
       h('div.mini-button', {
         on: {click: e => send({type: 'unload_module', module: module.name})}
       }, 'X')

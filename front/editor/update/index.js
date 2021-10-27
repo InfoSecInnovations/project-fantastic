@@ -6,6 +6,8 @@ export default (state, action) => {
   if (action.type == 'load_module_menu') state.module_menu = action.enabled
   if (action.type == 'add_module') state.modules[action.module.name] = action.module
   if (action.type == 'unload_module') delete state.modules[action.module]
+  if (action.type == 'select_module') state.selectedModule = action.module
+
   if (action.type == 'editor_node') state.storyTree.nodes[action.id] = {...action.node}
   if (action.type == 'editor_node_remove') delete state.storyTree.nodes[action.id]
   if (action.type == 'editor_select') state.storyTree.selected = action.id
@@ -29,11 +31,19 @@ export default (state, action) => {
   if (action.type == 'save_file') state.storyTree.saveFile = action.name
   if (action.type == 'load_tree') state.storyTree.nodes = {}
   if (action.type == 'new_tree') state.storyTree = {...StoryTree(), jsplumb: state.storyTree.jsplumb}
+
   if (action.type == 'set_config') state.config.json = action.config
   if (action.type == 'config_save_file') state.config.saveFile = action.name
   if (action.type == 'config_port') state.config.json.port = action.value
   if (action.type == 'config_use_child_process') state.config.json.use_child_process = action.value
   if (action.type == 'config_node_count_warning') state.config.json.client.nodeCountWarning = action.value
-  if (action.type == 'select_module') state.selectedModule = action.module
+  if (action.type == 'config_remove_module') {
+    state.config.json.assets.packages.splice(state.config.json.assets.packages.indexOf(action.module), 1)
+    state.config.json.assets.force_commands = state.config.json.assets.force_commands.filter(item => !item.startsWith(action.module))
+    state.config.json.assets.default_enable_commands = state.config.json.assets.default_enable_commands.filter(item => !item.startsWith(action.module))
+  }
+  if (action.type == 'config_remove_always_enabled') state.config.json.assets.force_commands.splice(state.config.json.assets.force_commands.indexOf(action.item), 1)
+  if (action.type == 'config_remove_default_enabled') state.config.json.assets.default_enable_commands.splice(state.config.json.assets.default_enable_commands.indexOf(action.item), 1)
+
   return state
 }

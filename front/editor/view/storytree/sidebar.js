@@ -13,7 +13,7 @@ const nodeList = (state, module, type) => Object.entries(module[type])
   .map(e => draggableNode({ key: `${module.name}/${e[0]}`, name: e[1].name, type, path: module.path }))
 
 export default (state, send) => Object.values(state.modules).map(module => [
-    h('h3', module.name),
+    h('h3', (module.info && module.info.name) || module.name),
     h('div.sidebar-columns', [
       h('div.column center', [
         h('h4', 'Actions'),
