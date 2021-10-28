@@ -5,6 +5,11 @@ import Save from './save'
 const FS = require('fs-extra')
 
 export default (state, action, send) => {
+  if (action.type == 'init') window.onclick = e => {
+    // if the clicked item isn't a dropdown or the child of a dropdown, clear dropdown state
+    const dropdown = e.target.closest('.dropdown, .dropdown-trigger')
+    if (!dropdown) send({type: 'dropdown_state', state: null})
+  }
   if (action.type == 'editor_canvas') EditorCanvas(state, action, send)
   if (action.type == 'load_module') LoadModule(state, action, send)
   if (action.type == 'editor_node_el') {
@@ -23,4 +28,5 @@ export default (state, action, send) => {
     FS.writeJSON(action.path, state.config.json, {spaces: '\t'})
     send({type: 'config_save_file', name: Path.parse(action.path).base})
   }
+  if (action.type == 'config_add_module') send({type: 'dropdown_state', state: null})
 }

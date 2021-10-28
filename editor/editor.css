@@ -432,6 +432,22 @@ li {
 .column.spaced {
   gap: 20px;
 }
+.dropdown-parent {
+  position: relative;
+}
+.dropdown {
+  background-color: #ffa666;
+  color: #000;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  right: 20px;
+  top: 0;
+}
+.dropdown .option {
+  cursor: pointer;
+}
 #main-container {
   display: flex;
   min-height: 100vh;

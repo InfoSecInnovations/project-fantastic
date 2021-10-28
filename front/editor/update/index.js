@@ -7,6 +7,7 @@ export default (state, action) => {
   if (action.type == 'add_module') state.modules[action.module.name] = action.module
   if (action.type == 'unload_module') delete state.modules[action.module]
   if (action.type == 'select_module') state.selectedModule = action.module
+  if (action.type == 'dropdown_state') state.dropdownState = action.state
 
   if (action.type == 'editor_node') state.storyTree.nodes[action.id] = {...action.node}
   if (action.type == 'editor_node_remove') delete state.storyTree.nodes[action.id]
@@ -42,6 +43,7 @@ export default (state, action) => {
     state.config.json.assets.force_commands = state.config.json.assets.force_commands.filter(item => !item.startsWith(action.module))
     state.config.json.assets.default_enable_commands = state.config.json.assets.default_enable_commands.filter(item => !item.startsWith(action.module))
   }
+  if (action.type == 'config_add_module') state.config.json.assets.packages.push(action.module)
   if (action.type == 'config_remove_always_enabled') state.config.json.assets.force_commands.splice(state.config.json.assets.force_commands.indexOf(action.item), 1)
   if (action.type == 'config_remove_default_enabled') state.config.json.assets.default_enable_commands.splice(state.config.json.assets.default_enable_commands.indexOf(action.item), 1)
 
