@@ -5,7 +5,7 @@ export default (state, send) => h('div.column', [
     h('h4', 'Installed'), 
     h('div.mini-button dropdown-trigger', {
       on: {click: e => send({type: 'dropdown_state', state: state.dropdownState == 'config_module' ? null : 'config_module'})}
-    }, state.dropdownState == 'config_module' ? '-' : '+'),
+    }, '+'),
     state.dropdownState == 'config_module' ? h('div.dropdown', (() => {
       const modules = Object.values(state.modules).filter(m => !state.config.json.assets.packages.includes(m.name))
       if (modules.length) return modules.map(m => h('div.option', {
