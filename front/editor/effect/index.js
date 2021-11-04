@@ -9,6 +9,11 @@ export default (state, action, send) => {
     // if the clicked item isn't a dropdown or the child of a dropdown, clear dropdown state
     const dropdown = e.target.closest('.dropdown, .dropdown-trigger')
     if (!dropdown) send({type: 'dropdown_state', state: null})
+    const savedModules = localStorage.getItem('modulePaths')
+    if (savedModules) {
+      const savedModuleData = JSON.parse(savedModules)
+      Object.values(savedModuleData).forEach(v => LoadModule(state, {module: v}, send, false))
+    }
   }
   if (action.type == 'editor_canvas') EditorCanvas(state, action, send)
   if (action.type == 'load_module') LoadModule(state, action, send)
@@ -29,4 +34,8 @@ export default (state, action, send) => {
     send({type: 'config_save_file', name: Path.parse(action.path).base})
   }
   if (action.type == 'config_add_module') send({type: 'dropdown_state', state: null})
+  if (action.type == 'config_always_enable') {
+    send({type: 'dropdown_state', state: null})
+    send({type: 'config_remove_default_enabled', command: action.command})
+  } 
 }
