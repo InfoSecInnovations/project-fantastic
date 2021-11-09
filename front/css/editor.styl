@@ -39,6 +39,7 @@ li
   padding: 10px
   right: 20px
   top: 0
+  z-index: 10
   .option
     cursor: pointer
 
@@ -61,8 +62,11 @@ li
       align-items: center
       align-self: stretch
       justify-content: space-between
+      .module-link
+        cursor: pointer
   .content
     flex: 1
+    background-color: panel_color
   #menu-bar
     display: flex
     justify-content: space-between

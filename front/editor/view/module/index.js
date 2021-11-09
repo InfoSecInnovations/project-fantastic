@@ -11,7 +11,13 @@ export default (state, send) => {
         h('h3', 'Actions'),
         ...Object.entries(currentModule.actions).map(action => h('div.item', [
           h('div', action[1].name || action[0]), 
-          h('div.mini-button', {attrs: {title: 'Edit'}}, '➔'),
+          h('div.mini-button', {
+            attrs: {title: 'Edit'},
+            on: { click: e => {
+              send({type: 'load_action', action: action[1], filename: action[0]})
+              send({type: 'mode', mode: 'action'})
+            }}
+          }, '✎'),
           h('div.mini-button', {attrs: {title: 'Delete'}}, 'X')
         ]))
       ]),
@@ -19,7 +25,7 @@ export default (state, send) => {
         h('h3', 'Scans'),
         ...Object.entries(currentModule.scans).map(scan => h('div.item', [
           h('div', scan[1].name || scan[0]), 
-          h('div.mini-button', {attrs: {title: 'Edit'}}, '➔'),
+          h('div.mini-button', {attrs: {title: 'Edit'}}, '✎'),
           h('div.mini-button', {attrs: {title: 'Delete'}}, 'X')
         ]))
       ]),
@@ -27,7 +33,7 @@ export default (state, send) => {
         h('h3', 'Host Data Commands'),
         ...Object.entries(currentModule.commands).map(command => h('div.item', [
           h('div', command[1].name || command[0]), 
-          h('div.mini-button', {attrs: {title: 'Edit'}}, '➔'),
+          h('div.mini-button', {attrs: {title: 'Edit'}}, '✎'),
           h('div.mini-button', {attrs: {title: 'Delete'}}, 'X')
         ]))
       ]),
@@ -38,10 +44,10 @@ export default (state, send) => {
           h('div.mini-button', {
             attrs: {title: 'Edit'},
             on: {click: e => {
-              send({type: 'load_tree', path: Path.join(currentModule.path, `${story[0]}.json`)})
+              send({type: 'load_tree', path: Path.join(currentModule.path, 'stories', `${story[0]}.json`)})
               send({type: 'mode', mode: 'storytree'})
             }}
-          }, '➔'),
+          }, '✎'),
           h('div.mini-button', {attrs: {title: 'Delete'}}, 'X')
         ]))
       ])

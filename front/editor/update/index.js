@@ -53,6 +53,12 @@ export default (state, action) => {
     if (index >= 0) state.config.json.assets.default_enable_commands.splice(index, 1)
   } 
   if (action.type == 'config_always_enable') state.config.json.assets.force_commands.push(action.command)
+  if (action.type == 'config_default_enable') state.config.json.assets.default_enable_commands.push(action.command)
+
+  if (action.type == 'load_action') {
+    state.action.json = action.action
+    state.action.filename = action.filename
+  } 
 
   return state
 }

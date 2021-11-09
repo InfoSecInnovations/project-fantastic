@@ -444,6 +444,7 @@ li {
   padding: 10px;
   right: 20px;
   top: 0;
+  z-index: 10;
 }
 .dropdown .option {
   cursor: pointer;
@@ -471,8 +472,12 @@ li {
   align-self: stretch;
   justify-content: space-between;
 }
+#main-container #modules .module .module-link {
+  cursor: pointer;
+}
 #main-container .content {
   flex: 1;
+  background-color: #2e2f30;
 }
 #main-container #menu-bar {
   display: flex;

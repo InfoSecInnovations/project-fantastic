@@ -9,6 +9,7 @@ import Update from './update'
 import Effect from './effect'
 import StoryTree from './defaults/storytree'
 import Config from './defaults/config'
+import Action from './defaults/action'
 
 const patch = init([
   classModule,
@@ -23,7 +24,8 @@ let state = {
   config: {
     json: Config()
   },
-  modules: {}
+  modules: {},
+  action: Action()
 }
 let vnode = document.body
 

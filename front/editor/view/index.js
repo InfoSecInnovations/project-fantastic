@@ -2,6 +2,7 @@ import {h} from 'snabbdom/h'
 import StoryTree from './storytree'
 import Config from './config'
 import Module from './module'
+import Action from './action'
 
 const content = (state, send) => [
   h('div#menu.column center content', {class: {hidden: state.mode && state.mode != 'menu'}}, [
@@ -11,6 +12,7 @@ const content = (state, send) => [
     h('div.button', {on: {click: e => send({type: 'mode', mode: 'storytree'})}}, 'Story Tree Editor'),
     h('div', Object.values(state.modules).length == 0 ? 'Load or create a module on the left to get started with content creation.' : 'Select a module on the left to edit its content.')
   ]),
+  Action(state, send),
   StoryTree(state, send),
   Config(state, send),
   Module(state, send)

@@ -1,42 +1,25 @@
 import {h} from 'snabbdom/h'
+import hosts from '../common/hosts'
+import Info from '../common/info'
+import roles from '../common/roles'
 
-const hosts = ['local', 'remote']
 const timeUnits = ['d', 'h', 'm']
-const roles = ['user', 'elevated', 'admin']
 
 export default (state, send) => [
   h('h3', 'Quest Settings'),
-  h('div.column', [
-    h('label.label', {attrs: {for: 'quest-name-editor'}}, 'Name'),
-    h('input#quest-name-editor', {
-      attrs: {value: state.storyTree.name || ''},
-      on: {input: e => send({type: 'set_quest_name', name: e.target.value})}
-    })
-  ]),
-  h('div.column', [
-    h('label.label', {attrs: {for: 'quest-description-editor'}}, 'Description'),
-    h('textarea#quest-description-editor', {
-      attrs: {rows: 7},
-      on: {input: e => send({type: 'set_quest_description', description: e.target.value})}
-    }, state.storyTree.description || '')
-  ]),
-  h('div.column', [
-    h('div.label', 'Host Types'),
-    ...hosts.map(host => h('span', [
-      h('input', {
-        attrs: {type: 'checkbox', id: `host-type-${host}`},
-        props: {checked: state.storyTree.config.hosts.includes(host)},
-        on: {input: e => send({type: 'enable_quest_host_type', enabled: e.target.checked, host})}
-      }),
-      h('label', {attrs: {for: `host-type-${host}`}}, host)
-    ]))
-  ]),
-  h('div.column', [
-    h('label.label', {attrs: {for: 'quest-role-editor'}}, 'Role'),
-    h('select#quest-role-editor', {
-      on: { input: e => send({type: 'set_quest_role', role: e.target.value}) }
-    }, roles.map((role, i) => h('option', { attrs: { value: role, selected: state.storyTree.config.role == role || (!state.storyTree.config.role && i == 0) }}, role)))
-  ]),
+  ...Info(
+    state,
+    send,
+    'quest',
+    state.storyTree.name,
+    'set_quest_name',
+    state.storyTree.description,
+    'set_quest_description',
+    state.storyTree.config.hosts,
+    'enable_quest_host_type',
+    state.storyTree.config.role,
+    'set_quest_role'
+  ),
   h('div.column', [
     h('div.label', 'Host Selection'),
     h('span', [
