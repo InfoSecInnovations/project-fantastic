@@ -26,15 +26,15 @@ export default (state, send) => h('div#config.content', {class: {hidden: state.m
             }
           })
         ]),
-        h('div.item', [
-          h('label', {for: 'child-process-checkbox'}, 'Use child process'), 
+        h('div.checkbox', [
           h('input', {
             attrs: {type: 'checkbox', id: 'child-process-checkbox'}, 
             props: {checked: state.config.json.use_child_process},
             on: {
               input: e => send({type: 'config_use_child_process', value: e.target.checked})
             }
-          })
+          }),
+          h('label', {for: 'child-process-checkbox'}, 'Use child process')
         ])
       ]),
       h('h3', 'Client'),

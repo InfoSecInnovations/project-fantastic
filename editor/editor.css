@@ -432,11 +432,11 @@ li {
 .column.spaced {
   gap: 20px;
 }
-.info {
-  flex-basis: 350px;
-}
 .dropdown-parent {
   position: relative;
+}
+.checkbox {
+  display: flex;
 }
 .dropdown {
   background-color: #ffa666;
@@ -528,9 +528,14 @@ li {
   display: flex;
   gap: 10px;
 }
-#main-container #config-editor,
-#main-container #module-editor,
 #main-container #action-editor {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  padding: 20px;
+  gap: 20px;
+}
+#main-container #config-editor,
+#main-container #module-editor {
   display: flex;
   padding: 20px;
   gap: 20px;
