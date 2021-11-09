@@ -432,6 +432,9 @@ li {
 .column.spaced {
   gap: 20px;
 }
+.info {
+  flex-basis: 350px;
+}
 .dropdown-parent {
   position: relative;
 }
@@ -526,7 +529,8 @@ li {
   gap: 10px;
 }
 #main-container #config-editor,
-#main-container #module-editor {
+#main-container #module-editor,
+#main-container #action-editor {
   display: flex;
   padding: 20px;
   gap: 20px;

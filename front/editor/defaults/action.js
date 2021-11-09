@@ -1,5 +1,10 @@
+import ActionFunction from "./actionFunction";
+
 export default () => ({
   json: {
-    hosts: ['local']
+    hosts: ['local'],
+    functions: {
+      run: ActionFunction()
+    }
   }
 })
