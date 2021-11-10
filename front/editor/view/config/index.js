@@ -26,7 +26,7 @@ export default (state, send) => h('div#config.content', {class: {hidden: state.m
             }
           })
         ]),
-        h('div.checkbox', [
+        h('div.row', [
           h('input', {
             attrs: {type: 'checkbox', id: 'child-process-checkbox'}, 
             props: {checked: state.config.json.use_child_process},

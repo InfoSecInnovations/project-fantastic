@@ -435,8 +435,10 @@ li {
 .dropdown-parent {
   position: relative;
 }
-.checkbox {
+.row {
   display: flex;
+  align-items: center;
+  gap: 10px;
 }
 .dropdown {
   background-color: #ffa666;
