@@ -1,4 +1,5 @@
 import {h} from 'snabbdom/h'
+import ResultDataView from './resultdataview'
 
 export default (state, send, funcName) => {
   const data = state.action.json.functions[funcName]
@@ -50,14 +51,15 @@ export default (state, send, funcName) => {
         h('label', {for: `${state.action.filename}-${funcName}-convert-to-json`}, 'Convert output to JSON')
       ]),
       h('div.column', [
-        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-command-editor`}}, 'Result label'),
-        h('input', {
-          attrs: {
-            value: data.command || '',
-            id: `${state.action.filename}-${funcName}-command-editor`
-          },
-          on: {input: e => send({type: 'action_function_command', name: e.target.value, function: funcName})}
-        })
+        h('label.label', 'Result label'),
+        ...ResultDataView(
+          state,
+          send,
+          funcName,
+          data.result.label,
+          `${state.action.filename}-${funcName}-label`,
+          ['label']
+        )
       ])
     ] : [h('div.button', {}, 'Enable result processing')])
   ])
