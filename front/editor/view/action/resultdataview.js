@@ -23,6 +23,7 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
   }
   let fieldEditor
   if (valueType == 'string') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData}})
+  // TODO: other field editors
   return [
     h('div.row', [
       h('label.label', {attrs: {for: `${id}-value-type`}}, 'Value type'),

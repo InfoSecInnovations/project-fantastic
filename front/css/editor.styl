@@ -27,6 +27,17 @@ li
 .column.spaced
   gap: 20px
 
+.dividers
+  display: flex
+  flex-direction: column
+  padding-left: 15px
+  gap: 10px
+  & > * 
+    border-bottom: 2px solid button_background_color
+    padding-bottom: 10px
+  & > *:last-child
+    border-bottom: none
+
 .dropdown-parent
   position: relative
 
@@ -34,6 +45,8 @@ li
   display: flex
   align-items: center
   gap: 10px
+  &.top-aligned
+    align-items: flex-start
 
 .dropdown
   background-color: alt_background_color

@@ -432,6 +432,19 @@ li {
 .column.spaced {
   gap: 20px;
 }
+.dividers {
+  display: flex;
+  flex-direction: column;
+  padding-left: 15px;
+  gap: 10px;
+}
+.dividers > * {
+  border-bottom: 2px solid #3c3d3d;
+  padding-bottom: 10px;
+}
+.dividers > *:last-child {
+  border-bottom: none;
+}
 .dropdown-parent {
   position: relative;
 }
@@ -439,6 +452,9 @@ li {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+.row.top-aligned {
+  align-items: flex-start;
 }
 .dropdown {
   background-color: #ffa666;
