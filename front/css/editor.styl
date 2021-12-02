@@ -23,6 +23,7 @@ li
   height: 20px
   flex: none
   cursor: pointer
+  margin-left: auto
 
 .column.spaced
   gap: 20px
@@ -30,13 +31,15 @@ li
 .dividers
   display: flex
   flex-direction: column
-  padding-left: 15px
   gap: 10px
   & > * 
     border-bottom: 2px solid button_background_color
     padding-bottom: 10px
+    padding-left: 15px
   & > *:last-child
     border-bottom: none
+  & > *:first-child
+    padding-left: 0
 
 .dropdown-parent
   position: relative

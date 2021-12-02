@@ -428,6 +428,7 @@ li {
   height: 20px;
   flex: none;
   cursor: pointer;
+  margin-left: auto;
 }
 .column.spaced {
   gap: 20px;
@@ -435,15 +436,18 @@ li {
 .dividers {
   display: flex;
   flex-direction: column;
-  padding-left: 15px;
   gap: 10px;
 }
 .dividers > * {
   border-bottom: 2px solid #3c3d3d;
   padding-bottom: 10px;
+  padding-left: 15px;
 }
 .dividers > *:last-child {
   border-bottom: none;
+}
+.dividers > *:first-child {
+  padding-left: 0;
 }
 .dropdown-parent {
   position: relative;

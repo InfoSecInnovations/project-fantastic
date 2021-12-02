@@ -7,25 +7,27 @@ export default (state, send, funcName) => {
     ...(funcName == 'run' ? [h('h3', 'Run (entry point)')] :
     [
       h('h3', data.name || funcName),
-      h('div.column', [
-        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-name-editor`}}, 'Name'),
-        h('input', {
-          attrs: {
-            value: funcName,
-            id: `${state.action.filename}-${funcName}-name-editor`
-          },
-          on: {input: e => send({type: 'action_function_rename', name: e.target.value, function: funcName})}
-        })
-      ]),
-      h('div.column', [
-        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-display-name-editor`}}, 'Display Name'),
-        h('input', {
-          attrs: {
-            value: data.name || '',
-            id: `${state.action.filename}-${funcName}-display-name-editor`
-          },
-          on: {input: e => send({type: 'action_function_display_name', name: e.target.value, function: funcName})}
-        })
+      h('div.row', [
+        h('div.column', [
+          h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-name-editor`}}, 'Name'),
+          h('input', {
+            attrs: {
+              value: funcName,
+              id: `${state.action.filename}-${funcName}-name-editor`
+            },
+            on: {input: e => send({type: 'action_function_rename', name: e.target.value, function: funcName})}
+          })
+        ]),
+        h('div.column', [
+          h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-display-name-editor`}}, 'Display Name'),
+          h('input', {
+            attrs: {
+              value: data.name || '',
+              id: `${state.action.filename}-${funcName}-display-name-editor`
+            },
+            on: {input: e => send({type: 'action_function_display_name', name: e.target.value, function: funcName})}
+          })
+        ])
       ])
     ]),
     h('div.column', [
@@ -86,7 +88,7 @@ export default (state, send, funcName) => {
                 .map(func => h('option', {attrs: {value: func, selected: func == f.function}}, func))
               )
             ]),
-            h('div.mini-button', {}, 'X')
+            h('div.mini-button', {attrs: {title: 'Remove followup'}}, 'X')
           ]),
           h('div.row top-aligned', [
             h('input', {
@@ -129,7 +131,8 @@ export default (state, send, funcName) => {
                   `${state.action.filename}-${funcName}-followup-data-value-editor-${e[0]}`,
                   ['followups', i, 'data', e[0]]
                 ))
-              ])
+              ]),
+              h('div.mini-button', {attrs: {title: 'Remove data item'}}, 'X')
             ]))
           ])
         ])) : [])
