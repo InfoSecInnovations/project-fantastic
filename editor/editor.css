@@ -449,6 +449,10 @@ li {
 .dividers > *:first-child {
   padding-left: 0;
 }
+.dividers.no-title > *:first-child {
+  padding-left: 15px;
+  border-top: 2px solid #3c3d3d;
+}
 .dropdown-parent {
   position: relative;
 }
