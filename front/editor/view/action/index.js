@@ -25,7 +25,10 @@ export default (state, send) => h('div#action.content', {class: {hidden: state.m
     )),
     h('div.column', [
       FunctionView(state, send, 'run'),
-      ...Object.keys(state.action.json.functions).filter(key => key != 'run').map(key => FunctionView(state, send, key))
+      ...Object.keys(state.action.json.functions).filter(key => key != 'run').map(key => FunctionView(state, send, key)),
+      h('div.button', {
+
+      }, 'Add function')
     ])
   ])
 

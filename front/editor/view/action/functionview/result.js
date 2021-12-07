@@ -17,7 +17,7 @@ export default (state, send, funcName, data, index) => {
     ]),
     h('div.column', [
       h('div.item', [h('h4', 'Data'), h('div.mini-button', {}, '+')]),
-      ...(data.data ? data.data.map((d, i) => h('div.item', [
+      ...(data.data ? data.data.map((d, i) => h('div.row top-aligned', [
         h('div', ResultDataView(
           state,
           send,
@@ -61,7 +61,11 @@ export default (state, send, funcName, data, index) => {
           )) : undefined
         ]),
         h('div.dividers', [
-          h('div', 'Data'),
+          h('div.row top-aligned', h('div', 'Data'), h('div.mini-button', {
+            attrs: {
+              title: 'Add key value pair'
+            }
+          }, '+')),
           ...Object.entries(f.data).map(e => h('div.row top-aligned', [
             h('div.column', [
               h('label.label', {attrs: {for: `${baseID}-followup-data-key-editor-${e[0]}`}}, 'Key'),

@@ -1,5 +1,4 @@
 import {h} from 'snabbdom/h'
-import ResultDataView from '../resultdataview'
 import Result from './result'
 
 export default (state, send, funcName) => {
@@ -33,13 +32,13 @@ export default (state, send, funcName) => {
     ]),
     h('div.column', [
       h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-command-editor`}}, 'PowerShell Command'),
-      h('input', {
+      h('textarea', {
         attrs: {
-          value: data.command || '',
+          rows: 1,
           id: `${state.action.filename}-${funcName}-command-editor`
         },
         on: {input: e => send({type: 'action_function_command', name: e.target.value, function: funcName})}
-      })
+      }, data.command || '')
     ]),
     ...(data.result ? [
       h('div.button', {}, 'Disable result processing'),
@@ -53,27 +52,37 @@ export default (state, send, funcName) => {
         }),
         h('label', {for: `${state.action.filename}-${funcName}-convert-to-json`}, 'Convert output to JSON')
       ]),
-      h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-result-format`}}, 'Result Format'),
-      h('select', {
-        attrs:{
-          id: `${state.action.filename}-${funcName}-result-format`
-        },
-      }, [
-        h('option', {
-          attrs: {
-            value: 'single',
-            selected: !data.result.array
-          }
-        }, 'single'),
-        h('option', {
-          attrs: {
-            value: 'array',
-            selected: data.result.array
-          }
-        }, 'array')
+      h('div.row top-aligned', [
+        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-result-format`}}, 'Result Format'),
+        h('select', {
+          attrs:{
+            id: `${state.action.filename}-${funcName}-result-format`
+          },
+        }, [
+          h('option', {
+            attrs: {
+              value: 'single',
+              selected: !data.result.array
+            }
+          }, 'single'),
+          h('option', {
+            attrs: {
+              value: 'array',
+              selected: data.result.array
+            }
+          }, 'array')
+        ]),
+        data.result.array ? h('div.mini-button', {
+          attrs: {title: 'Add result entry'}
+        }, '+') : undefined
       ]),
       ...(data.result.array ? 
-        [h('div.dividers no-title', data.result.array.map((d, i) => h('div.column', Result(state, send, funcName, d, i))))] : 
+        [h('div.dividers no-title', data.result.array.map((d, i) => h('div.row top-aligned', [
+          h('div.column', Result(state, send, funcName, d, i)),
+          h('div.mini-button', {
+            attrs: {title: 'Remove result entry'}
+          }, 'X')
+        ])))] : 
         Result(state, send, funcName, data.result))
     ] : [h('div.button', {}, 'Enable result processing')])
   ])

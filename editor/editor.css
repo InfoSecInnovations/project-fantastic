@@ -410,6 +410,9 @@ input[type=password] {
   font-size: 12px;
   color: #949494;
 }
+textarea {
+  resize: vertical;
+}
 ul {
   margin: 0;
   padding: 0;
@@ -457,6 +460,7 @@ li {
 }
 .dividers.no-title > *:first-child {
   padding-left: 15px;
+  padding-top: 10px;
   border-top: 2px solid #3c3d3d;
 }
 .dropdown-parent {

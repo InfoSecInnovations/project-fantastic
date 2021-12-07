@@ -40,6 +40,7 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
   if (valueType == 'labelled') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.labelled}})
   if (valueType == 'static') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.static}})
   if (valueType == 'key_value_string') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.key_value_string}})
+  if (valueType == 'date') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.date}})
   if (valueType == 'map') fieldEditor = h('div.column', [
     h('div.row', [
       h('label.label', {attrs: {for: `${id}-map-key`}}, 'Key'),
@@ -93,6 +94,26 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
       h('option', {attrs: {value: 'value', selected: typeof resultData.true == 'undefined' || typeof resultData.false == 'undefined'}}, 'value'),
       h('option', {attrs: {value: 'map', selected: typeof resultData.true != 'undefined' && typeof resultData.false != 'undefined'}}, 'map')
     ]),
+    ...(typeof resultData.true != 'undefined' && typeof resultData.false != 'undefined' ? [
+      h('div.row', [
+        h('label.label', {for: `${id}-bool-true-value`}, 'Value if true'),
+        h('input', {
+          attrs: {
+            id: `${id}-bool-true-value`,
+            value: resultData.true
+          }
+        })
+      ]),
+      h('div.row', [
+        h('label.label', {for: `${id}-bool-false-value`}, 'Value if false'),
+        h('input', {
+          attrs: {
+            id: `${id}-bool-false-value`,
+            value: resultData.false
+          }
+        })
+      ])
+    ] : []),
     h('div.row', [
       h('input', {
         attrs: {
@@ -103,15 +124,50 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
       h('label', {attrs: {for: `${id}-bool-inverse`}}, 'Invert')
     ])
   ])
-  if (valueType == 'array') fieldEditor = h('div.dividers no-title', resultData.map((d, i) => h('div.column', resultDataView(
-    state,
-    send,
-    funcName,
-    d,
-    `${id}-array-${i}`,
-    [...path, 'array', i]
-  ))))
-  // TODO: other field editors
+  if (valueType == 'array') fieldEditor = h('div.dividers', [
+    h('div.mini-button', {
+      attrs: {
+        title: 'Add element'
+      }
+    }, '+'),
+    ...resultData.map((d, i) => h('div.row', [
+      h('div.column', resultDataView(
+        state,
+        send,
+        funcName,
+        d,
+        `${id}-array-${i}`,
+        [...path, 'array', i]
+      )),
+      h('div.mini-button', {
+        attrs: {
+          title: 'Remove element'
+        }
+      }, 'X')
+    ]))
+  ])
+  if (valueType == 'combine') fieldEditor = h('div.dividers', [
+    h('div.mini-button', {
+      attrs: {
+        title: 'Add element'
+      }
+    }, '+'),
+    ...resultData.combine.map((d, i) => h('div.row', [
+      h('div.column', resultDataView(
+        state,
+        send,
+        funcName,
+        d,
+        `${id}-combine-${i}`,
+        [...path, 'combine', i]
+      )),
+      h('div.mini-button', {
+        attrs: {
+          title: 'Remove element'
+        }
+      }, 'X')
+    ]))
+  ])
   return [
     h('div.row top-aligned', [
       h('div.result-data-selector', [
