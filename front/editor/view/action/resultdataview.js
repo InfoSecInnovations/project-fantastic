@@ -13,6 +13,19 @@ const valueTypes = [
   'text'
 ]
 
+const help = {
+  'string_key': 'Simply grab the value corresponding to this key in the JSON data',
+  'array': 'When you want more than one result per data item',
+  'map': 'Map from the raw data value corresponding to the key to a value of your choosing',
+  'labelled': 'Grab the value corresponding to the key, and label it with the key',
+  'static': 'Ignore the data and just output this value',
+  'bool': "Intended for use with boolean values. Comes with an option to inverse the result, and the possibility to map the boolean states to values.",
+  'combine': 'Join these values together into one value',
+  'date': 'Extract a date from a value in the "Date(xxx)" format where xxx is an integer representing a Unix timestamp',
+  'key_value_string': 'Extract a value from a string in the "x=y,w=z" format which you can get from some commands',
+  'text': 'The raw string data'
+}
+
 const resultDataView = (state, send, funcName, resultData, id, path) => {
   let valueType = 'string_key'
   if (Array.isArray(resultData)) valueType = 'array'
@@ -101,11 +114,16 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
   // TODO: other field editors
   return [
     h('div.row top-aligned', [
-      h('label.label', {attrs: {for: `${id}-value-type`}}, 'Value type'),
-      h('select', {
-        attrs: {id: `${id}-value-type`},
-        on: {input: e => send({type: 'set_value_type', funcName, type: e.target.value, path})}
-      }, valueTypes.map(value => h('option', {attrs: {value, selected: value == valueType}}, value == 'string_key' ? 'key' : value))),
+      h('div.result-data-selector', [
+        h('div.row', [
+          h('label.label', {attrs: {for: `${id}-value-type`}}, 'Value type'),
+          h('select', {
+            attrs: {id: `${id}-value-type`},
+            on: {input: e => send({type: 'set_value_type', funcName, type: e.target.value, path})}
+          }, valueTypes.map(value => h('option', {attrs: {value, selected: value == valueType}}, value == 'string_key' ? 'key' : value)))
+        ]),
+        h('div.label', help[valueType])
+      ]),
       fieldEditor
     ])
   ]
