@@ -30,7 +30,7 @@ export default (state, send, funcName, data, index) => {
       ])) : [])
     ]),
     h('div.dividers', [
-      h('div.item', [h('h4', 'Followup Actions'), h('div.mini-button', {}, '+')]),
+      Object.keys(state.action.json.functions).find(k => k != 'run') ? h('div.item', [h('h4', 'Followup Actions'), h('div.mini-button', {}, '+')]) : undefined,
       ...(data.followups ? data.followups.map((f, i) => h('div.column', [
         h('div.item', [
           h('div.row', [
@@ -61,11 +61,14 @@ export default (state, send, funcName, data, index) => {
           )) : undefined
         ]),
         h('div.dividers', [
-          h('div.row top-aligned', h('div', 'Data'), h('div.mini-button', {
-            attrs: {
-              title: 'Add key value pair'
-            }
-          }, '+')),
+          h('div.row top-aligned', [
+            h('div', 'Data'), 
+            h('div.mini-button', {
+              attrs: {
+                title: 'Add key value pair'
+              }
+            }, '+')
+          ]),
           ...Object.entries(f.data).map(e => h('div.row top-aligned', [
             h('div.column', [
               h('label.label', {attrs: {for: `${baseID}-followup-data-key-editor-${e[0]}`}}, 'Key'),
