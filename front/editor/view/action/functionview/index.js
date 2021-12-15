@@ -1,6 +1,12 @@
 import {h} from 'snabbdom/h'
 import Result from './result'
 
+const inputTypes = [
+  "string",
+  "number",
+  "password"
+]
+
 export default (state, send, funcName) => {
   const data = state.action.json.functions[funcName]
   return h('div.column', [
@@ -39,6 +45,33 @@ export default (state, send, funcName) => {
         },
         on: {input: e => send({type: 'action_function_command', name: e.target.value, function: funcName})}
       }, data.command || '')
+    ]),
+    h('div.row top-aligned', [
+      h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-command-method`}}, 'Command invocation method'),
+      h('select', {attrs: {id: `${state.action.filename}-${funcName}-command-method`}}, [
+        h('option', {attrs: {value: 'invoke', selected: data.method == 'invoke'}}, 'Invoke-Command ScriptBlock'),
+        h('option', {attrs: {value: 'cimsession', selected: data.method == 'cimsession'}}, 'CimSession'),
+      ]),
+      h('div.label', 'This option determines how the command is run on each host. Some PowerShell commands will work with a CimSession allowing easy access to that host, for other commands you\'ll need to invoke a script block on the remote machine. To do so, just choose the relevant option above, Fantastic will take care of the rest!')
+    ]),
+    h('div.dividers', [
+      h('div.row top-aligned', [
+        h('h4', 'Input'),
+        h('div.mini-button', {
+          attrs: {title: 'Add input parameter'}
+        }, '+')
+      ]),
+      ...(data.inputs ? data.inputs.map((input, i) => h('div.row top-aligned', [
+        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-input-${i}-variable`}}, 'Variable name'),
+        h('input', {attrs: {id: `${state.action.filename}-${funcName}-input-${i}-variable`, value: input.variable}}),
+        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-input-${i}-name`}}, 'Display name'),
+        h('input', {attrs: {id: `${state.action.filename}-${funcName}-input-${i}-name`, value: input.name}}),
+        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-input-${i}-type`}}, 'Input type'),
+        h('select', inputTypes.map(t => h('option', {attrs: {value: t, selected: input.type == t}}, t))),
+        h('div.mini-button', {
+          attrs: {title: 'Remove input parameter'}
+        }, 'X')
+      ])) : [])
     ]),
     ...(data.result ? [
       h('div.button', {}, 'Disable result processing'),
