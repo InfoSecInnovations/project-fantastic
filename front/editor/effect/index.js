@@ -20,6 +20,10 @@ export default (state, action, send) => {
   } 
   if (action.type == 'editor_canvas') EditorCanvas(state, action, send)
   if (action.type == 'load_module') LoadModule(state, action, send)
+  if (action.type == 'unload_module') {
+    const existingData = localStorage.getItem('modulePaths')
+    localStorage.setItem('modulePaths', JSON.stringify({...{...(existingData && JSON.parse(existingData)), [action.module]: undefined}}))
+  }
   if (action.type == 'editor_node_el') {
     state.storyTree.jsplumb.makeSource(action.el, {filter: '.handle'})
     state.storyTree.jsplumb.makeTarget(action.el, {allowLoopback: false})

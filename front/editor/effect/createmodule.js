@@ -1,3 +1,5 @@
+import LoadModule from './loadmodule'
+
 const FS = require('fs-extra')
 const Path = require('path')
 const {spawn} = require('child_process')
@@ -29,4 +31,10 @@ export default (state, action, send) => {
   .then(() => FS.writeJSON(Path.join(dir, 'info.json'), {...{
     name: state.newModuleData.displayName
   }}, {spaces: '\t'}))
+  .then(() => LoadModule(state, {module: dir}, send))
+  .then(() => FS.readJSON(Path.join(dir, 'package.json')))
+  .then(json => {
+    send({type: 'mode', mode: 'module'})
+    send({type: 'select_module', module: json.name})
+  })
 }
