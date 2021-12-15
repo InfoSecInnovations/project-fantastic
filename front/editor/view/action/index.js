@@ -3,7 +3,7 @@ import Info from '../common/info'
 import FunctionView from './functionview'
 
 export default (state, send) => h('div#action.content', {class: {hidden: state.mode != 'action'}}, [
-  h('div#menu-bar.panel', [
+  h('div.menu-bar panel', [
     h('h2', 'Action Editor'), 
     h('div.button', {}, 'Save'), 
     h('div.button', {}, 'Discard Changes'), 

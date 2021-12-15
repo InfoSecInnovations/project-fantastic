@@ -1,3 +1,4 @@
+import CreateModule from './createmodule'
 import EditorCanvas from './editorcanvas'
 import LoadModule from './loadmodule'
 import LoadTree from './loadtree'
@@ -44,4 +45,5 @@ export default (state, action, send) => {
     send({type: 'dropdown_state', state: null})
     send({type: 'config_remove_always_enabled', command: action.command})
   } 
+  if (action.type == 'create_new_module') CreateModule(state, action, send)
 }

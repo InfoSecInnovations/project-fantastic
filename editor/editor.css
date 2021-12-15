@@ -518,7 +518,7 @@ li {
   flex: 1;
   background-color: #2e2f30;
 }
-#main-container #menu-bar {
+#main-container .menu-bar {
   display: flex;
   justify-content: space-between;
   gap: 10px;

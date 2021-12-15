@@ -25,7 +25,8 @@ let state = {
     json: Config()
   },
   modules: {},
-  action: Action()
+  action: Action(),
+  newModuleData: {}
 }
 let vnode = document.body
 

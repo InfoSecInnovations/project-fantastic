@@ -5,7 +5,7 @@ import DefaultEnabled from './defaultenabled'
 import MenuBar from './menubar'
 
 export default (state, send) => h('div#config.content', {class: {hidden: state.mode != 'config'}}, [
-  h('div#menu-bar.panel', MenuBar(state, send)),
+  h('div.menu-bar panel', MenuBar(state, send)),
   h('div#config-editor.panel', [
     h('div.column spaced', [
       h('h3', 'Content packages'),

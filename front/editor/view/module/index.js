@@ -5,10 +5,15 @@ export default (state, send) => {
   const currentModule = state.modules[state.selectedModule]
   if (!currentModule) return
   return h('div#module.content', {class: {hidden: state.mode != 'module'}}, [
-    h('div#menu-bar.panel', [h('h2', 'Module Editor'), h('h2', currentModule.name)]),
+    h('div.menu-bar panel', [h('h2', 'Module Editor'), h('h2', currentModule.name)]),
     h('div#module-editor.panel', [
       h('div.column', [
-        h('h3', 'Actions'),
+        h('div.row top-aligned', [
+          h('h3', 'Actions'),
+          h('div.mini-button', {
+            attrs: {title: 'Create action'}
+          }, '+')
+        ]),
         ...Object.entries(currentModule.actions).map(action => h('div.item', [
           h('div', action[1].name || action[0]), 
           h('div.mini-button', {

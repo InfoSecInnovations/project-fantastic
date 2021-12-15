@@ -60,5 +60,9 @@ export default (state, action) => {
     state.action.filename = action.filename
   } 
 
+  if (action.type == 'module_data_name') state.newModuleData.name = action.value
+  if (action.type == 'module_data_display_name') state.newModuleData.displayName = action.value
+  if (action.type == 'module_data_org') state.newModuleData.org = action.value
+
   return state
 }

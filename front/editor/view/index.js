@@ -3,6 +3,7 @@ import StoryTree from './storytree'
 import Config from './config'
 import Module from './module'
 import Action from './action'
+import NewModule from './newmodule'
 
 const content = (state, send) => [
   h('div#menu.column center content', {class: {hidden: state.mode && state.mode != 'menu'}}, [
@@ -15,7 +16,8 @@ const content = (state, send) => [
   Action(state, send),
   StoryTree(state, send),
   Config(state, send),
-  Module(state, send)
+  Module(state, send),
+  NewModule(state, send)
 ]
 
 const body = (state, send) => h('div#main-container', [
@@ -34,6 +36,7 @@ const body = (state, send) => h('div#main-container', [
       style: {display: 'none'}
     }),
     h('label.button', {attrs: {for: 'load-module-file-input'}}, 'Load Module'),
+    h('div.button', {on: {click: e => send({type: 'mode', mode: 'new_module'})}}, 'New Module'),
     ...Object.values(state.modules).map(module => h('div.module', [
       h('div.module-link', {
         on: { click: e => {
