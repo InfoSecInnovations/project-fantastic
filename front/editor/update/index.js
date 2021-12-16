@@ -1,4 +1,5 @@
 import StoryTree from "../defaults/storytree"
+import Action from '../defaults/action'
 
 export default (state, action) => {
   if (action.type == 'mode') state.mode = action.mode
@@ -59,6 +60,10 @@ export default (state, action) => {
     state.action.json = action.action
     state.action.filename = action.filename
   } 
+  if (action.type == 'init_action') {
+    if (!state.modules[state.selectedModule].actions) state.modules[state.selectedModule].actions = {}
+    state.modules[state.selectedModule].actions[action.filename] = Action().json
+  }
 
   if (action.type == 'module_data_name') state.newModuleData.name = action.value
   if (action.type == 'module_data_display_name') state.newModuleData.displayName = action.value

@@ -24,6 +24,7 @@ export default (state, action, send) => {
     const existingData = localStorage.getItem('modulePaths')
     localStorage.setItem('modulePaths', JSON.stringify({...{...(existingData && JSON.parse(existingData)), [action.module]: undefined}}))
   }
+  if (action.type == 'create_new_module') CreateModule(state, action, send)
   if (action.type == 'editor_node_el') {
     state.storyTree.jsplumb.makeSource(action.el, {filter: '.handle'})
     state.storyTree.jsplumb.makeTarget(action.el, {allowLoopback: false})
@@ -49,5 +50,19 @@ export default (state, action, send) => {
     send({type: 'dropdown_state', state: null})
     send({type: 'config_remove_always_enabled', command: action.command})
   } 
-  if (action.type == 'create_new_module') CreateModule(state, action, send)
+  if (action.type == 'create_action') {
+    let filename = prompt('Enter file name')
+    while (true) {
+      if (filename === null) break
+      if (filename && (!state.modules[state.selectedModule].actions || !state.modules[state.selectedModule].actions[filename])) {
+        send({type: 'init_action', filename})
+        send({type: 'load_action', action: state.modules[state.selectedModule].actions[filename], filename})
+        send({type: 'mode', mode: 'action'})
+        break
+      }
+      filename = prompt('Please enter a valid file name')
+      filename = filename.replace(/[^a-z0-9_\-]/gi, '_').toLowerCase()
+    }
+
+  }
 }

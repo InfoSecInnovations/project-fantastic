@@ -11,7 +11,8 @@ export default (state, send) => {
         h('div.row top-aligned', [
           h('h3', 'Actions'),
           h('div.mini-button', {
-            attrs: {title: 'Create action'}
+            attrs: {title: 'New action'},
+            on: {click: e => send({type: 'create_action'})}
           }, '+')
         ]),
         ...Object.entries(currentModule.actions).map(action => h('div.item', [
