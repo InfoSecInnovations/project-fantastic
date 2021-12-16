@@ -1,8 +1,10 @@
+import CreateAction from './createaction'
 import CreateModule from './createmodule'
 import EditorCanvas from './editorcanvas'
 import LoadModule from './loadmodule'
 import LoadTree from './loadtree'
 import Save from './save'
+import SaveAction from './saveaction'
 const FS = require('fs-extra')
 
 export default (state, action, send) => {
@@ -50,19 +52,6 @@ export default (state, action, send) => {
     send({type: 'dropdown_state', state: null})
     send({type: 'config_remove_always_enabled', command: action.command})
   } 
-  if (action.type == 'create_action') {
-    let filename = prompt('Enter file name')
-    while (true) {
-      if (filename === null) break
-      if (filename && (!state.modules[state.selectedModule].actions || !state.modules[state.selectedModule].actions[filename])) {
-        send({type: 'init_action', filename})
-        send({type: 'load_action', action: state.modules[state.selectedModule].actions[filename], filename})
-        send({type: 'mode', mode: 'action'})
-        break
-      }
-      filename = prompt('Please enter a valid file name')
-      filename = filename.replace(/[^a-z0-9_\-]/gi, '_').toLowerCase()
-    }
-
-  }
+  if (action.type == 'create_action') CreateAction(state, action, send)
+  if (action.type == 'save_action') SaveAction(state, action, send)
 }

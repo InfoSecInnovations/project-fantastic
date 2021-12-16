@@ -69,5 +69,16 @@ export default (state, action) => {
   if (action.type == 'module_data_display_name') state.newModuleData.displayName = action.value
   if (action.type == 'module_data_org') state.newModuleData.org = action.value
 
+  if (action.type == 'set_action_name') state.action.json.name = action.name
+  if (action.type == 'set_action_description') state.action.json.description = action.description
+  if (action.type == 'enable_action_host') {
+    if (action.enabled && !state.action.json.hosts.includes(action.host)) state.action.json.hosts.push(action.host)
+    else {
+      const index = state.action.json.hosts.findIndex(host => host == action.host)
+      if (index) state.action.json.hosts.splice(index, 1)
+    }
+  }
+  if (action.type == 'set_quest_role') state.action.json.role = action.role
+
   return state
 }
