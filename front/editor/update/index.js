@@ -87,6 +87,14 @@ export default (state, action) => {
     }
   }
   if (action.type == 'set_action_role') state.action.json.role = action.role
+  if (action.type == 'add_action_input') {
+    if (!state.action.json.functions[action.function].inputs) state.action.json.functions[action.function].inputs = []
+    state.action.json.functions[action.function].inputs.push({})
+  }
+  if (action.type == 'remove_action_input') state.action.json.functions[action.function].inputs.splice(action.index, 1)
+  if (action.type == 'action_input_variable') state.action.json.functions[action.function].inputs[action.index].variable = action.value
+  if (action.type == 'action_input_name') state.action.json.functions[action.function].inputs[action.index].name = action.value
+  if (action.type == 'action_input_type') state.action.json.functions[action.function].inputs[action.index].type = action.value
   if (action.type == 'add_action_followup') state.action.json.functions[`function${Object.keys(state.action.json.functions).length}`] = ActionFunction()
   if (action.type == 'delete_action_function') delete state.action.json.functions[action.function]
   if (action.type == 'rename_action_function') {
