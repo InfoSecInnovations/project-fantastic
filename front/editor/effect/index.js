@@ -1,5 +1,7 @@
 import CreateAction from './createaction'
 import CreateModule from './createmodule'
+import DeleteAction from './deleteaction'
+import DiscardAction from './discardaction'
 import EditorCanvas from './editorcanvas'
 import LoadModule from './loadmodule'
 import LoadTree from './loadtree'
@@ -54,4 +56,6 @@ export default (state, action, send) => {
   } 
   if (action.type == 'create_action') CreateAction(state, action, send)
   if (action.type == 'save_action') SaveAction(state, action, send)
+  if (action.type == 'discard_action') DiscardAction(state, action, send)
+  if (action.type == 'delete_action') DeleteAction(state, action, send)
 }

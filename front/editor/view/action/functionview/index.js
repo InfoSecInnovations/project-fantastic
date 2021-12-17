@@ -49,12 +49,15 @@ export default (state, send, funcName) => {
           rows: 1,
           id: `${state.action.filename}-${funcName}-command-editor`
         },
-        on: {input: e => send({type: 'action_function_command', name: e.target.value, function: funcName})}
+        on: {input: e => send({type: 'action_function_command', command: e.target.value, function: funcName})}
       }, data.command || '')
     ]),
     h('div.row top-aligned', [
       h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-command-method`}}, 'Command invocation method'),
-      h('select', {attrs: {id: `${state.action.filename}-${funcName}-command-method`}}, [
+      h('select', {
+        attrs: {id: `${state.action.filename}-${funcName}-command-method`},
+        on: {input: e => send({type: 'action_function_command_method', function: funcName, method: e.target.value})}
+      }, [
         h('option', {attrs: {value: 'invoke', selected: data.method == 'invoke'}}, 'Invoke-Command ScriptBlock'),
         h('option', {attrs: {value: 'cimsession', selected: data.method == 'cimsession'}}, 'CimSession'),
       ]),

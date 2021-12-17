@@ -8,7 +8,9 @@ export default (state, send) => h('div#action.content', {class: {hidden: state.m
     h('div.button', {
       on: {click: e => send({type: 'save_action'})}
     }, 'Save'), 
-    h('div.button', {}, 'Discard Changes'), 
+    h('div.button', {
+      on: {click: e => send({type: 'discard_action'})}
+    }, 'Discard Changes'), 
     h('h2', state.action.json.name || state.action.filename)
   ]),
   h('div#action-editor.panel', [

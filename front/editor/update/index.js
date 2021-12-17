@@ -65,6 +65,13 @@ export default (state, action) => {
     if (!state.modules[state.selectedModule].actions) state.modules[state.selectedModule].actions = {}
     state.modules[state.selectedModule].actions[action.filename] = Action().json
   }
+  if (action.type == 'set_action') {
+    if (!state.modules[state.selectedModule].actions) state.modules[state.selectedModule].actions = {}
+    state.modules[state.selectedModule].actions[action.filename] = action.json
+  }
+  if (action.type == 'remove_action') {
+    if (state.modules[state.selectedModule].actions) delete state.modules[state.selectedModule].actions[action.filename]
+  }
 
   if (action.type == 'module_data_name') state.newModuleData.name = action.value
   if (action.type == 'module_data_display_name') state.newModuleData.displayName = action.value
@@ -98,6 +105,8 @@ export default (state, action) => {
     }
     else delete state.action.json.functions[action.function].result
   }
+  if (action.type == 'action_function_command') state.action.json.functions[action.function].command = action.command
+  if (action.type == 'action_function_command_method') state.action.json.functions[action.function].method = action.method
 
   return state
 }
