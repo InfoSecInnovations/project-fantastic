@@ -40,6 +40,7 @@ export default (state, send, funcName, data, index) => {
               .map(func => h('option', {attrs: {value: func, selected: func == f.function}}, func))
             )
           ]),
+          !state.action.json.functions[f.function] ? h('div.label', 'WARNING: function doesn\'t exist!') : undefined,
           h('div.mini-button', {attrs: {title: 'Remove followup'}}, 'X')
         ]),
         h('div.row top-aligned', [

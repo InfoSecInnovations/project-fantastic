@@ -12,7 +12,13 @@ export default (state, send, funcName) => {
   return h('div.column', [
     ...(funcName == 'run' ? [h('h3', 'Run (entry point)')] :
     [
-      h('h3', data.name || funcName),
+      h('div.row top-aligned', [
+        h('h3', data.name || funcName),
+        h('div.mini-button', {
+          on: {click: e => send({type: 'delete_action_function', function: funcName})},
+          attrs: {title: 'Delete function'}
+        }, 'X')
+      ]),
       h('div.row', [
         h('div.column', [
           h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-name-editor`}}, 'Name'),
@@ -21,7 +27,7 @@ export default (state, send, funcName) => {
               value: funcName,
               id: `${state.action.filename}-${funcName}-name-editor`
             },
-            on: {input: e => send({type: 'action_function_rename', name: e.target.value, function: funcName})}
+            on: {input: e => send({type: 'rename_action_function', newName: e.target.value, function: funcName})}
           })
         ]),
         h('div.column', [
@@ -74,7 +80,9 @@ export default (state, send, funcName) => {
       ])) : [])
     ]),
     ...(data.result ? [
-      h('div.button', {}, 'Disable result processing'),
+      h('div.button', {
+        on: {click: e => send({type: 'action_function_result_processing', enabled: false, function: funcName})}
+      }, 'Disable result processing'),
       h('div.row', [
         h('input', {
           attrs: {type: 'checkbox', id: `${state.action.filename}-${funcName}-convert-to-json`}, 
@@ -117,6 +125,8 @@ export default (state, send, funcName) => {
           }, 'X')
         ])))] : 
         Result(state, send, funcName, data.result))
-    ] : [h('div.button', {}, 'Enable result processing')])
+    ] : [h('div.button', {
+      on: {click: e => send({type: 'action_function_result_processing', enabled: true, function: funcName})}
+    }, 'Enable result processing')])
   ])
 } 

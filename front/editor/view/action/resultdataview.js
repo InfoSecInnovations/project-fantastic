@@ -28,15 +28,17 @@ const help = {
 
 const resultDataView = (state, send, funcName, resultData, id, path) => {
   let valueType = 'string_key'
-  if (Array.isArray(resultData)) valueType = 'array'
-  for (const type of valueTypes) {
-    if (resultData[type]) {
-      valueType = type
-      break
-    } 
+  if (resultData) {
+    if (Array.isArray(resultData)) valueType = 'array'
+    for (const type of valueTypes) {
+      if (resultData[type]) {
+        valueType = type
+        break
+      } 
+    }
   }
   let fieldEditor
-  if (valueType == 'string_key') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData}})
+  if (valueType == 'string_key') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData || ''}})
   if (valueType == 'labelled') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.labelled}})
   if (valueType == 'static') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.static}})
   if (valueType == 'key_value_string') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.key_value_string}})

@@ -1,5 +1,6 @@
 import StoryTree from "../defaults/storytree"
 import Action from '../defaults/action'
+import ActionFunction from "../defaults/actionFunction"
 
 export default (state, action) => {
   if (action.type == 'mode') state.mode = action.mode
@@ -78,7 +79,25 @@ export default (state, action) => {
       if (index) state.action.json.hosts.splice(index, 1)
     }
   }
-  if (action.type == 'set_quest_role') state.action.json.role = action.role
+  if (action.type == 'set_action_role') state.action.json.role = action.role
+  if (action.type == 'add_action_followup') state.action.json.functions[`function${Object.keys(state.action.json.functions).length}`] = ActionFunction()
+  if (action.type == 'delete_action_function') delete state.action.json.functions[action.function]
+  if (action.type == 'rename_action_function') {
+    Object.values(state.action.json.functions).forEach(func => {
+      if (func.result && func.result.followups) func.result.followups.forEach(followup => {
+        if (followup.function == action.function) followup.function = action.newName
+      })
+    })
+    state.action.json.functions[action.newName] = state.action.json.functions[action.function]
+    delete state.action.json.functions[action.function]
+  }
+  if (action.type == 'action_function_display_name') state.action.json.functions[action.function].name = action.name
+  if (action.type == 'action_function_result_processing') {
+    if (action.enabled) {
+      state.action.json.functions[action.function].result = {}
+    }
+    else delete state.action.json.functions[action.function].result
+  }
 
   return state
 }
