@@ -3,6 +3,7 @@ import ResultDataView from '../resultdataview'
 
 export default (state, send, funcName, data, index) => {
   const baseID = typeof index != 'undefined' ? `${state.action.filename}-${funcName}-result-${index}` : `${state.action.filename}-${funcName}`
+  const basePath = typeof index != 'undefined' ? ['array', index] : []
   return [
     h('div.column', [
       h('h4', 'Result label'),
@@ -12,11 +13,14 @@ export default (state, send, funcName, data, index) => {
         funcName,
         data.label,
         `${baseID}-label`,
-        [index, 'label']
+        [...basePath, 'label']
       )
     ]),
     h('div.column', [
-      h('div.item', [h('h4', 'Data'), h('div.mini-button', {}, '+')]),
+      h('div.item', [h('h4', 'Data'), h('div.mini-button', {
+        on: {click: e => send({type: 'add_result_data_entry', funcName, resultIndex: index})},
+        attrs: {title: 'Add data item'}
+      }, '+')]),
       ...(data.data ? data.data.map((d, i) => h('div.row top-aligned', [
         h('div', ResultDataView(
           state,
@@ -24,9 +28,12 @@ export default (state, send, funcName, data, index) => {
           funcName,
           d,
           `${baseID}-data-${i}-label`,
-          [index, 'data', i]
+          [...basePath, 'data', i]
         )),
-        h('div.mini-button', {}, 'X')
+        h('div.mini-button', {
+          on: {click: e => send({type: 'remove_result_data_entry', funcName, dataIndex: i, resultIndex: index})},
+          attrs: {title: 'Remove data item'}
+        }, 'X')
       ])) : [])
     ]),
     h('div.dividers', [
@@ -58,7 +65,7 @@ export default (state, send, funcName, data, index) => {
             funcName,
             f.enabled,
             `${baseID}-followups-${i}-enabled-data`,
-            [index, 'followups', i]
+            [...basePath, 'followups', i]
           )) : undefined
         ]),
         h('div.dividers', [
@@ -89,7 +96,7 @@ export default (state, send, funcName, data, index) => {
                 funcName,
                 e[1],
                 `${baseID}-followup-data-value-editor-${e[0]}`,
-                [index, 'followups', i, 'data', e[0]]
+                [...basePath, 'followups', i, 'data', e[0]]
               ))
             ]),
             h('div.mini-button', {attrs: {title: 'Remove data item'}}, 'X')

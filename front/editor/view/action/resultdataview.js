@@ -31,35 +31,58 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
   if (resultData) {
     if (Array.isArray(resultData)) valueType = 'array'
     for (const type of valueTypes) {
-      if (resultData[type]) {
+      if (resultData.hasOwnProperty(type)) {
         valueType = type
         break
       } 
     }
   }
   let fieldEditor
-  if (valueType == 'string_key') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData || ''}})
-  if (valueType == 'labelled') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.labelled}})
-  if (valueType == 'static') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.static}})
-  if (valueType == 'key_value_string') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.key_value_string}})
-  if (valueType == 'date') fieldEditor = h('input', {attrs: {type: 'text'}, props: {value: resultData.date}})
+  if (valueType == 'string_key') fieldEditor = h('input', {
+    on: {input: e => send({type: 'set_string_key', funcName, path, isResultData: true, value: e.target.value})},
+    attrs: {type: 'text'}, 
+    props: {value: resultData || ''}
+  })
+  if (valueType == 'labelled') fieldEditor = h('input', {
+    on: {input: e => send({type: 'set_labelled_key', funcName, path, isResultData: true, value: e.target.value})},
+    attrs: {type: 'text'}, 
+    props: {value: resultData.labelled}
+  })
+  if (valueType == 'static') fieldEditor = h('input', {
+    on: {input: e => send({type: 'set_static_value', funcName, path, isResultData: true, value: e.target.value})},
+    attrs: {type: 'text'}, 
+    props: {value: resultData.static}
+  })
+  if (valueType == 'key_value_string') fieldEditor = h('input', {
+    on: {input: e => send({type: 'set_key_value_string_key', funcName, path, isResultData: true, value: e.target.value})},
+    attrs: {type: 'text'}, 
+    props: {value: resultData.key_value_string}
+  })
+  if (valueType == 'date') fieldEditor = h('input', {
+    on: {input: e => send({type: 'set_date_key', funcName, path, isResultData: true, value: e.target.value})},
+    attrs: {type: 'text'}, 
+    props: {value: resultData.date}
+  })
   if (valueType == 'map') fieldEditor = h('div.column', [
     h('div.row', [
       h('label.label', {attrs: {for: `${id}-map-key`}}, 'Key'),
       h('input', {
-        on: { click: e => send({type: 'set_map_key', funcName, key: e.target.value, path})},
+        on: { input: e => send({type: 'set_map_key', funcName, key: e.target.value, path, isResultData: true})},
         attrs: {
           value: resultData.key || '',
           id: `${id}-map-key`
         }
       }),
-      h('div.mini-button', {attrs: {title: 'add mapping'}}, '+')
+      h('div.mini-button', {
+        on: {click: e => send({type: 'add_map_entry', funcName, path, isResultData: true})},
+        attrs: {title: 'add mapping'}
+      }, '+')
     ]),
     ...Object.entries(resultData.map).map(e => h('div.row top-aligned', [
       h('div.column', [
         h('label.label', {attrs: {for: `${id}-map-from-${e[0]}`}}, 'From'),
         h('input', {
-          on: { click: e => send({type: 'set_map_from', funcName, from: e[0], newFrom: e.target.value, path})},
+          on: { input: ev => send({type: 'set_map_from', funcName, from: e[0], newFrom: ev.target.value, path, isResultData: true})},
           attrs: {
             value: e[0],
             id: `${id}-map-from-${e[0]}`
@@ -69,19 +92,23 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
       h('div.column', [
         h('label.label', {attrs: {for: `${id}-map-to-${e[0]}`}}, 'To'),
         h('input', {
-          on: { click: e => send({type: 'set_map_to', funcName, key: e[0], to: e.target.value, path})},
+          on: { input: ev => send({type: 'set_map_to', funcName, key: e[0], to: ev.target.value, path, isResultData: true})},
           attrs: {
             value: e[1],
             id: `${id}-map-to-${e[0]}`
           }
         })
       ]),
-      h('div.mini-button', {attrs: {title: 'remove mapping'}}, 'X')
+      h('div.mini-button', {
+        on: {click: ev => send({type: 'remove_map_entry', funcName, path, key: e[0], isResultData: true})},
+        attrs: {title: 'remove mapping'}
+      }, 'X')
     ]))
   ])
   if (valueType == 'bool') fieldEditor = h('div.column', [
     h('label.label', {attrs: {for: `${id}-bool-key`}}, 'Key'),
     h('input', {
+      on: {input: e => send({type: 'set_bool_key', funcName, path, value: e.target.value, isResultData: true})},
       attrs: {
         id: `${id}-bool-key`,
         value: resultData.bool
@@ -89,6 +116,7 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
     }),
     h('label.label', {attrs: {for: `${id}-select-bool-mode`}}, 'Value mode'),
     h('select', {
+      on: {input: e => send({type: 'set_bool_mode', funcName, path, value: e.target.value, isResultData: true})},
       attrs: {
         id: `${id}-select-bool-mode`
       }
@@ -100,6 +128,7 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
       h('div.row', [
         h('label.label', {for: `${id}-bool-true-value`}, 'Value if true'),
         h('input', {
+          on: {input: e => send({type: 'set_bool_true_value', funcName, path, value: e.target.value, isResultData: true})},
           attrs: {
             id: `${id}-bool-true-value`,
             value: resultData.true
@@ -109,6 +138,7 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
       h('div.row', [
         h('label.label', {for: `${id}-bool-false-value`}, 'Value if false'),
         h('input', {
+          on: {input: e => send({type: 'set_bool_false_value', funcName, path, value: e.target.value, isResultData: true})},
           attrs: {
             id: `${id}-bool-false-value`,
             value: resultData.false
@@ -118,10 +148,12 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
     ] : []),
     h('div.row', [
       h('input', {
+        on: {change: e => send({type: 'set_bool_inverse', funcName, path, value: e.target.checked, isResultData: true})},
         attrs: {
           type: 'checkbox',
           id: `${id}-bool-inverse`
-        }
+        },
+        props: { checked: resultData.inverse }
       }),
       h('label', {attrs: {for: `${id}-bool-inverse`}}, 'Invert')
     ])
@@ -139,7 +171,7 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
         funcName,
         d,
         `${id}-array-${i}`,
-        [...path, 'array', i]
+        [...path, i]
       )),
       h('div.mini-button', {
         attrs: {
@@ -177,7 +209,7 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
           h('label.label', {attrs: {for: `${id}-value-type`}}, 'Value type'),
           h('select', {
             attrs: {id: `${id}-value-type`},
-            on: {input: e => send({type: 'set_value_type', funcName, type: e.target.value, path})}
+            on: {input: e => send({type: 'set_value_type', funcName, valueType: e.target.value, path, isResultData: true})}
           }, valueTypes.map(value => h('option', {attrs: {value, selected: value == valueType}}, value == 'string_key' ? 'key' : value)))
         ]),
         h('div.label', help[valueType])

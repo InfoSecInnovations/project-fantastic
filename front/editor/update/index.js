@@ -123,6 +123,60 @@ export default (state, action) => {
   }
   if (action.type == 'action_function_result_array_add') state.action.json.functions[action.function].result.array.push({})
   if (action.type == 'action_function_result_array_remove') state.action.json.functions[action.function].result.array.splice(action.index, 1)
+  if (action.isResultData) {
+    const func = state.action.json.functions[action.funcName]
+    let resultData = func.result
+    for (let i = 0; i < action.path.length - 1; i++) { // we need the before last item in the path because the final item can be a string
+      resultData = resultData[action.path[i]]
+    }
+    if (action.type == 'set_value_type') {
+      let newValue = ''
+      if (action.valueType == 'labelled') newValue = {labelled: ''}
+      if (action.valueType == 'static') newValue = {static: ''}
+      if (action.valueType == 'key_value_string') newValue = {key_value_string: ''}
+      if (action.valueType == 'date') newValue = {date: ''}
+      if (action.valueType == 'map') newValue = {map: {}, key: ''}
+      if (action.valueType == 'bool') newValue = {bool: ''}
+      if (action.valueType == 'array') newValue = []
+      if (action.valueType == 'combine') newValue = {combine: []}
+      if (action.valueType == 'text') newValue = {text: true}
+      resultData[action.path[action.path.length - 1]] = newValue
+    }
+    if (action.type == 'set_string_key') resultData[action.path[action.path.length - 1]] = action.value
+    if (action.type == 'set_labelled_key') resultData[action.path[action.path.length - 1]].labelled = action.value
+    if (action.type == 'set_static_value') resultData[action.path[action.path.length - 1]].static = action.value
+    if (action.type == 'set_key_value_string_key') resultData[action.path[action.path.length - 1]].key_value_string = action.value
+    if (action.type == 'set_date_key') resultData[action.path[action.path.length - 1]].date = action.value
+    if (action.type == 'set_map_key') resultData[action.path[action.path.length - 1]].key = action.key
+    if (action.type == 'add_map_entry') resultData[action.path[action.path.length - 1]].map[`key${Object.keys(resultData[action.path[action.path.length - 1]].map).length}`] = ''
+    if (action.type == 'remove_map_entry') delete resultData[action.path[action.path.length - 1]].map[action.key]
+    if (action.type == 'set_map_from') {
+      resultData[action.path[action.path.length - 1]].map[action.newFrom] = resultData[action.path[action.path.length - 1]].map[action.from]
+      delete resultData[action.path[action.path.length - 1]].map[action.from]
+    } 
+    if (action.type == 'set_map_to') resultData[action.path[action.path.length - 1]].map[action.key] = action.to
+    if (action.type == 'set_bool_key') resultData[action.path[action.path.length - 1]].bool = action.value
+    if (action.type == 'set_bool_mode') {
+      const boolData = resultData[action.path[action.path.length - 1]]
+      if (action.value == 'value') {
+        delete boolData.true
+        delete boolData.false
+      }
+      else {
+        boolData.true = ''
+        boolData.false = ''
+      }
+    }
+    if (action.type == 'set_bool_true_value') resultData[action.path[action.path.length - 1]].true = action.value
+    if (action.type == 'set_bool_false_value') resultData[action.path[action.path.length - 1]].false = action.value
+    if (action.type == 'set_bool_inverse') resultData[action.path[action.path.length - 1]].inverse = action.value
+  }
+  if (action.type == 'add_result_data_entry') {
+    let resultData = state.action.json.functions[action.funcName].result
+    if (typeof action.resultIndex == 'number') resultData = resultData.array[action.resultIndex]
+    if (!resultData.data) resultData.data = []
+    resultData.data.push('')
+  }
 
   return state
 }
