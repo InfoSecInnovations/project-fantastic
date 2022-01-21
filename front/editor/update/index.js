@@ -115,6 +115,14 @@ export default (state, action) => {
   }
   if (action.type == 'action_function_command') state.action.json.functions[action.function].command = action.command
   if (action.type == 'action_function_command_method') state.action.json.functions[action.function].method = action.method
+  if (action.type == 'action_function_convert_to_json') state.action.json.functions[action.function].json = action.value
+  if (action.type == 'action_function_result_format') {
+    const func = state.action.json.functions[action.function]
+    if (action.value == 'array' && !func.result.array) func.result = {array: []}
+    else if (action.value == 'single' && func.result.array) func.result = {}
+  }
+  if (action.type == 'action_function_result_array_add') state.action.json.functions[action.function].result.array.push({})
+  if (action.type == 'action_function_result_array_remove') state.action.json.functions[action.function].result.array.splice(action.index, 1)
 
   return state
 }
