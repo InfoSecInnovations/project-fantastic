@@ -1,6 +1,7 @@
 import StoryTree from "../defaults/storytree"
 import Action from '../defaults/action'
 import ActionFunction from "../defaults/actionFunction"
+import ActionFollowup from "../defaults/actionFollowup"
 
 export default (state, action) => {
   if (action.type == 'mode') state.mode = action.mode
@@ -171,12 +172,34 @@ export default (state, action) => {
     if (action.type == 'set_bool_false_value') resultData[action.path[action.path.length - 1]].false = action.value
     if (action.type == 'set_bool_inverse') resultData[action.path[action.path.length - 1]].inverse = action.value
   }
-  if (action.type == 'add_result_data_entry') {
+  if (action.hasOwnProperty('resultIndex')) {
     let resultData = state.action.json.functions[action.funcName].result
     if (typeof action.resultIndex == 'number') resultData = resultData.array[action.resultIndex]
-    if (!resultData.data) resultData.data = []
-    resultData.data.push('')
+    if (action.type == 'add_result_data_entry') {
+      if (!resultData.data) resultData.data = []
+      resultData.data.push('')
+    }
+    if (action.type == 'remove_result_data_entry') resultData.data.splice(action.dataIndex, 1)
+    if (action.type == 'add_result_followup') {
+      if (!resultData.followups) resultData.followups = []
+      const newFollowup = ActionFollowup()
+      newFollowup.function = Object.keys(state.action.json.functions).find(k => k != 'run')
+      resultData.followups.push(newFollowup)
+    }
+    if (action.type == 'remove_result_followup') resultData.followups.splice(action.followupIndex, 1)
+    if (action.type == 'set_followup_function') resultData.followups[action.followupIndex] = action.followup
+    if (action.type == 'action_followup_enabled_status') {
+      if (action.value) resultData.followups[action.followupIndex].enabled = ''
+      else delete resultData.followups[action.followupIndex].enabled
+    } 
+    if (action.type == 'action_followup_data_add_entry') resultData.followups[action.followupIndex].data[`key${Object.keys(resultData.followups[action.followupIndex].data).length}`] = ''
+    if (action.type == 'action_followup_data_remove_entry') delete resultData.followups[action.followupIndex].data[action.key]
+    if (action.type == 'action_followup_data_key_rename') {
+      resultData.followups[action.followupIndex].data[action.newName] = resultData.followups[action.followupIndex].data[action.key]
+      delete resultData.followups[action.followupIndex].data[action.key]
+    }
   }
+
 
   return state
 }
