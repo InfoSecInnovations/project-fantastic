@@ -6,7 +6,10 @@ export default (state, send, funcName, data, index) => {
   const basePath = typeof index != 'undefined' ? ['array', index] : []
   return [
     h('div.column', [
-      h('h4', 'Result label'),
+      h('div.row', [
+        h('h4', 'Result label'),
+        h('div.label', 'This label is the headline displayed on the action result. It also acts as an identifier so you should aim for it to be unique to each output item.')
+      ]),
       ...ResultDataView(
         state,
         send,
@@ -17,7 +20,10 @@ export default (state, send, funcName, data, index) => {
       )
     ]),
     h('div.column', [
-      h('div.item', [h('h4', 'Data'), h('div.mini-button', {
+      h('div.item', [
+        h('h4', 'Data'),
+        h('div.label', 'Data items allow you to display additional parts of the command output to the user.'),
+        h('div.mini-button', {
         on: {click: e => send({type: 'add_result_data_entry', funcName, resultIndex: index})},
         attrs: {title: 'Add data item'}
       }, '+')]),
@@ -37,10 +43,13 @@ export default (state, send, funcName, data, index) => {
       ])) : [])
     ]),
     h('div.dividers', [
-      Object.keys(state.action.json.functions).find(k => k != 'run') ? h('div.item', [h('h4', 'Followup Actions'), h('div.mini-button', {
-        on: {click: e => send({type: 'add_result_followup', funcName, resultIndex: index})},
-        attrs: {title: 'Add followup'}
-      }, '+')]) : undefined,
+      Object.keys(state.action.json.functions).find(k => k != 'run') ? h('div.row', [
+        h('div.item', [h('h4', 'Followup Actions'), h('div.mini-button', {
+          on: {click: e => send({type: 'add_result_followup', funcName, resultIndex: index})},
+          attrs: {title: 'Add followup'}
+        }, '+')]),
+        h('div.label', 'Followup actions allow you to run another function belonging to this action using the output from the current function.')
+      ]) : h('div', 'Create followup functions to enable followup actions.'),
       ...(data.followups ? data.followups.map((f, i) => h('div.column', [
         h('div.item', [
           h('div.row', [
@@ -66,6 +75,7 @@ export default (state, send, funcName, data, index) => {
             on: { input: e => send({type: 'action_followup_enabled_status', funcName, followupIndex: i, resultIndex: index, value: e.target.checked}) }
           }),
           h('label', {for: `${baseID}-followups-${i}-enabled`}, 'Enabled status'),
+          h('div.label', 'Select a property to show a special enabled/disabled button instead of the name of the followup function. This property should output a true/false value, so you probably want to use the bool result type.'),
           f.hasOwnProperty('enabled') ? h('div.column', ResultDataView(
             state,
             send,

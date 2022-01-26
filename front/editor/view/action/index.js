@@ -30,9 +30,12 @@ export default (state, send) => h('div#action.content', {class: {hidden: state.m
     h('div.column', [
       FunctionView(state, send, 'run'),
       ...Object.keys(state.action.json.functions).filter(key => key != 'run').map(key => FunctionView(state, send, key)),
-      h('div.button', {
-        on: {click: e => send({type: 'add_action_followup'})}
-      }, 'Add followup function')
+      h('div.row', [
+        h('div.button', {
+          on: {click: e => send({type: 'add_action_followup'})}
+        }, 'Add followup function'),
+        h('div.label', 'Followup functions can be called from the entry point of from other followups using the data from the calling function.')
+      ])
     ])
   ])
 

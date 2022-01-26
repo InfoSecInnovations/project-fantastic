@@ -7,6 +7,8 @@ const inputTypes = [
   "password"
 ]
 
+const resultProcessingHelp = 'If result processing is enabled you can display data to the user gathered from the output of the function, and use that data to perform further actions. If it\'s disabled, the function will just act upon the targeted systems without processing the output of the command.' 
+
 export default (state, send, funcName) => {
   const data = state.action.json.functions[funcName]
   return h('div.column', [
@@ -66,6 +68,7 @@ export default (state, send, funcName) => {
     h('div.dividers', [
       h('div.row top-aligned', [
         h('h4', 'Input'),
+        h('div.label', 'The input section allows you to prompt the user for values to be used by the command. Use this feature wisely!'),
         h('div.mini-button', {
           attrs: {title: 'Add input parameter'},
           on: {click: e => send({type: 'add_action_input', function: funcName})}
@@ -94,9 +97,12 @@ export default (state, send, funcName) => {
       ])) : [])
     ]),
     ...(data.result ? [
-      h('div.button', {
-        on: {click: e => send({type: 'action_function_result_processing', enabled: false, function: funcName})}
-      }, 'Disable result processing'),
+      h('div.row', [
+        h('div.button', {
+          on: {click: e => send({type: 'action_function_result_processing', enabled: false, function: funcName})}
+        }, 'Disable result processing'),
+        h('div.label', resultProcessingHelp)
+      ]),
       h('div.row', [
         h('input', {
           attrs: {type: 'checkbox', id: `${state.action.filename}-${funcName}-convert-to-json`}, 
@@ -105,7 +111,8 @@ export default (state, send, funcName) => {
             input: e => send({type: 'action_function_convert_to_json', value: e.target.checked})
           }
         }),
-        h('label', {for: `${state.action.filename}-${funcName}-convert-to-json`}, 'Convert output to JSON')
+        h('label', {for: `${state.action.filename}-${funcName}-convert-to-json`}, 'Convert output to JSON'),
+        h('div.label', 'Apply the ConvertTo-Json cmdlet to the command. In most cases this is recommended as working with JSON in Fantastic is much easier.')
       ]),
       h('div.row top-aligned', [
         h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-result-format`}}, 'Result Format'),
@@ -130,6 +137,7 @@ export default (state, send, funcName) => {
             }
           }, 'array')
         ]),
+        h('div.label', data.result.array ? 'Create multiple entries for each item from the command output.' : 'Create one result entry per item from the command output.'),
         data.result.array ? h('div.mini-button', {
           attrs: {title: 'Add result entry'},
           on: {click: e => send({type: 'action_function_result_array_add', function: funcName})}
@@ -144,8 +152,13 @@ export default (state, send, funcName) => {
           }, 'X')
         ])))] : 
         Result(state, send, funcName, data.result))
-    ] : [h('div.button', {
-      on: {click: e => send({type: 'action_function_result_processing', enabled: true, function: funcName})}
-    }, 'Enable result processing')])
+    ] : [
+      h('div.row', [
+        h('div.button', {
+          on: {click: e => send({type: 'action_function_result_processing', enabled: true, function: funcName})}
+        }, 'Enable result processing'),
+        h('div.label', resultProcessingHelp)
+      ])
+    ])
   ])
 } 
