@@ -102,11 +102,24 @@ li
   .content
     flex: 1
     background-color: panel_color
+    display: flex
+    flex-direction: column
   .menu-bar
     display: flex
     justify-content: space-between
     gap: 10px
     padding: 10px
+  .tabs
+    display: flex
+    .button:not(:first-child)
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
+    .button:not(:last-child)
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+  textarea.editor
+    width: 100%
+    height: 100%
   #story-tree
     display: grid
     grid-template-columns: 1fr auto 1.4fr

@@ -199,6 +199,7 @@ export default (state, action) => {
       delete resultData.followups[action.followupIndex].data[action.key]
     }
   }
+  if (action.type == 'action_editor_mode') state.actionEditorMode = action.mode
 
 
   return state

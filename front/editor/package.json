@@ -16,6 +16,7 @@
     "@infosecinnovations/fantastic-front": "^0.6.0",
     "@infosecinnovations/fantastic-utils": "^0.6.0",
     "@jsplumb/community": "^4.0.0-RC28",
+    "codemirror": "^5.65.1",
     "fs-extra": "^8.1.0",
     "snabbdom": "^2.1.0",
     "webpack": "^5.10.0",
