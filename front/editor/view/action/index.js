@@ -39,7 +39,10 @@ export default (state, send) => h('div#action.content', {class: {hidden: state.m
           autoCloseBrackets: true,
           autoRefresh: true,
           mode: "application/ld+json",
-          lineWrapping: true
+          lineWrapping: true,
+          tabSize: 2,
+          theme: 'base16-dark',
+          lineNumbers: true
         })
         cmInstance.on('change', () => send({type: 'update_action', json: JSON.parse(cmInstance.doc.getValue())}))
       },
