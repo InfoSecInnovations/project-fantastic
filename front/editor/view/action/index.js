@@ -5,6 +5,7 @@ import 'codemirror/mode/javascript/javascript.js'
 import 'codemirror/addon/edit/matchbrackets.js'
 import 'codemirror/addon/comment/continuecomment.js'
 import 'codemirror/addon/comment/comment.js'
+import 'codemirror/addon/display/autorefresh.js'
 
 let cmInstance
 
@@ -32,14 +33,19 @@ export default (state, send) => h('div#action.content', {class: {hidden: state.m
   ]),
   state.actionEditorMode == 'raw' ? h('textarea.editor', {
     hook: {
-      insert: vnode => cmInstance = CodeMirror.fromTextArea(vnode.elm, {
-        matchBrackets: true,
-        autoCloseBrackets: true,
-        mode: "application/ld+json",
-        lineWrapping: true
-      }),
+      insert: vnode => {
+        cmInstance = CodeMirror.fromTextArea(vnode.elm, {
+          matchBrackets: true,
+          autoCloseBrackets: true,
+          autoRefresh: true,
+          mode: "application/ld+json",
+          lineWrapping: true
+        })
+        cmInstance.on('change', () => send({type: 'update_action', json: JSON.parse(cmInstance.doc.getValue())}))
+      },
       destroy: vnode => cmInstance.getWrapperElement().remove()
-    }
+    },
+    key: `json-editor${state.selectedModule}-${state.action.filename}`
   }, JSON.stringify(state.action.json, null, '\t')) : 
   state.actionEditorMode == 'editor' ? Editor(state, send) : 
   h('div', 'TODO: yer a wizard Harry')

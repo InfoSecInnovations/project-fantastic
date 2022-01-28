@@ -62,6 +62,7 @@ export default (state, action) => {
     state.action.json = action.action
     state.action.filename = action.filename
   } 
+  if (action.type == 'update_action') state.action.json = action.json
   if (action.type == 'init_action') {
     if (!state.modules[state.selectedModule].actions) state.modules[state.selectedModule].actions = {}
     state.modules[state.selectedModule].actions[action.filename] = Action().json
