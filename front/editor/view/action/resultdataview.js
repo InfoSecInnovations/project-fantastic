@@ -68,10 +68,8 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
       h('label.label', {attrs: {for: `${id}-map-key`}}, 'Key'),
       h('input', {
         on: { input: e => send({type: 'set_map_key', funcName, key: e.target.value, path, isResultData: true})},
-        attrs: {
-          value: resultData.key || '',
-          id: `${id}-map-key`
-        }
+        attrs: { id: `${id}-map-key` },
+        props: { value: resultData.key || '' }
       }),
       h('div.mini-button', {
         on: {click: e => send({type: 'add_map_entry', funcName, path, isResultData: true})},
@@ -117,9 +115,7 @@ const resultDataView = (state, send, funcName, resultData, id, path) => {
     h('label.label', {attrs: {for: `${id}-select-bool-mode`}}, 'Value mode'),
     h('select', {
       on: {input: e => send({type: 'set_bool_mode', funcName, path, value: e.target.value, isResultData: true})},
-      attrs: {
-        id: `${id}-select-bool-mode`
-      }
+      attrs: { id: `${id}-select-bool-mode` }
     }, [
       h('option', {attrs: {value: 'value', selected: typeof resultData.true == 'undefined' || typeof resultData.false == 'undefined'}}, 'value'),
       h('option', {attrs: {value: 'map', selected: typeof resultData.true != 'undefined' && typeof resultData.false != 'undefined'}}, 'map')
