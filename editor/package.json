@@ -15,7 +15,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "codemirror": "^5.65.1",
-    "nw": "^0.50.2"
+    "nw": "^0.60.0"
   },
   "devDependencies": {
     "nwjs-builder-phoenix": "^1.15.0"

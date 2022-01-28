@@ -51,6 +51,6 @@ export default (state, send) => h('div#action.content', {class: {hidden: state.m
     key: `json-editor${state.selectedModule}-${state.action.filename}`
   }, JSON.stringify(state.action.json, null, '\t')) : 
   state.actionEditorMode == 'editor' ? Editor(state, send) : 
-  h('div', 'TODO: yer a wizard Harry')
+  h('div', 'TODO: yer a lizard Barry. Please select Advanced or JSON mode above!')
 
 ])

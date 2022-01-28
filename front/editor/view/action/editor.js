@@ -2,7 +2,7 @@ import {h} from 'snabbdom/h'
 import Info from '../common/info'
 import FunctionView from './functionview'
 
-export default (state, send) => h('div#action-editor panel', [
+export default (state, send) => h('div#action-editor.panel', [
   h('div.column', Info(
     state,
     send,
