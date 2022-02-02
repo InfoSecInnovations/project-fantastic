@@ -26,7 +26,7 @@ export default (state, action) => {
     if (action.enabled && !state.storyTree.config.hosts.includes(action.host)) state.storyTree.config.hosts.push(action.host)
     else {
       const index = state.storyTree.config.hosts.findIndex(host => host == action.host)
-      if (index) state.storyTree.config.hosts.splice(index, 1)
+      if (index >= 0) state.storyTree.config.hosts.splice(index, 1)
     }
   }
   if (action.type == 'set_quest_description') state.storyTree.description = action.description
@@ -85,7 +85,7 @@ export default (state, action) => {
     if (action.enabled && !state.action.json.hosts.includes(action.host)) state.action.json.hosts.push(action.host)
     else {
       const index = state.action.json.hosts.findIndex(host => host == action.host)
-      if (index) state.action.json.hosts.splice(index, 1)
+      if (index >= 0) state.action.json.hosts.splice(index, 1)
     }
   }
   if (action.type == 'set_action_role') state.action.json.role = action.role
