@@ -19,6 +19,7 @@ export default () => ({
       'convertto_json',
       'inputs',
       'result_processing'
-    ]
+    ],
+    funcName: 'run'
   }
 })

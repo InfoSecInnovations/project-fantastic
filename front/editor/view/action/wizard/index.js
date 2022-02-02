@@ -1,7 +1,9 @@
 import {h} from 'snabbdom/h'
 import Description from './description'
 import DisplayName from './displayname'
+import EditRun from './editrun'
 import Hosts from './hosts'
+import Role from './role'
 import WizardView from './wizardview'
 
 const getWizard = (state, send) => {
@@ -9,6 +11,8 @@ const getWizard = (state, send) => {
   if (task == 'display_name') return DisplayName(state, send)
   if (task == 'description') return Description(state, send)
   if (task == 'hosts') return Hosts(state, send)
+  if (task == 'role') return Role(state, send)
+  if (task == 'edit_run_function') return EditRun(state, send)
   return WizardView(state, send, 'Not implemented', `${task} wizard task has not been implemented yet!`)
 }
 
