@@ -9,5 +9,6 @@ export default (state, send) => WizardView(
   h('input', {
     attrs: {value: state.action.json.name ||''},
     on: {input: e => send({type: 'set_action_name', name: e.target.value})}
-  })
+  }),
+  [state.action.json.name ? undefined : 'With no display name your action might be less readable to the user.']
 )

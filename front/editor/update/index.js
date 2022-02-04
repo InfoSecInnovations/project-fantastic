@@ -203,7 +203,7 @@ export default (state, action) => {
   if (action.type == 'action_editor_mode') state.actionEditorMode = action.mode
   if (action.type == 'action_next_wizard') state.action.wizard.index = (state.action.wizard.index || 0) + 1
   if (action.type == 'action_previous_wizard') state.action.wizard.index = state.action.wizard.index ? state.action.wizard.index - 1 : 0
-
+  if (action.type == 'action_complete_wizard') state.action.wizard.tasks.length = 0
 
   return state
 }

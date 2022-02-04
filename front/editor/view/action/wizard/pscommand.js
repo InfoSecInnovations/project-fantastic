@@ -12,5 +12,7 @@ export default (state, send) => WizardView(
       rows: 1
     },
     on: {input: e => send({type: 'action_function_command', command: e.target.value, function: state.action.wizard.funcName})}
-  }, state.action.json.functions[state.action.wizard.funcName].command || '')
+  }, state.action.json.functions[state.action.wizard.funcName].command || ''),
+  undefined,
+  [state.action.json.functions[state.action.wizard.funcName].command ? undefined : 'You must provide a command!']
 )

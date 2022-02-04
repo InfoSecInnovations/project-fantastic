@@ -5,7 +5,6 @@ import hosts from '../../common/hosts'
 const localDescription = "This action can only be run on the machine hosting Fantastic."
 const remoteDescription = "This action can only be run on a machine with PowerShell Remote access from the machine hosting Fantastic."
 const bothDescription = "This action can be run on the machine hosting Fantastic and any machines with PowerShell Remote access from that machine."
-const neitherDescription = "You should select at least one host type!"
 
 export default (state, send) => WizardView(
   state, 
@@ -21,10 +20,12 @@ export default (state, send) => WizardView(
       }),
       h('label', {attrs: {for: `action-host-type-${host}`}}, host)
     ])),
-    h('div', !state.action.json.hosts.length ? neitherDescription : 
+    state.action.json.hosts.length ? h('div',
       state.action.json.hosts.includes('local') && state.action.json.hosts.includes('remote') ? bothDescription :
       state.action.json.hosts.includes('local') ? localDescription :
       remoteDescription
-    )
-  ])
+    ) : undefined
+  ]),
+  undefined,
+  [state.action.json.hosts.length ? undefined : 'You must select at least one host type!']
 )

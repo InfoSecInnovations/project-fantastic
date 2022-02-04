@@ -9,5 +9,6 @@ export default (state, send) => WizardView(
   h('input', {
     props: {value: state.action.json.description || ''},
     on: {input: e => send({type: 'set_action_description', description: e.target.value})}
-  })
+  }),
+  [state.action.json.description ? undefined : 'With no description it might be hard for people to figure out what your action does.']
 )

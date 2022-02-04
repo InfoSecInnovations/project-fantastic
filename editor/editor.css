@@ -488,6 +488,12 @@ li {
 .dropdown .option {
   cursor: pointer;
 }
+.error {
+  color: #ff3224;
+}
+.warning {
+  color: #ffe159;
+}
 #main-container {
   display: flex;
   min-height: 100vh;
