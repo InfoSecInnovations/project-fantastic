@@ -1,8 +1,13 @@
 import {h} from 'snabbdom/h'
+import ConvertToJSON from './converttojson'
 import Description from './description'
 import DisplayName from './displayname'
 import EditRun from './editrun'
 import Hosts from './hosts'
+import Inputs from './inputs'
+import InvocationMethod from './invocationmethod'
+import PSCommand from './pscommand'
+import ResultProcessing from './resultprocessing'
 import Role from './role'
 import WizardView from './wizardview'
 
@@ -13,6 +18,11 @@ const getWizard = (state, send) => {
   if (task == 'hosts') return Hosts(state, send)
   if (task == 'role') return Role(state, send)
   if (task == 'edit_run_function') return EditRun(state, send)
+  if (task == 'powershell_command') return PSCommand(state, send)
+  if (task == 'invocation_method') return InvocationMethod(state, send)
+  if (task == 'inputs') return Inputs(state, send)
+  if (task == 'result_processing') return ResultProcessing(state, send)
+  if (task == 'convert_to_json') return ConvertToJSON(state, send)
   return WizardView(state, send, 'Not implemented', `${task} wizard task has not been implemented yet!`)
 }
 

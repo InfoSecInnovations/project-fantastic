@@ -16,7 +16,6 @@ export default () => ({
       'edit_run_function',
       'powershell_command',
       'invocation_method',
-      'convertto_json',
       'inputs',
       'result_processing'
     ],

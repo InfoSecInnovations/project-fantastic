@@ -1,11 +1,6 @@
 import {h} from 'snabbdom/h'
+import Inputs from '../elements/inputs'
 import Result from './result'
-
-const inputTypes = [
-  "string",
-  "number",
-  "password"
-]
 
 const resultProcessingHelp = 'If result processing is enabled you can display data to the user gathered from the output of the function, and use that data to perform further actions. If it\'s disabled, the function will just act upon the targeted systems without processing the output of the command.' 
 
@@ -65,37 +60,7 @@ export default (state, send, funcName) => {
       ]),
       h('div.label', 'This option determines how the command is run on each host. Some PowerShell commands will work with a CimSession allowing easy access to that host, for other commands you\'ll need to invoke a script block on the remote machine. To do so, just choose the relevant option above, Fantastic will take care of the rest!')
     ]),
-    h('div.dividers', [
-      h('div.row top-aligned', [
-        h('h4', 'Input'),
-        h('div.label', 'The input section allows you to prompt the user for values to be used by the command. Use this feature wisely!'),
-        h('div.mini-button', {
-          attrs: {title: 'Add input parameter'},
-          on: {click: e => send({type: 'add_action_input', function: funcName})}
-        }, '+')
-      ]),
-      ...(data.inputs ? data.inputs.map((input, i) => h('div.row top-aligned', [
-        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-input-${i}-variable`}}, 'Variable name'),
-        h('input', {
-          attrs: {id: `${state.action.filename}-${funcName}-input-${i}-variable`, value: input.variable},
-          on: {input: e => send({type: 'action_input_variable', function: funcName, index: i, value: e.target.value})}
-        }),
-        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-input-${i}-name`}}, 'Display name'),
-        h('input', {
-          attrs: {id: `${state.action.filename}-${funcName}-input-${i}-name`, value: input.name},
-          on: {input: e => send({type: 'action_input_name', function: funcName, index: i, value: e.target.value})}
-        }),
-        h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-input-${i}-type`}}, 'Input type'),
-        h('select', {
-          attrs: {id: `${state.action.filename}-${funcName}-input-${i}-type`},
-          on: {input: e => send({type: 'action_input_type', function: funcName, index: i, value: e.target.value})}
-        }, inputTypes.map(t => h('option', {attrs: {value: t, selected: input.type == t}}, t))),
-        h('div.mini-button', {
-          attrs: {title: 'Remove input parameter'},
-          on: {click: e => send({type: 'remove_action_input', function: funcName, index: i})}
-        }, 'X')
-      ])) : [])
-    ]),
+    Inputs(state, send, funcName, 'The input section allows you to prompt the user for values to be used by the command. Use this feature wisely!'),
     ...(data.result ? [
       h('div.row', [
         h('div.button', {
@@ -108,7 +73,7 @@ export default (state, send, funcName) => {
           attrs: {type: 'checkbox', id: `${state.action.filename}-${funcName}-convert-to-json`}, 
           props: {checked: data.json},
           on: {
-            input: e => send({type: 'action_function_convert_to_json', value: e.target.checked})
+            input: e => send({type: 'action_function_convert_to_json', value: e.target.checked, function: funcName})
           }
         }),
         h('label', {for: `${state.action.filename}-${funcName}-convert-to-json`}, 'Convert output to JSON'),
