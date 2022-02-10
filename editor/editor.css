@@ -497,6 +497,7 @@ li {
 #main-container {
   display: flex;
   min-height: 100vh;
+  border: #242424 solid 10px;
 }
 #main-container #modules {
   display: flex;
