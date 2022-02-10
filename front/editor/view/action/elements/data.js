@@ -2,7 +2,8 @@ import {h} from 'snabbdom/h'
 import ResultDataView from '../resultdataview'
 
 export default (state, send, label, funcName, index, baseID, basePath) => {
-  const data = state.action.json.functions[funcName]
+  let data = state.action.json.functions[funcName].result
+  if (typeof index == 'number') data = data.result[index]
   return h('div.column', [
     h('div.item', [
       h('h4', 'Data'),

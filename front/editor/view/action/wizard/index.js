@@ -7,6 +7,7 @@ import Hosts from './hosts'
 import Inputs from './inputs'
 import InvocationMethod from './invocationmethod'
 import PSCommand from './pscommand'
+import ResultData from './resultdata'
 import ResultLabel from './resultlabel'
 import ResultProcessing from './resultprocessing'
 import Role from './role'
@@ -25,6 +26,7 @@ const getWizard = (state, send) => {
   if (task == 'result_processing') return ResultProcessing(state, send)
   if (task == 'convert_to_json') return ConvertToJSON(state, send)
   if (task == 'result_label') return ResultLabel(state, send)
+  if (task == 'add_data_items') return ResultData(state, send)
   return WizardView(state, send, 'Not implemented', `${task} wizard task has not been implemented yet!`)
 }
 

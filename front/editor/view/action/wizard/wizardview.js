@@ -12,7 +12,7 @@ export default (state, send, title, description, inputView, warnings, errors, is
     ...(hasWarnings ? warnings.map(warning => warning && h('div.warning', warning)) : []),
     ...(hasErrors ? errors.map(error => error && h('div.error', error)) : []),
     h('div.nav-buttons', [
-      isFirst ? undefined : h('div.button', {
+      isFirst ? h('div') : h('div.button', { // the first item has a dummy element to keep the spacing between buttons
         on: { click: e => send({type: 'action_previous_wizard'}) }
       }, 'Previous'),
       isLast ? h('div.button', {
