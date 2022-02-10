@@ -211,6 +211,5 @@ export default (state, action) => {
   if (action.type == 'action_previous_wizard') state.action.wizard.index = state.action.wizard.index ? state.action.wizard.index - 1 : 0
   if (action.type == 'action_complete_wizard') state.action.wizard.tasks.length = 0
   if (action.type == 'action_add_wizard_tasks') state.action.wizard.tasks.push(...action.tasks)
-
   return state
 }

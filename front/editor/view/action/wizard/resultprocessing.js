@@ -11,7 +11,7 @@ export default (state, send) => {
     h('div.button', {
       on: {
         click: e => {
-          send({type: 'action_function_add_wizard_tasks', tasks: ['convert_to_json', 'result_label', 'add_data_items']})
+          send({type: 'action_add_wizard_tasks', tasks: ['convert_to_json', 'result_label', 'add_data_items']})
           send({type: 'action_function_result_processing', enabled: !enabled, function: state.action.wizard.funcName})
         } 
       }
