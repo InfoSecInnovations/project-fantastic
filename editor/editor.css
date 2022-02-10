@@ -531,6 +531,7 @@ li {
   justify-content: space-between;
   gap: 10px;
   padding: 10px;
+  border-bottom: #242424 solid 10px;
 }
 #main-container .tabs {
   display: flex;
@@ -554,6 +555,9 @@ li {
 #main-container #story-tree {
   display: grid;
   grid-template-columns: 1fr auto 1.4fr;
+}
+#main-container #story-tree .menu-bar {
+  border-bottom: none;
 }
 #main-container #story-tree .graph {
   width: 1280px;
@@ -602,5 +606,23 @@ li {
   display: flex;
   padding: 20px;
   gap: 20px;
+}
+#main-container .wizard {
+  width: 100%;
+  max-width: 85rem;
+  align-self: center;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 15px;
+}
+#main-container .wizard h3 {
+  align-self: center;
+}
+#main-container .wizard .nav-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 /*# sourceMappingURL=editor.css.map */

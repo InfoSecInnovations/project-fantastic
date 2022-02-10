@@ -7,6 +7,7 @@ import Hosts from './hosts'
 import Inputs from './inputs'
 import InvocationMethod from './invocationmethod'
 import PSCommand from './pscommand'
+import ResultLabel from './resultlabel'
 import ResultProcessing from './resultprocessing'
 import Role from './role'
 import WizardView from './wizardview'
@@ -23,7 +24,8 @@ const getWizard = (state, send) => {
   if (task == 'inputs') return Inputs(state, send)
   if (task == 'result_processing') return ResultProcessing(state, send)
   if (task == 'convert_to_json') return ConvertToJSON(state, send)
+  if (task == 'result_label') return ResultLabel(state, send)
   return WizardView(state, send, 'Not implemented', `${task} wizard task has not been implemented yet!`)
 }
 
-export default (state, send) => h('div#action-editor.panel', state.action.wizard.tasks.length ? getWizard(state, send) : h('div', 'TODO: wizard suggestions.'))
+export default (state, send) => state.action.wizard.tasks.length ? getWizard(state, send) : h('div.wizard', 'TODO: wizard suggestions.')
