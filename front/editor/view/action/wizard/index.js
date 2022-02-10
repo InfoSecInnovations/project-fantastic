@@ -13,6 +13,14 @@ import ResultProcessing from './resultprocessing'
 import Role from './role'
 import WizardView from './wizardview'
 
+const followupTasks = [
+  'function_names', 
+  'powershell_command', 
+  'invocation_method', 
+  'inputs', 
+  'result_processing'
+]
+
 const getWizard = (state, send) => {
   const task = state.action.wizard.tasks[state.action.wizard.index || 0]
   if (task == 'display_name') return DisplayName(state, send)
@@ -30,4 +38,51 @@ const getWizard = (state, send) => {
   return WizardView(state, send, 'Not implemented', `${task} wizard task has not been implemented yet!`)
 }
 
-export default (state, send) => state.action.wizard.tasks.length ? getWizard(state, send) : h('div.wizard', 'TODO: wizard suggestions.')
+export default (state, send) => {
+  if (state.action.wizard.tasks.length) return getWizard(state, send)
+  const suggested = [
+    !state.action.json.name ? h('div.button', {
+      on: { click: e => send({type: 'action_set_wizard_tasks', tasks: ['display_name']}) }
+    }, 'Add a display name') : undefined,
+    !state.action.json.description ? h('div.button', {
+      on: { click: e => send({type: 'action_set_wizard_tasks', tasks: ['description']}) }
+    }, 'Add a description') : undefined,
+  ].filter(task => task)
+  return h('div.wizard', [
+    suggested.length ? h('div.tasklist', [
+      h('h3', 'Suggested Tasks'),
+      ...suggested
+    ]) : undefined,
+    h('div.tasklist', [
+      h('h3', 'Available Wizards'),
+      h('div.button', {
+        on: { click: e => send({type: 'action_set_wizard_tasks', tasks: ['display_name', 'description', 'hosts', 'role']}) }
+      }, 'Edit basic info'),
+      h('div.button', {
+        on: {
+          click: e => {
+            send({type: 'add_action_followup'})
+            send({type: 'action_wizard_load_function', funcName: Object.keys(state.action.json.functions).filter(name => name != 'run').at(-1)})
+            send({type: 'action_set_wizard_tasks', tasks: followupTasks})
+          }
+        }
+      }, 'Create a followup function'),
+      h('div.button', {
+        on: {
+          click: e => {
+            send({type: 'action_wizard_load_function', funcName: 'run'})
+            send({type: 'action_set_wizard_tasks', tasks: ['powershell_command', 'invocation_method', 'inputs', 'result_processing']})
+          }
+        }
+      }, 'Edit run function (entry point)'),
+      ...Object.entries(state.action.json.functions).filter(([name, data]) => name != 'run').map(([name, data]) => h('div.button', {
+        on: {
+          click: e => {
+            send({type: 'action_wizard_load_function', funcName: name})
+            send({type: 'action_set_wizard_tasks', tasks: followupTasks})
+          }
+        }
+      }, `Edit ${data.name || name} function`))
+    ])
+  ])
+}

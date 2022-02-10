@@ -211,5 +211,11 @@ export default (state, action) => {
   if (action.type == 'action_previous_wizard') state.action.wizard.index = state.action.wizard.index ? state.action.wizard.index - 1 : 0
   if (action.type == 'action_complete_wizard') state.action.wizard.tasks.length = 0
   if (action.type == 'action_add_wizard_tasks') state.action.wizard.tasks = state.action.wizard.tasks.filter(task => !action.tasks.includes(task)).concat(action.tasks) // we want to remove existing copies of the new tasks and add the new ones at the end
+  if (action.type == 'action_set_wizard_tasks') {
+    state.action.wizard.tasks = [...action.tasks]
+    state.action.wizard.index = 0
+    state.action.wizard.mandatory = action.mandatory
+  }
+  if (action.type == 'action_wizard_load_function') state.action.wizard.funcName = action.funcName
   return state
 }
