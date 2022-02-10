@@ -17,12 +17,14 @@ export default (state, send) => h('div#action.content', {class: {hidden: state.m
         on: {click: e => send({type: 'action_editor_mode', mode: 'raw'})}
       }, 'JSON'),
     ]),
-    h('div.button', {
-      on: {click: e => send({type: 'save_action'})}
-    }, 'Save'), 
-    h('div.button', {
-      on: {click: e => send({type: 'discard_action'})}
-    }, 'Discard Changes'), 
+    h('div.item', [
+      h('div.button', {
+        on: {click: e => send({type: 'save_action'})}
+      }, 'Save'), 
+      h('div.button', {
+        on: {click: e => send({type: 'discard_action'})}
+      }, 'Discard Changes')
+    ]), 
     h('h2', state.action.json.name || state.action.filename)
   ]),
   state.actionEditorMode == 'raw' ? Raw(state, send) :
