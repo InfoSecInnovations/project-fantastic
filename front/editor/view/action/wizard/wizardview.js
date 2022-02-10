@@ -1,6 +1,7 @@
 import {h} from 'snabbdom/h'
 
 export default (state, send, title, description, inputView, warnings, errors, isLast) => {
+  if (typeof isLast == undefined) isLast = state.action.wizard.index == state.action.wizard.tasks.length - 1
   const hasWarnings = warnings && warnings.length && warnings.some(warning => warning)
   const hasErrors = errors && errors.length && errors.some(error => error)
   return h('div.column', [

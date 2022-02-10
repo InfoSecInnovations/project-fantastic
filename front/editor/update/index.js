@@ -2,6 +2,8 @@ import StoryTree from "../defaults/storytree"
 import Action from '../defaults/action'
 import ActionFunction from "../defaults/actionFunction"
 import ActionFollowup from "../defaults/actionFollowup"
+import ActionJson from "../defaults/actionJson"
+import ActionWizard from "../defaults/actionWizard"
 
 export default (state, action) => {
   if (action.type == 'mode') state.mode = action.mode
@@ -61,11 +63,15 @@ export default (state, action) => {
   if (action.type == 'load_action') {
     state.action.json = action.action
     state.action.filename = action.filename
+    const stored = localStorage.getItem(`action_wizard:${state.selectedModule}/${action.filename}`)
+    state.action.wizard = (stored && JSON.parse(stored)) || ActionWizard()
   } 
+  if (action.type == 'save_action') localStorage.setItem(`action_wizard:${state.selectedModule}/${state.action.filename}`, JSON.stringify(state.action.wizard))
   if (action.type == 'update_action') state.action.json = action.json
   if (action.type == 'init_action') {
     if (!state.modules[state.selectedModule].actions) state.modules[state.selectedModule].actions = {}
-    state.modules[state.selectedModule].actions[action.filename] = Action().json
+    state.modules[state.selectedModule].actions[action.filename] = ActionJson()
+    localStorage.setItem(`action_wizard:${state.selectedModule}/${action.filename}`, JSON.stringify(ActionWizard()))
   }
   if (action.type == 'set_action') {
     if (!state.modules[state.selectedModule].actions) state.modules[state.selectedModule].actions = {}
@@ -204,6 +210,7 @@ export default (state, action) => {
   if (action.type == 'action_next_wizard') state.action.wizard.index = (state.action.wizard.index || 0) + 1
   if (action.type == 'action_previous_wizard') state.action.wizard.index = state.action.wizard.index ? state.action.wizard.index - 1 : 0
   if (action.type == 'action_complete_wizard') state.action.wizard.tasks.length = 0
+  if (action.type == 'action_add_wizard_tasks') state.action.wizard.tasks.push(...action.tasks)
 
   return state
 }

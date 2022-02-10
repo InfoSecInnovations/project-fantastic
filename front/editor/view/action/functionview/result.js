@@ -1,5 +1,6 @@
 import {h} from 'snabbdom/h'
 import ResultDataView from '../resultdataview'
+import Data from '../elements/data'
 
 export default (state, send, funcName, data, index) => {
   const baseID = typeof index != 'undefined' ? `${state.action.filename}-${funcName}-result-${index}` : `${state.action.filename}-${funcName}`
@@ -19,29 +20,7 @@ export default (state, send, funcName, data, index) => {
         [...basePath, 'label']
       )
     ]),
-    h('div.column', [
-      h('div.item', [
-        h('h4', 'Data'),
-        h('div.label', 'Data items allow you to display additional parts of the command output to the user.'),
-        h('div.mini-button', {
-        on: {click: e => send({type: 'add_result_data_entry', funcName, resultIndex: index})},
-        attrs: {title: 'Add data item'}
-      }, '+')]),
-      ...(data.data ? data.data.map((d, i) => h('div.row top-aligned', [
-        h('div', ResultDataView(
-          state,
-          send,
-          funcName,
-          d,
-          `${baseID}-data-${i}-label`,
-          [...basePath, 'data', i]
-        )),
-        h('div.mini-button', {
-          on: {click: e => send({type: 'remove_result_data_entry', funcName, dataIndex: i, resultIndex: index})},
-          attrs: {title: 'Remove data item'}
-        }, 'X')
-      ])) : [])
-    ]),
+    Data(state, send, 'Data items allow you to display additional parts of the command output to the user.', funcName, index, baseID, basePath),
     h('div.dividers', [
       Object.keys(state.action.json.functions).find(k => k != 'run') ? h('div.row', [
         h('div.item', [h('h4', 'Followup Actions'), h('div.mini-button', {
