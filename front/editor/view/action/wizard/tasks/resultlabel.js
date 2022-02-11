@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-import ResultDataView from '../resultdataview'
-import WizardView from './wizardview'
+import ResultDataView from '../../resultdataview'
+import WizardView from '../wizardview'
 
 export default (state, send) => {
   // TODO: support result arrays

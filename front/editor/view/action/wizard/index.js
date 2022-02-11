@@ -1,25 +1,20 @@
 import {h} from 'snabbdom/h'
-import ConvertToJSON from './converttojson'
-import Description from './description'
-import DisplayName from './displayname'
-import EditRun from './editrun'
-import Hosts from './hosts'
-import Inputs from './inputs'
-import InvocationMethod from './invocationmethod'
-import PSCommand from './pscommand'
-import ResultData from './resultdata'
-import ResultLabel from './resultlabel'
-import ResultProcessing from './resultprocessing'
-import Role from './role'
+import Available from './available'
+import Suggested from './suggested'
+import ConvertToJSON from './tasks/converttojson'
+import Description from './tasks/description'
+import DisplayName from './tasks/displayname'
+import EditRun from './tasks/editrun'
+import FunctionNames from './tasks/functionnames'
+import Hosts from './tasks/hosts'
+import Inputs from './tasks/inputs'
+import InvocationMethod from './tasks/invocationmethod'
+import PSCommand from './tasks/pscommand'
+import ResultData from './tasks/resultdata'
+import ResultLabel from './tasks/resultlabel'
+import ResultProcessing from './tasks/resultprocessing'
+import Role from './tasks/role'
 import WizardView from './wizardview'
-
-const followupTasks = [
-  'function_names', 
-  'powershell_command', 
-  'invocation_method', 
-  'inputs', 
-  'result_processing'
-]
 
 const getWizard = (state, send) => {
   const task = state.action.wizard.tasks[state.action.wizard.index || 0]
@@ -35,54 +30,21 @@ const getWizard = (state, send) => {
   if (task == 'convert_to_json') return ConvertToJSON(state, send)
   if (task == 'result_label') return ResultLabel(state, send)
   if (task == 'add_data_items') return ResultData(state, send)
+  if (task == 'function_names') return FunctionNames(state, send)
   return WizardView(state, send, 'Not implemented', `${task} wizard task has not been implemented yet!`)
 }
 
 export default (state, send) => {
   if (state.action.wizard.tasks.length) return getWizard(state, send)
-  const suggested = [
-    !state.action.json.name ? h('div.button', {
-      on: { click: e => send({type: 'action_set_wizard_tasks', tasks: ['display_name']}) }
-    }, 'Add a display name') : undefined,
-    !state.action.json.description ? h('div.button', {
-      on: { click: e => send({type: 'action_set_wizard_tasks', tasks: ['description']}) }
-    }, 'Add a description') : undefined,
-  ].filter(task => task)
+  const suggested = Suggested(state, send)
   return h('div.wizard', [
     suggested.length ? h('div.tasklist', [
       h('h3', 'Suggested Tasks'),
       ...suggested
-    ]) : undefined,
+    ]) : h('div', 'The basic elements of this action appear to be set up. Use the wizards below to configure existing data or add new items, or switch to advanced or JSON mode for an overview.'),
     h('div.tasklist', [
       h('h3', 'Available Wizards'),
-      h('div.button', {
-        on: { click: e => send({type: 'action_set_wizard_tasks', tasks: ['display_name', 'description', 'hosts', 'role']}) }
-      }, 'Edit basic info'),
-      h('div.button', {
-        on: {
-          click: e => {
-            send({type: 'add_action_followup'})
-            send({type: 'action_wizard_load_function', funcName: Object.keys(state.action.json.functions).filter(name => name != 'run').at(-1)})
-            send({type: 'action_set_wizard_tasks', tasks: followupTasks})
-          }
-        }
-      }, 'Create a followup function'),
-      h('div.button', {
-        on: {
-          click: e => {
-            send({type: 'action_wizard_load_function', funcName: 'run'})
-            send({type: 'action_set_wizard_tasks', tasks: ['powershell_command', 'invocation_method', 'inputs', 'result_processing']})
-          }
-        }
-      }, 'Edit run function (entry point)'),
-      ...Object.entries(state.action.json.functions).filter(([name, data]) => name != 'run').map(([name, data]) => h('div.button', {
-        on: {
-          click: e => {
-            send({type: 'action_wizard_load_function', funcName: name})
-            send({type: 'action_set_wizard_tasks', tasks: followupTasks})
-          }
-        }
-      }, `Edit ${data.name || name} function`))
+      ...Available(state, send)
     ])
   ])
 }

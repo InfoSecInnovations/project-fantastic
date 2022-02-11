@@ -1,5 +1,5 @@
 import {h} from 'snabbdom/h'
-import WizardView from './wizardview'
+import WizardView from '../wizardview'
 
 export default (state, send) => {
   const data = state.action.json.functions[state.action.wizard.funcName]

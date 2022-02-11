@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-import WizardView from './wizardview'
-import roles from '../../common/roles'
+import WizardView from '../wizardview'
+import roles from '../../../common/roles'
 
 export default (state, send) => WizardView(
   state, 

@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
 import getfuncname from './getfuncname'
-import WizardView from './wizardview'
+import WizardView from '../wizardview'
 
 export default (state, send) => WizardView(
   state, 

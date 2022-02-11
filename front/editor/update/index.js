@@ -113,6 +113,7 @@ export default (state, action) => {
     })
     state.action.json.functions[action.newName] = state.action.json.functions[action.function]
     delete state.action.json.functions[action.function]
+    if (state.action.wizard.funcName == action.function) state.action.wizard.funcName = action.newName
   }
   if (action.type == 'action_function_display_name') state.action.json.functions[action.function].name = action.name
   if (action.type == 'action_function_result_processing') {

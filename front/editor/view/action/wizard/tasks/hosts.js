@@ -1,6 +1,6 @@
 import {h} from 'snabbdom/h'
-import WizardView from './wizardview'
-import hosts from '../../common/hosts'
+import WizardView from '../wizardview'
+import hosts from '../../../common/hosts'
 
 const localDescription = "This action can only be run on the machine hosting Fantastic."
 const remoteDescription = "This action can only be run on a machine with PowerShell Remote access from the machine hosting Fantastic."

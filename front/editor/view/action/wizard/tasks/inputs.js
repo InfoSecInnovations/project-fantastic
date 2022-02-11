@@ -1,5 +1,5 @@
-import Inputs from '../elements/inputs'
-import WizardView from './wizardview'
+import Inputs from '../../elements/inputs'
+import WizardView from '../wizardview'
 
 export default (state, send) => WizardView(
   state, 

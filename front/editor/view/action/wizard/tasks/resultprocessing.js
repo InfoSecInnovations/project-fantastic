@@ -1,10 +1,10 @@
 import {h} from 'snabbdom/h'
-import WizardView from './wizardview'
+import WizardView from '../wizardview'
 
 export default (state, send) => {
   const enabled = !!state.action.json.functions[state.action.wizard.funcName].result
   const nextTasks = enabled && ['convert_to_json', 'result_label', 'add_data_items']
-  if (enabled && Object.keys(state.action.json.functions).length > 1) nextTasks.push('followup_actions')
+  if (enabled && Object.keys(state.action.json.functions).length > state.action.wizard.funcName == 'run' ? 1 : 2) nextTasks.push('followup_actions')
   return WizardView(
     state, 
     send, 

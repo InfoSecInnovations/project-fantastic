@@ -1,5 +1,5 @@
-import Data from '../elements/data'
-import WizardView from './wizardview'
+import Data from '../../elements/data'
+import WizardView from '../wizardview'
 
 export default (state, send) => WizardView(
   state, 

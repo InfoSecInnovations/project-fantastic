@@ -9,7 +9,7 @@ export default (state, send, title, description, inputView, warnings, errors, ne
   return h('div.wizard', [
     h('h3', title),
     h('div', description),
-    inputView,
+    ...(Array.isArray(inputView) ? inputView : [inputView]),
     ...(hasWarnings ? warnings.map(warning => warning && h('div.warning', warning)) : []),
     ...(hasErrors ? errors.map(error => error && h('div.error', error)) : []),
     h('div.nav-buttons', [
