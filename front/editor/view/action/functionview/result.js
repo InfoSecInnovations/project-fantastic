@@ -22,12 +22,13 @@ export default (state, send, funcName, data, index) => {
     ]),
     Data(state, send, 'Data items allow you to display additional parts of the command output to the user.', funcName, index, baseID, basePath),
     h('div.dividers', [
-      Object.keys(state.action.json.functions).find(k => k != 'run') ? h('div.row', [
-        h('div.item', [h('h4', 'Followup Actions'), h('div.mini-button', {
+      Object.keys(state.action.json.functions).find(k => k != 'run') ? h('div.row bottom-aligned', [
+        h('h4', 'Followup Actions'), 
+        h('div.label', 'Followup actions allow you to run another function belonging to this action using the output from the current function.'),
+        h('div.mini-button', {
           on: {click: e => send({type: 'add_result_followup', funcName, resultIndex: index})},
           attrs: {title: 'Add followup'}
-        }, '+')]),
-        h('div.label', 'Followup actions allow you to run another function belonging to this action using the output from the current function.')
+        }, '+')
       ]) : h('div', 'Create followup functions to enable followup actions.'),
       ...(data.followups ? data.followups.map((f, i) => h('div.column', [
         h('div.item', [
@@ -48,13 +49,17 @@ export default (state, send, funcName, data, index) => {
           }, 'X')
         ]),
         h('div.row top-aligned', [
-          h('input', {
-            attrs: {type: 'checkbox', id: `${baseID}-followups-${i}-enabled`}, 
-            props: {checked: f.hasOwnProperty('enabled')},
-            on: { input: e => send({type: 'action_followup_enabled_status', funcName, followupIndex: i, resultIndex: index, value: e.target.checked}) }
-          }),
-          h('label', {for: `${baseID}-followups-${i}-enabled`}, 'Enabled status'),
-          h('div.label', 'Select a property to show a special enabled/disabled button instead of the name of the followup function. This property should output a true/false value, so you probably want to use the bool result type.'),
+          h('div.column', [
+            h('div.row', [
+              h('input', {
+                attrs: {type: 'checkbox', id: `${baseID}-followups-${i}-enabled`}, 
+                props: {checked: f.hasOwnProperty('enabled')},
+                on: { input: e => send({type: 'action_followup_enabled_status', funcName, followupIndex: i, resultIndex: index, value: e.target.checked}) }
+              }),
+              h('label', {for: `${baseID}-followups-${i}-enabled`}, 'Enabled status')
+            ]),
+            h('div.label', 'Select a property to show a special enabled/disabled button instead of the name of the followup function. This property should output a true/false value, so you probably want to use the bool result type.')
+          ]),
           f.hasOwnProperty('enabled') ? h('div.column', ResultDataView(
             state,
             send,
@@ -65,7 +70,7 @@ export default (state, send, funcName, data, index) => {
           )) : undefined
         ]),
         h('div.dividers', [
-          h('div.row top-aligned', [
+          h('div.row bottom-aligned', [
             h('div', 'Data'), 
             h('div.mini-button', {
               on: { click: e => send({type: 'action_followup_data_add_entry', funcName, followupIndex: i, resultIndex: index}) },

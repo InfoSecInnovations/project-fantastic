@@ -13,7 +13,7 @@ const postActions = async (user, res, req, query, actions, data) => {
   if (!HasRole(user, action.role)) return End(res)
   const date = Date.now()
   const db = await transaction()
-  const opts = {data: {...(query.connection && await GetConnectionData(db, query.connection)), ...(action.functions.run.inputs && data && JSON.parse(data))}}
+  const opts = {data: {...(query.connection && await GetConnectionData(db, query.connection)), ...(action.functions.run.inputs && data && JSON.parse(data))}} // TODO: we should verify that this action actually takes a connection target
   const result = await RunAction(db, query.action, 'run', query.node_id, user, date, opts)
   const history_id = await db.insert('all_history', {event_type: 'action', date, user_id: user.user_id, event_id: result.event_id})
   const history_item = await getData(db, {history_id, event_type: 'action', date, user_id: user.user_id, event_id: result.event_id})

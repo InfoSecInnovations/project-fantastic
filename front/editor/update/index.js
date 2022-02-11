@@ -95,6 +95,7 @@ export default (state, action) => {
     }
   }
   if (action.type == 'set_action_role') state.action.json.role = action.role
+  if (action.type == 'set_action_target') state.action.json.target = action.target
   if (action.type == 'add_action_input') {
     if (!state.action.json.functions[action.function].inputs) state.action.json.functions[action.function].inputs = []
     state.action.json.functions[action.function].inputs.push({})

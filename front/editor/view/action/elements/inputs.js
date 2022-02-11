@@ -9,7 +9,7 @@ const inputTypes = [
 export default (state, send, funcName, label) => { 
   const data = state.action.json.functions[funcName]
   return h('div.dividers', [
-    h('div.row top-aligned', [
+    h('div.row bottom-aligned', [
       h('h4', 'Input'),
       label ? h('div.label', 'The input section allows you to prompt the user for values to be used by the command. Use this feature wisely!') : undefined,
       h('div.mini-button', {

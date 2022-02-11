@@ -5,7 +5,7 @@ export default (state, send, label, funcName, index, baseID, basePath) => {
   let data = state.action.json.functions[funcName].result
   if (typeof index == 'number') data = data.array[index]
   return h('div.column', [
-    h('div.item', [
+    h('div.row bottom-aligned', [
       h('h4', 'Data'),
       label ? h('div.label', label) : undefined,
       h('div.mini-button', {

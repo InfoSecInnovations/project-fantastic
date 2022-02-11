@@ -209,7 +209,9 @@ input[type=reset].disabled {
   border: 2px solid #949494;
 }
 input[type=text],
-input[type=password] {
+input[type=password],
+textarea,
+input:not([type]) {
   border-radius: 0.4rem;
   border: 2px solid #e86100;
   background-color: #ffa666;
@@ -473,6 +475,9 @@ li {
 }
 .row.top-aligned {
   align-items: flex-start;
+}
+.row.bottom-aligned {
+  align-items: flex-end;
 }
 .dropdown {
   background-color: #ffa666;
