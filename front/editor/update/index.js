@@ -1,8 +1,8 @@
 import StoryTree from "../defaults/storytree"
-import Action from '../defaults/action'
 import ActionFunction from "../defaults/actionFunction"
 import ActionFollowup from "../defaults/actionFollowup"
 import ActionJson from "../defaults/actionJson"
+import ActionWizardIntro from "../defaults/actionWizardIntro"
 import ActionWizard from "../defaults/actionWizard"
 
 export default (state, action) => {
@@ -71,7 +71,7 @@ export default (state, action) => {
   if (action.type == 'init_action') {
     if (!state.modules[state.selectedModule].actions) state.modules[state.selectedModule].actions = {}
     state.modules[state.selectedModule].actions[action.filename] = ActionJson()
-    localStorage.setItem(`action_wizard:${state.selectedModule}/${action.filename}`, JSON.stringify(ActionWizard()))
+    localStorage.setItem(`action_wizard:${state.selectedModule}/${action.filename}`, JSON.stringify(ActionWizardIntro()))
   }
   if (action.type == 'set_action') {
     if (!state.modules[state.selectedModule].actions) state.modules[state.selectedModule].actions = {}

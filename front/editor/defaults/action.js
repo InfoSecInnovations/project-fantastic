@@ -1,7 +1,7 @@
 import ActionJson from "./actionJson";
-import ActionWizard from "./actionWizard";
+import ActionWizardIntro from "./actionWizardIntro";
 
 export default () => ({
   json: ActionJson(),
-  wizard: ActionWizard()
+  wizard: ActionWizardIntro()
 })
