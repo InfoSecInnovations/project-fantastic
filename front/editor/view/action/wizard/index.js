@@ -37,7 +37,7 @@ const getWizard = (state, send) => {
 export default (state, send) => {
   if (state.action.wizard.tasks.length) return getWizard(state, send)
   const suggested = Suggested(state, send)
-  return h('div.wizard', [
+  return h('div.wizard editor-scroll', [
     suggested.length ? h('div.tasklist', [
       h('h3', 'Suggested Tasks'),
       ...suggested

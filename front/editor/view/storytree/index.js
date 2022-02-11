@@ -5,10 +5,10 @@ import Info from './info'
 import MenuBar from './menubar'
 
 export default (state, send) => h('div#story-tree.content', {class: {hidden: state.mode != 'storytree'}}, [
-  h('div#sidebar.panel', Sidebar(state, send)),
+  h('div#sidebar.panel editor-scroll', Sidebar(state, send)),
   h('div#central-column', [
     h('div.menu-bar panel', MenuBar(state, send)),
-    h('div#editor.graph', {
+    h('div#editor.graph editor-scroll', {
       hook: {create: (_, vnode) => setTimeout(() => send({type: 'editor_canvas', id: vnode.elm.getAttribute('id')}))},
       on: {
         drop: e => {

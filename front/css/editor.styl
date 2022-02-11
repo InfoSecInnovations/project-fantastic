@@ -1,6 +1,9 @@
 @require 'common/base.styl'
 @require 'story'
 
+body
+  scrollbars()
+
 .label
   font-size: 12px
   color: disabled_color
@@ -88,8 +91,11 @@ li
 
 #main-container
   display: flex
-  min-height: 100vh
+  height: 100vh
   border: inner_panel_color solid 10px
+  .editor-scroll
+    overflow-y: auto
+    scrollbars()
   #modules
     display: flex
     flex-direction: column
@@ -98,6 +104,7 @@ li
     gap: 10px
     flex: 1
     max-width: 300px
+    min-width: 250px
     .button
       width: 80%
       max-width: unset
@@ -127,12 +134,16 @@ li
     .button:not(:last-child)
       border-top-right-radius: 0
       border-bottom-right-radius: 0
+    .disabled
+      color: button_font_color
   textarea.editor
     width: 100%
     height: 100%
   .CodeMirror
     width: 100%
     height: auto
+  .CodeMirror-hscrollbar, .CodeMirror-vscrollbar
+    scrollbars()
   #story-tree
     display: grid
     grid-template-columns: 1fr auto 1.4fr
@@ -153,6 +164,7 @@ li
       padding: 10px
     #sidebar
       padding: 10px
+      min-width: 250px
       .sidebar-columns
         display: grid
         grid-template-columns: 1fr 1fr
@@ -162,6 +174,7 @@ li
       display: flex
       flex-direction: column
       background-color: panel_color
+      min-height: 0
     #info
       padding: 10px
       gap: 10px

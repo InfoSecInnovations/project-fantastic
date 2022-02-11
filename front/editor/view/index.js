@@ -21,7 +21,7 @@ const content = (state, send) => [
 ]
 
 const body = (state, send) => h('div#main-container', [
-  h('div#modules', [
+  h('div#modules.editor-scroll', [
     h('div.button', {on: {click: e => send({type: 'mode', mode: 'menu'})}}, 'Main Menu'),
     h('input', {
       attrs: { 

@@ -7,7 +7,7 @@ const targetHelp = {
   connection: "This action is intended to specifically target a network connection from the host. It provides a set of variables that can be used in the PowerShell command to access the connection details."
 }
 
-export default (state, send) => h('div#action-editor.panel', [
+export default (state, send) => h('div#action-editor.panel editor-scroll', [
   h('div.column', [
     ...Info(
       state,

@@ -6,7 +6,7 @@ export default (state, send) => {
   if (!currentModule) return
   return h('div#module.content', {class: {hidden: state.mode != 'module'}}, [
     h('div.menu-bar panel', [h('h2', 'Module Editor'), h('h2', currentModule.name)]),
-    h('div#module-editor.panel', [
+    h('div#module-editor.panel editor-scroll', [
       h('div.column', [
         h('div.row top-aligned', [
           h('h3', 'Actions'),

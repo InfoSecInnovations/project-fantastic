@@ -6,7 +6,7 @@ export default (state, send, title, description, inputView, warnings, errors, ne
   const isFirst = !state.action.wizard.index
   const hasWarnings = warnings && warnings.length && warnings.some(warning => warning)
   const hasErrors = errors && errors.length && errors.some(error => error)
-  return h('div.wizard', [
+  return h('div.wizard editor-scroll', [
     h('h3', title),
     h('div', description),
     ...(Array.isArray(inputView) ? inputView : [inputView]),
