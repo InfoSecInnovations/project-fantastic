@@ -14,6 +14,7 @@ import ResultData from './tasks/resultdata'
 import ResultLabel from './tasks/resultlabel'
 import ResultProcessing from './tasks/resultprocessing'
 import Role from './tasks/role'
+import TargetType from './tasks/targettype'
 import WizardView from './wizardview'
 
 const getWizard = (state, send) => {
@@ -31,6 +32,7 @@ const getWizard = (state, send) => {
   if (task == 'result_label') return ResultLabel(state, send)
   if (task == 'add_data_items') return ResultData(state, send)
   if (task == 'function_names') return FunctionNames(state, send)
+  if (task == 'target_type') return TargetType(state, send)
   return WizardView(state, send, 'Not implemented', `${task} wizard task has not been implemented yet!`)
 }
 

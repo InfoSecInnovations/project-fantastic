@@ -1,16 +1,21 @@
 import {h} from 'snabbdom/h'
+import actionWizardBaseTasks from '../../../defaults/actionWizardBaseTasks'
 
-const followupTasks = [
-  'function_names', 
+const baseFunctionTasks = [
   'powershell_command', 
   'invocation_method', 
   'inputs', 
   'result_processing'
 ]
 
+const followupTasks = [
+  'function_names', 
+  ...baseFunctionTasks
+]
+
 export default (state, send) => [
   h('div.button', {
-    on: { click: e => send({type: 'action_set_wizard_tasks', tasks: ['display_name', 'description', 'hosts', 'role']}) }
+    on: { click: e => send({type: 'action_set_wizard_tasks', tasks: actionWizardBaseTasks}) }
   }, 'Edit basic info'),
   h('div.button', {
     on: {
@@ -25,7 +30,7 @@ export default (state, send) => [
     on: {
       click: e => {
         send({type: 'action_wizard_load_function', funcName: 'run'})
-        send({type: 'action_set_wizard_tasks', tasks: ['powershell_command', 'invocation_method', 'inputs', 'result_processing']})
+        send({type: 'action_set_wizard_tasks', tasks: baseFunctionTasks})
       }
     }
   }, 'Edit run function (entry point)'),

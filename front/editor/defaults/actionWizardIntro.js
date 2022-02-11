@@ -1,9 +1,8 @@
+import actionWizardBaseTasks from "./actionWizardBaseTasks";
+
 export default () => ({
   tasks: [
-    'display_name',
-    'description',
-    'hosts',
-    'role',
+    ...actionWizardBaseTasks,
     'edit_run_function',
     'powershell_command',
     'invocation_method',
