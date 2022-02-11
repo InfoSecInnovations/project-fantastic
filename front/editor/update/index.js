@@ -127,8 +127,8 @@ export default (state, action) => {
   if (action.type == 'action_function_convert_to_json') state.action.json.functions[action.function].json = action.value
   if (action.type == 'action_function_result_format') {
     const func = state.action.json.functions[action.function]
-    if (action.value == 'array' && !func.result.array) func.result = {array: []}
-    else if (action.value == 'single' && func.result.array) func.result = {}
+    if (action.value == 'array' && !func.result.array) func.result = {array: [func.result]}
+    else if (action.value == 'single' && func.result.array) func.result = func.result.array[0] || {}
   }
   if (action.type == 'action_function_result_array_add') state.action.json.functions[action.function].result.array.push({})
   if (action.type == 'action_function_result_array_remove') state.action.json.functions[action.function].result.array.splice(action.index, 1)

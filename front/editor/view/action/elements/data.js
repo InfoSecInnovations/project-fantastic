@@ -3,7 +3,7 @@ import ResultDataView from '../resultdataview'
 
 export default (state, send, label, funcName, index, baseID, basePath) => {
   let data = state.action.json.functions[funcName].result
-  if (typeof index == 'number') data = data.result[index]
+  if (typeof index == 'number') data = data.array[index]
   return h('div.column', [
     h('div.item', [
       h('h4', 'Data'),
