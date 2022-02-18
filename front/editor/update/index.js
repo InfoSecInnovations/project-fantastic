@@ -201,7 +201,7 @@ export default (state, action) => {
       if (action.value) resultData.followups[action.followupIndex].enabled = ''
       else delete resultData.followups[action.followupIndex].enabled
     } 
-    if (action.type == 'action_followup_data_add_entry') resultData.followups[action.followupIndex].data[`key${Object.keys(resultData.followups[action.followupIndex].data).length}`] = ''
+    if (action.type == 'action_followup_data_add_entry') resultData.followups[action.followupIndex].data[`var${Object.keys(resultData.followups[action.followupIndex].data).length}`] = ''
     if (action.type == 'action_followup_data_remove_entry') delete resultData.followups[action.followupIndex].data[action.key]
     if (action.type == 'action_followup_data_key_rename') {
       resultData.followups[action.followupIndex].data[action.newName] = resultData.followups[action.followupIndex].data[action.key]

@@ -5,6 +5,7 @@ import ConvertToJSON from './tasks/converttojson'
 import Description from './tasks/description'
 import DisplayName from './tasks/displayname'
 import EditRun from './tasks/editrun'
+import FollowupActions from './tasks/followupactions'
 import FunctionNames from './tasks/functionnames'
 import Hosts from './tasks/hosts'
 import Inputs from './tasks/inputs'
@@ -33,6 +34,7 @@ const getWizard = (state, send) => {
   if (task == 'add_data_items') return ResultData(state, send)
   if (task == 'function_names') return FunctionNames(state, send)
   if (task == 'target_type') return TargetType(state, send)
+  if (task == 'followup_actions') return FollowupActions(state, send)
   return WizardView(state, send, 'Not implemented', `${task} wizard task has not been implemented yet!`)
 }
 

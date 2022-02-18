@@ -8,7 +8,7 @@ export default (state, send, title, description, inputView, warnings, errors, ne
   const hasErrors = errors && errors.length && errors.some(error => error)
   return h('div.wizard editor-scroll', [
     h('h3', title),
-    h('div', description),
+    ...(Array.isArray(description) ? description.map(p => h('div', p)) : [h('div', description)]),
     ...(Array.isArray(inputView) ? inputView : [inputView]),
     ...(hasWarnings ? warnings.map(warning => warning && h('div.warning', warning)) : []),
     ...(hasErrors ? errors.map(error => error && h('div.error', error)) : []),

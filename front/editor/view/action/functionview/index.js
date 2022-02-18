@@ -110,13 +110,13 @@ export default (state, send, funcName) => {
       ]),
       ...(data.result.array ? 
         [h('div.dividers no-title', data.result.array.map((d, i) => h('div.row top-aligned', [
-          h('div.column', Result(state, send, funcName, d, i)),
+          h('div.column', Result(state, send, funcName, i)),
           h('div.mini-button', {
             on: {click: e => send({type: 'action_function_result_array_remove', function: funcName, index: i})},
             attrs: {title: 'Remove result entry'}
           }, 'X')
         ])))] : 
-        Result(state, send, funcName, data.result))
+        Result(state, send, funcName))
     ] : [
       h('div.row', [
         h('div.button', {
