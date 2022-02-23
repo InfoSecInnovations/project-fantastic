@@ -21,9 +21,9 @@ export default (state, send, funcName, index) => {
           h('select', {
             on: {input: e => send({type: 'set_followup_function', followupIndex: i, resultIndex: index, funcName, followup: e.target.value})},
             attrs: {id: `${baseID}-followups-${i}-function`}
-          }, Object.keys(state.action.json.functions)
-            .filter(func => func !== funcName && func !== 'run')
-            .map(func => h('option', {attrs: {value: func, selected: func == f.function}}, func))
+          }, Object.entries(state.action.json.functions)
+            .filter(([func, data]) => func !== funcName && func !== 'run')
+            .map(([func, data]) => h('option', {attrs: {value: func, selected: func == f.function}}, data.name || func))
           )
         ]),
         !state.action.json.functions[f.function] ? h('div.label', 'WARNING: function doesn\'t exist!') : undefined,

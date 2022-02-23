@@ -4,6 +4,7 @@ import ActionFollowup from "../defaults/actionFollowup"
 import ActionJson from "../defaults/actionJson"
 import ActionWizardIntro from "../defaults/actionWizardIntro"
 import ActionWizard from "../defaults/actionWizard"
+import SanitizeName from "../util/sanitizeName"
 
 export default (state, action) => {
   if (action.type == 'mode') state.mode = action.mode
@@ -101,20 +102,21 @@ export default (state, action) => {
     state.action.json.functions[action.function].inputs.push({})
   }
   if (action.type == 'remove_action_input') state.action.json.functions[action.function].inputs.splice(action.index, 1)
-  if (action.type == 'action_input_variable') state.action.json.functions[action.function].inputs[action.index].variable = action.value
+  if (action.type == 'action_input_variable') state.action.json.functions[action.function].inputs[action.index].variable = SanitizeName(action.value)
   if (action.type == 'action_input_name') state.action.json.functions[action.function].inputs[action.index].name = action.value
   if (action.type == 'action_input_type') state.action.json.functions[action.function].inputs[action.index].type = action.value
   if (action.type == 'add_action_followup') state.action.json.functions[`function${Object.keys(state.action.json.functions).length}`] = ActionFunction()
   if (action.type == 'delete_action_function') delete state.action.json.functions[action.function]
   if (action.type == 'rename_action_function') {
+    const newName = action.newName
     Object.values(state.action.json.functions).forEach(func => {
       if (func.result && func.result.followups) func.result.followups.forEach(followup => {
-        if (followup.function == action.function) followup.function = action.newName
+        if (followup.function == action.function) followup.function = newName
       })
     })
-    state.action.json.functions[action.newName] = state.action.json.functions[action.function]
+    state.action.json.functions[newName] = state.action.json.functions[action.function]
     delete state.action.json.functions[action.function]
-    if (state.action.wizard.funcName == action.function) state.action.wizard.funcName = action.newName
+    if (state.action.wizard.funcName == action.function) state.action.wizard.funcName = newName
   }
   if (action.type == 'action_function_display_name') state.action.json.functions[action.function].name = action.name
   if (action.type == 'action_function_result_processing') {
@@ -204,7 +206,7 @@ export default (state, action) => {
     if (action.type == 'action_followup_data_add_entry') resultData.followups[action.followupIndex].data[`var${Object.keys(resultData.followups[action.followupIndex].data).length}`] = ''
     if (action.type == 'action_followup_data_remove_entry') delete resultData.followups[action.followupIndex].data[action.key]
     if (action.type == 'action_followup_data_key_rename') {
-      resultData.followups[action.followupIndex].data[action.newName] = resultData.followups[action.followupIndex].data[action.key]
+      resultData.followups[action.followupIndex].data[SanitizeName(action.newName)] = resultData.followups[action.followupIndex].data[action.key]
       delete resultData.followups[action.followupIndex].data[action.key]
     }
   }

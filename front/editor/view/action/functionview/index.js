@@ -21,8 +21,8 @@ export default (state, send, funcName) => {
         h('div.column', [
           h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-name-editor`}}, 'Name'),
           h('input', {
+            props: { value: funcName },
             attrs: {
-              value: funcName,
               id: `${state.action.filename}-${funcName}-name-editor`
             },
             on: {input: e => send({type: 'rename_action_function', newName: e.target.value, function: funcName})}
@@ -31,8 +31,8 @@ export default (state, send, funcName) => {
         h('div.column', [
           h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-display-name-editor`}}, 'Display Name'),
           h('input', {
+            props: { value: data.name || '' },
             attrs: {
-              value: data.name || '',
               id: `${state.action.filename}-${funcName}-display-name-editor`
             },
             on: {input: e => send({type: 'action_function_display_name', name: e.target.value, function: funcName})}
