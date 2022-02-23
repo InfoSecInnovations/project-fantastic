@@ -1,4 +1,5 @@
 import {h} from 'snabbdom/h'
+import Command from '../elements/command'
 import Inputs from '../elements/inputs'
 import Result from './result'
 
@@ -39,16 +40,8 @@ export default (state, send, funcName) => {
         ])
       ])
     ]),
-    h('div.column', [
-      h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-command-editor`}}, 'PowerShell Command'),
-      h('textarea', {
-        attrs: {
-          rows: 1,
-          id: `${state.action.filename}-${funcName}-command-editor`
-        },
-        on: {input: e => send({type: 'action_function_command', command: e.target.value, function: funcName})}
-      }, data.command || '')
-    ]),
+    Inputs(state, send, funcName, 'The input section allows you to prompt the user for values to be used by the command. Use this feature wisely!'),
+    Command(state, send, 'PowerShell Command', funcName),
     h('div.row top-aligned', [
       h('label.label', {attrs: {for: `${state.action.filename}-${funcName}-command-method`}}, 'Command invocation method'),
       h('select', {
@@ -60,7 +53,6 @@ export default (state, send, funcName) => {
       ]),
       h('div.label', 'This option determines how the command is run on each host. Some PowerShell commands will work with a CimSession allowing easy access to that host, for other commands you\'ll need to invoke a script block on the remote machine. To do so, just choose the relevant option above, Fantastic will take care of the rest!')
     ]),
-    Inputs(state, send, funcName, 'The input section allows you to prompt the user for values to be used by the command. Use this feature wisely!'),
     ...(data.result ? [
       h('div.row', [
         h('div.button', {

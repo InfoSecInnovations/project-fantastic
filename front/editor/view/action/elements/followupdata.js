@@ -65,11 +65,11 @@ export default (state, send, funcName, index) => {
           h('div.column', [
             h('label.label', {attrs: {for: `${baseID}-followup-data-key-editor-${e[0]}`}}, 'Variable name'),
             h('input', {
+              props: {value: e[0]},
               attrs: {
-                value: e[0],
                 id: `${baseID}-followup-data-key-editor-${e[0]}`
               },
-              on: {input: ev => send({type: 'action_followup_data_key_rename', newName: ev.target.value, key: e[0], funcName, path: ['followups', i]})}
+              on: {input: ev => send({type: 'action_followup_data_key_rename', newName: ev.target.value, key: e[0], funcName, followupIndex: i, resultIndex: index})}
             })
           ]),
           h('div.column', [
