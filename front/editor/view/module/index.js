@@ -24,7 +24,10 @@ export default (state, send) => {
               send({type: 'mode', mode: 'action'})
             }}
           }, '✎'),
-          h('div.mini-button', {attrs: {title: 'Delete'}}, 'X')
+          h('div.mini-button', {
+            attrs: {title: 'Delete'},
+            on: {click: e => send({type: 'delete_action', filename: action[0]})}
+          }, 'X')
         ]))
       ]),
       h('div.column', [

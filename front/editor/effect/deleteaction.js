@@ -6,9 +6,9 @@ export default async (state, action, send) => {
   const actionDir = Path.join(dir, 'actions')
   const exists = await FS.pathExists(actionDir)
   if (exists) {
-    const filePath = Path.join(actionDir, `${state.action.filename}.json`)
+    const filePath = Path.join(actionDir, `${action.filename}.json`)
     const fileExists = await FS.pathExists(filePath)
     if (fileExists) await FS.rm(filePath)
   }
-  send({type: 'remove_action', filename: state.action.filename})
+  send({type: 'remove_action', filename: action.filename})
 }

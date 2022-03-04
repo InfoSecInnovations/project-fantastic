@@ -10,6 +10,7 @@ import Effect from './effect'
 import StoryTree from './defaults/storytree'
 import Config from './defaults/config'
 import Action from './defaults/action'
+import TitleBar from './titlebar'
 
 const patch = init([
   classModule,
@@ -33,6 +34,7 @@ let vnode = document.body
 const send = action => {
   state = Update(state, action)
   vnode = patch(vnode, View(state, send))
+  document.title = TitleBar(state)
   Effect(state,action,send) 
 }
 

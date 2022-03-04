@@ -1,10 +1,10 @@
 import {h} from 'snabbdom/h'
 
 export default (state, send, taskData) => {
-  let nextTasks = taskData.nextTasks
-  if (nextTasks) nextTasks = nextTasks.filter(task => task)
+  const nextTasks = taskData.nextTasks && taskData.nextTasks(state)
+  const hasNext = nextTasks && nextTasks.some(task => task)
   const mandatory = state.action.wizard.mandatory
-  const isLast = state.action.wizard.index == state.action.wizard.tasks.length - 1 && (!nextTasks || !nextTasks.length)
+  const isLast = state.action.wizard.index == state.action.wizard.tasks.length - 1 && (!hasNext)
   const isFirst = !state.action.wizard.index
   const warnings = taskData.warnings && taskData.warnings(state)
   const hasWarnings = warnings && warnings.length && warnings.some(warning => warning)
@@ -26,7 +26,7 @@ export default (state, send, taskData) => {
         !isLast ? h('div.button', {
           class: {disabled: hasErrors},
           on: hasErrors ? undefined : { click: e => {
-            if (nextTasks && nextTasks.length) send({type: 'action_add_wizard_tasks', tasks: nextTasks})
+            if (hasNext) send({type: 'action_add_wizard_tasks', tasks: nextTasks.filter(task => task)})
             send({type: 'action_next_wizard'}) 
           }}
         }, 'Next') : undefined,
