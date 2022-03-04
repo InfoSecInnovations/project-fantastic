@@ -128,13 +128,6 @@ export default (state, action) => {
   if (action.type == 'action_function_command') state.action.json.functions[action.function].command = action.command
   if (action.type == 'action_function_command_method') state.action.json.functions[action.function].method = action.method
   if (action.type == 'action_function_convert_to_json') state.action.json.functions[action.function].json = action.value
-  if (action.type == 'action_function_result_format') {
-    const func = state.action.json.functions[action.function]
-    if (action.value == 'array' && !func.result.array) func.result = {array: [func.result]}
-    else if (action.value == 'single' && func.result.array) func.result = func.result.array[0] || {}
-  }
-  if (action.type == 'action_function_result_array_add') state.action.json.functions[action.function].result.array.push({})
-  if (action.type == 'action_function_result_array_remove') state.action.json.functions[action.function].result.array.splice(action.index, 1)
   if (action.isResultData) {
     const func = state.action.json.functions[action.funcName]
     let resultData = func.result
@@ -183,32 +176,28 @@ export default (state, action) => {
     if (action.type == 'set_bool_false_value') resultData[action.path[action.path.length - 1]].false = action.value
     if (action.type == 'set_bool_inverse') resultData[action.path[action.path.length - 1]].inverse = action.value
   }
-  if (action.hasOwnProperty('resultIndex')) {
-    let resultData = state.action.json.functions[action.funcName].result
-    if (typeof action.resultIndex == 'number') resultData = resultData.array[action.resultIndex]
-    if (action.type == 'add_result_data_entry') {
-      if (!resultData.data) resultData.data = []
-      resultData.data.push('')
-    }
-    if (action.type == 'remove_result_data_entry') resultData.data.splice(action.dataIndex, 1)
-    if (action.type == 'add_result_followup') {
-      if (!resultData.followups) resultData.followups = []
-      const newFollowup = ActionFollowup()
-      newFollowup.function = Object.keys(state.action.json.functions).find(k => k != 'run')
-      resultData.followups.push(newFollowup)
-    }
-    if (action.type == 'remove_result_followup') resultData.followups.splice(action.followupIndex, 1)
-    if (action.type == 'set_followup_function') resultData.followups[action.followupIndex] = action.followup
-    if (action.type == 'action_followup_enabled_status') {
-      if (action.value) resultData.followups[action.followupIndex].enabled = ''
-      else delete resultData.followups[action.followupIndex].enabled
-    } 
-    if (action.type == 'action_followup_data_add_entry') resultData.followups[action.followupIndex].data[`var${Object.keys(resultData.followups[action.followupIndex].data).length}`] = ''
-    if (action.type == 'action_followup_data_remove_entry') delete resultData.followups[action.followupIndex].data[action.key]
-    if (action.type == 'action_followup_data_key_rename') {
-      resultData.followups[action.followupIndex].data[SanitizeName(action.newName)] = resultData.followups[action.followupIndex].data[action.key]
-      delete resultData.followups[action.followupIndex].data[action.key]
-    }
+  if (action.type == 'add_result_data_entry') {
+    if (!state.action.json.functions[action.funcName].result.data) state.action.json.functions[action.funcName].result.data = []
+    state.action.json.functions[action.funcName].result.data.push('')
+  }
+  if (action.type == 'remove_result_data_entry') state.action.json.functions[action.funcName].result.data.splice(action.dataIndex, 1)
+  if (action.type == 'add_result_followup') {
+    if (!state.action.json.functions[action.funcName].result.followups) state.action.json.functions[action.funcName].result.followups = []
+    const newFollowup = ActionFollowup()
+    newFollowup.function = Object.keys(state.action.json.functions).find(k => k != 'run')
+    state.action.json.functions[action.funcName].result.followups.push(newFollowup)
+  }
+  if (action.type == 'remove_result_followup') state.action.json.functions[action.funcName].result.followups.splice(action.followupIndex, 1)
+  if (action.type == 'set_followup_function') state.action.json.functions[action.funcName].result.followups[action.followupIndex] = action.followup
+  if (action.type == 'action_followup_enabled_status') {
+    if (action.value) state.action.json.functions[action.funcName].result.followups[action.followupIndex].enabled = ''
+    else delete state.action.json.functions[action.funcName].result.followups[action.followupIndex].enabled
+  } 
+  if (action.type == 'action_followup_data_add_entry') state.action.json.functions[action.funcName].result.followups[action.followupIndex].data[`var${Object.keys(state.action.json.functions[action.funcName].result.followups[action.followupIndex].data).length}`] = ''
+  if (action.type == 'action_followup_data_remove_entry') delete state.action.json.functions[action.funcName].result.followups[action.followupIndex].data[action.key]
+  if (action.type == 'action_followup_data_key_rename') {
+    state.action.json.functions[action.funcName].result.followups[action.followupIndex].data[SanitizeName(action.newName)] = state.action.json.functions[action.funcName].result.followups[action.followupIndex].data[action.key]
+    delete state.action.json.functions[action.funcName].result.followups[action.followupIndex].data[action.key]
   }
   if (action.type == 'action_editor_mode') state.actionEditorMode = action.mode
   if (action.type == 'action_next_wizard') state.action.wizard.index = (state.action.wizard.index || 0) + 1

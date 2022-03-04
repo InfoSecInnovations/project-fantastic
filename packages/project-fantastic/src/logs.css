@@ -103,7 +103,7 @@ a:hover,
   padding: 1rem 0;
 }
 .hidden {
-  display: none;
+  display: none !important;
 }
 .invisible {
   opacity: 0;
@@ -209,7 +209,9 @@ input[type=reset].disabled {
   border: 2px solid #949494;
 }
 input[type=text],
-input[type=password] {
+input[type=password],
+textarea,
+input:not([type]) {
   border-radius: 0.4rem;
   border: 2px solid #e86100;
   background-color: #ffa666;
@@ -318,7 +320,7 @@ input[type=password] {
   gap: 1rem;
   padding: 1rem;
 }
-.scroll_container .scroll {
+.scroll {
   background-color: #242424;
   overflow-y: auto;
   min-height: 0;
@@ -329,27 +331,27 @@ input[type=password] {
   scrollbar-width: thin;
   scrollbar-color: #f55100 #ffa666;
 }
-.scroll_container .scroll::-webkit-scrollbar {
+.scroll::-webkit-scrollbar {
   width: 0.5rem;
   height: 0.5rem;
 }
-.scroll_container .scroll::-webkit-scrollbar-track {
+.scroll::-webkit-scrollbar-track {
   background: #ffa666;
 }
-.scroll_container .scroll::-webkit-scrollbar-thumb {
+.scroll::-webkit-scrollbar-thumb {
   background-color: #f55100;
 }
-.scroll_container .scroll pre {
+.scroll pre {
   overflow-x: auto;
 }
-.scroll_container .scroll.spaced {
+.scroll.spaced {
   gap: 3.5rem;
 }
-.scroll_container .scroll .scroll_item {
+.scroll .scroll_item {
   display: flex;
   flex-direction: column;
 }
-.scroll_container .scroll .scroll_item.spaced {
+.scroll .scroll_item.spaced {
   gap: 0.7rem;
 }
 body {

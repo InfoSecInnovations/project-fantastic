@@ -1,17 +1,14 @@
 import {h} from 'snabbdom/h'
-import WizardView from '../wizardview'
 import hosts from '../../../common/hosts'
 
 const localDescription = "This action can only be run on the machine hosting Fantastic."
 const remoteDescription = "This action can only be run on a machine with PowerShell Remote access from the machine hosting Fantastic."
 const bothDescription = "This action can be run on the machine hosting Fantastic and any machines with PowerShell Remote access from that machine."
 
-export default (state, send) => WizardView(
-  state, 
-  send, 
-  'Select Host Types', 
-  "Select which types of host this action can be run on. Followup actions will be able to override this setting if necessary.",
-  h('div.column', [
+export default {
+  title: 'Select Host Types',
+  description: "Select which types of host this action can be run on. Followup actions will be able to override this setting if necessary.",
+  view: (state, send) => h('div.column', [
     ...hosts.map(host => h('span', [
       h('input', {
         attrs: {type: 'checkbox', id: `action-host-type-${host}`},
@@ -26,6 +23,5 @@ export default (state, send) => WizardView(
       remoteDescription
     ) : undefined
   ]),
-  undefined,
-  [state.action.json.hosts.length ? undefined : 'You must select at least one host type!']
-)
+  errors: state => [state.action.json.hosts.length ? undefined : 'You must select at least one host type!']
+}

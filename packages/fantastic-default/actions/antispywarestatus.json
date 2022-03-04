@@ -1,0 +1,31 @@
+{
+  "name": "Check Windows Defender Antispyware Status",
+  "hosts": ["local", "remote"],
+  "functions": {
+    "run": {
+      "command": "Get-MpComputerStatus",
+      "method": "cimsession",
+      "json": true,
+      "result": {
+        "label": {"static": "Antispyware"},
+        "followups": [
+          {
+            "function": "enable_antispyware",
+            "data": {
+              "state": {"bool": "AntispywareEnabled", "inverse": true}
+            },
+            "enabled": {"bool": "AntispywareEnabled"}
+          }
+        ]
+      }
+    },
+    "enable_antispyware": {
+      "name": "Enable Antispyware",
+      "command": "",
+      "role": "elevated",
+      "result": {
+        "label": {"static": "TODO: set Antispyware state"}
+      }
+    }
+  }
+}

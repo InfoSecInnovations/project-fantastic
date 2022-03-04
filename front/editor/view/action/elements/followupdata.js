@@ -1,10 +1,10 @@
 import {h} from 'snabbdom/h'
 import ResultDataView from '../resultdataview'
 
-export default (state, send, funcName, index) => {
-  const data = typeof index == 'undefined' ? state.action.json.functions[funcName].result : state.action.json.functions[funcName].result.array[index]
-  const baseID = typeof index != 'undefined' ? `${state.action.filename}-${funcName}-result-${index}` : `${state.action.filename}-${funcName}`
-  const basePath = typeof index != 'undefined' ? ['array', index] : []
+export default (state, send, funcName) => {
+  const data = state.action.json.functions[funcName].result
+  const baseID = `${state.action.filename}-${funcName}`
+  const basePath = []
   return h('div.dividers', [
     Object.keys(state.action.json.functions).find(k => k != 'run') ? h('div.row bottom-aligned', [
       h('h4', 'Followup Actions'), 

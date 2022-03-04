@@ -13,7 +13,6 @@ const IsValid = require('@infosecinnovations/fantastic-utils/isvalid')
  * @returns {import('./types).Result | import('./types).Result[]}
  */
 const result = (result_data, output, action, user, filter) => {
-  if (result_data.array) return result_data.array.map(v => result(v, output, action, user, filter))
   return {
     pass: !filter || filter.some(v => Object.entries(v).every(v => output[v[0]] == v[1])),
     label: ExtractValue(result_data.label, output),
