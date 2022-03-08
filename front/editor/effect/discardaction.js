@@ -10,7 +10,7 @@ export default async (state, action, send) => {
     const fileExists = await FS.pathExists(filePath)
     if (fileExists) {
       const saved = await FS.readJSON(filePath)
-      send({type: 'set_action', json: saved})
+      send({type: 'set_action', json: saved, filename: state.action.filename})
       send({type: 'load_action', filename: state.action.filename, action: saved})
       return
     }
