@@ -25,5 +25,8 @@
     "targets": [
       "zip"
     ]
+  },
+  "window": {
+    "icon": "icon.png"
   }
 }
