@@ -58,4 +58,12 @@ export default (state, action, send) => {
   if (action.type == 'save_action') SaveAction(state, action, send)
   if (action.type == 'discard_action') DiscardAction(state, action, send)
   if (action.type == 'delete_action') DeleteAction(state, action, send)
+  if (action.type == 'mode') {
+    if (state.mode == 'action' && action.mode != 'action' && state.action.changed) {
+      const confirmed = confirm(`${state.action.filename} action has unsaved changes. Do you really wish to proceed?`)
+      if (!confirmed) return 
+      send({type: 'discard_action'})
+    }
+    send({ type: 'set_mode', mode: action.mode })
+  }
 }

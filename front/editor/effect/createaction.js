@@ -9,6 +9,7 @@ export default (state, action, send) => {
       send({type: 'init_action', filename})
       send({type: 'load_action', action: state.modules[state.selectedModule].actions[filename], filename})
       send({type: 'mode', mode: 'action'})
+      send({type: 'save_action'})
       break
     }
     filename = prompt('Please enter a valid file name')
