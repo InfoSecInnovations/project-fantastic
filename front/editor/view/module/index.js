@@ -26,7 +26,7 @@ export default (state, send) => {
           }, '✎'),
           h('div.mini-button', {
             attrs: {title: 'Delete'},
-            on: {click: e => send({type: 'delete_action', filename: action[0]})}
+            on: {click: e => send({type: 'delete_action', filename: action[0], prompt: true})}
           }, 'X')
         ]))
       ]),
