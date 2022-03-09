@@ -7,6 +7,8 @@ import LoadModule from './loadmodule'
 import LoadTree from './loadtree'
 import Save from './save'
 import SaveAction from './saveaction'
+import SaveModuleInfo from './savemoduleinfo'
+import UpdateModuleName from './updatemodulename'
 const FS = require('fs-extra')
 
 export default (state, action, send) => {
@@ -20,6 +22,12 @@ export default (state, action, send) => {
     if (savedModules) {
       const savedModuleData = JSON.parse(savedModules)
       Object.values(savedModuleData).forEach(v => LoadModule(state, {module: v}, send, false))
+    }
+    window.onbeforeunload = e => {
+      if (state.mode == 'action' && state.action && state.action.changed) {
+        e.preventDefault()
+        e.returnValue = ''
+      }
     }
   } 
   if (action.type == 'editor_canvas') EditorCanvas(state, action, send)
@@ -66,4 +74,6 @@ export default (state, action, send) => {
     }
     send({ type: 'set_mode', mode: action.mode })
   }
+  if (action.type == 'save_module_info') SaveModuleInfo(state, action, send)
+  if (action.type == 'update_module_name') UpdateModuleName(state, action, send)
 }

@@ -94,6 +94,17 @@ export default (state, action) => {
   if (action.type == 'module_data_name') state.newModuleData.name = action.value
   if (action.type == 'module_data_display_name') state.newModuleData.displayName = action.value
   if (action.type == 'module_data_org') state.newModuleData.org = action.value
+  if (action.type == 'set_module_display_name') {
+    if (!state.modules[state.selectedModule].info) state.modules[state.selectedModule].info = {}
+    state.modules[state.selectedModule].info.name = action.value
+  } 
+  if (action.type == 'set_module_package_name') state.modules[state.selectedModule].name = action.value
+  if (action.type == 'update_module_name') {
+    const newName = state.modules[state.selectedModule].name
+    state.modules[newName] = state.modules[state.selectedModule]
+    delete state.modules[state.selectedModule]
+    state.selectedModule = newName
+  }
 
   if (action.type == 'set_action_name') state.action.json.name = action.name
   if (action.type == 'set_action_description') state.action.json.description = action.description

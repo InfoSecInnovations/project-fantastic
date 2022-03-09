@@ -692,4 +692,11 @@ li {
   padding: 20px;
   gap: 10px;
 }
+#main-container #module-editor {
+  flex-direction: column;
+}
+#main-container #module-editor .module-items {
+  display: flex;
+  gap: 20px;
+}
 /*# sourceMappingURL=editor.css.map */
