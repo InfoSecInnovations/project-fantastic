@@ -61,8 +61,18 @@ export default (state, send) => {
           h('h3', 'Scans'),
           ...Object.entries(currentModule.scans).map(scan => h('div.item', [
             h('div', scan[1].name || scan[0]), 
-            h('div.mini-button', {attrs: {title: 'Edit'}}, '✎'),
-            h('div.mini-button', {attrs: {title: 'Delete'}}, 'X')
+            h('div.mini-button', {
+              attrs: {title: 'Edit'},
+              on: {
+                click: e => {
+                  send({type: 'load_scan', scan: scan[1], filename: scan[0]})
+                  send({type: 'mode', mode: 'scan'})
+                }
+              }
+            }, '✎'),
+            h('div.mini-button', {
+              attrs: {title: 'Delete'}
+            }, 'X')
           ]))
         ]),
         h('div.column', [

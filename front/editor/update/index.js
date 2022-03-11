@@ -8,6 +8,7 @@ import SanitizeName from "../util/sanitizeName"
 import QuestConfig from '../defaults/questconfig'
 import GenerateID from '@infosecinnovations/fantastic-utils/generateid'
 import _ from "lodash"
+import SetItem from "./setitem"
 
 export default (state, action) => {
   if (action.type == 'set_mode') state.mode = action.mode
@@ -239,9 +240,19 @@ export default (state, action) => {
     state.action.wizard.mandatory = action.mandatory
   }
   if (action.type == 'action_wizard_load_function') state.action.wizard.funcName = action.funcName
+  SetItem(state, action)
+
   if (state.action.json && !_.isEqual(state.action.json, state.action.previousJson)) {
     state.action.changed = true
     state.action.previousJson = _.cloneDeep(state.action.json)
   }
+
+  if (action.type == 'load_scan') {
+    state.scan.json = action.scan
+    state.scan.previousJson = _.cloneDeep(state.scan.json)
+    state.scan.changed = false
+    state.scan.filename = action.filename
+    // TODO: wizard
+  } 
   return state
 }

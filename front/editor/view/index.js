@@ -4,6 +4,7 @@ import Config from './config'
 import Module from './module'
 import Action from './action'
 import NewModule from './newmodule'
+import Scan from './scan'
 
 const content = (state, send) => [
   h('div#menu.column center content', {class: {hidden: state.mode && state.mode != 'menu'}}, [
@@ -17,7 +18,8 @@ const content = (state, send) => [
   StoryTree(state, send),
   Config(state, send),
   Module(state, send),
-  NewModule(state, send)
+  NewModule(state, send),
+  Scan(state, send)
 ]
 
 const body = (state, send) => h('div#main-container', [

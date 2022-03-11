@@ -6,12 +6,12 @@ import 'codemirror/addon/comment/continuecomment.js'
 import 'codemirror/addon/comment/comment.js'
 import 'codemirror/addon/display/autorefresh.js'
 
-let cmInstance
+const instances = {}
 
-export default (state, send) => h('textarea.editor', {
+export default (state, send, itemType, id, json) => h('textarea.editor', {
   hook: {
     insert: vnode => {
-      cmInstance = CodeMirror.fromTextArea(vnode.elm, {
+      instances[id] = CodeMirror.fromTextArea(vnode.elm, {
         matchBrackets: true,
         autoCloseBrackets: true,
         autoRefresh: true,
@@ -21,9 +21,9 @@ export default (state, send) => h('textarea.editor', {
         theme: 'base16-dark',
         lineNumbers: true
       })
-      cmInstance.on('change', () => send({type: 'update_action', json: JSON.parse(cmInstance.doc.getValue())}))
+      instances[id].on('change', () => send({type: 'update_item', itemType, json: JSON.parse(instances[id].doc.getValue())}))
     },
-    destroy: vnode => cmInstance.getWrapperElement().remove()
+    destroy: vnode => instances[id].getWrapperElement().remove()
   },
-  key: `json-editor${state.selectedModule}-${state.action.filename}`
-}, JSON.stringify(state.action.json, null, '\t'))
+  key: `json-editor-${id}`
+}, JSON.stringify(json, null, '\t'))

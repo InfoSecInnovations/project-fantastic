@@ -11,6 +11,7 @@ import StoryTree from './defaults/storytree'
 import Config from './defaults/config'
 import Action from './defaults/action'
 import TitleBar from './titlebar'
+import Scan from './defaults/scan'
 
 const patch = init([
   classModule,
@@ -27,6 +28,7 @@ let state = {
   },
   modules: {},
   action: Action(),
+  scan: Scan(),
   newModuleData: {}
 }
 let vnode = document.body
