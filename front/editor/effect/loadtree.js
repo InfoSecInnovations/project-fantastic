@@ -13,9 +13,6 @@ export default (state, action, send) => FS.readJSON(action.path)
     Object.entries(json.nodeData).forEach(e => { // establish connections
       e[1].targets.forEach(target => state.storyTree.jsplumb.connect({source: e[0], target}))
     })
-    state.storyTree.config = {...QuestConfig(), ...json.questConfig}
-    state.storyTree.name = json.name
-    state.storyTree.description = json.description
-    state.storyTree.questId = json.id || GenerateID()
+    send({type: 'set_tree', json, filename: Path.parse(action.path).name})
     send({type: 'save_file', name: Path.parse(action.path).base})
   })

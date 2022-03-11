@@ -30,5 +30,6 @@ export default (state, send) => [
       style: {display: 'none'}
     }),
     h('label.button', {attrs: {for: 'save-file-input'}}, 'Save story tree')
-  ])
+  ]),
+  h('h2', state.storyTree.name || state.storyTree.filename)
 ]

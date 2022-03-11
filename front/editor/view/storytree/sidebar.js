@@ -10,7 +10,7 @@ const nodeList = (state, module, type) => Object.entries(module[type])
     !Object.values(state.storyTree.nodes).find(node => node.type == type && node.key == `${module.name}/${e[0]}`) &&
     (type != 'actions' || ((!e[1].target || e[1].target == 'host') && !e[1].functions.run.result)) // filter for host actions with no result
   )
-  .map(e => draggableNode({ key: `${module.name}/${e[0]}`, name: e[1].name, type, path: module.path }))
+  .map(e => draggableNode({ key: `${module.name}/${e[0]}`, name: e[1].name || e[0], type, path: module.path }))
 
 export default (state, send) => Object.values(state.modules).map(module => [
     h('h3', (module.info && module.info.name) || module.name),

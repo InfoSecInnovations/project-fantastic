@@ -5,6 +5,8 @@ import ActionJson from "../defaults/actionJson"
 import ActionWizardIntro from "../defaults/actionWizardIntro"
 import ActionWizard from "../defaults/actionWizard"
 import SanitizeName from "../util/sanitizeName"
+import QuestConfig from '../defaults/questconfig'
+import GenerateID from '@infosecinnovations/fantastic-utils/generateid'
 import _ from "lodash"
 
 export default (state, action) => {
@@ -39,6 +41,13 @@ export default (state, action) => {
   if (action.type == 'save_file') state.storyTree.saveFile = action.name
   if (action.type == 'load_tree') state.storyTree.nodes = {}
   if (action.type == 'new_tree') state.storyTree = {...StoryTree(), jsplumb: state.storyTree.jsplumb}
+  if (action.type == 'set_tree') {
+    state.storyTree.config = {...QuestConfig(), ...action.json.questConfig}
+    state.storyTree.name = action.json.name
+    state.storyTree.description = action.json.description
+    state.storyTree.questId = action.json.id || GenerateID()
+    state.storyTree.filename = action.filename
+  }
 
   if (action.type == 'set_config') state.config.json = action.config
   if (action.type == 'config_save_file') state.config.saveFile = action.name
