@@ -20,19 +20,19 @@ export default (state, send, taskData) => {
     h('div.nav-buttons', [
       isFirst ? h('div') : // the first item has a dummy element to keep the spacing between buttons
       h('div.button', { 
-        on: { click: e => send({type: 'action_previous_wizard'}) }
+        on: { click: e => send({type: 'previous_wizard', itemType: 'action'}) }
       }, 'Previous'),
       h('div.item', [
         !isLast ? h('div.button', {
           class: {disabled: hasErrors},
           on: hasErrors ? undefined : { click: e => {
-            if (hasNext) send({type: 'action_add_wizard_tasks', tasks: nextTasks.filter(task => task)})
-            send({type: 'action_next_wizard'}) 
+            if (hasNext) send({type: 'add_wizard_tasks', itemType: 'action', tasks: nextTasks.filter(task => task)})
+            send({type: 'next_wizard', itemType: 'action'}) 
           }}
         }, 'Next') : undefined,
         isLast || !mandatory ? h('div.button', {
           class: {disabled: hasErrors},
-          on: hasErrors ? undefined :  { click: e => send({type: 'action_complete_wizard'}) }
+          on: hasErrors ? undefined :  { click: e => send({type: 'complete_wizard', itemType: 'action'}) }
         }, 'Done') : undefined
       ])
     ])

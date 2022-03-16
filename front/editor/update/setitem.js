@@ -9,7 +9,31 @@ const collections = {
 
 export default (state, action) => {
   if (action.itemType) {
+    if (action.type == 'set_item') {
+      if (!state.modules[state.selectedModule][collections[action.itemType]]) state.modules[state.selectedModule][collections[action.itemType]] = {}
+      state.modules[state.selectedModule][collections[action.itemType]][action.filename] = action.json
+    }
+    if (action.type == 'update_item') {
+      state[action.itemType].json = action.json
+      state[action.itemType].previousJson = _.cloneDeep(state[action.itemType].json)
+    } 
+    if (action.type == 'remove_item') {
+      if (state.modules[state.selectedModule][collections[action.itemType]]) delete state.modules[state.selectedModule][collections[action.itemType]][action.filename]
+    }
+
     if (action.type == 'editor_mode') state[action.itemType].editorMode = action.mode
+
+    if (action.type == 'set_role') state[action.itemType].json.role = action.role
+    if (action.type == 'set_name') state[action.itemType].json.name = action.name
+    if (action.type == 'set_description') state[action.itemType].json.description = action.description
+    if (action.type == 'enable_host') {
+      if (action.enabled && !state[action.itemType].json.hosts.includes(action.host)) state[action.itemType].json.hosts.push(action.host)
+      else {
+        const index = state[action.itemType].json.hosts.findIndex(host => host == action.host)
+        if (index >= 0) state[action.itemType].json.hosts.splice(index, 1)
+      }
+    }
+
     if (action.type == 'next_wizard') state[action.itemType].wizard.index = (state[action.itemType].wizard.index || 0) + 1
     if (action.type == 'previous_wizard') state[action.itemType].wizard.index = state[action.itemType].wizard.index ? state[action.itemType].wizard.index - 1 : 0
     if (action.type == 'complete_wizard') state[action.itemType].wizard.tasks.length = 0
@@ -19,19 +43,10 @@ export default (state, action) => {
       state[action.itemType].wizard.index = 0
       state[action.itemType].wizard.mandatory = action.mandatory
     }
-    if (action.type == 'set_role') state[action.itemType].json.role = action.role
-    if (action.type == 'update_item') {
-      state[action.itemType].json = action.json
+
+    if (state[action.itemType].json && !_.isEqual(state[action.itemType].json, state[action.itemType].previousJson)) {
+      state[action.itemType].changed = true
       state[action.itemType].previousJson = _.cloneDeep(state[action.itemType].json)
-    } 
-    if (action.type == 'set_name') state[action.itemType].json.name = action.name
-    if (action.type == 'set_description') state[action.itemType].json.description = action.description
-    if (action.type == 'enable_host') {
-      if (action.enabled && !state[action.itemType].json.hosts.includes(action.host)) state[action.itemType].json.hosts.push(action.host)
-      else {
-        const index = state[action.itemType].json.hosts.findIndex(host => host == action.host)
-        if (index >= 0) state[action.itemType].json.hosts.splice(index, 1)
-      }
     }
   }
   return state

@@ -5,19 +5,7 @@ import FunctionView from './functionview'
 
 export default (state, send) => h('div#action-editor.panel editor-scroll', [
   h('div.column', [
-    ...Info(
-      state,
-      send,
-      'action',
-      state.action.json.name,
-      'set_action_name',
-      state.action.json.description,
-      'set_action_description',
-      state.action.json.hosts,
-      'enable_action_host',
-      state.action.json.role,
-      'set_action_role'
-    ),
+    ...Info(state, send, 'action'),
     ActionTarget(state, send)
   ]),
   h('div.column', [

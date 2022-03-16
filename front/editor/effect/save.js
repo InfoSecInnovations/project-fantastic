@@ -25,9 +25,9 @@ export default (state, action, send) => {
   FS.writeJSON(action.path, {
     pathData, 
     nodeData, 
-    questConfig: state.storyTree.config, 
-    description: state.storyTree.description, 
-    name: state.storyTree.name,
+    questConfig: state.storyTree.json, 
+    description: state.storyTree.json.description, 
+    name: state.storyTree.json.name,
     id: state.storyTree.questId
   }, {spaces: '\t'})
   send({type: 'save_file', name: Path.parse(action.path).base})

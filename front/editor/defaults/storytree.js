@@ -3,6 +3,6 @@ const GenerateID = require('@infosecinnovations/fantastic-utils/generateid')
 
 export default () => ({
   nodes: {},
-  config: QuestConfig(),
+  json: QuestConfig(),
   questId: GenerateID()
 })

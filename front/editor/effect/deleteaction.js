@@ -12,5 +12,5 @@ export default async (state, action, send) => {
     const fileExists = await FS.pathExists(filePath)
     if (fileExists) await FS.rm(filePath)
   }
-  send({type: 'remove_action', filename: action.filename})
+  send({type: 'remove_item', itemType: 'action', filename: action.filename})
 }

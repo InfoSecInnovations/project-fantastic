@@ -13,7 +13,7 @@ export default {
       h('input', {
         attrs: {type: 'checkbox', id: `action-host-type-${host}`},
         props: {checked: state.action.json.hosts.includes(host)},
-        on: {input: e => send({type: 'enable_action_host', enabled: e.target.checked, host})}
+        on: {input: e => send({type: 'enable_host', itemType: 'action', enabled: e.target.checked, host})}
       }),
       h('label', {attrs: {for: `action-host-type-${host}`}}, host)
     ])),

@@ -15,14 +15,14 @@ const followupTasks = [
 
 export default (state, send) => [
   h('div.button', {
-    on: { click: e => send({type: 'action_set_wizard_tasks', tasks: actionWizardBaseTasks}) }
+    on: { click: e => send({type: 'set_wizard_tasks', itemType: 'action', tasks: actionWizardBaseTasks}) }
   }, 'Edit basic info'),
   h('div.button', {
     on: {
       click: e => {
         send({type: 'add_action_followup'})
         send({type: 'action_wizard_load_function', funcName: Object.keys(state.action.json.functions).filter(name => name != 'run').at(-1)})
-        send({type: 'action_set_wizard_tasks', tasks: followupTasks})
+        send({type: 'set_wizard_tasks', itemType: 'action', tasks: followupTasks})
       }
     }
   }, 'Create a followup function'),
@@ -30,7 +30,7 @@ export default (state, send) => [
     on: {
       click: e => {
         send({type: 'action_wizard_load_function', funcName: 'run'})
-        send({type: 'action_set_wizard_tasks', tasks: baseFunctionTasks})
+        send({type: 'set_wizard_tasks', itemType: 'action', tasks: baseFunctionTasks})
       }
     }
   }, 'Edit run function (entry point)'),
@@ -38,7 +38,7 @@ export default (state, send) => [
     on: {
       click: e => {
         send({type: 'action_wizard_load_function', funcName: name})
-        send({type: 'action_set_wizard_tasks', tasks: followupTasks})
+        send({type: 'set_wizard_tasks', itemType: 'action', tasks: followupTasks})
       }
     }
   }, `Edit ${data.name || name} function`))
