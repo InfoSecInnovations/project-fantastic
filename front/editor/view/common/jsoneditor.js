@@ -21,7 +21,7 @@ export default (state, send, itemType, id, json) => h('textarea.editor', {
         theme: 'base16-dark',
         lineNumbers: true
       })
-      instances[id].on('change', () => send({type: 'update_item', itemType, json: JSON.parse(instances[id].doc.getValue())}))
+      instances[id].on('change', () => send({type: 'update_current_item', itemType, json: JSON.parse(instances[id].doc.getValue())}))
     },
     destroy: vnode => instances[id].getWrapperElement().remove()
   },

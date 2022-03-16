@@ -1,24 +1,49 @@
 import _ from "lodash"
-
-const collections = {
-  action: 'actions',
-  scan: 'scans',
-  command: 'commands',
-  story: 'stories'
-}
+import itemCollections from "../util/itemcollections"
+import ActionJson from "../defaults/actionJson"
+import ActionWizardIntro from "../defaults/actionWizardIntro"
+import ScanJson from "../defaults/scanJson"
+import Wizard from "../defaults/wizard"
 
 export default (state, action) => {
   if (action.itemType) {
-    if (action.type == 'set_item') {
-      if (!state.modules[state.selectedModule][collections[action.itemType]]) state.modules[state.selectedModule][collections[action.itemType]] = {}
-      state.modules[state.selectedModule][collections[action.itemType]][action.filename] = action.json
+    const getCollection = () => {
+      if (!state.modules[state.selectedModule][itemCollections[action.itemType]]) state.modules[state.selectedModule][itemCollections[action.itemType]] = {}
+      return state.modules[state.selectedModule][itemCollections[action.itemType]]
     }
-    if (action.type == 'update_item') {
+    if (action.type == 'init_item') {
+      const collection = getCollection()
+      if (action.itemType == 'action') {
+        collection[action.filename] = ActionJson()
+        localStorage.setItem(`${action.itemType}_wizard:${state.selectedModule}/${action.filename}`, JSON.stringify(ActionWizardIntro()))
+      }
+      if (action.itemType == 'scan') {
+        collection[action.filename] = ScanJson()
+      }
+    }
+    if (action.type == 'set_current_item') {
+      state[action.itemType].json = getCollection()[action.filename]
+      state[action.itemType].previousJson = _.cloneDeep(state[action.itemType].json)
+      state[action.itemType].changed = false
+      state[action.itemType].filename = action.filename
+      const stored = localStorage.getItem(`${action.itemType}_wizard:${state.selectedModule}/${action.filename}`)
+      state[action.itemType].wizard = (stored && JSON.parse(stored)) || Wizard()
+      state.mode = action.itemType
+    }
+    if (action.type == 'update_current_item') {
       state[action.itemType].json = action.json
       state[action.itemType].previousJson = _.cloneDeep(state[action.itemType].json)
     } 
+    if (action.type == 'save_current_item') {
+      localStorage.setItem(`${action.itemType}_wizard:${state.selectedModule}/${state[action.itemType].filename}`, JSON.stringify(state[action.itemType].wizard))
+      state[action.itemType].changed = false
+    }
+    if (action.type == 'set_item') {
+      getCollection()[action.filename] = action.json
+    }
+
     if (action.type == 'remove_item') {
-      if (state.modules[state.selectedModule][collections[action.itemType]]) delete state.modules[state.selectedModule][collections[action.itemType]][action.filename]
+      delete getCollection()[action.filename]
     }
 
     if (action.type == 'editor_mode') state[action.itemType].editorMode = action.mode

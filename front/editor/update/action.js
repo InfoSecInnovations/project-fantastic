@@ -1,29 +1,9 @@
 import ActionFunction from "../defaults/actionFunction"
 import ActionFollowup from "../defaults/actionFollowup"
 import SanitizeName from "../util/sanitizeName"
-import ActionJson from "../defaults/actionJson"
-import ActionWizardIntro from "../defaults/actionWizardIntro"
-import ActionWizard from "../defaults/actionWizard"
 import _ from "lodash"
 
 export default (state, action) => {
-  if (action.type == 'load_action') {
-    state.action.json = action.action
-    state.action.previousJson = _.cloneDeep(state.action.json)
-    state.action.changed = false
-    state.action.filename = action.filename
-    const stored = localStorage.getItem(`action_wizard:${state.selectedModule}/${action.filename}`)
-    state.action.wizard = (stored && JSON.parse(stored)) || ActionWizard()
-  } 
-  if (action.type == 'save_action') {
-    localStorage.setItem(`action_wizard:${state.selectedModule}/${state.action.filename}`, JSON.stringify(state.action.wizard))
-    state.action.changed = false
-  }
-  if (action.type == 'init_action') {
-    if (!state.modules[state.selectedModule].actions) state.modules[state.selectedModule].actions = {}
-    state.modules[state.selectedModule].actions[action.filename] = ActionJson()
-    localStorage.setItem(`action_wizard:${state.selectedModule}/${action.filename}`, JSON.stringify(ActionWizardIntro()))
-  }
 
   if (action.type == 'set_action_target') state.action.json.target = action.target
   if (action.type == 'add_action_input') {

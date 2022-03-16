@@ -1,9 +1,32 @@
 import {h} from 'snabbdom/h'
 import Path from 'path'
+import itemCollections from '../../util/itemcollections'
 
 export default (state, send) => {
   const currentModule = state.modules[state.selectedModule]
   if (!currentModule) return
+  const moduleItems = (state, send, itemType, label) => h('div.column', [
+    h('div.row top-aligned', [
+      h('h3', label),
+      h('div.mini-button', {
+        attrs: {title: `New ${itemType}`},
+        on: {click: e => send({type: 'create_item', itemType})}
+      }, '+')
+    ]),
+    ...Object.entries(currentModule[itemCollections[itemType]]).map(([filename, item]) => h('div.item', [
+      h('div', item.name || filename), 
+      h('div.mini-button', {
+        attrs: {title: 'Edit'},
+        on: { click: e => {
+          send({type: 'set_current_item', itemType, filename})
+        }}
+      }, '✎'),
+      h('div.mini-button', {
+        attrs: {title: 'Delete'},
+        on: {click: e => send({type: 'delete_item', itemType, filename, prompt: true})}
+      }, 'X')
+    ]))
+  ])
   return h('div#module.content', {class: {hidden: state.mode != 'module'}}, [
     h('div.menu-bar panel', [h('h2', 'Module Editor'), h('h2', (currentModule.info && currentModule.info.name) || currentModule.name)]),
     h('div#module-editor.panel editor-scroll', [
@@ -34,55 +57,9 @@ export default (state, send) => {
         })
       ]),
       h('div.module-items', [
-        h('div.column', [
-          h('div.row top-aligned', [
-            h('h3', 'Actions'),
-            h('div.mini-button', {
-              attrs: {title: 'New action'},
-              on: {click: e => send({type: 'create_action'})}
-            }, '+')
-          ]),
-          ...Object.entries(currentModule.actions).map(action => h('div.item', [
-            h('div', action[1].name || action[0]), 
-            h('div.mini-button', {
-              attrs: {title: 'Edit'},
-              on: { click: e => {
-                send({type: 'load_action', action: action[1], filename: action[0]})
-                send({type: 'mode', mode: 'action'})
-              }}
-            }, '✎'),
-            h('div.mini-button', {
-              attrs: {title: 'Delete'},
-              on: {click: e => send({type: 'delete_action', filename: action[0], prompt: true})}
-            }, 'X')
-          ]))
-        ]),
-        h('div.column', [
-          h('h3', 'Scans'),
-          ...Object.entries(currentModule.scans).map(scan => h('div.item', [
-            h('div', scan[1].name || scan[0]), 
-            h('div.mini-button', {
-              attrs: {title: 'Edit'},
-              on: {
-                click: e => {
-                  send({type: 'load_scan', scan: scan[1], filename: scan[0]})
-                  send({type: 'mode', mode: 'scan'})
-                }
-              }
-            }, '✎'),
-            h('div.mini-button', {
-              attrs: {title: 'Delete'}
-            }, 'X')
-          ]))
-        ]),
-        h('div.column', [
-          h('h3', 'Host Data Commands'),
-          ...Object.entries(currentModule.commands).map(command => h('div.item', [
-            h('div', command[1].name || command[0]), 
-            h('div.mini-button', {attrs: {title: 'Edit'}}, '✎'),
-            h('div.mini-button', {attrs: {title: 'Delete'}}, 'X')
-          ]))
-        ]),
+        moduleItems(state, send, 'action', 'Actions'),
+        moduleItems(state, send, 'scan', 'Scans'),
+        moduleItems(state, send, 'command', 'Host Data Commands'),
         h('div.column', [
           h('h3', 'Story Trees'),
           ...Object.entries(currentModule.stories).map(story => h('div.item', [

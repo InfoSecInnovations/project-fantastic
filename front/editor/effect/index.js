@@ -1,12 +1,12 @@
-import CreateAction from './createaction'
+import CreateItem from './createitem'
 import CreateModule from './createmodule'
-import DeleteAction from './deleteaction'
-import DiscardAction from './discardaction'
+import DeleteItem from './deleteitem'
+import DiscardItem from './discarditem'
 import EditorCanvas from './editorcanvas'
 import LoadModule from './loadmodule'
 import LoadTree from './loadtree'
 import Save from './save'
-import SaveAction from './saveaction'
+import SaveItem from './saveitem'
 import SaveModuleInfo from './savemoduleinfo'
 import UpdateModuleName from './updatemodulename'
 const FS = require('fs-extra')
@@ -62,15 +62,15 @@ export default (state, action, send) => {
     send({type: 'dropdown_state', state: null})
     send({type: 'config_remove_always_enabled', command: action.command})
   } 
-  if (action.type == 'create_action') CreateAction(state, action, send)
-  if (action.type == 'save_action') SaveAction(state, action, send)
-  if (action.type == 'discard_action') DiscardAction(state, action, send)
-  if (action.type == 'delete_action') DeleteAction(state, action, send)
+  if (action.type == 'create_item') CreateItem(state, action, send)
+  if (action.type == 'save_current_item') SaveItem(state, action, send)
+  if (action.type == 'discard_item') DiscardItem(state, action, send)
+  if (action.type == 'delete_item') DeleteItem(state, action, send)
   if (action.type == 'mode') {
     if (state.mode == 'action' && action.mode != 'action' && state.action.changed) {
       const confirmed = confirm(`${state.action.filename} action has unsaved changes. Do you really wish to proceed?`)
       if (!confirmed) return 
-      send({type: 'discard_action'})
+      send({type: 'discard_item', itemType: 'action'})
     }
     send({ type: 'set_mode', mode: action.mode })
   }
