@@ -60,20 +60,7 @@ export default (state, send) => {
         moduleItems(state, send, 'action', 'Actions'),
         moduleItems(state, send, 'scan', 'Scans'),
         moduleItems(state, send, 'command', 'Host Data Commands'),
-        h('div.column', [
-          h('h3', 'Story Trees'),
-          ...Object.entries(currentModule.stories).map(story => h('div.item', [
-            h('div', story[1].name || story[0]), 
-            h('div.mini-button', {
-              attrs: {title: 'Edit'},
-              on: {click: e => {
-                send({type: 'load_tree', path: Path.join(currentModule.path, 'stories', `${story[0]}.json`)})
-                send({type: 'mode', mode: 'storytree'})
-              }}
-            }, '✎'),
-            h('div.mini-button', {attrs: {title: 'Delete'}}, 'X')
-          ]))
-        ])
+        moduleItems(state, send, 'storyTree', 'Story Trees')
       ])
     ])
   ])

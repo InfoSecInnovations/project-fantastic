@@ -2,12 +2,12 @@ import {h} from 'snabbdom/h'
 import Sidebar from './sidebar'
 import Editor from './editor'
 import Info from './info'
-import MenuBar from './menubar'
+import EditorMenuBar from '../common/editormenubar'
 
-export default (state, send) => h('div#story-tree.content', {class: {hidden: state.mode != 'storytree'}}, [
+export default (state, send) => h('div#story-tree.content', {class: {hidden: state.mode != 'storyTree'}}, [
   h('div#sidebar.panel editor-scroll', Sidebar(state, send)),
   h('div#central-column', [
-    h('div.menu-bar panel', MenuBar(state, send)),
+    h('div.menu-bar panel', EditorMenuBar(state, send, 'storyTree', 'Story Tree Editor', [])),
     h('div#editor.graph editor-scroll', {
       hook: {create: (_, vnode) => setTimeout(() => send({type: 'editor_canvas', id: vnode.elm.getAttribute('id')}))},
       on: {
@@ -30,5 +30,5 @@ export default (state, send) => h('div#story-tree.content', {class: {hidden: sta
       }
     }, Editor(state, send))
   ]),
-  h('div#info.panel column', {key: state.storyTree.selected || state.storyTree.questId }, Info(state, send)), // setting a key prevents input from carrying over when changing selection
+  h('div#info.panel column', {key: state.storyTree.selected || state.storyTree.json.id }, Info(state, send)), // setting a key prevents input from carrying over when changing selection
 ])

@@ -4,8 +4,6 @@ import DeleteItem from './deleteitem'
 import DiscardItem from './discarditem'
 import EditorCanvas from './editorcanvas'
 import LoadModule from './loadmodule'
-import LoadTree from './loadtree'
-import Save from './save'
 import SaveItem from './saveitem'
 import SaveModuleInfo from './savemoduleinfo'
 import UpdateModuleName from './updatemodulename'
@@ -41,8 +39,6 @@ export default (state, action, send) => {
     state.storyTree.jsplumb.makeSource(action.el, {filter: '.handle'})
     state.storyTree.jsplumb.makeTarget(action.el, {allowLoopback: false})
   }
-  if (action.type == 'save') Save(state, action, send)
-  if (action.type == 'load_tree') LoadTree(state, action, send)
   if (action.type == 'editor_node_remove') send({type: 'editor_select', id: null})
   if (action.type == 'load_config') {
     FS.readJSON(action.path).then(json => {
@@ -66,6 +62,13 @@ export default (state, action, send) => {
   if (action.type == 'save_current_item') SaveItem(state, action, send)
   if (action.type == 'discard_item') DiscardItem(state, action, send)
   if (action.type == 'delete_item') DeleteItem(state, action, send)
+  if (action.type == 'set_current_item') {
+    if (action.itemType == 'storyTree') {
+      Object.entries(state.storyTree.json.nodeData).forEach(e => { // establish connections
+        e[1].targets.forEach(target => state.storyTree.jsplumb.connect({source: e[0], target}))
+      })
+    }
+  }
   if (action.type == 'mode') {
     if (state.mode == 'action' && action.mode != 'action' && state.action.changed) {
       const confirmed = confirm(`${state.action.filename} action has unsaved changes. Do you really wish to proceed?`)

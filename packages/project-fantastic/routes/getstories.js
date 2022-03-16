@@ -14,10 +14,10 @@ const getStories = (user, res, req, query, stories) => {
         key: v.key,
         name: v.name, 
         description: v.description, 
-        hosts: v.questConfig.hosts,
-        role: v.questConfig.role,
+        hosts: v.hosts,
+        role: v.role,
         nodeData: v.nodeData,
-        selection: v.questConfig.selection,
+        selection: v.selection,
         module: v.module
       }
     }), {})

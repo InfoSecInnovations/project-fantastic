@@ -60,15 +60,13 @@
 			}
 		}
 	},
-	"questConfig": {
-		"selection": {
-			"age": {}
-		},
-		"hosts": [
-			"local",
-			"remote"
-		]
+	"selection": {
+		"age": {}
 	},
+	"hosts": [
+		"local",
+		"remote"
+	],
 	"description": "Some basic commands you can run to find systems requiring action.\n\nThis is a kind of demo while we make more content.",
 	"name": "Forgotten Systems",
 	"id": "37ea204d-a6a1-478b-9e45-c9c38b6a7f9e"

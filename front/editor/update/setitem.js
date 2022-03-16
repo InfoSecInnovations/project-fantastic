@@ -4,6 +4,7 @@ import ActionJson from "../defaults/actionJson"
 import ActionWizardIntro from "../defaults/actionWizardIntro"
 import ScanJson from "../defaults/scanJson"
 import Wizard from "../defaults/wizard"
+import QuestConfig from "../defaults/questconfig"
 
 export default (state, action) => {
   if (action.itemType) {
@@ -19,6 +20,9 @@ export default (state, action) => {
       }
       if (action.itemType == 'scan') {
         collection[action.filename] = ScanJson()
+      }
+      if (action.itemType == 'storyTree') {
+        collection[action.filename] = QuestConfig()
       }
     }
     if (action.type == 'set_current_item') {

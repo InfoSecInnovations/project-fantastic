@@ -2,6 +2,7 @@ import _ from "lodash"
 import SetItem from "./setitem"
 import Action from "./action"
 import Config from "./config"
+import StoryTree from "./storytree"
 
 export default (state, action) => {
   if (action.type == 'set_mode') state.mode = action.mode
@@ -35,6 +36,7 @@ export default (state, action) => {
     // TODO: wizard
   } 
 
+  state = StoryTree(state, action)
   state = Config(state, action)
   state = Action(state, action)
   state = SetItem(state, action)

@@ -6,7 +6,7 @@ import ParameterValue from '@infosecinnovations/fantastic-front/view/scan/parame
 const getParameterValue = (data, node, parameter) => (node.parameters && node.parameters[parameter.name]) || (data.quest && data.quest.parameters && data.quest.parameters[parameter.name]) || parameter.default
 
 export default (state, send, id) => {
-  const node = state.storyTree.nodes[id]
+  const node = state.storyTree.json.nodeData[id]
   const sliceIndex = node.key.lastIndexOf('/')
   const key = node.key.slice(sliceIndex + 1)
   const module = state.modules[node.key.slice(0, sliceIndex)]

@@ -11,7 +11,6 @@ const content = (state, send) => [
     h('h1', 'Fantastic Tools'),
     h('div.button', {on: {click: e => send({type: 'mode', mode: 'install'})}}, 'Installation Manager'),
     h('div.button', {on: {click: e => send({type: 'mode', mode: 'config'})}}, 'Config Editor'),
-    h('div.button', {on: {click: e => send({type: 'mode', mode: 'storytree'})}}, 'Story Tree Editor'),
     h('div', Object.values(state.modules).length == 0 ? 'Load or create a module on the left to get started with content creation.' : 'Select a module on the left to edit its content.')
   ]),
   Action(state, send),

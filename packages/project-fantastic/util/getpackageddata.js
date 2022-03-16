@@ -17,7 +17,7 @@ const getPackagedData = async (path, data_type) => {
   .catch(() => undefined)
   if (!result) return
   if (!result.name) result.name = fileName
-  if (data_type == 'stories' && (!result.questConfig.selection.age || !Object.keys(result.questConfig.selection.age).length)) result.questConfig.selection.age = {d: 1}
+  if (data_type == 'stories' && (!result.selection.age || !Object.keys(result.selection.age).length)) result.selection.age = {d: 1}
   if (data_type == 'quests' && (!result.selection.age || !Object.keys(result.selection.age).length)) result.selection.age = {d:1}
   result.module = path.substring(0, splitIndex)
   return result

@@ -1,21 +1,21 @@
 import {h} from 'snabbdom/h'
 
-export default (state, send, itemType, label) => h('div.menu-bar panel', [
+export default (state, send, itemType, label, availableModes = ['wizard', 'editor', 'raw']) => h('div.menu-bar panel', [
   h('h2', label),
-  h('div.tabs', [
-    h('div.button', {
+  availableModes && availableModes.length ? h('div.tabs', [
+    availableModes.includes('wizard') ? h('div.button', {
       class: {disabled: state[itemType].editorMode == 'wizard' || !state[itemType].editorMode},
       on: {click: e => send({type: 'editor_mode', itemType, mode: 'wizard'})}
-    }, 'Wizard'),
-    h('div.button', {
+    }, 'Wizard') : undefined,
+    availableModes.includes('editor') ? h('div.button', {
       class: {disabled: state[itemType].editorMode == 'editor'},
       on: {click: e => send({type: 'editor_mode', itemType, mode: 'editor'})}
-    }, 'Advanced'),
-    h('div.button', {
+    }, 'Advanced') : undefined,
+    availableModes.includes('raw') ? h('div.button', {
       class: {disabled: state[itemType].editorMode == 'raw'},
       on: {click: e => send({type: 'editor_mode', itemType, mode: 'raw'})}
-    }, 'JSON'),
-  ]),
+    }, 'JSON') : undefined,
+  ]) : undefined,
   h('div.item', [
     h('div.button', {
       on: {click: e => send({type: 'save_current_item', itemType})}
