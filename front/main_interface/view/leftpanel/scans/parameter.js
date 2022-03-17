@@ -9,11 +9,11 @@ export default (parameter_data, scan, send, param) => {
     h(`input#param_${param.name}`, {
       on: {input: e => send({type: 'scan_parameter', key: param.name, value: ParameterValue(param.type, e.target.value), scan})},
       attrs: {
-        type: ParameterInput(param.type),
-        value
+        type: ParameterInput(param.type)
       },
       props: {
-        checked: param.type === 'bool' && value === 'true'
+        checked: param.type === 'bool' && value === 'true',
+        value
       }
     })
   ])

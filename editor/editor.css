@@ -699,4 +699,10 @@ li {
   display: flex;
   gap: 20px;
 }
+#main-container #scan-editor {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  padding: 20px;
+  gap: 20px;
+}
 /*# sourceMappingURL=editor.css.map */

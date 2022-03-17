@@ -36,12 +36,12 @@ export default (state, send, itemType) => {
         h('label', {attrs: {for: `${itemType}-host-type-${host}`}}, host)
       ]))
     ]),
-    h('div.column', [
+    itemType != 'scan' ? h('div.column', [
       h('label.label', {attrs: {for: `${itemType}-role-editor`}}, 'Role'),
       h('select', {
         attrs: {id: `${itemType}-role-editor`},
         on: { input: e => send({type: 'set_role', itemType, role: e.target.value}) }
       }, roles.map((role, i) => h('option', { attrs: { value: role, selected: json.role == role || (!json.role && i == 0) }}, role)))
-    ])
+    ]) : undefined
   ]
 } 
