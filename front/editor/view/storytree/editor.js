@@ -1,9 +1,9 @@
 import {h} from 'snabbdom/h'
+import ItemFromKey from '../../util/itemfromkey'
 import ModuleFromKey from '../../util/modulefromkey'
 
 export default (state, send) => Object.entries(state.storyTree.json.nodeData).map(node => {
-  const sliceIndex = node[1].key.lastIndexOf('/')
-  const key = node[1].key.slice(sliceIndex + 1)
+  const key = ItemFromKey(node[1].key)
   const module = ModuleFromKey(state, node[1].key)
   if (!module) return
   const data = module[node[1].type][key]

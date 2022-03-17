@@ -1,11 +1,10 @@
-import itemcollections from '../util/itemcollections'
-import ModuleFromKey from '../util/modulefromkey'
+import itemCollections from '../util/itemcollections'
 const FS = require('fs-extra')
 const Path = require('path')
 
 export default (state, action, send) => {
   const dir = state.modules[state.selectedModule].path
-  const itemDir = Path.join(dir, itemcollections[action.itemType])
+  const itemDir = Path.join(dir, itemCollections[action.itemType])
   FS.ensureDir(itemDir)
   .then(() => {
     let json = state[action.itemType].json
