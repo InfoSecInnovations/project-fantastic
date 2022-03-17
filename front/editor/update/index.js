@@ -3,6 +3,7 @@ import SetItem from "./setitem"
 import Action from "./action"
 import Config from "./config"
 import StoryTree from "./storytree"
+import Scan from "./scan"
 
 export default (state, action) => {
   if (action.type == 'set_mode') state.mode = action.mode
@@ -40,5 +41,6 @@ export default (state, action) => {
   state = Config(state, action)
   state = Action(state, action)
   state = SetItem(state, action)
+  state = Scan(state, action)
   return state
 }
