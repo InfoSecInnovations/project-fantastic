@@ -11,15 +11,15 @@ export default (state, action) => {
   }
   if (action.type == 'config_add_module') state.config.json.assets.packages.push(action.module)
   if (action.type == 'config_remove_always_enabled') {
-    const index = state.config.json.assets.force_commands.indexOf(action.command)
+    const index = state.config.json.assets.force_commands.indexOf(action.fullPath)
     if (index >= 0) state.config.json.assets.force_commands.splice(index, 1)
   } 
   if (action.type == 'config_remove_default_enabled') {
-    const index = state.config.json.assets.default_enable_commands.indexOf(action.command)
+    const index = state.config.json.assets.default_enable_commands.indexOf(action.fullPath)
     if (index >= 0) state.config.json.assets.default_enable_commands.splice(index, 1)
   } 
-  if (action.type == 'config_always_enable') state.config.json.assets.force_commands.push(action.command)
-  if (action.type == 'config_default_enable') state.config.json.assets.default_enable_commands.push(action.command)
+  if (action.type == 'config_always_enable') state.config.json.assets.force_commands.push(action.fullPath)
+  if (action.type == 'config_default_enable') state.config.json.assets.default_enable_commands.push(action.fullPath)
 
   return state
 }

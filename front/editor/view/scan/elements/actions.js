@@ -16,7 +16,10 @@ export default (state, send) => h('div.column', [
     const actionName = ItemFromKey(action.path)
     const data = module && actionName && module.actions && module.actions[actionName]
     return h('div', [
-      h('div', data ? data.name || actionName : 'No action')
+      h('div', data ? data.name || actionName : 'No action'),
+      h('select', [
+
+      ])
     ])
   }) : [])
 ])

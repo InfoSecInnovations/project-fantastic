@@ -52,11 +52,11 @@ export default (state, action, send) => {
   if (action.type == 'config_add_module') send({type: 'dropdown_state', state: null})
   if (action.type == 'config_always_enable') {
     send({type: 'dropdown_state', state: null})
-    send({type: 'config_remove_default_enabled', command: action.command})
+    send({type: 'config_remove_default_enabled', fullPath: action.fullPath})
   } 
   if (action.type == 'config_default_enable') {
     send({type: 'dropdown_state', state: null})
-    send({type: 'config_remove_always_enabled', command: action.command})
+    send({type: 'config_remove_always_enabled', fullPath: action.fullPath})
   } 
   if (action.type == 'create_item') CreateItem(state, action, send)
   if (action.type == 'save_current_item') SaveItem(state, action, send)
