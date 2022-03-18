@@ -9,7 +9,7 @@ const parameterTypes = [
 
 export default (state, send) => h('div.column', [
   h('div.row bottom-aligned', [
-    h('h4', 'Parameters'),
+    h('h3', 'Parameters'),
     h('div.label', 'These values can be set by the user to adjust the action result filtering.'),
     h('div.mini-button', {
       attrs: {title: 'Add parameter'},
