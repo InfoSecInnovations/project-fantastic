@@ -1,6 +1,7 @@
 import {h} from 'snabbdom/h'
 import ItemFromKey from '../../../util/itemfromkey'
 import ModuleFromKey from '../../../util/modulefromkey'
+import ItemSelector from '../../common/itemselector'
 
 export default (state, send) => h('div.column', [
   h('div.row bottom-aligned', [
@@ -16,10 +17,13 @@ export default (state, send) => h('div.column', [
     const actionName = ItemFromKey(action.path)
     const data = module && actionName && module.actions && module.actions[actionName]
     return h('div', [
-      h('div', data ? data.name || actionName : 'No action'),
-      h('select', [
-
-      ])
+      ItemSelector(state, send, h('div.row bottom-aligned', [
+        h('div.label', 'Action'),
+        h('div', data ? data.name || actionName : 'Please select an action') 
+      ]), '✎', 'scan_editor_action_selector', 'action', fullPath => {
+        const actionModule = ModuleFromKey(state, fullPath)
+        send({type: 'scan_action_path', index: i, path: actionModule != module ? fullPath : ItemFromKey(fullPath)})
+      })
     ])
   }) : [])
 ])

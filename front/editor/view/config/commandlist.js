@@ -2,7 +2,7 @@ import {h} from 'snabbdom/h'
 import ItemSelector from '../common/itemselector'
 
 export default (state, send, commands, label, dropdownState, addAction, removeAction) => h('div.column', [
-  ItemSelector(state, send, label, dropdownState, 'command', addAction, state.config.json.assets.packages, (command, module) => !commands.includes(`${module.name}/${command[0]}`)),
+  ItemSelector(state, send, h('h4', label), '+', dropdownState, 'command', fullPath => send({type: addAction, fullPath}), state.config.json.assets.packages, (command, module) => !commands.includes(`${module.name}/${command[0]}`)),
   ...commands.map(c => h('div.item', [
     h('div', (() => {
       const separator = c.lastIndexOf('/')
