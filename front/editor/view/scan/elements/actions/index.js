@@ -1,7 +1,14 @@
 import {h} from 'snabbdom/h'
-import ItemFromKey from '../../../util/itemfromkey'
-import ModuleFromKey from '../../../util/modulefromkey'
-import ItemSelector from '../../common/itemselector'
+import ItemFromKey from '../../../../util/itemfromkey'
+import ModuleFromKey from '../../../../util/modulefromkey'
+import ItemSelector from '../../../common/itemselector'
+import FollowupSearchElement from './followupsearchelement'
+import LabelSearchElement from './labelsearchelement'
+
+const searchModes = [
+  'label',
+  'followup'
+]
 
 export default (state, send) => h('div.column dividers', [
   h('div.row bottom-aligned', [
@@ -35,7 +42,7 @@ export default (state, send) => h('div.column dividers', [
           send({type: 'scan_action_path', index: i, path: actionModule != module ? fullPath : ItemFromKey(fullPath)})
         }
       ),
-      h('div.column', [
+      h('div.column dividers', [
         h('div.row bottom-aligned', [
           h('h4', 'Search'),
           h('div.label', "The scan will look for the following items in the action result."),
@@ -44,42 +51,16 @@ export default (state, send) => h('div.column dividers', [
             on: {click: e => send({type: 'add_scan_search_item', index: i})}
           }, '+')
         ]),
-        ...(action.search ? action.search.map((search, j) => h('div.column', [
-          h('div', [
+        ...(action.search ? action.search.map((search, j) => {
+          const searchMode = search.followup ? 'followup' : 'label'
+          return h('div.column', [
             h('div.row', [
-              h('label.label', {attrs: {for: `${state.scan.filename}-scan-action-${i}-search-${j}-label`}}, 'Label'),
-              h('input', {
-                attrs: {id: `${state.scan.filename}-scan-action-${i}-search-${j}-label`},
-                props: {value: search.label || ''},
-                on: {click: e => send({type: 'set_scan_search_item_label', index: i, searchIndex: j, value: e.target.value})}
-              })
+              h('label.label', { attrs: { for: `${state.scan.filename}-scan-action-${i}-search-${j}-mode` }}, 'Search Mode'),
+              h('select', { attrs: { id: `${state.scan.filename}-scan-action-${i}-search-${j}-mode` }}, searchModes.map(mode => h('option', {attrs: {value: mode, selected: searchMode == mode}}, mode)))
             ]),
-            h('div.label', 'Search for a result entry with this label')
-          ]),
-          h('div.column', [
-            h('div.row', [
-              h('div', 'Filter'),
-              h('div.mini-button', {
-                attrs: {title: 'Add Filter Item'},
-                on: {click: e => send({type: 'add_scan_search_item_filter_entry', index: i, searchIndex: j})}
-              }, '+')
-            ]),
-            ...(search.filter ? Object.entries(search.filter).map(e => h('div.column', [
-              h('div.row', [
-                h('label.label', {}, 'Key'),
-                h('input', {
-                  props: { value: e[0] }
-                })
-              ]),
-              h('div.row', [
-                h('label.label', {}, 'Expression'),
-                h('input', {
-                  props: {value: e[1]}
-                })
-              ])
-            ])) : [])
+            ...(searchMode == 'label' ? LabelSearchElement(state, send, i, search, j) : FollowupSearchElement(state, send, i, search, j))
           ])
-        ])) : [])
+        }) : [])
       ])
     ])
   }) : [])
