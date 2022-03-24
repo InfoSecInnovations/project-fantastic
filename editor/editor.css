@@ -519,6 +519,7 @@ li {
   border: #242424 solid 10px;
 }
 #main-container .editor-scroll {
+  flex: 1;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #f55100 #ffa666;

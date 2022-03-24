@@ -35,7 +35,7 @@ export default (state, send) => h('div.column dividers', [
           ]
         ), 
         '✎', 
-        'scan_editor_action_selector', 
+        `scan_editor_action_selector_${i}`, 
         'action', 
         fullPath => {
           const actionModule = ModuleFromKey(state, fullPath)
