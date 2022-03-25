@@ -3,6 +3,13 @@ import ItemFromKey from '../../../util/itemfromkey'
 import ModuleFromKey from '../../../util/modulefromkey'
 import ItemSelector from '../../common/itemselector'
 
+const inputTypes = [
+  'string',
+  'number',
+  'boolean',
+  'array'
+]
+
 export default (state, send) => h('div.column', [
   h('h3', 'Result Handling'),
   h('div', [
@@ -81,16 +88,51 @@ export default (state, send) => h('div.column', [
         }}, funcName == 'run' ? 'Run (entry point)' : funcData.name || funcName)))
       ]) : undefined,
       data ? h('div.column', [
-        ...(state.scan.json.pass.failure.action.data ? Object.entries(state.scan.json.pass.failure.action.data).map(([key, value]) => h('div.row', [
-          h('input', {
-            props: {value: key}
-          }),
-          h('input', {
-            props: {value: value}
-          })
-        ])) : [])
+        h('div.row', [
+          h('h4', 'Action Data'),
+          h('div.mini-button', {
+            on: {click: e => send({type: 'scan_failure_add_action_data'})},
+            attrs: {title: 'add data value'}
+          }, '+')
+        ]),
+        ...(state.scan.json.pass.failure.action.data ? Object.entries(state.scan.json.pass.failure.action.data).map(([key, value]) => {
+          let inputType = typeof value
+          if (Array.isArray(value)) inputType = 'array'
+          return h('div.row', [
+            h('label.label', {attrs: {for: `scan-failure-action-data-key-${key}`}}, 'Key'),
+            h('input', {
+              on: { input: e => send({type: 'scan_failure_action_data_key', key, newKey: e.target.value})},
+              props: {value: key},
+              attrs: {id: `scan-failure-action-data-key-${key}`}
+            }),
+            h('label.label', {attrs: {for: `scan-failure-action-data-type-${key}`}}, 'Data Type'),
+            h('select', {
+              on: {input: e => send({type: 'scan_failure_action_data_type', key, dataType: e.target.value})},
+              attrs: {id: `scan-failure-action-data-type-${key}`}
+            }, inputTypes.map(input => h('option', { attrs: {
+              value: input,
+              selected: input == inputType
+            }}, input))),
+            ...(inputType == 'array' ? [h('div', 'TODO: array type')] : 
+            [
+              h('label.label', {attrs: {for: `scan-failure-action-data-value-${key}`}}, 'Value'),
+              h('input', {
+                on: { input: e => send({type: 'scan_failure_action_data_value', key, value: inputType == 'boolean' ? e.target.checked : e.target.value})},
+                attrs: {
+                  type: inputType == 'number' ? 'number' : inputType == 'boolean' ? 'checkbox' : 'text',
+                  id: `scan-failure-action-data-value-${key}`
+                },
+                props: {value: value}
+              })
+            ]),
+            h('div.mini-button', {
+              on: {click: e => send({type: 'scan_failure_remove_action_data', key})},
+              attrs: {title: 'remove data value'}
+            }, 'X')
+          ])
+        }) : [])
       ]) : undefined
-      // TODO: labels, adding data items, different value types with special view for array values
+      // TODO: labels, adding data items
     ])
   })() : undefined
 ])
