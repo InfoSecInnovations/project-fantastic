@@ -7,7 +7,7 @@ export default (state, send, index, search, searchIndex) => [
       h('input', {
         attrs: {id: `${state.scan.filename}-scan-action-${index}-search-${searchIndex}-label`},
         props: {value: search.label || ''},
-        on: {click: e => send({type: 'set_scan_search_item_label', index, searchIndex, value: e.target.value})}
+        on: {input: e => send({type: 'set_scan_search_item_label', index, searchIndex, value: e.target.value})}
       })
     ]),
     h('div.label', 'Search for a result entry with this label')

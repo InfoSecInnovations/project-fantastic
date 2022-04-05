@@ -493,6 +493,9 @@ li {
 .row.bottom-aligned {
   align-items: flex-end;
 }
+.row > .column {
+  flex: 1;
+}
 .dropdown {
   background-color: #ffa666;
   color: #000;
