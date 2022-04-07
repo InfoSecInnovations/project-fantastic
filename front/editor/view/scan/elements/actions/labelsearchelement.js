@@ -30,7 +30,7 @@ export default (state, send, index, search, searchIndex) => [
           h('input', {
             attrs: { id: `${state.scan.filename}-scan-action-${index}-search-${searchIndex}-filter-key-${e[0]}`},
             props: { value: e[0] },
-            on: {input: e => send({type: 'scan_search_item_rename_filter_key', key: e[0], newKey: e.target.value, index, searchIndex})}
+            on: {input: ev => send({type: 'scan_search_item_rename_filter_key', key: e[0], newKey: ev.target.value, index, searchIndex})}
           })
         ]),
         h('div.label', 'Within the result data corresponding to the label, we want the value corresponding to this key')
@@ -41,7 +41,7 @@ export default (state, send, index, search, searchIndex) => [
           h('input', {
             attrs: { id: `${state.scan.filename}-scan-action-${index}-search-${searchIndex}-filter-expression-${e[0]}`},
             props: {value: e[1]},
-            on: {input: e => send({type: 'scan_search_item_filter_expression', key: e[0], value: e.target.value, index, searchIndex})}
+            on: {input: ev => send({type: 'scan_search_item_filter_expression', key: e[0], value: ev.target.value, index, searchIndex})}
           })
         ]),
         h('div.label', 'This JavaScript expression will be appended to the value being filtered and should return true or false.')

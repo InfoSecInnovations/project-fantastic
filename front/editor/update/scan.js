@@ -42,34 +42,35 @@ export default (state, action) => {
   if (action.type == 'remove_scan_search_item') {
     state.scan.json.actions[action.index].search.splice(action.searchIndex, 1)
   }
-  if (action.type == 'scan_search_item_mode') {
+  if (action.hasOwnProperty('searchIndex')) {
     const searchData = state.scan.json.actions[action.index].search[action.searchIndex]
-    if (action.value == 'followup') {
-      if (!searchData.followup) {
-        searchData.followup = {}
-        delete searchData.filter
-        delete searchData.label
-      } 
+    if (action.type == 'scan_search_item_mode') {
+      if (action.value == 'followup') {
+        if (!searchData.followup) {
+          searchData.followup = {}
+          delete searchData.filter
+          delete searchData.label
+        } 
+      }
+      else {
+        if (searchData.followup) {
+          delete searchData.followup
+          delete searchData.filter
+        } 
+      }
     }
-    else {
-      if (searchData.followup) {
-        delete searchData.followup
-        delete searchData.filter
-      } 
+    if (action.type == 'set_scan_search_item_label') searchData.label = action.value
+    if (action.type == 'enable_scan_search_item_filtering') {
+      if (action.enabled && !searchData.filter) searchData.filter = {}
+      if (!action.enabled) delete searchData.filter
     }
+    if (action.type == 'add_scan_search_item_filter_entry') searchData.filter[`key${Object.keys(searchData.filter).length}`] = ''
+    if (action.type == 'scan_search_item_rename_filter_key') {
+      searchData.filter[action.newKey] = searchData.filter[action.key]
+      delete searchData.filter[action.key]
+    }
+    if (action.type == 'scan_search_item_filter_expression') searchData.filter[action.key] = action.value
   }
-  if (action.type == 'set_scan_search_item_label') {
-    const searchData = state.scan.json.actions[action.index].search[action.searchIndex]
-    searchData.label = action.value
-  }
-  if (action.type == 'enable_scan_search_item_filtering') {
-    const searchData = state.scan.json.actions[action.index].search[action.searchIndex]
-    if (action.enabled && !searchData.filter) searchData.filter = {}
-    if (!action.enabled) delete searchData.filter
-  }
-  if (action.type == 'add_scan_search_item_filter_entry') {
-    const searchData = state.scan.json.actions[action.index].search[action.searchIndex]
-    searchData.filter[`key${Object.keys(searchData.filter).length}`] = ''
-  }
+
   return state
 }
