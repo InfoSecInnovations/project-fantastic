@@ -82,7 +82,42 @@ export default (state, action) => {
     if (action.type == 'scan_search_item_filter_expression') searchData.filter[action.key] = action.value
     if (action.type == 'set_scan_search_item_followup') searchData.followup = action.value
     if (action.type == 'set_scan_search_item_followup_status') searchData.filter.enabled = action.value
-  }
 
+  }
+  if (action.type == 'set_scan_condition') state.scan.json.pass.condition = action.value
+  if (action.type == 'scan_success_text') state.scan.json.pass.success = action.value
+  if (action.type == 'scan_failure_text') {
+    if (state.scan.json.pass.failure && typeof state.scan.json.pass.failure == 'object') state.scan.json.pass.failure.text = action.value
+    else state.scan.json.pass.failure = action.value
+  }
+  if (action.type == 'enable_scan_failure_followup') {
+    if (action.enabled) {
+      const text = state.scan.json.pass.failure
+      state.scan.json.pass.failure = { text, action: { path: ''} }
+    }
+    else {
+      state.scan.json.pass.failure = state.scan.json.pass.failure.text || ''
+    }
+  }
+  if (action.type == 'scan_failure_action_path') state.scan.json.pass.failure.action.path = action.path
+  if (action.type == 'scan_failure_action_function') state.scan.json.pass.failure.action.function = action.value
+  if (action.type == 'scan_failure_add_action_data') {
+    if (!state.scan.json.pass.failure.action.data) state.scan.json.pass.failure.action.data = {}
+    state.scan.json.pass.failure.action.data[`key${Object.keys(state.scan.json.pass.failure.action.data).length}`] = ''
+  }
+  if (action.type == 'scan_failure_action_data_key') {
+    state.scan.json.pass.failure.action.data[action.newKey] = state.scan.json.pass.failure.action.data[action.key]
+    delete state.scan.json.pass.failure.action.data[action.key]
+  }
+  if (action.type == 'scan_failure_action_data_type') {
+    if (action.dataType == 'number') state.scan.json.pass.failure.action.data[action.key] = parseFloat(state.scan.json.pass.failure.action.data[action.key]) || 0
+    if (action.dataType == 'string') state.scan.json.pass.failure.action.data[action.key] = `${state.scan.json.pass.failure.action.data[action.key]}`
+    if (action.dataType == 'array') state.scan.json.pass.failure.action.data[action.key] = [state.scan.json.pass.failure.action.data[action.key]]
+    if (action.dataType == 'boolean') state.scan.json.pass.failure.action.data[action.key] = true
+  }
+  if (action.type == 'scan_failure_action_data_value') {
+    if (typeof state.scan.json.pass.failure.action.data[action.key] == 'number') action.value = parseFloat(action.value)
+    state.scan.json.pass.failure.action.data[action.key] = action.value
+  } 
   return state
 }

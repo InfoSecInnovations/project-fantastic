@@ -1,4 +1,6 @@
 export default () => ({
   hosts: ['local'],
-  pass: {}
+  pass: {
+    failure: ''
+  }
 })

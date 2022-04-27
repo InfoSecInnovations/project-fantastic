@@ -52,7 +52,7 @@ export default (state, send) => h('div.column', [
     h('div.label', "If any hosts didn't pass the scan, this text will be appended to the number of systems that didn't pass. You can use the input parameters preceded by the $ symbol to customize the output")
   ]),
   h('div.button', {
-    on: {click: e => send({type: 'enable_scan_failure_followup', enabled: typeof state.scan.json.pass.failure == 'object'})}
+    on: {click: e => send({type: 'enable_scan_failure_followup', enabled: typeof state.scan.json.pass.failure != 'object'})}
   }, `${typeof state.scan.json.pass.failure == 'object' ? 'Disable' : 'Enable'} failure followup action`),
   typeof state.scan.json.pass.failure == 'object' ? (() => {
     const module = ModuleFromKey(state, state.scan.json.pass.failure.action.path)
