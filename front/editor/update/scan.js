@@ -128,7 +128,9 @@ export default (state, action) => {
     if (action.type == 'scan_failure_action_data_value') {
       if (typeof obj[key] == 'number') action.value = parseFloat(action.value)
       obj[key] = action.value
-    } 
+    }
+    if (action.type == 'scan_failure_add_action_data_array_item') obj[key].push('')
+    if (action.type == 'scan_failure_remove_action_data_array_item') obj[key].splice(action.index, 1)
   }
   return state
 }
