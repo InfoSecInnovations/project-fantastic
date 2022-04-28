@@ -109,15 +109,26 @@ export default (state, action) => {
     state.scan.json.pass.failure.action.data[action.newKey] = state.scan.json.pass.failure.action.data[action.key]
     delete state.scan.json.pass.failure.action.data[action.key]
   }
-  if (action.type == 'scan_failure_action_data_type') {
-    if (action.dataType == 'number') state.scan.json.pass.failure.action.data[action.key] = parseFloat(state.scan.json.pass.failure.action.data[action.key]) || 0
-    if (action.dataType == 'string') state.scan.json.pass.failure.action.data[action.key] = `${state.scan.json.pass.failure.action.data[action.key]}`
-    if (action.dataType == 'array') state.scan.json.pass.failure.action.data[action.key] = [state.scan.json.pass.failure.action.data[action.key]]
-    if (action.dataType == 'boolean') state.scan.json.pass.failure.action.data[action.key] = true
+  if (action.type == 'scan_failure_remove_action_data') {
+    delete state.scan.json.pass.failure.action.data[action.key]
   }
-  if (action.type == 'scan_failure_action_data_value') {
-    if (typeof state.scan.json.pass.failure.action.data[action.key] == 'number') action.value = parseFloat(action.value)
-    state.scan.json.pass.failure.action.data[action.key] = action.value
-  } 
+  if (action.isScanFailure) {
+    let obj = state.scan.json.pass.failure.action.data
+    let key = action.key
+    for (const i of action.indices){
+      obj = obj[key]
+      key = i
+    }
+    if (action.type == 'scan_failure_action_data_type') {
+      if (action.dataType == 'number') obj[key] = parseFloat(obj[key]) || 0
+      if (action.dataType == 'string') obj[key] = `${obj[key]}`
+      if (action.dataType == 'array') obj[key] = [obj[key]]
+      if (action.dataType == 'boolean') obj[key] = true
+    }
+    if (action.type == 'scan_failure_action_data_value') {
+      if (typeof obj[key] == 'number') action.value = parseFloat(action.value)
+      obj[key] = action.value
+    } 
+  }
   return state
 }
