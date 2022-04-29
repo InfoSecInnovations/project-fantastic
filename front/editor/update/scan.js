@@ -1,3 +1,4 @@
+import ScanQuest from "../defaults/scanQuest"
 import ItemFromKey from "../util/itemfromkey"
 import ModuleFromKey from "../util/modulefromkey"
 
@@ -133,13 +134,16 @@ export default (state, action) => {
     if (action.type == 'scan_failure_remove_action_data_array_item') obj[key].splice(action.index, 1)
   }
   if (action.type == 'enabled_scan_quest') {
-    if (action.enabled) state.scan.json.quest =  {}
+    if (action.enabled) state.scan.json.quest = ScanQuest()
     else delete state.scan.json.quest
   }
   if (action.type == 'scan_quest_explanation') state.scan.json.quest.explanation = action.value
   if (action.type == 'scan_quest_parameter_value') {
     if (!state.scan.json.quest.parameters) state.scan.json.quest.parameters = {}
     state.scan.json.quest.parameters[action.key] = state.scan.json.parameters.find(parameter => parameter.name == action.key).type == 'number' ? parseFloat(action.value) : action.value
+  }
+  if (action.type == 'scan_quest_selection_time') {
+    state.scan.json.quest.selection.age[action.unit] = action.value
   }
   return state
 }
