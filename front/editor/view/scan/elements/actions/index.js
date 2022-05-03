@@ -2,6 +2,7 @@ import {h} from 'snabbdom/h'
 import ItemFromKey from '../../../../util/itemfromkey'
 import ModuleFromKey from '../../../../util/modulefromkey'
 import ItemSelector from '../../../common/itemselector'
+import ActionSelector from './actionselector'
 import FollowupSearchElement from './followupsearchelement'
 import LabelSearchElement from './labelsearchelement'
 
@@ -19,30 +20,9 @@ export default (state, send) => h('div.column dividers', [
       on: {click: e => send({type: 'add_scan_action'})}
     }, '+')
   ]),
-  ...(state.scan.json.actions ? state.scan.json.actions.map((action, i) => {
-    const module = ModuleFromKey(state, action.path)
-    const actionName = ItemFromKey(action.path)
-    const data = module && actionName && module.actions && module.actions[actionName]
-    return h('div.column', [
+  ...(state.scan.json.actions ? state.scan.json.actions.map((action, i) => h('div.column', [
       h('div.row', [
-        ItemSelector(
-          state, 
-          send, 
-          h(
-            'div.row bottom-aligned', 
-            [
-              h('h4', 'Action'),
-              h('div', data ? data.name || actionName : 'Please select an action') 
-            ]
-          ), 
-          '✎', 
-          `scan_editor_action_selector_${i}`, 
-          'action', 
-          fullPath => {
-            const actionModule = ModuleFromKey(state, fullPath)
-            send({type: 'scan_action_path', index: i, path: actionModule != module ? fullPath : ItemFromKey(fullPath)})
-          }
-        ),
+        ActionSelector(state, send, action, i),
         h('div.mini-button', {
           attrs: {title: 'Remove Action'},
           on: {click: e => send({type: 'remove_scan_action', index: i})}
@@ -78,5 +58,5 @@ export default (state, send) => h('div.column dividers', [
         }) : [])
       ])
     ])
-  }) : [])
+  ) : [])
 ])
