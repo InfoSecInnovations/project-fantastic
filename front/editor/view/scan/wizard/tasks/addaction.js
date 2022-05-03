@@ -4,7 +4,7 @@ import ItemFromKey from "../../../../util/itemfromkey";
 
 export default {
   title: 'Select Action',
-  description: "Scans work by running actions on the currently selected hosts and filtering the results. Please select an action, you will be able to come back and add more actions later should you wish to.",
+  description: "Scans work by running actions on the currently selected hosts and filtering the results. Please select an action, you will be able to come back and add more actions later should you wish to. If you need your scan to do something that isn't already supported, you should go and make an action first.",
   view: (state, send) => ActionSelector(state, send, state.scan.json.actions[0], 0),
   errors: state => {
     const action = state.scan.json.actions[0]

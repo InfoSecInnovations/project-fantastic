@@ -1,7 +1,4 @@
 import {h} from 'snabbdom/h'
-import ItemFromKey from '../../../../util/itemfromkey'
-import ModuleFromKey from '../../../../util/modulefromkey'
-import ItemSelector from '../../../common/itemselector'
 import ActionSelector from './actionselector'
 import FollowupSearchElement from './followupsearchelement'
 import LabelSearchElement from './labelsearchelement'
@@ -38,7 +35,7 @@ export default (state, send) => h('div.column dividers', [
           }, '+')
         ]),
         ...(action.search ? action.search.map((search, j) => {
-          const searchMode = search.followup ? 'followup' : 'label'
+          const searchMode = search.hasOwnProperty('followup') ? 'followup' : 'label'
           return h('div.row top-aligned', [
             h('div.column', [
               h('div.row', [

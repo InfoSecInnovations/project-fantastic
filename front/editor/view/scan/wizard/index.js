@@ -1,5 +1,6 @@
 import {h} from 'snabbdom/h'
 import WizardView from '../../common/wizardview'
+import ActionSearch from './tasks/actionsearch'
 import AddAction from './tasks/addaction'
 import Description from './tasks/description'
 import DisplayName from './tasks/displayname'
@@ -15,6 +16,7 @@ const getWizard = (state, send) => {
   if (task == 'role') return Role
   if (task == 'parameters') return Parameters
   if (task == 'add_action') return AddAction
+  if (task == 'action_search') return ActionSearch
   // TODO: tasks
   return {title: 'Not implemented', description: `${task} wizard task has not been implemented yet!`}
 }
