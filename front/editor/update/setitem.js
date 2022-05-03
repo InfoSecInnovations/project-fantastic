@@ -5,6 +5,7 @@ import ActionWizardIntro from "../defaults/actionWizardIntro"
 import ScanJson from "../defaults/scanJson"
 import Wizard from "../defaults/wizard"
 import QuestConfig from "../defaults/questconfig"
+import ScanWizardIntro from "../defaults/scanWizardIntro"
 
 export default (state, action) => {
   if (action.itemType) {
@@ -20,6 +21,7 @@ export default (state, action) => {
       }
       if (action.itemType == 'scan') {
         collection[action.filename] = ScanJson()
+        localStorage.setItem(`${action.itemType}_wizard:${state.selectedModule}/${action.filename}`, JSON.stringify(ScanWizardIntro()))
       }
       if (action.itemType == 'storyTree') {
         collection[action.filename] = QuestConfig()

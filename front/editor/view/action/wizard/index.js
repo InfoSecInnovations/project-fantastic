@@ -16,7 +16,7 @@ import ResultLabel from './tasks/resultlabel'
 import ResultProcessing from './tasks/resultprocessing'
 import Role from './tasks/role'
 import TargetType from './tasks/targettype'
-import WizardView from './wizardview'
+import WizardView from '../../common/wizardview'
 
 const getWizard = (state, send) => {
   const task = state.action.wizard.tasks[state.action.wizard.index || 0]
@@ -39,7 +39,7 @@ const getWizard = (state, send) => {
 }
 
 export default (state, send) => {
-  if (state.action.wizard.tasks.length) return WizardView(state, send, getWizard(state, send)) 
+  if (state.action.wizard.tasks.length) return WizardView(state, send, getWizard(state, send), 'action') 
   const suggested = Suggested(state, send)
   return h('div.wizard editor-scroll', [
     suggested.length ? h('div.tasklist', [

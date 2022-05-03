@@ -1,6 +1,5 @@
 import {h} from 'snabbdom/h'
 import ResultDataView from '../../resultdataview'
-import WizardView from '../wizardview'
 
 export default {
   title: 'Get Result Label',

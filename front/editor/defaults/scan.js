@@ -1,5 +1,7 @@
 import ScanJson from "./scanJson";
+import ScanWizardIntro from "./scanWizardIntro";
 
 export default () => ({
-  json: ScanJson()
+  json: ScanJson(),
+  wizard: ScanWizardIntro()
 })
