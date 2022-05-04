@@ -38,7 +38,7 @@ export default (state, send) => [
       })
     ])
   ]),
-  AvailableParameters(state, "Show this text if any hosts didn't pass the scan. You can insert values from the user parameters using the $ symbol.")
+  AvailableParameters(state, "Show this text if any hosts didn't pass the scan, it will be preceded by \"x hosts\" where x is the number of hosts that failed. You can insert values from the user parameters using the $ symbol.")
 ]
 
   

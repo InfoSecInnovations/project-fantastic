@@ -10,6 +10,7 @@ import DisplayName from './tasks/displayname'
 import EnableActionResultFiltering from './tasks/enableactionresultfiltering'
 import Hosts from './tasks/hosts'
 import Parameters from './tasks/parameters'
+import Pass from './tasks/pass'
 import Role from './tasks/role'
 
 const getWizard = (state, send) => {
@@ -25,6 +26,7 @@ const getWizard = (state, send) => {
   if (task == 'action_label_search') return ActionLabelSearch
   if (task == 'action_result_filtering') return ActionResultFiltering
   if (task == 'enable_action_result_filtering') return EnableActionResultFiltering
+  if (task == 'pass') return Pass
   return {title: 'Not implemented', description: `${task} wizard task has not been implemented yet!`}
 }
 

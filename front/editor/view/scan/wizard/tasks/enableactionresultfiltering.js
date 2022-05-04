@@ -14,6 +14,10 @@ export default {
     const index = 0
     const searchIndex = 0
     const search = state.scan.json.actions[index].search[searchIndex]
-    return search.filter ? ['parameters', 'action_result_filtering'] : undefined
+    return [
+      search.filter ? 'parameters' : undefined,
+      search.filter ? 'action_result_filtering' : undefined,
+      'pass'
+    ]
   }
 }
