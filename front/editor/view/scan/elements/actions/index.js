@@ -45,7 +45,7 @@ export default (state, send) => h('div.column dividers', [
                   on: { input: e => send({type: 'scan_search_item_mode', index: i, searchIndex: j, value: e.target.value})}
                 }, searchModes.map(mode => h('option', {attrs: {value: mode, selected: searchMode == mode}}, mode)))
               ]),
-              ...(searchMode == 'label' ? LabelSearchElement(state, send, i, search, j) : FollowupSearchElement(state, send, i, search, j))
+              ...(searchMode == 'label' ? LabelSearchElement(state, send, i, j) : FollowupSearchElement(state, send, i, j))
             ]),
             h('div.mini-button', {
               attrs: {title: 'Remove Search Item'},

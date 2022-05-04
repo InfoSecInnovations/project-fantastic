@@ -2,8 +2,9 @@ import {h} from 'snabbdom/h'
 import ModuleFromKey from '../../../../util/modulefromkey'
 import ItemFromKey from '../../../../util/itemfromkey'
 
-export default (state, send, index, search, searchIndex) => {
+export default (state, send, index, searchIndex) => {
   const action = state.scan.json.actions[index]
+  const search = action.search[searchIndex]
   const module = ModuleFromKey(state, action.path)
   const actionName = ItemFromKey(action.path)
   const data = module && actionName && module.actions && module.actions[actionName]

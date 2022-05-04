@@ -82,7 +82,10 @@ export default (state, action) => {
     }
     if (action.type == 'scan_search_item_filter_expression') searchData.filter[action.key] = action.value
     if (action.type == 'set_scan_search_item_followup') searchData.followup = action.value
-    if (action.type == 'set_scan_search_item_followup_status') searchData.filter.enabled = action.value
+    if (action.type == 'set_scan_search_item_followup_status') {
+      if (!searchData.filter) searchData.filter = {}
+      searchData.filter.enabled = action.enabled
+    } 
 
   }
   if (action.type == 'set_scan_condition') state.scan.json.pass.condition = action.value
