@@ -68,7 +68,7 @@ export default (state, action) => {
     if (action.type == 'next_wizard') state[action.itemType].wizard.index = (state[action.itemType].wizard.index || 0) + 1
     if (action.type == 'previous_wizard') state[action.itemType].wizard.index = state[action.itemType].wizard.index ? state[action.itemType].wizard.index - 1 : 0
     if (action.type == 'complete_wizard') state[action.itemType].wizard.tasks.length = 0
-    if (action.type == 'add_wizard_tasks') state[action.itemType].wizard.tasks = state[action.itemType].wizard.tasks.filter(task => !action.tasks.includes(task)).concat(action.tasks) // we want to remove existing copies of the new tasks and add the new ones at the end
+    if (action.type == 'add_wizard_tasks') state[action.itemType].wizard.tasks = state[action.itemType].wizard.tasks.slice(0, (state[action.itemType].wizard.index || 0) + 1).concat(action.tasks) // we want to remove existing tasks after the current index then add the new ones
     if (action.type == 'set_wizard_tasks') {
       state[action.itemType].wizard.tasks = [...action.tasks]
       state[action.itemType].wizard.index = 0
