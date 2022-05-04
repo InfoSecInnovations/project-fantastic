@@ -1,4 +1,5 @@
 import {h} from 'snabbdom/h'
+import AvailableParameters from '../availableparameters'
 
 export default (state, send, index, searchIndex) => {
   const action = state.scan.json.actions[index]
@@ -11,6 +12,7 @@ export default (state, send, index, searchIndex) => {
         on: {click: e => send({type: 'add_scan_search_item_filter_entry', index, searchIndex})}
       }, '+')
     ]),
+    AvailableParameters(state),
     ...Object.entries(search.filter).map(e => h('div.column', [
       h('div', [
         h('div.row', [
