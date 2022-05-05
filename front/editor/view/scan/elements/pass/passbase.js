@@ -23,7 +23,7 @@ export default (state, send) => [
       h('input', {
         attrs: {id: `${state.scan.filename}-scan-success`},
         props: {value: state.scan.json.pass.success || ''},
-        on: {input: e => send({type: 'scan_success_text', value: e.value})}
+        on: {input: e => send({type: 'scan_success_text', value: e.target.value})}
       })
     ]),
     AvailableParameters(state, 'Show this text if all hosts passed the scan. You can insert values from the user parameters using the $ symbol.')
@@ -34,7 +34,7 @@ export default (state, send) => [
       h('input', {
         attrs: {id: `${state.scan.filename}-scan-failure`},
         props: {value: state.scan.json.pass.failure && typeof state.scan.json.pass.failure == 'object' ? state.scan.json.pass.failure.text : state.scan.json.pass.failure || ''},
-        on: {input: e => send({type: 'scan_failure_text', value: e.value})}
+        on: {input: e => send({type: 'scan_failure_text', value: e.target.value})}
       })
     ])
   ]),

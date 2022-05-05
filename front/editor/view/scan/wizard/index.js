@@ -8,10 +8,13 @@ import AddAction from './tasks/addaction'
 import Description from './tasks/description'
 import DisplayName from './tasks/displayname'
 import EnableActionResultFiltering from './tasks/enableactionresultfiltering'
+import EnableFailureFollowup from './tasks/enablefailurefollowup'
+import FailureFollowupData from './tasks/failurefollowupdata'
 import Hosts from './tasks/hosts'
 import Parameters from './tasks/parameters'
 import Pass from './tasks/pass'
 import Role from './tasks/role'
+import SelectFailureAction from './tasks/selectfailureaction'
 
 const getWizard = (state, send) => {
   const task = state.scan.wizard.tasks[state.scan.wizard.index || 0]
@@ -27,6 +30,9 @@ const getWizard = (state, send) => {
   if (task == 'action_result_filtering') return ActionResultFiltering
   if (task == 'enable_action_result_filtering') return EnableActionResultFiltering
   if (task == 'pass') return Pass
+  if (task == 'enable_failure_followup') return EnableFailureFollowup
+  if (task == 'select_failure_action') return SelectFailureAction
+  if (task == 'failure_followup_data') return FailureFollowupData
   return {title: 'Not implemented', description: `${task} wizard task has not been implemented yet!`}
 }
 

@@ -10,6 +10,6 @@ export default (state, send) => h('div.column', [
   EnableFailureFollowup(state, send),
   typeof state.scan.json.pass.failure == 'object' ? h('div.column', [
     ...ActionFunctionSelector(state, send),
-    FollowupData(state, send)
+    state.scan.json.pass.failure.action.function && state.scan.json.pass.failure.action.function != 'run' ? FollowupData(state, send) : undefined
   ]) : undefined
 ])
