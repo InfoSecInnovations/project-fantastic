@@ -19,6 +19,8 @@ import QuestHostSelection from './tasks/questhostselection'
 import QuestParameters from './tasks/questparameters'
 import Role from './tasks/role'
 import SelectFailureAction from './tasks/selectfailureaction'
+import Suggested from './suggested'
+import Available from './available'
 
 const getWizard = (state, send) => {
   const task = state.scan.wizard.tasks[state.scan.wizard.index || 0]
@@ -46,5 +48,15 @@ const getWizard = (state, send) => {
 
 export default (state, send) => {
   if (state.scan.wizard.tasks.length) return WizardView(state, send, getWizard(state, send), 'scan')
-  return h('div', 'The basic elements of this scan appear to be set up. Switch to advanced or JSON mode to continue editing.') 
+  const suggested = Suggested(state, send)
+  return h('div.wizard editor-scroll', [
+    suggested.length ? h('div.tasklist', [
+      h('h3', 'Suggested Tasks'),
+      ...suggested
+    ]) : h('div', 'The basic elements of this scan appear to be set up. Use the wizards below to configure existing data or add new items, or switch to advanced or JSON mode for an overview.'),
+    h('div.tasklist', [
+      h('h3', 'Available Wizards'),
+      ...Available(state, send)
+    ])
+  ])
 }
