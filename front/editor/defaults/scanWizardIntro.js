@@ -6,5 +6,7 @@ export default () => ({
     'add_action',
     'action_search'
   ],
+  actionIndex: 0,
+  searchIndex: 0,
   mandatory: true
 })

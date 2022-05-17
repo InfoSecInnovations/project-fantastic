@@ -148,5 +148,6 @@ export default (state, action) => {
   if (action.type == 'scan_quest_selection_time') {
     state.scan.json.quest.selection.age[action.unit] = action.value
   }
+  if (action.type == 'scan_wizard_action_index') state.scan.wizard.actionIndex = action.index
   return state
 }
