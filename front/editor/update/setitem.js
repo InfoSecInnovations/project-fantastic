@@ -73,6 +73,7 @@ export default (state, action) => {
       state[action.itemType].wizard.tasks = [...action.tasks]
       state[action.itemType].wizard.index = 0
       state[action.itemType].wizard.mandatory = action.mandatory
+      state[action.itemType].wizard.initialRun = action.initialRun
     }
 
     if (state[action.itemType].json && !_.isEqual(state[action.itemType].json, state[action.itemType].previousJson)) {

@@ -25,6 +25,6 @@ export default {
     const searchIndex = state.scan.wizard.searchIndex
     const search = state.scan.json.actions[index].search[searchIndex]
     const searchMode = search.hasOwnProperty('followup') ? 'followup' : 'label'
-    return searchMode == 'followup' ? ['action_followup_search', state.scan.wizard.mandatory ? 'pass' : undefined] : ['action_label_search', 'enable_action_result_filtering']
+    return searchMode == 'followup' ? ['action_followup_search', state.scan.wizard.initialRun ? 'pass' : undefined] : ['action_label_search', 'enable_action_result_filtering']
   }
 }

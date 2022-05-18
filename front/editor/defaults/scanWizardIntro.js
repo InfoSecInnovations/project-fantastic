@@ -8,5 +8,6 @@ export default () => ({
   ],
   actionIndex: 0,
   searchIndex: 0,
-  mandatory: true
+  mandatory: true,
+  initialRun: true
 })

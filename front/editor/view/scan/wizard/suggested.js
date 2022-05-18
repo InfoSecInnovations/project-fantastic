@@ -1,20 +1,13 @@
 import {h} from 'snabbdom/h'
 import ModuleFromKey from "../../../util/modulefromkey";
 import ItemFromKey from "../../../util/itemfromkey";
+import GetActionName from './getactionname';
 
 const getActionData = (state, index) => {
   const action = state.scan.json.actions[index]
   const module = action && ModuleFromKey(state, action.path)
   const actionName = action && ItemFromKey(action.path)
   return module && actionName && module.actions && module.actions[actionName]
-}
-
-const getActionName = (state, index) => {
-  const action = state.scan.json.actions[index]
-  const module = action && ModuleFromKey(state, action.path)
-  const actionName = action && ItemFromKey(action.path)
-  const data = module && actionName && module.actions && module.actions[actionName]
-  return (data && data.name) || actionName || 'invalid action'
 }
 
 export default (state, send) => [
@@ -32,7 +25,7 @@ export default (state, send) => [
           send({type: 'scan_wizard_action_index', index: i})
           send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action']})
         }}   
-      }, `${getActionName(state, i)}: Set missing action`
+      }, `${GetActionName(state, i)}: Set missing action`
     )
   })) || []),
   ...((state.scan.json.actions && state.scan.json.actions.map((action, i) => {
@@ -46,7 +39,7 @@ export default (state, send) => [
             send({type: 'scan_wizard_search_index', index: j})
             send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_label_search']})
           }}
-        }, `${getActionName(state, i)}: Set missing data item label for action result search`
+        }, `${GetActionName(state, i)}: Set missing data item label for action result search`
       )
     })
   }).flat()) || []),

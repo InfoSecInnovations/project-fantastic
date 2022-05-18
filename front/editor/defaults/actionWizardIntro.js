@@ -10,5 +10,6 @@ export default () => ({
     'result_processing'
   ],
   funcName: 'run',
-  mandatory: true
+  mandatory: true,
+  initialRun: true
 })

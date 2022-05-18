@@ -9,7 +9,7 @@ export default {
     return [
       search.filter ? 'parameters' : undefined,
       search.filter ? 'action_result_filtering' : undefined,
-      state.scan.wizard.mandatory ? 'pass' : undefined
+      state.scan.wizard.initialRun ? 'pass' : undefined
     ]
   }
 }
