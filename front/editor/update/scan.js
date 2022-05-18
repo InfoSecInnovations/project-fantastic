@@ -1,3 +1,4 @@
+import scanAction from "../defaults/scanAction"
 import ScanQuest from "../defaults/scanQuest"
 import ItemFromKey from "../util/itemfromkey"
 import ModuleFromKey from "../util/modulefromkey"
@@ -32,7 +33,7 @@ export default (state, action) => {
   }
   if (action.type == 'add_scan_action') {
     if (!state.scan.json.actions) state.scan.json.actions = []
-    state.scan.json.actions.push({})
+    state.scan.json.actions.push(scanAction())
   }
   if (action.type == 'remove_scan_action') {
     state.scan.json.actions.splice(action.index, 1)

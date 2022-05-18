@@ -1,11 +1,9 @@
+import scanAction from "./scanAction";
+
 export default () => ({
   hosts: ['local'],
   actions: [
-    {
-      search: [
-        {}
-      ]
-    }
+    scanAction()
   ],
   pass: {
     failure: ''
