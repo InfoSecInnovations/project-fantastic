@@ -43,6 +43,41 @@ export default (state, send) => [
       )
     })
   }).flat()) || []),
+  ...((state.scan.json.actions && state.scan.json.actions.map((action, i) => {
+    if (!action.search) return undefined
+    return action.search.map((search, j) => {
+      if (!search.hasOwnProperty('followup')) return undefined
+      const module = ModuleFromKey(state, action.path)
+      const actionName = ItemFromKey(action.path)
+      const data = module && actionName && module.actions && module.actions[actionName]
+      const followups = data && data.functions && data.functions.run && data.functions.run.result && data.functions.run.result.followups
+      if (followups && followups.length) {
+        if (followups.find(followup => followup.function == search.followup)) return undefined
+        // detect valid followup but invalid seach data
+        return h(
+          'div.button', {
+            on: { click: e => {
+              send({type: 'scan_wizard_action_index', index: i})
+              send({type: 'scan_wizard_search_index', index: j})
+              // if we don't set this here the dropdown will show something that doesn't match the reality of the data
+              send({type: 'set_scan_search_item_followup', index: i, searchIndex: j, value: followups[0].function})
+              send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_followup_search']})
+            }}
+          }, `${GetActionName(state, i)}: Fix invalid or missing followup search data`
+        )
+      }
+      // detect invalid followup
+      return h(
+        'div.button', {
+          on: { click: e => {
+            send({type: 'scan_wizard_action_index', index: i})
+            send({type: 'scan_wizard_search_index', index: j})
+            send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_search']})
+          }}
+        }, `${GetActionName(state, i)}: Fix invalid action to generate followup data`
+      )
+    })
+  }).flat()) || []),
   !state.scan.json.pass.success || !state.scan.json.pass.failure || (typeof state.scan.json.pass.failure == 'object' && !state.scan.json.pass.failure.text) ? h('div.button', {
     on: { click: e => send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['pass']}) }
   }, 'Set scan success and/or failure text'): undefined,

@@ -51,7 +51,7 @@ export default (state, action) => {
     const searchData = state.scan.json.actions[action.index].search[action.searchIndex]
     if (action.type == 'scan_search_item_mode') {
       if (action.value == 'followup') {
-        if (!searchData.followup) {
+        if (!searchData.hasOwnProperty('followup')) {
           searchData.followup = ''
           const actionData = state.scan.json.actions[action.index]
           const module = ModuleFromKey(state, actionData.path)
@@ -64,7 +64,7 @@ export default (state, action) => {
         } 
       }
       else {
-        if (searchData.followup) {
+        if (searchData.hasOwnProperty('followup')) {
           delete searchData.followup
           delete searchData.filter
         } 
