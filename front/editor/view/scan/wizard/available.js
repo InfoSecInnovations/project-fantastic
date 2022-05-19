@@ -20,13 +20,17 @@ export default (state, send) => [
       send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action', 'action_search'], mandatory: true}) 
     }}
   }, 'Add Action'),
-  ...state.scan.json.actions.map((action, i) => h('div.button', {
-    on: { click: e => {
-      send({type: 'scan_wizard_action_index', index: i})
-      send({type: 'scan_wizard_search_index', index: 0})
-      send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action', 'action_search']}) 
-    }}
-  }, `Edit ${GetActionName(state, i)} action data`)),
+  ...((state.scan.json.actions && state.scan.json.actions.map((action, i) => [
+    h('div.button', {
+      on: { click: e => {
+        send({type: 'scan_wizard_action_index', index: i})
+        send({type: 'scan_wizard_search_index', index: 0})
+        send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action', 'action_search']}) 
+      }}
+    }, `${GetActionName(state, i)}: edit action data`)
+    // TODO: add search item
+    // TODO: edit search item
+  ]).flat()) || []),
   h('div.button', {
     on: { click: e => send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['pass']})}
   }, 'Configure result handling'),
