@@ -27,9 +27,18 @@ export default (state, send) => [
         send({type: 'scan_wizard_search_index', index: 0})
         send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action', 'action_search']}) 
       }}
-    }, `${GetActionName(state, i)}: edit action data`)
-    // TODO: add search item
+    }, `${GetActionName(state, i)}: Edit action data`),
+    h('div.button', {
+      on: { click: e => {
+        send({type: 'scan_wizard_action_index', index: i})
+        send({type: 'scan_wizard_search_index', index: action.search.length})
+        send({type: 'add_scan_search_item', index: i})
+        send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_search']}) 
+      }}
+    }, `${GetActionName(state, i)}: Add search item`)
     // TODO: edit search item
+    // TODO: remove search item
+    // TODO: remove action
   ]).flat()) || []),
   h('div.button', {
     on: { click: e => send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['pass']})}
