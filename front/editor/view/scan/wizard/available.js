@@ -2,6 +2,12 @@ import {h} from 'snabbdom/h'
 import scanWizardBaseTasks from '../../../defaults/scanWizardBaseTasks'
 import GetActionName from './getactionname';
 
+const questTasks = state => [
+  'quest_explanation', 
+  state.scan.json.parameters && state.scan.json.parameters.length ? 'quest_parameters' : undefined, 
+  'quest_host_selection'
+].filter(task => task)
+
 export default (state, send) => [
   h('div.button', {
     on: { click: e => send({type: 'set_wizard_tasks', itemType: 'scan', tasks: scanWizardBaseTasks}) }
@@ -20,7 +26,19 @@ export default (state, send) => [
       send({type: 'scan_wizard_search_index', index: 0})
       send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action', 'action_search']}) 
     }}
-  }, `Edit ${GetActionName(state, i)} action data`))
-  // TODO: edit result handling
-  // TODO: enable/disable quest
+  }, `Edit ${GetActionName(state, i)} action data`)),
+  h('div.button', {
+    on: { click: e => send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['pass']})}
+  }, 'Configure result handling'),
+  state.scan.json.quest ? h('div.button', {
+    on: { click: e => send({type: 'enabled_scan_quest', enabled: false})}
+  }, 'Disable this scan for daily quests') : h('div.button', {
+    on: { click: e => {
+      send({type: 'enabled_scan_quest', enabled: true})
+      send({type: 'set_wizard_tasks', itemType: 'scan', tasks: questTasks(state)})
+    }}
+  }, 'Enable this scan for daily quests'),
+  state.scan.json.quest ? h('div.button', {
+    on: { click: e => send({type: 'set_wizard_tasks', itemType: 'scan', tasks: questTasks(state)}) }
+  }, 'Configure daily quest') : undefined
 ]
