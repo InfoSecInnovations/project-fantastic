@@ -1,6 +1,7 @@
 import {h} from 'snabbdom/h'
 import scanWizardBaseTasks from '../../../defaults/scanWizardBaseTasks'
 import GetActionName from './getactionname';
+import GetSearchName from './getsearchname';
 
 const questTasks = state => [
   'quest_explanation', 
@@ -20,26 +21,42 @@ export default (state, send) => [
       send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action', 'action_search'], mandatory: true}) 
     }}
   }, 'Add Action'),
-  ...((state.scan.json.actions && state.scan.json.actions.map((action, i) => [
-    h('div.button', {
-      on: { click: e => {
-        send({type: 'scan_wizard_action_index', index: i})
-        send({type: 'scan_wizard_search_index', index: 0})
-        send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action', 'action_search']}) 
-      }}
-    }, `${GetActionName(state, i)}: Edit action data`),
-    h('div.button', {
-      on: { click: e => {
-        send({type: 'scan_wizard_action_index', index: i})
-        send({type: 'scan_wizard_search_index', index: action.search.length})
-        send({type: 'add_scan_search_item', index: i})
-        send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_search']}) 
-      }}
-    }, `${GetActionName(state, i)}: Add search item`)
-    // TODO: edit search item
-    // TODO: remove search item
-    // TODO: remove action
-  ]).flat()) || []),
+  ...((state.scan.json.actions && state.scan.json.actions.map((action, i) => {
+    const actionName = GetActionName(state, i)
+    return [
+      h('div.button', {
+        on: { click: e => {
+          send({type: 'scan_wizard_action_index', index: i})
+          send({type: 'scan_wizard_search_index', index: 0})
+          send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action', 'action_search']}) 
+        }}
+      }, `${actionName}: Edit action data`),
+      h('div.button', {
+        on: { click: e => {
+          send({type: 'scan_wizard_action_index', index: i})
+          send({type: 'scan_wizard_search_index', index: action.search.length})
+          send({type: 'add_scan_search_item', index: i})
+          send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_search']}) 
+        }}
+      }, `${actionName}: Add search item`),
+      ...((action.search && action.search.map((search, j) => [
+        h('div.button', {
+          on: { click: e => {
+            send({type: 'scan_wizard_action_index', index: i})
+            send({type: 'scan_wizard_search_index', index: j})
+            send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_search']}) 
+          }}
+        }, `${GetSearchName(state, i , j)}: Edit search item`),
+        h('div.button', {
+          on: {click: e => send({type: 'remove_scan_search_item', index: i, searchIndex: j})}
+        }, `${GetSearchName(state, i , j)}: Remove search item`)      
+      ]).flat()) || []),
+      h('div.button', {
+        on: {click: e => send({type: 'remove_scan_action', index: i})}
+      }, `${actionName}: Remove action`)
+
+    ]
+  }).flat()) || []),
   h('div.button', {
     on: { click: e => send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['pass']})}
   }, 'Configure result handling'),

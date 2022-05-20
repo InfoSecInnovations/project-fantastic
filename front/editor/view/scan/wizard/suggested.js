@@ -2,6 +2,9 @@ import {h} from 'snabbdom/h'
 import ModuleFromKey from "../../../util/modulefromkey";
 import ItemFromKey from "../../../util/itemfromkey";
 import GetActionName from './getactionname';
+import IsValidFollowupAction from './isvalidfollowupaction';
+import IsValidFollowupData from './isvalidfollowupdata';
+import GetSearchName from './getsearchname';
 
 const getActionData = (state, index) => {
   const action = state.scan.json.actions[index]
@@ -36,39 +39,31 @@ export default (state, send) => [
             send({type: 'scan_wizard_search_index', index: j})
             send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_label_search']})
           }}
-        }, `${GetActionName(state, i)}: Set missing data item label for action result search`
+        }, `${GetSearchName(state, i, j)}: Set missing data item label for action result search`
       ) : undefined,
       // detect problems with followup search elements
       (() => {
         if (!search.hasOwnProperty('followup')) return undefined
-        const module = ModuleFromKey(state, action.path)
-        const actionName = ItemFromKey(action.path)
-        const data = module && actionName && module.actions && module.actions[actionName]
-        const followups = data && data.functions && data.functions.run && data.functions.run.result && data.functions.run.result.followups
-        if (followups && followups.length) {
-          if (followups.find(followup => followup.function == search.followup)) return undefined
-          // detect valid followup but invalid seach data
-          return h(
-            'div.button', {
-              on: { click: e => {
-                send({type: 'scan_wizard_action_index', index: i})
-                send({type: 'scan_wizard_search_index', index: j})
-                // if we don't set this here the dropdown will show something that doesn't match the reality of the data
-                send({type: 'set_scan_search_item_followup', index: i, searchIndex: j, value: followups[0].function})
-                send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_followup_search']})
-              }}
-            }, `${GetActionName(state, i)}: Fix invalid or missing followup search data`
-          )
-        }
-        // detect invalid followup
-        return h(
+        if (!IsValidFollowupAction(state, i)) return h(
           'div.button', {
             on: { click: e => {
               send({type: 'scan_wizard_action_index', index: i})
               send({type: 'scan_wizard_search_index', index: j})
-              send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_search']})
+              send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['add_action', 'action_search'], mandatory: true})
+              send({type: 'next_wizard', itemType: 'scan'}) // we want to load in the action search task, but have the ability to go back to add action
             }}
-          }, `${GetActionName(state, i)}: Fix invalid action to generate followup data`
+          }, `${GetSearchName(state, i, j)}: Fix invalid action to generate followup data`
+        )
+        if (!IsValidFollowupData(state, i, j)) return h(
+          'div.button', {
+            on: { click: e => {
+              send({type: 'scan_wizard_action_index', index: i})
+              send({type: 'scan_wizard_search_index', index: j})
+              // if we don't set this here the dropdown will show something that doesn't match the reality of the data
+              send({type: 'set_scan_search_item_followup', index: i, searchIndex: j, value: followups[0].function})
+              send({type: 'set_wizard_tasks', itemType: 'scan', tasks: ['action_followup_search']})
+            }}
+          }, `${GetSearchName(state, i, j)}: Fix invalid or missing followup search data`
         )
       })()
     ]).flat() || [])
