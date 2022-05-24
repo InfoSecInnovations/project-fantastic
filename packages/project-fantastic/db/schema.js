@@ -198,6 +198,19 @@ const schema = [
     user_id BLOB,
     quest TEXT,
     date_completed INTEGER
+  )`,
+  `CREATE TABLE IF NOT EXISTS inventory_history(
+    inventory_history_id INTEGER PRIMARY KEY,
+    item_name TEXT,
+    user_id BLOB,
+    date INTEGER,
+    status INTEGER
+  )`,
+  `CREATE TABLE IF NOT EXISTS inventory_data(
+    inventory_data_id INTEGER PRIMARY KEY,
+    item_name TEXT,
+    date INTEGER,
+    data TEXT
   )`
 ]
 

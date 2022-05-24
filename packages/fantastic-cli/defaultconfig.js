@@ -14,6 +14,10 @@ const defaultConfig = {
       "@infosecinnovations/fantastic-default/gethostname",
       "@infosecinnovations/fantastic-default/getdnsclientcache",
       "@infosecinnovations/fantastic-default/getos"
+    ],
+    "force_inventory": [],
+    "default_enable_inventory": [
+      "@infosecinnovations/fantastic-default/usbdevices"
     ]
   },
   "client": {

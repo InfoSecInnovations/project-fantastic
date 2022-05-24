@@ -17,7 +17,11 @@
 			"@infosecinnovations/fantastic-default/gethostname",
 			"@infosecinnovations/fantastic-default/getdnsclientcache",
 			"@infosecinnovations/fantastic-default/getos"
-		]
+		],
+    "force_inventory": [],
+    "default_enable_inventory": [
+      "@infosecinnovations/fantastic-default/usbdevices"
+    ]
 	},
 	"authentication": {
 		"module": "@infosecinnovations/fantastic-default_auth"
