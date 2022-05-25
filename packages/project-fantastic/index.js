@@ -20,6 +20,8 @@ const AuthFactory = require('@infosecinnovations/fantastic-auth_factory')
 const GetStoryData = require('./stories/getstorydata')
 const EventLogger = require('./eventlogger')
 const EventCodes = require('./eventcodes')
+const GetInventoryData = require('./inventory/getinventorydata')
+const RunInventory = require('./inventory/runinventory')
 
 /**
  * Start the server
@@ -36,6 +38,7 @@ const main = async () => {
 
   let config = await GetConfig()
   let data_process
+  let inventory_process
   let actions = await GetActionData(config)
   let scans = await GetScanData(config)
   let stories = await GetStoryData(config)
@@ -43,6 +46,10 @@ const main = async () => {
   const update_commands = commands => {
     if (data_process) data_process.send({type: 'commands', commands})
     return commands
+  }
+  const update_inventory_items = inventory_items => {
+    if (inventory_process) inventory_process.send({type: 'inventory_items', inventory_items})
+    return inventory_items
   }
   const cert_directory = 'cert'
   const app = UWS.SSLApp({
@@ -53,6 +60,7 @@ const main = async () => {
   await DB.init()
   await auth_module.initializeRoutes(app)
   let command_data = await GetCommandData(config) // command data reads from the database so we have to call it after init
+  let inventory_data = await GetInventoryData(config)
   Routes(
     app,
     auth_module, 
@@ -64,15 +72,20 @@ const main = async () => {
     () => config
   )
   if (config.use_child_process) {
-    data_process = fork(Path.join(__dirname, './getdata.js'), [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
+    data_process = fork(Path.join(__dirname, './gethostdata.js'), [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
     data_process.on('error', err => console.log(err.message))
     update_commands(command_data)
+    inventory_process = fork(Path.join(__dirname, './getinventorydata.js'), [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
+    inventory_process.on('error', err => console.log(err.message))
+    update_inventory_items(inventory_data)
   }
   else {
     RunCommands(() => command_data)
+    RunInventory(() => inventory_data)
   }
   process.on('exit', () => {
     if (data_process) data_process.kill()
+    if (inventory_process) inventory_process.kill()
   })
   app.listen(config.port + 1, () => {
     console.log(`Fantastic Server running on port ${config.port + 1}!`)
