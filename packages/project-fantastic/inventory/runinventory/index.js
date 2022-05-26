@@ -26,6 +26,7 @@ const runInventory = async get_inventory_data => {
         await DB.insert('inventory_data', output.filter(v => !existing.some(e => v == e.data)).map(v => ({date, data: v, item_name: item.key})))
       }
     }
+    console.log('-----completed inventory scans on hosts.-----')
     loop()
   }
   loop()

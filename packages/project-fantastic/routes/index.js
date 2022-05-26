@@ -4,7 +4,7 @@ const End = require('./end')
 const ParseQuery = require('@infosecinnovations/fantastic-utils/parsequery')
 const GetHTTPData = require('@infosecinnovations/fantastic-utils/gethttpdata')
 
-const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stories, update_commands, get_config) => {
+const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stories, update_commands, get_config, get_inventory_items) => {
 
   const createRoute = (method, route, func, {arg, allow_no_user, http_data, callback} = {}) => {
     app[method](route, async (res, req) => {
@@ -25,6 +25,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stor
   createRoute('get', '/', require('./main'), {allow_no_user: true})
   createRoute('get', '/actions', require('./getactions'), {arg: get_actions})
   createRoute('get', '/commands', require('./getcommands'), {arg: get_commands})
+  createRoute('get', '/inventory', require('./getinventoryitems'), {arg: get_inventory_items})
   createRoute('get', '/logs', require('./getlogs'), {arg: auth_module})
   createRoute('get', '/nodes', require('./getnodes'))
   createRoute('get', '/results', require('./getresults'))

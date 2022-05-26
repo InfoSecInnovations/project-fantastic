@@ -5,7 +5,7 @@ import ResizeStory from './resizestory'
 export default (state, send) => {
   window.onresize = e => send({type: 'render'})
   Promise.all([
-    ...['actions', 'scans', 'quests', 'commands', 'stories'].map(v => FetchScripts(send, v)),
+    ...['actions', 'scans', 'quests', 'commands', 'stories', 'inventory'].map(v => FetchScripts(send, v)),
     fetch('/user')
     .then(res => res.json())
     .then(res => send({type: 'user', user: res})),

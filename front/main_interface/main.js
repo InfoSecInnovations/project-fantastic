@@ -21,7 +21,7 @@ const patch = init([
 ])
 
 let state = {
-  flex_search: {actions: {}, scans: {}, commands: {}},
+  flex_search: {actions: {}, scans: {}, commands: {}, inventory: {}},
   search: Search(), 
   connection_search: {},
   tab: 'info', 

@@ -69,7 +69,8 @@ const main = async () => {
     () => scans,
     () => stories,
     commands => command_data = update_commands(commands),
-    () => config
+    () => config,
+    () => inventory_data
   )
   if (config.use_child_process) {
     data_process = fork(Path.join(__dirname, './gethostdata.js'), [], {execArgv: []}) // execArgv is a workaround to not break the VSCode debugger
