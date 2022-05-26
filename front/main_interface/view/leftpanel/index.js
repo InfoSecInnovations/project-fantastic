@@ -20,6 +20,7 @@ export default (state, send) =>
     state.history && state.left_panel_state == 'history' ? History(state, send) : undefined,
     h('div#left_panel_controls', [
       panel_button(state, send, 'host_data', 'network-wired', 'Host Data Commands'),
+      panel_button(state, send, 'inventory', 'boxes', 'Inventory'),
       panel_button(state, send, 'scans', 'clipboard-list', 'Scans'),
       panel_button(state, send, 'quests', 'scroll', 'Quests'),
       panel_button(state, send, 'history', 'history', 'History')

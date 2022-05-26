@@ -4,12 +4,17 @@
   "hosts": ["local", "remote"],
   "actions": [
     {
-      "path": "getmpcomputerstatus",  
+      "path": "antivirusstatus",  
       "search": [
         {
           "filter": {"enabled": true},
           "followup": "enable_antivirus"
-        },
+        }
+      ]
+    },
+    {
+      "path": "antispywarestatus",
+      "search": [
         {
           "filter": {"enabled": true},
           "followup": "enable_antispyware"
