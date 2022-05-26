@@ -208,7 +208,7 @@ const schema = [
   )`,
   `CREATE TABLE IF NOT EXISTS inventory_data(
     inventory_data_id INTEGER PRIMARY KEY,
-    item_name TEXT,
+    category TEXT,
     date INTEGER,
     data TEXT,
     node_id INTEGER,

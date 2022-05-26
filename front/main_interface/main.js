@@ -35,6 +35,7 @@ let state = {
   keys: {},
   child_tabs: [],
   command_status: {},
+  inventory_status: {},
   story: {
     completed: {}
   },

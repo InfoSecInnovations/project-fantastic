@@ -3,6 +3,7 @@ import Commands from './commands'
 import Quests from './quests'
 import Scans from './scans'
 import History from './history'
+import Inventory from './inventory'
 
 const panel_button = (state, send, panel_state, icon, label) => 
   h('div.icon_button', {
@@ -18,6 +19,7 @@ export default (state, send) =>
     state.quests && state.stories && state.left_panel_state == 'quests' ? Quests(state, send) : undefined,
     state.scans && state.left_panel_state == 'scans' ? Scans(state, send) : undefined,
     state.history && state.left_panel_state == 'history' ? History(state, send) : undefined,
+    state.inventory && state.left_panel_state == 'inventory' ? Inventory(state, send) : undefined,
     h('div#left_panel_controls', [
       panel_button(state, send, 'host_data', 'network-wired', 'Host Data Commands'),
       panel_button(state, send, 'inventory', 'boxes', 'Inventory'),
