@@ -10,5 +10,6 @@ module.exports = {
   getNodes: require('./getnodes'), 
   updateNode: require('./updatenode'), 
   addMacs: require('./addmacs'),
+  getInventoryData: require('./getinventorydata'), 
   ...operations
 }

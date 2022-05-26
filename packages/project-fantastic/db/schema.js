@@ -210,7 +210,11 @@ const schema = [
     inventory_data_id INTEGER PRIMARY KEY,
     item_name TEXT,
     date INTEGER,
-    data TEXT
+    data TEXT,
+    node_id INTEGER,
+    FOREIGN KEY (node_id)
+      REFERENCES nodes
+      ON DELETE CASCADE
   )`
 ]
 

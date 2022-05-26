@@ -54,4 +54,7 @@ export default (nodes, send) => {
       })
     })
   })
+  fetch(`/inventory_data?${GenerateQuery({nodes: nodes.map(v => v.node_id)})}`)
+  .then(res => res.json())
+  .then(res => send({type: 'inventory_data', data: res}))
 }

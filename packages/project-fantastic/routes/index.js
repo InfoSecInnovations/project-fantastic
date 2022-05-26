@@ -40,6 +40,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stor
   createRoute('get', '/favorites', require('./getfavorites'))
   createRoute('get', '/config', require('./getconfig'), {arg: get_config})
   createRoute('get', '/module_info', require('./getmoduleinfo'), {arg: get_config})
+  createRoute('get', '/inventory_data', require('./getinventorydata'))
 
   createRoute('post', '/commands', require('./postcommands'), {arg: get_commands, callback: commands => update_commands(commands)})
   createRoute('post', '/actions', require('./postactions'), {arg: get_actions, http_data: true})

@@ -19,11 +19,11 @@ const runInventory = async get_inventory_data => {
         const output = await PwshFunction(item.data.run)(item.data.run.command, node.access == 'local' ? null : node.hostname)
         .then(res => res.map(v => typeof v == 'object' ? JSON.stringify(v) : v))
         // find matching database records
-        const existing = await DB.all({table: 'inventory_data', columns: ['inventory_data_id', 'data'], conditions: {groups: [{columns: {item_name: item.key}}, {columns: {data: output}, compare: 'IN'}]} })
+        const existing = await DB.all({table: 'inventory_data', columns: ['inventory_data_id', 'data'], conditions: {groups: [{columns: {item_name: item.key, node_id: node.node_id}}, {columns: {data: output}, compare: 'IN'}]}})
         // update existing
         await DB.update({table: 'inventory_data', row: {date}, conditions: {columns: {inventory_data_id: existing.map(v => v.inventory_data_id)}, compare: 'IN'}})
         // insert new
-        await DB.insert('inventory_data', output.filter(v => !existing.some(e => v == e.data)).map(v => ({date, data: v, item_name: item.key})))
+        await DB.insert('inventory_data', output.filter(v => !existing.some(e => v == e.data)).map(v => ({date, data: v, item_name: item.key, node_id: node.node_id})))
       }
     }
     console.log('-----completed inventory scans on hosts.-----')

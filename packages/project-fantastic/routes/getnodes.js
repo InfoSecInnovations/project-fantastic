@@ -7,7 +7,7 @@ const getNodes = (user, res, req, query) => {
   const start = Date.now()
   const date = query.date || 0
   if (!HasRole(user, 'user')) return End(res)
-  console.log(`getNodes: from ${Math.round((Date.now() - query.date) / 1000 / 60)} minutes ago`)
+  console.log(`getNodes: from ${Math.round((Date.now() - date) / 1000 / 60)} minutes ago`)
   console.log(`getNodes: connection type: ${query.connection_type}`)
   console.log(`getNodes: connection state: ${query.connection_state}`)
   console.log(`getNodes: show external hosts: ${query.show_external}`)
