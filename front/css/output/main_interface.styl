@@ -11,6 +11,12 @@
     min-height: 0
     .vis-network
       outline: none
+  #inventory_viewer
+    grid-column: 2 / 3
+    grid-row: 2
+    min-height: 0
+    background-color: background_color
+    z-index: 10
   #story_viewer
     grid-column: 1 / 4
     grid-row: 2
@@ -33,10 +39,10 @@
         height: 720px
         position: relative
         transform-origin: top left
-    .close
-      position: absolute
-      top: 1rem
-      right: 1rem
+  .close
+    position: absolute
+    top: 1rem
+    right: 1rem
     @require '../story'
     &.hidden
       display: none

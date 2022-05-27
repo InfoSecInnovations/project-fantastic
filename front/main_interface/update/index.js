@@ -155,6 +155,7 @@ export default (state, action) => {
   if (action.type == 'node_warning') state.node_warning = action.nodes
   if (action.type == 'search' || action.type == 'init_complete') state.current_selection = Clone(state.search)
   if (action.type == 'foldout_checkbox') state.foldout_checkboxes[action.id] = action.value
+  if (action.type == 'view_inventory') state.view_inventory = action.category
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

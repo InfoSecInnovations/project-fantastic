@@ -32,7 +32,7 @@ export default (state, action) => {
   if (action.type == 'action_input') state.action_input = {...action, values: {}}
   if (action.type == 'input_value') state.action_input.values[action.field] = action.value
   if (action.type == 'clear_action_input') state.action_input = undefined
-  if (action.type == 'inventory_data') state.inventory_data = action.data
+  if (action.type == 'inventory_data') state.inventory_data[action.host] = action.data
 
   return state
 }

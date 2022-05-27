@@ -8,6 +8,7 @@ import StoryPanel from './storypanel'
 import SaveSearch from './savesearch'
 import NodeWarning from './nodewarning'
 import ActionInput from '@infosecinnovations/fantastic-front/view/actions/actioninput'
+import InventoryPanel from './inventorypanel'
 
 export default (state, send) => 
   h('body', [
@@ -22,6 +23,7 @@ export default (state, send) =>
       ActionInput(state, send),
       StoryPanel(state, send),
       state.loading ? h('div#loading', 'Loading...') : undefined,
+      state.view_inventory ? InventoryPanel(state, send) : undefined,
       LeftPanel(state, send),
       Selection(state, send),
       Review(state, send)

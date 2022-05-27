@@ -31,6 +31,7 @@ let state = {
   quest_results: QuestResults(),
   scan_results: ScanResults(),
   story_results: QuestResults(),
+  inventory_data: {},
   scan_parameters: {},
   keys: {},
   child_tabs: [],
