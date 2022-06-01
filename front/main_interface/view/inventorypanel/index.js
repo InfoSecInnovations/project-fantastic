@@ -11,10 +11,11 @@ const editRules = (state, send) => [
       on: {input: e => send({type: 'inventory_rule_mode', mode: e.target.value})}
     }, [
       h('option', {attrs: {value: 'allow', selected: !state.view_inventory.current_rule.mode || state.view_inventory.current_rule.mode == 'allow'}}, 'Always allow this item'),
-      h('option', {attrs: {value: 'block', selected: state.view_inventory.current_rule.mode == 'block'}}, 'Block selected properties')
+      h('option', {attrs: {value: 'block', selected: state.view_inventory.current_rule.mode == 'block'}}, 'Block items matching all selected properties')
     ])
   ]),
   state.view_inventory.current_rule.mode == 'block' ? h('div', [
+    h('div', 'Selecting multiple properties will only block items matching on all of those properties, if you want to match on each property instead, just create multiple rules.'),
     h('input', {
       attrs: {type: 'checkbox'},
       props: {
@@ -31,9 +32,11 @@ const editRules = (state, send) => [
       }),
       h('div', `${k}: ${v}`)
     ]))
-  ]) : undefined,
+  ]) : h('div', "By default any item that doesn't match any blocking rules won't get flagged. An allow rule enables you to create an exception for a specific item (i.e. matching this one on all properties) to ignore blocking rules."),
   h('div.item', [
-    h('div.button', {}, 'Save'),
+    h('div.button', {
+      on: {click: e => send({type: 'save_current_inventory_rule'})}
+    }, 'Save'),
     h('div.button', {
       on: {click: e => send({type: 'inventory_panel_mode', mode: 'view'})}
     }, 'Cancel')

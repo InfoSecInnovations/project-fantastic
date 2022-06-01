@@ -136,6 +136,12 @@ export default (state, action, send) => {
       send({type: 'scan_resolve', scan: null})
       send({type: 'tab', tab: 'info'})
     })
-
+  if (action.type == 'save_current_inventory_rule') fetch(`/inventory_rules?${GenerateQuery({
+    mode: state.view_inventory.current_rule.mode, 
+    category: state.view_inventory.category
+  })}`, {
+    method: 'POST', 
+    body: JSON.stringify(state.view_inventory.current_rule.data)
+  }) // TODO: update rules
   if (child_actions.includes(action.type) && !action.from_other) state.child_tabs.forEach(v => v.send(action))
 }

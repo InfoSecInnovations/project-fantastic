@@ -54,6 +54,7 @@ const routes = (app, auth_module, get_commands, get_actions, get_scans, get_stor
   createRoute('post', '/story_node', require('./poststorynode'), {arg: get_stories})
   createRoute('post', '/favorite', require('./postfavorite'))
   createRoute('post', '/save_search', require('./postsavesearch'))
+  createRoute('post', '/inventory_rules', require('./postinventoryrules'), {http_data: true})
 
   app.get('/logout', (res, req) => require('./auth/logout')(res, req, auth_module))
   app.get('/*', require('./files'))

@@ -1,4 +1,4 @@
-const DB = require('../../db')
+const {transaction} = require('../../db')
 const PwshFunction = require('../../util/pwshfunction')
 const CreateInventoryItems = require('./createinventoryitems')
 const GetHosts = require('./gethosts')
@@ -18,12 +18,14 @@ const runInventory = async get_inventory_data => {
       for (const item of inventory_items) {
         const output = await PwshFunction(item.run)(item.run.command, node.access == 'local' ? null : node.hostname)
         .then(res => res.map(v => typeof v == 'object' ? JSON.stringify(v) : v))
+        const db = await transaction()
         // find matching database records
-        const existing = await DB.all({table: 'inventory_data', columns: ['inventory_data_id', 'data'], conditions: {groups: [{columns: {category: item.category, node_id: node.node_id}}, {columns: {data: output}, compare: 'IN'}]}})
+        const existing = await db.all({table: 'inventory_data', columns: ['inventory_data_id', 'data'], conditions: {groups: [{columns: {category: item.category, node_id: node.node_id}}, {columns: {data: output}, compare: 'IN'}]}})
         // update existing
-        await DB.update({table: 'inventory_data', row: {date}, conditions: {columns: {inventory_data_id: existing.map(v => v.inventory_data_id)}, compare: 'IN'}})
+        await db.update({table: 'inventory_data', row: {date}, conditions: {columns: {inventory_data_id: existing.map(v => v.inventory_data_id)}, compare: 'IN'}})
         // insert new
-        await DB.insert('inventory_data', output.filter(v => !existing.some(e => v == e.data)).map(v => ({date, data: v, category: item.category, node_id: node.node_id})))
+        await db.insert('inventory_data', output.filter(v => !existing.some(e => v == e.data)).map(v => ({date, data: v, category: item.category, node_id: node.node_id})))
+        await db.close()
       }
     }
     console.log('-----completed inventory scans on hosts.-----')
