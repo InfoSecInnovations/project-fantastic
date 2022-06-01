@@ -211,10 +211,19 @@ const schema = [
     category TEXT,
     date INTEGER,
     data TEXT,
+    blocked INTEGER,
     node_id INTEGER,
     FOREIGN KEY (node_id)
       REFERENCES nodes
       ON DELETE CASCADE
+  )`,
+  `CREATE TABLE IF NOT EXISTS inventory_rules(
+    inventory_rule_id INTEGER PRIMARY KEY,
+    category TEXT,
+    date INTEGER,
+    data TEXT,
+    user_id BLOB,
+    rule_type TEXT
   )`
 ]
 

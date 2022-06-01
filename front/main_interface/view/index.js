@@ -23,7 +23,7 @@ export default (state, send) =>
       ActionInput(state, send),
       StoryPanel(state, send),
       state.loading ? h('div#loading', 'Loading...') : undefined,
-      state.view_inventory ? InventoryPanel(state, send) : undefined,
+      state.view_inventory.category ? InventoryPanel(state, send) : undefined,
       LeftPanel(state, send),
       Selection(state, send),
       Review(state, send)

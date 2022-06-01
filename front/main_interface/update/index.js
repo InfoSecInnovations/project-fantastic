@@ -155,7 +155,27 @@ export default (state, action) => {
   if (action.type == 'node_warning') state.node_warning = action.nodes
   if (action.type == 'search' || action.type == 'init_complete') state.current_selection = Clone(state.search)
   if (action.type == 'foldout_checkbox') state.foldout_checkboxes[action.id] = action.value
-  if (action.type == 'view_inventory') state.view_inventory = action.category
+  if (action.type == 'view_inventory') {
+    state.view_inventory.category = action.category
+    state.view_inventory.mode = 'view'
+  } 
+  if (action.type == 'inventory_panel_mode') {
+    state.view_inventory.mode = action.mode
+    state.view_inventory.item = action.item
+  }
+  if (action.type == 'inventory_rule_mode') state.view_inventory.current_rule.mode = action.mode
+  if (action.type == 'inventory_block_property') {
+    if (!state.view_inventory.current_rule.data) state.view_inventory.current_rule.data = {}
+    if (action.blocked) state.view_inventory.current_rule.data[action.property] = action.value
+    else delete state.view_inventory.current_rule.data[action.property]
+  }
+  if (action.type == 'inventory_block_all') {
+    if (!state.view_inventory.current_rule.data) state.view_inventory.current_rule.data = {}
+    Object.entries(state.view_inventory.item).forEach(([k, v]) => {
+      if (action.blocked) state.view_inventory.current_rule.data[k] = v
+      else delete state.view_inventory.current_rule.data[k]
+    })
+  }
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

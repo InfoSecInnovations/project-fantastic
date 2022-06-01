@@ -37,6 +37,9 @@ let state = {
   child_tabs: [],
   command_status: {},
   inventory_status: {},
+  view_inventory: {
+    current_rule: {}
+  },
   story: {
     completed: {}
   },

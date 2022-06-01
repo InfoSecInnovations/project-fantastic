@@ -113,6 +113,9 @@ a:hover,
   flex-direction: column;
   gap: 5px;
 }
+.row {
+  display: flex;
+}
 .center {
   align-items: center;
 }
@@ -316,7 +319,8 @@ input:not([type]) {
 .scroll_container {
   min-height: 0;
   min-width: 0;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
   padding: 1rem;
 }
@@ -451,6 +455,7 @@ input:not([type]) {
   min-height: 0;
   background-color: #242424;
   z-index: 10;
+  position: relative;
 }
 #container #story_viewer {
   grid-column: 1/4;
