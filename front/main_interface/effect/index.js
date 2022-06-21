@@ -142,6 +142,9 @@ export default (state, action, send) => {
   })}`, {
     method: 'POST', 
     body: JSON.stringify(state.view_inventory.current_rule.data)
-  }) // TODO: update rules
+  }).then(res => { // TODO: update rules
+    send({type: 'saving_inventory_rule_done'})
+    send({type: 'inventory_panel_mode', mode: 'view'})
+  }) 
   if (child_actions.includes(action.type) && !action.from_other) state.child_tabs.forEach(v => v.send(action))
 }

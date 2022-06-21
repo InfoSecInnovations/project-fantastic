@@ -176,6 +176,8 @@ export default (state, action) => {
       else delete state.view_inventory.current_rule.data[k]
     })
   }
+  if (action.type == 'save_current_inventory_rule') state.saving_inventory_rule = true
+  if (action.type == 'saving_inventory_rule_done') state.saving_inventory_rule = false
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state

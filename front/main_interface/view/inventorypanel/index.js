@@ -35,7 +35,8 @@ const editRules = (state, send) => [
   ]) : h('div', "By default any item that doesn't match any blocking rules won't get flagged. An allow rule enables you to create an exception for a specific item (i.e. matching this one on all properties) to ignore blocking rules."),
   h('div.item', [
     h('div.button', {
-      on: {click: e => send({type: 'save_current_inventory_rule'})}
+      class: {disabled: state.saving_inventory_rule},
+      on: {click: e => !state.saving_inventory_rule && send({type: 'save_current_inventory_rule'})}
     }, 'Save'),
     h('div.button', {
       on: {click: e => send({type: 'inventory_panel_mode', mode: 'view'})}
