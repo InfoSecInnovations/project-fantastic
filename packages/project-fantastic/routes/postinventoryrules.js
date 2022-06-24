@@ -14,12 +14,12 @@ const postInventoryRules = async (user, res, req, query, _, http_data) => {
   const allowed_items = []
   const blocked_items = []
   inventory_data.forEach(data => {
-    if (isBlocked(data, allow_rules, block_rules)) blocked_items.push(data)
+    if (isBlocked(JSON.parse(data.data), allow_rules, block_rules)) blocked_items.push(data)
     else allowed_items.push(data)
   })
-  await db.update({table: 'inventory_data', row: {blocked: false}, conditions: {columns: {inventory_data_id: allowed_items}, compare: 'IN'}})
-  await db.update({table: 'inventory_data', row: {blocked: true}, conditions: {columns: {inventory_data_id: blocked_items}, compare: 'IN'}})
-  db.close()
+  await db.update({table: 'inventory_data', row: {blocked: 0}, conditions: {columns: {inventory_data_id: allowed_items.map(v => v.inventory_data_id)}, compare: 'IN'}})
+  await db.update({table: 'inventory_data', row: {blocked: 1}, conditions: {columns: {inventory_data_id: blocked_items.map(v => v.inventory_data_id)}, compare: 'IN'}})
+  await db.close()
   res.end()
 }
 

@@ -40,7 +40,10 @@ const editRules = (state, send) => [
       on: {click: e => !state.saving_inventory_rule && send({type: 'save_current_inventory_rule'})}
     }, 'Save'),
     h('div.button', {
-      on: {click: e => send({type: 'inventory_panel_mode', mode: 'view'})}
+      on: {click: e => {
+        send({type: 'reset_current_inventory_rule'})
+        send({type: 'inventory_panel_mode', mode: 'view'})}
+      }
     }, 'Cancel')
   ])
 ]
@@ -69,5 +72,8 @@ const viewItems = (state, send) => [
 export default (state, send) => h('div#inventory_viewer.scroll_container', [
   h('h2', `${state.view_inventory.category} Inventory`),
   ...(state.view_inventory.mode == 'edit_item_rules' ? editRules(state, send) : viewItems(state, send)),
-  h('div.icon_button close', {on: {click: e => send({type: 'view_inventory', category: null})}}, h('div.fas fa-times fa-fw'))
+  h('div.icon_button close', {on: {click: e => {
+    send({type: 'view_inventory', category: null})
+    send({type: 'reset_current_inventory_rule'})
+  }}}, h('div.fas fa-times fa-fw'))
 ])

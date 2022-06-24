@@ -146,6 +146,7 @@ export default (state, action, send) => {
   }).then(res => {
     send({type: 'saving_inventory_rule_done'})
     send({type: 'inventory_panel_mode', mode: 'view'})
+    send({type: 'reset_current_inventory_rule'})
     UpdateInventory(state.nodes, send)
   }) 
   if (child_actions.includes(action.type) && !action.from_other) state.child_tabs.forEach(v => v.send(action))
