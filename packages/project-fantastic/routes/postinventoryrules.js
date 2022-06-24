@@ -1,8 +1,11 @@
 const { transaction } = require('../db')
 const isBlocked = require('../inventory/isblocked')
+const HasRole = require('@infosecinnovations/fantastic-utils/hasrole')
+const End = require('./end')
 
 const postInventoryRules = async (user, res, req, query, _, http_data) => {
   // TODO: user permissions?
+  if (!HasRole(user, 'user')) return End(res)
   // TODO: what validations do we need here?
   const date = Date.now()
   const db = await transaction()

@@ -31,4 +31,14 @@ export default (state, send) => {
   fetch('/favorites')
   .then(res => res.json())
   .then(res => res.forEach(v => send({type: 'toggle_favorite', data_key: v.data_key, data_type: v.data_type})))
+  fetch('/inventory_rules')
+  .then(res => res.json())
+  .then(res => {
+    const rules = res.reduce((result, value) => {
+      if (!result[value.category]) result[value.category] = []
+      result[value.category].push(value)
+      return result
+    }, {})
+    send({type: 'inventory_rules', rules})
+  })
 }
