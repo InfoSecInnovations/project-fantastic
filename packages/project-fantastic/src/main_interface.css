@@ -24,6 +24,9 @@ body {
   flex-grow: 1;
   flex-basis: 0;
 }
+.item.top-aligned {
+  align-items: flex-start;
+}
 .fas,
 .far {
   font-size: 1.5rem;

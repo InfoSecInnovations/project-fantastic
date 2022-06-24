@@ -1,4 +1,5 @@
 import GenerateQuery from './generatequery'
+import UpdateInventory from './updateinventory'
 
 const load_followup = (action, send, node, results, followups) => {
   const row = results.find(v => v.node_id === node.node_id && v.action === action && v.function === followups[followups.length - 1].followup && v.label === followups[followups.length - 1].label)
@@ -54,12 +55,5 @@ export default (nodes, send) => {
       })
     })
   })
-  fetch(`/inventory_data?${GenerateQuery({nodes: nodes.map(v => v.node_id), date: !state.search || !state.search.date ? 0 : Date.now() - state.search.date * 1000 * 60 })}`)
-  .then(res => res.json())
-  .then(res => {
-    Object.entries(res).forEach(([k, v]) => {
-      const node = nodes.find(n => n.node_id === parseInt(k))
-      send({type: 'inventory_data', data: v, host: node.hostname})
-    })
-  })
+  UpdateInventory(nodes, send)
 }

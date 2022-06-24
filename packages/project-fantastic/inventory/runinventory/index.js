@@ -1,5 +1,6 @@
 const {transaction} = require('../../db')
 const PwshFunction = require('../../util/pwshfunction')
+const IsBlocked = require('../isblocked')
 const CreateInventoryItems = require('./createinventoryitems')
 const GetHosts = require('./gethosts')
 
@@ -22,12 +23,7 @@ const runInventory = async get_inventory_data => {
         // get rules for category
         const block_rules = await db.all({table: 'inventory_rules', conditions: {columns: {category: item.category, rule_type: 'block'}}}).then(res => res.map(rule => ({...rule, data: JSON.parse(rule.data)})))
         const allow_rules = await db.all({table: 'inventory_rules', conditions: {columns: {category: item.category, rule_type: 'allow'}}}).then(res => res.map(rule => ({...rule, data: JSON.parse(rule.data)})))
-        const blocked = data => {
-          const match = (data, filter) => Object.entries(filter).every(([key, value]) => data[key] == value)
-          if (allow_rules.some(rule => match(data, rule.data))) return false
-          if (block_rules.some(rule => match(data, rule.data))) return true
-          return false
-        }
+        const blocked = data => IsBlocked(data, allow_rules, block_rules)
         // find matching database records
         const existing = await db.all({table: 'inventory_data', columns: ['inventory_data_id', 'data'], conditions: {groups: [{columns: {category: item.category, node_id: node.node_id}}, {columns: {data: output}, compare: 'IN'}]}})
         for (const data of existing) {

@@ -13,6 +13,7 @@ import ResizeStory from './resizestory'
 import StoryNode from './storynode'
 import Quest from './quest'
 import Scan from './scan'
+import UpdateInventory from '@infosecinnovations/fantastic-front/effect/updateinventory'
 
 const child_actions = [
   'action_result',
@@ -142,9 +143,10 @@ export default (state, action, send) => {
   })}`, {
     method: 'POST', 
     body: JSON.stringify(state.view_inventory.current_rule.data)
-  }).then(res => { // TODO: update rules
+  }).then(res => {
     send({type: 'saving_inventory_rule_done'})
     send({type: 'inventory_panel_mode', mode: 'view'})
+    UpdateInventory(state.nodes, send)
   }) 
   if (child_actions.includes(action.type) && !action.from_other) state.child_tabs.forEach(v => v.send(action))
 }
