@@ -35,8 +35,11 @@ export default (state, send) => {
   .then(res => res.json())
   .then(res => {
     const rules = res.reduce((result, value) => {
-      if (!result[value.category]) result[value.category] = []
-      result[value.category].push(value)
+      if (!result[value.category]) result[value.category] = {
+        allow: [],
+        block: []
+      }
+      result[value.category][value.rule_type].push({...value, data: JSON.parse(value.data)})
       return result
     }, {})
     send({type: 'inventory_rules', rules})

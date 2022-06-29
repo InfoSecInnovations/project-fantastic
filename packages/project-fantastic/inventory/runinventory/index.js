@@ -1,6 +1,6 @@
 const {transaction} = require('../../db')
 const PwshFunction = require('../../util/pwshfunction')
-const IsBlocked = require('../isblocked')
+const IsBlocked = require('@infosecinnovations/fantastic-utils/isblocked')
 const CreateInventoryItems = require('./createinventoryitems')
 const GetHosts = require('./gethosts')
 

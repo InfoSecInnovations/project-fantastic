@@ -143,7 +143,13 @@ export default (state, action, send) => {
   })}`, {
     method: 'POST', 
     body: JSON.stringify(state.view_inventory.current_rule.data)
-  }).then(res => {
+  })
+  .then(res => res.json())
+  .then(res => {
+    send({type: 'inventory_rules', rules: {...state.inventory_rules, [res.category]: {
+      allow: res.rules.filter(rule => rule.rule_type == 'allow'),
+      block: res.rules.filter(rule => rule.rule_type == 'block')
+    }}})
     send({type: 'saving_inventory_rule_done'})
     send({type: 'inventory_panel_mode', mode: 'view'})
     send({type: 'reset_current_inventory_rule'})
