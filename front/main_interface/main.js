@@ -11,6 +11,7 @@ import QuestResults from './defaults/questresults'
 import ScanResults from './defaults/scanresults'
 import Hovered from './defaults/hovered'
 import Search from './defaults/search'
+import CurrentRule from './defaults/currentrule'
 
 const patch = init([
   classModule,
@@ -38,7 +39,7 @@ let state = {
   command_status: {},
   inventory_status: {},
   view_inventory: {
-    current_rule: {}
+    current_rule: CurrentRule()
   },
   story: {
     completed: {}

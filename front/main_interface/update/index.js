@@ -5,6 +5,7 @@ import QuestResults from './questresults'
 import StoryResults from './storyresults'
 import ScanResults from './scanresults'
 import LoadSearch from './loadsearch'
+import CurrentRule from '../defaults/currentrule'
 const Clone = require('@infosecinnovations/fantastic-utils/clone')
 const CompareEvent = require('@infosecinnovations/fantastic-utils/compareevent')
 
@@ -163,7 +164,7 @@ export default (state, action) => {
     state.view_inventory.mode = action.mode
     state.view_inventory.item = action.item
   }
-  if (action.type == 'reset_current_inventory_rule') state.view_inventory.current_rule = {}
+  if (action.type == 'reset_current_inventory_rule') state.view_inventory.current_rule = CurrentRule()
   if (action.type == 'inventory_rule_mode') state.view_inventory.current_rule.mode = action.mode
   if (action.type == 'inventory_block_property') {
     if (!state.view_inventory.current_rule.data) state.view_inventory.current_rule.data = {}

@@ -26,8 +26,8 @@ const editRules = (state, send) => {
         attrs: {id: 'inventory-rule-selector'},
         on: {input: e => send({type: 'inventory_rule_mode', mode: e.target.value})}
       }, [
-        h('option', {attrs: {value: 'allow', selected: !state.view_inventory.current_rule.mode || state.view_inventory.current_rule.mode == 'allow'}}, 'Always allow this item'),
-        h('option', {attrs: {value: 'block', selected: state.view_inventory.current_rule.mode == 'block'}}, 'Block items matching all selected properties')
+        h('option', {attrs: {value: 'block', selected: state.view_inventory.current_rule.mode == 'block'}}, 'Block items matching all selected properties'),
+        h('option', {attrs: {value: 'allow', selected: !state.view_inventory.current_rule.mode || state.view_inventory.current_rule.mode == 'allow'}}, 'Always allow this item')
       ])
     ]),
     state.view_inventory.current_rule.mode == 'block' ? h('div', [

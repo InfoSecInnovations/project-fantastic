@@ -142,7 +142,7 @@ export default (state, action, send) => {
     category: state.view_inventory.category
   })}`, {
     method: 'POST', 
-    body: JSON.stringify(state.view_inventory.current_rule.data)
+    body: JSON.stringify(state.view_inventory.current_rule.mode == 'block' ? state.view_inventory.current_rule.data : state.view_inventory.item) // an allow rule just matches the full item
   })
   .then(res => res.json())
   .then(res => {
