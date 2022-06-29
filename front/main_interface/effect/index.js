@@ -14,6 +14,7 @@ import StoryNode from './storynode'
 import Quest from './quest'
 import Scan from './scan'
 import UpdateInventory from '@infosecinnovations/fantastic-front/effect/updateinventory'
+import UpdateInventoryRules from './updateinventoryrules'
 
 const child_actions = [
   'action_result',
@@ -145,15 +146,12 @@ export default (state, action, send) => {
     body: JSON.stringify(state.view_inventory.current_rule.mode == 'block' ? state.view_inventory.current_rule.data : state.view_inventory.item) // an allow rule just matches the full item
   })
   .then(res => res.json())
-  .then(res => {
-    send({type: 'inventory_rules', rules: {...state.inventory_rules, [res.category]: {
-      allow: res.rules.filter(rule => rule.rule_type == 'allow'),
-      block: res.rules.filter(rule => rule.rule_type == 'block')
-    }}})
-    send({type: 'saving_inventory_rule_done'})
-    send({type: 'inventory_panel_mode', mode: 'view'})
-    send({type: 'reset_current_inventory_rule'})
-    UpdateInventory(state.nodes, send)
-  }) 
+  .then(res => UpdateInventoryRules(state, send, res)) 
+  if (action.type == 'delete_inventory_rule') {
+    fetch(`/inventory_rules?${GenerateQuery({rule_id: action.rule_id})}`, {method: 'DELETE'})
+    .then(res => res.json())
+    .then(res => UpdateInventoryRules(state, send, res))
+    .catch(rej => {})
+  }
   if (child_actions.includes(action.type) && !action.from_other) state.child_tabs.forEach(v => v.send(action))
 }

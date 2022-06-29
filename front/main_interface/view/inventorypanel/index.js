@@ -3,13 +3,22 @@ import MatchesRule from '@infosecinnovations/fantastic-utils/matchesrule'
 import {h} from 'snabbdom/h'
 
 const editRules = (state, send) => {
+  const ruleView = rule => h('div.item top-aligned', [
+    h('div', Object.entries(rule.data).map(([k, v]) => h('div', `${k}: ${v}`))),
+    h('div.icon_button', {
+      on: {click: e => send({type: 'delete_inventory_rule', rule_id: rule.inventory_rule_id})}
+    }, [
+      h('span.fas fa-trash fa-fw'),
+      h('div.label', 'Remove')
+    ])
+  ])
   const existingRules = rule_type => {
     const rules = state.inventory_rules[state.view_inventory.category][rule_type]
     const matching = rules && rules.filter(rule => MatchesRule(state.view_inventory.item, rule.data))
     if (!matching || !matching.length) return undefined
     return h('div.section', [
       h('h4', rule_type),
-      ...matching.map(rule => h('div', Object.entries(rule.data).map(([k, v]) => h('div', `${k}: ${v}`))))
+      ...matching.map(rule => ruleView(rule))
     ])
   }
   return [
