@@ -28,9 +28,15 @@ export default (state, send) => h('div.scroll_container', [
         h('h4', v.name),
         enabled_button(state, send, v.key, v)
       ])),
-      state.inventory_data && Object.values(state.inventory_data).some(v => v.hasOwnProperty(c)) ? h('div.button', {
-        on: {click: e => send({type: 'view_inventory', category: c})}
-      }, 'View inventory') : undefined
+      h('div.item', [
+        state.inventory_data && Object.values(state.inventory_data).some(v => v.hasOwnProperty(c)) ? h('div.button', {
+          on: {click: e => send({type: 'view_inventory', category: c})}
+        }, 'View inventory') : undefined,
+        h('div.button', {
+          on: {click: e => send({type: 'view_inventory_rules', category: c})}
+        }, 'Rules')
+      ])
+
     ]),
   ])))) || undefined
 ])

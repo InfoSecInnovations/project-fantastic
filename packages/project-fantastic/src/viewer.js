@@ -411,7 +411,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _generatequery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generatequery */ \"../packages/fantastic-front/effect/generatequery.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((nodes, send) => {\r\n  fetch(`/inventory_data?${(0,_generatequery__WEBPACK_IMPORTED_MODULE_0__.default)({nodes: nodes.map(v => v.node_id), date: !state.search || !state.search.date ? 0 : Date.now() - state.search.date * 1000 * 60 })}`)\r\n  .then(res => res.json())\r\n  .then(res => {\r\n    Object.entries(res).forEach(([k, v]) => {\r\n      const node = nodes.find(n => n.node_id === parseInt(k))\r\n      send({type: 'inventory_data', data: v, host: node.hostname})\r\n    })\r\n  })\r\n});\n\n//# sourceURL=webpack://front/../packages/fantastic-front/effect/updateinventory.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => __WEBPACK_DEFAULT_EXPORT__\n/* harmony export */ });\n/* harmony import */ var _generatequery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./generatequery */ \"../packages/fantastic-front/effect/generatequery.js\");\n\r\n\r\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((nodes, send) => {\r\n  if (!nodes || !nodes.length) return\r\n  fetch(`/inventory_data?${(0,_generatequery__WEBPACK_IMPORTED_MODULE_0__.default)({nodes: nodes.map(v => v.node_id), date: !state.search || !state.search.date ? 0 : Date.now() - state.search.date * 1000 * 60 })}`)\r\n  .then(res => res.json())\r\n  .then(res => {\r\n    Object.entries(res).forEach(([k, v]) => {\r\n      const node = nodes.find(n => n.node_id === parseInt(k))\r\n      send({type: 'inventory_data', data: v, host: node.hostname})\r\n    })\r\n  })\r\n});\n\n//# sourceURL=webpack://front/../packages/fantastic-front/effect/updateinventory.js?");
 
 /***/ }),
 
@@ -421,8 +421,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************************************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, top-level-this-exports */
-/*! CommonJS bailout: this is used directly at 42:257-261 */
-/*! CommonJS bailout: module.exports is used directly at 8:144-158 */
 /***/ (function(module) {
 
 "use strict";
@@ -902,7 +900,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 8:0-14 */
 /***/ ((module) => {
 
 eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  '::'\r\n]\r\n\r\nmodule.exports = defaultIPs\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/defaultips.js?");
@@ -915,7 +912,6 @@ eval("const defaultIPs = [\r\n  '127.0.0.1',\r\n  '::1',\r\n  '0.0.0.0',\r\n  ':
   \***************************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module, __webpack_require__ */
-/*! CommonJS bailout: module.exports is used directly at 29:0-14 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 eval("const JSToPS = __webpack_require__(/*! ./jstops */ \"../packages/fantastic-utils/jstops.js\")\r\n\r\nconst js_string = js => {\r\n  if (typeof js == 'undefined') return 'undefined'\r\n  if (typeof js == 'number') return `${js}`\r\n  if (typeof js == 'string') return `'${js}'`\r\n  if (typeof js == 'boolean') return js ? 'true' : 'false'\r\n  if (Array.isArray(js)) return `[${js.map(js => js_string(js)).join()}]`\r\n}\r\n\r\n/**\r\n * Replace placeholders in the '$key' format with corresponding values from the parameters object\r\n * @param {string} string \r\n * @param {Object} parameters \r\n * @param {('powershell'|'js')} mode\r\n * @returns {string}\r\n */\r\nconst formatString = (string, parameters, mode = 'powershell') => {\r\n  if (!parameters) return string\r\n  Object.entries(parameters).forEach(v => {\r\n     // regex escape magic I found to preserve special characters when searching and replacing the key\r\n     // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions\r\n    const key_regex = new RegExp(`$${v[0]}`.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&', 'g'), 'g')\r\n    string = string.replace(key_regex, mode == 'powershell' ? JSToPS(v[1]) : js_string(v[1]))\r\n  }) \r\n  return string\r\n}\r\n\r\nmodule.exports = formatString\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/formatstring.js?");
@@ -928,7 +924,6 @@ eval("const JSToPS = __webpack_require__(/*! ./jstops */ \"../packages/fantastic
   \*********************************************/
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: module */
-/*! CommonJS bailout: module.exports is used directly at 17:0-14 */
 /***/ ((module) => {
 
 eval("// TODO: better escaping\r\nconst sanitize = s => s.replace(/'/g, `''`)\r\n\r\n/**\r\n * Convert a JavaScript value to a PowerShell variable\r\n * @param {*} js \r\n * @returns {string}\r\n */\r\nconst JStoPS = js => {\r\n  if (typeof js == 'undefined') return '$null'\r\n  if (typeof js == 'number') return `${js}`\r\n  if (typeof js == 'string') return `'${sanitize(js)}'`\r\n  if (typeof js == 'boolean') return js ? '$true' : '$false'\r\n  if (Array.isArray(js)) return js.map(js => JStoPS(js)).join()\r\n}\r\n\r\nmodule.exports = JStoPS\n\n//# sourceURL=webpack://front/../packages/fantastic-utils/jstops.js?");

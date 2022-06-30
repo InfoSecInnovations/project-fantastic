@@ -160,9 +160,14 @@ export default (state, action) => {
     state.view_inventory.category = action.category
     state.view_inventory.mode = 'view'
   } 
+  if (action.type == 'view_inventory_rules') {
+    state.view_inventory.category = action.category
+    state.view_inventory.mode = 'rules'
+  }
   if (action.type == 'inventory_panel_mode') {
     state.view_inventory.mode = action.mode
     state.view_inventory.item = action.item
+    state.view_inventory.editing_rule = false
   }
   if (action.type == 'reset_current_inventory_rule') state.view_inventory.current_rule = CurrentRule()
   if (action.type == 'inventory_rule_mode') state.view_inventory.current_rule.mode = action.mode
@@ -181,6 +186,10 @@ export default (state, action) => {
   if (action.type == 'save_current_inventory_rule') state.saving_inventory_rule = true
   if (action.type == 'saving_inventory_rule_done') state.saving_inventory_rule = false
   if (action.type == 'inventory_rules') state.inventory_rules = action.rules
+  if (action.type == 'create_inventory_rule') {
+    state.view_inventory.current_rule = CurrentRule()
+    state.view_inventory.editing_rule = true
+  }
   state = Common(state, action)
   state = FlexSearch(state, action)
   return state
