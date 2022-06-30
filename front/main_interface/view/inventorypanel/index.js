@@ -69,7 +69,7 @@ const editRules = (state, send) => {
           send({type: 'reset_current_inventory_rule'})
           send({type: 'inventory_panel_mode', mode: 'view'})}
         }
-      }, 'Cancel')
+      }, 'Back')
     ])
   ])
 } 
