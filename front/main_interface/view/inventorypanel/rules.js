@@ -3,8 +3,22 @@ import RuleSelector from './ruleselector'
 import RuleView from './ruleview'
 
 export default (state, send) => h('div.scroll', [
+  h('div', "Protip: if you're trying to create a rule for an item already contained in the inventory, you can do that by clicking \"View Inventory\" on the left and locating the item!"),
   state.view_inventory.editing_rule ? h('div', [
     RuleSelector(state, send),
+    h('div.button', {
+      on: {click: e => send('create_inventory_rule_entry')}
+    }, 'Add Key/Value Pair'),
+    state.view_inventory.current_rule.data ? h('div', Object.entries(state.view_inventory.current_rule.data).map(([key, value]) => h('div.item', [
+      h('input', {
+        props: {value: key},
+        on: {input: e => send({type: 'rename_inventory_rule_key', oldKey: key, newKey: e.target.value})}
+      }),
+      h('input', {
+        props: {value},
+        on: {input: e => send({type: 'set_inventory_rule_value', key, value: e.target.value})}
+      })
+    ]))) : undefined,
     h('div.item', [
       h('div.button', {
         class: {disabled: state.saving_inventory_rule},
