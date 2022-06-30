@@ -41,11 +41,11 @@ export default (state, send) => h('div.scroll', [
     on: {click: e => send({type: 'create_inventory_rule'})}
   }, 'Create Rule'),
   ...(state.inventory_rules && state.inventory_rules[state.view_inventory.category] ? [
-    state.inventory_rules[state.view_inventory.category].block ? [
+    state.inventory_rules[state.view_inventory.category].block && state.inventory_rules[state.view_inventory.category].block.length ? [
       h('h3', 'Block'),
       ...state.inventory_rules[state.view_inventory.category].block.map(rule => RuleView(send, rule))
     ] : [],
-    state.inventory_rules[state.view_inventory.category].allow ? [
+    state.inventory_rules[state.view_inventory.category].allow && state.inventory_rules[state.view_inventory.category].allow.length ? [
       h('h3', 'Allow'),
       ...state.inventory_rules[state.view_inventory.category].allow.map(rule => RuleView(send, rule))
     ] : []
