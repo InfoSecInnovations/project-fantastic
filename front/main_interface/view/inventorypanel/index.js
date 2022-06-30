@@ -1,9 +1,10 @@
 import StatusIcon from '@infosecinnovations/fantastic-front/view/statusicon'
+import TopLevelFoldout from '@infosecinnovations/fantastic-front/view/toplevelfoldout'
 import MatchesRule from '@infosecinnovations/fantastic-utils/matchesrule'
 import {h} from 'snabbdom/h'
 
 const editRules = (state, send) => {
-  const ruleView = rule => h('div.item top-aligned', [
+  const ruleView = rule => h('div.rule', [
     h('div', Object.entries(rule.data).map(([k, v]) => h('div', `${k}: ${v}`))),
     h('div.icon_button', {
       on: {click: e => send({type: 'delete_inventory_rule', rule_id: rule.inventory_rule_id})}
@@ -21,7 +22,7 @@ const editRules = (state, send) => {
       ...matching.map(rule => ruleView(rule))
     ])
   }
-  return [
+  return h('div.scroll', [
     h('div', Object.entries(state.view_inventory.item).map(([k, v]) => h('div', `${k}: ${v}`))),
     h('h3', 'Item Rules'),
     ...(state.inventory_rules && state.inventory_rules[state.view_inventory.category] ? [
@@ -70,16 +71,16 @@ const editRules = (state, send) => {
         }
       }, 'Cancel')
     ])
-  ]
+  ])
 } 
 
-const viewItems = (state, send) => [
-  state.inventory_rules && state.inventory_rules.length ? h('div.button', {
-    on: { click: e => send({type: 'inventory_panel_mode', mode: 'rules'}) }
-  }, 'View Rules') : undefined,
-  h('div.scroll', Object.entries(state.inventory_data).map(([k, v]) => h('div.section', [
+const viewItems = (state, send) => h('div.scroll', Object.entries(state.inventory_data).map(([k, v]) => h('div.section', [
+  TopLevelFoldout(
+    state, 
+    send, 
+    `foldout-inventory-${state.view_inventory.category}-${k}`, 
     h('h3', k),
-    ...(v[state.view_inventory.category].map(v => h('div.item top-aligned', [
+    h('div.section', v[state.view_inventory.category].map(v => h('div.item top-aligned', [
       h('div', Object.entries(v.data).map(([k, v]) => h('div', `${k}: ${v}`))),
       h('div', [
         h('div.button', {
@@ -91,12 +92,12 @@ const viewItems = (state, send) => [
         ]) : undefined
       ])
     ])))
-  ])))
-]
+  )
+])))
 
-export default (state, send) => h('div#inventory_viewer.scroll_container', [
+export default (state, send) => h('div#inventory_viewer.scroll_container central_panel', [
   h('h2', `${state.view_inventory.category} Inventory`),
-  ...(state.view_inventory.mode == 'edit_item_rules' ? editRules(state, send) : viewItems(state, send)),
+  state.view_inventory.mode == 'edit_item_rules' ? editRules(state, send) : viewItems(state, send),
   h('div.icon_button close', {on: {click: e => {
     send({type: 'view_inventory', category: null})
     send({type: 'reset_current_inventory_rule'})

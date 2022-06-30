@@ -15,9 +15,13 @@
     grid-column: 2 / 3
     grid-row: 2
     min-height: 0
-    background-color: background_color
     z-index: 10
     position: relative
+    .rule
+      background-color: panel_color
+      display: flex
+      justify-content: space-between
+      padding: 0.5rem
   #story_viewer
     grid-column: 1 / 4
     grid-row: 2
@@ -115,3 +119,6 @@
   background-color: panel_color
   padding: 1rem
   gap: 1rem
+
+.central_panel
+  background-color: button_background_color

@@ -85,19 +85,6 @@ a:hover,
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #f55100 #ffa666;
-}
-.section::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
-}
-.section::-webkit-scrollbar-track {
-  background: #ffa666;
-}
-.section::-webkit-scrollbar-thumb {
-  background-color: #f55100;
 }
 .connection_match {
   display: flex;
@@ -232,6 +219,7 @@ input:not([type]) {
   align-items: center;
   justify-content: stretch;
   width: 3rem;
+  flex: 0;
 }
 .icon_button .label {
   font-size: 0.7rem;
@@ -456,9 +444,14 @@ input:not([type]) {
   grid-column: 2/3;
   grid-row: 2;
   min-height: 0;
-  background-color: #242424;
   z-index: 10;
   position: relative;
+}
+#container #inventory_viewer .rule {
+  background-color: #2e2f30;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
 }
 #container #story_viewer {
   grid-column: 1/4;
@@ -752,5 +745,8 @@ input:not([type]) {
   background-color: #2e2f30;
   padding: 1rem;
   gap: 1rem;
+}
+.central_panel {
+  background-color: #3c3d3d;
 }
 /*# sourceMappingURL=main_interface.css.map */
