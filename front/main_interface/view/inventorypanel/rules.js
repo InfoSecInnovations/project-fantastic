@@ -7,7 +7,7 @@ export default (state, send) => h('div.scroll', [
   state.view_inventory.editing_rule ? h('div', [
     RuleSelector(state, send),
     h('div.button', {
-      on: {click: e => send('create_inventory_rule_entry')}
+      on: {click: e => send({type: 'create_inventory_rule_entry'})}
     }, 'Add Key/Value Pair'),
     state.view_inventory.current_rule.data ? h('div', Object.entries(state.view_inventory.current_rule.data).map(([key, value]) => h('div.item', [
       h('input', {
@@ -16,13 +16,18 @@ export default (state, send) => h('div.scroll', [
       }),
       h('input', {
         props: {value},
-        on: {input: e => send({type: 'set_inventory_rule_value', key, value: e.target.value})}
-      })
+        on: {input: e => send({type: 'set_inventory_rule_value', key, value: e.target.value, enabled: true})}
+      }),
+      h('div.icon_button', [
+        h('span.fas fa-trash', {
+          on: {click: e => send({type: 'set_inventory_rule_value', key, value: e.target.value, enabled: false})}
+        })
+      ])
     ]))) : undefined,
     h('div.item', [
       h('div.button', {
         class: {disabled: state.saving_inventory_rule},
-        on: {click: e => !state.saving_inventory_rule && send({type: 'save_current_inventory_rule'})}
+        on: {click: e => !state.saving_inventory_rule && send({type: 'save_current_inventory_rule', mode: 'rules'})}
       }, 'Save'),
       h('div.button', {
         on: {click: e => {

@@ -41,7 +41,7 @@ export default (state, send) => {
         h('input', {
           attrs: {type: 'checkbox'},
           props: {checked: state.view_inventory.current_rule.data && state.view_inventory.current_rule.data.hasOwnProperty(k)},
-          on: {input: e => send({type: 'inventory_block_property', property: k, value: v, blocked: e.target.checked})}
+          on: {input: e => send({type: 'set_inventory_rule_value', key: k, value: v, enabled: e.target.checked})}
         }),
         h('div', `${k}: ${v}`)
       ]))

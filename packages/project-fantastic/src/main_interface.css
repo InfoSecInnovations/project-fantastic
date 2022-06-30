@@ -217,7 +217,7 @@ input:not([type]) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: stretch;
+  justify-content: center;
   width: 3rem;
   flex: 0;
 }

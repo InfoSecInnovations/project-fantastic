@@ -171,11 +171,6 @@ export default (state, action) => {
   }
   if (action.type == 'reset_current_inventory_rule') state.view_inventory.current_rule = CurrentRule()
   if (action.type == 'inventory_rule_mode') state.view_inventory.current_rule.mode = action.mode
-  if (action.type == 'inventory_block_property') {
-    if (!state.view_inventory.current_rule.data) state.view_inventory.current_rule.data = {}
-    if (action.blocked) state.view_inventory.current_rule.data[action.property] = action.value
-    else delete state.view_inventory.current_rule.data[action.property]
-  }
   if (action.type == 'inventory_block_all') {
     if (!state.view_inventory.current_rule.data) state.view_inventory.current_rule.data = {}
     Object.entries(state.view_inventory.item).forEach(([k, v]) => {
@@ -189,6 +184,19 @@ export default (state, action) => {
   if (action.type == 'create_inventory_rule') {
     state.view_inventory.current_rule = CurrentRule()
     state.view_inventory.editing_rule = true
+  }
+  if (action.type == 'create_inventory_rule_entry') {
+    if (!state.view_inventory.current_rule.data) state.view_inventory.current_rule.data = {}
+    state.view_inventory.current_rule.data[`key${Object.keys(state.view_inventory.current_rule.data).length + 1}`] = ""
+  }
+  if (action.type == 'rename_inventory_rule_key') {
+    state.view_inventory.current_rule.data[action.newKey] = state.view_inventory.current_rule.data[action.oldKey]
+    delete state.view_inventory.current_rule.data[action.oldKey]
+  }
+  if (action.type == 'set_inventory_rule_value') {
+    if (!state.view_inventory.current_rule.data) state.view_inventory.current_rule.data = {}
+    if (action.enabled) state.view_inventory.current_rule.data[action.key] = action.value
+    else delete state.view_inventory.current_rule.data[action.key]
   }
   state = Common(state, action)
   state = FlexSearch(state, action)

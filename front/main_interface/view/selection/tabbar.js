@@ -30,7 +30,7 @@ export default (state, send, nodes) => {
       }, 'Fix Issues') : undefined
     ]) : undefined,
     h('div.tabs_title', nodes ? [
-      h('div.icon_button small', [
+      h('div.icon_button', [
         h('span.fas fa-external-link-alt', {on: {click: [send, {type: 'open_viewer', nodes}]}})
       ]), 
       h('div.text', nodes.map(v => NodeName(state.nodes[v])).join(', '))

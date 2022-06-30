@@ -149,7 +149,7 @@ export default (state, action, send) => {
   .then(res => {
     UpdateInventoryRules(state, send, res)
     send({type: 'saving_inventory_rule_done'})
-    send({type: 'inventory_panel_mode', mode: 'view'})
+    send({type: 'inventory_panel_mode', mode: action.mode || 'view'})
     send({type: 'reset_current_inventory_rule'})
   }) 
   if (action.type == 'delete_inventory_rule') {
