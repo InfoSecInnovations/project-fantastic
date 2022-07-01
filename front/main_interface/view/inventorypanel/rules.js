@@ -4,7 +4,7 @@ import RuleView from './ruleview'
 
 export default (state, send) => h('div.scroll', [
   h('div', "Protip: if you're trying to create a rule for an item already contained in the inventory, you can do that by clicking \"View Inventory\" on the left and locating the item!"),
-  state.view_inventory.editing_rule ? h('div', [
+  state.view_inventory.editing_rule ? h('div.section', [
     RuleSelector(state, send),
     h('div.button', {
       on: {click: e => send({type: 'create_inventory_rule_entry'})}
@@ -40,13 +40,14 @@ export default (state, send) => h('div.scroll', [
   h('div.button', {
     on: {click: e => send({type: 'create_inventory_rule'})}
   }, 'Create Rule'),
+  h('h3', 'All Rules'),
   ...(state.inventory_rules && state.inventory_rules[state.view_inventory.category] ? [
     state.inventory_rules[state.view_inventory.category].block && state.inventory_rules[state.view_inventory.category].block.length ? [
-      h('h3', 'Block'),
+      h('h4', 'Block'),
       ...state.inventory_rules[state.view_inventory.category].block.map(rule => RuleView(send, rule))
     ] : [],
     state.inventory_rules[state.view_inventory.category].allow && state.inventory_rules[state.view_inventory.category].allow.length ? [
-      h('h3', 'Allow'),
+      h('h4', 'Allow'),
       ...state.inventory_rules[state.view_inventory.category].allow.map(rule => RuleView(send, rule))
     ] : []
   ] : []).flat()
